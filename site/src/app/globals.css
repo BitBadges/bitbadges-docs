@@ -1,0 +1,577 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   BitBadges Docs — design tokens
+   Palette derives from the product's brand set: blue-black #1e233e,
+   vivid-pink #DA0C91, vivid-blue #1890ff, blue-magento #4a319d.
+   ========================================================================== */
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+
+  --color-brand: #da0c91;
+  --color-brand-soft: #f472c4;
+  --color-accent: #1890ff;
+  --color-violet: #4a319d;
+
+  --shell-sidebar: 17.5rem;
+  --shell-toc: 15rem;
+  --shell-topbar: 3.75rem;
+}
+
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --bg-subtle: #f7f8fb;
+  --bg-raised: #ffffff;
+  --bg-inset: #f1f3f9;
+  --bg-code: #f8f9fc;
+
+  --fg: #14172a;
+  --fg-muted: #565b76;
+  --fg-faint: #7c8199;
+
+  --border: #e5e7f0;
+  --border-strong: #d3d7e5;
+
+  --brand: #c40a83;
+  --brand-contrast: #ffffff;
+  --accent: #0b74d8;
+
+  --ring: color-mix(in oklab, var(--brand) 45%, transparent);
+  --shadow-sm: 0 1px 2px rgb(20 23 42 / 0.05);
+  --shadow-md: 0 4px 16px -4px rgb(20 23 42 / 0.1), 0 2px 4px -2px rgb(20 23 42 / 0.06);
+  --shadow-lg: 0 24px 48px -12px rgb(20 23 42 / 0.18);
+}
+
+:root.dark {
+  color-scheme: dark;
+
+  --bg: #0b0f1e;
+  --bg-subtle: #0f1428;
+  --bg-raised: #141a31;
+  --bg-inset: #182041;
+  --bg-code: #0f142a;
+
+  --fg: #eef1f8;
+  --fg-muted: #a4abc4;
+  --fg-faint: #757d99;
+
+  --border: #222a4a;
+  --border-strong: #313a60;
+
+  --brand: #ff4fb8;
+  --brand-contrast: #10021a;
+  --accent: #5eb2ff;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 16px -4px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 24px 48px -12px rgb(0 0 0 / 0.6);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--shell-topbar) + 1.5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--brand) 28%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Thin, unobtrusive scrollbars in the nav rails. */
+.scroll-rail {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+.scroll-rail::-webkit-scrollbar {
+  width: 8px;
+}
+.scroll-rail::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* Gradient wordmark — the one flourish borrowed from the marketing site. */
+.wordmark {
+  background: linear-gradient(100deg, var(--brand) 0%, var(--color-violet) 50%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+:root.dark .wordmark {
+  background: linear-gradient(100deg, #ff5ec0 0%, #a98bff 48%, #5eb2ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* ==========================================================================
+   Document body
+   The markdown pipeline emits plain HTML, so content styling lives here
+   rather than as utility classes.
+   ========================================================================== */
+
+.doc {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--fg);
+}
+
+.doc > * + * {
+  margin-top: 1.25rem;
+}
+
+.doc h2,
+.doc h3,
+.doc h4 {
+  position: relative;
+  font-weight: 650;
+  letter-spacing: -0.014em;
+  color: var(--fg);
+  scroll-margin-top: calc(var(--shell-topbar) + 1.5rem);
+}
+
+.doc h2 {
+  margin-top: 3rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--border);
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+.doc h3 {
+  margin-top: 2.25rem;
+  font-size: 1.185rem;
+  line-height: 1.4;
+}
+.doc h4 {
+  margin-top: 1.75rem;
+  font-size: 1.02rem;
+}
+
+.doc h2:first-child,
+.doc h3:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.heading-anchor {
+  position: absolute;
+  left: -1.15rem;
+  padding-right: 0.4rem;
+  color: var(--brand);
+  opacity: 0;
+  text-decoration: none;
+  font-weight: 400;
+  transition: opacity 0.15s ease;
+}
+.doc h2:hover .heading-anchor,
+.doc h3:hover .heading-anchor,
+.doc h4:hover .heading-anchor,
+.heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+.doc p {
+  color: var(--fg-muted);
+}
+
+.doc a {
+  color: var(--brand);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--brand) 35%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
+}
+.doc a:hover {
+  text-decoration-color: var(--brand);
+}
+
+.doc strong {
+  color: var(--fg);
+  font-weight: 640;
+}
+
+.doc ul,
+.doc ol {
+  padding-left: 1.4rem;
+  color: var(--fg-muted);
+}
+.doc ul {
+  list-style: disc;
+}
+.doc ol {
+  list-style: decimal;
+}
+.doc li + li {
+  margin-top: 0.4rem;
+}
+.doc li::marker {
+  color: var(--fg-faint);
+}
+.doc li > ul,
+.doc li > ol {
+  margin-top: 0.4rem;
+}
+
+.doc blockquote {
+  padding: 0.15rem 0 0.15rem 1.1rem;
+  border-left: 3px solid color-mix(in oklab, var(--brand) 55%, transparent);
+  color: var(--fg-muted);
+}
+.doc blockquote p {
+  margin-top: 0.5rem;
+}
+.doc blockquote > :first-child {
+  margin-top: 0;
+}
+
+.doc hr {
+  margin: 2.5rem 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+/* Inline code */
+.doc :not(pre) > code {
+  padding: 0.15em 0.4em;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg-inset);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.855em;
+  white-space: nowrap;
+}
+
+/* Code blocks */
+.doc figure[data-code] {
+  position: relative;
+  margin-top: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-code);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.doc figure[data-code] > figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem 0.5rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg-inset) 55%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
+.doc pre {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.845rem;
+  line-height: 1.65;
+  background: transparent !important;
+}
+.doc pre code {
+  display: block;
+  width: fit-content;
+  min-width: 100%;
+  font-family: inherit;
+}
+
+/* Shiki dual theme: light values inline, dark swapped by variable. */
+:root.dark .shiki,
+:root.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+.copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-raised);
+  color: var(--fg-muted);
+  font: inherit;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.copy-button:hover {
+  color: var(--brand);
+  border-color: color-mix(in oklab, var(--brand) 45%, var(--border));
+}
+
+/* Tables — scroll horizontally rather than breaking the page. */
+.doc .table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.doc table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.doc thead {
+  background: var(--bg-inset);
+}
+.doc th {
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  font-weight: 620;
+  color: var(--fg);
+  white-space: nowrap;
+}
+.doc td {
+  padding: 0.7rem 0.9rem;
+  color: var(--fg-muted);
+  vertical-align: top;
+  border-top: 1px solid var(--border);
+}
+.doc tbody tr:hover {
+  background: color-mix(in oklab, var(--bg-inset) 45%, transparent);
+}
+
+/* Figures and images */
+.doc figure:not([data-code]) {
+  margin: 1.75rem 0;
+}
+.doc img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-subtle);
+}
+.doc figcaption:not(figure[data-code] > figcaption) {
+  margin-top: 0.6rem;
+  text-align: center;
+  font-size: 0.83rem;
+  color: var(--fg-faint);
+}
+.doc figcaption:empty {
+  display: none;
+}
+
+/* ==========================================================================
+   GitBook block equivalents
+   ========================================================================== */
+
+.doc [data-callout] {
+  --callout: var(--accent);
+  position: relative;
+  margin-top: 1.5rem;
+  padding: 1rem 1.15rem 1rem 2.9rem;
+  border: 1px solid color-mix(in oklab, var(--callout) 28%, var(--border));
+  border-left: 3px solid var(--callout);
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--callout) 7%, var(--bg-raised));
+  color: var(--fg-muted);
+}
+.doc [data-callout]::before {
+  position: absolute;
+  left: 1rem;
+  top: 0.95rem;
+  display: grid;
+  place-items: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 999px;
+  background: var(--callout);
+  color: var(--bg-raised);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  content: 'i';
+}
+.doc [data-callout='warning'] {
+  --callout: #d98324;
+}
+.doc [data-callout='warning']::before {
+  content: '!';
+}
+.doc [data-callout='danger'] {
+  --callout: #e0443e;
+}
+.doc [data-callout='danger']::before {
+  content: '!';
+}
+.doc [data-callout='success'] {
+  --callout: #1c9c62;
+}
+.doc [data-callout='success']::before {
+  content: '✓';
+}
+.doc [data-callout] > :first-child {
+  margin-top: 0;
+}
+.doc [data-callout] > * + * {
+  margin-top: 0.75rem;
+}
+
+.doc [data-content-ref],
+.doc [data-embed],
+.doc [data-file] {
+  margin-top: 1.25rem;
+}
+.doc [data-content-ref] p,
+.doc [data-embed] p,
+.doc [data-file] p {
+  margin: 0;
+}
+.doc [data-content-ref] a,
+.doc [data-embed] a,
+.doc [data-file] a {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-raised);
+  box-shadow: var(--shadow-sm);
+  color: var(--fg);
+  font-weight: 550;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+.doc [data-content-ref] a::before,
+.doc [data-embed] a::before,
+.doc [data-file] a::before {
+  flex: none;
+  font-size: 1rem;
+  content: '📄';
+}
+.doc [data-embed] a::before {
+  content: '🔗';
+}
+.doc [data-file] a::before {
+  content: '⬇️';
+}
+.doc [data-content-ref] a:hover,
+.doc [data-embed] a:hover,
+.doc [data-file] a:hover {
+  border-color: color-mix(in oklab, var(--brand) 50%, var(--border));
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+.nav-link {
+  display: block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 7px;
+  color: var(--fg-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: color 0.12s ease, background-color 0.12s ease;
+}
+.nav-link:hover {
+  color: var(--fg);
+  background: var(--bg-inset);
+}
+.nav-link[aria-current='page'] {
+  color: var(--brand);
+  font-weight: 600;
+  background: color-mix(in oklab, var(--brand) 10%, transparent);
+}
+
+.nav-branch {
+  margin-left: 0.7rem;
+  padding-left: 0.6rem;
+  border-left: 1px solid var(--border);
+}
+
+.toc-link {
+  display: block;
+  padding: 0.22rem 0 0.22rem 0.75rem;
+  border-left: 2px solid transparent;
+  color: var(--fg-faint);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+.toc-link:hover {
+  color: var(--fg);
+}
+.toc-link[data-active='true'] {
+  color: var(--brand);
+  border-color: var(--brand);
+  font-weight: 550;
+}
+.toc-link[data-depth='3'] {
+  padding-left: 1.5rem;
+}
+
+/* ==========================================================================
+   Scalar API reference — align its chrome with the docs shell
+   ========================================================================== */
+
+.api-shell {
+  height: calc(100dvh - var(--shell-topbar));
+  overflow: hidden;
+}
+.api-shell .scalar-app {
+  height: 100%;
+}
+
+/* Scalar promotes its hosted product from inside the embed; a self-hosted
+   reference should not link out to it. */
+.api-shell a[href*='scalar.com'] {
+  display: none !important;
+}

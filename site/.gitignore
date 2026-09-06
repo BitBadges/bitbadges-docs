@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Synced from the docs repo at build time (see scripts/sync-content.ts)
+public/docs-assets/
+public/search-index.json
+public/openapi.json
