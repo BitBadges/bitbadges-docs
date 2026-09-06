@@ -86,6 +86,17 @@ bb settings set apiKey YOUR_KEY
 #   claude mcp add bitbadges-builder -- npx -y -p bitbadges bitbadges-builder
 ```
 
+### Hand off to the browser to sign
+
+Agents build; people sign. Every path ends in a bitbadges.io link that opens the transaction in the review-and-sign flow (nothing is signed by the agent):
+
+| From | Get the link |
+|------|--------------|
+| MCP / Claude Code | call `get_review_url` → open `reviewUrl` |
+| CLI | `bb preview tx.json --open` (or `bb build … \| bb preview - --open`) |
+| SDK agent | `result.reviewUrl` |
+| Any LLM, no tools | paste the JSON into `bitbadges.io/mint/local-builder` |
+
 See the full [Builder Tools Reference](builder-tools.md) for all 50+ tools (including session-based per-field builders), configuration for Claude Desktop / Cursor, and workflow guides.
 
 ## Network Configuration

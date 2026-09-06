@@ -81,6 +81,7 @@ bb --help-json | jq '.commands[] | .name'
 | **Dry-run a transaction** | `bb simulate` | `bb simulate tx.json` |
 | **Dry-run a deploy without spending** | `bb deploy --dry-run` | `bb deploy vault.json --burner --dry-run --manager bb1...` |
 | **Share a tx for visual review** | `bb preview` | `bb preview tx.json` |
+| **Review + sign a tx in the browser** | `bb preview --open` | `bb build vault … \| bb preview - --open` |
 | **Browse 100+ API routes** | `bb api` | `bb api tokens --help` |
 | **Search API routes by keyword** | `bb api --search` | `bb api --search swap` |
 | **Inspect a route's schema** | `bb api ... --schema` | `bb api tokens get-collection --schema` |
