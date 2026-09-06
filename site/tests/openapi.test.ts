@@ -3,7 +3,7 @@ import { sanitizeOpenApi } from '../src/lib/docs/openapi';
 
 const base = () => ({
   openapi: '3.1.0',
-  info: { title: 'T', version: '1' },
+  info: { title: 'T', version: '1' } as Record<string, unknown>,
   paths: {} as Record<string, unknown>,
   components: { schemas: {} as Record<string, unknown> },
 });
@@ -111,5 +111,48 @@ describe('sanitizeOpenApi — reference repair', () => {
     spec.paths = { '/secret': { get: { 'x-internal': true } } };
     sanitizeOpenApi(spec);
     expect(Object.keys(spec.paths)).toEqual(['/secret']);
+  });
+});
+
+describe('sanitizeOpenApi — description sidebar grouping', () => {
+  const withDescription = (description: string) => ({ ...base(), info: { title: 'T', version: '1', description } });
+
+  test('nests top-level description sections under one heading', () => {
+    const spec = withDescription('# Introduction\n\ntext\n\n# Getting Started\n\nmore\n');
+    const { spec: out } = sanitizeOpenApi(spec, { groupDescriptionUnder: 'Overview' });
+    expect(out.info.description).toBe(
+      '# Overview\n\n## Introduction\n\ntext\n\n## Getting Started\n\nmore\n',
+    );
+  });
+
+  test('demotes nested headings so they drop out of the sidebar', () => {
+    const spec = withDescription('# Getting Started\n\n## Authentication\n\n### API Key\n');
+    const { spec: out } = sanitizeOpenApi(spec, { groupDescriptionUnder: 'Overview' });
+    expect(out.info.description).toContain('## Getting Started');
+    expect(out.info.description).toContain('### Authentication');
+    expect(out.info.description).toContain('#### API Key');
+  });
+
+  test('leaves headings inside fenced code blocks alone', () => {
+    const spec = withDescription('# Intro\n\n```bash\n# not a heading\necho hi\n```\n');
+    const { spec: out } = sanitizeOpenApi(spec, { groupDescriptionUnder: 'Overview' });
+    expect(out.info.description).toContain('# not a heading');
+    expect(out.info.description).toContain('## Intro');
+  });
+
+  test('does nothing when the option is not given', () => {
+    const spec = withDescription('# Introduction\n\ntext\n');
+    expect(sanitizeOpenApi(spec).spec.info.description).toBe('# Introduction\n\ntext\n');
+  });
+
+  test('does nothing when there is no description', () => {
+    const spec = base();
+    expect(sanitizeOpenApi(spec, { groupDescriptionUnder: 'Overview' }).spec.info.description).toBeUndefined();
+  });
+
+  test('does not demote past the heading limit', () => {
+    const spec = withDescription('###### Deep\n');
+    const { spec: out } = sanitizeOpenApi(spec, { groupDescriptionUnder: 'Overview' });
+    expect(out.info.description).toContain('###### Deep');
   });
 });

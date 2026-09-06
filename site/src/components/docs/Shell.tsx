@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import type { NavGroup } from '@/lib/docs/summary';
-import { ApiIcon, CloseIcon, MenuIcon } from './Icons';
+import { CloseIcon, MenuIcon } from './Icons';
 import { SearchDialog } from './SearchDialog';
 import { Sidebar } from './Sidebar';
 import { ThemeToggle } from './ThemeToggle';
@@ -17,10 +17,24 @@ export type ShellProps = {
   children: React.ReactNode;
 };
 
+/** The brand mark, shared by the top bar and the mobile drawer. */
+function Wordmark({ basePath }: { basePath: string }) {
+  return (
+    <Link href={basePath || '/'} className="flex shrink-0 items-center gap-2">
+      <img src={`${basePath}/bitbadges-logo.svg`} alt="" width={26} height={26} className="h-[1.6rem] w-[1.6rem]" />
+      <span className="text-[0.95rem] font-bold tracking-tight">
+        <span className="wordmark">BitBadges</span>
+        <span className="ml-1.5 hidden font-medium text-[var(--fg-faint)] sm:inline">Docs</span>
+      </span>
+    </Link>
+  );
+}
+
 /**
- * Top bar and mobile navigation, shared by every route. The desktop sidebar
- * belongs to the (docs) route group only, so the API reference can go
- * full-bleed.
+ * Top bar and mobile navigation, shared by every route.
+ *
+ * The desktop sidebar belongs to the (docs) route group only, so the API
+ * reference can render full-bleed with its own operation rail.
  */
 export function Shell({ groups, basePath, searchIndexUrl, children }: ShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,8 +49,13 @@ export function Shell({ groups, basePath, searchIndexUrl, children }: ShellProps
     };
   }, [menuOpen]);
 
-  const home = basePath || '/';
   const apiHref = `${basePath}/api-reference`;
+  const onApiReference = pathname === apiHref;
+
+  const tabs = [
+    { href: basePath || '/', label: 'Documentation', active: !onApiReference },
+    { href: apiHref, label: 'API Reference', active: onApiReference },
+  ];
 
   return (
     <div className="min-h-dvh">
@@ -51,23 +70,26 @@ export function Shell({ groups, basePath, searchIndexUrl, children }: ShellProps
             <MenuIcon className="h-[1.05rem] w-[1.05rem]" />
           </button>
 
-          <Link href={home} className="shrink-0 text-[0.95rem] font-bold tracking-tight">
-            <span className="wordmark">BitBadges</span>
-            <span className="ml-1.5 hidden font-medium text-[var(--fg-faint)] sm:inline">Docs</span>
-          </Link>
+          <Wordmark basePath={basePath} />
 
-          <div className="ml-auto flex min-w-0 flex-1 items-center justify-end gap-2">
-            <SearchDialog indexUrl={searchIndexUrl} basePath={basePath} />
+          <nav aria-label="Sections" className="ml-2 hidden md:block">
+            <div className="segmented">
+              {tabs.map((tab) => (
+                <Link
+                  key={tab.href}
+                  href={tab.href}
+                  aria-current={tab.active ? 'page' : undefined}
+                  className="segmented-tab"
+                >
+                  {tab.label}
+                </Link>
+              ))}
+            </div>
+          </nav>
 
-            <Link
-              href={apiHref}
-              aria-current={pathname === apiHref ? 'page' : undefined}
-              className="hidden h-9 items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--bg-raised)] px-3 text-sm font-medium text-[var(--fg-muted)] transition hover:text-[var(--fg)] aria-[current=page]:border-[var(--brand)] aria-[current=page]:text-[var(--brand)] md:inline-flex"
-            >
-              <ApiIcon className="h-4 w-4" />
-              API
-            </Link>
-
+          <div className="ml-auto flex min-w-0 items-center justify-end gap-2">
+            {/* On the API reference, Scalar owns ⌘K for searching operations. */}
+            <SearchDialog indexUrl={searchIndexUrl} basePath={basePath} enabled={!onApiReference} />
             <ThemeToggle />
           </div>
         </div>
@@ -85,23 +107,30 @@ export function Shell({ groups, basePath, searchIndexUrl, children }: ShellProps
           />
           <div className="scroll-rail absolute inset-y-0 left-0 w-[min(20rem,85vw)] overflow-y-auto border-r border-[var(--border)] bg-[var(--bg)] px-4 py-5 shadow-[var(--shadow-lg)]">
             <div className="mb-5 flex items-center justify-between">
-              <span className="wordmark text-[0.95rem] font-bold">BitBadges</span>
+              <Wordmark basePath={basePath} />
               <button
                 type="button"
                 onClick={() => setMenuOpen(false)}
                 aria-label="Close navigation"
-                className="grid h-8 w-8 place-items-center rounded-lg border border-[var(--border)] text-[var(--fg-muted)]"
+                className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-[var(--border)] text-[var(--fg-muted)]"
               >
                 <CloseIcon className="h-4 w-4" />
               </button>
             </div>
-            <Link
-              href={apiHref}
-              className="mb-4 flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-2 text-sm font-medium text-[var(--fg-muted)]"
-            >
-              <ApiIcon className="h-4 w-4" />
-              API Reference
-            </Link>
+
+            <div className="segmented mb-5 w-full">
+              {tabs.map((tab) => (
+                <Link
+                  key={tab.href}
+                  href={tab.href}
+                  aria-current={tab.active ? 'page' : undefined}
+                  className="segmented-tab flex-1 text-center"
+                >
+                  {tab.label}
+                </Link>
+              ))}
+            </div>
+
             <Sidebar groups={groups} onNavigate={() => setMenuOpen(false)} />
           </div>
         </div>

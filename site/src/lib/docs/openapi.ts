@@ -18,6 +18,18 @@
 
 type Json = Record<string, any>;
 
+export type SanitizeOptions = {
+  /**
+   * Wrap the top-level sections of `info.description` under a single heading.
+   *
+   * Scalar turns every heading in the description into a sidebar entry. The
+   * BitBadges description has seven `h1`s, which push the actual endpoints far
+   * down the rail. Demoting them under one parent collapses them into a single
+   * expandable section.
+   */
+  groupDescriptionUnder?: string;
+};
+
 export type SanitizeReport = {
   /** `"<method> <path>"` for each operation hidden by `x-internal`. */
   hiddenOperations: string[];
@@ -95,7 +107,35 @@ function cutSelfReference(node: unknown, owner: string): { value: unknown; cut: 
   return { value: out, cut };
 }
 
-export function sanitizeOpenApi<T extends Json>(input: T): { spec: T; report: SanitizeReport } {
+const MAX_HEADING_DEPTH = 6;
+
+/** Demote every markdown heading by one level, ignoring fenced code blocks. */
+function demoteHeadings(markdown: string): string {
+  const lines = markdown.split('\n');
+  let fence: string | null = null;
+
+  return lines
+    .map((line) => {
+      const fenceMatch = /^\s{0,3}(`{3,}|~{3,})/.exec(line);
+      if (fenceMatch) {
+        const marker = fenceMatch[1][0];
+        if (fence === null) fence = marker;
+        else if (marker === fence) fence = null;
+        return line;
+      }
+      if (fence !== null) return line;
+
+      const heading = /^(#{1,6})(\s+)/.exec(line);
+      if (!heading || heading[1].length >= MAX_HEADING_DEPTH) return line;
+      return `#${line}`;
+    })
+    .join('\n');
+}
+
+export function sanitizeOpenApi<T extends Json>(
+  input: T,
+  options: SanitizeOptions = {},
+): { spec: T; report: SanitizeReport } {
   const hiddenOperations: string[] = [];
 
   for (const [route, item] of Object.entries((input.paths ?? {}) as Json)) {
@@ -145,6 +185,11 @@ export function sanitizeOpenApi<T extends Json>(input: T): { spec: T; report: Sa
     const target = spec as Json;
     target.components ??= {};
     target.components.schemas = schemas;
+  }
+
+  const description = spec.info?.description;
+  if (options.groupDescriptionUnder && typeof description === 'string') {
+    (spec.info as Json).description = `# ${options.groupDescriptionUnder}\n\n${demoteHeadings(description)}`;
   }
 
   return {

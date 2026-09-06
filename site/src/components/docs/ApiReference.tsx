@@ -18,22 +18,23 @@ const ApiReferenceReact = dynamic(
 );
 
 /**
- * Hide Scalar's "Ask AI" control.
+ * Hide Scalar's AI affordances that carry no stable CSS hook.
  *
- * Scalar exposes no configuration flag for it and its markup carries no stable
- * hook (no id, no aria-label, build-generated class names), so it is matched by
- * its label. If Scalar renames or removes the control this quietly does nothing,
- * which is the right failure mode.
+ * The sidebar "Ask AI" button is styled entirely with generated utility classes
+ * (no id, no aria-label), so it can only be matched by its label. Scalar's other
+ * AI/MCP surfaces do have stable classes and are hidden in globals.css. This
+ * site ships no assistant, and the button points at a service we do not
+ * configure, so it would fail if clicked.
  */
-function useHideAskAi(ready: boolean) {
+function useHideAiControls(ready: boolean) {
   useEffect(() => {
     if (!ready) return;
     const root = document.querySelector('.api-shell');
     if (!root) return;
 
     const hide = () => {
-      for (const button of root.querySelectorAll('button')) {
-        if (/^ask ai\b/i.test(button.textContent?.trim() ?? '')) button.style.display = 'none';
+      for (const el of root.querySelectorAll<HTMLElement>('button, a')) {
+        if (/^(ask ai|generate mcp)\b/i.test(el.textContent?.trim() ?? '')) el.style.display = 'none';
       }
     };
 
@@ -47,7 +48,7 @@ function useHideAskAi(ready: boolean) {
 /** Interactive OpenAPI reference — the self-hosted replacement for Stoplight. */
 export function ApiReference({ specUrl }: { specUrl: string }) {
   const [dark, setDark] = useState<boolean | null>(null);
-  useHideAskAi(dark !== null);
+  useHideAiControls(dark !== null);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -75,6 +76,42 @@ export function ApiReference({ specUrl }: { specUrl: string }) {
         persistAuth: false,
         documentDownloadType: 'json',
         withDefaultFonts: false,
+        // Keep the snippet pane to clients this audience actually uses:
+        // shell/curl, js/fetch, node/fetch, node/axios, python/requests and
+        // go/native. Everything else — undici, unirest, jQuery, XHR, and the
+        // long tail of languages — is noise on a TypeScript-first API.
+        defaultHttpClient: { targetKey: 'shell', clientKey: 'curl' },
+        hiddenClients: [
+          'c',
+          'clojure',
+          'csharp',
+          'dart',
+          'fsharp',
+          'http',
+          'java',
+          'julia',
+          'kotlin',
+          'objc',
+          'ocaml',
+          'php',
+          'powershell',
+          'r',
+          'ruby',
+          'rust',
+          'swift',
+          'js/jquery',
+          'js/xhr',
+          'js/ofetch',
+          'js/axios',
+          'node/undici',
+          'node/ofetch',
+          'python/python3',
+          'python/aiohttp',
+          'python/httpx_sync',
+          'python/httpx_async',
+          'shell/httpie',
+          'shell/wget',
+        ],
       }}
     />
   );

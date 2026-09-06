@@ -47,7 +47,16 @@ function useIndex(active: boolean, indexUrl: string) {
   return { engine, loading };
 }
 
-export function SearchDialog({ indexUrl, basePath }: { indexUrl: string; basePath: string }) {
+export function SearchDialog({
+  indexUrl,
+  basePath,
+  enabled = true,
+}: {
+  indexUrl: string;
+  basePath: string;
+  /** Disabled on routes that provide their own search, so ⌘K opens one dialog. */
+  enabled?: boolean;
+}) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [cursor, setCursor] = useState(0);
@@ -63,6 +72,7 @@ export function SearchDialog({ indexUrl, basePath }: { indexUrl: string; basePat
   useEffect(() => setCursor(0), [query]);
 
   useEffect(() => {
+    if (!enabled) return;
     const onKey = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
@@ -76,7 +86,7 @@ export function SearchDialog({ indexUrl, basePath }: { indexUrl: string; basePat
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open]);
+  }, [enabled, open]);
 
   useEffect(() => {
     if (open) requestAnimationFrame(() => inputRef.current?.focus());
@@ -109,6 +119,8 @@ export function SearchDialog({ indexUrl, basePath }: { indexUrl: string; basePat
       go(results[cursor].route);
     }
   };
+
+  if (!enabled) return null;
 
   return (
     <>

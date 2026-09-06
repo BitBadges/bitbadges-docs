@@ -60,7 +60,7 @@ async function syncOpenApi(): Promise<string> {
   for (const candidate of candidates) {
     if (await fs.access(candidate).then(() => true).catch(() => false)) {
       const source = JSON.parse(await fs.readFile(candidate, 'utf8'));
-      const { spec, report } = sanitizeOpenApi(source);
+      const { spec, report } = sanitizeOpenApi(source, { groupDescriptionUnder: 'Overview' });
 
       await fs.mkdir(publicDir, { recursive: true });
       await fs.writeFile(path.join(publicDir, 'openapi.json'), JSON.stringify(spec));

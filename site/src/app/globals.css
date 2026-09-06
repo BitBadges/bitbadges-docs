@@ -579,19 +579,108 @@ body {
 }
 
 /* ==========================================================================
-   Scalar API reference — align its chrome with the docs shell
+   Segmented section tabs (Documentation / API Reference)
+   ========================================================================== */
+
+.segmented {
+  display: inline-flex;
+  gap: 0.125rem;
+  padding: 0.175rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-inset);
+}
+
+.segmented-tab {
+  padding: 0.3rem 0.75rem;
+  border-radius: 7px;
+  color: var(--fg-muted);
+  font-size: 0.83rem;
+  font-weight: 550;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.14s ease, background-color 0.14s ease, box-shadow 0.14s ease;
+}
+.segmented-tab:hover {
+  color: var(--fg);
+}
+.segmented-tab[aria-current='page'] {
+  background: var(--bg-raised);
+  color: var(--fg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================================================
+   Scalar API reference
+
+   Scalar manages its own scrolling and computes scroll targets against its
+   scroll parent. Give it a bounded container that starts *below* the docs top
+   bar and scrolls itself: inside that container Scalar's coordinate origin and
+   the visible origin agree, so clicking an operation lands its title at the top
+   and the sticky rails behave as designed.
+
+   Do not make this a plain `overflow: hidden` box (the content is ~22,000px and
+   becomes unreachable) and do not let the document scroll instead (Scalar then
+   scrolls a container that never moves, so the title ends up above the fold).
    ========================================================================== */
 
 .api-shell {
   height: calc(100dvh - var(--shell-topbar));
-  overflow: hidden;
-}
-.api-shell .scalar-app {
-  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
-/* Scalar promotes its hosted product from inside the embed; a self-hosted
-   reference should not link out to it. */
-.api-shell a[href*='scalar.com'] {
+/*
+ * Inside that container there is no host header, so Scalar's header-offset
+ * hooks are all zero. `--refs-viewport-offset` is the one that matters: it sets
+ * `scroll-margin-top` on every operation section.
+ */
+.api-shell {
+  --scalar-custom-header-height: 0px;
+  --refs-header-height: 0px;
+  --refs-viewport-offset: 0px;
+  --scalar-sidebar-sticky-offset: 0px;
+}
+
+/*
+ * Map Scalar's theme onto the docs palette.
+ *
+ * Scalar ships its own neutral greys; without this the reference reads as a
+ * different product sitting inside the docs (dark grey against dark navy).
+ */
+.api-shell {
+  --scalar-background-1: var(--bg);
+  --scalar-background-2: var(--bg-subtle);
+  --scalar-background-3: var(--bg-inset);
+  --scalar-background-accent: color-mix(in oklab, var(--brand) 12%, transparent);
+
+  --scalar-color-1: var(--fg);
+  --scalar-color-2: var(--fg-muted);
+  --scalar-color-3: var(--fg-faint);
+  --scalar-color-accent: var(--brand);
+  --scalar-border-color: var(--border);
+
+  --scalar-sidebar-background-1: var(--bg-subtle);
+  --scalar-sidebar-color-1: var(--fg);
+  --scalar-sidebar-color-2: var(--fg-muted);
+  --scalar-sidebar-border-color: var(--border);
+  --scalar-sidebar-color-active: var(--brand);
+  --scalar-sidebar-item-active-background: color-mix(in oklab, var(--brand) 10%, transparent);
+  --scalar-sidebar-item-hover-background: var(--bg-inset);
+  --scalar-sidebar-item-hover-color: var(--fg);
+  --scalar-sidebar-search-background: var(--bg-raised);
+  --scalar-sidebar-search-border-color: var(--border);
+  --scalar-sidebar-search-color: var(--fg-faint);
+}
+
+/* Scalar promotes its hosted product and an AI agent from inside the embed;
+   neither belongs in self-hosted docs that deliberately ship no assistant. */
+.api-shell a[href*='scalar.com'],
+.api-shell .agent-button-container,
+.api-shell .agent-scalar,
+.api-shell .agent-scalar-overlay,
+.api-shell .scalar-mcp-layer,
+.api-shell .scalar-mcp-layer-link {
   display: none !important;
 }
