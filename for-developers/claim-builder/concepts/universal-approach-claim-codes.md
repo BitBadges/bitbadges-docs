@@ -48,5 +48,5 @@ You may also consider using a save for later link. See example below.
 The get code via idx from seedCode route is also available in Zapier opening up some cool possibilities like auto-distribution.
 
 {% content-ref url="../automate-w-zapier/distribute-claim-information-tutorial/" %}
-[distribute-claim-information-tutorial](../automate-w-zapier/distribute-claim-information-tutorial/)
+distribute-claim-information-tutorial
 {% endcontent-ref %}

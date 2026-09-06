@@ -131,7 +131,7 @@ interface Voter {
 }
 ```
 
-Cast votes using [MsgCastVote](../../x-tokenization/messages/msg-cast-vote.md).
+Cast votes using [MsgCastVote](../../../x-tokenization/messages/msg-cast-vote.md).
 
 ## Vote Reset Behavior
 

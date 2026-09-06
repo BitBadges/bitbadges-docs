@@ -318,10 +318,10 @@ See [Run a Mainnet Node](run-a-mainnet-node.md#evm-json-rpc-configuration) for c
 
 ## Related Documentation
 
-- [EVM Integration Guide](../evm/EVM_INTEGRATION.md) - Complete EVM integration overview
-- [Setup and Configuration](../evm/evm-precompiles/setup-and-configuration.md) - Local development setup
-- [Developer Guide](../evm/evm-precompiles/developer-guide.md) - EVM development best practices
-- [Tokenization Precompile API](../evm/evm-precompiles/tokenization-precompile/API.md) - Precompile contract reference
+- [EVM Integration Guide](../../evm/EVM_INTEGRATION.md) - Complete EVM integration overview
+- [Setup and Configuration](../../evm/evm-precompiles/setup-and-configuration.md) - Local development setup
+- [Developer Guide](../../evm/evm-precompiles/developer-guide.md) - EVM development best practices
+- [Tokenization Precompile API](../../evm/evm-precompiles/tokenization-precompile/API.md) - Precompile contract reference
 
 ## Quick Reference: All Endpoints
 

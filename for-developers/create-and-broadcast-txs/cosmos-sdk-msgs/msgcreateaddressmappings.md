@@ -1,6 +1,6 @@
 # MsgCreateAddressLists
 
-To create an on-chain AddressList, you can use the MsgCreateAddressLists. See [here](../../core-concepts/address-lists-lists.md) to learn more about AddressLists.
+To create an on-chain AddressList, you can use the MsgCreateAddressLists. See [here](../../../token-standard/learn/address-lists.md) to learn more about AddressLists.
 
 Reminder: on-chain address lists are immutable, permanent. and non-deletable.
 
@@ -29,7 +29,7 @@ export interface AddressList {
 
 Oftentimes, you want to create a new AddressList, so it can be used in a MsgCreateCollection or MsgUpdateCollection (for example, defining transferability using a new, custom list ID).
 
-Before an AddressList can be used, it needs to be defined on-chain. The two Msgs can be easily combined in the same transaction (as Cosmos transactions support multiple Msgs). See [here](../../bitbadges-sdk/common-snippets/creating-signing-and-broadcasting-txs.md) for an example of how to do it with the SDK. Just make sure MsgCreateAddressLists is executed first and precedes when it is actually used.
+Before an AddressList can be used, it needs to be defined on-chain. The two Msgs can be easily combined in the same transaction (as Cosmos transactions support multiple Msgs). See [here](../../../x-tokenization/examples/txs/) for an example of how to do it with the SDK. Just make sure MsgCreateAddressLists is executed first and precedes when it is actually used.
 
 ```typescript
 const msgs: MessageGenerated[] = [];

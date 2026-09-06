@@ -229,7 +229,7 @@ Predetermined balances can change rapidly between transaction broadcast and conf
 
 ### The Solution: Precalculation
 
-Use `precalculateBalancesFromApproval` in [MsgTransferTokens](../../x-tokenization/messages/msg-transfer-tokens.md) to dynamically calculate balances at execution time.
+Use `precalculateBalancesFromApproval` in [MsgTransferTokens](../../../x-tokenization/messages/msg-transfer-tokens.md) to dynamically calculate balances at execution time.
 
 ```typescript
 {

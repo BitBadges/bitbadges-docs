@@ -78,8 +78,8 @@ message MsgUniversalUpdateCollectionResponse {
 The response includes:
 
 -   **`collectionId`**: The ID of the created or updated collection
--   **`approvalChanges`**: A list of `ApprovalChange` entries describing each approval that was created, edited, or deleted (see [Approval Change Events](../concepts/approval-change-events.md))
--   **`reviewItems`**: Advisory strings about the transaction (see [Review Items](../concepts/approval-change-events.md#review-items))
+-   **`approvalChanges`**: A list of `ApprovalChange` entries describing each approval that was created, edited, or deleted (see Approval Change Events)
+-   **`reviewItems`**: Advisory strings about the transaction (see Review Items)
 
 ## Usage Example
 

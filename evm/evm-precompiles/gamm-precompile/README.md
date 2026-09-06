@@ -310,7 +310,7 @@ See [Common Gotchas](gotchas.md) for detailed information about:
 
 - Read [Common Gotchas](gotchas.md) for important details
 - Explore [Example Contracts](https://github.com/BitBadges/bitbadgeschain/tree/evm-poc/contracts/examples)
-- Review the [Complete API Reference](../../../contracts/docs/GAMM_PRECOMPILE.md)
+- Review the [Complete API Reference](https://github.com/BitBadges/bitbadgeschain/blob/master/contracts/docs/GAMM_PRECOMPILE.md)
 
 ## Resources
 

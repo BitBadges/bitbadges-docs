@@ -72,7 +72,7 @@ The response includes structured data about the transfer execution:
 -   **`approvalsUsed`**: Details of which approvals were matched and consumed for the transfer
 -   **`coinTransfers`**: Any coin transfers that occurred as side effects (e.g., from approval criteria with coin transfer requirements)
 -   **`balancesTransferred`**: The actual token balances that were transferred
--   **`reviewItems`**: Advisory strings about the transaction (see [Review Items](../concepts/approval-change-events.md#review-items))
+-   **`reviewItems`**: Advisory strings about the transaction (see Review Items)
 
 ## Auto-Scan vs Prioritized Approvals
 
