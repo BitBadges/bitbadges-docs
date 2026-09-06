@@ -24,7 +24,7 @@ function Wordmark({ basePath }: { basePath: string }) {
       <img src={`${basePath}/bitbadges-logo.svg`} alt="" width={26} height={26} className="h-[1.6rem] w-[1.6rem]" />
       <span className="text-[0.95rem] font-bold tracking-tight">
         <span className="wordmark">BitBadges</span>
-        <span className="ml-1.5 hidden font-medium text-[var(--fg-faint)] sm:inline">Docs</span>
+        <span className="ml-1.5 hidden font-medium text-[var(--fg-faint)] lg:inline">Docs</span>
       </span>
     </Link>
   );
@@ -53,26 +53,33 @@ export function Shell({ groups, basePath, searchIndexUrl, children }: ShellProps
   const onApiReference = pathname === apiHref;
 
   const tabs = [
-    { href: basePath || '/', label: 'Documentation', active: !onApiReference },
-    { href: apiHref, label: 'API Reference', active: onApiReference },
+    { href: basePath || '/', label: 'Documentation', short: 'Docs', active: !onApiReference },
+    { href: apiHref, label: 'API Reference', short: 'API', active: onApiReference },
   ];
 
   return (
     <div className="min-h-dvh">
       <header className="sticky top-0 z-40 h-[var(--shell-topbar)] border-b border-[var(--border)] bg-[color-mix(in_oklab,var(--bg)_82%,transparent)] backdrop-blur-xl">
         <div className="mx-auto flex h-full max-w-[100rem] items-center gap-3 px-4 lg:px-6">
-          <button
-            type="button"
-            onClick={() => setMenuOpen(true)}
-            aria-label="Open navigation"
-            className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-[var(--border)] text-[var(--fg-muted)] lg:hidden"
-          >
-            <MenuIcon className="h-[1.05rem] w-[1.05rem]" />
-          </button>
+          {/*
+            The API reference ships its own operation navigation, including a
+            mobile bar. Showing the docs drawer trigger there too put two
+            hamburgers on top of each other, so it is documentation-only.
+          */}
+          {!onApiReference && (
+            <button
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open navigation"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-[var(--border)] text-[var(--fg-muted)] lg:hidden"
+            >
+              <MenuIcon className="h-[1.05rem] w-[1.05rem]" />
+            </button>
+          )}
 
           <Wordmark basePath={basePath} />
 
-          <nav aria-label="Sections" className="ml-2 hidden md:block">
+          <nav aria-label="Sections" className="ml-1 sm:ml-2">
             <div className="segmented">
               {tabs.map((tab) => (
                 <Link
@@ -81,7 +88,8 @@ export function Shell({ groups, basePath, searchIndexUrl, children }: ShellProps
                   aria-current={tab.active ? 'page' : undefined}
                   className="segmented-tab"
                 >
-                  {tab.label}
+                  <span className="hidden sm:inline">{tab.label}</span>
+                  <span className="sm:hidden">{tab.short}</span>
                 </Link>
               ))}
             </div>
