@@ -4,6 +4,7 @@ import MiniSearch from 'minisearch';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import { SearchIcon } from './Icons';
 
@@ -58,6 +59,7 @@ export function SearchDialog({
   enabled?: boolean;
 }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [query, setQuery] = useState('');
   const [cursor, setCursor] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -69,6 +71,7 @@ export function SearchDialog({
     return engine.search(query).slice(0, 25) as unknown as (Record_ & { score: number })[];
   }, [engine, query]);
 
+  useEffect(() => setMounted(true), []);
   useEffect(() => setCursor(0), [query]);
 
   useEffect(() => {
@@ -122,6 +125,85 @@ export function SearchDialog({
 
   if (!enabled) return null;
 
+  const dialog = (
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center bg-black/45 px-4 pt-[8vh] backdrop-blur-sm"
+      onMouseDown={(event) => event.target === event.currentTarget && setOpen(false)}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search documentation"
+        className="flex max-h-[72vh] w-full max-w-xl flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-raised)] shadow-[var(--shadow-lg)]"
+      >
+        <div className="flex items-center gap-2.5 border-b border-[var(--border)] px-4">
+          <SearchIcon className="h-4 w-4 shrink-0 text-[var(--fg-faint)]" />
+          <input
+            ref={inputRef}
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            onKeyDown={onKeyDown}
+            placeholder="Search the documentation…"
+            aria-label="Search query"
+            className="h-14 flex-1 bg-transparent text-[0.95rem] text-[var(--fg)] outline-none placeholder:text-[var(--fg-faint)]"
+          />
+          <kbd className="rounded border border-[var(--border)] px-1.5 py-0.5 font-mono text-[0.65rem] text-[var(--fg-faint)]">
+            esc
+          </kbd>
+        </div>
+
+        <div className="scroll-rail flex-1 overflow-y-auto p-2">
+          {loading && <p className="px-3 py-6 text-center text-sm text-[var(--fg-faint)]">Loading index…</p>}
+
+          {!loading && query.trim().length < 2 && (
+            <p className="px-3 py-6 text-center text-sm text-[var(--fg-faint)]">
+              Type at least two characters to search.
+            </p>
+          )}
+
+          {!loading && query.trim().length >= 2 && results.length === 0 && (
+            <p className="px-3 py-6 text-center text-sm text-[var(--fg-faint)]">No matches for “{query}”.</p>
+          )}
+
+          <ul>
+            {results.map((result, index) => (
+              <li key={result.id}>
+                <Link
+                  href={`${basePath}${result.route}`}
+                  onClick={() => {
+                    setOpen(false);
+                    setQuery('');
+                  }}
+                  onMouseEnter={() => setCursor(index)}
+                  data-active={index === cursor}
+                  className="block rounded-lg px-3 py-2.5 transition data-[active=true]:bg-[var(--bg-inset)]"
+                >
+                  {result.section && (
+                    <span className="text-[0.68rem] uppercase tracking-[0.07em] text-[var(--fg-faint)]">
+                      {result.section}
+                    </span>
+                  )}
+                  <span className="block truncate text-[0.92rem] font-medium text-[var(--fg)]">{result.title}</span>
+                  {result.description && (
+                    <span className="mt-0.5 block truncate text-[0.8rem] text-[var(--fg-muted)]">
+                      {result.description}
+                    </span>
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="flex items-center gap-4 border-t border-[var(--border)] px-4 py-2 text-[0.7rem] text-[var(--fg-faint)]">
+          <span>↑↓ navigate</span>
+          <span>↵ open</span>
+          <span>esc close</span>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <button
@@ -136,86 +218,13 @@ export function SearchDialog({
         </kbd>
       </button>
 
-      {open && (
-        <div
-          className="fixed inset-0 z-50 flex items-start justify-center bg-black/45 px-4 pt-[8vh] backdrop-blur-sm"
-          onMouseDown={(event) => event.target === event.currentTarget && setOpen(false)}
-        >
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Search documentation"
-            className="flex max-h-[72vh] w-full max-w-xl flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg-raised)] shadow-[var(--shadow-lg)]"
-          >
-            <div className="flex items-center gap-2.5 border-b border-[var(--border)] px-4">
-              <SearchIcon className="h-4 w-4 shrink-0 text-[var(--fg-faint)]" />
-              <input
-                ref={inputRef}
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                onKeyDown={onKeyDown}
-                placeholder="Search the documentation…"
-                aria-label="Search query"
-                className="h-14 flex-1 bg-transparent text-[0.95rem] text-[var(--fg)] outline-none placeholder:text-[var(--fg-faint)]"
-              />
-              <kbd className="rounded border border-[var(--border)] px-1.5 py-0.5 font-mono text-[0.65rem] text-[var(--fg-faint)]">
-                esc
-              </kbd>
-            </div>
-
-            <div className="scroll-rail flex-1 overflow-y-auto p-2">
-              {loading && <p className="px-3 py-6 text-center text-sm text-[var(--fg-faint)]">Loading index…</p>}
-
-              {!loading && query.trim().length < 2 && (
-                <p className="px-3 py-6 text-center text-sm text-[var(--fg-faint)]">
-                  Type at least two characters to search.
-                </p>
-              )}
-
-              {!loading && query.trim().length >= 2 && results.length === 0 && (
-                <p className="px-3 py-6 text-center text-sm text-[var(--fg-faint)]">
-                  No matches for “{query}”.
-                </p>
-              )}
-
-              <ul>
-                {results.map((result, index) => (
-                  <li key={result.id}>
-                    <Link
-                      href={`${basePath}${result.route}`}
-                      onClick={() => {
-                        setOpen(false);
-                        setQuery('');
-                      }}
-                      onMouseEnter={() => setCursor(index)}
-                      data-active={index === cursor}
-                      className="block rounded-lg px-3 py-2.5 transition data-[active=true]:bg-[var(--bg-inset)]"
-                    >
-                      {result.section && (
-                        <span className="text-[0.68rem] uppercase tracking-[0.07em] text-[var(--fg-faint)]">
-                          {result.section}
-                        </span>
-                      )}
-                      <span className="block truncate text-[0.92rem] font-medium text-[var(--fg)]">{result.title}</span>
-                      {result.description && (
-                        <span className="mt-0.5 block truncate text-[0.8rem] text-[var(--fg-muted)]">
-                          {result.description}
-                        </span>
-                      )}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="flex items-center gap-4 border-t border-[var(--border)] px-4 py-2 text-[0.7rem] text-[var(--fg-faint)]">
-              <span>↑↓ navigate</span>
-              <span>↵ open</span>
-              <span>esc close</span>
-            </div>
-          </div>
-        </div>
-      )}
+      {/*
+        Portalled to the body on purpose: the top bar sets `backdrop-filter`,
+        which makes it the containing block for `position: fixed` descendants.
+        Rendered in place, the overlay resolved `inset-0` against the 60px-tall
+        header instead of the viewport, so the backdrop covered only a strip.
+      */}
+      {open && mounted && createPortal(dialog, document.body)}
     </>
   );
 }
