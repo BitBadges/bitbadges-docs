@@ -141,3 +141,75 @@ site/
 │       └── content.ts            filesystem access + search records
 └── tests/                        87 tests
 ```
+
+## Deploying to docs.bitbadges.io
+
+Self-hosted on the BitBadges k3s cluster (`138.197.122.4`), following the same
+pattern as `bitbadges-frontend`: a Docker Hub image, a ClusterIP service, and an
+nginx ingress behind Cloudflare.
+
+DNS is already in place — `docs.bitbadges.io` is an A record to `138.197.122.4`,
+**proxied** (orange cloud). Because it is proxied, the ingress restricts the
+origin to Cloudflare's IP ranges; direct-to-IP traffic would otherwise skip the
+WAF.
+
+### Build and push the image
+
+The Docker build context is the **repository root**, not `site/` — the site
+renders the markdown that lives above it:
+
+```bash
+docker build -f site/Dockerfile -t trevormil23/bitbadges-docs:latest .
+docker push trevormil23/bitbadges-docs:latest
+```
+
+In CI, `.github/workflows/docker-publish-docs.yml` does the same on the
+`bitbadges-actions` runner. It runs on `workflow_dispatch` and on pushes to
+`master` that touch markdown, `.gitbook/`, or `site/` — content changes need a
+rebuild because every page is prerendered.
+
+### First deploy
+
+```bash
+kubectl apply -f site/k8s/service.yaml
+kubectl apply -f site/k8s/deployment.yaml
+kubectl apply -f site/k8s/ingress.yaml
+kubectl rollout status deployment/bitbadges-docs
+```
+
+**Check the TLS certificate before applying the ingress.** It reuses
+`bitbadges-cert`, the secret already serving `bitbadges.io`, `testnet.` and
+`stagenet.`. That strongly suggests a `*.bitbadges.io` wildcard, but confirm:
+
+```bash
+kubectl get secret bitbadges-cert -o jsonpath='{.data.tls\.crt}' \
+  | base64 -d | openssl x509 -noout -text | grep -A1 'Subject Alternative Name'
+```
+
+If `docs.bitbadges.io` is not covered, add a cert-manager `Certificate` for it
+and point `secretName` at that instead.
+
+### Subsequent deploys
+
+The tag is mutable and `imagePullPolicy: Always`, so a restart pulls the new
+image — no manifest changes needed:
+
+```bash
+kubectl rollout restart deployment bitbadges-docs
+```
+
+### Cutover
+
+GitBook and Stoplight keep serving until the Cloudflare record for
+`docs.bitbadges.io` is repointed at this cluster. To roll back, point it back;
+nothing here modifies either service.
+
+Two links in the corpus still advertise GitBook's MCP endpoint
+(`docs.bitbadges.io/~gitbook/mcp`) — those 404 after cutover and need editing or
+a replacement endpoint.
+
+### Resource footprint
+
+Requests 25m CPU / 128Mi, limit 512Mi. The server only reads prerendered files
+off disk. The image is ~672MB uncompressed, mostly the `node:22-slim` base plus
+39MB of documentation images.

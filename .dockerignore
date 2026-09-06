@@ -1,0 +1,9 @@
+.git
+.github
+site/node_modules
+site/.next
+site/out
+site/public/docs-assets
+site/public/search-index.json
+site/public/openapi.json
+**/*.backup.*

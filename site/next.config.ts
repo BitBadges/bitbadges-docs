@@ -10,6 +10,10 @@ const basePath = (process.env.DOCS_BASE_PATH ?? '').replace(/\/$/, '');
 const nextConfig: NextConfig = {
   basePath: basePath || undefined,
   reactStrictMode: true,
+  // Every page is prerendered, so the runtime image only needs the server and
+  // the built output — not the content tree or the full node_modules.
+  output: 'standalone',
+  outputFileTracingRoot: import.meta.dirname,
 };
 
 export default nextConfig;
