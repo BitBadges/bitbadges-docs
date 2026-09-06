@@ -42,9 +42,10 @@ bun run typecheck
 | On-page contents | Scroll-spy table of contents from h2/h3 |
 | Prev / next, edit links | Derived from `SUMMARY.md` order |
 
-Deliberately **not** built: an AI chatbot, and the GitBook MCP endpoint
-(`docs.bitbadges.io/~gitbook/mcp`). The repo already publishes `llms.txt` and
-`for-llms.txt` for agent consumption.
+Deliberately **not** built: an AI chatbot, and a replacement for GitBook's MCP
+endpoint (`docs.bitbadges.io/~gitbook/mcp`), which stopped existing at cutover.
+References to it have been removed from the corpus. The repo already publishes
+`llms.txt` and `for-llms.txt` for agent consumption.
 
 ## Moving it into bitbadges.io
 
@@ -111,13 +112,16 @@ what a strict renderer shows. It runs during `sync` and reports what it changed.
 Items 2 and 3 are **defects in the generated spec**, not in this site. Fixing
 them in `bitbadgesjs-sdk` would let the sanitizer shrink.
 
-## Inherited content rot
+## Link integrity
 
-`tests/content-issues.baseline.json` records 48 dead internal links and 1 missing
-image that already exist in the markdown — they 404 on GitBook today. The test
-suite fails if the count grows, so migration cannot quietly add more. Shrink the
-list; do not grow it. Regenerate with `bun scripts/gen-baseline.ts` after
-deliberately changing it.
+`tests/content-issues.baseline.json` is the allowance for known-bad links and
+images. **It is currently empty** — every internal link resolves and every image
+exists. The corpus test fails if anything new breaks, so the count cannot creep
+back up.
+
+If a link legitimately has no target yet, regenerate the allowance with
+`bun scripts/gen-baseline.ts` and say why in the commit. Shrink it; do not grow
+it.
 
 ## Layout
 
@@ -204,9 +208,8 @@ GitBook and Stoplight keep serving until the Cloudflare record for
 `docs.bitbadges.io` is repointed at this cluster. To roll back, point it back;
 nothing here modifies either service.
 
-Two links in the corpus still advertise GitBook's MCP endpoint
-(`docs.bitbadges.io/~gitbook/mcp`) — those 404 after cutover and need editing or
-a replacement endpoint.
+The two corpus links that advertised GitBook's MCP endpoint have been removed.
+`for-llms.txt` still mentions it until CI regenerates that file.
 
 ### Resource footprint
 

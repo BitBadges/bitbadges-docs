@@ -121,7 +121,6 @@ Below, we provide some resources that may be helpful for developing with AI. If 
 | **BitBadges Builder Tools** | `npm i -g bitbadges` — [Reference](ai-agents/builder-tools.md) |
 | **BitBadges SDK** | `npm i bitbadges` — [Docs](bitbadges-sdk/overview.md) |
 | **AI Quickstarter Repo** | [github.com/BitBadges/bitbadges-quickstarter-ai](https://github.com/BitBadges/bitbadges-quickstarter-ai) |
-| **GitBook MCP** | [docs.bitbadges.io/~gitbook/mcp](https://docs.bitbadges.io/~gitbook/mcp) — searchDocumentation tool |
 | **API OpenAPI Spec** | [openapi.json](https://raw.githubusercontent.com/bitbadges/bitbadgesjs/main/packages/bitbadgesjs-sdk/openapi-hosted/openapi.json) |
 | **Proto Definitions** | [github.com/BitBadges/bitbadgeschain/tree/master/proto](https://github.com/BitBadges/bitbadgeschain/tree/master/proto) |
 | **Full Docs (.txt)** | [for-llms.txt](../for-llms.txt) |

@@ -28,7 +28,7 @@ The response includes:
 
 -   **`found`**: Whether the approval was found and successfully deleted
 -   **`version`**: The version of the approval that was deleted
--   **`reviewItems`**: Advisory strings about the transaction (see [Review Items](../concepts/approval-change-events.md#review-items))
+-   **`reviewItems`**: Advisory strings about the transaction (see Review Items)
 
 ## Usage Example
 

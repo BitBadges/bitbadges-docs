@@ -123,7 +123,7 @@ bitbadgeschaind tx tokenization create-collection ./create-collection.json \
   --from mykey --chain-id bitbadges-1 --node https://lcd.bitbadges.io:443
 ```
 
-The JSON file should contain the fields for `MsgCreateCollection`. See [MsgCreateCollection](../../../x-tokenization/messages/msg-create-collection.md) for the full schema.
+The JSON file should contain the fields for `MsgCreateCollection`. See [MsgCreateCollection](../../../../x-tokenization/messages/msg-create-collection.md) for the full schema.
 
 ### Universal Update Collection
 
@@ -134,7 +134,7 @@ bitbadgeschaind tx tokenization universal-update-collection ./update.json \
   --from mykey --chain-id bitbadges-1 --node https://lcd.bitbadges.io:443
 ```
 
-See [MsgUniversalUpdateCollection](../../../x-tokenization/messages/msg-universal-update-collection.md) for the full schema.
+See [MsgUniversalUpdateCollection](../../../../x-tokenization/messages/msg-universal-update-collection.md) for the full schema.
 
 ### Update Collection
 
@@ -178,7 +178,7 @@ Example `transfer.json`:
 }
 ```
 
-See [MsgTransferTokens](../../../x-tokenization/messages/msg-transfer-tokens.md) for the full schema.
+See [MsgTransferTokens](../../../../x-tokenization/messages/msg-transfer-tokens.md) for the full schema.
 
 ### Approval Management
 
@@ -303,7 +303,7 @@ bitbadgeschaind tx tokenization create-collection ./my-collection.json --from my
 bitbadgeschaind tx tokenization create-collection '{"collectionMetadataTimeline": [...]}' --from mykey ...
 ```
 
-Using files is recommended for complex transactions. The JSON schema for each message matches the protobuf definitions documented in the [Messages](../../../x-tokenization/messages/README.md) section.
+Using files is recommended for complex transactions. The JSON schema for each message matches the protobuf definitions documented in the [Messages](../../../../x-tokenization/messages/README.md) section.
 
 ## For Developers (SDK Alternative)
 

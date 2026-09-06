@@ -233,7 +233,6 @@ Common features like ownership requirements, codes, and passwords are built into
 | Tool | Install | Description |
 |------|---------|-------------|
 | **BitBadges SDK** | `npm i bitbadges` | TypeScript SDK for direct blockchain interaction |
-| **GitBook MCP** | [docs.bitbadges.io/~gitbook/mcp](https://docs.bitbadges.io/~gitbook/mcp) | Search BitBadges documentation |
 | **BitBadges API** | [api.bitbadges.io](https://api.bitbadges.io) | REST API for queries and data |
 
 ## Builder Resources

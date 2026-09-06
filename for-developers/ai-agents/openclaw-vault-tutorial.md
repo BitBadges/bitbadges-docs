@@ -324,7 +324,7 @@ Give your agent the prompt from the **AI Prompt** tab (Step 3) as part of its sy
 ## Further Reading
 
 - [Signing Client Reference](../bitbadges-blockchain/create-and-broadcast-txs/signing-client.md) - Full signing client docs
-- [MsgTransferTokens](../../x-tokenization/messages/msg-transfer-tokens.md) - Transfer message details
+- [MsgTransferTokens](../../../x-tokenization/messages/msg-transfer-tokens.md) - Transfer message details
 - [IBC Backed Paths](../../x-tokenization/concepts/ibc-backed-paths.md) - How backing works
 - [Bot Examples](bot-examples.md) - More agent patterns
 - [BitBadges Builder Tools](builder-tools.md) - If your agent speaks MCP (Claude, etc.)

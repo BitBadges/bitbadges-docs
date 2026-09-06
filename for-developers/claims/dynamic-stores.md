@@ -199,4 +199,4 @@ A custom plugin can add addresses to a store as a side effect of claim success â
 
 BitBadges also supports on-chain dynamic stores â€” boolean address-value stores on the blockchain that integrate with approval criteria via `DynamicStoreChallenge`. These are separate from the off-chain stores described above and are managed via blockchain transactions, not the API. Similar concepts, just on vs off-chain.
 
-See [Dynamic Store Challenges](../../token-standard/learn/approval-criteria/dynamic-store-challenges.md) and [MsgCreateDynamicStore](../../x-tokenization/messages/msg-create-dynamic-store.md) for full documentation.
+See [Dynamic Store Challenges](../../token-standard/learn/approval-criteria/dynamic-store-challenges.md) and [MsgCreateDynamicStore](../../../x-tokenization/messages/msg-create-dynamic-store.md) for full documentation.

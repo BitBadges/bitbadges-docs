@@ -1,6 +1,6 @@
 # 📊 Balances
 
-For an overview, first read [Balances / Transfers](../../overview/how-it-works/time-dependent-ownership.md).
+For an overview, first read [Balances / Transfers](../../token-standard/learn/balance-system.md).
 
 ```typescript
 export interface Balance<T extends NumberType> {

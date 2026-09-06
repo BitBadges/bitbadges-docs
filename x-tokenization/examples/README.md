@@ -13,7 +13,7 @@ This directory contains practical examples and building blocks for x/tokenizatio
 * [Building User Permissions](building-user-permissions.md) - Guide to configuring user-level permissions
 * [Cosmos Coin Wrapper Example](cosmos-coin-wrapper-example.md) - Example of wrapping tokens as Cosmos coins
 * [Mint All to Self Tutorial](mint-all-to-self-tutorial.md) - Tutorial for creating collection and minting tokens to yourself
-* [Approvals](approvals/) - Common approval patterns and examples
+* Approvals - Common approval patterns and examples
   * [Transferable Approval](approvals/transferable-approval.md) - Basic transferable approval configuration
   * [Burnable Approval](approvals/burnable-approval.md) - Approval allowing tokens to be burned
   * [Cosmos Wrapper Approval](approvals/cosmos-wrapper-approval.md) - Approval for wrapping tokens as Cosmos coins

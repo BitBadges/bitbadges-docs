@@ -67,7 +67,7 @@ This is useful for quickly halting all approvals that depend on a specific dynam
 
 -   **New stores**: `globalEnabled` defaults to `true` (enabled by default)
 -   **Existing stores**: All existing stores are set to `globalEnabled = true` for backward compatibility
--   **Disabling**: Set `globalEnabled = false` via [MsgUpdateDynamicStore](../../../x-tokenization/messages/msg-update-dynamic-store.md) to halt all dependent approvals
+-   **Disabling**: Set `globalEnabled = false` via [MsgUpdateDynamicStore](../../../../x-tokenization/messages/msg-update-dynamic-store.md) to halt all dependent approvals
 -   **Re-enabling**: Set `globalEnabled = true` to restore normal operation
 
 ### Usage Example
@@ -94,15 +94,15 @@ This is useful for quickly halting all approvals that depend on a specific dynam
 
 ### Creating Stores
 
-Use [MsgCreateDynamicStore](../../../x-tokenization/messages/msg-create-dynamic-store.md) to create new dynamic stores with a default boolean value. New stores are created with `globalEnabled = true` by default.
+Use [MsgCreateDynamicStore](../../../../x-tokenization/messages/msg-create-dynamic-store.md) to create new dynamic stores with a default boolean value. New stores are created with `globalEnabled = true` by default.
 
 ### Updating Stores
 
-Use [MsgUpdateDynamicStore](../../../x-tokenization/messages/msg-update-dynamic-store.md) to update the store's `defaultValue`, `globalEnabled`, `uri`, and `customData` fields. The `uri` and `customData` fields allow storing additional metadata and arbitrary data associated with the store.
+Use [MsgUpdateDynamicStore](../../../../x-tokenization/messages/msg-update-dynamic-store.md) to update the store's `defaultValue`, `globalEnabled`, `uri`, and `customData` fields. The `uri` and `customData` fields allow storing additional metadata and arbitrary data associated with the store.
 
 ### Setting Values
 
-Use [MsgSetDynamicStoreValue](../../../x-tokenization/messages/msg-set-dynamic-store-value.md) to set boolean values for specific addresses.
+Use [MsgSetDynamicStoreValue](../../../../x-tokenization/messages/msg-set-dynamic-store-value.md) to set boolean values for specific addresses.
 
 ### Querying Values
 

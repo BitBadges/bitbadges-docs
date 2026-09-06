@@ -441,5 +441,5 @@ console.log("Expected shares:", shares);
 ## See Also
 
 - [Gamm Precompile README](README.md) - Overview and examples
-- [Complete API Reference](../../../contracts/docs/GAMM_PRECOMPILE.md) - Full method documentation
+- [Complete API Reference](https://github.com/BitBadges/bitbadgeschain/blob/master/contracts/docs/GAMM_PRECOMPILE.md) - Full method documentation
 - [Developer Guide](../developer-guide.md) - General EVM integration guide
