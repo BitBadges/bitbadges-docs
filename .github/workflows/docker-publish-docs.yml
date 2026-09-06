@@ -13,7 +13,9 @@ on:
 
 jobs:
   build:
-    runs-on: bitbadges-actions
+    # GitHub-hosted: unlike the frontend image, this build takes no secrets, so
+    # it does not need the self-hosted runner (which is only online on demand).
+    runs-on: ubuntu-latest
     environment: Docker
 
     steps:
