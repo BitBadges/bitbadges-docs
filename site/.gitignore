@@ -1,0 +1,11 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Synced or generated at build time (see scripts/sync-content.ts).
+# public/bitbadges-logo.svg is a committed source asset, not generated.
+public/docs-assets/
+public/search-index.json
+public/openapi.json

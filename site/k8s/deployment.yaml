@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitbadges-docs
+  labels:
+    app: bitbadges-docs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bitbadges-docs
+  template:
+    metadata:
+      labels:
+        app: bitbadges-docs
+    spec:
+      containers:
+        - name: bitbadges-docs
+          image: trevormil23/bitbadges-docs:latest
+          # The tag is mutable, so a rollout restart must re-pull.
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: production
+          # Every page is prerendered at build time; the server only reads files
+          # off disk, so this is far lighter than the app frontend.
+          resources:
+            requests:
+              cpu: 25m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 20
+            periodSeconds: 30
