@@ -530,6 +530,26 @@ body {
   background: color-mix(in oklab, var(--brand) 10%, transparent);
 }
 
+/*
+ * External entries pair a label with a trailing icon. The label truncates and
+ * the icon stays on the same line. Laid out here rather than with utility
+ * classes because `.nav-link`'s own `display` would override them.
+ */
+.nav-link--external {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+.nav-link--external > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.nav-link--external > svg {
+  flex: none;
+}
+
 .nav-branch {
   margin-left: 0.7rem;
   padding-left: 0.6rem;

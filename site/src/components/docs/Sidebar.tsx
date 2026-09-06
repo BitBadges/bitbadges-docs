@@ -44,10 +44,10 @@ function NavItem({ node, depth, expanded, onToggle, pathname }: {
             href={node.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="nav-link flex flex-1 items-center gap-1.5"
+            className="nav-link nav-link--external flex-1"
           >
-            <span className="truncate">{node.title}</span>
-            <ExternalIcon className="h-3 w-3 shrink-0 opacity-55" />
+            <span>{node.title}</span>
+            <ExternalIcon className="h-3 w-3 opacity-55" />
           </a>
         ) : (
           <Link href={node.href} aria-current={isCurrent ? 'page' : undefined} className="nav-link flex-1 truncate">
