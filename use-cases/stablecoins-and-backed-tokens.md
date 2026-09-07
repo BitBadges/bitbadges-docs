@@ -27,7 +27,7 @@ The same shape covers a compliant stablecoin wrapper, a branded deposit receipt,
   "invariants": {
     "cosmosCoinBackedPath": {
       "conversion": {
-        "sideA": { "amount": "1", "denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701" },
+        "sideA": { "amount": "1", "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8" },
         "sideB": [{ "amount": "1", "tokenIds": [{ "start": "1", "end": "1" }], "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }] }]
       }
     },
@@ -51,6 +51,19 @@ The same shape covers a compliant stablecoin wrapper, a branded deposit receipt,
   ]
 }
 ```
+
+:::widget{name="transferability-row" caption="The deposit approval as the transferability tab lists it: the backing address is the sender, and anyone except that address can receive."}
+{
+  "approvalId": "smart-token-deposit",
+  "fromListId": "bb1backingaddress...",
+  "toListId": "!bb1backingaddress...",
+  "initiatedByListId": "All",
+  "criteria": [
+    "Backed minting",
+    "Must prioritize"
+  ]
+}
+:::
 
 The `!Mint:bb1backingaddress...` list means "everyone except Mint and the backing address", so only real holders can withdraw. There is no `fromListId: "Mint"` approval anywhere: supply exists only when a deposit backs it.
 

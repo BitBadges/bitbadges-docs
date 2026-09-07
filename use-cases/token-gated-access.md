@@ -60,6 +60,24 @@ The collection that backs it needs one approval:
 }
 ```
 
+:::widget{name="transferability-row" caption="The only approval on the collection: alice mints tiers 1 to 3, and no row exists for holders to send."}
+{
+  "approvalId": "issue-access",
+  "fromListId": "Mint",
+  "toListId": "All",
+  "initiatedByListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "tokenIds": [
+    {
+      "start": "1",
+      "end": "3"
+    }
+  ],
+  "criteria": [
+    "Skips sender outgoing approvals"
+  ]
+}
+:::
+
 With no other approval, a holder cannot move the token anywhere. The server does not need to check "was this resold" because it cannot be.
 
 ## Variations

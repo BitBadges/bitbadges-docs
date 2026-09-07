@@ -284,6 +284,13 @@ The Mint address has no outgoing approvals, so every mint approval must set `ove
 }
 ```
 
+:::widget{name="approval-criteria" caption="The sender and recipient approvals card on bitbadges.io: the mint skips the sender's outgoing approvals and still checks the recipient's incoming approvals."}
+{
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": false
+}
+:::
+
 ### Dangerous Configuration
 
 {% hint style="danger" %}

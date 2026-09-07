@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { z } from 'zod';
 
-import { AddressChip, Card, CardHeader, Chip, formatCoin, formatIdRanges, Icon, rangesSchema, rangeSchema, uintSchema, WidgetFrame, type IconName } from './shared';
+import { AddressChip, Card, CardHeader, Chip, formatCoin, formatDuration, formatIdRanges, Icon, MAX_UINT64, rangesSchema, rangeSchema, uintSchema, WidgetFrame, type IconName } from './shared';
 
 /**
  * The grid of criteria cards from the collection page's approval details. Input
@@ -26,12 +26,15 @@ export const schema = z.object({
     .default([]),
   coinTransfers: z
     .array(
-      z.object({
-        to: z.string().min(1),
-        coins: z.array(z.object({ denom: z.string(), amount: uintSchema })).min(1),
-        overrideFromWithApproverAddress: z.boolean().optional(),
-        overrideToWithInitiator: z.boolean().optional(),
-      }),
+      z
+        .object({
+          /** May be empty when `overrideToWithInitiator` is set, as the chain accepts it. */
+          to: z.string(),
+          coins: z.array(z.object({ denom: z.string(), amount: uintSchema })).min(1),
+          overrideFromWithApproverAddress: z.boolean().optional(),
+          overrideToWithInitiator: z.boolean().optional(),
+        })
+        .refine((c) => c.to.length > 0 || c.overrideToWithInitiator === true, { message: 'to is required unless overrideToWithInitiator is true', path: ['to'] }),
     )
     .default([]),
   merkleChallenges: z
@@ -54,6 +57,7 @@ export const schema = z.object({
           incrementTokenIdsBy: uintSchema.optional(),
           incrementOwnershipTimesBy: uintSchema.optional(),
           durationFromTimestamp: uintSchema.optional(),
+          allowAmountScaling: z.boolean().optional(),
         })
         .optional(),
       orderCalculationMethod: z
@@ -96,18 +100,31 @@ export type Props = z.output<typeof schema>;
 
 const isZero = (v?: string) => v === undefined || v === '0';
 
-function limitLines(prefix: string, values: Record<string, string | undefined>): string[] {
+type Tracker = z.output<typeof trackerSchema> & Record<string, unknown>;
+
+function limitLines(prefix: string, tracker: Tracker | undefined): string[] {
+  const values = (tracker ?? {}) as Record<string, string | undefined>;
   const labels: Record<string, string> = { overall: 'Overall', perToAddress: 'Per recipient', perFromAddress: 'Per sender', perInitiatedByAddress: 'Per initiator' };
-  return Object.entries(labels)
+  const lines = Object.entries(labels)
     .filter(([key]) => !isZero(values[`${key}${prefix}`]))
     .map(([key, label]) => `${label}: ${values[`${key}${prefix}`]}`);
+  const interval = tracker?.resetTimeIntervals?.intervalLength;
+  if (lines.length && interval && !isZero(interval)) lines.push(`Resets every ${formatDuration(interval).replace(/^1 /, '')}`);
+  return lines;
+}
+
+/** `{1, MAX}` -> `1 or more`; `{1, 1}` -> `1`; else `a to b`. */
+function formatAmountRange({ start, end }: { start: string; end: string }): string {
+  if (end === MAX_UINT64) return `${start} or more`;
+  if (start === end) return start;
+  return `${start} to ${end}`;
 }
 
 type CardSpec = { key: string; icon: IconName; color: string; title: string; enabled: boolean; body: ReactNode };
 
 function cards(p: Props): CardSpec[] {
-  const amountLines = limitLines('ApprovalAmount', (p.approvalAmounts ?? {}) as Record<string, string | undefined>);
-  const transferLines = limitLines('MaxNumTransfers', (p.maxNumTransfers ?? {}) as Record<string, string | undefined>);
+  const amountLines = limitLines('ApprovalAmount', p.approvalAmounts);
+  const transferLines = limitLines('MaxNumTransfers', p.maxNumTransfers);
   const inc = p.predeterminedBalances?.incrementedBalances;
   const order = p.predeterminedBalances?.orderCalculationMethod ?? {};
   const orderLabel = Object.entries(order).find(([, v]) => v)?.[0];
@@ -130,7 +147,7 @@ function cards(p: Props): CardSpec[] {
         <ul className="m-0 list-none p-0">
           {p.mustOwnTokens.map((m, i) => (
             <li key={i} className="m-0 p-0">
-              Own {formatIdRanges([m.amountRange])} of token IDs {formatIdRanges(m.tokenIds)} in collection {m.collectionId}
+              Own {formatAmountRange(m.amountRange)} of token IDs {formatIdRanges(m.tokenIds)} in collection {m.collectionId}
               {m.mustSatisfyForAllAssets ? ' (every ID)' : ''}
             </li>
           ))}
@@ -191,7 +208,8 @@ function cards(p: Props): CardSpec[] {
             <div>
               Start: {inc.startBalances.map((b) => `x${b.amount} of IDs ${formatIdRanges(b.tokenIds)}`).join(', ')}
               {inc.incrementTokenIdsBy && inc.incrementTokenIdsBy !== '0' ? `, then +${inc.incrementTokenIdsBy} ID per transfer` : ''}
-              {inc.durationFromTimestamp && inc.durationFromTimestamp !== '0' ? `, ownership for ${Number(inc.durationFromTimestamp) / 86400000} days` : ''}
+              {inc.durationFromTimestamp && inc.durationFromTimestamp !== '0' ? `, ownership for ${formatDuration(inc.durationFromTimestamp)}` : ''}
+              {inc.allowAmountScaling ? ', or any whole multiple of it' : ''}
             </div>
           ) : (
             <div>{p.predeterminedBalances?.manualBalances?.length} manual balance sets</div>
@@ -298,6 +316,23 @@ export const examples: { name: string; props: z.input<typeof schema> }[] = [
       mustOwnTokens: [{ collectionId: 1, tokenIds: [{ start: '1', end: '100' }], amountRange: { start: '1', end: '18446744073709551615' } }],
       merkleChallenges: [{ useCreatorAddressAsLeaf: true, maxUsesPerLeaf: '1', expectedProofLength: '4' }],
       approvalAmounts: { perFromAddressApprovalAmount: '5' },
+    },
+  },
+  {
+    name: 'scaled-payout-with-daily-reset',
+    props: {
+      predeterminedBalances: {
+        incrementedBalances: { startBalances: [{ amount: '100', tokenIds: [{ start: '1', end: '1' }] }], allowAmountScaling: true },
+      },
+      coinTransfers: [
+        {
+          to: '',
+          coins: [{ denom: 'ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8', amount: '1000000' }],
+          overrideFromWithApproverAddress: true,
+          overrideToWithInitiator: true,
+        },
+      ],
+      approvalAmounts: { perInitiatedByAddressApprovalAmount: '1000', resetTimeIntervals: { startTime: '1788739200000', intervalLength: '86400000' } },
     },
   },
   { name: 'empty', props: {} },

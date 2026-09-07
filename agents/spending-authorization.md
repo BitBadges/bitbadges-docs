@@ -92,6 +92,27 @@ In this example alice (`bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d`) is the contr
 }
 ```
 
+:::widget{name="approval-criteria" caption="The envelope as the approval's criteria cards show it: 100 units and 20 transfers per day, both resetting at the same time."}
+{
+  "approvalAmounts": {
+    "overallApprovalAmount": "100",
+    "amountTrackerId": "agent-daily-budget",
+    "resetTimeIntervals": {
+      "startTime": "1788739200000",
+      "intervalLength": "86400000"
+    }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "20",
+    "amountTrackerId": "agent-daily-budget",
+    "resetTimeIntervals": {
+      "startTime": "1788739200000",
+      "intervalLength": "86400000"
+    }
+  }
+}
+:::
+
 ```bash
 # Controller signs. The agent key never touches this step.
 bb check ./approval.json --depth structural

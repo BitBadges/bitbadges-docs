@@ -45,6 +45,18 @@ Two variants stretch the same shape. A DAO roster becomes a multi-sig when its a
 }
 ```
 
+:::widget{name="transferability-row" caption="The manager-add approval as the transferability tab lists it: only alice can mint a membership."}
+{
+  "approvalId": "manager-add",
+  "fromListId": "Mint",
+  "toListId": "All",
+  "initiatedByListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "criteria": [
+    "Skips sender outgoing approvals"
+  ]
+}
+:::
+
 A 2FA mint is a MsgTransferTokens whose balance carries the short window:
 
 ```json

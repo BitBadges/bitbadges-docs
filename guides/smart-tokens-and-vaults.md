@@ -220,6 +220,26 @@ Backing approval (deposits). `fromListId` is the backing address (`bb146hj5s6rf3
 }
 ```
 
+:::widget{name="transferability-row" caption="The backing approval as the transferability tab lists it: the backing address sends, anyone else receives, and both flags show as criteria."}
+{
+  "approvalId": "smart-token-backing",
+  "fromListId": "bb146hj5s6rf3f8e09cvdxs8uqz3auvlmeghwf8phtmj3pjtj49ndcs3rfdup",
+  "toListId": "!bb146hj5s6rf3f8e09cvdxs8uqz3auvlmeghwf8phtmj3pjtj49ndcs3rfdup",
+  "initiatedByListId": "All",
+  "tokenIds": [
+    {
+      "start": "1",
+      "end": "1"
+    }
+  ],
+  "criteria": [
+    "Backed minting",
+    "Must prioritize",
+    "Skips sender outgoing approvals"
+  ]
+}
+:::
+
 Transferable approval (optional; include for wrapped assets, omit for vaults and escrows):
 
 ```json fold=11-20,22-40,42-48,50-101
@@ -659,6 +679,19 @@ Daily limit of 1 USDC (1,000,000 base units) per sender, resetting every 24 hour
   "version": "0"
 }
 ```
+
+:::widget{name="approval-criteria" caption="The withdrawal rule on bitbadges.io: 1,000,000 base units per sender, reset every day."}
+{
+  "approvalAmounts": {
+    "perFromAddressApprovalAmount": "1000000",
+    "amountTrackerId": "daily-withdraw-limit",
+    "resetTimeIntervals": {
+      "startTime": "0",
+      "intervalLength": "86400000"
+    }
+  }
+}
+:::
 
 2FA on withdrawal. The initiator must hold a token from collection 74 at the current time (`overrideWithCurrentTime: true` matters for expiring 2FA tokens). The same unbacking approval with that rule instead:
 

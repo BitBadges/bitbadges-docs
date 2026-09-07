@@ -23,7 +23,7 @@ The same three-branch shape is a milestone contract, a job escrow, a dispute-res
 
 ```json
 {
-  "mintEscrowCoinsToTransfer": [{ "amount": "500000000", "denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701" }],
+  "mintEscrowCoinsToTransfer": [{ "amount": "500000000", "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8" }],
   "collectionApprovals": [
     {
       "approvalId": "bounty-accept",
@@ -33,7 +33,7 @@ The same three-branch shape is a milestone contract, a job escrow, a dispute-res
       "transferTimes": [{ "start": "1", "end": "1791331200000" }],
       "approvalCriteria": {
         "votingChallenges": [{ "proposalId": "bounty-accept-3f9a", "quorumThreshold": "100", "voters": [{ "address": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf", "weight": "1" }] }],
-        "coinTransfers": [{ "to": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue", "coins": [{ "amount": "500000000", "denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701" }], "overrideFromWithApproverAddress": true }],
+        "coinTransfers": [{ "to": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue", "coins": [{ "amount": "500000000", "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8" }], "overrideFromWithApproverAddress": true }],
         "maxNumTransfers": { "overallMaxNumTransfers": "1", "amountTrackerId": "bounty-accept-tracker" }
       }
     },
@@ -44,13 +44,33 @@ The same three-branch shape is a milestone contract, a job escrow, a dispute-res
       "initiatedByListId": "All",
       "transferTimes": [{ "start": "1791331200001", "end": "18446744073709551615" }],
       "approvalCriteria": {
-        "coinTransfers": [{ "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "coins": [{ "amount": "500000000", "denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701" }], "overrideFromWithApproverAddress": true }],
+        "coinTransfers": [{ "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "coins": [{ "amount": "500000000", "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8" }], "overrideFromWithApproverAddress": true }],
         "maxNumTransfers": { "overallMaxNumTransfers": "1", "amountTrackerId": "bounty-expire-tracker" }
       }
     }
   ]
 }
 ```
+
+:::widget{name="transferability-row" caption="The accept branch as the transferability tab lists it: anyone can execute it once the verifier has voted, until the deadline."}
+{
+  "approvalId": "bounty-accept",
+  "fromListId": "Mint",
+  "toListId": "bb1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqs7gvmv",
+  "initiatedByListId": "All",
+  "transferTimes": [
+    {
+      "start": "1",
+      "end": "1791331200000"
+    }
+  ],
+  "criteria": [
+    "Verifier vote",
+    "500 USDC from escrow to bob",
+    "Max 1 transfer"
+  ]
+}
+:::
 
 The `bounty-deny` approval is `bounty-accept` with the coin transfer pointed at the submitter. Each branch mints one receipt token straight to the burn address, so the chain records which branch ran.
 

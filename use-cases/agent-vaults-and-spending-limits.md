@@ -52,6 +52,34 @@ The withdraw approval of a vault with a 1000 USDC daily limit and a 2FA gate on 
 }
 ```
 
+:::widget{name="approval-criteria" caption="The withdraw approval on bitbadges.io: a per-initiator limit in base units that resets daily, plus the 2FA ownership check."}
+{
+  "approvalAmounts": {
+    "perInitiatedByAddressApprovalAmount": "1000000000",
+    "amountTrackerId": "withdrawal-daily",
+    "resetTimeIntervals": {
+      "startTime": "1788739200000",
+      "intervalLength": "86400000"
+    }
+  },
+  "mustOwnTokens": [
+    {
+      "collectionId": "84",
+      "tokenIds": [
+        {
+          "start": "1",
+          "end": "1"
+        }
+      ],
+      "amountRange": {
+        "start": "1",
+        "end": "18446744073709551615"
+      }
+    }
+  ]
+}
+:::
+
 Amounts are base units: `"1000000000"` is 1000 USDC at 6 decimals. `overrideWithCurrentTime: true` makes the 2FA check use the block time, so an expired 2FA token fails.
 
 ```bash

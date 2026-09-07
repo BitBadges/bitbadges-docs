@@ -50,6 +50,16 @@ console.log(result.txHash, result.success);
 }
 ```
 
+:::widget{name="address-list" caption="The teamwallets list as bitbadges.io shows it: a whitelist of two addresses."}
+{
+  "listId": "teamwallets",
+  "addresses": [
+    "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+    "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"
+  ]
+}
+:::
+
 {% hint style="info" %}
 Ask your agent:
 

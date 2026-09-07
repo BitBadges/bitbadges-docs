@@ -122,6 +122,21 @@ A complete `approvalCriteria` with the `merkleChallenges` array open. Folded lin
 }
 ```
 
+:::widget{name="approval-criteria" caption="The Merkle challenge card on bitbadges.io: a code proof of depth 1, each leaf usable once."}
+{
+  "overridesFromOutgoingApprovals": true,
+  "merkleChallenges": [
+    {
+      "root": "758691e922381c4327646a86e44dddf8a2e060f9f5559022638cc7fa94c55b77",
+      "expectedProofLength": "1",
+      "useCreatorAddressAsLeaf": false,
+      "maxUsesPerLeaf": "1",
+      "challengeTrackerId": "uniqueId"
+    }
+  ]
+}
+:::
+
 ```ts
 export interface MerkleChallenge<T extends NumberType> {
   root: string;

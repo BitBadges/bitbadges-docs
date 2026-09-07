@@ -159,6 +159,42 @@ The builder emits a `MsgCreateCollection` with `standards: ["Subscriptions"]`, `
 }
 ```
 
+:::widget{name="approval-criteria" caption="The faucet on bitbadges.io: each claim charges the price and mints one token that lives for 30 days from the claim."}
+{
+  "predeterminedBalances": {
+    "incrementedBalances": {
+      "startBalances": [
+        {
+          "amount": "1",
+          "tokenIds": [
+            {
+              "start": "1",
+              "end": "1"
+            }
+          ]
+        }
+      ],
+      "durationFromTimestamp": "2592000000"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": true
+    }
+  },
+  "coinTransfers": [
+    {
+      "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "coins": [
+        {
+          "denom": "ubadge",
+          "amount": "5000000000"
+        }
+      ]
+    }
+  ],
+  "overridesFromOutgoingApprovals": true
+}
+:::
+
 Rules the chain and the validator enforce:
 
 - `standards` includes `"Subscriptions"`.
