@@ -13,6 +13,18 @@ Two ways in. Pick one, or read both; they meet at the same review link.
 
 The agent never signs. Neither does the CLI unless you tell it to. Both hand you a link, and you sign in the browser with your own wallet.
 
+```mermaid title="Two ways in, one review link"
+flowchart LR
+  T["Terminal: bb build"] --> C["bb check"]
+  C --> S["bb simulate"]
+  S --> P["bb preview"]
+  A["AI agent: MCP tools"] --> V["validate, review, simulate"]
+  V --> R["get_review_url"]
+  P --> L["Review and sign in the browser"]
+  R --> L
+  L --> O["On-chain"]
+```
+
 ## Prerequisites
 
 ```bash
