@@ -299,6 +299,12 @@ The Docs tab section `using-the-frontend/` embeds real screenshots of bitbadges.
 - Determinism: 1440x900 at 1x, reduced motion plus CSS animations off, the browser clock pinned to a fixed time, the policies banner closed, and per-entry masks. Re-capturing against the same data gives byte-identical PNGs, so a diff means the UI changed.
 - Check: `bun run screenshots:check` (offline, no browser) fails when a manifest entry has no PNG, when a page embeds a `frontend/*.png` the manifest does not list, or when a PNG in the folder is not in the manifest. `site/tests/frontend-screenshots.test.ts` runs the same check under `bun test`, so CI catches stale references.
 
+### Page actions and Markdown route
+
+Every doc page carries a small Copy control at the top right of its title, the way GitBook does (`site/src/components/docs/PageActions.tsx`). Copy puts the page on the clipboard as Markdown. The chevron opens a menu: Copy page, View as Markdown, Copy prompt, Open in ChatGPT, Open in Claude, and Set up the BitBadges MCP (a link to `agents/setup.md`; there is no docs MCP, only the builder). The prompt is built by `site/src/lib/docs/page-actions.ts`: three lines that name the page, its Markdown URL, and `llms.txt`, and the ChatGPT and Claude links carry the same prompt in `?q=`. The menu is a plain `role="menu"` with arrow, Home, End, Escape, and outside-click handling; no dependency.
+
+The Markdown comes from the page's twin at `<route>.md` (`/index.md` for the root page). `site/scripts/gen-page-markdown.ts` writes one file per page into `public/` during `bun run sync`, so the twins are build output (gitignored) and serve identically under `next start`, the standalone image, and a `basePath` mount. `site/src/lib/docs/page-markdown.ts` shapes each one: frontmatter dropped, the title as an H1 when the body has none, `::widget` directives removed (`stripWidgets` in `widgets.ts`; the JSON beside a widget stays), and every internal link and image rewritten to an absolute URL under `docsConfig.siteUrl` (`DOCS_SITE_URL`). Each page's head also carries `<link rel="alternate" type="text/markdown">` pointing at its twin and `type="text/plain"` pointing at `/llms.txt`; `/llms-full.txt` is the convention-named alias of `/for-llms.txt`, and `src/app/robots.ts` names the AI crawlers with an explicit allow. Tests: `site/tests/page-markdown.test.ts` and `site/tests/page-actions.test.ts`.
+
 ### Self-hosting gaps still open (in this repo)
 
 | Gap | Where | Effect |
