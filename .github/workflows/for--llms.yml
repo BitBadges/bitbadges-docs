@@ -27,14 +27,14 @@ jobs:
 
             - name: Create for-llms.txt file
               run: |
-                  echo "# Gitbook Documentation Compilation" > for-llms.txt
+                  echo "# BitBadges documentation, every page in one file" > for-llms.txt
                   echo "Generated on $(date)" >> for-llms.txt
                   echo "" >> for-llms.txt
 
                   # Find all markdown files
                   find . -type f -name "*.md" | sort | while read -r file; do
                     # Skip hidden directories and node_modules
-                    if [[ "$file" != *"/.git/"* && "$file" != */node_modules/* && "$file" != */build/* && "$file" != */dist/* ]]; then
+                    if [[ "$file" != *"/.git/"* && "$file" != */node_modules/* && "$file" != */build/* && "$file" != */dist/* && "$file" != ./site/* && "$file" != ./_docs/* && "$file" != ./.gstack/* ]]; then
                       echo "Processing $file"
                       
                       # Add file path as header

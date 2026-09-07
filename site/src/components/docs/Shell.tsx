@@ -76,7 +76,7 @@ export function Shell({ tabs, basePath, searchIndexUrl, children }: ShellProps) 
 
           <Wordmark basePath={basePath} />
 
-          <nav aria-label="Sections" className="segmented-rail ml-1 min-w-0 sm:ml-2">
+          <nav aria-label="Sections" className="segmented-rail ml-1 hidden min-w-0 sm:ml-2 sm:block">
             <div className="segmented">
               {tabs.map((tab, index) => (
                 <Link

@@ -20,8 +20,8 @@ bun run dev          # http://localhost:3000
 OpenAPI document into `public/` and rebuilds the search index.
 
 ```bash
-bun run build && bun run start   # production build (338 static pages)
-bun test                         # 87 tests, including a render of every page
+bun run build && bun run start   # production build (219 static pages)
+bun test                         # 119 tests, including a render of every page
 bun run typecheck
 ```
 
