@@ -30,6 +30,7 @@ These rules apply to every page. They exist so the corpus reads as one voice, st
 - Fenced blocks always carry a language: `bash`, `ts`, `json`, `go`, `solidity`, `proto`, `yaml`.
 - Placeholders are `<angle-brackets>` or obviously fake values (`bb1abc...`). Never a real private key or mnemonic.
 - Field names, flags, types, and message names go in backticks and use the exact casing from source.
+- Long JSON examples fold their boilerplate. Put `fold=12-40,55-80` (1-based, inclusive) on the fence to collapse the parts a reader can skip; the site renders each range as a `··· N lines hidden` row that expands on click, and the copy button still copies everything. `json` blocks over 40 lines fold runs of boilerplate (`[]`, `{}`, `false`, `"0"`, `""`, closing brackets) automatically; add `nofold` to keep one fully open.
 
 ## Terminology (use exactly these)
 

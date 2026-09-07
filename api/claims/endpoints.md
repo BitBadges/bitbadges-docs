@@ -6,6 +6,8 @@ description: "Claims API reference. Complete, simulate, and verify claims, fetch
 
 The claims routes let a backend or an agent complete claims for users, check who has claimed, and manage claims without the site. All claim routes require an API key. Concepts (indexed versus on-demand claims, success logic, claim numbers, the trust model) live in [Claims](README.md).
 
+This page is also part of the [API reference](/api-reference).
+
 Addresses in paths accept any supported format. `0x` and `bb1` addresses both work and resolve to the same account.
 
 ## Complete a claim

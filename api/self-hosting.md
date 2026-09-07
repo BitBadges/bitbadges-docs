@@ -6,6 +6,8 @@ description: "Run your own BitBadges indexer and API. Architecture, MongoDB and 
 
 The indexer and API are open source at [https://github.com/bitbadges/bitbadges-indexer](https://github.com/bitbadges/bitbadges-indexer). Run them yourself when you want your own copy of the indexed data or your own API without credits and rate limits.
 
+This page is also part of the [API reference](/api-reference).
+
 ## Example
 
 ```bash

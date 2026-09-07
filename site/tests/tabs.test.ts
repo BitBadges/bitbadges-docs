@@ -118,3 +118,54 @@ describe('activeTabIndex', () => {
     expect(activeTabIndex(legacy, '/for-developers/getting-started')).toBe(1);
   });
 });
+
+/** The restructured API group: Scalar is the whole tab, api/* pages are unlisted but still served. */
+const SCALAR_SUMMARY = `# Table of contents
+
+## 📘 Docs
+
+* [Welcome](README.md)
+* [Guides](guides/README.md)
+
+## 🔌 API
+
+* [OpenAPI reference](/api-reference)
+
+## 🧰 SDK & CLI
+
+* [SDK](sdk/README.md)
+`;
+
+describe('tabs — API tab owns its URL prefix', () => {
+  const tabs = tabsFromNav(parseSummary(SCALAR_SUMMARY));
+  const api = tabs.findIndex((t) => t.label === 'API');
+
+  test('the API tab links straight to the Scalar reference', () => {
+    expect(api).toBe(1);
+    expect(tabs[api].href).toBe('/api-reference');
+    expect(tabs[api].routes).toEqual(['/api-reference']);
+  });
+
+  test('every tab owns the prefixes derived from its label and first href', () => {
+    expect(tabs[api].prefixes).toEqual(['/api-reference', '/api']);
+    expect(tabs[2].prefixes).toEqual(['/sdk', '/sdk-cli']);
+    expect(tabs[0].prefixes).toEqual(['/docs']);
+  });
+
+  test('an unlisted api/* page still activates the API tab, not Docs', () => {
+    expect(activeTabIndex(tabs, '/api')).toBe(api);
+    expect(activeTabIndex(tabs, '/api/claims/endpoints')).toBe(api);
+    expect(activeTabIndex(tabs, '/api/sign-in/callback')).toBe(api);
+    expect(activeTabIndex(tabs, '/api-reference')).toBe(api);
+  });
+
+  test('a prefix match still needs a segment boundary', () => {
+    expect(activeTabIndex(tabs, '/apis-are-great')).toBe(0);
+    expect(activeTabIndex(tabs, '/sdk/types')).toBe(2);
+  });
+
+  test('legacy nav: the appended API Reference tab owns /api-reference only', () => {
+    const legacy = tabsFromNav(parseSummary(OLD_SUMMARY));
+    expect(legacy.at(-1)!.prefixes).toEqual(['/api-reference']);
+  });
+});

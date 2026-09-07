@@ -209,7 +209,7 @@ export function SearchDialog({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--bg-raised)] px-2.5 text-left text-[var(--fg-faint)] transition hover:border-[var(--border-strong)] sm:w-64 sm:flex-none"
+        className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--bg-raised)] px-2.5 text-left text-[var(--fg-faint)] transition hover:border-[var(--border-strong)] sm:w-64 sm:flex-none lg:w-44 xl:w-64"
       >
         <SearchIcon className="h-4 w-4 shrink-0" />
         <span className="flex-1 truncate text-sm">Search docs…</span>

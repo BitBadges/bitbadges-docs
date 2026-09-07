@@ -6,6 +6,8 @@ description: "Bookmark pagination and the views object in BitBadges API response
 
 Paginated routes return a `bookmark` and `hasMore`. Pass the bookmark back to get the next page. Some routes (accounts, collections) group several paginated lists into one `views` object.
 
+This page is also part of the [API reference](/api-reference).
+
 ## Example
 
 ```bash

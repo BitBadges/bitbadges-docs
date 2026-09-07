@@ -6,6 +6,8 @@ description: "How claims work. Plugins, indexed versus on-demand, claim numbers,
 
 A claim is an off-chain criteria check hosted by BitBadges: meet the criteria, receive the reward. Claims run airdrops, whitelist mints, code redemptions, attendance rewards, and any flow where a user must qualify before receiving tokens or access. No contract or frontend code is required.
 
+This page is also part of the [API reference](/api-reference).
+
 ## Example
 
 ```ts

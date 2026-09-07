@@ -8,6 +8,7 @@ import { activeTabIndex, API_REFERENCE_ROUTE, type NavTab } from '@/lib/docs/tab
 import { CloseIcon, MenuIcon } from './Icons';
 import { SearchDialog } from './SearchDialog';
 import { Sidebar } from './Sidebar';
+import { SocialLinks } from './SocialLinks';
 import { ThemeToggle } from './ThemeToggle';
 
 export type ShellProps = {
@@ -24,7 +25,7 @@ function Wordmark({ basePath }: { basePath: string }) {
       <img src={`${basePath}/bitbadges-logo.svg`} alt="" width={26} height={26} className="h-[1.6rem] w-[1.6rem]" />
       <span className="hidden text-[0.95rem] font-bold tracking-tight sm:inline">
         <span className="wordmark hidden sm:inline">BitBadges</span>
-        <span className="ml-1.5 hidden font-medium text-[var(--fg-faint)] lg:inline">Docs</span>
+        <span className="ml-1.5 hidden font-medium text-[var(--fg-faint)] xl:inline">Docs</span>
       </span>
     </Link>
   );
@@ -93,6 +94,8 @@ export function Shell({ tabs, basePath, searchIndexUrl, children }: ShellProps) 
           </nav>
 
           <div className="ml-auto flex min-w-0 items-center justify-end gap-2">
+            {/* Below lg the icons live in the drawer so the bar keeps fitting. */}
+            <SocialLinks className="hidden lg:flex" />
             {/* On the API reference, Scalar owns ⌘K for searching operations. */}
             <SearchDialog indexUrl={searchIndexUrl} basePath={basePath} enabled={!onApiReference} />
             <ThemeToggle />
@@ -137,6 +140,8 @@ export function Shell({ tabs, basePath, searchIndexUrl, children }: ShellProps) 
             </div>
 
             <Sidebar tabs={tabs} onNavigate={() => setMenuOpen(false)} />
+
+            <SocialLinks className="mt-2 border-t border-[var(--border)] pt-5" />
           </div>
         </div>
       )}

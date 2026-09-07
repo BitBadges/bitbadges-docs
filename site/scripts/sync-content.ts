@@ -11,7 +11,7 @@ import path from 'node:path';
 
 import { docsConfig } from '../src/lib/docs/config';
 import { buildSearchRecords, MEDIA_EXTENSIONS } from '../src/lib/docs/content';
-import { sanitizeOpenApi } from '../src/lib/docs/openapi';
+import { API_FOLD, foldApiDocs, foldedPageFiles, sanitizeOpenApi } from '../src/lib/docs/openapi';
 import { loadRedirects } from '../src/lib/docs/redirects';
 
 const publicDir = path.resolve(process.cwd(), 'public');
@@ -50,7 +50,22 @@ async function syncAssets(dir = '.'): Promise<number> {
   return copied;
 }
 
-/** Place the sanitized OpenAPI document where the API reference page can fetch it. */
+/** The API tab's markdown, keyed by content-relative path, for the fold. */
+async function loadApiPages(): Promise<Map<string, string>> {
+  const pages = new Map<string, string>();
+  for (const file of foldedPageFiles(API_FOLD)) {
+    pages.set(file, await fs.readFile(path.join(docsConfig.contentDir, file), 'utf8'));
+  }
+  return pages;
+}
+
+/**
+ * Fold the API tab's markdown into the spec, sanitize it, and place it where
+ * the API reference page can fetch it. The fold builds `info.description` as
+ * one `# Overview` plus a `#` section per page, so the sanitizer's
+ * `groupDescriptionUnder` (which wraps and demotes everything) is not applied
+ * on top — that would push every folded section out of Scalar's sidebar.
+ */
 async function syncOpenApi(): Promise<string> {
   const candidates = [
     process.env.DOCS_OPENAPI_SOURCE,
@@ -61,7 +76,10 @@ async function syncOpenApi(): Promise<string> {
   for (const candidate of candidates) {
     if (await fs.access(candidate).then(() => true).catch(() => false)) {
       const source = JSON.parse(await fs.readFile(candidate, 'utf8'));
-      const { spec, report } = sanitizeOpenApi(source, { groupDescriptionUnder: 'Overview' });
+      const pages = await loadApiPages();
+      const { spec: folded, report: fold } = foldApiDocs(source, pages, { basePath: docsConfig.basePath });
+      const { spec, report } = sanitizeOpenApi(folded);
+      console.log(`openapi: folded ${pages.size} api/ page(s) into info.description and tag(s) ${fold.tags.join(', ')}`);
 
       await fs.mkdir(publicDir, { recursive: true });
       await fs.writeFile(path.join(publicDir, 'openapi.json'), JSON.stringify(spec));

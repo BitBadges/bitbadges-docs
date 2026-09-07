@@ -18,6 +18,12 @@ export type NavTab = {
   groups: NavGroup[];
   /** Every internal route the tab owns, used for prefix matching. */
   routes: string[];
+  /**
+   * URL prefixes the tab also owns: the first segment of its href plus a slug
+   * of its label. Lets pages that are served but not listed in SUMMARY.md
+   * (the api/* sources behind the Scalar reference) still light up their tab.
+   */
+  prefixes: string[];
 };
 
 export const API_REFERENCE_ROUTE = '/api-reference';
@@ -31,6 +37,22 @@ export function stripLeadingEmoji(title: string): string {
   return title.replace(LEADING_EMOJI, '').trim();
 }
 
+const slug = (label: string) =>
+  label
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+/** `/api-reference` from `/api-reference/x`, plus `/api` from the label `API`; root contributes nothing. */
+function prefixesFor(label: string, href: string): string[] {
+  const out: string[] = [];
+  const first = href.split('/')[1];
+  if (first) out.push(`/${first}`);
+  const fromLabel = slug(label);
+  if (fromLabel && !out.includes(`/${fromLabel}`)) out.push(`/${fromLabel}`);
+  return out;
+}
+
 export function tabsFromNav(groups: NavGroup[]): NavTab[] {
   const tabs: NavTab[] = [];
 
@@ -38,19 +60,22 @@ export function tabsFromNav(groups: NavGroup[]): NavTab[] {
     const routes = flattenNav([group]).map((n) => n.href);
     if (routes.length === 0) continue;
     const label = group.title ? stripLeadingEmoji(group.title) : 'Docs';
-    tabs.push({ label, short: label.split(/\s+/)[0], href: routes[0], groups: [group], routes });
+    const href = routes[0];
+    tabs.push({ label, short: label.split(/\s+/)[0], href, groups: [group], routes, prefixes: prefixesFor(label, href) });
   }
 
   const api = tabs.find((t) => t.label === API_TAB_LABEL);
   if (api) {
-    api.routes.push(API_REFERENCE_ROUTE);
+    if (!api.routes.includes(API_REFERENCE_ROUTE)) api.routes.push(API_REFERENCE_ROUTE);
   } else {
+    const label = 'API Reference';
     tabs.push({
-      label: 'API Reference',
+      label,
       short: 'API',
       href: API_REFERENCE_ROUTE,
       groups: [],
       routes: [API_REFERENCE_ROUTE],
+      prefixes: prefixesFor(label, API_REFERENCE_ROUTE),
     });
   }
 
@@ -64,7 +89,7 @@ function prefixLength(route: string, pathname: string): number {
 }
 
 /**
- * Index of the tab owning `pathname`: the longest route-prefix match on a
+ * Index of the tab owning `pathname`: the longest route- or prefix-match on a
  * segment boundary. The first tab owns `/` and anything no tab claims.
  */
 export function activeTabIndex(tabs: NavTab[], pathname: string): number {
@@ -73,7 +98,7 @@ export function activeTabIndex(tabs: NavTab[], pathname: string): number {
   let bestLength = -1;
 
   tabs.forEach((tab, index) => {
-    for (const route of tab.routes) {
+    for (const route of [...tab.routes, ...tab.prefixes]) {
       const length = prefixLength(route, clean);
       if (length > bestLength) {
         best = index;

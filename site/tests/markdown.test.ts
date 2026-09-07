@@ -102,6 +102,17 @@ describe('renderDoc — GitBook blocks', () => {
     expect(doc.html).toContain('<strong>Careful</strong>');
   });
 
+  test('keeps prose colons literal instead of eating them as directives', async () => {
+    const doc = await renderDoc(
+      '# T\n\nSet "standards": ["NFTs", "NFTPricingDenom:ubadge"] and pay in badges:1:utoken.\n\n{% hint style="info" %}\nStill a callout.\n{% endhint %}',
+      opts,
+    );
+    expect(doc.html).toContain('"NFTPricingDenom:ubadge"]');
+    expect(doc.html).toContain('badges:1:utoken');
+    expect(doc.html).toContain('data-callout="info"');
+    expect(doc.html).toContain('Still a callout.');
+  });
+
   test('renders a content-ref as a card linking to the resolved route', async () => {
     const doc = await renderDoc(
       '# T\n\n{% content-ref url="cli/installation.md" %}\n[installation](cli/installation.md)\n{% endcontent-ref %}',

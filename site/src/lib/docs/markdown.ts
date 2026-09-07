@@ -22,6 +22,7 @@ import { toString as hastToString } from 'hast-util-to-string';
 import type { Root as HastRoot, Element } from 'hast';
 import type { Root as MdastRoot } from 'mdast';
 
+import { applyCodeFolds, deserializeRanges, foldRangesFor, serializeRanges } from './fold';
 import { gitbookToDirectives } from './gitbook';
 import { resolveAssetPath, resolveDocLink } from './paths';
 
@@ -74,6 +75,62 @@ function mdastText(node: unknown): string {
     if (child.type === 'text' || child.type === 'inlineCode') out += child.value ?? '';
   });
   return out.trim();
+}
+
+const GITBOOK_DIRECTIVES = new Set(['hint', 'content-ref', 'embed', 'file']);
+
+/**
+ * Turn directives the corpus never authored back into the text they came from.
+ *
+ * remark-directive reads any `:word` in prose as a text directive and would
+ * drop it, so `badges:1:utoken` lost its `:utoken`. Only the directives
+ * `gitbook.ts` emits are real; everything else is restored verbatim from the
+ * source, so children keep the markdown they were written with.
+ */
+function remarkLiteralDirectives() {
+  return (tree: MdastRoot, file: { value?: unknown }) => {
+    const source = String(file.value ?? '');
+    visit(tree, (node: any, index, parent: any) => {
+      if (!parent || index === undefined) return;
+      const kind = node.type as string;
+      if (!kind.endsWith('Directive') || GITBOOK_DIRECTIVES.has(node.name)) return;
+
+      const start = node.position?.start?.offset;
+      const end = node.position?.end?.offset;
+      const raw = start !== undefined && end !== undefined ? source.slice(start, end) : undefined;
+
+      if (kind === 'textDirective') {
+        const text = raw ?? `:${node.name}`;
+        parent.children.splice(index, 1, { type: 'text', value: text });
+        return index + 1;
+      }
+
+      // Leaf and container directives are block-level: keep the body and show
+      // the opener (and closer) lines as plain paragraphs.
+      const colons = kind === 'leafDirective' ? '::' : ':::';
+      const firstLine = raw?.split('\n')[0] ?? `${colons}${node.name}`;
+      const opener = { type: 'paragraph', children: [{ type: 'text', value: firstLine }] };
+      const closer = { type: 'paragraph', children: [{ type: 'text', value: ':::' }] };
+      const replacement = kind === 'leafDirective' ? [opener] : [opener, ...node.children, closer];
+      parent.children.splice(index, 1, ...replacement);
+      return index + replacement.length;
+    });
+  };
+}
+
+/**
+ * Carry the fence info string (`fold=12-40`, `nofold`) through to hast.
+ *
+ * remark-rehype stores it on `data.meta`, which rehype-raw discards; an
+ * element property survives the round trip.
+ */
+function remarkCodeMeta() {
+  return (tree: MdastRoot) => {
+    visit(tree, 'code', (node: any) => {
+      if (!node.meta) return;
+      node.data = { ...node.data, hProperties: { ...node.data?.hProperties, 'data-meta': node.meta } };
+    });
+  };
 }
 
 /** Map GitBook-derived directives onto the elements the stylesheet knows about. */
@@ -175,11 +232,20 @@ function rehypeContentChrome() {
 
       const classes = (code.properties?.className ?? []) as string[];
       const lang = classes.map(String).find((c) => c.startsWith('language-'))?.slice(9) ?? 'text';
+      const meta = String(code.properties?.['data-meta'] ?? code.properties?.dataMeta ?? '');
+      delete code.properties?.['data-meta'];
+      delete code.properties?.dataMeta;
+      const source = hastToString(code).replace(/\n$/, '');
+      const folds = foldRangesFor(lang, meta, source);
 
       parent.children[index] = {
         type: 'element',
         tagName: 'figure',
-        properties: { 'data-code': '', 'data-code-source': hastToString(code).replace(/\n$/, '') },
+        properties: {
+          'data-code': '',
+          'data-code-source': source,
+          ...(folds.length ? { 'data-fold': serializeRanges(folds) } : {}),
+        },
         children: [
           {
             type: 'element',
@@ -199,6 +265,34 @@ function rehypeContentChrome() {
         ],
       };
       return 'skip';
+    });
+  };
+}
+
+/**
+ * Collapse the line ranges a figure asked for, once Shiki has split the code
+ * into `span.line` elements. Runs after Shiki because the ranges are computed
+ * from the raw source (before highlighting) but applied to the highlighted
+ * output.
+ */
+function rehypeCodeFolds() {
+  return (tree: HastRoot) => {
+    visit(tree, 'element', (figure: Element) => {
+      if (figure.tagName !== 'figure') return;
+      const spec = figure.properties?.['data-fold'] ?? figure.properties?.dataFold;
+      if (typeof spec !== 'string') return;
+      delete figure.properties['data-fold'];
+      delete figure.properties.dataFold;
+
+      // Shiki swaps the `pre` for a root fragment, so look through the subtree.
+      let code: Element | undefined;
+      visit(figure, 'element', (node: Element) => {
+        if (!code && node.tagName === 'code') code = node;
+      });
+      if (!code) return;
+
+      const folds = applyCodeFolds(code, deserializeRanges(spec));
+      if (folds > 0) figure.properties['data-folds'] = String(folds);
     });
   };
 }
@@ -256,6 +350,8 @@ export async function renderDoc(source: string, options: RenderOptions): Promise
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkDirective)
+    .use(remarkLiteralDirectives)
+    .use(remarkCodeMeta)
     .use(remarkExtractTitle, store)
     .use(remarkGitbookDirectives)
     .use(remarkRehype, { allowDangerousHtml: true })
@@ -282,6 +378,7 @@ export async function renderDoc(source: string, options: RenderOptions): Promise
         },
       ],
     })
+    .use(rehypeCodeFolds)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(gitbookToDirectives(content));
 

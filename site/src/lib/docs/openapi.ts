@@ -14,7 +14,11 @@
  *      reference cannot blank the whole page.
  *
  * The input document is never mutated.
+ *
+ * The second half of the file folds the API tab's markdown pages into the
+ * document (`foldApiDocs`), so the Scalar page reads as one place.
  */
+import { resolveDocLink } from './paths';
 
 type Json = Record<string, any>;
 
@@ -110,7 +114,7 @@ function cutSelfReference(node: unknown, owner: string): { value: unknown; cut: 
 const MAX_HEADING_DEPTH = 6;
 
 /** Demote every markdown heading by one level, ignoring fenced code blocks. */
-function demoteHeadings(markdown: string): string {
+export function demoteHeadings(markdown: string): string {
   const lines = markdown.split('\n');
   let fence: string | null = null;
 
@@ -200,4 +204,194 @@ export function sanitizeOpenApi<T extends Json>(
       stubbedRefs: stubbedRefs.sort(),
     },
   };
+}
+
+/* ==========================================================================
+   Folding the API tab's markdown into the OpenAPI document
+
+   The API tab is the Scalar reference. The prose pages under `api/` stay on
+   disk (redirect targets, agent-readable source) but the reader meets them
+   inside Scalar: the top-level pages become sections of `info.description`,
+   the claims and sign-in groups become their tag's description.
+   ========================================================================== */
+
+export type FoldPage = { file: string; title?: string };
+
+export type ApiFold = {
+  /** First entry is the introduction; the rest become top-level sections. */
+  intro: FoldPage[];
+  /** Tag name -> pages; the first is the lead, the rest become `##` sections. */
+  tags: Record<string, FoldPage[]>;
+};
+
+export const API_FOLD: ApiFold = {
+  intro: [
+    { file: 'api/README.md', title: 'Overview' },
+    { file: 'api/pagination-and-views.md' },
+    { file: 'api/swaps.md' },
+    { file: 'api/self-hosting.md' },
+  ],
+  tags: {
+    Claims: [
+      { file: 'api/claims/README.md' },
+      // Its H1 is "Claims" like the lead page; name the section by its role.
+      { file: 'api/claims/endpoints.md', title: 'Endpoints' },
+      { file: 'api/claims/plugins.md' },
+      { file: 'api/claims/dynamic-stores.md' },
+    ],
+    'Sign In with BitBadges': [
+      { file: 'api/sign-in/README.md' },
+      { file: 'api/sign-in/setup.md' },
+      { file: 'api/sign-in/authorization-url.md' },
+      { file: 'api/sign-in/callback.md' },
+      { file: 'api/sign-in/verification.md' },
+      { file: 'api/sign-in/frameworks.md' },
+    ],
+  },
+};
+
+/** Every content-relative file the fold consumes. */
+export function foldedPageFiles(fold: ApiFold): string[] {
+  return [...fold.intro, ...Object.values(fold.tags).flat()].map((p) => p.file);
+}
+
+const FENCE = /^\s{0,3}(`{3,}|~{3,})/;
+
+/** Apply `fn` to each line outside fenced code blocks. */
+function mapProse(markdown: string, fn: (line: string) => string): string {
+  let fence: string | null = null;
+  return markdown
+    .split('\n')
+    .map((line) => {
+      const fenceMatch = FENCE.exec(line);
+      if (fenceMatch) {
+        const marker = fenceMatch[1][0];
+        if (fence === null) fence = marker;
+        else if (marker === fence) fence = null;
+        return line;
+      }
+      return fence === null ? fn(line) : line;
+    })
+    .join('\n');
+}
+
+const MARKDOWN_LINK = /\]\(([^()\s]+)((?:\s+"[^"]*")?)\)/g;
+
+/**
+ * Rewrite relative markdown links authored in `fromFile` to absolute site
+ * routes so they work from inside the Scalar page. External links and
+ * anchors pass through; internal routes get the mount `basePath`.
+ */
+export function rewriteMarkdownLinks(fromFile: string, markdown: string, basePath = ''): string {
+  return mapProse(markdown, (line) =>
+    line.replace(MARKDOWN_LINK, (_m, target: string, title: string) => {
+      const resolved = resolveDocLink(fromFile, target);
+      const mounted =
+        basePath && resolved.startsWith('/') && !resolved.startsWith('//') ? `${basePath}${resolved}` : resolved;
+      return `](${mounted}${title})`;
+    }),
+  );
+}
+
+const ALSO_IN_REFERENCE = /^This page is also part of the \[API reference\]\([^)]*\)\.$/;
+const LIQUID_TAG = /^\s*\{%\s*(\w+)[^%]*%\}\s*$/;
+
+/** GitBook hints become blockquotes; any other liquid tag line is dropped. */
+function liquidToMarkdown(markdown: string): string {
+  let inHint = false;
+  const DROP = ' ';
+  return mapProse(markdown, (line) => {
+    const tag = LIQUID_TAG.exec(line);
+    if (tag) {
+      if (tag[1] === 'hint') inHint = true;
+      else if (tag[1] === 'endhint') inHint = false;
+      return DROP;
+    }
+    return inHint ? `> ${line}`.trimEnd() : line;
+  })
+    .split('\n')
+    .filter((line) => line !== DROP)
+    .join('\n');
+}
+
+export type FoldedPage = { title: string; body: string };
+
+/**
+ * Turn one markdown page into a fold-ready section: front matter and the H1
+ * gone, links absolute, hints as blockquotes, comments and the "also part of
+ * the API reference" pointer removed. Headings keep their authored level.
+ */
+export function prepareFoldedPage(file: string, source: string, title?: string, basePath = ''): FoldedPage {
+  let body = source.replace(/^---\n[\s\S]*?\n---\n/, '');
+  body = body.replace(/<!--[\s\S]*?-->/g, '');
+
+  const h1 = /^\s{0,3}#\s+(.+?)\s*$/m.exec(body);
+  if (h1) body = body.replace(h1[0], '');
+  const resolvedTitle = title ?? h1?.[1] ?? file;
+
+  body = mapProse(body, (line) => (ALSO_IN_REFERENCE.test(line.trim()) ? '' : line));
+  body = liquidToMarkdown(body);
+  body = rewriteMarkdownLinks(file, body, basePath);
+  body = body.replace(/\n{3,}/g, '\n\n').trim();
+
+  return { title: resolvedTitle, body };
+}
+
+export type FoldReport = {
+  /** Tags whose description now carries folded pages. */
+  tags: string[];
+};
+
+export type FoldOptions = { fold?: ApiFold; basePath?: string };
+
+function requirePage(pages: Map<string, string>, file: string): string {
+  const source = pages.get(file);
+  if (source === undefined) throw new Error(`openapi fold: missing page ${file}`);
+  return source;
+}
+
+/**
+ * Replace `info.description` and the chosen tag descriptions with the API
+ * tab's markdown.
+ *
+ * `info.description` starts with an `# Overview` section, followed by one `#`
+ * section per remaining intro page. Scalar makes the lowest heading level the
+ * sidebar sections and the next level their children, so the reader sees
+ * Overview, Pagination and views, Swaps, Self-hosting — each expandable to
+ * its `##` headings — above the tags. Tag descriptions are the lead page's
+ * body followed by `## <title>` sections, headings demoted to fit underneath.
+ *
+ * Throws when a page or tag is missing: nothing may silently disappear.
+ */
+export function foldApiDocs<T extends Json>(
+  input: T,
+  pages: Map<string, string>,
+  options: FoldOptions = {},
+): { spec: T; report: FoldReport } {
+  const fold = options.fold ?? API_FOLD;
+  const basePath = options.basePath ?? '';
+  const spec = structuredClone(input) as Json;
+
+  const prepare = (page: FoldPage) =>
+    prepareFoldedPage(page.file, requirePage(pages, page.file), page.title, basePath);
+
+  spec.info ??= {};
+  spec.info.description = fold.intro
+    .map(prepare)
+    .map((page) => `# ${page.title}\n\n${page.body}`)
+    .join('\n\n');
+
+  const tags: Json[] = Array.isArray(spec.tags) ? spec.tags : [];
+  const folded: string[] = [];
+  for (const [name, group] of Object.entries(fold.tags)) {
+    const tag = tags.find((t) => t.name === name);
+    if (!tag) throw new Error(`openapi fold: tag "${name}" is not in the OpenAPI document`);
+    const [lead, ...rest] = group.map(prepare);
+    tag.description = [lead.body, ...rest.map((page) => `## ${page.title}\n\n${demoteHeadings(page.body)}`)].join(
+      '\n\n',
+    );
+    folded.push(name);
+  }
+
+  return { spec: spec as T, report: { tags: folded } };
 }

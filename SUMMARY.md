@@ -155,21 +155,7 @@
 
 ## API
 
-* [BitBadges API](api/README.md)
 * [OpenAPI reference](/api-reference)
-* [Pagination and views](api/pagination-and-views.md)
-* [Swaps](api/swaps.md)
-* [Claims](api/claims/README.md)
-  * [Endpoints](api/claims/endpoints.md)
-  * [Plugins](api/claims/plugins.md)
-  * [Dynamic stores](api/claims/dynamic-stores.md)
-* [Sign In with BitBadges](api/sign-in/README.md)
-  * [Set up an app](api/sign-in/setup.md)
-  * [Authorization URL](api/sign-in/authorization-url.md)
-  * [Callback](api/sign-in/callback.md)
-  * [Verification](api/sign-in/verification.md)
-  * [Frameworks](api/sign-in/frameworks.md)
-* [Self-hosting the indexer](api/self-hosting.md)
 
 ## SDK & CLI
 

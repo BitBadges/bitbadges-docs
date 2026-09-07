@@ -48,15 +48,69 @@ endpoint (`docs.bitbadges.io/~gitbook/mcp`), which stopped existing at cutover.
 References to it have been removed from the corpus. The repo already publishes
 `llms.txt` and `for-llms.txt` for agent consumption.
 
+## Code folds
+
+Long JSON examples are mostly boilerplate. A fence can collapse line ranges,
+GitHub-review style, into a row reading `··· 29 lines hidden (12-40)` that opens
+on click:
+
+````markdown
+```json fold=12-40,55-80
+```
+````
+
+Ranges are 1-based and inclusive; `fold="12-40"` also works. `json` and `jsonc`
+blocks longer than 40 lines fold automatically: every run of six or more
+"boilerplate" lines (`[]`, `{}`, `false`, `"0"`, `""`, `0`, bare brackets, and
+full-range `18446744073709551615` time objects) collapses, except the first and
+last two lines and lines keyed `approvalId`, `collectionId`, `fromListId`,
+`toListId`, `initiatedByListId`, `amount`, or `uri`. `nofold` turns that off for
+a block; an explicit `fold=` replaces it. Folds are native `<details>` elements
+(no script), the copy button always copies the full source, and the figure
+carries `data-folds="n"`. The heuristic is `autoFoldRanges` in
+`src/lib/docs/fold.ts`.
+
 ## Tabs
 
 `src/lib/docs/tabs.ts` turns the `##` groups of `SUMMARY.md` into top tabs: label
 = group title minus its leading emoji, link = the group's first internal page,
 phone label = the first word. The active tab is the longest route-prefix match
-of the current path against the tab's pages; the first tab owns `/` and any
-page no tab claims. The sidebar, the mobile drawer and prev/next pagination all
-show only the active tab. `/api-reference` belongs to the tab labelled `API`
-when the SUMMARY has one, otherwise it is appended as its own trailing tab.
+of the current path against the tab's pages *and* its `prefixes` (the first
+segment of its href plus a slug of its label, so the `API` tab owns `/api` and
+`/api-reference`); the first tab owns `/` and any page no tab claims. The
+sidebar, the mobile drawer and prev/next pagination all show only the active
+tab. `/api-reference` belongs to the tab labelled `API` when the SUMMARY has
+one, otherwise it is appended as its own trailing tab.
+
+## The API tab is Scalar
+
+The `## API` group in `SUMMARY.md` is a single entry, `/api-reference`, so the
+tab lands on the Scalar reference and nothing else is listed. The markdown
+under `api/` stays on disk and stays served (redirect targets, and the source
+agents read), but it is not in the sidebar: an unlisted `api/*` page shows the
+API group (just the reference link) and no prev/next.
+
+At `sync`, `foldApiDocs` (in `src/lib/docs/openapi.ts`) folds those pages into
+the OpenAPI document so everything reads in one place inside Scalar:
+
+| Markdown | Lands in |
+| --- | --- |
+| `api/README.md` | `info.description`, as `# Overview` |
+| `api/pagination-and-views.md`, `api/swaps.md`, `api/self-hosting.md` | `info.description`, one `# <title>` section each |
+| `api/claims/{README,endpoints,plugins,dynamic-stores}.md` | the `Claims` tag description (lead body, then `## <title>` sections) |
+| `api/sign-in/{README,setup,authorization-url,callback,verification,frameworks}.md` | the `Sign In with BitBadges` tag description |
+
+Scalar turns the lowest heading level of `info.description` into sidebar
+sections and the next level into their children, so the reader sees Overview,
+Pagination and views, Swaps and Self-hosting above the tags. Because the fold
+already shapes the description, `sync` no longer passes
+`groupDescriptionUnder` to the sanitizer (the option still works for an
+unfolded spec). While folding, front matter and the H1 are dropped, relative
+links become absolute site routes (with `DOCS_BASE_PATH`), `{% hint %}` blocks
+become blockquotes, HTML comments and the "also part of the API reference"
+pointer line are removed. The fold list is `API_FOLD`; a test fails if a page
+appears under `api/` that is not in it, and the fold throws if a page or tag is
+missing.
 
 ## Redirects
 
@@ -170,6 +224,7 @@ site/
 │       ├── tabs.ts               ## groups -> top tabs, active-tab matching
 │       ├── redirects.ts          _docs/redirects/*.tsv -> redirects.json
 │       ├── gitbook.ts            liquid blocks -> directives
+│       ├── fold.ts               collapsible line ranges in code blocks
 │       ├── markdown.ts           the render pipeline
 │       ├── openapi.ts            Stoplight-parity spec sanitizer
 │       └── content.ts            filesystem access + search records

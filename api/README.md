@@ -6,6 +6,8 @@ description: "The BitBadges API in one page. Base URL, API keys, credits and pri
 
 The BitBadges API is the hosted REST service at `https://api.bitbadges.io` that indexes the chain and adds off-chain features (claims, sign in, metadata, search). Use it from any backend with an API key.
 
+This page is also part of the [API reference](/api-reference).
+
 ## Example
 
 ```bash

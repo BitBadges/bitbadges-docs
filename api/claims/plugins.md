@@ -6,6 +6,8 @@ description: "Every claim plugin id with its parameters, state, and where it run
 
 A claim is a list of plugin instances. Each plugin checks one criterion and reports pass or fail. This page is the reference for the built-in plugin ids and for the HTTP contract that custom plugins implement. The tutorial for writing one is [Build a claim plugin](../../guides/build-a-claim-plugin.md).
 
+This page is also part of the [API reference](/api-reference).
+
 ## Look up any plugin
 
 ```bash
