@@ -51,14 +51,12 @@ The build prints a review to stderr, then writes the file:
 
 ```text
 ━━━ Review ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  ■ CRITICAL  review.audit.supply.mint_approvals_can_be_modified_unlimited_supply_risk
-  ■ CRITICAL  review.ux.forceful_transfers_not_locked
-  Summary  2 critical  ·  1 warning  ·  3 info  ·  verdict: fail
+  Summary  0 critical  ·  2 warning  ·  3 info  ·  verdict: warn
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Written to tx.json
 ```
 
-Two critical findings on a fresh build is expected. Read the next step before you react to them.
+Zero critical findings. The warning and info entries are advisory; step 2 shows how to read them.
 
 The file holds the universal envelope. `data` is the message; `hint` is the next command:
 
@@ -68,7 +66,7 @@ The file holds the universal envelope. `data` is the message; `hint` is the next
   "data": { "typeUrl": "/tokenization.MsgCreateCollection", "value": { "creator": "bb1w63np…", "…": "…" } },
   "warnings": [],
   "hint": "Next: bb check tx.json && bb preview tx.json --open — audits it, then opens the browser to review and sign.",
-  "meta": { "review": { "summary": { "critical": 2, "warning": 1, "info": 3, "verdict": "fail" } } },
+  "meta": { "review": { "summary": { "critical": 0, "warning": 2, "info": 3, "verdict": "warn" } } },
   "error": null
 }
 ```
@@ -81,23 +79,41 @@ bb check tx.json
 
 ```json
 {
-  "ok": false,
-  "data": null,
-  "hint": "Fix the reported errors and critical findings (each carries a recommendation), then re-run `bb check`. Do not preview or deploy a transaction that fails here.",
-  "error": { "code": "review_critical", "message": "Check failed: 2 critical review finding(s)." }
+  "ok": true,
+  "data": { "review": { "summary": { "critical": 0, "warning": 2, "info": 3, "verdict": "warn" }, "findings": ["…"] } },
+  "warnings": [],
+  "error": null
 }
 ```
 
-Exit code 2. The full review is in `meta.review`. The two critical findings, with their recommendations:
+Exit code 0. A `warn` verdict means nothing blocks signing. Read the warning anyway; it tells you a permission is neutral, which is a choice the manager still holds.
+
+The builder locks the mint (faucet) approval forever by default. Nobody, including the manager, can re-point it after launch, so the token supply cannot be quietly changed. Every other approval stays editable.
+
+**Need to change the price later?** The price lives in that faucet approval, so locking it freezes the price too. Build with the opt-out:
+
+```bash
+bb build subscription … --updatable-mint --output-file tx.json && bb check tx.json
+```
+
+```json
+{
+  "ok": false,
+  "data": null,
+  "hint": "Fix the reported errors and critical findings (each carries a recommendation), then re-run `bb check`. Do not preview or deploy a transaction that fails here.",
+  "error": { "code": "review_critical", "message": "Check failed: 1 critical review finding(s)." }
+}
+```
+
+Exit code 2, and the one critical finding is the one you chose:
 
 | Finding | What it means | Recommendation |
 | --- | --- | --- |
-| Mint approvals can be modified | The manager can edit the mint approval later, including its price. | Lock `canUpdateCollectionApprovals` for `fromListId: "Mint"` if the price must never change. |
-| Forceful transfers are not permanently blocked | The manager could move tokens out of a member's wallet. | Set `invariants.noForcefulPostMintTransfers = true` at creation. It cannot be toggled later. |
+| Mint approvals can be modified , UNLIMITED SUPPLY RISK | The manager can edit the faucet later, including its price, and could also re-point it to mint for free. | Lock canUpdateCollectionApprovals for mint-related approvals (fromListId: "Mint"). Use scoped approval permissions to lock mint while allowing transfer approval updates if needed. |
 
-These are decisions, not bugs. For a subscription whose price you expect to raise, an updatable mint approval is the point. The reviewer does not know your intent, so it flags anything a manager could abuse. Decide each one, edit `tx.json` if you want the lock, and re-run `bb check` until the verdict is what you meant.
+That is not a bug. The reviewer does not know your intent, so it flags anything a manager could abuse and leaves the decision to you. `bb check` fails so the choice is visible to whoever signs. If you mean it, preview and sign anyway; the site shows the same finding.
 
-`bb explain tx.json` prints the same transaction in plain English if the review text is too dense.
+`bb explain tx.json` prints the transaction in plain English if the review text is too dense.
 
 ### 3. Simulate
 

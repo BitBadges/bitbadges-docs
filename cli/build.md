@@ -197,6 +197,7 @@ bb build subscription --interval monthly --price 10 --denom USDC \
 | `--payouts <json>` | no | Several payouts: `[{"recipient":"bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d","amount":"7","denom":"USDC"},{"recipient":"bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf","amount":"3","denom":"USDC"}]` |
 | `--tiers <n>` | no | Number of tiers (default `1`) |
 | `--transferable` | no | Allow post-mint transfers between users |
+| `--updatable-mint` | no | Keep the mint (faucet) approval editable so the price can change later. Off by default: the faucet is locked forever, which is what `bb check` requires to pass. Opting in makes `bb check` fail with one critical finding, on purpose |
 
 There is no `bb build recurring-payment`. A subscriber's recurring approval derives from the live collection; use `bb subscriptions subscribe` or `bb subscriptions enable-renewal`.
 
