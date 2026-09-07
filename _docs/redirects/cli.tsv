@@ -1,0 +1,15 @@
+/for-developers/cli	/cli
+/for-developers/cli/installation	/cli
+/for-developers/cli/build-commands	/cli/build
+/for-developers/cli/analysis-commands	/cli/analyze
+/for-developers/cli/deploy-commands	/cli/deploy
+/for-developers/cli/tx-commands	/cli/deploy
+/for-developers/cli/sign-bridge	/cli/deploy
+/for-developers/cli/standards-commands	/cli/standards
+/for-developers/cli/api-commands	/cli/api
+/for-developers/cli/auth-commands	/cli/auth
+/for-developers/cli/utility-commands	/cli/account
+/for-developers/cli/tool-commands	/cli/dev
+/for-developers/cli/chain-commands	/cli/chain
+/for-developers/bitbadges-sdk/cli	/cli
+/for-developers/bitbadges-blockchain/create-and-broadcast-txs/chain-cli	/cli/chain

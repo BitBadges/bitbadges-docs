@@ -5,6 +5,10 @@
   "type": "module",
   "scripts": {
     "sync": "bun scripts/sync-content.ts",
+    "gen:sdk": "bun scripts/gen-sdk-reference.ts",
+    "gen:proto": "bun scripts/gen-proto-reference.ts",
+    "gen:chain-openapi": "bun scripts/gen-chain-openapi.ts",
+    "gen:llms": "bun scripts/gen-llms.ts",
     "predev": "bun run sync",
     "dev": "next dev",
     "prebuild": "bun run sync",
@@ -41,6 +45,8 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.7",
     "tailwindcss": "4.3.3",
+    "typedoc": "0.28.20",
+    "typedoc-plugin-markdown": "4.13.0",
     "typescript": "6.0.3"
   }
 }

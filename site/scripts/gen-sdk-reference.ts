@@ -1,0 +1,468 @@
+/**
+ * Regenerate the in-site TypeScript SDK reference under sdk/reference/ from the
+ * bitbadgesjs SDK source, replacing the TypeDoc HTML that used to be published
+ * to bitbadges.github.io/bitbadgesjs.
+ *
+ *   BITBADGESJS_DIR=../../bitbadgesjs bun scripts/gen-sdk-reference.ts
+ *
+ * BITBADGESJS_DIR is resolved relative to site/ and defaults to ../../bitbadgesjs
+ * (a sibling checkout of bitbadgesjs next to this repo), matching gen-skills.ts.
+ *
+ * TypeDoc + typedoc-plugin-markdown produce the raw tree; everything after that
+ * is the post-processing that makes it a citizen of this corpus:
+ *
+ *   - breadcrumbs stripped so the H1 is the first block (renderDoc lifts it as
+ *     the page title), and any later H1 demoted so each page has exactly one
+ *   - `description:` frontmatter per page, so search and page metadata work
+ *   - relative `*.md` links rewritten to absolute `/sdk/reference/...` routes,
+ *     and links to pages we do not emit unlinked rather than left dangling
+ *   - filenames normalised to lowercase-kebab (TypeDoc mixes `BitBadgesAPI`,
+ *     `iGetAccountPayload`, `NumberType`), which also keeps routes stable
+ *     between the case-insensitive dev machines and the Linux build image
+ *   - a `README.md` index per group, so the nav can point at a group without
+ *     listing all ~1600 symbol pages
+ *
+ * The vendored protobuf namespace tree (`proto.cosmos`, `proto.google`,
+ * `proto.tendermint`, ...) is dropped: it is another ~1600 pages of generated
+ * third-party scaffolding that doubles the corpus and the client search index
+ * for no BitBadges-specific value. Symbols the SDK exports at top level are
+ * kept, protobuf-generated ones included.
+ */
+import { spawn } from 'node:child_process';
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+
+const siteDir = path.resolve(import.meta.dir, '..');
+const repoRoot = path.resolve(siteDir, '..');
+const sdkDir = path.resolve(siteDir, process.env.BITBADGESJS_DIR ?? '../../bitbadgesjs');
+const packageDir = path.join(sdkDir, 'packages/bitbadgesjs-sdk');
+const outDir = path.join(repoRoot, 'sdk/reference');
+
+/** Site route the emitted tree is served from. */
+const ROUTE_ROOT = '/sdk/reference';
+
+/** Top-level TypeDoc output directories dropped before post-processing. */
+const DROPPED_DIRS = new Set([
+  // `export * as proto` re-exports the vendored cosmos/tendermint/google/ibc
+  // protobuf trees; TypeDoc documents every one of them a second time here.
+  'bitbadges',
+  // TypeDoc's copy of files a comment linked to (AI_AGENT_GUIDE.md and friends).
+  '_media',
+]);
+
+/** Human labels for the group index pages, keyed by output directory. */
+const GROUP_LABELS: Record<string, { plural: string; singular: string }> = {
+  classes: { plural: 'Classes', singular: 'class' },
+  interfaces: { plural: 'Interfaces', singular: 'interface' },
+  functions: { plural: 'Functions', singular: 'function' },
+  'type-aliases': { plural: 'Type aliases', singular: 'type alias' },
+  variables: { plural: 'Variables', singular: 'variable' },
+  enumerations: { plural: 'Enumerations', singular: 'enumeration' },
+};
+
+/** One line per group for the landing page's browse table. */
+const GROUP_BLURBS: Record<string, string> = {
+  classes: 'Everything with behaviour: the API client, the signing client, wallet adapters, message builders, and the core value types.',
+  interfaces: 'The `iFoo` shapes each class accepts and returns — what you annotate parameters and responses with.',
+  functions: 'Standalone helpers: number conversion, address conversion and validation, range and balance maths.',
+  'type-aliases': 'Named unions and generics — `NumberType`, view keys, payload aliases.',
+  variables: 'Exported constants: network presets, well-known ids, default configs.',
+  enumerations: 'Closed sets the chain and API accept.',
+};
+
+/**
+ * The symbols a developer reaches for first, in the order they meet them.
+ *
+ * Rendered as the landing page's "Start here" table and mirrored one level
+ * deep under the SDK reference entry in SUMMARY.md, so a reader gets more than
+ * six group indexes in the sidebar without listing ~1600 pages. Every entry is
+ * checked against the generated tree — a rename upstream fails the generation
+ * instead of shipping a dead link.
+ */
+const START_HERE: { file: string; name: string; blurb: string }[] = [
+  { file: 'classes/bit-badges-api.md', name: 'BitBadgesAPI', blurb: 'The REST API client. Every indexer route hangs off this class.' },
+  {
+    file: 'classes/bit-badges-signing-client.md',
+    name: 'BitBadgesSigningClient',
+    blurb: 'Signs and broadcasts transactions: gas simulation, sequence retry, Cosmos and EVM paths.',
+  },
+  { file: 'interfaces/wallet-adapter.md', name: 'WalletAdapter', blurb: 'The signer contract the signing client takes. Implement it to plug in your own wallet.' },
+  { file: 'classes/generic-cosmos-adapter.md', name: 'GenericCosmosAdapter', blurb: 'Cosmos-side adapter: Keplr, Leap, or a mnemonic.' },
+  { file: 'classes/generic-evm-adapter.md', name: 'GenericEvmAdapter', blurb: 'EVM-side adapter: MetaMask, an ethers signer, or a mnemonic.' },
+  { file: 'classes/msg-create-collection.md', name: 'MsgCreateCollection', blurb: 'Create a collection.' },
+  { file: 'classes/msg-update-collection.md', name: 'MsgUpdateCollection', blurb: 'Update a collection you manage.' },
+  { file: 'classes/msg-transfer-tokens.md', name: 'MsgTransferTokens', blurb: 'Move tokens — the message behind mints, transfers and burns.' },
+  { file: 'classes/balance.md', name: 'Balance', blurb: 'An amount over a set of token ids for a set of ownership times.' },
+  { file: 'classes/uint-range.md', name: 'UintRange', blurb: 'An inclusive `start`–`end` range. Token ids, times and ids are all expressed with it.' },
+  { file: 'classes/transfer.md', name: 'Transfer', blurb: 'One `from` -> `toAddresses` movement inside a transfer message.' },
+  { file: 'classes/collection-approval.md', name: 'CollectionApproval', blurb: 'A collection-level approval and its criteria.' },
+  { file: 'type-aliases/number-type.md', name: 'NumberType', blurb: '`bigint \\| number \\| string` — the numeric layer every type is generic over.' },
+  { file: 'functions/big-intify.md', name: 'BigIntify', blurb: 'The converter to pass everywhere; keeps chain-scale numbers exact.' },
+  {
+    file: 'functions/convert-to-bit-badges-address.md',
+    name: 'convertToBitBadgesAddress',
+    blurb: 'Normalise any supported chain address to its `bb1…` form.',
+  },
+];
+
+const GENERATED_NOTE =
+  'This tree is generated by `site/scripts/gen-sdk-reference.ts` from the ' +
+  '[bitbadgesjs SDK source](https://github.com/BitBadges/bitbadgesjs/tree/master/packages/bitbadgesjs-sdk). ' +
+  'Do not hand-edit these pages — run `bun run gen:sdk` from `site/` instead.';
+
+/** `BitBadgesAPI` -> `bit-badges-api`, `iGetAccountPayload` -> `i-get-account-payload`. */
+export function kebab(name: string): string {
+  return name
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
+    .replace(/[^A-Za-z0-9]+/g, '-')
+    .toLowerCase()
+    .replace(/^-+|-+$/g, '');
+}
+
+/** `classes/bit-badges-api.md` -> `/sdk/reference/classes/bit-badges-api`. */
+function routeFor(relativePath: string): string {
+  const withoutExt = relativePath.replace(/\.md$/i, '');
+  const segments = withoutExt.split('/');
+  if (segments[segments.length - 1].toLowerCase() === 'readme') segments.pop();
+  return segments.length === 0 ? ROUTE_ROOT : `${ROUTE_ROOT}/${segments.join('/')}`;
+}
+
+async function walkMarkdown(dir: string, base = ''): Promise<string[]> {
+  const entries = await fs.readdir(path.join(dir, base), { withFileTypes: true });
+  const out: string[] = [];
+  for (const entry of entries) {
+    const relative = base ? `${base}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) {
+      if (DROPPED_DIRS.has(relative)) continue;
+      out.push(...(await walkMarkdown(dir, relative)));
+    } else if (entry.name.endsWith('.md')) {
+      out.push(relative);
+    }
+  }
+  return out.sort();
+}
+
+function runTypedoc(out: string): Promise<void> {
+  const args = [
+    '--plugin',
+    'typedoc-plugin-markdown',
+    '--entryPoints',
+    path.join(packageDir, 'src'),
+    '--tsconfig',
+    path.join(packageDir, 'tsconfig.json'),
+    '--exclude',
+    '**/*.spec.ts',
+    '--externalPattern',
+    '**/node_modules/**',
+    '--excludeExternals',
+    '--hideGenerator',
+    // Warnings here are upstream JSDoc gaps in the SDK, not a docs-build failure.
+    '--skipErrorChecking',
+    '--logLevel',
+    'Error',
+    // Pin source links to a branch: a commit sha would churn the whole tree on
+    // every regeneration.
+    '--gitRevision',
+    'master',
+    '--out',
+    out,
+  ];
+
+  return new Promise((resolve, reject) => {
+    const child = spawn(path.join(siteDir, 'node_modules/.bin/typedoc'), args, {
+      cwd: packageDir,
+      stdio: 'inherit',
+    });
+    child.on('error', reject);
+    child.on('close', (code) => (code === 0 ? resolve() : reject(new Error(`typedoc exited ${code}`))));
+  });
+}
+
+/** Map every emitted file to its lowercase-kebab destination, breaking ties. */
+function planFilenames(files: string[]): Map<string, string> {
+  const plan = new Map<string, string>();
+  const taken = new Set<string>();
+
+  for (const file of files) {
+    const dir = file.includes('/') ? file.slice(0, file.lastIndexOf('/')) : '';
+    const name = file.slice(file.lastIndexOf('/') + 1).replace(/\.md$/i, '');
+    // The corpus serves README.md as its directory's index; keep that contract.
+    const base = name.toLowerCase() === 'readme' ? 'README' : kebab(name) || 'index';
+
+    let candidate = base;
+    for (let n = 2; taken.has(`${dir}/${candidate.toLowerCase()}`); n += 1) candidate = `${base}-${n}`;
+    taken.add(`${dir}/${candidate.toLowerCase()}`);
+    plan.set(file, dir ? `${dir}/${candidate}.md` : `${candidate}.md`);
+  }
+  return plan;
+}
+
+/** Resolve `../classes/Foo.md` as authored inside `fromFile` to a tree-relative path. */
+function resolveRelative(fromFile: string, target: string): string {
+  const fromDir = fromFile.split('/').slice(0, -1);
+  const out: string[] = [...fromDir];
+  for (const segment of target.split('/')) {
+    if (segment === '' || segment === '.') continue;
+    if (segment === '..') {
+      out.pop();
+      continue;
+    }
+    out.push(segment);
+  }
+  return out.join('/');
+}
+
+// Link text may itself contain a bracketed span (`Foo[]`, `[key: string]`), so
+// one level of nesting is allowed before the closing bracket.
+const LINK = /\[((?:[^[\]]|\[[^[\]]*\])*)\]\(([^)\s]+)\)/g;
+
+/**
+ * Point every intra-tree link at its site route, and unlink the rest.
+ *
+ * Unlinking matters: the corpus test fails the build on any internal link that
+ * does not resolve, and TypeDoc happily links to the pages we dropped.
+ */
+function rewriteLinks(file: string, body: string, plan: Map<string, string>): string {
+  return body.replace(LINK, (match, text: string, href: string) => {
+    if (/^[a-z][a-z0-9+.-]*:/i.test(href) || href.startsWith('//') || href.startsWith('#')) return match;
+    if (!/\.md(#|$)/i.test(href)) return match;
+
+    const hashIndex = href.indexOf('#');
+    const hash = hashIndex === -1 ? '' : href.slice(hashIndex);
+    const target = hashIndex === -1 ? href : href.slice(0, hashIndex);
+    const resolved = resolveRelative(file, decodeURIComponent(target));
+    const mapped = plan.get(resolved);
+    return mapped ? `[${text}](${routeFor(mapped)}${hash})` : text;
+  });
+}
+
+/**
+ * Escape bare `<` in prose.
+ *
+ * SDK doc comments write generics inline (`Metadata<bigint>`, `iCollectionDoc<T>`)
+ * without backticks. The renderer allows raw HTML, so `<bigint>` is parsed as a
+ * tag and silently eats the rest of the sentence. TypeDoc emits no real HTML
+ * outside code, so escaping every unescaped `<` is safe; `<https://…>` autolinks
+ * are the one form worth keeping.
+ */
+function escapeAngles(body: string): string {
+  // Alternation keeps fenced blocks, inline code spans, and TypeDoc's own
+  // escapes verbatim; only a bare `<` reaches the replacement.
+  return body
+    .replace(/(```[\s\S]*?```|~~~[\s\S]*?~~~|`[^`\n]*`|\\<)|</g, (_match, keep: string | undefined) =>
+      keep !== undefined ? keep : '\\<',
+    )
+    .replace(/\\<((?:https?|mailto):[^>\s]+)>/g, '<$1>');
+}
+
+/** Strip markdown down to a single line of prose usable as a description. */
+function toDescription(text: string): string {
+  const flat = text
+    .replace(/`([^`]*)`/g, '$1')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/[*_\\]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (flat.length <= 160) return flat;
+  const cut = flat.slice(0, 160);
+  const space = cut.lastIndexOf(' ');
+  return `${(space > 80 ? cut.slice(0, space) : cut).replace(/[,.;:]$/, '')}…`;
+}
+
+/** The first real paragraph of a page's body, skipping TypeDoc's scaffolding. */
+function leadParagraph(lines: string[]): string | null {
+  const buffer: string[] = [];
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      if (buffer.length) break;
+      continue;
+    }
+    if (/^(#{1,6}\s|Defined in:|>|\||-\s|\*\s|\d+\.\s|```|\*\*\*)/.test(trimmed)) {
+      if (buffer.length) break;
+      continue;
+    }
+    buffer.push(trimmed);
+  }
+  return buffer.length ? buffer.join(' ') : null;
+}
+
+type Page = { file: string; title: string; description: string; body: string };
+
+/** Strip breadcrumbs, enforce one H1, and derive the page's description. */
+function transform(file: string, raw: string, plan: Map<string, string>): Page {
+  const lines = raw.replace(/\r\n/g, '\n').split('\n');
+  const h1Index = lines.findIndex((line) => /^#\s+\S/.test(line));
+  if (h1Index === -1) throw new Error(`no H1 in ${file}`);
+
+  const title = lines[h1Index].replace(/^#\s+/, '').trim();
+  const rest = lines.slice(h1Index + 1).map((line) => (/^#\s+\S/.test(line) ? `#${line}` : line));
+
+  const kind = file.includes('/') ? file.slice(0, file.indexOf('/')) : 'reference';
+  const description =
+    toDescription(leadParagraph(rest) ?? '') ||
+    `${toDescription(title)} — BitBadges TypeScript SDK ${GROUP_LABELS[kind]?.singular ?? 'reference'}.`;
+
+  const body = escapeAngles(rewriteLinks(file, `# ${title}\n${rest.join('\n')}`, plan)).replace(/\n{3,}$/, '\n');
+  return { file, title, description, body };
+}
+
+function serialize(page: Page): string {
+  const frontmatter = `---\ndescription: ${JSON.stringify(page.description)}\n---\n\n`;
+  return `${frontmatter}${page.body.replace(/\s+$/, '')}\n`;
+}
+
+/** One index page per group so the nav can link a group without listing members. */
+function groupIndex(dir: string, pages: Page[]): Page {
+  const { plural, singular } = GROUP_LABELS[dir] ?? { plural: dir, singular: dir };
+  const rows = pages
+    .map((page) => `- [${page.title.replace(/^[^:]+:\s*/, '')}](${routeFor(page.file)})`)
+    .sort((a, b) => a.localeCompare(b));
+
+  return {
+    file: `${dir}/README.md`,
+    title: plural,
+    description: `Every ${singular} the BitBadges TypeScript SDK exports — ${rows.length} reference pages.`,
+    body: `# ${plural}\n\nEvery ${singular} the \`bitbadges\` package exports (${rows.length} total).\n\n${rows.join('\n')}\n`,
+  };
+}
+
+/**
+ * The tree's landing page.
+ *
+ * TypeDoc's own root README is a copy of the SDK package README — duplicate
+ * prose that also carries pre-cutover links. Replace it with a page that says
+ * what this tree is, how it is regenerated, and where to start. Every count is
+ * read off the emitted pages so it cannot drift from the tree it describes.
+ */
+function rootIndex(byDir: Map<string, Page[]>, pageCount: number, hasGlobals: boolean): Page {
+  const groups = Object.keys(GROUP_LABELS).filter((dir) => byDir.has(dir));
+  const lines = [
+    '# SDK reference',
+    '',
+    `> ${GENERATED_NOTE}`,
+    '',
+    'Every symbol the [`bitbadges`](https://www.npmjs.com/package/bitbadges) npm package exports, one page each — ' +
+      `${pageCount} pages carrying the signatures, fields, type parameters and source comments TypeDoc reads out of the SDK. ` +
+      'This tree is the lookup surface. For task-first prose — install, query, sign, broadcast — read [the SDK guide](/sdk) first, then come here for the exact shape of a symbol.',
+    '',
+    '## Start here',
+    '',
+    'The handful of exports almost every integration touches.',
+    '',
+    '| Symbol | What it is |',
+    '| --- | --- |',
+    ...START_HERE.map(({ file, name, blurb }) => `| [\`${name}\`](${routeFor(file)}) | ${blurb} |`),
+    '',
+    '## Browse everything',
+    '',
+    '| Group | Pages | What is in it |',
+    '| --- | --- | --- |',
+    ...groups.map((dir) => {
+      const count = byDir.get(dir)!.length;
+      return `| [${GROUP_LABELS[dir].plural}](${routeFor(`${dir}/README.md`)}) | ${count} | ${GROUP_BLURBS[dir] ?? ''} |`;
+    }),
+    '',
+  ];
+
+  if (hasGlobals) {
+    lines.push(
+      `Or read [every export on one page](${routeFor('globals.md')}) — the flat index TypeDoc emits, grouped by kind.`,
+      '',
+    );
+  }
+
+  lines.push(
+    '## How this tree is generated',
+    '',
+    '`bun run gen:sdk` from `site/` runs TypeDoc over `packages/bitbadgesjs-sdk/src` in a bitbadgesjs checkout and rewrites the markdown into this corpus: one H1 per page, a `description` in frontmatter, and every intra-tree link pointed at its site route. The vendored `proto.cosmos` / `proto.google` / `proto.tendermint` namespaces are dropped — another ~1600 pages of third-party scaffolding with no BitBadges-specific content. Symbols the SDK exports at top level are kept, protobuf-generated ones included.',
+    '',
+    'CI keeps it current: `.github/workflows/sync-sdk-reference.yml` regenerates the tree when bitbadgesjs publishes a change and opens a PR. See `_docs/runbooks/docs-sync.md`.',
+    '',
+  );
+
+  const groupList = groups.map((dir) => GROUP_LABELS[dir].plural.toLowerCase()).join(', ');
+  return {
+    file: 'README.md',
+    title: 'SDK reference',
+    description: `Every symbol the BitBadges TypeScript SDK exports — ${pageCount} generated reference pages across ${groupList}.`,
+    body: lines.join('\n'),
+  };
+}
+
+async function main(): Promise<void> {
+  await fs.access(path.join(packageDir, 'src')).catch(() => {
+    throw new Error(`SDK source not found at ${packageDir}/src — set BITBADGESJS_DIR`);
+  });
+
+  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'bb-sdk-reference-'));
+  try {
+    await runTypedoc(tmp);
+
+    const files = await walkMarkdown(tmp);
+    if (files.length === 0) throw new Error('typedoc produced no markdown');
+    const plan = planFilenames(files);
+
+    const pages: Page[] = [];
+    for (const file of files) {
+      const raw = await fs.readFile(path.join(tmp, file), 'utf8');
+      pages.push(transform(plan.get(file)!, rewriteSource(raw), plan));
+    }
+
+    const byDir = new Map<string, Page[]>();
+    for (const page of pages) {
+      if (!page.file.includes('/')) continue;
+      const dir = page.file.slice(0, page.file.indexOf('/'));
+      byDir.set(dir, [...(byDir.get(dir) ?? []), page]);
+    }
+    for (const [dir, members] of byDir) pages.push(groupIndex(dir, members));
+
+    // A `.md` link that survived rewriting would 404 and fail the corpus test.
+    const dangling = pages.flatMap((page) =>
+      [...page.body.matchAll(/\]\(([^)\s]+\.md(?:#[^)\s]*)?)\)/gi)]
+        .filter(([, href]) => !/^[a-z][a-z0-9+.-]*:/i.test(href))
+        .map(([, href]) => `${page.file} -> ${href}`),
+    );
+    if (dangling.length) throw new Error(`unrewritten markdown links:\n${dangling.slice(0, 20).join('\n')}`);
+
+    const emitted = new Set(pages.map((page) => page.file));
+
+    // A curated entry that no longer exists would ship a dead link on the
+    // landing page and an orphan in SUMMARY.md. Fail the generation instead.
+    const stale = START_HERE.filter(({ file }) => !emitted.has(file)).map(({ name, file }) => `${name} (${file})`);
+    if (stale.length) {
+      throw new Error(
+        `START_HERE lists symbols the SDK no longer exports:\n${stale.join('\n')}\n` +
+          'Update START_HERE in this script and the matching entries under "SDK reference" in SUMMARY.md.',
+      );
+    }
+
+    const rootIndexPosition = pages.findIndex((page) => page.file === 'README.md');
+    if (rootIndexPosition === -1) throw new Error('typedoc produced no root README.md');
+    pages[rootIndexPosition] = rootIndex(byDir, pages.length, emitted.has('globals.md'));
+
+    await fs.rm(outDir, { recursive: true, force: true });
+    for (const page of pages) {
+      const destination = path.join(outDir, page.file);
+      await fs.mkdir(path.dirname(destination), { recursive: true });
+      await fs.writeFile(destination, serialize(page));
+    }
+
+    const groups = [...byDir.keys()].sort().join(', ');
+    console.log(`sdk reference: ${pages.length} page(s) in ${path.relative(repoRoot, outDir)} (${groups})`);
+  } finally {
+    await fs.rm(tmp, { recursive: true, force: true });
+  }
+}
+
+/**
+ * TypeDoc prefixes "Defined in" paths with the checkout's directory name, which
+ * leaks the generating machine's layout into the corpus.
+ */
+function rewriteSource(raw: string): string {
+  return raw.replace(/\[[^\]]*?(packages\/bitbadgesjs-sdk\/src\/[^\]]*?)\]/g, '[$1]');
+}
+
+await main();

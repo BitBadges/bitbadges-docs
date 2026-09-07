@@ -4,14 +4,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import type { NavGroup } from '@/lib/docs/summary';
+import { activeTabIndex, API_REFERENCE_ROUTE, type NavTab } from '@/lib/docs/tabs';
 import { CloseIcon, MenuIcon } from './Icons';
 import { SearchDialog } from './SearchDialog';
 import { Sidebar } from './Sidebar';
+import { SocialLinks } from './SocialLinks';
 import { ThemeToggle } from './ThemeToggle';
 
 export type ShellProps = {
-  groups: NavGroup[];
+  tabs: NavTab[];
   basePath: string;
   searchIndexUrl: string;
   children: React.ReactNode;
@@ -22,9 +23,9 @@ function Wordmark({ basePath }: { basePath: string }) {
   return (
     <Link href={basePath || '/'} className="flex shrink-0 items-center gap-2">
       <img src={`${basePath}/bitbadges-logo.svg`} alt="" width={26} height={26} className="h-[1.6rem] w-[1.6rem]" />
-      <span className="text-[0.95rem] font-bold tracking-tight">
-        <span className="wordmark">BitBadges</span>
-        <span className="ml-1.5 hidden font-medium text-[var(--fg-faint)] lg:inline">Docs</span>
+      <span className="hidden text-[0.95rem] font-bold tracking-tight sm:inline">
+        <span className="wordmark hidden sm:inline">BitBadges</span>
+        <span className="ml-1.5 hidden font-medium text-[var(--fg-faint)] xl:inline">Docs</span>
       </span>
     </Link>
   );
@@ -36,7 +37,7 @@ function Wordmark({ basePath }: { basePath: string }) {
  * The desktop sidebar belongs to the (docs) route group only, so the API
  * reference can render full-bleed with its own operation rail.
  */
-export function Shell({ groups, basePath, searchIndexUrl, children }: ShellProps) {
+export function Shell({ tabs, basePath, searchIndexUrl, children }: ShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -49,13 +50,10 @@ export function Shell({ groups, basePath, searchIndexUrl, children }: ShellProps
     };
   }, [menuOpen]);
 
-  const apiHref = `${basePath}/api-reference`;
-  const onApiReference = pathname === apiHref;
-
-  const tabs = [
-    { href: basePath || '/', label: 'Documentation', short: 'Docs', active: !onApiReference },
-    { href: apiHref, label: 'API Reference', short: 'API', active: onApiReference },
-  ];
+  // usePathname() strips basePath, and next/link adds it back, so tab hrefs
+  // stay bare routes here.
+  const onApiReference = pathname === API_REFERENCE_ROUTE;
+  const active = activeTabIndex(tabs, pathname);
 
   return (
     <div className="min-h-dvh">
@@ -79,13 +77,13 @@ export function Shell({ groups, basePath, searchIndexUrl, children }: ShellProps
 
           <Wordmark basePath={basePath} />
 
-          <nav aria-label="Sections" className="ml-1 sm:ml-2">
+          <nav aria-label="Sections" className="segmented-rail ml-1 hidden min-w-0 sm:ml-2 sm:block">
             <div className="segmented">
-              {tabs.map((tab) => (
+              {tabs.map((tab, index) => (
                 <Link
                   key={tab.href}
                   href={tab.href}
-                  aria-current={tab.active ? 'page' : undefined}
+                  aria-current={index === active ? 'page' : undefined}
                   className="segmented-tab"
                 >
                   <span className="hidden sm:inline">{tab.label}</span>
@@ -96,6 +94,8 @@ export function Shell({ groups, basePath, searchIndexUrl, children }: ShellProps
           </nav>
 
           <div className="ml-auto flex min-w-0 items-center justify-end gap-2">
+            {/* Below lg the icons live in the drawer so the bar keeps fitting. */}
+            <SocialLinks className="hidden lg:flex" />
             {/* On the API reference, Scalar owns ⌘K for searching operations. */}
             <SearchDialog indexUrl={searchIndexUrl} basePath={basePath} enabled={!onApiReference} />
             <ThemeToggle />
@@ -126,20 +126,22 @@ export function Shell({ groups, basePath, searchIndexUrl, children }: ShellProps
               </button>
             </div>
 
-            <div className="segmented mb-5 w-full">
-              {tabs.map((tab) => (
+            <div className="segmented mb-5 w-full flex-wrap">
+              {tabs.map((tab, index) => (
                 <Link
                   key={tab.href}
                   href={tab.href}
-                  aria-current={tab.active ? 'page' : undefined}
+                  aria-current={index === active ? 'page' : undefined}
                   className="segmented-tab flex-1 text-center"
                 >
-                  {tab.label}
+                  {tab.short}
                 </Link>
               ))}
             </div>
 
-            <Sidebar groups={groups} onNavigate={() => setMenuOpen(false)} />
+            <Sidebar tabs={tabs} onNavigate={() => setMenuOpen(false)} />
+
+            <SocialLinks className="mt-2 border-t border-[var(--border)] pt-5" />
           </div>
         </div>
       )}

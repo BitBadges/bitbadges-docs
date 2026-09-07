@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
 import type { NavGroup, NavNode } from '@/lib/docs/summary';
+import { activeTabIndex, type NavTab } from '@/lib/docs/tabs';
 import { ChevronIcon, ExternalIcon } from './Icons';
 
 /** Routes on the path from the tree root to the active page. */
@@ -86,8 +87,10 @@ function NavItem({ node, depth, expanded, onToggle, pathname }: {
   );
 }
 
-export function Sidebar({ groups, onNavigate }: { groups: NavGroup[]; onNavigate?: () => void }) {
+/** The active tab's groups only — each tab reads as its own book. */
+export function Sidebar({ tabs, onNavigate }: { tabs: NavTab[]; onNavigate?: () => void }) {
   const pathname = usePathname();
+  const groups = tabs[activeTabIndex(tabs, pathname)]?.groups ?? [];
   const ancestry = useMemo(() => ancestryOf(groups, pathname), [groups, pathname]);
   const [expanded, setExpanded] = useState<Set<string>>(ancestry);
 

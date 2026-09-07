@@ -78,9 +78,20 @@ export function resolveDocLink(fromFile: string, href: string): string {
   return `${filePathToRoute(combined.join('/'))}${hash}`;
 }
 
+const GITBOOK_ASSETS = '.gitbook/assets/';
+
 /** Resolve a relative asset reference (image, download) to a content-root-relative path. */
 export function resolveAssetPath(fromFile: string, src: string): string | null {
   if (!src || /^[a-z][a-z0-9+.-]*:/i.test(src) || src.startsWith('//')) return null;
+
+  // `.gitbook/assets/` lives at the content root. Resolving it from there,
+  // whatever the page's depth, lets pages move without their images breaking.
+  const assetsIndex = src.indexOf(GITBOOK_ASSETS);
+  if (assetsIndex !== -1) {
+    const combined = normalizeSegments(src.slice(assetsIndex).split('/'), true) ?? [];
+    return combined.length > 0 ? combined.join('/') : null;
+  }
+
   const fromDir = fromFile.replace(/^\.\//, '').split('/').slice(0, -1);
   const base = src.startsWith('/') ? [] : fromDir;
   const combined = normalizeSegments([...base, ...src.split('/')], true);

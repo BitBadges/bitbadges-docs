@@ -1,0 +1,20 @@
+# Pages dropped in the rewrite (empty stubs or fully superseded). Nearest new home.
+/badge-standard/examples/approvals	/guides/set-transferability
+/for-developers/claim-builder/checking-custom-criteria	/guides/build-a-claim-plugin
+/for-developers/claim-builder/completion-methods	/api/claims/endpoints
+/for-developers/claim-builder/concepts	/api/claims
+/for-developers/claim-builder/concepts/claim-numbers	/api/claims
+/for-developers/claim-builder/concepts/gating-badge-distribution	/api/claims
+/for-developers/claim-builder/concepts/signed-in-vs-select-address	/api/claims
+/for-developers/claim-builder/concepts/standard-vs-on-demand	/api/claims
+/for-developers/claim-builder/concepts/universal-approach-claim-codes	/api/claims
+/for-developers/claim-builder/implementing-custom-utility	/guides/distribute-with-claims
+/for-developers/claim-builder/other-tutorials	/guides/distribute-with-claims
+/for-developers/claim-builder/overview	/api/claims
+/for-developers/claim-builder/plugins	/api/claims/plugins
+/for-developers/claim-builder/plugins/overview	/api/claims/plugins
+/for-developers/claim-builder/success-logic	/api/claims
+/for-developers/concepts	/token-standard/concepts
+/overview/claim-builder	/api/claims
+/token-standard/concepts/permissions/token-id-action-permissions	/token-standard/concepts/permissions
+/token-standard/examples/approvals	/guides/set-transferability

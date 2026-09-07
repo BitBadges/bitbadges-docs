@@ -5,6 +5,7 @@ import { Shell } from '@/components/docs/Shell';
 import { themeScript } from '@/components/docs/ThemeToggle';
 import { docsConfig } from '@/lib/docs/config';
 import { getNav } from '@/lib/docs/content';
+import { tabsFromNav } from '@/lib/docs/tabs';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const groups = await getNav();
+  const tabs = tabsFromNav(await getNav());
 
   return (
     <html lang="en" className={`${inter.variable} ${mono.variable}`} suppressHydrationWarning>
@@ -32,7 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           Skip to content
         </a>
         <Shell
-          groups={groups}
+          tabs={tabs}
           basePath={docsConfig.basePath}
           searchIndexUrl={`${docsConfig.basePath}/search-index.json`}
         >

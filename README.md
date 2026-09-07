@@ -1,67 +1,358 @@
 ---
-description: >-
-    Here, you will find documentation about BitBadges, how it works, how to
-    interact, and how to contribute!
+description: "What BitBadges is, how the chain, the hosted services, and the tools fit together, what one collection looks like, and where to start."
 ---
 
-# 👋 BitBadges Overview
+# BitBadges Documentation
 
-## 🚀 The Next-Generation Token Standard
+BitBadges is a Cosmos SDK Layer 1 whose core module, `x/tokenization`, is a complete token standard: every collection, balance, approval, and permission is chain state that the module enforces on every transfer. This page explains the system end to end, shows what a token collection looks like, and sends you to the right tab.
 
-BitBadges has built a brand new tokenization standard exclusively as a Cosmos SDK module, designed specifically for RWAs (Real World Assets), compliance, payments, and custom transferability requirements.
+## Build in Three Steps
 
-Unlike existing standards (`x/bank`, `x/tokenfactory`, `x/nft`, ICS20, ERC20, ERC-3643), our `x/tokenization` module provides native support for compliance checks on every transfer (even IBC transfers and in liquidity pools), custom transferability / compliance rules, issuer-level control, and enterprise-grade tokenization features—all out of the box with no code or smart contracts required, just a module! All plug-and-play and infinitely customizable.
+1. Install the CLI:
 
-Our revolutionary token standard goes far beyond ERC-20, ERC-721, and other existing standards with features like time-dependent ownership, fine-grained transferability controls, IBC compatibility, connecting to 7000+ apps, connecting to EVM, IBC, and more.
+```bash
+curl -fsSL https://install.bitbadges.io | sh
+```
 
-Our theses are:
+2. Add the MCP builder tools to your editor. Claude Code is shown; Cursor, Codex, Claude Desktop, and others are in [Set Up Your AI](agents/setup.md):
 
-1. The next wave of tokenization needs a next-generation standard. Existing ones are not enough and built on outdated technology.
-2. Compliance / transferability is not just a matter of a simple whitelist/blacklist or transferable vs soulbound. It is a complex series of moving parts (time-gating, ownerships, approvals, who can send to who?, initiated by who?, revokable? freezable?, and so on). To truly make compliance work on-chain, you need to handle all these moving parts automatically, not with a manually updated whitelist/blacklist. And, this belongs on the token standard level.
-3. The standardized, reusable, no-code approach wins over per use-case smart contracts over time.
+```bash
+claude mcp add bitbadges-builder -e BITBADGES_API_KEY="$BITBADGES_API_KEY" -- npx -y -p bitbadges bitbadges-builder
+```
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+3. Tell it what to build:
 
-## ❓ Why BitBadges?
+- "Create me a payment request for 10 USDC"
+- "Build a subscription token that renews monthly for 5 USDC"
+- "Make a 500-piece NFT collection where only I can mint"
 
-BitBadges is simply tokenization-as-a-service. Create anything from subscriptions and memberships to tradable NFTs, credentials, and access tokens - all with the most advanced token standard ever built.
+The agent assembles the transaction and returns a review link. Open it, check the summary, and sign with your wallet.
 
-Traditional token standards are limited, inflexible, and locked to single blockchain ecosystems. BitBadges fixes this with a 100x improvement that supports:
+## What You Get
 
--   **No Code, No Smart Contracts, No Audits** - Everything works out-of-the-box with no code. One reusable module.
--   **Compliance Checked Every Transfer, Swap, IBC Transfer** - Build complex transferability systems checked everywhere. No backdoors. Compliance checked every swap.
--   **Drop-In 1000x Upgrade -** We are a superset of existing standards. One line of code change for 1000x unlock in features.
--   **Supports Any IBC (ICS20) Currency -** We've designed it in a way such that it is seamlessly compatible with any ICS20 currency paired for payments, swaps, liquidity, or anything else.
--   **IBC Compatibility** - One interface, one token experience for all blockchain ecosystems via IBC.
--   **Time-Dependent Ownership** - Create subscriptions, time-locked tokens, and expiring credentials with time-dependent logic and approvals.
--   **Advanced Transferability / Compliance** - Fine-grained controls over who can transfer what, when, and how on any level.
--   **Three Transferability Levels** - Customize transferability on the collection, sender,and recipient levels.
--   **Connect to 7000+ Apps** - Connect to 7000+ apps and integrations with seamless on/off-chain criteria checks
--   **Connect to Cosmos via IBC** - Connect to Cosmos and beyond via IBC and use the BitBadges token standard on any Cosmos chain
--   **Extend with EVM Contracts** - Extend the BitBadges token standard with EVM contracts or any other custom environment
--   **Customizable Permissions** - Flexible manager controls for collections
+| Layer | Pieces | What it does |
+| --- | --- | --- |
+| Chain (`bitbadges-1`) | `x/tokenization`, `x/gamm`, `x/managersplitter`, IBC, EVM precompiles | Tokens with time-based balances and three-level transfer approvals. A Balancer-style DEX. Wrapping to `x/bank` denoms for IBC. Solidity access through precompiles at `0x...1001` to `0x...1003`. |
+| Hosted services | BitBadges API, claims and plugins, Sign In with BitBadges, bitbadges.io | Indexed reads (balances, metadata, activity), off-chain claim gating with 16 built-in plugins plus your own HTTP plugins, OAuth-style sign in, and a no-code site. |
+| Tools | `bb` CLI, `bitbadges` npm package, MCP builder tools, Claude Code plugin | Build, check, simulate, preview, sign, and broadcast transactions from a terminal, TypeScript, or an AI agent. |
 
-## 🤔 Motive for building BitBadges?
+The chain enforces the rules. The hosted services make them easy to read and to gate. The tools generate valid transactions so you rarely hand-write the structures below.
 
-The answer is simple. We believe in the potential of blockchains and interoperability, but this potential cannot be realized with the current infrastructure and token standards in place today.
+## One Collection, Annotated
 
-## ⚠️ Problems with Existing Standards
+A collection is created with one message. This one is a 100-token NFT collection where only the creator can mint, one token per mint, up to 100 mints, with the supply locked forever:
 
-Existing tokenization standards (ERC-20, ERC-721, CW-20, ICS-20, etc.) are **flawed from the ground up**:
+```json fold=3-17,19-25,31-37,62-66,75-97,107-112,114-158,166-177
+{
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "defaultBalances": {
+    "balances": [],
+    "outgoingApprovals": [],
+    "incomingApprovals": [],
+    "autoApproveSelfInitiatedOutgoingTransfers": false,
+    "autoApproveSelfInitiatedIncomingTransfers": false,
+    "autoApproveAllIncomingTransfers": false,
+    "userPermissions": {
+      "canUpdateOutgoingApprovals": [],
+      "canUpdateIncomingApprovals": [],
+      "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+      "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+      "canUpdateAutoApproveAllIncomingTransfers": []
+    }
+  },
+  "validTokenIds": [{ "start": "1", "end": "100" }],
+  "collectionPermissions": {
+    "canDeleteCollection": [],
+    "canArchiveCollection": [],
+    "canUpdateStandards": [],
+    "canUpdateCustomData": [],
+    "canUpdateManager": [],
+    "canUpdateCollectionMetadata": [],
+    "canUpdateValidTokenIds": [
+      {
+        "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
+        "permanentlyPermittedTimes": [],
+        "permanentlyForbiddenTimes": [{ "start": "1", "end": "18446744073709551615" }]
+      }
+    ],
+    "canUpdateTokenMetadata": [],
+    "canUpdateCollectionApprovals": [],
+    "canAddMoreAliasPaths": [],
+    "canAddMoreCosmosCoinWrapperPaths": []
+  },
+  "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "collectionMetadata": {
+    "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
+    "customData": ""
+  },
+  "tokenMetadata": [
+    {
+      "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json",
+      "customData": "",
+      "tokenIds": [{ "start": "1", "end": "100" }]
+    }
+  ],
+  "customData": "",
+  "collectionApprovals": [
+    {
+      "fromListId": "Mint",
+      "toListId": "All",
+      "initiatedByListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+      "tokenIds": [{ "start": "1", "end": "100" }],
+      "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+      "uri": "",
+      "customData": "",
+      "approvalId": "manager-mint",
+      "approvalCriteria": {
+        "merkleChallenges": [],
+        "predeterminedBalances": {
+          "manualBalances": [],
+          "incrementedBalances": {
+            "startBalances": [
+              {
+                "amount": "1",
+                "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+                "tokenIds": [{ "start": "1", "end": "1" }]
+              }
+            ],
+            "incrementTokenIdsBy": "1",
+            "incrementOwnershipTimesBy": "0",
+            "durationFromTimestamp": "0",
+            "allowOverrideTimestamp": false,
+            "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+            "allowOverrideWithAnyValidToken": false,
+            "allowAmountScaling": false,
+            "maxScalingMultiplier": "0"
+          },
+          "orderCalculationMethod": {
+            "useOverallNumTransfers": true,
+            "usePerToAddressNumTransfers": false,
+            "usePerFromAddressNumTransfers": false,
+            "usePerInitiatedByAddressNumTransfers": false,
+            "useMerkleChallengeLeafIndex": false,
+            "challengeTrackerId": ""
+          }
+        },
+        "approvalAmounts": {
+          "overallApprovalAmount": "0",
+          "perToAddressApprovalAmount": "0",
+          "perFromAddressApprovalAmount": "0",
+          "perInitiatedByAddressApprovalAmount": "0",
+          "amountTrackerId": "",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "maxNumTransfers": {
+          "overallMaxNumTransfers": "100",
+          "perToAddressMaxNumTransfers": "0",
+          "perFromAddressMaxNumTransfers": "0",
+          "perInitiatedByAddressMaxNumTransfers": "0",
+          "amountTrackerId": "mint",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "coinTransfers": [],
+        "requireToEqualsInitiatedBy": false,
+        "requireFromEqualsInitiatedBy": false,
+        "requireToDoesNotEqualInitiatedBy": false,
+        "requireFromDoesNotEqualInitiatedBy": false,
+        "overridesFromOutgoingApprovals": true,
+        "overridesToIncomingApprovals": false,
+        "autoDeletionOptions": {
+          "afterOneUse": false,
+          "afterOverallMaxNumTransfers": false,
+          "allowCounterpartyPurge": false,
+          "allowPurgeIfExpired": false
+        },
+        "mustOwnTokens": [],
+        "dynamicStoreChallenges": [],
+        "ethSignatureChallenges": [],
+        "senderChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "recipientChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "initiatorChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "altTimeChecks": {
+          "offlineHours": [],
+          "offlineDays": [],
+          "offlineMonths": [],
+          "offlineDaysOfMonth": [],
+          "offlineWeeksOfYear": [],
+          "timezoneOffsetMinutes": "0",
+          "timezoneOffsetNegative": false
+        },
+        "mustPrioritize": false,
+        "votingChallenges": [],
+        "allowBackedMinting": false,
+        "allowSpecialWrapping": false,
+        "evmQueryChallenges": [],
+        "userApprovalSettings": {
+          "allowedDenoms": [],
+          "disableUserCoinTransfers": false,
+          "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+        }
+      },
+      "version": "0"
+    }
+  ],
+  "standards": ["NFTs"],
+  "isArchived": false,
+  "mintEscrowCoinsToTransfer": [],
+  "cosmosCoinWrapperPathsToAdd": [],
+  "invariants": {
+    "noCustomOwnershipTimes": false,
+    "maxSupplyPerId": "0",
+    "cosmosCoinBackedPath": { "conversion": { "sideA": { "amount": "0", "denom": "" }, "sideB": [] } },
+    "noForcefulPostMintTransfers": false,
+    "disablePoolCreation": false,
+    "evmQueryChallenges": []
+  },
+  "aliasPathsToAdd": []
+}
+```
 
--   **Too Simple** - Basic mint/transfer/burn functionality lacks the flexibility needed for 90% of real-world applications. The industry has been stuck with these limited standards for 10+ years due to technical debt.
--   **Vulnerable by Default** - Smart contract approach introduces new attack vectors with each token contract. Each deployment is a potential vulnerability.
--   **Complex & Expensive** - Requires extensive technical knowledge to implement, deploy, and maintain contracts.
--   **Low Interoperability** - Tokens are siloed to single ecosystems, forcing companies to split their userbase across chains.
--   **Fragmented Standards** - Many competing standards with incompatible twists create confusion and fragmentation.
+Rows at their defaults are folded. Click a hidden row to expand it. The field reference is in [MsgCreateCollection](token-standard/messages/msg-create-collection.md).
 
-**The whole tokenization approach needs a complete overhaul.**
+| Field | What it decides | Read |
+| --- | --- | --- |
+| `validTokenIds` | Which token IDs exist. IDs are numbers; fungible or non-fungible depends only on how many units you mint per ID. | [Collections](token-standard/concepts/collections.md) |
+| `collectionMetadata`, `tokenMetadata` | Where the name, image, and description live. `{id}` expands per token. Inline JSON in `customData` needs no hosting. | [Collections](token-standard/concepts/collections.md) |
+| `collectionApprovals` | Who can move which tokens from whom to whom, when, and under which conditions. `fromListId: "Mint"` makes this a mint rule. | [Transferability](token-standard/concepts/transferability.md) |
+| `approvalCriteria` | The conditions: caps via trackers, a fixed mint order via predetermined balances, payments, Merkle proofs, votes, ownership checks, EVM queries, time windows. | [Approval Criteria](token-standard/approval-criteria/README.md) |
+| `ownershipTimes` | Balances carry a time range. A subscription is a balance that expires; a vesting schedule is a balance that starts later. No follow-up transaction. | [Balances](token-standard/concepts/balances.md) |
+| `collectionPermissions` | What the manager may still change, per time range, and whether that answer is frozen. This one locks the supply forever. | [Permissions](token-standard/concepts/permissions.md) |
+| `standards` | Labels that tell apps how to interpret the collection. | [Collections](token-standard/concepts/collections.md) |
 
-## 💡 Our Design Philosophy
+Every transfer, including swaps on the DEX and IBC transfers of wrapped tokens, passes three approval layers: the collection's, the sender's outgoing, and the recipient's incoming. [Concepts](token-standard/concepts/README.md) walks the model in dependency order.
 
-BitBadges addresses these fundamental issues through core design decisions:
+## What Changes Versus ERC-20 and ERC-721
 
--   **Universality** - One standard powerful enough for any use case: NFTs, fungible tokens, subscriptions, credentials, RWAs, compliance, or anything you can imagine. One standard to rule them all.
--   **No-Code Module Approach** - Built as a Cosmos SDK module, not smart contracts. 99% of users will never need to write code, regardless of complexity. Promotes reusability and battle-tested security.
--   **Ever-Evolving** - Purpose-built for next-generation tokenization. We're not stuck in the past like ERC-20/721. New features are added continuously with no technical debt accrual.
--   **IBC-First** - Cosmos-native with IBC at the core. Custom wrappable to ICS-20/721, supports IBC denominations for payments/swaps/liquidity, and enables one-signature multi-hop IBC transfers.
+| Need | Contract standards | BitBadges |
+| --- | --- | --- |
+| Fungible and non-fungible | Two standards, two contracts | One collection. `amount` per token ID. |
+| Expiring or scheduled ownership | Custom contract, a cron job, or a burn later | `ownershipTimes` on the balance. The chain reports the balance as absent outside the range. |
+| Transfer rules | `require` statements in Solidity, per contract, audited each time | Approvals with criteria, checked by the module on every transfer, swap, and IBC hop. |
+| Allowlists and blocklists | Mappings in the contract | Reusable [Address Lists](token-standard/concepts/address-lists.md): `"All"`, `"Mint"`, `"!bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"`, or stored lists. |
+| Mint gating | A merkle-drop contract | [Merkle Challenges](token-standard/approval-criteria/merkle-challenges.md) on-chain, or [Claims](api/claims/README.md) with plugins off-chain that produce the proof. |
+| Royalties and payments | EIP-2981 hints that marketplaces may ignore | [Coin Transfers](token-standard/approval-criteria/coin-transfers.md) and [user royalties](token-standard/approval-criteria/user-approval-settings.md) enforced inside the transfer. |
+| Upgradability | Proxy patterns | [Permissions](token-standard/concepts/permissions.md) with permitted and forbidden time ranges, freezable per field. |
+| Compliance checks | Off-chain, or a per-token contract | KYC via [dynamic stores](token-standard/approval-criteria/dynamic-store-challenges.md), business hours via [Alt Time Checks](token-standard/approval-criteria/alt-time-checks.md), on-chain EVM reads via [EVM Query Challenges](token-standard/approval-criteria/evm-query-challenges.md). See [Compliance Zones](token-standard/concepts/compliance-zones.md). |
+| Cross-chain | Bridges | [Wrapper paths](token-standard/ibc/cosmos-coin-wrapper-paths.md) turn tokens into `x/bank` denoms that move over IBC and trade on the DEX, with the same approvals applied. |
+| Contracts | Everything | Optional. Solidity reads and writes the module through [precompiles](chain/evm/README.md). |
+
+The longer argument is in [Why BitBadges](about/README.md) and [Comparisons](about/comparisons.md).
+
+## What People Build
+
+| Build | Mechanism | Start |
+| --- | --- | --- |
+| NFT or fungible collection | `validTokenIds` plus a mint approval | [Create a Collection](guides/create-a-collection.md) |
+| Subscription, membership, expiring credential | `ownershipTimes` and recurring predetermined balances | [Subscriptions and Time-Based Tokens](guides/subscriptions-and-time-based-tokens.md) |
+| Tradable, burnable, soulbound, or admin-revocable tokens | Post-mint approvals and overrides | [Set Transferability](guides/set-transferability.md) |
+| Airdrop, allowlist, quest, social-gated mint | Claims with plugins that emit a Merkle proof | [Distribute with Claims](guides/distribute-with-claims.md) |
+| Token-gated API or content | BB-402: a 402 response, a signed proof, a balance check | [Gate access](guides/gate-access.md) |
+| Login with a wallet | Sign In with BitBadges (OAuth flow) | [Sign In Users](guides/sign-in-users.md) |
+| Compliant asset with KYC and transfer limits | Dynamic stores, trackers, alt time checks, compliance zones | [Compliance Zones](token-standard/concepts/compliance-zones.md) |
+| Stablecoin-backed or IBC-backed token | Backed minting against an existing denom | [Smart Tokens and Vaults](guides/smart-tokens-and-vaults.md) |
+| Liquidity pool or swap | Wrap, then `x/gamm` | [Trade on the DEX](guides/trade-on-the-dex.md) |
+| Auction, bounty, crowdfund, prediction market, payment request, product catalog | Standards with `bb` verbs and agent skills | [Standards](cli/standards.md), [Skills](agents/skills/README.md) |
+| Agent-controlled vault with spend limits | Outgoing approvals with daily-reset trackers | [Spending Authorization](agents/spending-authorization.md) |
+
+## Pick a Path
+
+Every path produces the same transaction JSON and ends with a signed broadcast. Mainnet is the live network; testnet is offline.
+
+### CLI
+
+```bash
+curl -fsSL https://install.bitbadges.io | sh
+bb settings set apiKey "$BITBADGES_API_KEY"  # key from https://bitbadges.io/developer
+bb api tokens get-collection 1             # read through the BitBadges API
+bb build --help                            # 19 builders: subscription, smart-token, auction, transfer, ...
+bb check collection.json                   # validate any tx JSON, such as the collection above
+bb simulate collection.json
+bb deploy collection.json --browser        # review and sign in the browser
+```
+
+[Quickstart](start/quickstart.md), [CLI reference](cli/README.md)
+
+### TypeScript
+
+```ts
+import { BigIntify, BitBadgesAPI, BitBadgesSigningClient, GenericCosmosAdapter, MsgTransferTokens } from 'bitbadges';
+
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const { collection } = await api.getCollection('1');
+console.log(collection.collectionId, collection.validTokenIds);
+
+const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
+const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
+const result = await client.signAndBroadcast([
+  new MsgTransferTokens({
+    creator: client.address,
+    collectionId: '1',
+    transfers: [
+      {
+        from: client.address,
+        toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+        balances: [{ amount: 1n, tokenIds: [{ start: 1n, end: 1n }], ownershipTimes: [{ start: 1n, end: 18446744073709551615n }] }],
+        prioritizedApprovals: [],
+        onlyCheckPrioritizedCollectionApprovals: false,
+        onlyCheckPrioritizedIncomingApprovals: false,
+        onlyCheckPrioritizedOutgoingApprovals: false
+      }
+    ]
+  })
+]);
+console.log(result.success ? result.txHash : result.error);
+```
+
+[SDK reference](sdk/README.md), [Transactions](sdk/transactions/README.md)
+
+### AI Agent
+
+The same npm package ships the `bitbadges-builder` MCP server and a Claude Code plugin. The agent assembles the transaction with tools such as `add_approval`, `set_permissions`, and `review_collection`, then hands you a review link; you sign in the browser. Works with Claude Code, Claude Desktop, Cursor, Windsurf, Codex, VS Code, Zed, or any model that can output JSON.
+
+```bash
+claude mcp add bitbadges-builder -e BITBADGES_API_KEY="$BITBADGES_API_KEY" -- npx -y -p bitbadges bitbadges-builder
+```
+
+[Set Up Your AI](agents/setup.md), [MCP Builder Tools](agents/mcp-tools.md)
+
+### No Code
+
+The [Create tab](https://bitbadges.io/create) and the [developer portal](https://bitbadges.io/developer) create collections, claims, address lists, and API keys without an integration. Paste any transaction JSON at `bitbadges.io/mint/local-builder` to review and sign it.
+
+## Networks
+
+| Network | Chain ID | EVM chain ID | Endpoints |
+| --- | --- | --- | --- |
+| mainnet | `bitbadges-1` | `50024` | `https://rpc.bitbadges.io`, `https://lcd.bitbadges.io`, `https://evm-rpc.bitbadges.io`, `https://api.bitbadges.io` |
+| testnet | offline | | [Testnet status](chain/testnet.md) |
+
+Full table, denoms, and node setup: [Network](chain/README.md).
+
+## The Tabs
+
+| Tab | Read it when you want to | Start at |
+| --- | --- | --- |
+| Docs | Install, run a first transaction, do a task, or read why BitBadges exists | [Quickstart](start/quickstart.md), [Guides](guides/README.md), [About](about/README.md) |
+| Token Standard | Understand the data model, approval criteria, every message and query, and wrapping | [Overview](token-standard/README.md) |
+| Chain | The other modules, the DEX, EVM precompiles, endpoints, denoms, running a node | [Chain](chain/README.md) |
+| API | Call the hosted API, run claims and plugins, add Sign In with BitBadges | [BitBadges API](api/README.md), [OpenAPI reference](/api-reference) |
+| SDK & CLI | Use `bitbadges` from TypeScript or drive everything from `bb` | [SDK](sdk/README.md), [CLI](cli/README.md) |
+| Agents | Wire Claude, Cursor, Codex, or any MCP client to build tokens | [Agents](agents/README.md) |
+
+For agents reading this site: [Reading the Docs](agents/reading-the-docs.md) lists `llms.txt`, the single-file corpus, and the URL patterns.

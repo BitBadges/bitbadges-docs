@@ -1,0 +1,155 @@
+name: Sync OpenAPI spec
+
+# Keeps site/openapi/openapi.json in sync with the source of truth in
+# BitBadges/bitbadgesjs (packages/bitbadgesjs-sdk/openapi-hosted/openapi.json,
+# produced by that repo's genapi.yml).
+#
+# Triggers:
+#   - repository_dispatch `openapi-updated` — fired by bitbadgesjs after it
+#     lands a new hosted spec on main. This is the fast path.
+#   - workflow_dispatch — manual re-sync.
+#   - schedule — weekly safety net in case a dispatch is lost or the PAT
+#     powering it expires.
+#
+# The job NEVER commits to master: it opens a PR and no-ops when there is no
+# diff. See _docs/runbooks/docs-sync.md.
+
+on:
+  repository_dispatch:
+    types: [openapi-updated]
+  workflow_dispatch:
+  schedule:
+    # Mondays 06:17 UTC. Off-the-hour to dodge the scheduler's peak backlog.
+    - cron: '17 6 * * 1'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-openapi
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout docs
+        uses: actions/checkout@v7
+
+      - name: Checkout bitbadgesjs
+        uses: actions/checkout@v7
+        with:
+          repository: BitBadges/bitbadgesjs
+          # BITBADGESJS_READ_TOKEN: PAT with `contents: read` on
+          # BitBadges/bitbadgesjs. Only needed while that repo is private —
+          # GITHUB_TOKEN cannot read another repo. Falls back so a public
+          # bitbadgesjs works with no secret at all.
+          token: ${{ secrets.BITBADGESJS_READ_TOKEN || secrets.GITHUB_TOKEN }}
+          ref: main
+          path: .bitbadgesjs
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Copy spec
+        run: |
+          set -euo pipefail
+          SRC=.bitbadgesjs/packages/bitbadgesjs-sdk/openapi-hosted/openapi.json
+          if [ ! -f "$SRC" ]; then
+            echo "::error::Source spec not found at $SRC."
+            echo "::error::bitbadgesjs no longer publishes openapi-hosted/openapi.json, or the"
+            echo "::error::checkout failed. Fix genapi.yml upstream or this workflow's path."
+            exit 1
+          fi
+          mkdir -p site/openapi
+          cp "$SRC" site/openapi/openapi.json
+
+      - name: Validate spec before it can be committed
+        run: |
+          set -euo pipefail
+          bun -e '
+            const fs = require("fs");
+            const f = "site/openapi/openapi.json";
+            let doc;
+            try {
+              doc = JSON.parse(fs.readFileSync(f, "utf8"));
+            } catch (e) {
+              console.error(`FAIL: ${f} is not valid JSON — ${e.message}`);
+              process.exit(1);
+            }
+            const title = doc?.info?.title;
+            if (title !== "BitBadges API") {
+              console.error(`FAIL: info.title is ${JSON.stringify(title)} (expected "BitBadges API").`);
+              console.error("This looks like a raw typeconv or partial spec, not the assembled one. Refusing to sync.");
+              process.exit(1);
+            }
+            const paths = Object.keys(doc.paths ?? {});
+            if (paths.length < 90) {
+              console.error(`FAIL: only ${paths.length} paths (expected >= 90) — truncated spec, refusing to sync.`);
+              process.exit(1);
+            }
+            const METHODS = new Set(["get", "put", "post", "delete", "options", "head", "patch", "trace"]);
+            const internal = [];
+            for (const [p, item] of Object.entries(doc.paths ?? {})) {
+              for (const [method, op] of Object.entries(item ?? {})) {
+                if (!METHODS.has(method.toLowerCase())) continue;
+                if (op && op["x-internal"] === true) internal.push(`${method.toUpperCase()} ${p}`);
+              }
+            }
+            if (internal.length) {
+              console.error(`FAIL: ${internal.length} operation(s) marked x-internal reached the public spec:`);
+              for (const op of internal) console.error(`  - ${op}`);
+              console.error("bitbadgesjs assert_no_internal_routes.ts should have caught this. Refusing to sync.");
+              process.exit(1);
+            }
+            console.log(`Spec OK: title="${title}", paths=${paths.length}, x-internal operations=0`);
+          '
+
+      - name: Drop upstream checkout before the PR is built
+        run: rm -rf .bitbadgesjs
+
+      # A regeneration that breaks the corpus must not open a green PR.
+      - name: Verify the corpus still builds
+        working-directory: site
+        run: |
+          bun run sync
+          DOCS_REDIRECTS_STRICT=1 bun test
+          bun run typecheck
+
+      - name: Open PR
+        id: pr
+        uses: peter-evans/create-pull-request@v8
+        with:
+          # DOCS_SYNC_PAT lets the resulting PR trigger the docs repo's own
+          # workflows (a GITHUB_TOKEN-authored PR does not). Optional.
+          token: ${{ secrets.DOCS_SYNC_PAT || secrets.GITHUB_TOKEN }}
+          base: master
+          branch: sync/openapi
+          delete-branch: true
+          add-paths: site/openapi/openapi.json
+          commit-message: 'chore(openapi): sync spec from bitbadgesjs'
+          title: 'chore(openapi): sync spec from bitbadgesjs'
+          body: |
+            Automated sync of `site/openapi/openapi.json` from
+            `BitBadges/bitbadgesjs` (`packages/bitbadgesjs-sdk/openapi-hosted/openapi.json`).
+
+            Triggered by: `${{ github.event_name }}`.
+
+            The spec passed the pre-commit gate: valid JSON, `info.title` is
+            `BitBadges API`, at least 90 paths, and zero operations marked
+            `x-internal: true`.
+
+            Runbook: `_docs/runbooks/docs-sync.md`.
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+      - name: Report
+        run: |
+          if [ -n "${{ steps.pr.outputs.pull-request-number }}" ]; then
+            echo "PR #${{ steps.pr.outputs.pull-request-number }}: ${{ steps.pr.outputs.pull-request-url }}"
+          else
+            echo "Spec already up to date — nothing to do."
+          fi

@@ -1,3 +1,0 @@
-# Implement Your Plugin
-
-###
