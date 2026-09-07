@@ -24,6 +24,8 @@ import type { Root as MdastRoot } from 'mdast';
 
 import { applyCodeFolds, deserializeRanges, foldRangesFor, serializeRanges } from './fold';
 import { rehypeMermaid } from './mermaid';
+import { rehypeThemedImages } from './themedImages';
+import { stripWidgets } from './widgets';
 import { gitbookToDirectives } from './gitbook';
 import { resolveAssetPath, resolveDocLink } from './paths';
 import { remarkWidgets } from './widgets';
@@ -370,7 +372,7 @@ function rehypeContentRefTitles(options: RenderOptions) {
 
 /** Strip code blocks and markup down to prose, for the search index. */
 function plainText(markdown: string): string {
-  return markdown
+  return stripWidgets(markdown)
     .replace(/^---\n[\s\S]*?\n---\n/, '')
     .replace(/```[\s\S]*?```/g, ' ')
     .replace(/~~~[\s\S]*?~~~/g, ' ')
@@ -401,6 +403,7 @@ export async function renderDoc(source: string, options: RenderOptions): Promise
     .use(rehypeRaw)
     .use(rehypeSlug)
     .use(rehypeRewrite, options, headings)
+    .use(rehypeThemedImages, options)
     .use(rehypeContentRefTitles, options)
     .use(rehypeAutolinkHeadings, {
       behavior: 'append',

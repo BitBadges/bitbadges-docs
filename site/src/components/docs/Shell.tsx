@@ -21,12 +21,8 @@ export type ShellProps = {
 /** The brand mark, shared by the top bar and the mobile drawer. */
 function Wordmark({ basePath }: { basePath: string }) {
   return (
-    <Link href={basePath || '/'} className="flex shrink-0 items-center gap-2">
-      <img src={`${basePath}/bitbadges-logo.svg`} alt="" width={26} height={26} className="h-[1.6rem] w-[1.6rem]" />
-      <span className="hidden text-[0.95rem] font-bold tracking-tight sm:inline">
-        <span className="wordmark hidden sm:inline">BitBadges</span>
-        <span className="ml-1.5 hidden font-medium text-[var(--fg-faint)] xl:inline">Docs</span>
-      </span>
+    <Link href={basePath || '/'} aria-label="BitBadges Docs" className="flex shrink-0 items-center">
+      <img src={`${basePath}/bitbadges-logo.svg`} alt="" width={36} height={36} className="h-[2.25rem] w-[2.25rem]" />
     </Link>
   );
 }

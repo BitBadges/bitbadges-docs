@@ -413,9 +413,9 @@ body {
   background: transparent;
   color: var(--fg-muted);
   font: inherit;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   line-height: 1;
-  padding: 0.22rem 0.5rem;
+  padding: 0.28rem 0.6rem;
   border-radius: 0.3rem;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
@@ -424,8 +424,8 @@ body {
   color: var(--fg);
 }
 .doc .code-view-tab[aria-selected='true'] {
-  background: color-mix(in oklab, var(--fg-faint) 22%, transparent);
-  color: var(--fg);
+  background: color-mix(in oklab, var(--accent) 16%, transparent);
+  color: var(--accent);
 }
 .doc .code-view-tab:focus-visible {
   outline: 2px solid var(--accent, currentColor);
@@ -458,6 +458,11 @@ body {
   border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: var(--shadow-sm);
+}
+/* Inside a table, inline code stays on one line; the table scrolls instead. */
+.doc table code {
+  white-space: nowrap;
+  overflow-wrap: normal;
 }
 .doc table {
   width: 100%;
@@ -492,6 +497,11 @@ body {
   margin-top: 0.5rem;
 }
 
+/* Screenshot pairs: the light or dark twin that matches the site theme. */
+:root.dark .doc img[data-theme='light'],
+:root:not(.dark) .doc img[data-theme='dark'] {
+  display: none;
+}
 .doc img {
   max-width: 100%;
   height: auto;

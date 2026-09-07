@@ -12,6 +12,7 @@ import path from 'node:path';
 
 import { docsConfig } from '../src/lib/docs/config';
 import { getAllFiles } from '../src/lib/docs/content';
+import { stripWidgets } from '../src/lib/docs/widgets';
 
 /**
  * Generated reference trees are excluded. `sdk/reference` alone is 1647 pages
@@ -41,7 +42,7 @@ export async function generate(): Promise<{ pages: number; bytes: number }> {
   const entries = await Promise.all(
     files.sort().map(async (file) => ({
       file,
-      body: await fs.readFile(path.join(docsConfig.contentDir, file), 'utf8'),
+      body: stripWidgets(await fs.readFile(path.join(docsConfig.contentDir, file), 'utf8')),
     })),
   );
 

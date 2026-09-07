@@ -108,3 +108,16 @@ export function remarkWidgets(options: { filePath: string }) {
     });
   };
 }
+
+/**
+ * Remove widget directives from markdown meant for machines.
+ *
+ * Widgets show a reader what bitbadges.io would draw; the JSON next to them
+ * already says what an agent needs. `for-llms.txt` and the search index use
+ * this so neither carries directive syntax or duplicated props.
+ */
+export function stripWidgets(markdown: string): string {
+  return markdown
+    .replace(/^:::widget\{[^\n]*\}\n[\s\S]*?^:::[ \t]*$\n?/gm, '')
+    .replace(/^::widget\{[^\n]*\}[ \t]*$\n?/gm, '');
+}
