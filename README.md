@@ -6,6 +6,10 @@ description: "What BitBadges is, how the chain, the hosted services, and the too
 
 BitBadges is a Cosmos SDK Layer 1 whose core module, `x/tokenization`, is a complete token standard: every collection, balance, approval, and permission is chain state that the module enforces on every transfer. This page explains the system end to end, shows what a token collection looks like, and sends you to the right tab.
 
+## You May Not Need These Docs
+
+BitBadges is no-code by default. Everything documented here is available directly on [bitbadges.io](https://bitbadges.io): create collections, set transferability, run claims, gate access, and trade, all from the site with a wallet. These docs are for developers who want to integrate, script, or understand the model underneath. Try the site first. Come back when you need the API, the SDK, the CLI, or an AI agent.
+
 ## Build in Three Steps
 
 1. Install the CLI:
