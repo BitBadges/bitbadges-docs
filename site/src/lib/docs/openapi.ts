@@ -264,11 +264,13 @@ export type ApiFold = {
 };
 
 export const API_FOLD: ApiFold = {
-  // Scalar's sidebar has exactly two useful levels here: `info.description`
+  // Scalar's sidebar has exactly two useful levels: `info.description`
   // contributes the lowest heading level and one below it, and a tag
   // contributes only its operations (tag descriptions never become sidebar
-  // entries). So every prose page lives in the introduction as a `##` under
-  // the single `# Overview`, which is the only place it gets a nav entry.
+  // entries). Each prose page therefore keeps its own `#` heading, so the
+  // page is a top-level entry and its `##` sections nest under it. Nesting
+  // the pages under one Overview heading instead would cost that second
+  // level, which is where the useful navigation lives.
   intro: [
     { file: 'api/README.md', title: 'Overview' },
     { file: 'api/pagination-and-views.md' },
@@ -398,12 +400,11 @@ function requirePage(pages: Map<string, string>, file: string): string {
  * Replace `info.description` and the chosen tag descriptions with the API
  * tab's markdown.
  *
- * `info.description` is a single `# Overview` section. The lead page's body
- * follows it directly, then every other intro page becomes a `## <title>`
- * subsection with its own headings demoted to fit underneath. One H1 means
- * Scalar shows one Overview entry above the tags, with everything else nested
- * inside it rather than sitting beside it. Tag descriptions work the same way:
- * the lead page's body, then `## <title>` sections.
+ * `info.description` is one `# <title>` section per intro page. Scalar turns
+ * those into sidebar entries and nests each page's `##` headings beneath it,
+ * so a reader can jump straight to, say, the Swaps payload. Tag descriptions
+ * are the lead page's body followed by `## <title>` sections, headings
+ * demoted to fit underneath.
  *
  * Throws when a page or tag is missing: nothing may silently disappear.
  */
@@ -420,12 +421,10 @@ export function foldApiDocs<T extends Json>(
     prepareFoldedPage(page.file, requirePage(pages, page.file), page.title, basePath);
 
   spec.info ??= {};
-  const [introLead, ...introRest] = fold.intro.map(prepare);
-  spec.info.description = [
-    `# ${introLead.title}`,
-    introLead.body,
-    ...introRest.map((page) => `## ${page.title}\n\n${demoteHeadings(page.body)}`),
-  ].join('\n\n');
+  spec.info.description = fold.intro
+    .map(prepare)
+    .map((page) => `# ${page.title}\n\n${page.body}`)
+    .join('\n\n');
 
   const tags: Json[] = Array.isArray(spec.tags) ? spec.tags : [];
   const folded: string[] = [];

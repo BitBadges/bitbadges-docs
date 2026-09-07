@@ -132,20 +132,18 @@ describe('foldApiDocs', () => {
     ['api/sign-in/frameworks.md', '# Frameworks\n\nAuth0.\n'],
   ]);
 
-  test('info.description is one Overview section with the other intro pages nested under it', () => {
+  test('info.description is one section per intro page, in order, each with its own H1', () => {
     const { spec: out } = foldApiDocs(spec(), pages);
     const description = out.info.description as string;
-    const order = ['# Overview', 'Intro text.', '## API keys', '## Pagination and views', '### How it works', '## Self-hosting', '### Docker'];
+    // Scalar shows the lowest heading level plus one below it. Keeping a `#`
+    // per page means the page is an entry and its `##` sections nest under it.
+    const order = ['# Overview', 'Intro text.', '## API keys', '# Pagination and views', '## How it works', '# Swaps', '# Self-hosting', '## Docker'];
     const positions = order.map((s) => description.indexOf(s));
     expect(positions.every((p) => p >= 0)).toBe(true);
     expect([...positions].sort((a, b) => a - b)).toEqual(positions);
     expect(description.startsWith('# Overview')).toBe(true);
-    // Scalar renders only the lowest heading level and one below it, so a
-    // second H1 would put a page beside Overview instead of inside it.
-    expect(description.match(/^# /gm)).toHaveLength(1);
     expect(description).not.toContain('Old intro');
     expect(description).not.toContain('# BitBadges API');
-    expect(description).toContain('## Swaps');
   });
 
   test('sets the Claims and Sign In tag descriptions from their page groups', () => {
@@ -194,14 +192,10 @@ describe('foldApiDocs', () => {
   test('sanitising after the fold keeps the folded sections when no grouping is requested', () => {
     const { spec: folded } = foldApiDocs(spec(), pages);
     const { spec: out } = sanitizeOpenApi(folded);
-    // Everything lives under one Overview H1 so Scalar nests it rather than
-    // showing Pagination, Swaps and Self-hosting beside Overview.
     const description = out.info.description as string;
     expect(description.startsWith('# Overview')).toBe(true);
-    expect(description.match(/^# /gm)).toHaveLength(1);
-    expect(description).toContain('\n## Pagination and views');
-    expect(description).toContain('\n## Swaps');
-    expect(description).toContain('\n## Self-hosting');
+    expect(description).toContain('\n# Swaps');
+    expect(description).toContain('\n# Self-hosting');
   });
 });
 
