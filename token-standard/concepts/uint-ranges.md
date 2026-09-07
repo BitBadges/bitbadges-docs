@@ -31,6 +31,10 @@ export interface UintRange<T extends NumberType> {
 | `start` | Uint (string in JSON) | yes | First value in the range, inclusive |
 | `end` | Uint (string in JSON) | yes | Last value in the range, inclusive |
 
+{% hint style="info" %}
+Ask your agent: "Set the valid token IDs of the collection I am building to 1 through 100 and 200 through 250." The MCP builder tools (`set_valid_token_ids`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 Where ranges appear:
@@ -56,7 +60,7 @@ Fields that document their own bounds (for example the 0-based hours and weekday
 `[{ "start": "1", "end": "18446744073709551615" }]` means "all values". It is the usual value for `transferTimes` and `ownershipTimes` when there is no time restriction.
 
 ```json
-"transferTimes": [{ "start": "1", "end": "18446744073709551615" }]
+{ "transferTimes": [{ "start": "1", "end": "18446744073709551615" }] }
 ```
 
 ### Single value

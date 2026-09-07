@@ -49,13 +49,13 @@ tm.event='Tx' AND message.action='/tokenization.MsgTransferTokens'
 Transactions by sender:
 
 ```text
-tm.event='Tx' AND message.sender='bb1abc123...'
+tm.event='Tx' AND message.sender='bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d'
 ```
 
 Combined:
 
 ```text
-tm.event='Tx' AND message.action='/tokenization.MsgCreateCollection' AND message.sender='bb1abc123...'
+tm.event='Tx' AND message.action='/tokenization.MsgCreateCollection' AND message.sender='bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d'
 ```
 
 ## Message type URLs

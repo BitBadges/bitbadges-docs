@@ -10,11 +10,11 @@ Returns the number of times a given signature has been used to satisfy an ETH si
 
 ```bash
 # [collectionId] [approvalLevel] [approverAddress] [approvalId] [challengeTrackerId] [signature]
-bb query tokenization num-used-for-eth-signature-challenge 1 collection "" approval-123 challenge-1 0xabc...
+bb query tokenization num-used-for-eth-signature-challenge 1 collection "" two-factor twofa-signatures 0xab99124b11e595ee42fb667fc5e0d350a2858f6115c9c34471c926b79d917077aaf8862dd21cebd059a20dda810b3a2e14fb4f3ba336e901c63f7ae1dbc6fde01b
 ```
 
 ```bash
-curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_eth_signature_tracker/1/collection//approval-123/challenge-1/0xabc..."
+curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_eth_signature_tracker/1/collection//two-factor/twofa-signatures/0xab99124b11e595ee42fb667fc5e0d350a2858f6115c9c34471c926b79d917077aaf8862dd21cebd059a20dda810b3a2e14fb4f3ba336e901c63f7ae1dbc6fde01b"
 ```
 
 The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{approvalId}/{challengeTrackerId}/{signature}`.
@@ -33,9 +33,7 @@ The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{approv
 ## Response
 
 ```json
-{
-  "numUsed": "1"
-}
+{ "numUsed": "1" }
 ```
 
 | Field | Type | Description |

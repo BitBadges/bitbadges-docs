@@ -11,14 +11,17 @@ This page is also part of the [API reference](/api-reference).
 ## Example
 
 ```ts
+import crypto from 'crypto';
 import { generateBitBadgesAuthUrl, CodeGenQueryParams } from 'bitbadges';
 
+const state = crypto.randomBytes(16).toString('hex'); // store it in the session for the callback check
+
 const params: CodeGenQueryParams = {
-  client_id: '<client-id>',
+  client_id: 'app_demo_01',
   redirect_uri: 'https://example.com/api/callback',
-  state: '<random-state>',
+  state,
   scope: 'completeClaims,readPrivateClaimData',
-  claimId: '<claim-id>',
+  claimId: 'claim_demo_01',
   hideIfAlreadyClaimed: true,
   expectVerifySuccess: true
 };
@@ -26,8 +29,10 @@ const params: CodeGenQueryParams = {
 const authUrl = generateBitBadgesAuthUrl(params);
 ```
 
+The generated URL, with `state` set to `f3a9c2e1b7d4a6c8`:
+
 ```bash
-https://bitbadges.io/siwbb/authorize?client_id=<client-id>&redirect_uri=https%3A%2F%2Fexample.com%2Fapi%2Fcallback&state=<random-state>&scope=completeClaims
+https://bitbadges.io/siwbb/authorize?client_id=app_demo_01&redirect_uri=https%3A%2F%2Fexample.com%2Fapi%2Fcallback&state=f3a9c2e1b7d4a6c8&scope=completeClaims%2CreadPrivateClaimData&claimId=claim_demo_01&hideIfAlreadyClaimed=true&expectVerifySuccess=true
 ```
 
 Three ways to produce the URL:

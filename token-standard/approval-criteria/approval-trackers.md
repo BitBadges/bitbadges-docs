@@ -8,25 +8,105 @@ Trackers are increment-only tallies stored per approval. `approvalAmounts` caps 
 
 ## Shape
 
-```json
+A complete `approvalCriteria` with the `approvalAmounts` and `maxNumTransfers` objects open. Folded lines are defaults.
+
+```json fold=2-28,45-97
 {
-  "approvalCriteria": {
-    "approvalAmounts": {
-      "overallApprovalAmount": "1000",
-      "perFromAddressApprovalAmount": "0",
-      "perToAddressApprovalAmount": "0",
-      "perInitiatedByAddressApprovalAmount": "10",
-      "amountTrackerId": "uniqueID",
-      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  "merkleChallenges": [],
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
     },
-    "maxNumTransfers": {
-      "overallMaxNumTransfers": "0",
-      "perFromAddressMaxNumTransfers": "0",
-      "perToAddressMaxNumTransfers": "0",
-      "perInitiatedByAddressMaxNumTransfers": "1",
-      "amountTrackerId": "uniqueID",
-      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": false,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
     }
+  },
+  "approvalAmounts": {
+    "overallApprovalAmount": "1000",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "10",
+    "amountTrackerId": "uniqueID",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "0",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "1",
+    "amountTrackerId": "uniqueID",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "coinTransfers": [],
+  "requireToEqualsInitiatedBy": false,
+  "requireFromEqualsInitiatedBy": false,
+  "requireToDoesNotEqualInitiatedBy": false,
+  "requireFromDoesNotEqualInitiatedBy": false,
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": false,
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  },
+  "mustOwnTokens": [],
+  "dynamicStoreChallenges": [],
+  "ethSignatureChallenges": [],
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "recipientChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "initiatorChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
+  },
+  "mustPrioritize": false,
+  "votingChallenges": [],
+  "allowBackedMinting": false,
+  "allowSpecialWrapping": false,
+  "evmQueryChallenges": [],
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
   }
 }
 ```
@@ -66,6 +146,10 @@ interface ResetTimeIntervals<T> {
 | `resetTimeIntervals` | Periodic reset. Both values `0` disables it. |
 
 `"0"` in any limit means unlimited, and that tally is not tracked.
+
+{% hint style="info" %}
+Ask your agent: "Add a mint approval to collection 1 capped at 1000 tokens overall and 10 per address, with a tracker that resets every 30 days." The MCP builder tools (`add_approval`) produce the objects on this page.
+{% endhint %}
 
 ## How it works
 
@@ -115,21 +199,21 @@ interface ApprovalTrackerIdDetails<T extends NumberType> {
 | `trackerType` | Example key | Tally per |
 | --- | --- | --- |
 | `overall` | `1-collection- -approvalId-uniqueID-overall-` | the approval |
-| `to` | `1-collection- -approvalId-uniqueID-to-bb1recipient...` | recipient |
-| `from` | `1-collection- -approvalId-uniqueID-from-bb1sender...` | sender |
-| `initiatedBy` | `1-collection- -approvalId-uniqueID-initiatedBy-bb1initiator...` | initiator |
+| `to` | `1-collection- -approvalId-uniqueID-to-bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue` | recipient |
+| `from` | `1-collection- -approvalId-uniqueID-from-bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d` | sender |
+| `initiatedBy` | `1-collection- -approvalId-uniqueID-initiatedBy-bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf` | initiator |
 
 Read a tracker with [GetApprovalTracker](../queries/get-approval-tracker.md).
 
 ### Worked example
 
-With the `approvalAmounts` above (overall 1000, per initiator 10), Alice initiates a transfer of 10 from Bob:
+With the `approvalAmounts` above (overall 1000, per initiator 10), carol initiates a transfer of 10 from alice:
 
-- Overall tracker `...-overall-` goes 0/1000 to 10/1000. Charlie's later transfers add to the same tally.
-- Alice's initiator tracker `...-initiatedBy-alice` goes 0/10 to 10/10. It is used up. Charlie has his own tracker at 0/10.
+- Overall tracker `...-overall-` goes 0/1000 to 10/1000. bob's later transfers add to the same tally.
+- carol's initiator tracker `...-initiatedBy-bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf` goes 0/10 to 10/10. It is used up. bob has his own tracker at 0/10.
 - `to` and `from` limits are `0`, so nothing is recorded for them.
 
-With the `maxNumTransfers` above (per initiator 1), Alice can initiate one transfer and then no more; Bob still can.
+With the `maxNumTransfers` above (per initiator 1), carol can initiate one transfer and then no more; bob still can.
 
 ```json
 { "numTransfers": "1", "amounts": [], "lastUpdatedAt": "1691978400000" }
@@ -140,12 +224,12 @@ With the `maxNumTransfers` above (per initiator 1), Alice can initiate one trans
 Trackers live outside the approval. Updating or deleting the approval does not touch them. To start a fresh tally, change `amountTrackerId` (or anything else in the key). Changing `uniqueID` to `uniqueID2` moves every tally to new keys that start at zero:
 
 ```text
-1-collection- -approvalId-uniqueID-initiatedBy-alice
+1-collection- -approvalId-uniqueID-initiatedBy-bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf
 becomes
-1-collection- -approvalId-uniqueID2-initiatedBy-alice
+1-collection- -approvalId-uniqueID2-initiatedBy-bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf
 ```
 
-Changing back to `uniqueID` resumes the old tally: Alice is at 10/10 again, not 0/10.
+Changing back to `uniqueID` resumes the old tally: carol is at 10/10 again, not 0/10.
 
 {% hint style="warning" %}
 Never reuse a tracker ID that has history unless you want to continue from where it stopped.
@@ -165,11 +249,11 @@ One exception: [predetermined balances](predetermined-balances.md) that order tr
 {
   "approvalAmounts": {
     "overallApprovalAmount": "100",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "0",
     "amountTrackerId": "monthly-tracker",
-    "resetTimeIntervals": {
-      "startTime": "1691978400000",
-      "intervalLength": "2592000000"
-    }
+    "resetTimeIntervals": { "startTime": "1691978400000", "intervalLength": "2592000000" }
   }
 }
 ```

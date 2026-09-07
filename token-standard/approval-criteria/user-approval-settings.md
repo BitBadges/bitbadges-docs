@@ -8,16 +8,109 @@ description: "userApprovalSettings: let a collection approval restrict the denom
 
 ## Shape
 
-```json
+A complete `approvalCriteria` with the `userApprovalSettings` object open. Folded lines are defaults.
+
+```json fold=2-92
 {
-  "approvalCriteria": {
-    "userApprovalSettings": {
-      "allowedDenoms": ["ubadge"],
-      "disableUserCoinTransfers": false,
-      "userRoyalties": {
-        "percentage": "500",
-        "payoutAddress": "bb1creator..."
-      }
+  "merkleChallenges": [],
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": false,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
+    }
+  },
+  "approvalAmounts": {
+    "overallApprovalAmount": "0",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "0",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "coinTransfers": [],
+  "requireToEqualsInitiatedBy": false,
+  "requireFromEqualsInitiatedBy": false,
+  "requireToDoesNotEqualInitiatedBy": false,
+  "requireFromDoesNotEqualInitiatedBy": false,
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": false,
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  },
+  "mustOwnTokens": [],
+  "dynamicStoreChallenges": [],
+  "ethSignatureChallenges": [],
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "recipientChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "initiatorChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
+  },
+  "mustPrioritize": false,
+  "votingChallenges": [],
+  "allowBackedMinting": false,
+  "allowSpecialWrapping": false,
+  "evmQueryChallenges": [],
+  "userApprovalSettings": {
+    "allowedDenoms": [
+      "ubadge"
+    ],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": {
+      "percentage": "500",
+      "payoutAddress": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
     }
   }
 }
@@ -45,6 +138,10 @@ interface UserRoyalties<T extends NumberType> {
 
 Collection approvals only.
 
+{% hint style="info" %}
+Ask your agent: "Add a transfer approval to collection 1 with a 5% royalty to alice on every payment, and only allow payments in BADGE." The MCP builder tools (`add_approval`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 The chain matches the collection approval first, then checks the user-level approvals for the same balance slice. It passes this collection approval's `userApprovalSettings` down into that user-level check:
@@ -59,25 +156,31 @@ When one transfer is split across several collection approvals, each slice carri
 
 Royalties apply to coin payments (for example a buyer paying a seller through the seller's outgoing approval), not to the tokens themselves. A `percentage` above 10000 is rejected. A `percentage` above 0 with an empty `payoutAddress` is rejected.
 
-5% to the creator:
+5% to alice, the creator:
 
 ```json
 {
-  "approvalCriteria": {
-    "userApprovalSettings": {
-      "userRoyalties": { "percentage": "500", "payoutAddress": "bb1creator..." }
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": {
+      "percentage": "500",
+      "payoutAddress": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
     }
   }
 }
 ```
 
-2.5% to an artist:
+2.5% to carol, the artist:
 
 ```json
 {
-  "approvalCriteria": {
-    "userApprovalSettings": {
-      "userRoyalties": { "percentage": "250", "payoutAddress": "bb1artist..." }
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": {
+      "percentage": "250",
+      "payoutAddress": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf"
     }
   }
 }
@@ -88,23 +191,41 @@ Royalties apply to coin payments (for example a buyer paying a seller through th
 Users may pay only in BADGE:
 
 ```json
-{ "approvalCriteria": { "userApprovalSettings": { "allowedDenoms": ["ubadge"] } } }
+{
+  "userApprovalSettings": {
+    "allowedDenoms": [
+      "ubadge"
+    ],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+  }
+}
 ```
 
 No user-level payments at all:
 
 ```json
-{ "approvalCriteria": { "userApprovalSettings": { "disableUserCoinTransfers": true } } }
+{
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": true,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+  }
+}
 ```
 
-BADGE only, with 5% to the creator:
+BADGE only, with 5% to alice:
 
 ```json
 {
-  "approvalCriteria": {
-    "userApprovalSettings": {
-      "allowedDenoms": ["ubadge"],
-      "userRoyalties": { "percentage": "500", "payoutAddress": "bb1creator..." }
+  "userApprovalSettings": {
+    "allowedDenoms": [
+      "ubadge"
+    ],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": {
+      "percentage": "500",
+      "payoutAddress": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
     }
   }
 }

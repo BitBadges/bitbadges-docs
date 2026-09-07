@@ -9,7 +9,7 @@ Creates one or more address lists. Anyone can sign it. A list is an immutable, s
 ## Example
 
 ```bash
-bb tx tokenization create-address-lists ./address-lists.json --from <key> --chain-id bitbadges-1
+bb tx tokenization create-address-lists ./address-lists.json --from alice --chain-id bitbadges-1
 ```
 
 ```ts
@@ -19,11 +19,11 @@ const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, '
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
 const msg = new MsgCreateAddressLists({
-  creator: client.address,
+  creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
   addressLists: [
     {
       listId: 'teamwallets',
-      addresses: ['bb1abc...', 'bb1def...'],
+      addresses: ['bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
       whitelist: true,
       uri: '',
       customData: ''
@@ -32,15 +32,16 @@ const msg = new MsgCreateAddressLists({
 });
 
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
 {
-  "creator": "bb1abc...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "addressLists": [
     {
       "listId": "teamwallets",
-      "addresses": ["bb1abc...", "bb1def..."],
+      "addresses": ["bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"],
       "whitelist": true,
       "uri": "",
       "customData": ""
@@ -48,6 +49,10 @@ const result = await client.signAndBroadcast([msg]);
   ]
 }
 ```
+
+{% hint style="info" %}
+Ask your agent: "Create an on-chain address list called teamwallets that contains bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d and bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue."
+{% endhint %}
 
 ## Fields
 
@@ -61,7 +66,7 @@ const result = await client.signAndBroadcast([msg]);
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `listId` | string | yes | Alphanumeric ID. Must be unused. |
-| `addresses` | string[] | yes | Valid `bb1...` addresses, or `Mint`. No duplicates, no empty strings. |
+| `addresses` | string[] | yes | Valid `bb`-prefixed bech32 addresses, or `Mint`. No duplicates, no empty strings. |
 | `whitelist` | bool | yes | `true` includes the addresses; `false` includes everyone except them. |
 | `uri` | string | no | Optional metadata URI. Validated as a URI when set. Usually empty; the BitBadges site does not use it. |
 | `customData` | string | no | Optional string. Usually empty. |

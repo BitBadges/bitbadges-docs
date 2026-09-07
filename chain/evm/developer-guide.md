@@ -22,19 +22,31 @@ Can sign `MsgEthereumTx`: direct EVM contract calls, precompile calls from Solid
 Cannot sign standard Cosmos SDK messages (`MsgDelegate`, `MsgTransferTokens`, other native messages). The hash algorithm differs.
 
 ```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
 // Works: an ETH wallet signs the MsgEthereumTx that runs this
+import "./interfaces/ITokenizationPrecompile.sol";
 import "./libraries/TokenizationJSONHelpers.sol";
 
-ITokenizationPrecompile precompile = ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
+contract EthWalletTransfer {
+    ITokenizationPrecompile constant precompile =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
-// Build JSON using helper
-string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(1, 1);
-string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER);
-string memory transferJson = TokenizationJSONHelpers.transferTokensJSON(
-    collectionId, recipients, amount, tokenIdsJson, ownershipJson
-);
+    function send(uint256 collectionId, address to, uint256 amount) external returns (bool) {
+        address[] memory recipients = new address[](1);
+        recipients[0] = to;
 
-precompile.transferTokens(transferJson);
+        // Build JSON using helper
+        string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(1, 1);
+        string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER);
+        string memory transferJson = TokenizationJSONHelpers.transferTokensJSON(
+            collectionId, recipients, amount, tokenIdsJson, ownershipJson
+        );
+
+        return precompile.transferTokens(transferJson);
+    }
+}
 ```
 
 ### Cosmos wallets (`secp256k1`)
@@ -91,22 +103,22 @@ An Ethereum address (20 bytes) and a Cosmos bech32 address are two encodings of 
 
 | Format | Example | Use case |
 | --- | --- | --- |
-| EVM (hex) | `0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb` | Solidity contracts, EVM transactions |
-| Cosmos (bech32) | `bb1abc123def456...` | Cosmos SDK messages, queries |
+| EVM (hex) | `0x0bc63cfe31d5218eb414b142c799e20964a54a1a` | Solidity contracts, EVM transactions |
+| Cosmos (bech32) | `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d` | Cosmos SDK messages, queries |
 
 EVM to Cosmos, as done inside precompile code:
 
 ```go
 // In precompile code
-caller := contract.Caller()  // common.Address (20 bytes, e.g., 0x1234...)
-cosmosAddr := sdk.AccAddress(caller.Bytes()).String()  // Bech32 (e.g., bb1abc...)
+caller := contract.Caller()  // common.Address (20 bytes, e.g. 0x0bc63cfe31d5218eb414b142c799e20964a54a1a)
+cosmosAddr := sdk.AccAddress(caller.Bytes()).String()  // Bech32 (e.g. bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d)
 ```
 
 Cosmos to EVM:
 
 ```go
-cosmosAddr, _ := sdk.AccAddressFromBech32("bb1abc...xyz")
-evmAddr := common.BytesToAddress(cosmosAddr.Bytes())  // 0x1234...5678
+cosmosAddr, _ := sdk.AccAddressFromBech32("bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d")
+evmAddr := common.BytesToAddress(cosmosAddr.Bytes())  // 0x0bc63cfe31d5218eb414b142c799e20964a54a1a
 ```
 
 Rules:
@@ -189,19 +201,44 @@ Move tokens from a user instead of the contract:
 
 ```solidity
 // The precompile always uses contract.Caller() as the creator.
-// For transfers, tokens move from the contract's balance.
+// For transfers, tokens move from the contract's balance by default.
 // To move tokens from a specific user, that user grants the contract an
 // outgoing approval, and the contract sets "from" to the user in the transfer JSON.
-string memory transferJson = TokenizationJSONHelpers.transferTokensJSON(...);
-precompile.transferTokens(transferJson);
+function transferFromUser(uint256 collectionId, address from, address to, uint256 amount) external returns (bool) {
+    string memory transferJson = string(abi.encodePacked(
+        '{"collectionId":"', TokenizationJSONHelpers.uintToString(collectionId),
+        '","transfers":[{"from":"', TokenizationJSONHelpers.addressToString(from),
+        '","toAddresses":["', TokenizationJSONHelpers.addressToString(to),
+        '"],"balances":[{"amount":"', TokenizationJSONHelpers.uintToString(amount),
+        '","tokenIds":', TokenizationJSONHelpers.uintRangeToJson(1, 1),
+        ',"ownershipTimes":', TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER),
+        '}]}]}'
+    ));
+    return precompile.transferTokens(transferJson);
+}
 ```
 
 Approval system:
 
-```solidity
-// User approves contract, contract acts on user's behalf
-// Precompile sees contract as caller, but contract has user's approval
+```json
+{
+  "@type": "/tokenization.MsgSetOutgoingApproval",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "collectionId": "1",
+  "approval": {
+    "toListId": "All",
+    "initiatedByListId": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+    "tokenIds": [{ "start": "1", "end": "1" }],
+    "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+    "approvalId": "contract-may-spend",
+    "version": "0",
+    "approvalCriteria": {}
+  }
+}
 ```
+
+The user (alice) signs this once. The contract at `0x5FbDB2315678afecb367f032d93F642f64180aa3` is then the initiator of every later transfer, and the precompile sees the contract as caller while the outgoing approval covers alice's tokens.
 
 See [Transferability](../../token-standard/concepts/transferability.md) for how outgoing approvals authorize a third party.
 
@@ -288,11 +325,11 @@ Forgetting the context: Solidity is always 18 decimals; Cosmos messages are alwa
 An approval or a collection invariant can gate on a read-only call to an EVM contract. Use this to check DeFi positions, compliance registries, or cross-chain state before a transfer goes through.
 
 ```solidity
-// Gate transfers to users holding 100+ USDC
+// Gate transfers to users holding 100+ units of a 6-decimal ERC20 (for example a USDC-style token at 0x5FbDB2315678afecb367f032d93F642f64180aa3)
 string memory evmQueryChallenge = string(abi.encodePacked(
-    '{"contractAddress":"0xUSDCAddress",',
+    '{"contractAddress":"0x5FbDB2315678afecb367f032d93F642f64180aa3",',
     '"calldata":"70a08231000000000000000000000000$sender",',  // balanceOf(address)
-    '"expectedResult":"0000000000000000000000000000000000000000000000000000000005f5e100",',  // 100 USDC
+    '"expectedResult":"0000000000000000000000000000000000000000000000000000000005f5e100",',  // 100 * 10^6
     '"comparisonOperator":"gte",',
     '"gasLimit":"100000"}'
 ));

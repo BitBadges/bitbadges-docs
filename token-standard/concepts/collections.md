@@ -8,54 +8,192 @@ A collection is the top-level object that holds tokens. The manager sets its fie
 
 ## Shape
 
-```ts
-import { MsgCreateCollection } from 'bitbadges';
+A complete `MsgCreateCollection`. The collection-level fields are open; the default balance store, permissions, and approvals are folded and have their own pages.
 
-const msg: MsgCreateCollection = {
-  creator: 'bb1kj9kt5y64n5a8677fhjqnmcc24ht2vy9atmdls',
-  defaultBalances: {
-    balances: [],
-    outgoingApprovals: [],
-    incomingApprovals: [],
-    autoApproveSelfInitiatedOutgoingTransfers: false,
-    autoApproveSelfInitiatedIncomingTransfers: true,
-    autoApproveAllIncomingTransfers: false,
-    userPermissions: {
-      // ... permission fields
-    },
+```json fold=3-17,21-33,49-166,172-173
+{
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "defaultBalances": {
+    "balances": [],
+    "outgoingApprovals": [],
+    "incomingApprovals": [],
+    "autoApproveSelfInitiatedOutgoingTransfers": true,
+    "autoApproveSelfInitiatedIncomingTransfers": true,
+    "autoApproveAllIncomingTransfers": true,
+    "userPermissions": {
+      "canUpdateOutgoingApprovals": [],
+      "canUpdateIncomingApprovals": [],
+      "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+      "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+      "canUpdateAutoApproveAllIncomingTransfers": []
+    }
   },
-  validTokenIds: [{ start: 1n, end: 100n }],
-  collectionPermissions: {
-    // ... permission fields
+  "validTokenIds": [
+    { "start": "1", "end": "100" }
+  ],
+  "collectionPermissions": {
+    "canDeleteCollection": [],
+    "canArchiveCollection": [],
+    "canUpdateStandards": [],
+    "canUpdateCustomData": [],
+    "canUpdateManager": [],
+    "canUpdateCollectionMetadata": [],
+    "canUpdateValidTokenIds": [],
+    "canUpdateTokenMetadata": [],
+    "canUpdateCollectionApprovals": [],
+    "canAddMoreAliasPaths": [],
+    "canAddMoreCosmosCoinWrapperPaths": []
   },
-  manager: 'bb1kj9kt5y64n5a8677fhjqnmcc24ht2vy9atmdls',
-  collectionMetadata: {
-    uri: 'ipfs://Qmf8xxN2fwXGgouue3qsJtN8ZRSsnoHxM9mGcynTPhh6Ub',
-    customData: '',
+  "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "collectionMetadata": {
+    "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
+    "customData": ""
   },
-  tokenMetadata: [
+  "tokenMetadata": [
     {
-      uri: 'ipfs://Qmf8xxN2fwXGgouue3qsJtN8ZRSsnoHxM9mGcynTPhh6Ub/{id}',
-      tokenIds: [{ start: 1n, end: 100n }],
-      customData: '',
-    },
+      "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json",
+      "customData": "",
+      "tokenIds": [
+        { "start": "1", "end": "100" }
+      ]
+    }
   ],
-  customData: 'Application-specific data',
-  collectionApprovals: [
-    // ... approvals
+  "customData": "Application-specific data",
+  "collectionApprovals": [
+    {
+      "fromListId": "Mint",
+      "toListId": "All",
+      "initiatedByListId": "All",
+      "transferTimes": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "tokenIds": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "ownershipTimes": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "uri": "",
+      "customData": "",
+      "approvalId": "mint",
+      "approvalCriteria": {
+        "merkleChallenges": [],
+        "predeterminedBalances": {
+          "manualBalances": [],
+          "incrementedBalances": {
+            "startBalances": [],
+            "incrementTokenIdsBy": "0",
+            "incrementOwnershipTimesBy": "0",
+            "durationFromTimestamp": "0",
+            "allowOverrideTimestamp": false,
+            "recurringOwnershipTimes": {
+              "startTime": "0",
+              "intervalLength": "0",
+              "chargePeriodLength": "0"
+            },
+            "allowOverrideWithAnyValidToken": false,
+            "allowAmountScaling": false,
+            "maxScalingMultiplier": "0"
+          },
+          "orderCalculationMethod": {
+            "useOverallNumTransfers": false,
+            "usePerToAddressNumTransfers": false,
+            "usePerFromAddressNumTransfers": false,
+            "usePerInitiatedByAddressNumTransfers": false,
+            "useMerkleChallengeLeafIndex": false,
+            "challengeTrackerId": ""
+          }
+        },
+        "approvalAmounts": {
+          "overallApprovalAmount": "0",
+          "perToAddressApprovalAmount": "0",
+          "perFromAddressApprovalAmount": "0",
+          "perInitiatedByAddressApprovalAmount": "0",
+          "amountTrackerId": "",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "maxNumTransfers": {
+          "overallMaxNumTransfers": "0",
+          "perToAddressMaxNumTransfers": "0",
+          "perFromAddressMaxNumTransfers": "0",
+          "perInitiatedByAddressMaxNumTransfers": "0",
+          "amountTrackerId": "",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "coinTransfers": [],
+        "requireToEqualsInitiatedBy": false,
+        "requireFromEqualsInitiatedBy": false,
+        "requireToDoesNotEqualInitiatedBy": false,
+        "requireFromDoesNotEqualInitiatedBy": false,
+        "overridesFromOutgoingApprovals": true,
+        "overridesToIncomingApprovals": false,
+        "autoDeletionOptions": {
+          "afterOneUse": false,
+          "afterOverallMaxNumTransfers": false,
+          "allowCounterpartyPurge": false,
+          "allowPurgeIfExpired": false
+        },
+        "mustOwnTokens": [],
+        "dynamicStoreChallenges": [],
+        "ethSignatureChallenges": [],
+        "senderChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "recipientChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "initiatorChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "altTimeChecks": {
+          "offlineHours": [],
+          "offlineDays": [],
+          "offlineMonths": [],
+          "offlineDaysOfMonth": [],
+          "offlineWeeksOfYear": [],
+          "timezoneOffsetMinutes": "0",
+          "timezoneOffsetNegative": false
+        },
+        "mustPrioritize": false,
+        "votingChallenges": [],
+        "allowBackedMinting": false,
+        "allowSpecialWrapping": false,
+        "evmQueryChallenges": [],
+        "userApprovalSettings": {
+          "allowedDenoms": [],
+          "disableUserCoinTransfers": false,
+          "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+        }
+      },
+      "version": "0"
+    }
   ],
-  standards: ['Tradable', 'NFT'],
-  isArchived: false,
-  invariants: {
-    noCustomOwnershipTimes: false,
-    maxSupplyPerId: '0',
-    cosmosCoinBackedPath: undefined,
-    noForcefulPostMintTransfers: false,
-    disablePoolCreation: false,
-    evmQueryChallenges: [],
+  "standards": [
+    "Tradable",
+    "NFT"
+  ],
+  "isArchived": false,
+  "mintEscrowCoinsToTransfer": [],
+  "cosmosCoinWrapperPathsToAdd": [],
+  "invariants": {
+    "noCustomOwnershipTimes": false,
+    "maxSupplyPerId": "0",
+    "cosmosCoinBackedPath": null,
+    "noForcefulPostMintTransfers": false,
+    "disablePoolCreation": false,
+    "evmQueryChallenges": []
   },
-  // ... other fields
-};
+  "aliasPathsToAdd": []
+}
 ```
 
 | Field | Type | Set | Permission | Description |
@@ -76,6 +214,10 @@ const msg: MsgCreateCollection = {
 | `cosmosCoinWrapperPaths` | CosmosCoinWrapperPath[] | creation, append | `canAddMoreCosmosCoinWrapperPaths` | See [Cosmos coin wrapper paths](../ibc/cosmos-coin-wrapper-paths.md) |
 | `aliasPaths` | AliasPath[] | creation, append | `canAddMoreAliasPaths` | See [Alias denoms](../ibc/alias-denoms.md) |
 | `createdBy` | string | chain | | Creator address |
+
+{% hint style="info" %}
+Ask your agent: "Create an NFT collection named Demo NFTs with 100 tokens, managed by alice, with metadata at ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json." The MCP builder tools (`set_collection_metadata, set_token_metadata, set_valid_token_ids, set_standards`) produce the objects on this page.
+{% endhint %}
 
 ## How it works
 
@@ -111,7 +253,7 @@ Standards the BitBadges site recognizes:
 | `AI Agent Vault` | Display-only. The site adds an "AI Prompt" tab to the token page that generates a prompt with the vault details (collection ID, backing address, denom, spend limits, deposit and withdraw instructions). Usually paired with `Smart Token`. |
 
 ```json
-"standards": ["Smart Token", "AI Agent Vault"]
+{ "standards": ["Smart Token", "AI Agent Vault"] }
 ```
 
 Mix standards as long as they are compatible. See [Multiple standards](../integrate/multiple-standards.md).
@@ -120,7 +262,7 @@ Mix standards as long as they are compatible. See [Multiple standards](../integr
 
 ```ts
 const collectionMetadata: CollectionMetadata = {
-  uri: 'ipfs://Qmf8xxN2fwXGgouue3qsJtN8ZRSsnoHxM9mGcynTPhh6Ub',
+  uri: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json',
   customData: '',
 };
 ```
@@ -140,7 +282,7 @@ interface Metadata {
 ```ts
 const tokenMetadata: TokenMetadata[] = [
   {
-    uri: 'ipfs://Qmf8xxN2fwXGgouue3qsJtN8ZRSsnoHxM9mGcynTPhh6Ub/{id}',
+    uri: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json',
     tokenIds: [{ start: 1n, end: 100n }],
     customData: '',
   },
@@ -167,7 +309,7 @@ const collectionMetadata: CollectionMetadata = {
   uri: '',
   customData: JSON.stringify({
     name: 'My Collection',
-    image: 'ipfs://Qm.../image.png',
+    image: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/image.png',
     description: 'A short description.',
   }),
 };
@@ -186,7 +328,7 @@ const collectionMetadata: CollectionMetadata = {
   uri: '',
   customData: JSON.stringify({
     name: 'My Collection',
-    image: 'ipfs://Qm.../image.png', // URL only, never base64
+    image: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/image.png', // URL only, never base64
     description: 'A short description.',
   }),
 };
@@ -208,7 +350,7 @@ import { generatePlaceholderArt } from 'bitbadges';
 const art = generatePlaceholderArt({ seed: 'My Collection' });
 const customData = JSON.stringify({
   name: 'My Collection',
-  description: '...',
+  description: 'A short description.',
   image: art.imageUri, // data:image/svg+xml;base64,...
 });
 // collectionMetadata.uri = '', collectionMetadata.customData = customData
@@ -220,18 +362,22 @@ The same seed always yields the same art (six presets, 24 palettes, hash-picked)
 
 `defaultBalances` is the balance store a user gets the first time they interact with the collection. It is creation-only.
 
-```ts
-const defaultBalances: UserBalanceStore<bigint> = {
-  balances: [],
-  outgoingApprovals: [],
-  incomingApprovals: [],
-  autoApproveSelfInitiatedOutgoingTransfers: false,
-  autoApproveSelfInitiatedIncomingTransfers: true,
-  autoApproveAllIncomingTransfers: false,
-  userPermissions: {
-    // ... permission fields
-  },
-};
+```json
+{
+  "balances": [],
+  "outgoingApprovals": [],
+  "incomingApprovals": [],
+  "autoApproveSelfInitiatedOutgoingTransfers": false,
+  "autoApproveSelfInitiatedIncomingTransfers": true,
+  "autoApproveAllIncomingTransfers": false,
+  "userPermissions": {
+    "canUpdateOutgoingApprovals": [],
+    "canUpdateIncomingApprovals": [],
+    "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+    "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+    "canUpdateAutoApproveAllIncomingTransfers": []
+  }
+}
 ```
 
 Uses: block incoming transfers by default (opt-in only), give every user a starting balance, or set default approvals. Default approvals must be auto-scannable; see [Prioritized approvals](prioritized-approvals.md). Users can change their own store afterwards, subject to their `userPermissions`.

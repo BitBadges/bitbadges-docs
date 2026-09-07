@@ -55,11 +55,11 @@ Request:
 
 ```json
 {
-  "address": "bb1..."
+  "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
 }
 ```
 
-The address must be in `bb1...` format. Use the SDK's `convertToCosmosAddress()` to convert from Ethereum or other formats.
+The address must be a `bb1` bech32 address. Use the SDK's `convertToCosmosAddress()` to convert from Ethereum or other formats.
 
 Response: `200` with an empty body on success (tokens are queued and arrive shortly). `500` with a JSON error otherwise:
 
@@ -78,7 +78,7 @@ Behavior:
 ```bash
 curl -X POST https://api.bitbadges.io/testnet/api/v0/faucet \
   -H "Content-Type: application/json" \
-  -d '{"address": "bb1abc123..."}'
+  -d '{"address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"}'
 ```
 
 ```ts
@@ -86,7 +86,7 @@ curl -X POST https://api.bitbadges.io/testnet/api/v0/faucet \
 const response = await fetch('https://api.bitbadges.io/testnet/api/v0/faucet', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ address: 'bb1abc123...' })
+  body: JSON.stringify({ address: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d' })
 });
 
 if (!response.ok) {

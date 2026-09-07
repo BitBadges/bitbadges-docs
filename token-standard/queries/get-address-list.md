@@ -28,11 +28,11 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_address_
 {
   "list": {
     "listId": "teamwallets",
-    "addresses": ["bb1abc...", "bb1def..."],
+    "addresses": ["bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"],
     "whitelist": true,
     "uri": "",
     "customData": "",
-    "createdBy": "bb1abc..."
+    "createdBy": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
   }
 }
 ```

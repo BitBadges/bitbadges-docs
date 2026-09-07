@@ -37,7 +37,7 @@ const batchTransfer = new TransferWithIncrements<bigint>({
   ]),
   toAddresses: [], // empty because toAddressesLength is set
   toAddressesLength: 100n,
-  incrementTokenIdsBy: 1n, // recipient 1 gets ID 1, recipient 2 gets ID 2, ...
+  incrementTokenIdsBy: 1n, // recipient 1 gets ID 1, recipient 2 gets ID 2, and so on
   incrementOwnershipTimesBy: 86400000n // each window starts one day later
 });
 

@@ -112,6 +112,122 @@ pointer line are removed. The fold list is `API_FOLD`; a test fails if a page
 appears under `api/` that is not in it, and the fold throws if a page or tag is
 missing.
 
+## Chain API reference
+
+A second Scalar reference, at `/chain-api-reference`, owned by the **Chain**
+tab. It documents the chain **LCD** — the REST (gRPC-gateway) surface a
+BitBadges node serves — while `/api-reference` documents the indexer API. The
+playground points at `https://lcd.bitbadges.io`, so its `GET` routes issue real
+read-only requests against mainnet.
+
+The source is the chain's own swagger document,
+`$BITBADGESCHAIN_DIR/docs/static/openapi.yml` (JSON despite the extension). It
+is Swagger 2.0 with exactly two tags — `Query` and `Msg` — across 282 paths,
+which is unusable as a reference. `scripts/gen-chain-openapi.ts` converts it to
+OpenAPI 3.1 and retags every operation by the module its path belongs to:
+
+```bash
+BITBADGESCHAIN_DIR=../../bitbadgeschain bun run gen:chain-openapi
+```
+
+It writes **both** `openapi/chain-openapi.json` (committed source of record) and
+`public/chain-openapi.json` (what the page fetches). `sync-content.ts` copies
+only `openapi/openapi.json` into `public/`, so this script writes the served
+copy itself; committing it is what lets `bun run build` work without the chain
+checkout present. A test asserts the two files stay identical.
+
+`BITBADGESCHAIN_DIR` defaults to `../../bitbadgeschain`. If that checkout
+already holds a converted `docs/openapi/openapi.json` — the chain repo runs the
+same script as `scripts/gen-openapi.ts` — the generator prefers it and copies it
+through unchanged; otherwise it converts `docs/static/openapi.yml` itself.
+Either way the summary line says which path it used. (The chain's output is
+deliberately outside `docs/static/`: `docs/docs.go` `//go:embed`s that directory
+into the node binary.) `DOCS_CHAIN_OPENAPI_URL` (default `/chain-openapi.json`)
+is the URL the page fetches.
+
+The script is deliberately **self-contained**: `node:` builtins only, no npm
+dependency and no import from `src/lib`, so the same file body lives in the
+chain repo and can be copied either way unchanged.
+
+What the transform does, beyond the mechanical Swagger 2.0 → 3.1 conversion
+(`definitions` → `components.schemas`, body parameters → `requestBody`,
+`produces` → response `content`, `host`/`basePath`/`schemes` → `servers`,
+`$ref` rewriting):
+
+- Retags by path prefix into `Tokenization`, `GAMM`, `Pool manager`,
+  `Send manager`, `Manager splitter`, `IBC rate limit`, `EVM`, `Cosmos SDK` and
+  `IBC`, each with a one-line description; anything unattributable lands in
+  `Other` rather than disappearing.
+- Sorts the tags and the paths so the BitBadges modules come first. The
+  superseded `tokenization.v27`–`v32` message routes are **kept** — old
+  transactions must stay decodable — but grouped into
+  `Legacy tokenization versions` at the very end.
+- Names the 200+ `Msg` operations that ship with no `summary`, so the sidebar
+  reads `TransferTokens` rather than a raw gRPC path.
+- Runs the same defensive pass the indexer spec gets: schema cycles are broken
+  at the back-edge and dangling `$ref`s are stubbed, because Scalar
+  dereferences the whole document up front and one defect would blank the page.
+  The current chain document needs neither fix; the guard is there for the next
+  regeneration.
+
+## Proto reference
+
+`chain/proto/` is generated, not authored. `scripts/gen-proto-reference.ts` reads
+the chain's `proto/` tree and emits one page per `.proto` file plus a module index
+and a top-level index, so every message, field number, enum value, RPC and source
+comment is readable in-site instead of behind a GitHub link.
+
+```bash
+BITBADGESCHAIN_DIR=../../bitbadgeschain bun run gen:proto
+```
+
+`BITBADGESCHAIN_DIR` defaults to `../../bitbadgeschain` (the sibling checkout).
+The script wipes and rewrites `chain/proto/` on every run, so never hand-edit a
+page there; change the generator or the chain source. The pages are committed as
+content, which is what lets `bun run build` work without the chain checkout
+present.
+
+Two groups of proto files are deliberately not documented: `proto/tokenization/v27`
+through `v32` (frozen per-consensus-version copies of the same types, kept so old
+blocks stay decodable) and the legacy `proto/badges` package. Both are named in
+the generated index.
+
+The parser is a small proto3 reader in the same file rather than a dependency;
+`tests/proto-reference.test.ts` covers it with a fixture and then asserts over the
+generated tree. Anything the parser does not recognise is printed as an
+`unparsed declaration` at the end of a run rather than dropped, so a new proto
+construct shows up loudly.
+
+## SDK reference
+
+`sdk/reference/` is generated, not authored. It replaces the TypeDoc HTML that
+used to be published to `bitbadges.github.io/bitbadgesjs`, so the whole
+TypeScript SDK surface is in-site, searchable, and readable by agents.
+`scripts/gen-sdk-reference.ts` runs TypeDoc with `typedoc-plugin-markdown` over
+`packages/bitbadgesjs-sdk/src`, then rewrites the raw output for this corpus:
+breadcrumbs stripped so the H1 opens each page, a one-line `description:` in
+frontmatter, relative `*.md` links turned into `/sdk/reference/...` routes,
+lowercase-kebab filenames, and a `README.md` index per group.
+
+```bash
+BITBADGESJS_DIR=../../bitbadgesjs bun run gen:sdk
+```
+
+`BITBADGESJS_DIR` defaults to `../../bitbadgesjs` (the sibling checkout).
+Regenerate after an SDK release or any change to the SDK's exported surface or
+doc comments — not on every docs edit. The script wipes and rewrites
+`sdk/reference/` on every run, so never hand-edit a page there. The pages are
+committed as content, which is what lets `bun run build` work without the SDK
+checkout present, and why `gen:sdk` is deliberately not part of `sync`.
+
+`SUMMARY.md` lists the six group indexes and nothing else — the ~1600 symbol
+pages stay reachable by link and by search, and out of the sidebar. The vendored
+protobuf namespaces re-exported as `proto.cosmos`, `proto.google`,
+`proto.tendermint` and friends are not documented: another ~1600 pages of
+third-party generated scaffolding that would double the corpus and the
+client-side search index. `tests/sdk-reference.test.ts` asserts over the
+generated tree and skips with a pointer at this command when it is absent.
+
 ## Redirects
 
 Moved pages are listed in `../_docs/redirects/*.tsv` as `old<TAB>new` routes,

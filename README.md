@@ -6,6 +6,28 @@ description: "What BitBadges is, how the chain, the hosted services, and the too
 
 BitBadges is a Cosmos SDK Layer 1 whose core module, `x/tokenization`, is a complete token standard: every collection, balance, approval, and permission is chain state that the module enforces on every transfer. This page explains the system end to end, shows what a token collection looks like, and sends you to the right tab.
 
+## Build in three steps
+
+1. Install the CLI:
+
+```bash
+curl -fsSL https://install.bitbadges.io | sh
+```
+
+2. Add the MCP builder tools to your editor. Claude Code is shown; Cursor, Codex, Claude Desktop, and others are in [Set up your AI](agents/setup.md):
+
+```bash
+claude mcp add bitbadges-builder -e BITBADGES_API_KEY="$BITBADGES_API_KEY" -- npx -y -p bitbadges bitbadges-builder
+```
+
+3. Tell it what to build:
+
+- "Create me a payment request for 10 USDC"
+- "Build a subscription token that renews monthly for 5 USDC"
+- "Make a 500-piece NFT collection where only I can mint"
+
+The agent assembles the transaction and returns a review link. Open it, check the summary, and sign with your wallet.
+
 ## What you get
 
 | Layer | Pieces | What it does |
@@ -20,39 +42,188 @@ The chain enforces the rules. The hosted services make them easy to read and to 
 
 A collection is created with one message. This one is a 100-token NFT collection where only the creator can mint, one token per mint, up to 100 mints, with the supply locked forever:
 
-```json
+```json fold=3-17,19-25,31-37,62-66,75-97,107-112,114-158,166-177
 {
-  "validTokenIds": [{ "start": "1", "end": "100" }],
-  "collectionMetadata": { "uri": "ipfs://QmCollectionMetadata", "customData": "" },
-  "tokenMetadata": [{ "uri": "ipfs://QmTokenMetadata/{id}", "customData": "", "tokenIds": [{ "start": "1", "end": "100" }] }],
-  "collectionApprovals": [{
-    "approvalId": "manager-mint",
-    "fromListId": "Mint",
-    "toListId": "All",
-    "initiatedByListId": "bb1creator...",
-    "tokenIds": [{ "start": "1", "end": "100" }],
-    "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
-    "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
-    "approvalCriteria": {
-      "overridesFromOutgoingApprovals": true,
-      "maxNumTransfers": { "overallMaxNumTransfers": "100", "amountTrackerId": "mint" },
-      "predeterminedBalances": {
-        "incrementedBalances": {
-          "startBalances": [{ "amount": "1", "tokenIds": [{ "start": "1", "end": "1" }], "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }] }],
-          "incrementTokenIdsBy": "1"
-        },
-        "orderCalculationMethod": { "useOverallNumTransfers": true }
-      }
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "defaultBalances": {
+    "balances": [],
+    "outgoingApprovals": [],
+    "incomingApprovals": [],
+    "autoApproveSelfInitiatedOutgoingTransfers": false,
+    "autoApproveSelfInitiatedIncomingTransfers": false,
+    "autoApproveAllIncomingTransfers": false,
+    "userPermissions": {
+      "canUpdateOutgoingApprovals": [],
+      "canUpdateIncomingApprovals": [],
+      "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+      "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+      "canUpdateAutoApproveAllIncomingTransfers": []
     }
-  }],
-  "collectionPermissions": {
-    "canUpdateValidTokenIds": [{ "permanentlyForbiddenTimes": [{ "start": "1", "end": "18446744073709551615" }], "permanentlyPermittedTimes": [] }]
   },
-  "standards": ["NFTs"]
+  "validTokenIds": [{ "start": "1", "end": "100" }],
+  "collectionPermissions": {
+    "canDeleteCollection": [],
+    "canArchiveCollection": [],
+    "canUpdateStandards": [],
+    "canUpdateCustomData": [],
+    "canUpdateManager": [],
+    "canUpdateCollectionMetadata": [],
+    "canUpdateValidTokenIds": [
+      {
+        "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
+        "permanentlyPermittedTimes": [],
+        "permanentlyForbiddenTimes": [{ "start": "1", "end": "18446744073709551615" }]
+      }
+    ],
+    "canUpdateTokenMetadata": [],
+    "canUpdateCollectionApprovals": [],
+    "canAddMoreAliasPaths": [],
+    "canAddMoreCosmosCoinWrapperPaths": []
+  },
+  "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "collectionMetadata": {
+    "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
+    "customData": ""
+  },
+  "tokenMetadata": [
+    {
+      "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json",
+      "customData": "",
+      "tokenIds": [{ "start": "1", "end": "100" }]
+    }
+  ],
+  "customData": "",
+  "collectionApprovals": [
+    {
+      "fromListId": "Mint",
+      "toListId": "All",
+      "initiatedByListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+      "tokenIds": [{ "start": "1", "end": "100" }],
+      "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+      "uri": "",
+      "customData": "",
+      "approvalId": "manager-mint",
+      "approvalCriteria": {
+        "merkleChallenges": [],
+        "predeterminedBalances": {
+          "manualBalances": [],
+          "incrementedBalances": {
+            "startBalances": [
+              {
+                "amount": "1",
+                "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+                "tokenIds": [{ "start": "1", "end": "1" }]
+              }
+            ],
+            "incrementTokenIdsBy": "1",
+            "incrementOwnershipTimesBy": "0",
+            "durationFromTimestamp": "0",
+            "allowOverrideTimestamp": false,
+            "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+            "allowOverrideWithAnyValidToken": false,
+            "allowAmountScaling": false,
+            "maxScalingMultiplier": "0"
+          },
+          "orderCalculationMethod": {
+            "useOverallNumTransfers": true,
+            "usePerToAddressNumTransfers": false,
+            "usePerFromAddressNumTransfers": false,
+            "usePerInitiatedByAddressNumTransfers": false,
+            "useMerkleChallengeLeafIndex": false,
+            "challengeTrackerId": ""
+          }
+        },
+        "approvalAmounts": {
+          "overallApprovalAmount": "0",
+          "perToAddressApprovalAmount": "0",
+          "perFromAddressApprovalAmount": "0",
+          "perInitiatedByAddressApprovalAmount": "0",
+          "amountTrackerId": "",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "maxNumTransfers": {
+          "overallMaxNumTransfers": "100",
+          "perToAddressMaxNumTransfers": "0",
+          "perFromAddressMaxNumTransfers": "0",
+          "perInitiatedByAddressMaxNumTransfers": "0",
+          "amountTrackerId": "mint",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "coinTransfers": [],
+        "requireToEqualsInitiatedBy": false,
+        "requireFromEqualsInitiatedBy": false,
+        "requireToDoesNotEqualInitiatedBy": false,
+        "requireFromDoesNotEqualInitiatedBy": false,
+        "overridesFromOutgoingApprovals": true,
+        "overridesToIncomingApprovals": false,
+        "autoDeletionOptions": {
+          "afterOneUse": false,
+          "afterOverallMaxNumTransfers": false,
+          "allowCounterpartyPurge": false,
+          "allowPurgeIfExpired": false
+        },
+        "mustOwnTokens": [],
+        "dynamicStoreChallenges": [],
+        "ethSignatureChallenges": [],
+        "senderChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "recipientChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "initiatorChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "altTimeChecks": {
+          "offlineHours": [],
+          "offlineDays": [],
+          "offlineMonths": [],
+          "offlineDaysOfMonth": [],
+          "offlineWeeksOfYear": [],
+          "timezoneOffsetMinutes": "0",
+          "timezoneOffsetNegative": false
+        },
+        "mustPrioritize": false,
+        "votingChallenges": [],
+        "allowBackedMinting": false,
+        "allowSpecialWrapping": false,
+        "evmQueryChallenges": [],
+        "userApprovalSettings": {
+          "allowedDenoms": [],
+          "disableUserCoinTransfers": false,
+          "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+        }
+      },
+      "version": "0"
+    }
+  ],
+  "standards": ["NFTs"],
+  "isArchived": false,
+  "mintEscrowCoinsToTransfer": [],
+  "cosmosCoinWrapperPathsToAdd": [],
+  "invariants": {
+    "noCustomOwnershipTimes": false,
+    "maxSupplyPerId": "0",
+    "cosmosCoinBackedPath": { "conversion": { "sideA": { "amount": "0", "denom": "" }, "sideB": [] } },
+    "noForcefulPostMintTransfers": false,
+    "disablePoolCreation": false,
+    "evmQueryChallenges": []
+  },
+  "aliasPathsToAdd": []
 }
 ```
 
-Fields left at their defaults are omitted here; the full shape is in [MsgCreateCollection](token-standard/messages/msg-create-collection.md).
+Rows at their defaults are folded. Click a hidden row to expand it. The field reference is in [MsgCreateCollection](token-standard/messages/msg-create-collection.md).
 
 | Field | What it decides | Read |
 | --- | --- | --- |
@@ -73,7 +244,7 @@ Every transfer, including swaps on the DEX and IBC transfers of wrapped tokens, 
 | Fungible and non-fungible | Two standards, two contracts | One collection. `amount` per token ID. |
 | Expiring or scheduled ownership | Custom contract, a cron job, or a burn later | `ownershipTimes` on the balance. The chain reports the balance as absent outside the range. |
 | Transfer rules | `require` statements in Solidity, per contract, audited each time | Approvals with criteria, checked by the module on every transfer, swap, and IBC hop. |
-| Allowlists and blocklists | Mappings in the contract | Reusable [address lists](token-standard/concepts/address-lists.md): `"All"`, `"Mint"`, `"!bb1..."`, or stored lists. |
+| Allowlists and blocklists | Mappings in the contract | Reusable [address lists](token-standard/concepts/address-lists.md): `"All"`, `"Mint"`, `"!bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"`, or stored lists. |
 | Mint gating | A merkle-drop contract | [Merkle challenges](token-standard/approval-criteria/merkle-challenges.md) on-chain, or [claims](api/claims/README.md) with plugins off-chain that produce the proof. |
 | Royalties and payments | EIP-2981 hints that marketplaces may ignore | [Coin transfers](token-standard/approval-criteria/coin-transfers.md) and [user royalties](token-standard/approval-criteria/user-approval-settings.md) enforced inside the transfer. |
 | Upgradability | Proxy patterns | [Permissions](token-standard/concepts/permissions.md) with permitted and forbidden time ranges, freezable per field. |
@@ -107,7 +278,7 @@ Every path produces the same transaction JSON and ends with a signed broadcast. 
 
 ```bash
 curl -fsSL https://install.bitbadges.io | sh
-bb settings set apiKey <your-api-key>      # https://bitbadges.io/developer
+bb settings set apiKey "$BITBADGES_API_KEY"  # key from https://bitbadges.io/developer
 bb api tokens get-collection 1             # read through the BitBadges API
 bb build --help                            # 19 builders: subscription, smart-token, auction, transfer, ...
 bb check collection.json                   # validate any tx JSON, such as the collection above
@@ -124,12 +295,28 @@ import { BigIntify, BitBadgesAPI, BitBadgesSigningClient, GenericCosmosAdapter, 
 
 const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
 const { collection } = await api.getCollection('1');
+console.log(collection.collectionId, collection.validTokenIds);
 
 const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
-await client.signAndBroadcast([
-  new MsgTransferTokens({ creator: client.address, collectionId: 1n, transfers: [/* ... */] })
+const result = await client.signAndBroadcast([
+  new MsgTransferTokens({
+    creator: client.address,
+    collectionId: '1',
+    transfers: [
+      {
+        from: client.address,
+        toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+        balances: [{ amount: 1n, tokenIds: [{ start: 1n, end: 1n }], ownershipTimes: [{ start: 1n, end: 18446744073709551615n }] }],
+        prioritizedApprovals: [],
+        onlyCheckPrioritizedCollectionApprovals: false,
+        onlyCheckPrioritizedIncomingApprovals: false,
+        onlyCheckPrioritizedOutgoingApprovals: false
+      }
+    ]
+  })
 ]);
+console.log(result.success ? result.txHash : result.error);
 ```
 
 [SDK reference](sdk/README.md), [Transactions](sdk/transactions/README.md)
@@ -139,7 +326,7 @@ await client.signAndBroadcast([
 The same npm package ships the `bitbadges-builder` MCP server and a Claude Code plugin. The agent assembles the transaction with tools such as `add_approval`, `set_permissions`, and `review_collection`, then hands you a review link; you sign in the browser. Works with Claude Code, Claude Desktop, Cursor, Windsurf, Codex, VS Code, Zed, or any model that can output JSON.
 
 ```bash
-claude mcp add bitbadges-builder -e BITBADGES_API_KEY=<your-api-key> -- npx -y -p bitbadges bitbadges-builder
+claude mcp add bitbadges-builder -e BITBADGES_API_KEY="$BITBADGES_API_KEY" -- npx -y -p bitbadges bitbadges-builder
 ```
 
 [Set up your AI](agents/setup.md), [MCP builder tools](agents/mcp-tools.md)

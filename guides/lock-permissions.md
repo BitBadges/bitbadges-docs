@@ -85,6 +85,13 @@ const collectionPermissions = {
 
 For editable fields, use neutral `[]` rather than `permanentlyPermittedTimes`. Neutral gives the same behavior today and keeps the option to freeze later. `permanentlyPermittedTimes: FullTimeRanges` means the field can never be frozen; use it only when someone explicitly needs that guarantee.
 
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools installed, paste one of these:
+
+- "Lock the mint approvals on collection 1 so supply can never change, keep metadata editable, and give me the review link."
+- "Explain which permissions on collection 1 are frozen and which the manager can still change."
+{% endhint %}
+
 ## 2. Decide the two permissions that matter most
 
 1. Can the set of token IDs grow? Frozen at genesis? Handle with `canUpdateValidTokenIds`.
@@ -94,7 +101,7 @@ The second one is a supply question. If the manager can add or edit approvals fr
 
 ## 3. Freeze mint approvals (fixed supply)
 
-A `canUpdateCollectionApprovals` entry applies to every approval that matches all of its criteria. `approvalId: 'All'` matches any approval.
+A `canUpdateCollectionApprovals` entry applies to every approval that matches all of its criteria. `approvalId: 'All'` matches any approval. The JSON blocks on this page are complete `collectionPermissions` objects.
 
 ```ts
 const collectionPermissions = {
@@ -106,6 +113,8 @@ const collectionPermissions = {
     canUpdateCollectionMetadata: [],
     canUpdateValidTokenIds: [],
     canUpdateTokenMetadata: [],
+    canAddMoreAliasPaths: [],
+    canAddMoreCosmosCoinWrapperPaths: [],
     canUpdateCollectionApprovals: [
         {
             // Which approvals does this permission apply to? Approvals must match ALL criteria.
@@ -125,22 +134,23 @@ const collectionPermissions = {
 };
 
 const createCollection = {
-    // ... other collection fields
+    ...BaseCollectionDetails, // from Create a collection
     collectionPermissions,
-    collectionApprovals: [
-        // Include every initial mint approval here.
-        // These are the ONLY mint approvals ever possible.
-        {
-            fromListId: 'Mint',
-            toListId: 'creator-address',
-            // ... initial mint approval configuration
-        },
-    ],
+    // Include every initial mint approval here. These are the ONLY mint approvals ever possible.
+    collectionApprovals: [mintApproval], // from Mint and distribute
 };
 ```
 
 ```json
 {
+  "canDeleteCollection": [],
+  "canArchiveCollection": [],
+  "canUpdateStandards": [],
+  "canUpdateCustomData": [],
+  "canUpdateManager": [],
+  "canUpdateCollectionMetadata": [],
+  "canUpdateValidTokenIds": [],
+  "canUpdateTokenMetadata": [],
   "canUpdateCollectionApprovals": [{
     "fromListId": "Mint",
     "toListId": "All",
@@ -151,7 +161,9 @@ const createCollection = {
     "approvalId": "All",
     "permanentlyForbiddenTimes": [{ "start": "1", "end": "18446744073709551615" }],
     "permanentlyPermittedTimes": []
-  }]
+  }],
+  "canAddMoreAliasPaths": [],
+  "canAddMoreCosmosCoinWrapperPaths": []
 }
 ```
 
@@ -163,23 +175,31 @@ To freeze all transfer rules, mint and post-mint alike, change `fromListId` to `
 
 ```json
 {
-  "collectionPermissions": {
-    "canUpdateCollectionApprovals": [{
-      "fromListId": "All",
-      "toListId": "All",
-      "initiatedByListId": "All",
-      "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
-      "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
-      "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
-      "approvalId": "All",
-      "permanentlyForbiddenTimes": [{ "start": "1", "end": "18446744073709551615" }],
-      "permanentlyPermittedTimes": []
-    }]
-  }
+  "canDeleteCollection": [],
+  "canArchiveCollection": [],
+  "canUpdateStandards": [],
+  "canUpdateCustomData": [],
+  "canUpdateManager": [],
+  "canUpdateCollectionMetadata": [],
+  "canUpdateValidTokenIds": [],
+  "canUpdateTokenMetadata": [],
+  "canUpdateCollectionApprovals": [{
+    "fromListId": "All",
+    "toListId": "All",
+    "initiatedByListId": "All",
+    "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+    "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
+    "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+    "approvalId": "All",
+    "permanentlyForbiddenTimes": [{ "start": "1", "end": "18446744073709551615" }],
+    "permanentlyPermittedTimes": []
+  }],
+  "canAddMoreAliasPaths": [],
+  "canAddMoreCosmosCoinWrapperPaths": []
 }
 ```
 
-List IDs inside permissions must be reserved IDs or direct addresses: `"All"`, `"Mint"`, `"!Mint"`, `"bb1..."`, `"!bb1..."` (everyone except that address), or colon-separated `"bb1abc:bb1xyz"`. Custom list IDs are not allowed here.
+List IDs inside permissions must be reserved IDs or direct addresses: `"All"`, `"Mint"`, `"!Mint"`, `"bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"`, `"!bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"` (everyone except that address), or colon-separated `"bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d:bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"`. Custom list IDs are not allowed here.
 
 ## 4. Freeze one approval, or all but one
 
@@ -195,6 +215,8 @@ const collectionPermissions = {
     canUpdateCollectionMetadata: [],
     canUpdateValidTokenIds: [],
     canUpdateTokenMetadata: [],
+    canAddMoreAliasPaths: [],
+    canAddMoreCosmosCoinWrapperPaths: [],
     canUpdateCollectionApprovals: [
         {
             fromListId: 'All',
@@ -214,7 +236,16 @@ const collectionPermissions = {
 
 ```ts
 const collectionPermissions = {
-    // ... other permissions as above
+    canDeleteCollection: [],
+    canArchiveCollection: [],
+    canUpdateStandards: [],
+    canUpdateCustomData: [],
+    canUpdateManager: [],
+    canUpdateCollectionMetadata: [],
+    canUpdateValidTokenIds: [],
+    canUpdateTokenMetadata: [],
+    canAddMoreAliasPaths: [],
+    canAddMoreCosmosCoinWrapperPaths: [],
     canUpdateCollectionApprovals: [
         {
             fromListId: 'All',
@@ -232,23 +263,25 @@ const collectionPermissions = {
 };
 
 const createCollection = {
-    // ... other collection fields
+    ...BaseCollectionDetails, // from Create a collection
     collectionPermissions,
     collectionApprovals: [
-        {
-            approvalId: 'abc123',
-            // ... frozen or editable depending on the entry above
-        },
-        {
-            approvalId: 'other-approval',
-            // ... updateability depends on the entry above
-        },
+        { ...mintApproval, approvalId: 'abc123' }, // excluded by '!abc123': stays editable
+        { ...transferableApproval, approvalId: 'other-approval' }, // matched: frozen
     ],
 };
 ```
 
 ```json
 {
+  "canDeleteCollection": [],
+  "canArchiveCollection": [],
+  "canUpdateStandards": [],
+  "canUpdateCustomData": [],
+  "canUpdateManager": [],
+  "canUpdateCollectionMetadata": [],
+  "canUpdateValidTokenIds": [],
+  "canUpdateTokenMetadata": [],
   "canUpdateCollectionApprovals": [{
     "fromListId": "All",
     "toListId": "All",
@@ -259,7 +292,9 @@ const createCollection = {
     "approvalId": "mint-approval",
     "permanentlyForbiddenTimes": [{ "start": "1", "end": "18446744073709551615" }],
     "permanentlyPermittedTimes": []
-  }]
+  }],
+  "canAddMoreAliasPaths": [],
+  "canAddMoreCosmosCoinWrapperPaths": []
 }
 ```
 
@@ -277,6 +312,8 @@ const collectionPermissions = {
     canUpdateCollectionMetadata: [],
     canUpdateValidTokenIds: [],
     canUpdateTokenMetadata: [],
+    canAddMoreAliasPaths: [],
+    canAddMoreCosmosCoinWrapperPaths: [],
     canUpdateCollectionApprovals: [
         {
             fromListId: 'All',
@@ -303,7 +340,16 @@ Lock everything except 1 to 100:
 
 ```ts
 const collectionPermissions = {
-    // ... other permissions as above
+    canDeleteCollection: [],
+    canArchiveCollection: [],
+    canUpdateStandards: [],
+    canUpdateCustomData: [],
+    canUpdateManager: [],
+    canUpdateCollectionMetadata: [],
+    canUpdateValidTokenIds: [],
+    canUpdateTokenMetadata: [],
+    canAddMoreAliasPaths: [],
+    canAddMoreCosmosCoinWrapperPaths: [],
     canUpdateCollectionApprovals: [
         {
             fromListId: 'All',
@@ -326,17 +372,11 @@ const collectionPermissions = {
 };
 
 const createCollection = {
-    // ... other collection fields
+    ...BaseCollectionDetails, // from Create a collection
     collectionPermissions,
     collectionApprovals: [
-        {
-            tokenIds: [{ start: '1', end: '50' }],
-            // ... locked if it overlaps the permission criteria
-        },
-        {
-            tokenIds: [{ start: '150', end: '200' }],
-            // ... updateability depends on the entry above
-        },
+        { ...mintApproval, approvalId: 'founders', tokenIds: [{ start: 1n, end: 50n }] }, // no overlap with 101+: stays editable
+        { ...mintApproval, approvalId: 'tier-two', tokenIds: [{ start: 150n, end: 200n }] }, // overlaps 101+: frozen
     ],
 };
 ```
@@ -374,7 +414,16 @@ Lock IDs 1 to 100 and allow expansion beyond them:
 
 ```ts
 const collectionPermissions = {
-    // ... other permissions as above
+    canDeleteCollection: [],
+    canArchiveCollection: [],
+    canUpdateStandards: [],
+    canUpdateCustomData: [],
+    canUpdateManager: [],
+    canUpdateCollectionMetadata: [],
+    canUpdateTokenMetadata: [],
+    canUpdateCollectionApprovals: [],
+    canAddMoreAliasPaths: [],
+    canAddMoreCosmosCoinWrapperPaths: [],
     canUpdateValidTokenIds: [
         {
             tokenIds: [
@@ -386,12 +435,12 @@ const collectionPermissions = {
             permanentlyPermittedTimes: [],
             permanentlyForbiddenTimes: FullTimeRanges, // Token IDs 1-100 locked forever
         },
-        // Token IDs 101+ remain soft-enabled (manager can update)
     ],
+    // Token IDs 101+ remain soft-enabled (manager can update)
 };
 
 const createCollection = {
-    // ... other collection fields
+    ...BaseCollectionDetails, // from Create a collection
     collectionPermissions,
     validTokenIds: [
         {
@@ -461,11 +510,21 @@ const userPermissions = {
 };
 
 const updateUserApprovals = {
-    creator: 'bb1...', // User's address
+    creator: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', // User's address
     collectionId: '1',
     updateUserPermissions: true,
     userPermissions,
-    // ... other approval updates
+    // Flags left false keep the current value
+    updateOutgoingApprovals: false,
+    outgoingApprovals: [],
+    updateIncomingApprovals: false,
+    incomingApprovals: [],
+    updateAutoApproveSelfInitiatedOutgoingTransfers: false,
+    autoApproveSelfInitiatedOutgoingTransfers: false,
+    updateAutoApproveSelfInitiatedIncomingTransfers: false,
+    autoApproveSelfInitiatedIncomingTransfers: false,
+    updateAutoApproveAllIncomingTransfers: false,
+    autoApproveAllIncomingTransfers: false,
 };
 ```
 

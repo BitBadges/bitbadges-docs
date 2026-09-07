@@ -22,6 +22,10 @@ interface ApprovalCriteria<T extends NumberType> {
 
 Collection approvals only.
 
+{% hint style="info" %}
+Ask your agent: "Add a wrapper path to collection 1 so token ID 1 can be wrapped into an IBC denom, with the wrap and unwrap approvals it needs." The MCP builder tools (`add_cosmos_wrapper_path, add_approval`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 The check is bidirectional: whether the path address is the sender or the recipient, the approval must carry the flag. Path addresses have no keys and no user-level approvals, so these approvals also need the matching [override](overrides.md).

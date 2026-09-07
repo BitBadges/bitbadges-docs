@@ -73,14 +73,14 @@ Returns the coins paid out.
 
 ```json
 {
-  "routes": [{"pool_id": "1", "token_out_denom": "uatom"}],
+  "routes": [{"pool_id": "1", "token_out_denom": "badgeslp:64:utoken"}],
   "token_in": {"denom": "ubadge", "amount": "1000000000"},
-  "token_out_min_amount": "900000000",
-  "affiliates": []
+  "token_out_min_amount": "60",
+  "affiliates": [{"address": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf", "basis_points_fee": "10"}]
 }
 ```
 
-Each `affiliates` entry is `{"address": "bb1... or 0x...", "basis_points_fee": "..."}`; `0x` addresses are converted to bech32. Returns the output amount.
+Each `affiliates` entry carries an `address` (bech32 or `0x`, converted to bech32 on the Go side) and a `basis_points_fee` integer string, as in the example above. Returns the output amount.
 
 ### swapExactAmountInWithIBCTransfer
 
@@ -88,12 +88,19 @@ Each `affiliates` entry is `{"address": "bb1... or 0x...", "basis_points_fee": "
 
 ```json
 {
+  "routes": [
+    {"pool_id": "1", "token_out_denom": "ubadge"},
+    {"pool_id": "4", "token_out_denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701"}
+  ],
+  "token_in": {"denom": "badgeslp:64:utoken", "amount": "10"},
+  "token_out_min_amount": "900000",
   "ibc_transfer_info": {
-    "source_channel": "channel-0",
-    "receiver": "cosmos1...",
+    "source_channel": "channel-3",
+    "receiver": "cosmos1py4mfpg6uf59qkyzg0nmau322c5873ee8df8qg",
     "memo": "",
-    "timeout_timestamp": "1234567890"
-  }
+    "timeout_timestamp": "1788825600000000000"
+  },
+  "affiliates": []
 }
 ```
 
@@ -108,7 +115,7 @@ Returns the output amount before the transfer.
   "pool_params": {"swap_fee": "0.003", "exit_fee": "0"},
   "pool_assets": [
     {"token": {"denom": "ubadge", "amount": "1000000"}, "weight": "1"},
-    {"token": {"denom": "uatom", "amount": "1000000"}, "weight": "1"}
+    {"token": {"denom": "badgeslp:64:utoken", "amount": "1000000"}, "weight": "1"}
   ]
 }
 ```

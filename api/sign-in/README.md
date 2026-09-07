@@ -11,13 +11,17 @@ This page is also part of the [API reference](/api-reference).
 ## Example
 
 ```ts
-import { generateBitBadgesAuthUrl } from 'bitbadges';
+import crypto from 'crypto';
+import { BigIntify, BitBadgesAPI, generateBitBadgesAuthUrl } from 'bitbadges';
 
-// 1. Send the user here
+const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify });
+
+// 1. Send the user here. Store `state` in the session so the callback can check it.
+const state = crypto.randomBytes(16).toString('hex');
 const authUrl = generateBitBadgesAuthUrl({
-  client_id: '<client-id>',
+  client_id: 'app_demo_01',
   redirect_uri: 'https://example.com/api/callback',
-  state: '<random-state>',
+  state,
   scope: 'completeClaims,readPrivateClaimData' // optional
 });
 
@@ -25,22 +29,41 @@ const authUrl = generateBitBadgesAuthUrl({
 const res = await BitBadgesApi.exchangeSIWBBAuthorizationCode({
   code: req.query.code as string,
   grant_type: 'authorization_code',
-  client_id: '<client-id>',
-  client_secret: '<client-secret>',
+  client_id: 'app_demo_01',
+  client_secret: process.env.SIWBB_CLIENT_SECRET,
   redirect_uri: 'https://example.com/api/callback'
 });
 
-const { address, chain, verificationResponse, access_token } = res;
+const { address, chain, bitbadgesAddress, verificationResponse, access_token } = res;
 if (!verificationResponse?.success) throw new Error('Not authenticated');
 ```
 
 ```bash
 curl -X POST https://api.bitbadges.io/api/v0/siwbb/token \
-  -H "Content-Type: application/json" -H "x-api-key: <key>" \
-  -d '{ "code": "<code>", "grant_type": "authorization_code",
-        "client_id": "<client-id>", "client_secret": "<client-secret>",
+  -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
+  -d '{ "code": "9c1f4e2b7a6d5c4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e",
+        "grant_type": "authorization_code",
+        "client_id": "app_demo_01", "client_secret": "'"$SIWBB_CLIENT_SECRET"'",
         "redirect_uri": "https://example.com/api/callback" }'
 ```
+
+```json
+{
+  "address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+  "chain": "Cosmos",
+  "bitbadgesAddress": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+  "verificationResponse": { "success": true },
+  "access_token": "siwbb_at_7d2e9f4a1b6c3d8e5f0a2b9c4d7e1f6a",
+  "token_type": "Bearer",
+  "access_token_expires_at": "1788825600000",
+  "refresh_token": "siwbb_rt_2b9c4d7e1f6a7d2e9f4a1b6c3d8e5f0a",
+  "refresh_token_expires_at": "1793923200000"
+}
+```
+
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools connected, a prompt like this works: "Check whether bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue owns at least one token from collection 1, then tell me which Sign In with BitBadges scopes my backend needs to complete claims on that user's behalf." The agent calls `verify_ownership` and `fetch_docs` and answers with the scope names to put in the authorization URL.
+{% endhint %}
 
 ## OAuth endpoints
 
@@ -74,9 +97,10 @@ The short guide version is [Sign in users](../../guides/sign-in-users.md). The C
 SIWBB exists mainly for OAuth authorization of the BitBadges API. If you only need Web3 login and never call the API on the user's behalf, a general Web3 auth provider (WalletConnect, Magic, and others) works too. You can still combine any authentication with claim checks:
 
 ```ts
-// 1. Authenticate the user with your existing setup
+// 1. Authenticate the user with your existing setup, which yields `address`
 // 2. Verify claim success through the API
-const res = await BitBadgesApi.checkClaimSuccess(claimId, address);
+const res = await BitBadgesApi.checkClaimSuccess('claim_demo_01', address);
+if (res.successCount < 1) throw new Error('Claim not completed');
 ```
 
 ## Related

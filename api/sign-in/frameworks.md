@@ -22,9 +22,9 @@ A custom connection lets you add parameters beyond the standard flow. The callba
 | Token URL | `https://api.bitbadges.io/api/v0/siwbb/token` |
 | Scopes | None needed for the address. Add scopes as required. |
 | Fields | API key, client ID, and client secret from [https://bitbadges.io/developer](https://bitbadges.io/developer) |
-| Custom headers | `{ "x-api-key": "YOUR_API_KEY" }` |
+| Custom headers | `{ "x-api-key": "api_demo_0123456789abcdef" }` (your own key from the developer portal) |
 
-Fetch profile script (replace the API key in both the custom headers and the script):
+Fetch profile script. Put your own API key in both the custom headers and the script; `api_demo_0123456789abcdef` below stands in for it:
 
 ```js
 function fetchUserProfile(accessToken, ctx, cb) {
@@ -33,7 +33,7 @@ function fetchUserProfile(accessToken, ctx, cb) {
       url: 'https://api.bitbadges.io/api/v0/auth/status',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': 'ENTER_API_KEY_HERE',
+        'x-api-key': 'api_demo_0123456789abcdef',
         Authorization: 'Bearer ' + accessToken
       }
     },
@@ -77,7 +77,7 @@ The plugin handles authentication only. It does not restrict access by itself. P
 
 1. Upload the plugin files to `/wp-content/plugins/` and activate the plugin from the **Plugins** menu.
 2. Create an OAuth app in the [developer portal](https://bitbadges.io/developer).
-3. Set the redirect URI to `https://your-wordpress-site.com/wp-login.php?action=bitbadges-callback`.
+3. Set the redirect URI to `https://example.com/wp-login.php?action=bitbadges-callback`, with your own WordPress domain in place of `example.com`.
 4. In WordPress open **Settings** then **BitBadges SIWBB**. Enter the client ID and client secret.
 5. Optionally set a claim ID to gate access, then save.
 

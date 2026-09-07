@@ -11,9 +11,9 @@ This page is also part of the [API reference](/api-reference).
 ## Example
 
 ```bash
-curl -X POST https://api.bitbadges.io/api/v0/collections/fetch \
+curl -X POST https://api.bitbadges.io/api/v0/collections \
   -H "Content-Type: application/json" \
-  -H "x-api-key: <your-api-key>" \
+  -H "x-api-key: $BITBADGES_API_KEY" \
   -d '{ "collectionsToFetch": [ { "collectionId": "1" } ] }'
 ```
 
@@ -27,10 +27,207 @@ const BitBadgesApi = new BitBadgesAPI({
 });
 
 const res = await BitBadgesApi.getCollections({ collectionsToFetch: [{ collectionId: '1' }] });
+const collection = res.collections[0];
+console.log(collection.manager); // bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
 ```
 
 ```bash
 bb api get-collection 1
+```
+
+The response for the Demo NFTs collection (synthesized from the SDK types; numbers arrive as strings):
+
+```json fold=10-17,33-56,66-117,119-167,169-180
+{
+  "collections": [
+    {
+      "_docId": "1",
+      "collectionId": "1",
+      "createdBy": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "createdBlock": "4182003",
+      "createdTimestamp": "1788652800000",
+      "updateHistory": [
+        {
+          "txHash": "E5B4C3A6E5B1F3B9F0F4C1F2B7A6D5C4E3F2A1B0C9D8E7F6A5B4C3D2E1F0A9B8",
+          "block": "4182003",
+          "blockTimestamp": "1788652800000",
+          "timestamp": "1788652800000"
+        }
+      ],
+      "collectionMetadata": {
+        "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
+        "customData": ""
+      },
+      "tokenMetadata": [
+        {
+          "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json",
+          "tokenIds": [{ "start": "1", "end": "100" }],
+          "customData": ""
+        }
+      ],
+      "customData": "",
+      "standards": ["NFTs"],
+      "isArchived": false,
+      "validTokenIds": [{ "start": "1", "end": "100" }],
+      "mintEscrowAddress": "bb1v9jxgu33kfsgr5mkaa4z0ry6s2acpah4yh6yqfdnzkx3l8vmqzmpcssqaqaen9t",
+      "cosmosCoinWrapperPaths": [],
+      "aliasPaths": [],
+      "invariants": {
+        "noCustomOwnershipTimes": true,
+        "maxSupplyPerId": "1",
+        "noForcefulPostMintTransfers": true,
+        "disablePoolCreation": false
+      },
+      "defaultBalances": {
+        "balances": [],
+        "incomingApprovals": [],
+        "outgoingApprovals": [],
+        "userPermissions": {
+          "canUpdateOutgoingApprovals": [],
+          "canUpdateIncomingApprovals": [],
+          "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+          "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+          "canUpdateAutoApproveAllIncomingTransfers": []
+        },
+        "autoApproveSelfInitiatedOutgoingTransfers": true,
+        "autoApproveSelfInitiatedIncomingTransfers": true,
+        "autoApproveAllIncomingTransfers": false
+      },
+      "collectionApprovals": [
+        {
+          "approvalId": "mint-to-alice",
+          "fromListId": "Mint",
+          "toListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+          "initiatedByListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+          "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+          "tokenIds": [{ "start": "1", "end": "100" }],
+          "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+          "uri": "",
+          "customData": "",
+          "fromList": { "listId": "Mint", "addresses": ["Mint"], "whitelist": true, "uri": "", "customData": "" },
+          "toList": {
+            "listId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+            "addresses": ["bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"],
+            "whitelist": true,
+            "uri": "",
+            "customData": ""
+          },
+          "initiatedByList": {
+            "listId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+            "addresses": ["bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"],
+            "whitelist": true,
+            "uri": "",
+            "customData": ""
+          },
+          "approvalCriteria": {
+            "overridesFromOutgoingApprovals": true,
+            "overridesToIncomingApprovals": false,
+            "requireToEqualsInitiatedBy": false,
+            "requireFromEqualsInitiatedBy": false,
+            "requireToDoesNotEqualInitiatedBy": false,
+            "requireFromDoesNotEqualInitiatedBy": false,
+            "coinTransfers": [],
+            "merkleChallenges": [],
+            "mustOwnTokens": [],
+            "dynamicStoreChallenges": [],
+            "ethSignatureChallenges": [],
+            "maxNumTransfers": {
+              "overallMaxNumTransfers": "0",
+              "perToAddressMaxNumTransfers": "0",
+              "perFromAddressMaxNumTransfers": "0",
+              "perInitiatedByAddressMaxNumTransfers": "0",
+              "amountTrackerId": "mint-to-alice",
+              "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+            },
+            "approvalAmounts": {
+              "overallApprovalAmount": "0",
+              "perToAddressApprovalAmount": "0",
+              "perFromAddressApprovalAmount": "0",
+              "perInitiatedByAddressApprovalAmount": "0",
+              "amountTrackerId": "mint-to-alice",
+              "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+            },
+            "autoDeletionOptions": {
+              "afterOneUse": false,
+              "afterOverallMaxNumTransfers": false,
+              "allowCounterpartyPurge": false,
+              "allowPurgeIfExpired": false
+            }
+          }
+        },
+        {
+          "approvalId": "transferable",
+          "fromListId": "!Mint",
+          "toListId": "All",
+          "initiatedByListId": "All",
+          "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+          "tokenIds": [{ "start": "1", "end": "100" }],
+          "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+          "uri": "",
+          "customData": "",
+          "fromList": { "listId": "!Mint", "addresses": ["Mint"], "whitelist": false, "uri": "", "customData": "" },
+          "toList": { "listId": "All", "addresses": [], "whitelist": false, "uri": "", "customData": "" },
+          "initiatedByList": { "listId": "All", "addresses": [], "whitelist": false, "uri": "", "customData": "" },
+          "approvalCriteria": {
+            "overridesFromOutgoingApprovals": false,
+            "overridesToIncomingApprovals": false,
+            "requireToEqualsInitiatedBy": false,
+            "requireFromEqualsInitiatedBy": false,
+            "requireToDoesNotEqualInitiatedBy": false,
+            "requireFromDoesNotEqualInitiatedBy": false,
+            "coinTransfers": [],
+            "merkleChallenges": [],
+            "mustOwnTokens": [],
+            "dynamicStoreChallenges": [],
+            "ethSignatureChallenges": [],
+            "maxNumTransfers": {
+              "overallMaxNumTransfers": "0",
+              "perToAddressMaxNumTransfers": "0",
+              "perFromAddressMaxNumTransfers": "0",
+              "perInitiatedByAddressMaxNumTransfers": "0",
+              "amountTrackerId": "transferable",
+              "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+            },
+            "approvalAmounts": {
+              "overallApprovalAmount": "0",
+              "perToAddressApprovalAmount": "0",
+              "perFromAddressApprovalAmount": "0",
+              "perInitiatedByAddressApprovalAmount": "0",
+              "amountTrackerId": "transferable",
+              "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+            },
+            "autoDeletionOptions": {
+              "afterOneUse": false,
+              "afterOverallMaxNumTransfers": false,
+              "allowCounterpartyPurge": false,
+              "allowPurgeIfExpired": false
+            }
+          }
+        }
+      ],
+      "collectionPermissions": {
+        "canDeleteCollection": [],
+        "canArchiveCollection": [],
+        "canUpdateStandards": [],
+        "canUpdateCustomData": [],
+        "canUpdateManager": [],
+        "canUpdateCollectionMetadata": [],
+        "canUpdateValidTokenIds": [],
+        "canUpdateTokenMetadata": [],
+        "canUpdateCollectionApprovals": [],
+        "canAddMoreAliasPaths": []
+      },
+      "activity": [],
+      "owners": [],
+      "challengeTrackers": [],
+      "approvalTrackers": [],
+      "listings": [],
+      "claims": [],
+      "views": {}
+    }
+  ]
+}
 ```
 
 Every route is documented in the [API reference](/api-reference). The reference groups routes by tag (Accounts, Tokens, Claims, Sign In with BitBadges, Transactions, Applications, Plugins, Dynamic Stores, On-Chain Dynamic Stores, Utility Pages, Miscellaneous, Assets).
@@ -51,7 +248,7 @@ Every route is documented in the [API reference](/api-reference). The reference 
 2. Create a key. Send it in the `x-api-key` header on every request.
 3. Top up credits in the same tab.
 
-Select read-only routes are public without a key and are rate limited per IP. Everything else requires a key. A route that needs a key answers `401` with `{ "errorMessage": "Unauthorized request. This route is only accessible with an API key." }` when the key is missing.
+Select read-only routes are public without a key and are rate limited per IP. Everything else requires a key. A route that needs a key answers `401` with `{ "errorMessage": "Unauthorized request. This route is only accessible with an API key. To get an API key, visit https://bitbadges.io/developer and go to API Keys." }` when the key is missing.
 
 The SDK also reads `BITBADGES_API_KEY` from the environment when `apiKey` is not passed. The CLI reads the same variable (see [CLI api](../cli/api.md)).
 
@@ -76,7 +273,7 @@ The legacy hosted AI Builder on the site drew from the same credit balance and c
 
 ```bash
 curl https://api.bitbadges.io/api/v0/credits/balance \
-  -H "Authorization: Bearer <access-token>"
+  -H "Authorization: Bearer $BITBADGES_ACCESS_TOKEN"
 ```
 
 ```json
@@ -134,11 +331,11 @@ Responses stringify numbers to avoid precision loss. Convert them yourself (bigi
 This documentation often shows the SDK call. The raw HTTP route is the same name under `/api/v0`:
 
 ```ts
-await BitBadgesApi.routeFn(...)
+const res = await BitBadgesApi.getClaim('claim_demo_01');
 ```
 
 ```bash
-POST https://api.bitbadges.io/api/v0/routeFn
+curl https://api.bitbadges.io/api/v0/claim/claim_demo_01 -H "x-api-key: $BITBADGES_API_KEY"
 ```
 
 Use the [API reference](/api-reference) for the exact method, path, and body of each route.
@@ -164,13 +361,40 @@ The API fetches anything behind a source URI (metadata, off-chain balances) thro
 Refreshes trigger automatically on-chain events such as collection creation or a URI change. You can also trigger one manually, subject to the cooldown above:
 
 ```ts
-await BitBadgesApi.refreshMetadata(collectionId);
-const status = await BitBadgesApi.getRefreshStatus(collectionId);
+await BitBadgesApi.refreshMetadata('1');
+const status = await BitBadgesApi.getRefreshStatus('1');
+console.log(status.inQueue); // true until the queue drains
 ```
 
 ```bash
-curl -X POST https://api.bitbadges.io/api/v0/collection/1/refresh -H "x-api-key: <key>"
-curl https://api.bitbadges.io/api/v0/collection/1/refreshStatus -H "x-api-key: <key>"
+curl -X POST https://api.bitbadges.io/api/v0/collection/1/refresh -H "x-api-key: $BITBADGES_API_KEY"
+curl https://api.bitbadges.io/api/v0/collection/1/refreshStatus -H "x-api-key: $BITBADGES_API_KEY"
+```
+
+The status route returns whether the collection is still queued, up to 20 queue documents that failed, and the last refresh request:
+
+```json
+{
+  "inQueue": true,
+  "errorDocs": [
+    {
+      "_docId": "1-ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/7.json",
+      "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/7.json",
+      "collectionId": "1",
+      "loadBalanceId": "3",
+      "refreshRequestTime": "1788739200000",
+      "numRetries": "2",
+      "lastFetchedAt": "1788746400000",
+      "nextFetchTime": "1788753600000",
+      "error": "Request timed out after 10000 ms"
+    }
+  ],
+  "refreshDoc": {
+    "_docId": "1",
+    "collectionId": "1",
+    "refreshRequestTime": "1788739200000"
+  }
+}
 ```
 
 Failed fetches retry with the backoff in the limits table. On the site, a collection page under **Actions** then **Refresh** shows the same status and any error documents.

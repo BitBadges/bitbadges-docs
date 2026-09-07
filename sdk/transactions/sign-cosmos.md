@@ -45,11 +45,38 @@ const signTxn = async (context: TxContext, payload: TransactionPayload, msgs: an
 
 ```ts
 // Usage
+import { BitBadgesAPI, BigIntify, MsgTransferTokens } from 'bitbadges';
+
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const ALICE = 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d';
+
+const msgs = [
+  new MsgTransferTokens({
+    creator: ALICE,
+    collectionId: '1',
+    transfers: [
+      {
+        from: ALICE,
+        toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+        balances: [{ amount: '1', tokenIds: [{ start: '1', end: '1' }], ownershipTimes: [{ start: '1', end: '18446744073709551615' }] }]
+      }
+    ]
+  })
+];
+const { account } = await api.getAccount({ address: ALICE });
+const txContext: TxContext = {
+  sender: { address: account.address, sequence: account.sequence ?? 0n, accountNumber: account.accountNumber, publicKey: account.publicKey },
+  fee: { amount: '0', denom: 'ubadge', gas: '400000' },
+  memo: ''
+};
+
 const payload = createTransactionPayload(txContext, msgs);
 const simBody = await signTxn(txContext, payload, msgs, true);
-const sim = await api.simulateTx(simBody); // read gas_info.gas_used, adjust txContext.fee
+const sim = await api.simulateTx(simBody);
+txContext.fee.gas = String(Math.ceil(Number(sim.gas_info.gas_used) * 1.3));
 const txBody = await signTxn(txContext, createTransactionPayload(txContext, msgs), msgs, false);
 const res = await api.broadcastTx(txBody);
+console.log(res.tx_response.txhash);
 ```
 
 ## Behavior

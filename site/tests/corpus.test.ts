@@ -11,6 +11,9 @@ import baseline from './content-issues.baseline.json' with { type: 'json' };
 import { docsConfig } from '../src/lib/docs/config';
 import { getAllFiles, getAllRoutes, getDoc, getNav } from '../src/lib/docs/content';
 import { tabsFromNav } from '../src/lib/docs/tabs';
+
+/** Routes served by Next pages rather than markdown files. */
+const NEXT_ONLY_ROUTES = ['/api-reference', '/chain-api-reference'];
 import { flattenNav } from '../src/lib/docs/summary';
 
 // Corpus-size floors. They catch a walk that silently drops a directory, not
@@ -70,8 +73,8 @@ describe('corpus', () => {
   });
 
   test('no internal link breakage beyond the recorded baseline', async () => {
-    // /api-reference is a Next route (Scalar), not a markdown page, so it is not in getAllRoutes().
-    const routes = new Set([...(await getAllRoutes()), '/api-reference']);
+    // Scalar references are Next routes, not markdown pages, so they are not in getAllRoutes().
+    const routes = new Set([...(await getAllRoutes()), ...NEXT_ONLY_ROUTES]);
     const broken: string[] = [];
     for (const { file, doc } of rendered) {
       for (const match of doc!.html.matchAll(/href="(\/[^"#]*)/g)) {
@@ -115,7 +118,7 @@ describe('navigation', () => {
   });
 
   test('every internal nav entry resolves to a real page', async () => {
-    const routes = new Set([...(await getAllRoutes()), '/api-reference']);
+    const routes = new Set([...(await getAllRoutes()), ...NEXT_ONLY_ROUTES]);
     const dangling = flattenNav(await getNav())
       .map((n) => n.href)
       .filter((href) => !routes.has(href));

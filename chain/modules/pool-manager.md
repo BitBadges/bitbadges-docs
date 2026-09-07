@@ -28,7 +28,7 @@ curl https://lcd.bitbadges.io/osmosis/poolmanager/v1beta1/Params
       "osmo_taker_fee_distribution": { "staking_rewards": "1.000000000000000000", "community_pool": "0.000000000000000000" },
       "non_osmo_taker_fee_distribution": { "staking_rewards": "0.670000000000000000", "community_pool": "0.330000000000000000" },
       "admin_addresses": [],
-      "community_pool_denom_to_swap_non_whitelisted_assets_to": "ibc/D189335C...",
+      "community_pool_denom_to_swap_non_whitelisted_assets_to": "ibc/D189335C6E4A68B513C10AB227BF1C1D38C746766278BA3EEB4FB14124F1D858",
       "reduced_fee_whitelist": [],
       "community_pool_denom_whitelist": []
     }
@@ -54,7 +54,7 @@ All signed by `sender`. Type URLs are `/poolmanager.v1beta1.Msg<Name>`.
 ```json
 {
   "@type": "/poolmanager.v1beta1.MsgSplitRouteSwapExactAmountIn",
-  "sender": "bb1abc123...",
+  "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "routes": [
     { "pools": [{ "pool_id": "1", "token_out_denom": "badgeslp:64:utoken" }], "token_in_amount": "600000000" },
     { "pools": [{ "pool_id": "4", "token_out_denom": "badgeslp:64:utoken" }], "token_in_amount": "400000000" }
@@ -65,6 +65,10 @@ All signed by `sender`. Type URLs are `/poolmanager.v1beta1.Msg<Name>`.
 ```
 
 Swaps that touch a native token still run through `MsgTransferTokens` and the collection's approvals, exactly as in x/gamm.
+
+{% hint style="info" %}
+Ask your agent: "Estimate how much badgeslp:64:utoken I get for 1 BADGE and split the route across pools 1 and 4 if that is cheaper." The `bb swap estimate ubadge badgeslp:64:utoken 1000000000` command uses the poolmanager estimate endpoints below.
+{% endhint %}
 
 ## Queries
 

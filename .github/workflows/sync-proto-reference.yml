@@ -1,0 +1,198 @@
+name: Sync proto reference
+
+# Regenerates the committed proto markdown under chain/proto/ from
+# BitBadges/bitbadgeschain. site/scripts/gen-proto-reference.ts (script
+# `gen:proto`) does the work; BITBADGESCHAIN_DIR points it at the checkout.
+#
+# Triggers:
+#   - repository_dispatch `proto-updated` — fired by bitbadgeschain on pushes
+#     that touch proto/**.
+#   - workflow_dispatch — manual re-sync.
+#   - schedule — weekly safety net.
+#
+# Scope: this workflow produces the human-readable proto MARKDOWN only.
+# The chain's machine-readable OpenAPI 3.1 document is a separate concern
+# handled by sync-chain-openapi.yml, which copies the version bitbadgeschain
+# generates and commits at docs/openapi/openapi.json. Nothing here converts a
+# spec; do not add conversion to this job.
+#
+# Never commits to master; opens a PR and no-ops on no diff.
+# See _docs/runbooks/docs-sync.md.
+
+on:
+  repository_dispatch:
+    types: [proto-updated]
+  workflow_dispatch:
+  schedule:
+    - cron: '45 6 * * 1'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-proto-reference
+  cancel-in-progress: false
+
+env:
+  TARGET_DIR: chain/proto
+  MAX_SHRINK_PCT: '30'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout docs
+        uses: actions/checkout@v7
+
+      - name: Checkout bitbadgeschain
+        uses: actions/checkout@v7
+        with:
+          repository: BitBadges/bitbadgeschain
+          # BITBADGESCHAIN_READ_TOKEN: PAT with `contents: read` on
+          # BitBadges/bitbadgeschain. Only needed while that repo is private.
+          token: ${{ secrets.BITBADGESCHAIN_READ_TOKEN || secrets.GITHUB_TOKEN }}
+          ref: master
+          path: .bitbadgeschain
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Preflight — generator and source tree must exist
+        run: |
+          set -euo pipefail
+          fail=0
+
+          if [ ! -f site/package.json ]; then
+            echo "::error::site/package.json is missing — cannot run the proto reference generator."
+            exit 1
+          fi
+
+          if ! bun -e '
+            const pkg = JSON.parse(require("fs").readFileSync("site/package.json", "utf8"));
+            if (!pkg.scripts || !pkg.scripts["gen:proto"]) {
+              console.error("FAIL: site/package.json has no \"gen:proto\" script.");
+              console.error("Expected it to invoke site/scripts/gen-proto-reference.ts. Add the script or fix this workflow.");
+              process.exit(1);
+            }
+            console.log(`gen:proto -> ${pkg.scripts["gen:proto"]}`);
+          '; then
+            fail=1
+          fi
+
+          if [ ! -f site/scripts/gen-proto-reference.ts ]; then
+            echo "::error::site/scripts/gen-proto-reference.ts is missing."
+            fail=1
+          fi
+
+          if [ ! -d "$GITHUB_WORKSPACE/.bitbadgeschain/proto" ]; then
+            echo "::error::BITBADGESCHAIN_DIR target .bitbadgeschain/proto does not exist."
+            echo "::error::The bitbadgeschain checkout failed or proto/ moved inside that repo."
+            fail=1
+          fi
+
+          if [ "$fail" -ne 0 ]; then
+            echo "::error::Preflight failed — refusing to run the generator against a broken environment."
+            exit 1
+          fi
+
+      - name: Record baseline size of the proto reference tree
+        id: baseline
+        run: |
+          set -euo pipefail
+          if [ -d "$TARGET_DIR" ]; then
+            files=$(find "$TARGET_DIR" -type f | wc -l | tr -d ' ')
+            bytes=$(find "$TARGET_DIR" -type f -exec cat {} + 2>/dev/null | wc -c | tr -d ' ')
+          else
+            files=0
+            bytes=0
+          fi
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+          echo "bytes=$bytes" >> "$GITHUB_OUTPUT"
+          echo "Baseline: $files file(s), $bytes byte(s) under $TARGET_DIR"
+
+      - name: Install site deps
+        working-directory: site
+        run: bun install --frozen-lockfile
+
+      - name: Generate proto reference
+        working-directory: site
+        env:
+          BITBADGESCHAIN_DIR: ${{ github.workspace }}/.bitbadgeschain
+        run: bun run gen:proto
+
+      - name: Shrink guard
+        run: |
+          set -euo pipefail
+          before_files=${{ steps.baseline.outputs.files }}
+          before_bytes=${{ steps.baseline.outputs.bytes }}
+
+          if [ ! -d "$TARGET_DIR" ]; then
+            echo "::error::$TARGET_DIR does not exist after generation — the generator produced nothing."
+            exit 1
+          fi
+
+          after_files=$(find "$TARGET_DIR" -type f | wc -l | tr -d ' ')
+          after_bytes=$(find "$TARGET_DIR" -type f -exec cat {} + 2>/dev/null | wc -c | tr -d ' ')
+          echo "Before: $before_files file(s) / $before_bytes byte(s)"
+          echo "After:  $after_files file(s) / $after_bytes byte(s)"
+
+          if [ "$after_files" -eq 0 ]; then
+            echo "::error::Generation produced zero files under $TARGET_DIR."
+            exit 1
+          fi
+
+          if [ "$before_files" -eq 0 ]; then
+            echo "No baseline (first generation) — shrink guard skipped."
+            exit 0
+          fi
+
+          keep=$((100 - MAX_SHRINK_PCT))
+          if [ $((after_files * 100)) -lt $((before_files * keep)) ]; then
+            echo "::error::File count fell from $before_files to $after_files (>${MAX_SHRINK_PCT}% shrink)."
+            echo "::error::A broken generation must not silently delete the proto reference. Investigate before merging."
+            exit 1
+          fi
+          if [ $((after_bytes * 100)) -lt $((before_bytes * keep)) ]; then
+            echo "::error::Total size fell from $before_bytes to $after_bytes bytes (>${MAX_SHRINK_PCT}% shrink)."
+            echo "::error::A broken generation must not silently gut the proto reference. Investigate before merging."
+            exit 1
+          fi
+          echo "Shrink guard passed."
+
+      - name: Drop upstream checkout before the PR is built
+        run: rm -rf .bitbadgeschain
+
+      - name: Open PR
+        id: pr
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.DOCS_SYNC_PAT || secrets.GITHUB_TOKEN }}
+          base: master
+          branch: sync/proto-reference
+          delete-branch: true
+          add-paths: chain/proto/**
+          commit-message: 'chore(chain): regenerate proto reference from bitbadgeschain'
+          title: 'chore(chain): regenerate proto reference from bitbadgeschain'
+          body: |
+            Automated regeneration of `chain/proto/` via `bun run gen:proto`
+            against `BitBadges/bitbadgeschain@master`.
+
+            Triggered by: `${{ github.event_name }}`.
+
+            The shrink guard passed: the tree did not lose more than 30% of its
+            files or bytes.
+
+            Runbook: `_docs/runbooks/docs-sync.md`.
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+      - name: Report
+        run: |
+          if [ -n "${{ steps.pr.outputs.pull-request-number }}" ]; then
+            echo "PR #${{ steps.pr.outputs.pull-request-number }}: ${{ steps.pr.outputs.pull-request-url }}"
+          else
+            echo "Proto reference already up to date — nothing to do."
+          fi

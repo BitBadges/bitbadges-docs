@@ -8,23 +8,129 @@ A voting challenge requires named voters to approve the transfer on-chain, each 
 
 ## Shape
 
-```json
+A complete `approvalCriteria` with the `votingChallenges` array open. Folded lines are defaults.
+
+```json fold=2-88,113-120
 {
+  "merkleChallenges": [],
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": false,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
+    }
+  },
+  "approvalAmounts": {
+    "overallApprovalAmount": "0",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "0",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "coinTransfers": [],
+  "requireToEqualsInitiatedBy": false,
+  "requireFromEqualsInitiatedBy": false,
+  "requireToDoesNotEqualInitiatedBy": false,
+  "requireFromDoesNotEqualInitiatedBy": false,
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": false,
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  },
+  "mustOwnTokens": [],
+  "dynamicStoreChallenges": [],
+  "ethSignatureChallenges": [],
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "recipientChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "initiatorChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
+  },
+  "mustPrioritize": false,
   "votingChallenges": [
     {
       "proposalId": "proposal-1",
       "quorumThreshold": "50",
       "voters": [
-        { "address": "bb1abc...", "weight": "100" },
-        { "address": "bb1def...", "weight": "200" },
-        { "address": "bb1ghi...", "weight": "50" }
+        {
+          "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+          "weight": "100"
+        },
+        {
+          "address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+          "weight": "200"
+        },
+        {
+          "address": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf",
+          "weight": "50"
+        }
       ],
       "uri": "",
       "customData": "",
       "resetAfterExecution": false,
       "delayAfterQuorum": "0"
     }
-  ]
+  ],
+  "allowBackedMinting": false,
+  "allowSpecialWrapping": false,
+  "evmQueryChallenges": [],
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+  }
 }
 ```
 
@@ -62,6 +168,10 @@ Votes are cast with [MsgCastVote](../messages/msg-cast-vote.md):
 | `voter` | The voter's address. Must be in `voters`. |
 | `yesWeight` | 0-100. Percent of the voter's weight allocated to yes; the rest is no. |
 
+{% hint style="info" %}
+Ask your agent: "Add a transfer approval to collection 1 that needs 2 of 3 votes from alice, bob, and carol before any transfer executes." The MCP builder tools (`add_approval`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 1. A voter casts a vote. The chain stores it under `collectionId-approverAddress-approvalLevel-approvalId-proposalId-voterAddress`. Casting again overwrites.
@@ -82,11 +192,11 @@ Read votes with [GetVote](../queries/get-vote.md) and [GetVotes](../queries/get-
 
 ### Worked example
 
-Voters A (100), B (200), C (50). Total possible weight 350. Threshold 50%.
+Voters alice (100), bob (200), carol (50). Total possible weight 350. Threshold 50%.
 
-- A votes 100% yes: 100
-- B votes 50% yes: 100
-- C does not vote: 0
+- alice votes 100% yes: 100
+- bob votes 50% yes: 100
+- carol does not vote: 0
 - Total yes 200. `200 * 100 / 350 = 57%`. 57 >= 50, so the challenge passes.
 
 Abstaining voters count as no. Set thresholds with expected participation in mind.
@@ -110,16 +220,29 @@ Unanimous 3-of-3:
       "proposalId": "multisig-1",
       "quorumThreshold": "100",
       "voters": [
-        { "address": "bb1alice...", "weight": "1" },
-        { "address": "bb1bob...", "weight": "1" },
-        { "address": "bb1charlie...", "weight": "1" }
-      ]
+        {
+          "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+          "weight": "1"
+        },
+        {
+          "address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+          "weight": "1"
+        },
+        {
+          "address": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf",
+          "weight": "1"
+        }
+      ],
+      "uri": "",
+      "customData": "",
+      "resetAfterExecution": false,
+      "delayAfterQuorum": "0"
     }
   ]
 }
 ```
 
-Weighted governance, 66% of 1600 (1056) must vote yes:
+Weighted governance (alice as founder, bob as investor, carol as community), 66% of 1600 (1056) must vote yes:
 
 ```json
 {
@@ -128,10 +251,23 @@ Weighted governance, 66% of 1600 (1056) must vote yes:
       "proposalId": "governance-1",
       "quorumThreshold": "66",
       "voters": [
-        { "address": "bb1founder...", "weight": "1000" },
-        { "address": "bb1investor...", "weight": "500" },
-        { "address": "bb1community...", "weight": "100" }
-      ]
+        {
+          "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+          "weight": "1000"
+        },
+        {
+          "address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+          "weight": "500"
+        },
+        {
+          "address": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf",
+          "weight": "100"
+        }
+      ],
+      "uri": "",
+      "customData": "",
+      "resetAfterExecution": false,
+      "delayAfterQuorum": "0"
     }
   ]
 }
@@ -146,10 +282,23 @@ Any one of three:
       "proposalId": "flexible-1",
       "quorumThreshold": "30",
       "voters": [
-        { "address": "bb1voter1...", "weight": "100" },
-        { "address": "bb1voter2...", "weight": "100" },
-        { "address": "bb1voter3...", "weight": "100" }
-      ]
+        {
+          "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+          "weight": "100"
+        },
+        {
+          "address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+          "weight": "100"
+        },
+        {
+          "address": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf",
+          "weight": "100"
+        }
+      ],
+      "uri": "",
+      "customData": "",
+      "resetAfterExecution": false,
+      "delayAfterQuorum": "0"
     }
   ]
 }

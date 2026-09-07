@@ -8,12 +8,109 @@ A dynamic store is an on-chain map from address to boolean that its creator main
 
 ## Shape
 
-```json
+A complete `approvalCriteria` with the `dynamicStoreChallenges` array open. Folded lines are defaults.
+
+```json fold=2-58,63-100
 {
+  "merkleChallenges": [],
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": false,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
+    }
+  },
+  "approvalAmounts": {
+    "overallApprovalAmount": "0",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "0",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "coinTransfers": [],
+  "requireToEqualsInitiatedBy": false,
+  "requireFromEqualsInitiatedBy": false,
+  "requireToDoesNotEqualInitiatedBy": false,
+  "requireFromDoesNotEqualInitiatedBy": false,
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": false,
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  },
+  "mustOwnTokens": [],
   "dynamicStoreChallenges": [
     { "storeId": "1", "ownershipCheckParty": "initiator" },
     { "storeId": "2", "ownershipCheckParty": "sender" }
-  ]
+  ],
+  "ethSignatureChallenges": [],
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "recipientChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "initiatorChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
+  },
+  "mustPrioritize": false,
+  "votingChallenges": [],
+  "allowBackedMinting": false,
+  "allowSpecialWrapping": false,
+  "evmQueryChallenges": [],
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+  }
 }
 ```
 
@@ -48,6 +145,10 @@ message DynamicStore {
 | `globalEnabled` | Kill switch. `false` fails every challenge on this store. New stores start `true`. |
 | `uri`, `customData` | Metadata, or inline JSON metadata |
 
+{% hint style="info" %}
+Ask your agent: "Create a dynamic store owned by alice that defaults to false, then add an approval to collection 1 so only addresses set to true in that store can initiate transfers." The MCP builder tools (`build_dynamic_store, add_approval`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 For each challenge:
@@ -62,14 +163,28 @@ All challenges on the approval must pass. The check is read-only; transfers neve
 
 ### Kill switch
 
-`globalEnabled: false` halts every approval that depends on the store in one transaction, whatever the per-address values. Use it as an emergency stop, for example when an integrated protocol is compromised.
+`globalEnabled: false` halts every approval that depends on the store in one transaction, whatever the per-address values. Use it as an emergency stop, for example when an integrated protocol is compromised. Both blocks are complete `MsgUpdateDynamicStore` values: the first halts, the second resumes.
 
 ```json
-{ "creator": "bb1...", "storeId": "1", "defaultValue": true, "globalEnabled": false }
+{
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "storeId": "1",
+  "defaultValue": true,
+  "globalEnabled": false,
+  "uri": "",
+  "customData": ""
+}
 ```
 
 ```json
-{ "creator": "bb1...", "storeId": "1", "defaultValue": true, "globalEnabled": true }
+{
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "storeId": "1",
+  "defaultValue": true,
+  "globalEnabled": true,
+  "uri": "",
+  "customData": ""
+}
 ```
 
 ### Managing stores

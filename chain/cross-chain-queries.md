@@ -10,7 +10,7 @@ Other Cosmos chains can verify token ownership on BitBadges over IBC with interc
 // Create ownership query packet for a single token ID and time
 query := &types.OwnershipQueryPacket{
     QueryId:       "my-query-123",
-    Address:       "bb1abc...",      // or "0x..." format
+    Address:       "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",  // or the 0x form, 0x0bc63cfe31d5218eb414b142c799e20964a54a1a
     CollectionId:  "5",
     TokenId:       "1",              // Single token ID
     OwnershipTime: "1609459200000",  // Single timestamp (ms)
@@ -93,7 +93,7 @@ Two query shapes exist. `OwnershipQuery` answers one (token ID, ownership time) 
 // Create full balance query packet
 query := &types.FullBalanceQueryPacket{
     QueryId:      "my-query-456",
-    Address:      "bb1abc...",
+    Address:      "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     CollectionId: "5",
 }
 

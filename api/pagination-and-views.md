@@ -12,8 +12,8 @@ This page is also part of the [API reference](/api-reference).
 
 ```bash
 # First page: empty bookmark
-curl -X POST https://api.bitbadges.io/api/v0/collections/fetch \
-  -H "Content-Type: application/json" -H "x-api-key: <key>" \
+curl -X POST https://api.bitbadges.io/api/v0/collections \
+  -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
   -d '{ "collectionsToFetch": [ { "collectionId": "1",
         "viewsToFetch": [ { "viewType": "owners", "viewId": "owners", "bookmark": "" } ] } ] }'
 ```
@@ -43,15 +43,69 @@ const page2 = collection.getOwnersView('owners');
 3. Next request: send the `bookmark` from the previous response.
 4. Stop when `hasMore` is `false`.
 
-```json
+The `views` and `owners` parts of the collection response above, for a page with two owners (synthesized from the SDK types; the rest of the collection document is omitted here):
+
+```json fold=21-33,46-58
 {
   "views": {
     "owners": {
-      "ids": ["..."],
+      "ids": ["1:bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "1:bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"],
       "type": "owners",
-      "pagination": { "bookmark": "abc123...", "hasMore": true }
+      "pagination": { "bookmark": "eyJza2lwIjoyNX0", "hasMore": true }
     }
-  }
+  },
+  "owners": [
+    {
+      "_docId": "1:bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "collectionId": "1",
+      "bitbadgesAddress": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "balances": [
+        {
+          "amount": "1",
+          "tokenIds": [{ "start": "1", "end": "50" }],
+          "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }]
+        }
+      ],
+      "incomingApprovals": [],
+      "outgoingApprovals": [],
+      "userPermissions": {
+        "canUpdateOutgoingApprovals": [],
+        "canUpdateIncomingApprovals": [],
+        "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+        "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+        "canUpdateAutoApproveAllIncomingTransfers": []
+      },
+      "autoApproveSelfInitiatedOutgoingTransfers": true,
+      "autoApproveSelfInitiatedIncomingTransfers": true,
+      "autoApproveAllIncomingTransfers": false,
+      "updateHistory": []
+    },
+    {
+      "_docId": "1:bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+      "collectionId": "1",
+      "bitbadgesAddress": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+      "balances": [
+        {
+          "amount": "1",
+          "tokenIds": [{ "start": "51", "end": "51" }],
+          "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }]
+        }
+      ],
+      "incomingApprovals": [],
+      "outgoingApprovals": [],
+      "userPermissions": {
+        "canUpdateOutgoingApprovals": [],
+        "canUpdateIncomingApprovals": [],
+        "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+        "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+        "canUpdateAutoApproveAllIncomingTransfers": []
+      },
+      "autoApproveSelfInitiatedOutgoingTransfers": true,
+      "autoApproveSelfInitiatedIncomingTransfers": true,
+      "autoApproveAllIncomingTransfers": false,
+      "updateHistory": []
+    }
+  ]
 }
 ```
 

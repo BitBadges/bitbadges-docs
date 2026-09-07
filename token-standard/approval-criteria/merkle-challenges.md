@@ -8,7 +8,9 @@ A Merkle challenge stores one root on-chain and lets each user prove membership 
 
 ## Shape
 
-```json
+A complete `approvalCriteria` with the `merkleChallenges` array open. Folded lines are defaults.
+
+```json fold=14-108
 {
   "merkleChallenges": [
     {
@@ -21,7 +23,102 @@ A Merkle challenge stores one root on-chain and lets each user prove membership 
       "challengeTrackerId": "uniqueId",
       "leafSigner": "0x"
     }
-  ]
+  ],
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": false,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
+    }
+  },
+  "approvalAmounts": {
+    "overallApprovalAmount": "0",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "0",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "coinTransfers": [],
+  "requireToEqualsInitiatedBy": false,
+  "requireFromEqualsInitiatedBy": false,
+  "requireToDoesNotEqualInitiatedBy": false,
+  "requireFromDoesNotEqualInitiatedBy": false,
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": false,
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  },
+  "mustOwnTokens": [],
+  "dynamicStoreChallenges": [],
+  "ethSignatureChallenges": [],
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "recipientChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "initiatorChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
+  },
+  "mustPrioritize": true,
+  "votingChallenges": [],
+  "allowBackedMinting": false,
+  "allowSpecialWrapping": false,
+  "evmQueryChallenges": [],
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+  }
 }
 ```
 
@@ -57,6 +154,10 @@ interface MerkleProof {
   leafSignature: string;                         // required when leafSigner is set
 }
 ```
+
+{% hint style="info" %}
+Ask your agent: "Gate minting of collection 1 behind a whitelist of these 200 addresses, one mint each." The MCP builder tools (`add_approval`) produce the objects on this page.
+{% endhint %}
 
 ## How it works
 
@@ -119,7 +220,7 @@ A claim code proof in the mempool is public. Without leaf signatures, anyone who
 With `leafSigner` set, the distributor signs `leaf + "-" + bb1AddressOfInitiator` for each user. A proof is then valid only for that address, so an intercepted proof is useless to anyone else.
 
 ```ts
-leafSigner: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6'; // Ethereum addresses only
+leafSigner: '0x3e3adf18d0b45a3639a6cf6188b813507e958440'; // Ethereum addresses only
 ```
 
 Together with `maxUsesPerLeaf: 1`, this is the standard claim code setup.
@@ -135,7 +236,11 @@ const codes = ['secret1', 'secret2', 'secret3'];
 const hashedCodes = codes.map((x) => SHA256(x).toString());
 
 // Whitelist
-const addresses = ['bb1...', 'bb1...', 'bb1...'];
+const addresses = [
+  'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
+  'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
+  'bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf',
+];
 const hashedAddresses = addresses.map((x) => SHA256(x));
 
 const treeOptions = {
@@ -169,7 +274,15 @@ const txCosmosMsg: MsgTransferTokens<bigint> = {
   collectionId: collectionId,
   transfers: [
     {
-      // ... other fields
+      from: 'Mint',
+      toAddresses: [chain.bitbadgesAddress],
+      balances: [
+        {
+          amount: 1n,
+          tokenIds: [{ start: 1n, end: 1n }],
+          ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
+        },
+      ],
       merkleProofs: [
         {
           aunts: proofObj.map((proof) => ({
@@ -180,6 +293,19 @@ const txCosmosMsg: MsgTransferTokens<bigint> = {
           leafSignature: leafSignature,
         },
       ],
+      ethSignatureProofs: [],
+      memo: '',
+      prioritizedApprovals: [
+        {
+          approvalId: 'claim-code-mint',
+          approvalLevel: 'collection',
+          approverAddress: '',
+          version: 0n,
+        },
+      ],
+      onlyCheckPrioritizedCollectionApprovals: true,
+      onlyCheckPrioritizedIncomingApprovals: false,
+      onlyCheckPrioritizedOutgoingApprovals: false,
     },
   ],
 };

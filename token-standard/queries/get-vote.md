@@ -10,11 +10,11 @@ Returns the stored vote of one voter for one voting challenge proposal.
 
 ```bash
 # [collection-id] [approval-level] [approver-address] [approval-id] [proposal-id] [voter-address]
-bb query tokenization vote 1 collection "" multisig-approval proposal-1 bb1voter...
+bb query tokenization vote 1 collection "" multisig-approval proposal-1 bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf
 ```
 
 ```bash
-curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_vote/1/collection//multisig-approval/proposal-1/bb1voter..."
+curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_vote/1/collection//multisig-approval/proposal-1/bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf"
 ```
 
 ## Request
@@ -34,9 +34,9 @@ curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_vote/1/
 {
   "vote": {
     "proposalId": "proposal-1",
-    "voter": "bb1voter...",
+    "voter": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf",
     "yesWeight": "100",
-    "votedAt": "1735689600000"
+    "votedAt": "1788739200000"
   }
 }
 ```

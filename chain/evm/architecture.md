@@ -11,7 +11,9 @@ This page explains how a precompile call travels from Solidity to chain state. R
 ```text
 ┌─────────────────────────────────────────────────────────────┐
 │                    Solidity smart contract                  │
-│  calls 0x...1001 / 0x...1002 / 0x...1003                     │
+│  calls 0x0000000000000000000000000000000000001001 (tokenization),  │
+│        0x0000000000000000000000000000000000001002 (gamm),          │
+│        0x0000000000000000000000000000000000001003 (sendmanager)   │
 └────────────────────────┬────────────────────────────────────┘
                          │ ABI-encoded call: method ID + string msgJson
 ┌────────────────────────▼────────────────────────────────────┐
@@ -114,9 +116,14 @@ Address strings inside JSON go through `convertEVMAddressToBech32`: a valid bech
 ## Gas
 
 ```go
-// Base gas + per-element costs
-gas = baseGas + (numRecipients * gasPerRecipient) +
-      (numTokenRanges * gasPerRange) + ...
+// x/tokenization/precompile/gas.go: base gas + per-element costs
+func CalculateTransferGas(toAddresses []common.Address, tokenIdsRanges []uintRange, ownershipTimesRanges []uintRange) uint64 {
+	var gas uint64 = GasTransferTokensBase
+	gas += uint64(len(toAddresses)) * GasPerRecipient
+	gas += uint64(len(tokenIdsRanges)) * GasPerTokenIdRange
+	gas += uint64(len(ownershipTimesRanges)) * GasPerOwnershipTimeRange
+	return gas
+}
 ```
 
 The per-method base costs, the fixed buffers (`+200,000` for transactions, `+50,000` for queries), and the per-element constants are listed on [Gas](tokenization-precompile/gas.md).

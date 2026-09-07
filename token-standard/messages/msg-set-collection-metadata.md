@@ -9,7 +9,7 @@ Sets the collection metadata and the permission that guards future metadata chan
 ## Example
 
 ```bash
-bb tx tokenization set-setcollectionmetadata ./set-collection-metadata.json --from <manager-key> --chain-id bitbadges-1
+bb tx tokenization set-setcollectionmetadata ./set-collection-metadata.json --from alice --chain-id bitbadges-1
 ```
 
 ```ts
@@ -19,23 +19,30 @@ const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, '
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
 const msg = new MsgSetCollectionMetadata({
-  creator: client.address,
+  creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
   collectionId: 1n,
-  collectionMetadata: { uri: 'https://example.com/collection.json', customData: '' },
+  collectionMetadata: {
+    uri: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json',
+    customData: ''
+  },
   canUpdateCollectionMetadata: [
-    { permanentlyPermittedTimes: [{ start: 1n, end: 18446744073709551615n }], permanentlyForbiddenTimes: [] }
+    {
+      permanentlyPermittedTimes: [{ start: 1n, end: 18446744073709551615n }],
+      permanentlyForbiddenTimes: []
+    }
   ]
 });
 
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
 {
-  "creator": "bb1manager...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "collectionId": "1",
   "collectionMetadata": {
-    "uri": "https://example.com/collection.json",
+    "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
     "customData": ""
   },
   "canUpdateCollectionMetadata": [
@@ -51,11 +58,11 @@ Inline metadata without hosting: leave `uri` empty and put the metadata document
 
 ```json
 {
-  "creator": "bb1manager...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "collectionId": "1",
   "collectionMetadata": {
     "uri": "",
-    "customData": "{\"name\":\"My Collection\",\"image\":\"ipfs://Qm.../image.png\",\"description\":\"A short description.\"}"
+    "customData": "{\"name\":\"Demo NFTs\",\"image\":\"ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/image.png\",\"description\":\"One hundred demo tokens.\"}"
   },
   "canUpdateCollectionMetadata": []
 }

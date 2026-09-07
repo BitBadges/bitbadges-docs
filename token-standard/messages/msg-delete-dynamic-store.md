@@ -9,7 +9,7 @@ Deletes a dynamic store. Only the store's creator can sign it.
 ## Example
 
 ```bash
-bb tx tokenization delete-dynamic-store 1 --from <key> --chain-id bitbadges-1
+bb tx tokenization delete-dynamic-store 1 --from alice --chain-id bitbadges-1
 ```
 
 ```ts
@@ -18,17 +18,19 @@ import { BitBadgesSigningClient, GenericCosmosAdapter, MsgDeleteDynamicStore } f
 const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
-const result = await client.signAndBroadcast([
-  new MsgDeleteDynamicStore({ creator: client.address, storeId: 1n })
-]);
+const msg = new MsgDeleteDynamicStore({ creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d', storeId: 1n });
+
+const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
-{
-  "creator": "bb1abc...",
-  "storeId": "1"
-}
+{ "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "storeId": "1" }
 ```
+
+{% hint style="info" %}
+Ask your agent: "Delete dynamic store 1."
+{% endhint %}
 
 ## Fields
 

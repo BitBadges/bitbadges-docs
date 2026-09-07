@@ -10,7 +10,7 @@ Removes specific expired incoming or outgoing approvals from a user's balance st
 
 ```bash
 # [collection-id] [purge-expired] [approver-address] [purge-counterparty-approvals] [approvals-to-purge-json-or-file]
-bb tx tokenization purge-approvals 1 true "" false '[{"approvalId":"my-approval","approvalLevel":"outgoing","approverAddress":"bb1user...","version":"0"}]' --from <key> --chain-id bitbadges-1
+bb tx tokenization purge-approvals 1 true "" false '[{"approvalId":"let-alice-move-token-1","approvalLevel":"outgoing","approverAddress":"bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue","version":"0"}]' --from bob --chain-id bitbadges-1
 ```
 
 ```ts
@@ -19,32 +19,39 @@ import { BitBadgesSigningClient, GenericCosmosAdapter, MsgPurgeApprovals } from 
 const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
+// bob removes his own expired outgoing approval.
 const msg = new MsgPurgeApprovals({
-  creator: client.address,
+  creator: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
   collectionId: 1n,
   purgeExpired: true,
   approverAddress: '',
   purgeCounterpartyApprovals: false,
   approvalsToPurge: [
-    { approvalId: 'my-approval', approvalLevel: 'outgoing', approverAddress: client.address, version: 0n }
+    {
+      approvalId: 'let-alice-move-token-1',
+      approvalLevel: 'outgoing',
+      approverAddress: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
+      version: 0n
+    }
   ]
 });
 
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
 {
-  "creator": "bb1user...",
+  "creator": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
   "collectionId": "1",
   "purgeExpired": true,
   "approverAddress": "",
   "purgeCounterpartyApprovals": false,
   "approvalsToPurge": [
     {
-      "approvalId": "my-approval",
+      "approvalId": "let-alice-move-token-1",
       "approvalLevel": "outgoing",
-      "approverAddress": "bb1user...",
+      "approverAddress": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
       "version": "0"
     }
   ]

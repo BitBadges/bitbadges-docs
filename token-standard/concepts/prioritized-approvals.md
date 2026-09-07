@@ -8,35 +8,57 @@ A transfer either lets the chain scan for a matching approval (auto-scan) or nam
 
 ## Shape
 
-```ts
-import { MsgTransferTokens } from 'bitbadges';
+A complete `MsgTransferTokens` in which carol moves one of token ID 1 from alice to bob through the collection approval `abc123`:
 
-const msg: MsgTransferTokens = {
-  creator: 'bb1initiator...',
-  collectionId: '1',
-  transfers: [
+```json fold=10-34,44-45
+{
+  "creator": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf",
+  "collectionId": "1",
+  "transfers": [
     {
-      from: 'bb1sender...',
-      toAddresses: ['bb1recipient...'],
-      balances: [
-        {
-          amount: 1n,
-          tokenIds: [{ start: 1n, end: 1n }],
-          ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
-        },
+      "from": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "toAddresses": [
+        "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"
       ],
-      prioritizedApprovals: [
+      "balances": [
         {
-          approvalId: 'abc123',
-          approvalLevel: 'collection',
-          approverAddress: '', // '' for collection, the owner for user approvals
-          version: 2n,          // must equal the approval's current version
-        },
+          "amount": "1",
+          "tokenIds": [
+            { "start": "1", "end": "1" }
+          ],
+          "ownershipTimes": [
+            { "start": "1", "end": "18446744073709551615" }
+          ]
+        }
       ],
-      onlyCheckPrioritizedCollectionApprovals: true,
-    },
-  ],
-};
+      "precalculateBalancesFromApproval": {
+        "approvalId": "",
+        "approvalLevel": "",
+        "approverAddress": "",
+        "version": "0",
+        "precalculationOptions": {
+          "overrideTimestamp": "0",
+          "tokenIdsOverride": [],
+          "scalingMultiplier": "0"
+        }
+      },
+      "merkleProofs": [],
+      "ethSignatureProofs": [],
+      "memo": "",
+      "prioritizedApprovals": [
+        {
+          "approvalId": "abc123",
+          "approvalLevel": "collection",
+          "approverAddress": "",
+          "version": "2"
+        }
+      ],
+      "onlyCheckPrioritizedCollectionApprovals": true,
+      "onlyCheckPrioritizedIncomingApprovals": false,
+      "onlyCheckPrioritizedOutgoingApprovals": false
+    }
+  ]
+}
 ```
 
 | Field on `Transfer` | Type | Description |
@@ -50,31 +72,58 @@ const msg: MsgTransferTokens = {
 | `onlyCheckPrioritizedOutgoingApprovals` | bool | Same for the sender's outgoing approvals |
 | `onlyCheckPrioritizedIncomingApprovals` | bool | Same for the recipient's incoming approvals |
 
+{% hint style="info" %}
+Ask your agent: "Build a transfer of token ID 1 in collection 1 from alice to bob that uses only the collection approval with ID abc123." The MCP builder tools (`build_transfer`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 ### Auto-scan mode
 
 With no `prioritizedApprovals`, the chain walks the approvals on each level in stored order and uses the first ones that match. Only auto-scannable approvals are considered.
 
-```ts
-const msg: MsgTransferTokens = {
-  creator: 'bb1initiator...',
-  collectionId: '1',
-  transfers: [
+```json fold=21-34,36-38
+{
+  "creator": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf",
+  "collectionId": "1",
+  "transfers": [
     {
-      from: 'bb1sender...',
-      toAddresses: ['bb1recipient...'],
-      balances: [
-        {
-          amount: '1',
-          tokenIds: [{ start: '1', end: '1' }],
-          ownershipTimes: [{ start: '1', end: '18446744073709551615' }],
-        },
+      "from": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "toAddresses": [
+        "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"
       ],
-      // no prioritizedApprovals: auto-scan
-    },
-  ],
-};
+      "balances": [
+        {
+          "amount": "1",
+          "tokenIds": [
+            { "start": "1", "end": "1" }
+          ],
+          "ownershipTimes": [
+            { "start": "1", "end": "18446744073709551615" }
+          ]
+        }
+      ],
+      "precalculateBalancesFromApproval": {
+        "approvalId": "",
+        "approvalLevel": "",
+        "approverAddress": "",
+        "version": "0",
+        "precalculationOptions": {
+          "overrideTimestamp": "0",
+          "tokenIdsOverride": [],
+          "scalingMultiplier": "0"
+        }
+      },
+      "merkleProofs": [],
+      "ethSignatureProofs": [],
+      "memo": "",
+      "prioritizedApprovals": [],
+      "onlyCheckPrioritizedCollectionApprovals": false,
+      "onlyCheckPrioritizedIncomingApprovals": false,
+      "onlyCheckPrioritizedOutgoingApprovals": false
+    }
+  ]
+}
 ```
 
 ### What is auto-scannable
@@ -129,8 +178,13 @@ const approval: CollectionApproval<bigint> = {
   approvalCriteria: {
     mustOwnTokens: [
       {
+        collectionId: 1n,
+        amountRange: { start: 1n, end: 1n },
         tokenIds: [{ start: 1n, end: 1n }],
         ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
+        overrideWithCurrentTime: false,
+        mustSatisfyForAllAssets: true,
+        ownershipCheckParty: 'initiator',
       },
     ],
   },
@@ -149,7 +203,7 @@ const approvalWithSideEffects: CollectionApproval<bigint> = {
   approvalCriteria: {
     coinTransfers: [
       {
-        to: 'bb1...',
+        to: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
         coins: [{ denom: 'ubadge', amount: 1000000n }],
       },
     ],
@@ -163,26 +217,55 @@ Liquidity pools and other automated environments transfer in auto-scan mode. A c
 
 List the approvals in `prioritizedApprovals`. The chain tries them first, in order. With the matching `onlyCheckPrioritized*` flag set, it stops there and fails if none match. Without the flag, it continues into auto-scan for the remainder.
 
-```ts
-const msg: MsgTransferTokens = {
-  // ... other fields
-  transfers: [
+```json fold=2-3,6-34
+{
+  "creator": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf",
+  "collectionId": "1",
+  "transfers": [
     {
-      // ... other fields
-      prioritizedApprovals: [
-        {
-          approvalId: 'abc123',
-          approvalLevel: 'collection',
-          approverAddress: '',
-          version: '0',
-        },
+      "from": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "toAddresses": [
+        "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"
       ],
-      onlyCheckPrioritizedCollectionApprovals: true,
-      onlyCheckPrioritizedIncomingApprovals: true,
-      onlyCheckPrioritizedOutgoingApprovals: true,
-    },
-  ],
-};
+      "balances": [
+        {
+          "amount": "1",
+          "tokenIds": [
+            { "start": "1", "end": "1" }
+          ],
+          "ownershipTimes": [
+            { "start": "1", "end": "18446744073709551615" }
+          ]
+        }
+      ],
+      "precalculateBalancesFromApproval": {
+        "approvalId": "",
+        "approvalLevel": "",
+        "approverAddress": "",
+        "version": "0",
+        "precalculationOptions": {
+          "overrideTimestamp": "0",
+          "tokenIdsOverride": [],
+          "scalingMultiplier": "0"
+        }
+      },
+      "merkleProofs": [],
+      "ethSignatureProofs": [],
+      "memo": "",
+      "prioritizedApprovals": [
+        {
+          "approvalId": "abc123",
+          "approvalLevel": "collection",
+          "approverAddress": "",
+          "version": "0"
+        }
+      ],
+      "onlyCheckPrioritizedCollectionApprovals": true,
+      "onlyCheckPrioritizedIncomingApprovals": true,
+      "onlyCheckPrioritizedOutgoingApprovals": true
+    }
+  ]
+}
 ```
 
 Prioritization is also a selection tool. Use it to choose between two auto-scannable approvals, or to pin exactly one approval for a transfer.
@@ -201,16 +284,18 @@ const approval: CollectionApproval<bigint> = {
   tokenIds: [{ start: 1n, end: 18446744073709551615n }],
   ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
   version: 0n, // becomes 1n after the first update
-  // ... other fields
+  uri: '',
+  customData: '',
+  approvalCriteria: {},
 };
 
 const msg: MsgTransferTokens = {
-  creator: 'bb1initiator...',
+  creator: 'bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf',
   collectionId: '1',
   transfers: [
     {
-      from: 'bb1sender...',
-      toAddresses: ['bb1recipient...'],
+      from: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
+      toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
       balances: [
         {
           amount: 1n,
@@ -235,16 +320,114 @@ const msg: MsgTransferTokens = {
 
 `approvalCriteria.mustPrioritize: true` removes an approval from auto-scan even when it has no side effects. Use it for forceful transfers, approvals that increment trackers, or anything a user should consent to by name.
 
-```json
+A complete `approvalCriteria` with the `mustPrioritize` flag and the `coinTransfers` that force it open. Folded lines are defaults.
+
+```json fold=2-44,55-96,98-106
 {
-  "approvalCriteria": {
-    "mustPrioritize": true,
-    "coinTransfers": [
-      {
-        "to": "bb1...",
-        "coins": [{ "denom": "ubadge", "amount": "1000000" }]
-      }
-    ]
+  "merkleChallenges": [],
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": false,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
+    }
+  },
+  "approvalAmounts": {
+    "overallApprovalAmount": "0",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "0",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "coinTransfers": [
+    {
+      "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "coins": [
+        { "denom": "ubadge", "amount": "1000000" }
+      ],
+      "overrideFromWithApproverAddress": false,
+      "overrideToWithInitiator": false
+    }
+  ],
+  "requireToEqualsInitiatedBy": false,
+  "requireFromEqualsInitiatedBy": false,
+  "requireToDoesNotEqualInitiatedBy": false,
+  "requireFromDoesNotEqualInitiatedBy": false,
+  "overridesFromOutgoingApprovals": false,
+  "overridesToIncomingApprovals": false,
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  },
+  "mustOwnTokens": [],
+  "dynamicStoreChallenges": [],
+  "ethSignatureChallenges": [],
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "recipientChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "initiatorChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
+  },
+  "mustPrioritize": true,
+  "votingChallenges": [],
+  "allowBackedMinting": false,
+  "allowSpecialWrapping": false,
+  "evmQueryChallenges": [],
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
   }
 }
 ```
@@ -257,12 +440,12 @@ The chain normalizes the stored value: when an approval is not auto-scannable fo
 
 ```ts
 const msg: MsgTransferTokens = {
-  creator: 'bb1initiator...',
+  creator: 'bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf',
   collectionId: '1',
   transfers: [
     {
-      from: 'bb1sender...',
-      toAddresses: ['bb1recipient...'],
+      from: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
+      toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
       balances: [
         {
           amount: '1',
@@ -280,7 +463,7 @@ const msg: MsgTransferTokens = {
         {
           approvalId: 'outgoing-approval',
           approvalLevel: 'outgoing',
-          approverAddress: 'bb1sender...',
+          approverAddress: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
           version: '0',
         },
       ],

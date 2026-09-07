@@ -10,11 +10,44 @@ This tab is for AI agents, bots, and the people wiring them: how to install, whi
 
 ```bash
 curl -fsSL https://install.bitbadges.io | sh
-bb settings set apiKey <YOUR_KEY>
+export BITBADGES_API_KEY=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef   # your key from bitbadges.io/developer
+bb settings set apiKey "$BITBADGES_API_KEY"
 bb doctor
 ```
 
-This installs the chain binary and the SDK CLI as `bb`. Every path below starts from this install. Get an API key at [bitbadges.io/developer](https://bitbadges.io/developer). Per-harness MCP configs (Claude Desktop, Cursor, Windsurf, Codex, VS Code, Zed, no-tools LLMs): [Set up your AI](setup.md).
+This installs the chain binary and the SDK CLI as `bb`. Every path below starts from this install. Get an API key at [bitbadges.io/developer](https://bitbadges.io/developer); the example key above is fake. Per-harness MCP configs (Claude Desktop, Cursor, Windsurf, Codex, VS Code, Zed, no-tools LLMs): [Set up your AI](setup.md).
+
+## What to say
+
+Once a harness is wired, these prompts map onto the MCP builder tools and the skills. Copy one and change the names.
+
+Create a token:
+
+- "Create an NFT collection called Demo NFTs with 100 tokens, manager `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d`, fully immutable after creation."
+- "Build a fungible token called Demo Coin with 1,000,000 units of token ID 1 and a public mint of up to 10 per address."
+- "Make a USDC-backed smart token with symbol vUSDC and a daily withdraw limit of 1000."
+
+Distribute:
+
+- "Mint 100 Demo Coin to `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue` and `bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf` in the same transaction that creates the collection."
+- "Create a code-gated claim for collection 1 with 50 codes, one use per address."
+
+Gate:
+
+- "Check whether `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue` owns at least 1 of token ID 1 in collection 1."
+- "Build a 30-day subscription called Demo Membership at 10 USDC per interval paid to `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d`."
+
+Trade:
+
+- "Add a tradable listing approval to collection 1 so anyone can buy token ID 5 for 25 USDC."
+- "Give my agent wallet `bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr` a daily budget of 100 units of collection 2 that it can send to `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue`."
+
+Inspect:
+
+- "Explain collection 1 for an auditor: who can change what, and how do tokens move."
+- "Review this transaction file for problems before I sign it."
+
+Every build ends the same way: the agent calls `get_review_url` (or runs `bb preview`) and hands you a bitbadges.io link where you review and sign with your own wallet; the agent never holds the key.
 
 ## Paths
 
@@ -33,7 +66,7 @@ Bring your own AI is the default. The MCP server, the CLI, and the plugin are mo
 ```bash
 # Step 1: install the chain binary and CLI (always)
 curl -fsSL https://install.bitbadges.io | sh
-bb settings set apiKey <YOUR_KEY>
+bb settings set apiKey "$BITBADGES_API_KEY"
 
 # Step 2: optionally add a harness convenience
 # Claude Code:
@@ -52,11 +85,8 @@ npm install bitbadges
 ```ts
 import { BitBadgesSigningClient, GenericEvmAdapter, MsgTransferTokens, NETWORK_CONFIGS } from 'bitbadges';
 
-// 1. Create an adapter from a mnemonic (server-side only)
-const adapter = await GenericEvmAdapter.fromMnemonic(
-  'your twelve word mnemonic phrase here ...',
-  NETWORK_CONFIGS['mainnet'].evmRpcUrl
-);
+// 1. Create an adapter from a mnemonic (server-side only; never commit the phrase)
+const adapter = await GenericEvmAdapter.fromMnemonic(process.env.MNEMONIC!, NETWORK_CONFIGS['mainnet'].evmRpcUrl);
 
 // 2. Create a signing client (mainnet)
 const client = new BitBadgesSigningClient({
@@ -64,18 +94,30 @@ const client = new BitBadgesSigningClient({
   network: 'mainnet'
 });
 
-// 3. Fund the address with BADGE for fees before the first broadcast
+// 3. Fund client.address with BADGE for fees before the first broadcast
 
-// 4. Broadcast your first transaction
+// 4. Broadcast your first transaction: send 5 units of Demo Coin (collection 2, token ID 1) to bob
 const result = await client.signAndBroadcast([
-  MsgTransferTokens.create({
+  new MsgTransferTokens({
     creator: client.address,
-    collectionId: '1',
-    transfers: [/* ... */]
+    collectionId: '2',
+    transfers: [
+      {
+        from: client.address,
+        toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+        balances: [
+          {
+            amount: '5',
+            tokenIds: [{ start: '1', end: '1' }],
+            ownershipTimes: [{ start: '1', end: '18446744073709551615' }]
+          }
+        ]
+      }
+    ]
   })
 ]);
 
-console.log('TX Hash:', result.txHash);
+console.log('TX Hash:', result.txHash, 'success:', result.success);
 ```
 
 Examples target mainnet because testnet is offline. The faucet API shape and the testnet status live on [Testnet](../chain/testnet.md).
@@ -92,9 +134,9 @@ bb api tokens --help
 
 # Query
 bb api tokens get-collection 1
-bb api tokens get-balance --body '{"collectionId":"1","address":"bb1..."}'
-bb api accounts get-account --body '{"address":"bb1..."}'
-bb api misc search --body '{"query":"my-token"}'
+bb api tokens get-balance-by-address 1 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue
+bb api accounts get-account --body '{"address":"bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"}'
+bb api --search owners
 
 # Review and audit
 bb check tx.json
@@ -112,11 +154,35 @@ bb dev skills smart-token
 bb keys add agent-wallet
 bb tx tokenization create-collection ./collection.json \
   --from agent-wallet --chain-id bitbadges-1 \
-  --node https://lcd.bitbadges.io:443 \
+  --node https://rpc.bitbadges.io:443 \
   --gas auto --gas-adjustment 1.5 --fees 10000ubadge
 
 # Or broadcast a signed tx through the API
 bb api tx broadcast-tx --body @signed-tx.json
+```
+
+`bb api tokens get-collection 1` returns the standard envelope (mainnet output, trimmed to the first fields):
+
+```json
+{
+  "ok": true,
+  "data": {
+    "collection": {
+      "collectionId": "1",
+      "collectionMetadata": {
+        "metadata": {
+          "name": "BitBadges Examples",
+          "description": "Badges are generic and can be created for many different purposes and use cases. This collection highlights some of our favorites.",
+          "image": "ipfs://QmNytJNN44stkMndshtdfcCW2mzaCm6A23maiKaQvUqoj8"
+        },
+        "uri": "ipfs://QmSTZZPgYF58gS9bM7q3nWVegUJH51WBdT91fz7q94qDwS",
+        "customData": ""
+      }
+    }
+  },
+  "warnings": [],
+  "error": null
+}
 ```
 
 `--dry-run` simulates any API call without side effects.
@@ -149,7 +215,7 @@ bb auth login \
   --message    "$MSG"
 
 # 4. Add --with-session to Full Access requests
-bb api accounts get-account --body '{"address":"bb1..."}' --with-session
+bb api accounts get-account --body '{"address":"bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr"}' --with-session
 ```
 
 Sessions are multi-account and multi-network. Full reference: [Auth](../cli/auth.md).
@@ -162,27 +228,25 @@ Legacy forms (`bb cli <subcmd>`, `bitbadges-cli sign-with-browser`, `bitbadges-c
 
 ```bash
 #!/bin/bash
-# Check a balance and mint when it drops below a threshold
+# Check bob's Demo Coin balance and mint when it drops below a threshold
 
-COLLECTION_ID=1
-ADDRESS="bb1..."
+COLLECTION_ID=2
+ADDRESS="bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"
 THRESHOLD=10
 
-BALANCE=$(bb api tokens get-balance \
-  --body "{\"collectionId\":\"$COLLECTION_ID\",\"address\":\"$ADDRESS\"}" \
-  --condensed)
+BALANCE=$(bb api tokens get-balance-by-address "$COLLECTION_ID" "$ADDRESS" --condensed)
 
 # bb api emits the envelope; the body lives at .data
 AMOUNT=$(echo "$BALANCE" | jq -r '.data.balances[0].amount // "0"')
 
 if [ "$AMOUNT" -lt "$THRESHOLD" ]; then
-  echo "Balance $AMOUNT below threshold $THRESHOLD, minting..."
+  echo "Balance $AMOUNT below threshold $THRESHOLD, minting"
 
   bb check ./mint-tx.json
 
   bb tx tokenization transfer-tokens ./mint-tx.json \
     --from agent-wallet --chain-id bitbadges-1 \
-    --node https://lcd.bitbadges.io:443 \
+    --node https://rpc.bitbadges.io:443 \
     --gas auto --fees 10000ubadge
 fi
 ```
@@ -194,7 +258,7 @@ Agents build; people sign. Every path ends in a bitbadges.io link that opens the
 | From | Get the link |
 | --- | --- |
 | MCP or Claude Code | call `get_review_url` and open `reviewUrl` (see [MCP builder tools](mcp-tools.md#hand-off-to-the-browser)) |
-| CLI | `bb preview tx.json --open` (or `bb build ... \| bb preview - --open`) |
+| CLI | `bb preview tx.json --open` (or `bb build vault --backing-coin USDC --name "Demo Vault" \| bb preview - --open`) |
 | Programmatic agent | `result.reviewUrl` |
 | Any LLM, no tools | paste the JSON into `bitbadges.io/mint/local-builder` |
 
@@ -202,7 +266,7 @@ Two carriers exist. `bb preview` and `get_review_url` upload the transaction to 
 
 ## Metadata without hosting
 
-The CLI builders and templates accept `--name`, `--image`, and `--description` (or `--name` plus `--description` for approvals, which have no image) and serialize them into the on-chain `customData` field. The BitBadges API, the SDK, and the site parse `customData` on read and surface it as the resolved metadata, so an agent can ship a working collection without an IPFS pin or a Pinata account. Pass `--uri <pre-hosted-uri>` instead to host the JSON yourself. The URI takes priority when both are set. On-chain shape: [Collections](../token-standard/concepts/collections.md).
+The CLI builders and templates accept `--name`, `--image`, and `--description` (or `--name` plus `--description` for approvals, which have no image) and serialize them into the on-chain `customData` field. The BitBadges API, the SDK, and the site parse `customData` on read and surface it as the resolved metadata, so an agent can ship a working collection without an IPFS pin or a Pinata account. Pass `--uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json` (a file you host) instead to host the JSON yourself. The URI takes priority when both are set. On-chain shape: [Collections](../token-standard/concepts/collections.md).
 
 {% hint style="warning" %}
 `--image` should be a URL, not bytes. Inline `customData` lives on-chain: you pay gas per byte and blocks have a hard size cap. Pre-host images on IPFS or any URL host and pass the URL to `--image`. Inline `customData` is for the metadata wrapper (name, description, link to image), not the image itself.

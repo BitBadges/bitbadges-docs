@@ -9,7 +9,7 @@ Sets the boolean value for one address in a dynamic store. Only the store's crea
 ## Example
 
 ```bash
-bb tx tokenization set-dynamic-store-value 1 bb1member... true --from <key> --chain-id bitbadges-1
+bb tx tokenization set-dynamic-store-value 1 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue true --from alice --chain-id bitbadges-1
 ```
 
 ```ts
@@ -18,19 +18,29 @@ import { BitBadgesSigningClient, GenericCosmosAdapter, MsgSetDynamicStoreValue }
 const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
-const result = await client.signAndBroadcast([
-  new MsgSetDynamicStoreValue({ creator: client.address, storeId: 1n, address: 'bb1member...', value: true })
-]);
+const msg = new MsgSetDynamicStoreValue({
+  creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
+  storeId: 1n,
+  address: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
+  value: true
+});
+
+const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
 {
-  "creator": "bb1abc...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "storeId": "1",
-  "address": "bb1member...",
+  "address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
   "value": true
 }
 ```
+
+{% hint style="info" %}
+Ask your agent: "Allowlist bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue in dynamic store 1."
+{% endhint %}
 
 ## Fields
 
@@ -38,7 +48,7 @@ const result = await client.signAndBroadcast([
 | --- | --- | --- | --- |
 | `creator` | string | yes | Signer. Must equal the store's `createdBy`. |
 | `storeId` | Uint | yes | Store to write to. |
-| `address` | string | yes | Address the value applies to. Must be a valid `bb1...` address. |
+| `address` | string | yes | Address the value applies to. Must be a valid `bb`-prefixed bech32 address. |
 | `value` | bool | yes | Value to store. |
 
 ## Response

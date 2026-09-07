@@ -141,6 +141,9 @@ export async function getDoc(route: string): Promise<DocPage | null> {
   return null;
 }
 
+/** Routes whose pages are machine-generated reference material. */
+const GENERATED_REFERENCE = /^\/(sdk\/reference|chain\/proto)\//;
+
 export type SearchRecord = {
   id: string;
   route: string;
@@ -178,7 +181,10 @@ export async function buildSearchRecords(): Promise<SearchRecord[]> {
       title: doc.title,
       section,
       description: doc.description ?? '',
-      text: doc.text.slice(0, 4000),
+      // Generated reference trees (SDK TypeDoc, proto) are thousands of pages.
+      // Indexing 4 KB each pushed search-index.json past 7 MB, and their value
+      // in search is the symbol name, not the prose. Index a short lead instead.
+      text: doc.text.slice(0, GENERATED_REFERENCE.test(route) ? 400 : 4000),
     });
 
     for (const heading of doc.headings) {

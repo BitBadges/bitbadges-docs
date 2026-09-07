@@ -7,7 +7,7 @@ description: "Start a BitBadges mainnet full node or validator: init, genesis, p
 This page brings up a BitBadges mainnet full node or validator, one copyable step at a time. The daemon binary is `bitbadgeschaind`; the `bb` developer CLI does not run a node. If you already run Cosmos SDK chains, the flow is the standard one. For help, ask in the `#validators` channel of the [Discord](https://discord.com/invite/TJMaEd9Kar) and ping `@trevormil` for the Validator role.
 
 ```bash
-bitbadgeschaind init <moniker> --chain-id bitbadges-1
+bitbadgeschaind init alice --chain-id bitbadges-1
 curl -L https://raw.githubusercontent.com/BitBadges/bitbadgeschain/master/genesis-711316.json \
   -o ~/.bitbadgeschain/config/genesis.json
 sed -i 's/^timeout_commit = "5s"/timeout_commit = "2s"/' ~/.bitbadgeschain/config/config.toml
@@ -31,7 +31,7 @@ bitbadgeschaind version
 Pick a moniker (the public name of your node). `init` creates `~/.bitbadgeschain/` with a default `config/config.toml`, `config/app.toml`, and a placeholder `config/genesis.json`.
 
 ```bash
-bitbadgeschaind init <moniker> --chain-id bitbadges-1
+bitbadgeschaind init alice --chain-id bitbadges-1
 ```
 
 ## 3. Download the canonical genesis
@@ -51,10 +51,11 @@ Set `persistent_peers` (and or `seeds`) in `config.toml` to known-good mainnet n
 
 ```toml
 # ~/.bitbadgeschain/config/config.toml
-persistent_peers = "<nodeID>@<host>:<port>,<nodeID>@<host>:<port>"
+persistent_peers = "2703c1304a70186372aa726a762d60da94c29ffe@134.122.12.165:26656,9b9dee928a174bcd0272be9127f5f455d418d6b2@bitbadges_mainnet_peer.chain.whenmoonwhenlambo.money:30001"
+seeds = "ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:32956"
 ```
 
-A first-party peer list is pending. Ask in `#validators` for current peer addresses. Active validators publish their own peer IDs in their guides (see the community guides below), and the chain registry lists peers and seeds.
+The values above come from the [chain registry](https://github.com/cosmos/chain-registry/blob/master/bitbadges/chain.json) `peers` section as of 2026-09-06 (a BitBadges node and a WhenMoonWhenLambo node, plus the Polkachu seed). Active validators publish their own peer IDs in their guides (see the community guides below); ask in `#validators` if none of these connect.
 
 ## 5. Set timeout_commit
 

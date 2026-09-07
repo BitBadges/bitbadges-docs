@@ -8,7 +8,7 @@ The Claude Code plugin is a convenience layer on top of the chain binary and CLI
 
 ```sh
 curl -fsSL https://install.bitbadges.io | sh
-bb settings set apiKey <YOUR_KEY>
+bb settings set apiKey "$BITBADGES_API_KEY"
 ```
 
 ```text
@@ -17,7 +17,7 @@ bb settings set apiKey <YOUR_KEY>
 /bitbadges:setup
 ```
 
-The plugin is a thin harness, not a knowledge base. Token-type instructions live in the SDK and surface through `bb dev skills <id>`, the `get_skill_instructions` MCP tool, and the [Skills](skills/README.md) pages. The plugin's job is to teach Claude where to find them and how to compose them, not to ship one wrapper per token type.
+The plugin is a thin harness, not a knowledge base. Token-type instructions live in the SDK and surface through `bb dev skills smart-token` (one command per skill id), the `get_skill_instructions` MCP tool, and the [Skills](skills/README.md) pages. The plugin's job is to teach Claude where to find them and how to compose them, not to ship one wrapper per token type.
 
 ## Prerequisites
 
@@ -78,7 +78,7 @@ On every session start the plugin pre-warms the npx cache for the `bitbadges` pa
 
 ## API key
 
-The plugin reads `~/.bitbadges/config.json` if the CLI is already configured. Otherwise `/bitbadges:setup` prompts and writes the key with `bb settings set apiKey <KEY>`, so the CLI and the plugin share it. Get a key at [bitbadges.io/developer](https://bitbadges.io/developer).
+The plugin reads `~/.bitbadges/config.json` if the CLI is already configured. Otherwise `/bitbadges:setup` prompts and writes the key with `bb settings set apiKey "$BITBADGES_API_KEY"`, so the CLI and the plugin share it. Get a key at [bitbadges.io/developer](https://bitbadges.io/developer).
 
 ## Migrate from a manual MCP setup
 
@@ -94,8 +94,8 @@ claude mcp remove bitbadges-builder
 
 The plugin is for Claude Code only. Other harnesses get the same coverage from the MCP server and the skill docs:
 
-- Cursor, Claude Desktop, other MCP clients: set up the `bitbadges-builder` server in your client ([MCP builder tools](mcp-tools.md)). The server exposes `get_skill_instructions(<id>)` for on-demand loading, the same path the plugin uses.
-- Generic LLMs, shell scripts, CI: use the [CLI](../cli/README.md). For skill instructions, read the [Skills](skills/README.md) pages or run `bb dev skills <id>`.
+- Cursor, Claude Desktop, other MCP clients: set up the `bitbadges-builder` server in your client ([MCP builder tools](mcp-tools.md)). The server exposes `get_skill_instructions({ "skillId": "smart-token" })` for on-demand loading, the same path the plugin uses.
+- Generic LLMs, shell scripts, CI: use the [CLI](../cli/README.md). For skill instructions, read the [Skills](skills/README.md) pages or run `bb dev skills smart-token`.
 - TypeScript developers: `npm install bitbadges` and use the [SDK](../sdk/README.md).
 
 The CLI is the base layer. Skill content is rendered in one place ([Skills](skills/README.md)) and consumed by reference from the plugin, the MCP server, and the CLI.

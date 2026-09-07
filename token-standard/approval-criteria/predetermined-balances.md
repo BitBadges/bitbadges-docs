@@ -35,56 +35,108 @@ Balances are never approximate. If the transfer's balances differ from the compu
 
 ### Manual balances
 
-```json
+A complete `predeterminedBalances` with `manualBalances` open:
+
+```json fold=31-53
 {
-  "manualBalances": [
-    {
-      "balances": [
-        {
-          "amount": "1",
-          "tokenIds": [{ "start": "1", "end": "1" }],
-          "ownershipTimes": [{ "start": "1691978400000", "end": "1723514400000" }]
-        }
-      ]
+  "predeterminedBalances": {
+    "manualBalances": [
+      {
+        "balances": [
+          {
+            "amount": "1",
+            "tokenIds": [
+              { "start": "1", "end": "1" }
+            ],
+            "ownershipTimes": [
+              { "start": "1691978400000", "end": "1723514400000" }
+            ]
+          }
+        ]
+      },
+      {
+        "balances": [
+          {
+            "amount": "5",
+            "tokenIds": [
+              { "start": "2", "end": "6" }
+            ],
+            "ownershipTimes": [
+              { "start": "1691978400000", "end": "1723514400000" }
+            ]
+          }
+        ]
+      }
+    ],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
     },
-    {
-      "balances": [
-        {
-          "amount": "5",
-          "tokenIds": [{ "start": "2", "end": "6" }],
-          "ownershipTimes": [{ "start": "1691978400000", "end": "1723514400000" }]
-        }
-      ]
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": true,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
     }
-  ]
+  }
 }
 ```
 
-Transfer number 0 moves `manualBalances[0]`, number 1 moves `manualBalances[1]`, and so on. A number past the end matches nothing.
+Transfer number 0 moves `manualBalances[0]`, number 1 moves `manualBalances[1]`, and so on. A number past the end matches nothing. `incrementedBalances` stays at its zero values when `manualBalances` is used.
 
 ### Incremented balances
 
-```json
+A complete `predeterminedBalances` with `incrementedBalances` open:
+
+```json fold=29-36
 {
-  "incrementedBalances": {
-    "startBalances": [
-      {
-        "amount": "1",
-        "tokenIds": [{ "start": "1", "end": "1" }],
-        "ownershipTimes": [{ "start": "1691978400000", "end": "1723514400000" }]
-      }
-    ],
-    "incrementTokenIdsBy": "1",
-    "incrementOwnershipTimesBy": "0",
-    "durationFromTimestamp": "0",
-    "allowOverrideTimestamp": false,
-    "allowOverrideWithAnyValidToken": false,
-    "allowAmountScaling": false,
-    "maxScalingMultiplier": "0",
-    "recurringOwnershipTimes": {
-      "startTime": "0",
-      "intervalLength": "0",
-      "chargePeriodLength": "0"
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [
+        {
+          "amount": "1",
+          "tokenIds": [
+            { "start": "1", "end": "1" }
+          ],
+          "ownershipTimes": [
+            { "start": "1691978400000", "end": "1723514400000" }
+          ]
+        }
+      ],
+      "incrementTokenIdsBy": "1",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": true,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
     }
   }
 }
@@ -104,6 +156,10 @@ Transfer number 0 moves `manualBalances[0]`, number 1 moves `manualBalances[1]`,
 
 Most options exclude each other. Transfer number 0 uses `startBalances` as-is; number N applies the increments N times.
 
+{% hint style="info" %}
+Ask your agent: "Add a mint approval to collection 1 that hands out token IDs 1 to 100 in order, one token per transfer." The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 ### Order calculation
@@ -120,8 +176,17 @@ The transfer number comes from one counter:
 
 The `use*NumTransfers` methods read the same tracker as [`maxNumTransfers`](approval-trackers.md). The count is incremented even when `maxNumTransfers` sets `0` for that scope, and it is never reset by approval edits. Give an approval that should start at zero a fresh `amountTrackerId`.
 
-```ts
-{ "useMerkleChallengeLeafIndex": true, "challengeTrackerId": "uniqueId" }
+```json
+{
+  "orderCalculationMethod": {
+    "useOverallNumTransfers": false,
+    "usePerToAddressNumTransfers": false,
+    "usePerFromAddressNumTransfers": false,
+    "usePerInitiatedByAddressNumTransfers": false,
+    "useMerkleChallengeLeafIndex": true,
+    "challengeTrackerId": "uniqueId"
+  }
+}
 ```
 
 ### Precalculation
@@ -161,7 +226,10 @@ Options whose flag is off are ignored without error.
     "version": "1",
     "precalculationOptions": {
       "overrideTimestamp": "1704067200000",
-      "tokenIdsOverride": [{ "start": "5", "end": "5" }]
+      "tokenIdsOverride": [
+        { "start": "5", "end": "5" }
+      ],
+      "scalingMultiplier": "0"
     }
   }
 }
@@ -180,18 +248,64 @@ Options whose flag is off are ignored without error.
 | 30 days | 2592000000 |
 | 1 year | 31536000000 |
 
-```json
-{ "durationFromTimestamp": "2592000000", "allowOverrideTimestamp": true }
+```json fold=3-15,18-25
+{
+  "incrementedBalances": {
+    "startBalances": [
+      {
+        "amount": "1",
+        "tokenIds": [
+          { "start": "1", "end": "1" }
+        ],
+        "ownershipTimes": [
+          { "start": "1", "end": "18446744073709551615" }
+        ]
+      }
+    ],
+    "incrementTokenIdsBy": "0",
+    "incrementOwnershipTimesBy": "0",
+    "durationFromTimestamp": "2592000000",
+    "allowOverrideTimestamp": true,
+    "recurringOwnershipTimes": {
+      "startTime": "0",
+      "intervalLength": "0",
+      "chargePeriodLength": "0"
+    },
+    "allowOverrideWithAnyValidToken": false,
+    "allowAmountScaling": false,
+    "maxScalingMultiplier": "0"
+  }
+}
 ```
 
 ### Recurring ownership times
 
-```json
+```json fold=3-17,23-25
 {
-  "recurringOwnershipTimes": {
-    "startTime": "1691978400000",
-    "intervalLength": "2592000000",
-    "chargePeriodLength": "604800000"
+  "incrementedBalances": {
+    "startBalances": [
+      {
+        "amount": "1",
+        "tokenIds": [
+          { "start": "1", "end": "1" }
+        ],
+        "ownershipTimes": [
+          { "start": "1", "end": "18446744073709551615" }
+        ]
+      }
+    ],
+    "incrementTokenIdsBy": "0",
+    "incrementOwnershipTimesBy": "0",
+    "durationFromTimestamp": "0",
+    "allowOverrideTimestamp": false,
+    "recurringOwnershipTimes": {
+      "startTime": "1691978400000",
+      "intervalLength": "2592000000",
+      "chargePeriodLength": "604800000"
+    },
+    "allowOverrideWithAnyValidToken": false,
+    "allowAmountScaling": false,
+    "maxScalingMultiplier": "0"
   }
 }
 ```
@@ -202,24 +316,43 @@ Intervals of `intervalLength` begin at `startTime`. A transfer is accepted only 
 
 With `allowAmountScaling`, `startBalances` is the 1x unit and a transfer may move any integer multiple of it. `coinTransfers` on the same approval scale by the same multiplier.
 
-```json
+```json fold=29-36
 {
-  "incrementedBalances": {
-    "startBalances": [
-      {
-        "amount": "1",
-        "tokenIds": [{ "start": "1", "end": "1" }],
-        "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }]
-      }
-    ],
-    "incrementTokenIdsBy": "0",
-    "incrementOwnershipTimesBy": "0",
-    "durationFromTimestamp": "0",
-    "allowOverrideTimestamp": false,
-    "allowOverrideWithAnyValidToken": false,
-    "allowAmountScaling": true,
-    "maxScalingMultiplier": "1000000000000",
-    "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" }
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [
+        {
+          "amount": "1",
+          "tokenIds": [
+            { "start": "1", "end": "1" }
+          ],
+          "ownershipTimes": [
+            { "start": "1", "end": "18446744073709551615" }
+          ]
+        }
+      ],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": true,
+      "maxScalingMultiplier": "1000000000000"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": true,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
+    }
   }
 }
 ```

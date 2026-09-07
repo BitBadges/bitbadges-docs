@@ -13,7 +13,7 @@ collectionApprovals: [
     approvalId: 'provider-mint',
     fromListId: 'Mint',
     toListId: 'All',
-    initiatedByListId: 'bb1_YOUR_ADDRESS',  // only you can mint
+    initiatedByListId: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',  // only alice, the provider, can mint
     transferTimes: [{ start: 1n, end: 18446744073709551615n }],
     tokenIds: [{ start: 1n, end: 1n }],
     ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
@@ -26,6 +26,10 @@ collectionApprovals: [
   // No post-mint transfer approval = soulbound
 ]
 ```
+
+{% hint style="info" %}
+Ask your agent: "Create a soulbound access-token collection where only alice can mint and revoke, and lock those approvals forever." The MCP builder tools (`add_approval, set_permissions`) produce the objects on this page.
+{% endhint %}
 
 ## The core pattern
 
@@ -52,7 +56,7 @@ collectionApprovals: [
     approvalId: 'provider-mint',
     fromListId: 'Mint',
     toListId: 'All',
-    initiatedByListId: 'bb1_YOUR_ADDRESS',
+    initiatedByListId: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
     transferTimes: [{ start: 1n, end: 18446744073709551615n }],
     tokenIds: [{ start: 1n, end: 1n }],
     ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
@@ -67,7 +71,7 @@ collectionApprovals: [
     approvalId: 'provider-revoke',
     fromListId: '!Mint',
     toListId: 'Mint',
-    initiatedByListId: 'bb1_YOUR_ADDRESS',  // only you can revoke
+    initiatedByListId: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',  // only alice can revoke
     transferTimes: [{ start: 1n, end: 18446744073709551615n }],
     tokenIds: [{ start: 1n, end: 1n }],
     ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
@@ -91,7 +95,7 @@ const sixtySeconds = 60n * 1000n;
 
 const transfer = {
   from: 'Mint',
-  toAddresses: ['bb1_USER_ADDRESS'],
+  toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
   balances: [{
     amount: 1n,
     tokenIds: [{ start: 1n, end: 1n }],

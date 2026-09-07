@@ -1,0 +1,167 @@
+---
+description: "T extends NumberType"
+---
+
+# Interface: iMsgCreateCollection\<T\>
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:39](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L39)
+
+## Extended by
+
+- [`iMsgUniversalUpdateCollection`](/sdk/reference/interfaces/i-msg-universal-update-collection)
+
+## Type Parameters
+
+### T
+
+`T` *extends* [`NumberType`](/sdk/reference/type-aliases/number-type)
+
+## Properties
+
+### aliasPathsToAdd?
+
+> `optional` **aliasPathsToAdd?**: [`iAliasPathAddObject`](/sdk/reference/interfaces/i-alias-path-add-object)\<`T`\>[]
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:80](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L80)
+
+The alias (non-wrapping) paths to add.
+
+***
+
+### collectionApprovals?
+
+> `optional` **collectionApprovals?**: [`iCollectionApproval`](/sdk/reference/interfaces/i-collection-approval)\<`T`\>[]
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:65](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L65)
+
+The new collection approved transfers. Must have the necessary permissions in future transactions to update. However, no restrictions in this genesis Msg.
+
+***
+
+### collectionMetadata?
+
+> `optional` **collectionMetadata?**: [`iCollectionMetadata`](/sdk/reference/interfaces/i-collection-metadata)
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:56](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L56)
+
+The new collection metadata. Must have the necessary permissions in future transactions to update. However, no restrictions in this genesis Msg.
+
+***
+
+### collectionPermissions?
+
+> `optional` **collectionPermissions?**: [`iCollectionPermissions`](/sdk/reference/interfaces/i-collection-permissions)\<`T`\>
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:50](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L50)
+
+The new collection permissions. Must have the necessary permissions in future transactions to update. However, no restrictions in this genesis Msg.
+
+***
+
+### cosmosCoinWrapperPathsToAdd?
+
+> `optional` **cosmosCoinWrapperPathsToAdd?**: [`iCosmosCoinWrapperPathAddObject`](/sdk/reference/interfaces/i-cosmos-coin-wrapper-path-add-object)\<`T`\>[]
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:77](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L77)
+
+The IBC wrapper paths to add.
+
+***
+
+### creator
+
+> **creator**: `string`
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:41](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L41)
+
+The creator of the transaction.
+
+***
+
+### customData?
+
+> `optional` **customData?**: `string`
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:62](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L62)
+
+The new custom data. Must have the necessary permissions in future transactions to update. However, no restrictions in this genesis Msg.
+
+***
+
+### defaultBalances?
+
+> `optional` **defaultBalances?**: [`iUserBalanceStore`](/sdk/reference/interfaces/i-user-balance-store)\<`T`\>
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:44](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L44)
+
+The default balances for users who have not interacted with the collection yet. Only can be set on initial creation. Only used if collection has "Standard" balance type.
+
+***
+
+### invariants?
+
+> `optional` **invariants?**: [`iInvariantsAddObject`](/sdk/reference/interfaces/i-invariants-add-object)\<`T`\>
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:83](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L83)
+
+Collection-level invariants that cannot be broken. These are set upon genesis and cannot be modified. Addresses are generated by the keeper.
+
+***
+
+### isArchived?
+
+> `optional` **isArchived?**: `boolean`
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:71](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L71)
+
+The new is archived flag. Must have the necessary permissions in future transactions to update. However, no restrictions in this genesis Msg.
+
+***
+
+### manager?
+
+> `optional` **manager?**: `string`
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:53](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L53)
+
+The new manager. Must have the necessary permissions in future transactions to update. However, no restrictions in this genesis Msg.
+
+***
+
+### mintEscrowCoinsToTransfer?
+
+> `optional` **mintEscrowCoinsToTransfer?**: [`iCosmosCoin`](/sdk/reference/interfaces/i-cosmos-coin)\<`T`\>[]
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:74](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L74)
+
+The coins to mint to the transfer address. Only used if collection has "Non-Public" balance type.
+
+***
+
+### standards?
+
+> `optional` **standards?**: `string`[]
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:68](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L68)
+
+The new standards. Must have the necessary permissions in future transactions to update. However, no restrictions in this genesis Msg.
+
+***
+
+### tokenMetadata?
+
+> `optional` **tokenMetadata?**: [`iTokenMetadata`](/sdk/reference/interfaces/i-token-metadata)\<`T`\>[]
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:59](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L59)
+
+The new token metadata. Must have the necessary permissions in future transactions to update. However, no restrictions in this genesis Msg. Note we take first-match only for token IDs, so do not define duplicates.
+
+***
+
+### validTokenIds?
+
+> `optional` **validTokenIds?**: [`iUintRange`](/sdk/reference/interfaces/i-uint-range)\<`T`\>[]
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts:47](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/bitbadges/tokenization/interfaces.ts#L47)
+
+The tokens to create. Newly created tokens will be sent to the "Mint" address. Must have necessary permissions in future transactions to update. However, no restrictions in this genesis Msg. Only used if collection has "Standard" balance type.

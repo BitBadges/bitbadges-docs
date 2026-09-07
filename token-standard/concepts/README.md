@@ -15,17 +15,43 @@ A transfer moves an amount of token IDs, for a set of ownership times, from one 
 3. The sender's outgoing approvals match, unless the collection approval overrides them.
 4. The recipient's incoming approvals match, unless the collection approval overrides them.
 
-```json
+A complete `Transfer` with the three fields that matter open:
+
+```json fold=17-34
 {
-  "from": "bb1sender...",
-  "toAddresses": ["bb1recipient..."],
+  "from": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "toAddresses": [
+    "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"
+  ],
   "balances": [
     {
       "amount": "1",
-      "tokenIds": [{ "start": "1", "end": "1" }],
-      "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }]
+      "tokenIds": [
+        { "start": "1", "end": "1" }
+      ],
+      "ownershipTimes": [
+        { "start": "1", "end": "18446744073709551615" }
+      ]
     }
-  ]
+  ],
+  "precalculateBalancesFromApproval": {
+    "approvalId": "",
+    "approvalLevel": "",
+    "approverAddress": "",
+    "version": "0",
+    "precalculationOptions": {
+      "overrideTimestamp": "0",
+      "tokenIdsOverride": [],
+      "scalingMultiplier": "0"
+    }
+  },
+  "merkleProofs": [],
+  "ethSignatureProofs": [],
+  "memo": "",
+  "prioritizedApprovals": [],
+  "onlyCheckPrioritizedCollectionApprovals": false,
+  "onlyCheckPrioritizedIncomingApprovals": false,
+  "onlyCheckPrioritizedOutgoingApprovals": false
 }
 ```
 
@@ -44,6 +70,10 @@ The building blocks:
 | Manager | The address that runs the collection according to its permissions. |
 
 Circulating supply is not a stored number. It is the total that has left the Mint address. Mint approvals plus the permission to update them decide the supply.
+
+{% hint style="info" %}
+Ask your agent: "Transfer one of token ID 1 in collection 1 from alice to bob and show me the transaction JSON." The MCP builder tools (`build_transfer`) produce the objects on this page.
+{% endhint %}
 
 ## Reading order
 

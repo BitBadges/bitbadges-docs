@@ -1,5 +1,5 @@
 ---
-description: "The send manager precompile at 0x...1003: one send method that moves native coins and alias denoms from a contract with all accounting in x/bank."
+description: "The send manager precompile at 0x0000000000000000000000000000000000001003: one send method that moves native coins and alias denoms from a contract with all accounting in x/bank."
 ---
 
 # Send manager precompile
@@ -31,6 +31,20 @@ contract TokenSender {
 
         return SENDMANAGER.send(msgJson);
     }
+
+    function _uintToString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) return "0";
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) { digits++; temp /= 10; }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
 }
 ```
 
@@ -48,7 +62,7 @@ const sendManagerABI = [
 const sendManager = new ethers.Contract(SENDMANAGER_ADDRESS, sendManagerABI, signer);
 
 const msgJson = JSON.stringify({
-  to_address: "bb1xyz789...",
+  to_address: "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
   amount: [{ denom: "ubadge", amount: "1000000000" }]
 });
 
@@ -75,17 +89,17 @@ The JSON is a `MsgSendWithAliasRouting` from `x/sendmanager`. The Go side decode
 
 ```json
 {
-  "to_address": "bb1xyz789...",
+  "to_address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
   "amount": [
     {"denom": "ubadge", "amount": "1000000000"},
-    {"denom": "badgeslp:1:ubadge", "amount": "500000000"}
+    {"denom": "badgeslp:64:utoken", "amount": "5"}
   ]
 }
 ```
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `to_address` | string | yes | Recipient. A `bb1...` bech32 address, or a `0x` address (converted to bech32 on the Go side) |
+| `to_address` | string | yes | Recipient. A `bb1` bech32 address, or a `0x` address (converted to bech32 on the Go side) |
 | `amount` | Coin[] | yes | Coins to send. `amount` values are integer strings in the base unit (`ubadge` has 9 decimals) |
 | `from_address` | string | no | Ignored. Always overwritten with the caller (`msg.sender`) |
 

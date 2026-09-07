@@ -47,9 +47,9 @@ AccessCondition = { "$and": AccessCondition[] }
   "tokens": [
     {
       "chain": "BitBadges",
-      "collectionId": "100",
+      "collectionId": "3",
       "tokenIds": [{ "start": "1", "end": "1" }],
-      "ownershipTimes": [{ "start": "1709654400000", "end": "1712332800000" }],
+      "ownershipTimes": [{ "start": "1788739200000", "end": "1791331200000" }],
       "mustOwnAmounts": { "start": "1", "end": "1" }
     }
   ],
@@ -90,9 +90,9 @@ Subscription AND not banned:
     {
       "tokens": [{
         "chain": "BitBadges",
-        "collectionId": "100",
+        "collectionId": "3",
         "tokenIds": [{ "start": "1", "end": "1" }],
-        "ownershipTimes": [{ "start": "1709654400000", "end": "1712332800000" }],
+        "ownershipTimes": [{ "start": "1788739200000", "end": "1791331200000" }],
         "mustOwnAmounts": { "start": "1", "end": "1" }
       }]
     },
@@ -108,6 +108,13 @@ Subscription AND not banned:
 }
 ```
 
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools installed, paste one of these:
+
+- "Check whether bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue owns token 1 of collection 1 right now."
+- "Using the bb-402 skill, build a soulbound receipt collection where minting costs 1 USDC, then give me the review link."
+{% endhint %}
+
 ## 2. Check ownership from the server
 
 Confirm the check works before wiring the protocol. Pick the surface you have.
@@ -115,17 +122,21 @@ Confirm the check works before wiring the protocol. Pick the surface you have.
 Single token, current time:
 
 ```bash
-bb balances bitbadges bb1abc... --collection 42 --token 1
-bb query tokenization balance-for-token 42 bb1abc... 1
+bb balances bitbadges bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --collection 1 --token 1
+bb query tokenization balance-for-token 1 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue 1
 ```
 
 ```ts
-const res = await api.getBalanceByAddressSpecificToken('42', '1', 'bb1...');
+import { BigIntify, BitBadgesAPI } from 'bitbadges';
+
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+
+const res = await api.getBalanceByAddressSpecificToken('1', '1', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue');
 console.log(res.balance); // e.g. 100n
 
 // At a specific ownership time (ms). Queries the token's ownership time ranges,
 // not historical chain state.
-const at = await api.getBalanceByAddressSpecificToken('42', '1', 'bb1...', undefined, { time: 1700000000000n });
+const at = await api.getBalanceByAddressSpecificToken('1', '1', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', undefined, { time: 1788739200000n });
 ```
 
 ```
@@ -138,13 +149,13 @@ Returns `{ "balance": "100" }`. `time` defaults to now. The MCP builder tools ex
 Compound conditions in one call. The API takes the SDK condition shape (`assets` and `assetIds` instead of `tokens` and `tokenIds`) and returns `success` with HTTP 200 whether or not the address qualifies, so check the field:
 
 ```ts
-const res = await BitBadgesApi.verifyOwnershipRequirements({
-  address: 'bb1...',
+const res = await api.verifyOwnershipRequirements({
+  address: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
   assetOwnershipRequirements: {
     $and: [{
       assets: [{
         chain: 'BitBadges',
-        collectionId: '42',
+        collectionId: '1',
         assetIds: [{ start: '1', end: '1' }],
         ownershipTimes: [],
         mustOwnAmounts: { start: '1', end: '1' }
@@ -270,8 +281,9 @@ The endpoint (Express). Requirements in BB-402 shape go to the client; the owner
 
 ```ts
 import express from 'express';
-import { BitBadgesApi, convertToBitBadgesAddress } from 'bitbadges';
+import { BigIntify, BitBadgesAPI, convertToBitBadgesAddress } from 'bitbadges';
 
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
 const app = express();
 app.use(express.json());
 
@@ -279,7 +291,7 @@ app.use(express.json());
 const REQUIREMENTS = {
   tokens: [{
     chain: 'BitBadges',
-    collectionId: '42',
+    collectionId: '1',
     tokenIds: [{ start: '1', end: '1' }],
     ownershipTimes: [],
     mustOwnAmounts: { start: '1', end: '1' }
@@ -320,7 +332,7 @@ app.get('/api/data', async (req, res) => {
 
     // Check token ownership via BitBadges API
     const bbAddress = convertToBitBadgesAddress(proof.address);
-    const { balance } = await BitBadgesApi.getBalanceByAddressSpecificToken(
+    const { balance } = await api.getBalanceByAddressSpecificToken(
       REQUIREMENTS.tokens[0].collectionId, '1', bbAddress
     );
     if (balance < 1n) {
@@ -341,8 +353,18 @@ The `message` format is yours. A plain nonce works. A JSON string binds the chal
 ```json
 {
   "version": "1",
-  "ownershipRequirements": { "tokens": [{ "...": "..." }] },
-  "message": "{\"nonce\":\"...\",\"timestamp\":...,\"expiresAt\":...,\"domain\":\"...\",\"method\":\"GET\",\"path\":\"/api/resource\"}"
+  "ownershipRequirements": {
+    "tokens": [
+      {
+        "chain": "BitBadges",
+        "collectionId": "1",
+        "tokenIds": [{ "start": "1", "end": "1" }],
+        "ownershipTimes": [],
+        "mustOwnAmounts": { "start": "1", "end": "1" }
+      }
+    ]
+  },
+  "message": "{\"nonce\":\"3f9c2a7e1b8d4c6f\",\"timestamp\":1788739200000,\"expiresAt\":1788739260000,\"domain\":\"example.com\",\"method\":\"GET\",\"path\":\"/api/data\"}"
 }
 ```
 

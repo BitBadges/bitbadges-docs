@@ -25,8 +25,15 @@ BB-402 is an HTTP-based protocol for gating API access behind on-chain token own
 
    {
      "version": "1",
-     "ownershipRequirements": { ... },
-     "message": "..."
+     "ownershipRequirements": {
+       "tokens": [{
+         "chain": "BitBadges",
+         "collectionId": "42",
+         "tokenIds": [{ "start": "1", "end": "1" }],
+         "mustOwnAmounts": { "start": "1", "end": "1" }
+       }]
+     },
+     "message": "nonce:8f3a2b1c"
    }
 
 3. Agent signs the message, resubmits with proof header.
@@ -85,12 +92,21 @@ AccessCondition = { "$and": AccessCondition[] }
 
 ```json
 {
-  "tokens": [<TokenRequirement>, ...],
+  "tokens": [
+    {
+      "chain": "BitBadges",
+      "collectionId": "42",
+      "tokenIds": [
+        { "start": "1", "end": "10" }
+      ],
+      "mustOwnAmounts": { "start": "1", "end": "1" }
+    }
+  ],
   "options": { "numMatchesForVerification": "3" }
 }
 ```
 
-`options.numMatchesForVerification`: when set, only this many token IDs need to satisfy the requirement (for example, own any 3 of these 10).
+`options.numMatchesForVerification`: when set, only this many token IDs need to satisfy the requirement. The example passes when the caller owns any 3 of token IDs 1 to 10.
 
 ### `TokenRequirement`
 

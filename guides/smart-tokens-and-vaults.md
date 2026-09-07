@@ -21,7 +21,7 @@ Think in three phases, each mapped to its own approval:
 ```bash
 # Wrapped asset: transferable, optionally tradable on the DEX
 bb build smart-token --backing-coin USDC --symbol wUSDC \
-  --name "Wrapped USDC" --image ipfs://... --description "1:1 USDC" \
+  --name "Wrapped USDC" --image ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/wusdc.png --description "1:1 USDC" \
   --explain
 
 # Vault with rules
@@ -30,8 +30,8 @@ bb build vault --backing-coin USDC \
   --symbol vUSDC \
   --daily-withdraw-limit 1000 \
   --require-2fa 74 \
-  --emergency-recovery bb1recovery... \
-  --image ipfs://... --description "Agent spending vault" \
+  --emergency-recovery bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf \
+  --image ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/vault.png --description "Agent spending vault" \
   | bb deploy --browser
 ```
 
@@ -59,6 +59,13 @@ Both accept `--uri` or `--name` + `--image` + `--description` for metadata, plus
 
 The BitBadges site's Create tab also has a Smart Token flow with the same options, including an "AI Agent Vault" checkbox that adds an AI Prompt tab to the token page.
 
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools installed, paste one of these:
+
+- "Build a smart token backed 1:1 by USDC called Wrapped USDC, transferable, with an alias path, and give me the review link."
+- "Build an AI agent vault backed by USDC with a 1,000 USDC daily withdraw limit and 2FA from collection 74, run the review, and flag anything risky."
+{% endhint %}
+
 ### Raw JSON
 
 Required structure:
@@ -73,70 +80,360 @@ Required structure:
 {
   "standards": ["Smart Token"],
   "invariants": {
+    "noCustomOwnershipTimes": false,
+    "maxSupplyPerId": "0",
     "cosmosCoinBackedPath": {
       "conversion": {
         "sideA": {
           "amount": "1",
           "denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701"
         },
-        "sideB": [{
-          "amount": "1",
-          "tokenIds": [{ "start": "1", "end": "1" }],
-          "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }]
-        }]
+        "sideB": [
+          {
+            "amount": "1",
+            "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+            "tokenIds": [{ "start": "1", "end": "1" }]
+          }
+        ]
       }
-    }
+    },
+    "noForcefulPostMintTransfers": true,
+    "disablePoolCreation": false,
+    "evmQueryChallenges": []
   }
 }
 ```
 
-Backing approval (deposits). `fromListId` is the backing address, never `"All"` or `"Mint"`:
+Backing approval (deposits). `fromListId` is the backing address (`bb146hj5s6rf3f8e09cvdxs8uqz3auvlmeghwf8phtmj3pjtj49ndcs3rfdup` for this ATOM denom, derived below), never `"All"` or `"Mint"`:
 
-```json
+```json fold=11-20,22-40,42-48,50-55,57-93,97-101
 {
-  "fromListId": "bb1backingaddress...",
-  "toListId": "!bb1backingaddress...",
+  "fromListId": "bb146hj5s6rf3f8e09cvdxs8uqz3auvlmeghwf8phtmj3pjtj49ndcs3rfdup",
+  "toListId": "!bb146hj5s6rf3f8e09cvdxs8uqz3auvlmeghwf8phtmj3pjtj49ndcs3rfdup",
   "initiatedByListId": "All",
-  "approvalId": "smart-token-backing",
-  "tokenIds": [{ "start": "1", "end": "1" }],
   "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "tokenIds": [{ "start": "1", "end": "1" }],
   "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "uri": "",
+  "customData": "",
+  "approvalId": "smart-token-backing",
   "approvalCriteria": {
+    "merkleChallenges": [],
+    "predeterminedBalances": {
+      "manualBalances": [],
+      "incrementedBalances": {
+        "startBalances": [],
+        "incrementTokenIdsBy": "0",
+        "incrementOwnershipTimesBy": "0",
+        "durationFromTimestamp": "0",
+        "allowOverrideTimestamp": false,
+        "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+        "allowOverrideWithAnyValidToken": false,
+        "allowAmountScaling": false,
+        "maxScalingMultiplier": "0"
+      },
+      "orderCalculationMethod": {
+        "useOverallNumTransfers": false,
+        "usePerToAddressNumTransfers": false,
+        "usePerFromAddressNumTransfers": false,
+        "usePerInitiatedByAddressNumTransfers": false,
+        "useMerkleChallengeLeafIndex": false,
+        "challengeTrackerId": ""
+      }
+    },
+    "approvalAmounts": {
+      "overallApprovalAmount": "0",
+      "perToAddressApprovalAmount": "0",
+      "perFromAddressApprovalAmount": "0",
+      "perInitiatedByAddressApprovalAmount": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "maxNumTransfers": {
+      "overallMaxNumTransfers": "0",
+      "perToAddressMaxNumTransfers": "0",
+      "perFromAddressMaxNumTransfers": "0",
+      "perInitiatedByAddressMaxNumTransfers": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "coinTransfers": [],
+    "requireToEqualsInitiatedBy": false,
+    "requireFromEqualsInitiatedBy": false,
+    "requireToDoesNotEqualInitiatedBy": false,
+    "requireFromDoesNotEqualInitiatedBy": false,
+    "overridesFromOutgoingApprovals": true,
+    "overridesToIncomingApprovals": false,
+    "autoDeletionOptions": {
+      "afterOneUse": false,
+      "afterOverallMaxNumTransfers": false,
+      "allowCounterpartyPurge": false,
+      "allowPurgeIfExpired": false
+    },
+    "mustOwnTokens": [],
+    "dynamicStoreChallenges": [],
+    "ethSignatureChallenges": [],
+    "senderChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "recipientChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "initiatorChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "altTimeChecks": {
+      "offlineHours": [],
+      "offlineDays": [],
+      "offlineMonths": [],
+      "offlineDaysOfMonth": [],
+      "offlineWeeksOfYear": [],
+      "timezoneOffsetMinutes": "0",
+      "timezoneOffsetNegative": false
+    },
     "mustPrioritize": true,
-    "allowBackedMinting": true
-  }
+    "votingChallenges": [],
+    "allowBackedMinting": true,
+    "allowSpecialWrapping": false,
+    "evmQueryChallenges": [],
+    "userApprovalSettings": {
+      "allowedDenoms": [],
+      "disableUserCoinTransfers": false,
+      "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+    }
+  },
+  "version": "0"
 }
 ```
 
 Transferable approval (optional; include for wrapped assets, omit for vaults and escrows):
 
-```json
+```json fold=11-20,22-40,42-48,50-101
 {
   "fromListId": "!Mint",
   "toListId": "All",
   "initiatedByListId": "All",
-  "approvalId": "transferable-approval",
-  "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
   "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
-  "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }]
+  "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
+  "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "uri": "",
+  "customData": "",
+  "approvalId": "transferable-approval",
+  "approvalCriteria": {
+    "merkleChallenges": [],
+    "predeterminedBalances": {
+      "manualBalances": [],
+      "incrementedBalances": {
+        "startBalances": [],
+        "incrementTokenIdsBy": "0",
+        "incrementOwnershipTimesBy": "0",
+        "durationFromTimestamp": "0",
+        "allowOverrideTimestamp": false,
+        "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+        "allowOverrideWithAnyValidToken": false,
+        "allowAmountScaling": false,
+        "maxScalingMultiplier": "0"
+      },
+      "orderCalculationMethod": {
+        "useOverallNumTransfers": false,
+        "usePerToAddressNumTransfers": false,
+        "usePerFromAddressNumTransfers": false,
+        "usePerInitiatedByAddressNumTransfers": false,
+        "useMerkleChallengeLeafIndex": false,
+        "challengeTrackerId": ""
+      }
+    },
+    "approvalAmounts": {
+      "overallApprovalAmount": "0",
+      "perToAddressApprovalAmount": "0",
+      "perFromAddressApprovalAmount": "0",
+      "perInitiatedByAddressApprovalAmount": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "maxNumTransfers": {
+      "overallMaxNumTransfers": "0",
+      "perToAddressMaxNumTransfers": "0",
+      "perFromAddressMaxNumTransfers": "0",
+      "perInitiatedByAddressMaxNumTransfers": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "coinTransfers": [],
+    "requireToEqualsInitiatedBy": false,
+    "requireFromEqualsInitiatedBy": false,
+    "requireToDoesNotEqualInitiatedBy": false,
+    "requireFromDoesNotEqualInitiatedBy": false,
+    "overridesFromOutgoingApprovals": false,
+    "overridesToIncomingApprovals": false,
+    "autoDeletionOptions": {
+      "afterOneUse": false,
+      "afterOverallMaxNumTransfers": false,
+      "allowCounterpartyPurge": false,
+      "allowPurgeIfExpired": false
+    },
+    "mustOwnTokens": [],
+    "dynamicStoreChallenges": [],
+    "ethSignatureChallenges": [],
+    "senderChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "recipientChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "initiatorChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "altTimeChecks": {
+      "offlineHours": [],
+      "offlineDays": [],
+      "offlineMonths": [],
+      "offlineDaysOfMonth": [],
+      "offlineWeeksOfYear": [],
+      "timezoneOffsetMinutes": "0",
+      "timezoneOffsetNegative": false
+    },
+    "mustPrioritize": false,
+    "votingChallenges": [],
+    "allowBackedMinting": false,
+    "allowSpecialWrapping": false,
+    "evmQueryChallenges": [],
+    "userApprovalSettings": {
+      "allowedDenoms": [],
+      "disableUserCoinTransfers": false,
+      "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+    }
+  },
+  "version": "0"
 }
 ```
 
-Unbacking approval (withdrawals). `!Mint:bb1backingaddress...` means everyone except Mint and the backing address, so only regular holders can unback:
+Unbacking approval (withdrawals). `!Mint:bb146hj5s6rf3f8e09cvdxs8uqz3auvlmeghwf8phtmj3pjtj49ndcs3rfdup` means everyone except Mint and the backing address, so only regular holders can unback:
 
-```json
+```json fold=11-20,22-40,42-48,50-93,97-101
 {
-  "fromListId": "!Mint:bb1backingaddress...",
-  "toListId": "bb1backingaddress...",
+  "fromListId": "!Mint:bb146hj5s6rf3f8e09cvdxs8uqz3auvlmeghwf8phtmj3pjtj49ndcs3rfdup",
+  "toListId": "bb146hj5s6rf3f8e09cvdxs8uqz3auvlmeghwf8phtmj3pjtj49ndcs3rfdup",
   "initiatedByListId": "All",
-  "approvalId": "smart-token-unbacking",
-  "tokenIds": [{ "start": "1", "end": "1" }],
   "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "tokenIds": [{ "start": "1", "end": "1" }],
   "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "uri": "",
+  "customData": "",
+  "approvalId": "smart-token-unbacking",
   "approvalCriteria": {
+    "merkleChallenges": [],
+    "predeterminedBalances": {
+      "manualBalances": [],
+      "incrementedBalances": {
+        "startBalances": [],
+        "incrementTokenIdsBy": "0",
+        "incrementOwnershipTimesBy": "0",
+        "durationFromTimestamp": "0",
+        "allowOverrideTimestamp": false,
+        "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+        "allowOverrideWithAnyValidToken": false,
+        "allowAmountScaling": false,
+        "maxScalingMultiplier": "0"
+      },
+      "orderCalculationMethod": {
+        "useOverallNumTransfers": false,
+        "usePerToAddressNumTransfers": false,
+        "usePerFromAddressNumTransfers": false,
+        "usePerInitiatedByAddressNumTransfers": false,
+        "useMerkleChallengeLeafIndex": false,
+        "challengeTrackerId": ""
+      }
+    },
+    "approvalAmounts": {
+      "overallApprovalAmount": "0",
+      "perToAddressApprovalAmount": "0",
+      "perFromAddressApprovalAmount": "0",
+      "perInitiatedByAddressApprovalAmount": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "maxNumTransfers": {
+      "overallMaxNumTransfers": "0",
+      "perToAddressMaxNumTransfers": "0",
+      "perFromAddressMaxNumTransfers": "0",
+      "perInitiatedByAddressMaxNumTransfers": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "coinTransfers": [],
+    "requireToEqualsInitiatedBy": false,
+    "requireFromEqualsInitiatedBy": false,
+    "requireToDoesNotEqualInitiatedBy": false,
+    "requireFromDoesNotEqualInitiatedBy": false,
+    "overridesFromOutgoingApprovals": false,
+    "overridesToIncomingApprovals": false,
+    "autoDeletionOptions": {
+      "afterOneUse": false,
+      "afterOverallMaxNumTransfers": false,
+      "allowCounterpartyPurge": false,
+      "allowPurgeIfExpired": false
+    },
+    "mustOwnTokens": [],
+    "dynamicStoreChallenges": [],
+    "ethSignatureChallenges": [],
+    "senderChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "recipientChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "initiatorChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "altTimeChecks": {
+      "offlineHours": [],
+      "offlineDays": [],
+      "offlineMonths": [],
+      "offlineDaysOfMonth": [],
+      "offlineWeeksOfYear": [],
+      "timezoneOffsetMinutes": "0",
+      "timezoneOffsetNegative": false
+    },
     "mustPrioritize": true,
-    "allowBackedMinting": true
-  }
+    "votingChallenges": [],
+    "allowBackedMinting": true,
+    "allowSpecialWrapping": false,
+    "evmQueryChallenges": [],
+    "userApprovalSettings": {
+      "allowedDenoms": [],
+      "disableUserCoinTransfers": false,
+      "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+    }
+  },
+  "version": "0"
 }
 ```
 
@@ -148,6 +445,10 @@ The backing address is deterministic from the IBC denom:
 import { generateAliasAddressForIBCBackedDenom } from 'bitbadges';
 
 const backingAddress = generateAliasAddressForIBCBackedDenom('ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701');
+console.log(backingAddress); // bb146hj5s6rf3f8e09cvdxs8uqz3auvlmeghwf8phtmj3pjtj49ndcs3rfdup
+
+// Canonical USDC: bb1xx5h3l85tnxgj07vef2cjtqzpg2qc9jt52z2q0lptjasajez3cgs5hklra
+console.log(generateAliasAddressForIBCBackedDenom('ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8'));
 ```
 
 The MCP builder tools expose the same derivation as `generate_backing_address`; see [MCP tools](../agents/mcp-tools.md).
@@ -156,41 +457,78 @@ Alias path. `symbol` on the path is the base unit; `denomUnits` lists display un
 
 ```json
 {
-  "aliasPathsToAdd": [{
-    "denom": "uvatom",
-    "symbol": "uvatom",
-    "conversion": {
-      "sideA": { "amount": "1" },
-      "sideB": [{ "amount": "1", "tokenIds": [{ "start": "1", "end": "1" }], "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }] }]
-    },
-    "denomUnits": [{
-      "decimals": "6",
-      "symbol": "vATOM",
-      "isDefaultDisplay": true,
-      "metadata": { "uri": "ipfs://METADATA_ALIAS_uvatom_UNIT", "customData": "" }
-    }],
-    "metadata": { "uri": "ipfs://METADATA_ALIAS_uvatom", "customData": "" }
-  }]
+  "aliasPathsToAdd": [
+    {
+      "denom": "uvatom",
+      "conversion": {
+        "sideA": { "amount": "1" },
+        "sideB": [
+          {
+            "amount": "1",
+            "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+            "tokenIds": [{ "start": "1", "end": "1" }]
+          }
+        ]
+      },
+      "symbol": "uvatom",
+      "denomUnits": [
+        {
+          "decimals": "6",
+          "symbol": "vATOM",
+          "isDefaultDisplay": true,
+          "metadata": {
+            "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/alias-uvatom-unit.json",
+            "customData": ""
+          }
+        }
+      ],
+      "metadata": {
+        "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/alias-uvatom.json",
+        "customData": ""
+      }
+    }
+  ]
 }
 ```
 
-Every metadata field on the chain (collection, token, alias path, denom unit) is `{ uri, customData }` and nothing else. The AI builder uses placeholder URIs (`ipfs://METADATA_COLLECTION`, `ipfs://METADATA_TOKEN_<id>`, `ipfs://METADATA_ALIAS_<denom>`, `ipfs://METADATA_ALIAS_<denom>_UNIT`) and registers the real name, description, and image in a `metadataPlaceholders` sidecar keyed by those URIs; after deploy the auto-apply flow uploads the JSON and substitutes real URIs. Write real user-facing descriptions for each approval, not labels like "Backing Approval".
+Every metadata field on the chain (collection, token, alias path, denom unit) is `{ uri, customData }` and nothing else. The examples above use hosted URIs. The AI builder uses placeholder URIs (`ipfs://METADATA_COLLECTION`, `ipfs://METADATA_TOKEN_<id>`, `ipfs://METADATA_ALIAS_<denom>`, `ipfs://METADATA_ALIAS_<denom>_UNIT`) and registers the real name, description, and image in a `metadataPlaceholders` sidecar keyed by those URIs; after deploy the auto-apply flow uploads the JSON and substitutes real URIs. Write real user-facing descriptions for each approval, not labels like "Backing Approval".
 
 To wrap a native Cosmos SDK coin (not an IBC coin) alongside, add `cosmosCoinWrapperPathsToAdd` with `allowSpecialWrapping: true` on its approvals; see [Wrap to an IBC denom](wrap-to-an-ibc-denom.md).
 
 ```json
 {
-  "cosmosCoinWrapperPathsToAdd": [{
-    "denom": "uatom",
-    "symbol": "uatom",
-    "conversion": {
-      "sideA": { "amount": "1" },
-      "sideB": [{ "amount": "1", "tokenIds": [{ "start": "1", "end": "1" }], "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }] }]
-    },
-    "denomUnits": [{ "decimals": "6", "symbol": "ATOM", "isDefaultDisplay": true, "metadata": { "uri": "ipfs://METADATA_WRAPPER_uatom_UNIT", "customData": "" } }],
-    "metadata": { "uri": "ipfs://METADATA_WRAPPER_uatom", "customData": "" },
-    "allowOverrideWithAnyValidToken": false
-  }]
+  "cosmosCoinWrapperPathsToAdd": [
+    {
+      "denom": "uatom",
+      "conversion": {
+        "sideA": { "amount": "1" },
+        "sideB": [
+          {
+            "amount": "1",
+            "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+            "tokenIds": [{ "start": "1", "end": "1" }]
+          }
+        ]
+      },
+      "symbol": "uatom",
+      "denomUnits": [
+        {
+          "decimals": "6",
+          "symbol": "ATOM",
+          "isDefaultDisplay": true,
+          "metadata": {
+            "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/wrapper-uatom-unit.json",
+            "customData": ""
+          }
+        }
+      ],
+      "allowOverrideWithAnyValidToken": false,
+      "metadata": {
+        "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/wrapper-uatom.json",
+        "customData": ""
+      }
+    }
+  ]
 }
 ```
 
@@ -206,44 +544,235 @@ Rules live in the unbacking approval's criteria. The chain enforces them; an age
 | 2FA or human approval above a threshold | `mustOwnTokens` on a 2FA collection, or ETH signature challenges |
 | Emergency freeze | a locked `canUpdateCollectionApprovals` permission |
 
-Daily limit of 1 USDC (1,000,000 base units) per sender, resetting every 24 hours (`"86400000"` ms). For a total cap instead, use `overallApprovalAmount` with `intervalLength: "0"`. `amountTrackerId` must be unique per approval.
+Daily limit of 1 USDC (1,000,000 base units) per sender, resetting every 24 hours (`"86400000"` ms). For a total cap instead, use `overallApprovalAmount` with `intervalLength: "0"`. `amountTrackerId` must be unique per approval. The unbacking approval of a USDC vault with that rule (backing address `bb1xx5h3l85tnxgj07vef2cjtqzpg2qc9jt52z2q0lptjasajez3cgs5hklra`):
 
-```json
+```json fold=11-20,22-37,42-48,50-93,97-101
 {
+  "fromListId": "!Mint:bb1xx5h3l85tnxgj07vef2cjtqzpg2qc9jt52z2q0lptjasajez3cgs5hklra",
+  "toListId": "bb1xx5h3l85tnxgj07vef2cjtqzpg2qc9jt52z2q0lptjasajez3cgs5hklra",
+  "initiatedByListId": "All",
+  "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "tokenIds": [{ "start": "1", "end": "1" }],
+  "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "uri": "",
+  "customData": "",
+  "approvalId": "smart-token-unbacking",
   "approvalCriteria": {
-    "mustPrioritize": true,
-    "allowBackedMinting": true,
-    "overridesFromOutgoingApprovals": false,
+    "merkleChallenges": [],
+    "predeterminedBalances": {
+      "manualBalances": [],
+      "incrementedBalances": {
+        "startBalances": [],
+        "incrementTokenIdsBy": "0",
+        "incrementOwnershipTimesBy": "0",
+        "durationFromTimestamp": "0",
+        "allowOverrideTimestamp": false,
+        "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+        "allowOverrideWithAnyValidToken": false,
+        "allowAmountScaling": false,
+        "maxScalingMultiplier": "0"
+      },
+      "orderCalculationMethod": {
+        "useOverallNumTransfers": false,
+        "usePerToAddressNumTransfers": false,
+        "usePerFromAddressNumTransfers": false,
+        "usePerInitiatedByAddressNumTransfers": false,
+        "useMerkleChallengeLeafIndex": false,
+        "challengeTrackerId": ""
+      }
+    },
     "approvalAmounts": {
       "overallApprovalAmount": "0",
-      "perFromAddressApprovalAmount": "1000000",
       "perToAddressApprovalAmount": "0",
+      "perFromAddressApprovalAmount": "1000000",
       "perInitiatedByAddressApprovalAmount": "0",
       "amountTrackerId": "daily-withdraw-limit",
       "resetTimeIntervals": { "startTime": "0", "intervalLength": "86400000" }
+    },
+    "maxNumTransfers": {
+      "overallMaxNumTransfers": "0",
+      "perToAddressMaxNumTransfers": "0",
+      "perFromAddressMaxNumTransfers": "0",
+      "perInitiatedByAddressMaxNumTransfers": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "coinTransfers": [],
+    "requireToEqualsInitiatedBy": false,
+    "requireFromEqualsInitiatedBy": false,
+    "requireToDoesNotEqualInitiatedBy": false,
+    "requireFromDoesNotEqualInitiatedBy": false,
+    "overridesFromOutgoingApprovals": false,
+    "overridesToIncomingApprovals": false,
+    "autoDeletionOptions": {
+      "afterOneUse": false,
+      "afterOverallMaxNumTransfers": false,
+      "allowCounterpartyPurge": false,
+      "allowPurgeIfExpired": false
+    },
+    "mustOwnTokens": [],
+    "dynamicStoreChallenges": [],
+    "ethSignatureChallenges": [],
+    "senderChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "recipientChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "initiatorChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "altTimeChecks": {
+      "offlineHours": [],
+      "offlineDays": [],
+      "offlineMonths": [],
+      "offlineDaysOfMonth": [],
+      "offlineWeeksOfYear": [],
+      "timezoneOffsetMinutes": "0",
+      "timezoneOffsetNegative": false
+    },
+    "mustPrioritize": true,
+    "votingChallenges": [],
+    "allowBackedMinting": true,
+    "allowSpecialWrapping": false,
+    "evmQueryChallenges": [],
+    "userApprovalSettings": {
+      "allowedDenoms": [],
+      "disableUserCoinTransfers": false,
+      "userRoyalties": { "percentage": "0", "payoutAddress": "" }
     }
-  }
+  },
+  "version": "0"
 }
 ```
 
-2FA on withdrawal. The initiator must hold a token from collection 74 at the current time (`overrideWithCurrentTime: true` matters for expiring 2FA tokens):
+2FA on withdrawal. The initiator must hold a token from collection 74 at the current time (`overrideWithCurrentTime: true` matters for expiring 2FA tokens). The same unbacking approval with that rule instead:
 
-```json
+```json fold=11-20,22-40,42-48,50-63,73-103,107-111
 {
+  "fromListId": "!Mint:bb1xx5h3l85tnxgj07vef2cjtqzpg2qc9jt52z2q0lptjasajez3cgs5hklra",
+  "toListId": "bb1xx5h3l85tnxgj07vef2cjtqzpg2qc9jt52z2q0lptjasajez3cgs5hklra",
+  "initiatedByListId": "All",
+  "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "tokenIds": [{ "start": "1", "end": "1" }],
+  "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "uri": "",
+  "customData": "",
+  "approvalId": "smart-token-unbacking",
   "approvalCriteria": {
-    "mustPrioritize": true,
-    "allowBackedMinting": true,
+    "merkleChallenges": [],
+    "predeterminedBalances": {
+      "manualBalances": [],
+      "incrementedBalances": {
+        "startBalances": [],
+        "incrementTokenIdsBy": "0",
+        "incrementOwnershipTimesBy": "0",
+        "durationFromTimestamp": "0",
+        "allowOverrideTimestamp": false,
+        "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+        "allowOverrideWithAnyValidToken": false,
+        "allowAmountScaling": false,
+        "maxScalingMultiplier": "0"
+      },
+      "orderCalculationMethod": {
+        "useOverallNumTransfers": false,
+        "usePerToAddressNumTransfers": false,
+        "usePerFromAddressNumTransfers": false,
+        "usePerInitiatedByAddressNumTransfers": false,
+        "useMerkleChallengeLeafIndex": false,
+        "challengeTrackerId": ""
+      }
+    },
+    "approvalAmounts": {
+      "overallApprovalAmount": "0",
+      "perToAddressApprovalAmount": "0",
+      "perFromAddressApprovalAmount": "0",
+      "perInitiatedByAddressApprovalAmount": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "maxNumTransfers": {
+      "overallMaxNumTransfers": "0",
+      "perToAddressMaxNumTransfers": "0",
+      "perFromAddressMaxNumTransfers": "0",
+      "perInitiatedByAddressMaxNumTransfers": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "coinTransfers": [],
+    "requireToEqualsInitiatedBy": false,
+    "requireFromEqualsInitiatedBy": false,
+    "requireToDoesNotEqualInitiatedBy": false,
+    "requireFromDoesNotEqualInitiatedBy": false,
     "overridesFromOutgoingApprovals": false,
-    "mustOwnTokens": [{
-      "collectionId": "74",
-      "amountRange": { "start": "1", "end": "18446744073709551615" },
-      "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
-      "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
-      "overrideWithCurrentTime": true,
-      "mustSatisfyForAllAssets": false,
-      "ownershipCheckParty": "initiator"
-    }]
-  }
+    "overridesToIncomingApprovals": false,
+    "autoDeletionOptions": {
+      "afterOneUse": false,
+      "afterOverallMaxNumTransfers": false,
+      "allowCounterpartyPurge": false,
+      "allowPurgeIfExpired": false
+    },
+    "mustOwnTokens": [
+      {
+        "collectionId": "74",
+        "amountRange": { "start": "1", "end": "18446744073709551615" },
+        "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+        "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
+        "overrideWithCurrentTime": true,
+        "mustSatisfyForAllAssets": false,
+        "ownershipCheckParty": "initiator"
+      }
+    ],
+    "dynamicStoreChallenges": [],
+    "ethSignatureChallenges": [],
+    "senderChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "recipientChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "initiatorChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "altTimeChecks": {
+      "offlineHours": [],
+      "offlineDays": [],
+      "offlineMonths": [],
+      "offlineDaysOfMonth": [],
+      "offlineWeeksOfYear": [],
+      "timezoneOffsetMinutes": "0",
+      "timezoneOffsetNegative": false
+    },
+    "mustPrioritize": true,
+    "votingChallenges": [],
+    "allowBackedMinting": true,
+    "allowSpecialWrapping": false,
+    "evmQueryChallenges": [],
+    "userApprovalSettings": {
+      "allowedDenoms": [],
+      "disableUserCoinTransfers": false,
+      "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+    }
+  },
+  "version": "0"
 }
 ```
 
@@ -255,11 +784,11 @@ See [Approval trackers](../token-standard/approval-criteria/approval-trackers.md
 
 ```bash
 bb smart-tokens list                                   # collections passing the conformance validator
-bb smart-tokens show <collection-id>                   # backing address, denom, deposit/withdraw approval ids, standards
-bb smart-tokens status <collection-id>                 # backing denom, tradable and aiAgentVault flags
+bb smart-tokens show 4                                 # backing address, denom, deposit/withdraw approval ids, standards
+bb smart-tokens status 4                               # backing denom, tradable and aiAgentVault flags
 
-bb smart-tokens deposit <collection-id> --creator bb1user... --amount 10 | bb deploy --browser
-bb smart-tokens withdraw <collection-id> --creator bb1user... --amount 5 | bb deploy --browser
+bb smart-tokens deposit 4 --creator bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --amount 10 | bb deploy --browser
+bb smart-tokens withdraw 4 --creator bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --amount 5 | bb deploy --browser
 ```
 
 `--amount` is in display units (10 USDC becomes 10 token units backed by 10 USDC); `--base-units` passes raw base units. The caller must hold the backing coin to deposit and the token units to withdraw; the chain routes the coin into and out of the backing alias as the approval fires. Both commands accept `--browser` inline.
@@ -288,7 +817,7 @@ Your AI agent (OpenClaw, LangChain, custom, ...)
 
 ### Create the vault
 
-Use `bb build vault` from step 1, or the site's Create tab with the AI Agent Vault option. Note the collection ID. `bb smart-tokens show <collection-id>` prints the backing address and the deposit and withdraw approval IDs; the token page's AI Prompt tab prints the same values as a ready-made prompt (collection ID, token name, backing address, denom, approval IDs and versions, step-by-step deposit and withdraw instructions). Give that prompt to the agent as system context.
+Use `bb build vault` from step 1, or the site's Create tab with the AI Agent Vault option. Note the collection ID. `bb smart-tokens show 4` prints the backing address and the deposit and withdraw approval IDs; the token page's AI Prompt tab prints the same values as a ready-made prompt (collection ID, token name, backing address, denom, approval IDs and versions, step-by-step deposit and withdraw instructions). Give that prompt to the agent as system context.
 
 ### Set up the agent wallet
 
@@ -339,23 +868,23 @@ const client = new BitBadgesSigningClient({
   network: 'mainnet'
 });
 
-console.log('Agent address:', client.address); // bb1...
+console.log('Agent address:', client.address); // a bb1 address
 ```
 
 The same mnemonic gives a different address through the Cosmos adapter and the EVM adapter. Fund the address that matches the adapter you use.
 
-The agent needs a small amount of `BADGE` for gas, separate from its USDC. Send it from your main wallet (`bb build send --to <agent> --amount 1 --denom BADGE`). The testnet faucet is offline; see [Testnet](../chain/testnet.md).
+The agent needs a small amount of `BADGE` for gas, separate from its USDC. Send it from your main wallet (`bb build send --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr --amount 1 --denom BADGE`). The testnet faucet is offline; see [Testnet](../chain/testnet.md).
 
 Then deposit USDC into the vault for the agent with `bb smart-tokens deposit` (step 3), or with the deposit message below.
 
 ### Read the rules
 
 ```ts
-import { BitBadgesAPI } from 'bitbadges';
+import { BigIntify, BitBadgesAPI } from 'bitbadges';
 
-const api = new BitBadgesAPI({ apiUrl: 'https://api.bitbadges.io' });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
 
-const collectionRes = await api.getCollection({ collectionId: 'YOUR_COLLECTION_ID' });
+const collectionRes = await api.getCollection('4');
 const collection = collectionRes.collection;
 
 // The collectionApprovals array defines all transfer rules
@@ -374,14 +903,14 @@ for (const approval of approvals) {
 ```ts
 import { MsgTransferTokens } from 'bitbadges';
 
-const COLLECTION_ID = 'YOUR_COLLECTION_ID';
-const BACKING_ADDRESS = 'bb1...'; // From `bb smart-tokens show` or the AI Prompt tab
+const COLLECTION_ID = '4';
+const BACKING_ADDRESS = 'bb1xx5h3l85tnxgj07vef2cjtqzpg2qc9jt52z2q0lptjasajez3cgs5hklra'; // From `bb smart-tokens show` or the AI Prompt tab
 const WITHDRAW_APPROVAL_ID = 'smart-token-unbacking'; // Check your vault's approval IDs
 const WITHDRAW_VERSION = '0'; // Check your vault's approval versions
 
 // Withdraw 10 USDC worth of vault tokens.
 // Amounts are base units. USDC has 6 decimals, so 10 USDC = 10000000.
-const withdrawMsg = MsgTransferTokens.create({
+const withdrawMsg = new MsgTransferTokens({
   creator: client.address,
   collectionId: COLLECTION_ID,
   transfers: [{
@@ -399,6 +928,8 @@ const withdrawMsg = MsgTransferTokens.create({
       version: WITHDRAW_VERSION
     }],
     onlyCheckPrioritizedCollectionApprovals: true,
+    onlyCheckPrioritizedIncomingApprovals: false,
+    onlyCheckPrioritizedOutgoingApprovals: false,
     merkleProofs: [],
     ethSignatureProofs: [],
     memo: ''
@@ -430,7 +961,7 @@ Reverse the direction: from the backing address to the agent.
 const DEPOSIT_APPROVAL_ID = 'smart-token-backing'; // Check your vault's approval IDs
 const DEPOSIT_VERSION = '0';
 
-const depositMsg = MsgTransferTokens.create({
+const depositMsg = new MsgTransferTokens({
   creator: client.address,
   collectionId: COLLECTION_ID,
   transfers: [{
@@ -448,6 +979,8 @@ const depositMsg = MsgTransferTokens.create({
       version: DEPOSIT_VERSION
     }],
     onlyCheckPrioritizedCollectionApprovals: true,
+    onlyCheckPrioritizedIncomingApprovals: false,
+    onlyCheckPrioritizedOutgoingApprovals: false,
     merkleProofs: [],
     ethSignatureProofs: [],
     memo: ''
@@ -462,16 +995,13 @@ const result = await client.signAndBroadcast([depositMsg]);
 ```ts
 const agentTools = {
   checkBalance: async () => {
-    const api = new BitBadgesAPI({ apiUrl: 'https://api.bitbadges.io' });
-    const res = await api.getBalance({
-      collectionId: COLLECTION_ID,
-      address: client.address
-    });
+    const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+    const res = await api.getBalanceByAddressSpecificToken(COLLECTION_ID, '1', client.address);
     return res.balance;
   },
 
   withdraw: async (amountBaseUnits: bigint) => {
-    const msg = MsgTransferTokens.create({
+    const msg = new MsgTransferTokens({
       creator: client.address,
       collectionId: COLLECTION_ID,
       transfers: [{
@@ -489,6 +1019,8 @@ const agentTools = {
           version: WITHDRAW_VERSION
         }],
         onlyCheckPrioritizedCollectionApprovals: true,
+        onlyCheckPrioritizedIncomingApprovals: false,
+        onlyCheckPrioritizedOutgoingApprovals: false,
         merkleProofs: [],
         ethSignatureProofs: [],
         memo: ''
@@ -498,8 +1030,8 @@ const agentTools = {
   },
 
   getVaultRules: async () => {
-    const api = new BitBadgesAPI({ apiUrl: 'https://api.bitbadges.io' });
-    const res = await api.getCollection({ collectionId: COLLECTION_ID });
+    const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+    const res = await api.getCollection(COLLECTION_ID);
     return res.collection.collectionApprovals;
   }
 };

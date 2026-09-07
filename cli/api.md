@@ -10,14 +10,41 @@ description: "Call any BitBadges API route from the terminal with bb api, search
 
 ```bash
 bb api tokens get-collection 1
-bb api accounts get-account --body '{"address":"bb1abc..."}'
-bb api accounts get-accounts --body '{"accountsToFetch":[{"address":"bb1abc..."}]}'
+bb api accounts get-account --body '{"address":"bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"}'
+bb api accounts get-accounts --body '{"accountsToFetch":[{"address":"bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"}]}'
 bb api tx broadcast-tx --body @tx.json
-bb api accounts get-tokens-for-user bb1abc... --body '{"viewType":"collected"}'   # GET: body becomes query params
+bb api accounts get-tokens-view-for-user bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --body '{"viewType":"collected"}'   # GET: body becomes query params
 bb api tokens get-collection 1 --dry-run                                          # print the request, do not send
 bb api --search swap | jq -r '.data.matches[] | "\(.name)\t\(.method)\t\(.path)"'
 bb api tokens get-collection --schema
 ```
+
+`bb api accounts get-account` for the fixture address returns (mainnet output, `views` and empty arrays trimmed):
+
+```json
+{
+  "ok": true,
+  "data": {
+    "account": {
+      "bitbadgesAddress": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "ethAddress": "0x0bC63Cfe31D5218eB414b142c799e20964a54A1A",
+      "accountNumber": "-1",
+      "sequence": "-1",
+      "balances": [{ "amount": "0", "denom": "ubadge" }],
+      "pubKeyType": "secp256k1",
+      "publicKey": "",
+      "chain": "Cosmos",
+      "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
+    }
+  },
+  "warnings": [],
+  "error": null
+}
+```
+
+{% hint style="info" %}
+Ask your agent. `query_collection`, `query_balance`, and `search` wrap the most-used routes: "Fetch collection 1 and tell me whether bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d holds any of its tokens."
+{% endhint %}
 
 ## Route groups
 
@@ -61,7 +88,7 @@ Path parameters are positional. Each route's `--help` shows the HTTP method, pat
 
 ## Discovery
 
-`bb api --search <keyword>` scans route name, path, tag, and description (case-insensitive substring) and returns matches in the envelope.
+`bb api --search <keyword>` scans route name, path, tag, and description (case-insensitive substring) and returns matches in the envelope. `bb api --search balance` prints (trimmed to the first three matches):
 
 ```json
 {
@@ -69,7 +96,9 @@ Path parameters are positional. Each route's `--help` shows the HTTP method, pat
   "data": {
     "search": "balance",
     "matches": [
-      { "name": "get-balance-by-address-specific-token", "method": "GET", "path": "/api/{version}/collection/{collectionId}/{tokenId}/balance/{address}", "tag": "accounts", "description": "..." }
+      { "name": "get-user-balances", "method": "GET", "path": "/account/{address}/balances", "tag": "accounts", "description": "Get User Balances" },
+      { "name": "get-balance-by-address-specific-token", "method": "GET", "path": "/collection/{collectionId}/balance/{address}/{tokenId}", "tag": "tokens", "description": "Get Balance By Address - Specific Token" },
+      { "name": "get-balance-by-address", "method": "GET", "path": "/collection/{collectionId}/balance/{address}", "tag": "tokens", "description": "Get Balances By Address" }
     ]
   },
   "warnings": [],
@@ -77,11 +106,36 @@ Path parameters are positional. Each route's `--help` shows the HTTP method, pat
 }
 ```
 
-`bb api <group> <route> --schema` prints `{ name, method, path, sdkLinks, queryParams, bodyFields }` so an agent can build a valid body offline.
+`bb api <group> <route> --schema` prints the route shape so an agent can build a valid body offline. For `bb api tokens get-collection --schema`:
+
+```json
+{
+  "ok": true,
+  "data": {
+    "name": "get-collection",
+    "method": "GET",
+    "path": "/collection/{collectionId}",
+    "description": "Get Collection",
+    "pathParams": ["collectionId"],
+    "hasBody": false,
+    "sdkLinks": {
+      "response": "iGetCollectionSuccessResponse",
+      "function": "BitBadgesAPI.getCollection"
+    },
+    "queryParams": [],
+    "bodyFields": [],
+    "requestSchema": null,
+    "responseSchema": null,
+    "example": null
+  },
+  "warnings": [],
+  "error": null
+}
+```
 
 ## Behavior
 
-- An API key is required on every call (`bb settings set apiKey ...` or `BITBADGES_API_KEY`). Get one at [bitbadges.io/developer](https://bitbadges.io/developer).
+- An API key is required on every call (`bb settings set apiKey "$BITBADGES_API_KEY"` or the `BITBADGES_API_KEY` variable). Get one at [bitbadges.io/developer](https://bitbadges.io/developer).
 - Routes gated by Full Access also need a user session. On HTTP 401 or 403 the envelope carries a `hint` that says to run `bb auth login` and retry with `--with-session`; if a cookie was already attached, the hint suggests a re-login.
 - `--with-session` is opt-in; the CLI never attaches a cookie silently.
 - Credits, limits, and error shapes: [API](../api/README.md).

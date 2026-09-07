@@ -12,6 +12,13 @@ Every guide assumes:
 - Examples target mainnet. The testnet is offline; see [Testnet](../chain/testnet.md).
 - Transaction JSON is signed and broadcast with `bb deploy` (see [Deploy](../cli/deploy.md)) or the [SDK signing client](../sdk/transactions/README.md).
 
+{% hint style="info" %}
+**Ask your agent.** Every guide here has a matching prompt. With the MCP builder tools installed, paste one of these to skip the hand-written JSON:
+
+- "Create a 100-piece NFT collection called Demo NFTs where only I can mint, and give me the review link."
+- "Build a subscription token that renews monthly for 5 USDC."
+{% endhint %}
+
 ## Guides
 
 | Task | Surfaces | Guide |

@@ -8,16 +8,113 @@ An ETH signature challenge requires the transfer to carry a signature from a fix
 
 ## Shape
 
-```json
+A complete `approvalCriteria` with the `ethSignatureChallenges` array open. Folded lines are defaults.
+
+```json fold=2-59,68-104
 {
+  "merkleChallenges": [],
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": false,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
+    }
+  },
+  "approvalAmounts": {
+    "overallApprovalAmount": "0",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "0",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "coinTransfers": [],
+  "requireToEqualsInitiatedBy": false,
+  "requireFromEqualsInitiatedBy": false,
+  "requireToDoesNotEqualInitiatedBy": false,
+  "requireFromDoesNotEqualInitiatedBy": false,
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": false,
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  },
+  "mustOwnTokens": [],
+  "dynamicStoreChallenges": [],
   "ethSignatureChallenges": [
     {
-      "signer": "0x1234567890123456789012345678901234567890",
+      "signer": "0x3e3adf18d0b45a3639a6cf6188b813507e958440",
       "challengeTrackerId": "challenge1",
       "uri": "",
       "customData": ""
     }
-  ]
+  ],
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "recipientChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "initiatorChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
+  },
+  "mustPrioritize": true,
+  "votingChallenges": [],
+  "allowBackedMinting": false,
+  "allowSpecialWrapping": false,
+  "evmQueryChallenges": [],
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+  }
 }
 ```
 
@@ -42,6 +139,10 @@ interface ETHSignatureProof {
 | `uri`, `customData` | string | no | Metadata |
 
 The transfer supplies proofs in `Transfer.ethSignatureProofs`.
+
+{% hint style="info" %}
+Ask your agent: "Add a mint approval to collection 1 that requires a one-time signature from the agent key 0x3e3adf18d0b45a3639a6cf6188b813507e958440 for every mint." The MCP builder tools (`add_approval`) produce the objects on this page.
+{% endhint %}
 
 ## How it works
 
@@ -89,8 +190,18 @@ Each challenge names one signer. Require several by listing several challenges:
 ```json
 {
   "ethSignatureChallenges": [
-    { "signer": "0x1234567890123456789012345678901234567890", "challengeTrackerId": "challenge1" },
-    { "signer": "0x0987654321098765432109876543210987654321", "challengeTrackerId": "challenge2" }
+    {
+      "signer": "0x3e3adf18d0b45a3639a6cf6188b813507e958440",
+      "challengeTrackerId": "challenge1",
+      "uri": "",
+      "customData": ""
+    },
+    {
+      "signer": "0x1615a3cf0b91cce87d0ef014ac76f0d5aa47d4fd",
+      "challengeTrackerId": "challenge2",
+      "uri": "",
+      "customData": ""
+    }
   ]
 }
 ```

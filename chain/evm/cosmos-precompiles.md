@@ -7,8 +7,21 @@ description: "The upstream cosmos/evm precompiles on BitBadges (P256, bech32, st
 These precompiles come from the upstream [cosmos/evm](https://github.com/cosmos/evm) module and give Solidity contracts direct access to standard Cosmos SDK modules. Unlike the BitBadges precompiles, which take JSON, these use ordinary ABI-encoded parameters.
 
 ```solidity
-IBech32 bech32 = IBech32(0x0000000000000000000000000000000000000400);
-string memory cosmosAddr = bech32.hexToBech32(msg.sender, "bb");
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface IBech32 {
+    function hexToBech32(address addr, string calldata prefix) external pure returns (string memory);
+    function bech32ToHex(string calldata bech32Addr) external pure returns (address);
+}
+
+contract WhoAmI {
+    IBech32 constant BECH32 = IBech32(0x0000000000000000000000000000000000000400);
+
+    function myCosmosAddress() external view returns (string memory) {
+        return BECH32.hexToBech32(msg.sender, "bb");
+    }
+}
 ```
 
 ## Addresses
@@ -60,14 +73,19 @@ interface IBech32 {
 ```
 
 ```solidity
-IBech32 bech32 = IBech32(0x0000000000000000000000000000000000000400);
+contract AddressRoundTrip {
+    IBech32 constant BECH32 = IBech32(0x0000000000000000000000000000000000000400);
 
-// Convert EVM address to Cosmos address
-string memory cosmosAddr = bech32.hexToBech32(msg.sender, "bb");
-// Result: "bb1abc123..."
+    function roundTrip() external pure returns (string memory cosmosAddr, address evmAddr) {
+        // Convert EVM address to Cosmos address
+        cosmosAddr = BECH32.hexToBech32(0x0bc63cfe31d5218eb414b142c799e20964a54a1a, "bb");
+        // Result: "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
 
-// Convert Cosmos address to EVM address
-address evmAddr = bech32.bech32ToHex("bb1abc123...");
+        // Convert Cosmos address to EVM address
+        evmAddr = BECH32.bech32ToHex("bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d");
+        // Result: 0x0bc63cfe31d5218eb414b142c799e20964a54a1a
+    }
+}
 ```
 
 The tokenization precompile exposes the same conversion as `convertEvmAddressToBech32` and `convertBech32ToEvmAddress` with the `bb` prefix fixed.
@@ -80,8 +98,8 @@ Transaction methods:
 
 | Method | Description |
 | --- | --- |
-| `createValidator(...)` | Create a new validator |
-| `editValidator(...)` | Edit validator parameters |
+| `createValidator(Description description, CommissionRates commissionRates, uint256 minSelfDelegation, address validatorAddress, string pubkey, uint256 value)` | Create a new validator |
+| `editValidator(Description description, address validatorAddress, int256 commissionRate, int256 minSelfDelegation)` | Edit validator parameters |
 | `delegate(address validator, uint256 amount)` | Delegate tokens to a validator |
 | `undelegate(address validator, uint256 amount)` | Undelegate tokens from a validator |
 | `redelegate(address srcValidator, address dstValidator, uint256 amount)` | Redelegate tokens between validators |
@@ -186,7 +204,7 @@ Transaction methods:
 
 | Method | Description |
 | --- | --- |
-| `submitProposal(...)` | Submit a governance proposal |
+| `submitProposal(address proposer, bytes jsonProposal, Coin[] deposit)` | Submit a governance proposal |
 | `deposit(uint64 proposalId, Coin[] amount)` | Deposit tokens to a proposal |
 | `cancelProposal(uint64 proposalId)` | Cancel a proposal (proposer only) |
 | `vote(uint64 proposalId, VoteOption option, string metadata)` | Vote on a proposal |

@@ -9,39 +9,67 @@ Updates fields of an existing collection. Only the current manager can sign it, 
 ## Example
 
 ```bash
-bb tx tokenization update-collection ./update-collection.json --from <manager-key> --chain-id bitbadges-1
+bb tx tokenization update-collection ./update-collection.json --from alice --chain-id bitbadges-1
 ```
 
-```ts
+```ts fold=14-24
 import { BitBadgesSigningClient, GenericCosmosAdapter, MsgUpdateCollection } from 'bitbadges';
 
 const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
+// Grow the collection to 200 token IDs and point their metadata at the same URI.
 const msg = new MsgUpdateCollection({
-  creator: client.address,
+  creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
   collectionId: 1n,
   updateValidTokenIds: true,
   validTokenIds: [{ start: 1n, end: 200n }],
   updateCollectionPermissions: false,
+  collectionPermissions: {
+    canDeleteCollection: [],
+    canArchiveCollection: [],
+    canUpdateStandards: [],
+    canUpdateCustomData: [],
+    canUpdateManager: [],
+    canUpdateCollectionMetadata: [],
+    canUpdateValidTokenIds: [],
+    canUpdateTokenMetadata: [],
+    canUpdateCollectionApprovals: [],
+    canAddMoreAliasPaths: [],
+    canAddMoreCosmosCoinWrapperPaths: []
+  },
   updateManager: false,
+  manager: '',
   updateCollectionMetadata: false,
-  updateTokenMetadata: false,
+  collectionMetadata: { uri: '', customData: '' },
+  updateTokenMetadata: true,
+  tokenMetadata: [
+    {
+      uri: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json',
+      customData: '',
+      tokenIds: [{ start: 1n, end: 200n }]
+    }
+  ],
   updateCustomData: false,
+  customData: '',
   updateCollectionApprovals: false,
+  collectionApprovals: [],
   updateStandards: false,
+  standards: [],
   updateIsArchived: false,
+  isArchived: false,
   mintEscrowCoinsToTransfer: [],
   cosmosCoinWrapperPathsToAdd: [],
   aliasPathsToAdd: []
 });
 
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
-```json
+```json fold=8-18
 {
-  "creator": "bb1abc...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "collectionId": "1",
   "updateValidTokenIds": true,
   "validTokenIds": [{ "start": "1", "end": "200" }],
@@ -62,9 +90,15 @@ const result = await client.signAndBroadcast([msg]);
   "updateManager": false,
   "manager": "",
   "updateCollectionMetadata": false,
-  "collectionMetadata": {},
-  "updateTokenMetadata": false,
-  "tokenMetadata": [],
+  "collectionMetadata": { "uri": "", "customData": "" },
+  "updateTokenMetadata": true,
+  "tokenMetadata": [
+    {
+      "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json",
+      "customData": "",
+      "tokenIds": [{ "start": "1", "end": "200" }]
+    }
+  ],
   "updateCustomData": false,
   "customData": "",
   "updateCollectionApprovals": false,

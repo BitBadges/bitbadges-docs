@@ -1,0 +1,208 @@
+name: Sync chain OpenAPI spec
+
+# Pulls the chain's OpenAPI 3.1 document into site/openapi/chain-openapi.json.
+#
+# The chain repo generates and commits that document itself (proposed
+# bitbadgeschain workflow `openapi.yml`), so this job only COPIES and
+# VALIDATES. It deliberately does no Swagger 2.0 -> OpenAPI 3.1 conversion:
+# the conversion lives upstream, next to the protos that define it.
+#
+# Source path is `docs/openapi/openapi.json` in BitBadges/bitbadgeschain —
+# NOT `docs/static/`. docs/docs.go does `//go:embed static`, so every byte
+# under docs/static is compiled into the bitbadgeschaind release binary. The
+# node only ever serves `/static/openapi.yml`, so a second ~1 MB converted
+# JSON in there would bloat every release binary for zero runtime benefit.
+# Do not "tidy" the source path back into static/.
+#
+# site/scripts/gen-chain-openapi.ts still exists and can convert locally;
+# that is the offline fallback, not the CI path. See
+# _docs/runbooks/docs-sync.md.
+#
+# Triggers: repository_dispatch `chain-openapi-updated`, manual, weekly.
+# Never commits to master; opens a PR and no-ops on no diff.
+
+on:
+  repository_dispatch:
+    types: [chain-openapi-updated, proto-updated]
+  workflow_dispatch:
+  schedule:
+    - cron: '59 6 * * 1'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-chain-openapi
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout docs
+        uses: actions/checkout@v7
+
+      - name: Checkout bitbadgeschain
+        uses: actions/checkout@v7
+        with:
+          repository: BitBadges/bitbadgeschain
+          token: ${{ secrets.BITBADGESCHAIN_READ_TOKEN || secrets.GITHUB_TOKEN }}
+          ref: master
+          path: .bitbadgeschain
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Copy spec
+        run: |
+          set -euo pipefail
+          # Outside docs/static on purpose — see the header comment.
+          SRC=.bitbadgeschain/docs/openapi/openapi.json
+          if [ ! -f "$SRC" ]; then
+            echo "::error::Chain OpenAPI 3.1 document not found at $SRC."
+            echo "::error::Either bitbadgeschain has not landed its openapi.yml workflow yet, or the"
+            echo "::error::document was moved. Do NOT repoint this at docs/static/openapi.yml — that"
+            echo "::error::file is Swagger 2.0 and is embedded in the chain binary. Fix upstream."
+            exit 1
+          fi
+          mkdir -p site/openapi
+          cp "$SRC" site/openapi/chain-openapi.json
+          # public/ is what the built site serves; keep the two byte-identical.
+          cp "$SRC" site/public/chain-openapi.json
+
+      - name: Validate spec before it can be committed
+        run: |
+          set -euo pipefail
+          bun -e '
+            const fs = require("fs");
+            const f = "site/openapi/chain-openapi.json";
+            let doc;
+            try {
+              doc = JSON.parse(fs.readFileSync(f, "utf8"));
+            } catch (e) {
+              console.error(`FAIL: ${f} is not valid JSON — ${e.message}`);
+              process.exit(1);
+            }
+
+            // 1. Must be OpenAPI 3.x, not the Swagger 2.0 source.
+            const version = doc.openapi;
+            if (typeof version !== "string" || !/^3\./.test(version)) {
+              console.error(`FAIL: openapi is ${JSON.stringify(version)} (expected a 3.x string).`);
+              if (doc.swagger) console.error("This is the raw Swagger 2.0 document — the upstream conversion did not run.");
+              process.exit(1);
+            }
+
+            // 2. Path count. The Swagger source carries 282; a big drop means a
+            //    partial buf run or a merge that dropped services.
+            const paths = Object.keys(doc.paths ?? {});
+            if (paths.length <= 200) {
+              console.error(`FAIL: only ${paths.length} paths (expected > 200) — truncated spec, refusing to sync.`);
+              process.exit(1);
+            }
+
+            // 3. Every local $ref must resolve. A dangling $ref renders as a
+            //    blank schema in the API reference instead of failing loudly.
+            const resolve = (ptr) => {
+              if (!ptr.startsWith("#/")) return "external";
+              let node = doc;
+              for (const rawSeg of ptr.slice(2).split("/")) {
+                const seg = rawSeg.replace(/~1/g, "/").replace(/~0/g, "~");
+                if (node === null || typeof node !== "object" || !(seg in node)) return null;
+                node = node[seg];
+              }
+              return node;
+            };
+            const broken = new Set();
+            const external = new Set();
+            const walk = (node) => {
+              if (Array.isArray(node)) return node.forEach(walk);
+              if (node === null || typeof node !== "object") return;
+              if (typeof node.$ref === "string") {
+                const r = resolve(node.$ref);
+                if (r === null) broken.add(node.$ref);
+                else if (r === "external") external.add(node.$ref);
+              }
+              for (const v of Object.values(node)) walk(v);
+            };
+            walk(doc);
+            if (external.size) {
+              console.error(`FAIL: ${external.size} external $ref(s) — the published spec must be self-contained:`);
+              for (const r of [...external].slice(0, 20)) console.error(`  - ${r}`);
+              process.exit(1);
+            }
+            if (broken.size) {
+              console.error(`FAIL: ${broken.size} unresolvable $ref(s):`);
+              for (const r of [...broken].slice(0, 20)) console.error(`  - ${r}`);
+              if (broken.size > 20) console.error(`  ... and ${broken.size - 20} more`);
+              process.exit(1);
+            }
+
+            // 4. Retagging must have happened. Straight out of
+            //    protoc-gen-openapiv2 every operation is tagged only "Query" or
+            //    "Msg", which collapses the whole chain API into two sections.
+            const METHODS = new Set(["get", "put", "post", "delete", "options", "head", "patch", "trace"]);
+            const GENERIC = new Set(["Query", "Msg"]);
+            const untagged = [];
+            let ops = 0;
+            for (const [p, item] of Object.entries(doc.paths ?? {})) {
+              for (const [method, op] of Object.entries(item ?? {})) {
+                if (!METHODS.has(method.toLowerCase())) continue;
+                ops++;
+                const tags = Array.isArray(op?.tags) ? op.tags : [];
+                if (tags.length === 0 || tags.every((t) => GENERIC.has(t))) {
+                  untagged.push(`${method.toUpperCase()} ${p} [${tags.join(", ") || "no tags"}]`);
+                }
+              }
+            }
+            if (untagged.length) {
+              console.error(`FAIL: ${untagged.length} of ${ops} operation(s) carry no module tag beyond Query/Msg:`);
+              for (const o of untagged.slice(0, 20)) console.error(`  - ${o}`);
+              if (untagged.length > 20) console.error(`  ... and ${untagged.length - 20} more`);
+              console.error("The upstream retag-by-module step did not run or missed these routes.");
+              process.exit(1);
+            }
+
+            console.log(`Chain spec OK: openapi=${version}, paths=${paths.length}, operations=${ops}, all $refs resolve, all operations module-tagged.`);
+          '
+
+      - name: Drop upstream checkout before the PR is built
+        run: rm -rf .bitbadgeschain
+
+      - name: Open PR
+        id: pr
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.DOCS_SYNC_PAT || secrets.GITHUB_TOKEN }}
+          base: master
+          branch: sync/chain-openapi
+          delete-branch: true
+          add-paths: |
+            site/openapi/chain-openapi.json
+            site/public/chain-openapi.json
+          commit-message: 'chore(openapi): sync chain spec from bitbadgeschain'
+          title: 'chore(openapi): sync chain spec from bitbadgeschain'
+          body: |
+            Automated sync of `site/openapi/chain-openapi.json` from
+            `BitBadges/bitbadgeschain` (`docs/openapi/openapi.json`).
+
+            Triggered by: `${{ github.event_name }}`.
+
+            No conversion happens here — the chain repo publishes OpenAPI 3.1
+            directly. The spec passed the gate: OpenAPI 3.x, more than 200
+            paths, every `$ref` resolves, and no operation is left tagged only
+            `Query` / `Msg`.
+
+            Runbook: `_docs/runbooks/docs-sync.md`.
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+      - name: Report
+        run: |
+          if [ -n "${{ steps.pr.outputs.pull-request-number }}" ]; then
+            echo "PR #${{ steps.pr.outputs.pull-request-number }}: ${{ steps.pr.outputs.pull-request-url }}"
+          else
+            echo "Chain spec already up to date — nothing to do."
+          fi

@@ -96,8 +96,8 @@ Old forms still resolve for one release and print a one-line `[bb] DEPRECATED:` 
 | Old form | New form |
 | --- | --- |
 | `bb cli <verb>` | `bb <verb>` |
-| `bb portfolio`, `bb address`, `bb lookup`, `bb alias`, `bb gen-list-id` | `bb account ...` |
-| `bb tools`, `bb tool`, `bb resources`, `bb docs`, `bb skills`, `bb gen-pub-key` | `bb dev ...` |
+| `bb portfolio`, `bb address`, `bb lookup`, `bb alias`, `bb gen-list-id` | `bb account <verb>` |
+| `bb tools`, `bb tool`, `bb resources`, `bb docs`, `bb skills`, `bb gen-pub-key` | `bb dev <verb>` |
 | `bb config` | `bb settings` (the chain binary owns `bb config`, which manages `client.toml`) |
 | `bb sign-with-browser` | `bb deploy --browser --message` |
 | `bb gen-tx-payload` | `bb deploy --gen-payload` |
@@ -135,7 +135,7 @@ Inputs are uniform: a file path, `@file.json`, inline JSON, or `-` for stdin.
 ## Settings
 
 ```bash
-bb settings set apiKey <YOUR_KEY>
+bb settings set apiKey "$BITBADGES_API_KEY"
 bb settings show
 bb settings unset apiKeyTestnet
 ```
@@ -227,14 +227,28 @@ The emitted script supports both shells through `bashcompinit`. Pass `bash` or `
 ## Quick examples
 
 ```bash
-bb query bank balances bb1abc... --output json                 # chain native
-bb api tokens get-collection 1                                 # BitBadges API
-bb build vault --backing-coin USDC --name "My Vault" \
-  --image https://example.com/v.png --description "USDC vault" \
+bb query bank balances bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --output json   # chain native
+bb api tokens get-collection 1                                                    # BitBadges API
+bb build vault --backing-coin USDC --name "Demo Vault" \
+  --image ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/vault.png \
+  --description "USDC vault" \
   | bb preview - --open                                          # build, then review and sign in the browser
-bb auth login --browser --address bb1abc...                     # session for Full Access routes
+bb auth login --browser --address bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d   # session for Full Access routes
 bb check tx.json && bb simulate tx.json                         # audit and dry-run
 ```
+
+The first command, run against mainnet for an address that holds nothing, prints:
+
+```json
+{
+  "balances": [],
+  "pagination": {}
+}
+```
+
+{% hint style="info" %}
+Ask your agent. With the [MCP builder tools](../agents/setup.md) wired, the build-and-preview line above is one prompt: "Build a USDC vault called Demo Vault and give me a link to review and sign."
+{% endhint %}
 
 `bb --help` ends with the Chaosnet warning and a link to the policies at bitbadges.io/policies. Transactions use real tokens.
 

@@ -11,26 +11,28 @@ description: "Build and query AddressList objects in the bitbadges SDK, membersh
 ```ts
 import { AddressList } from 'bitbadges';
 
+const BOB = 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue';
+
 const list = new AddressList({
-  listId: 'abc123',
-  addresses: ['bb1hsk6jryyqjfhp5g4g7j0qldj9nqdj0qc02fgmh'],
+  listId: 'demo-allowlist',
+  addresses: [BOB],
   whitelist: true,
   uri: '',
   customData: '',
-  createdBy: 'bb1hsk6jryyqjfhp5g4g7j0qldj9nqdj0qc02fgmh'
+  createdBy: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d'
 });
 
-list.checkAddress('bb1hsk6jryyqjfhp5g4g7j0qldj9nqdj0qc02fgmh'); // true
+list.checkAddress(BOB); // true
 
 const inverted = list.toInverted(); // whitelist: false, same addresses
-inverted.checkAddress('bb1hsk6jryyqjfhp5g4g7j0qldj9nqdj0qc02fgmh'); // false
+inverted.checkAddress(BOB); // false
 
-list.remove('bb1hsk6jryyqjfhp5g4g7j0qldj9nqdj0qc02fgmh'); // in place
+list.remove(BOB); // in place
 list.isEmpty(); // true
 
 const mintList = AddressList.Reserved('Mint'); // only the Mint address
 const all = AddressList.AllAddresses(); // every address
-const allButOne = AddressList.Reserved('!bb1hsk6jryyqjfhp5g4g7j0qldj9nqdj0qc02fgmh');
+const allButBob = AddressList.Reserved(`!${BOB}`);
 ```
 
 ## Behavior

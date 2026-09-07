@@ -9,28 +9,33 @@ Every account has one `bb1` (bech32) address and one `0x` (hex) address that enc
 ## Example
 
 ```bash
-bb account convert 0x14574a6DFF2Ddf9e07828b4345d3040919AF5652
-bb account validate bb1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw
+bb account convert 0x0bc63cfe31d5218eb414b142c799e20964a54a1a
+bb account validate bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
+```
+
+```json
+{ "ok": true, "data": { "result": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "source": "0x0bc63cfe31d5218eb414b142c799e20964a54a1a", "target": "bb1" }, "warnings": [], "error": null }
 ```
 
 ```ts
 import { convertToBitBadgesAddress, convertToEthAddress, isAddressValid } from 'bitbadges';
 
-const bb = convertToBitBadgesAddress('0x14574a6DFF2Ddf9e07828b4345d3040919AF5652');
-// "bb1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw"
+const bb = convertToBitBadgesAddress('0x0bc63cfe31d5218eb414b142c799e20964a54a1a');
+// "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
 
-const eth = convertToEthAddress('bb1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw');
-// "0x14574a6DFF2Ddf9e07828b4345d3040919AF5652"
+const eth = convertToEthAddress('bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d');
+// "0x0bC63Cfe31D5218eB414b142c799e20964a54A1A"
 
 // Validation: convertToBitBadgesAddress returns '' for invalid input
+const userInput = 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70x'; // bad checksum
 if (convertToBitBadgesAddress(userInput)) {
-  // valid
+  console.log('valid');
+} else {
+  console.log('invalid'); // this branch
 }
 
 // Or ask directly
-if (isAddressValid('bb1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw')) {
-  // valid
-}
+console.log(isAddressValid('bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d')); // true
 ```
 
 ## Behavior

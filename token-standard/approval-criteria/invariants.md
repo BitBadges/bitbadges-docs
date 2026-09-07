@@ -39,6 +39,10 @@ message CollectionInvariants {
 | `disablePoolCreation` | bool | `x/gamm` rejects pools that include this collection's assets |
 | `evmQueryChallenges` | EVMQueryChallenge[] | Read-only EVM calls run after all balance updates. Any failure reverts the transfer. Up to 10. |
 
+{% hint style="info" %}
+Ask your agent: "Create a collection with a hard cap of 1 per token ID, no custom ownership times, and no forceful post-mint transfers, locked as invariants." The MCP builder tools (`set_invariants`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 Set invariants only in the message that creates the collection (`MsgCreateCollection`, or `MsgUniversalUpdateCollection` with `collectionId: "0"`). Invariants in an update message are ignored. Read them back from `TokenCollection.invariants`.
@@ -66,7 +70,7 @@ Post-transfer invariants use the same [challenge structure](evm-query-challenges
 ```ts
 const evmQueryChallenges: EVMQueryChallenge<bigint>[] = [
   {
-    contractAddress: '0xComplianceContract...',
+    contractAddress: '0x5fbdb2315678afecb367f032d93f642f64180aa3',
     calldata: '70a08231000000000000000000000000$collectionId',
     expectedResult: '0000000000000000000000000000000000000000000000000000000000000001',
     comparisonOperator: 'eq',

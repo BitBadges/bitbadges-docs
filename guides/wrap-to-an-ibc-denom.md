@@ -33,12 +33,13 @@ const collection = {
                     },
                 ],
             },
-            symbol: 'TOKEN',
+            symbol: 'utoken', // the base unit
             denomUnits: [
                 {
                     decimals: 6n,
                     symbol: 'TOKEN',
                     isDefaultDisplay: true,
+                    metadata: { uri: '', customData: '' },
                 },
             ],
             allowOverrideWithAnyValidToken: false,
@@ -50,6 +51,13 @@ const collection = {
 
 `BaseCollectionDetails` is from [Create a collection](create-a-collection.md). The `denom`, `conversion`, `denomUnits`, `allowOverrideWithAnyValidToken`, `{id}` placeholder, and metadata rules are on [Cosmos coin wrapper paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md). Paths can be added after creation only while the `canAddMoreCosmosCoinWrapperPaths` permission is not frozen; see [Lock permissions](lock-permissions.md).
 
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools installed, paste one of these:
+
+- "Add a cosmos coin wrapper path to my collection for denom utoken with symbol TOKEN and 6 decimals, add the wrap and unwrap approvals, and give me the review link."
+- "Generate the wrapper address for denom utoken."
+{% endhint %}
+
 ## 2. Derive the wrapper address
 
 The chain generates one address per wrapper path from the denom. The BitBadges site shows it on the collection page, and the SDK derives it locally.
@@ -57,9 +65,9 @@ The chain generates one address per wrapper path from the denom. The BitBadges s
 ```ts
 import { generateAliasAddressForDenom } from 'bitbadges';
 
-const denom = 'utoken1';
+const denom = 'utoken';
 const wrapperAddress = generateAliasAddressForDenom(denom);
-console.log('Wrapper Address:', wrapperAddress);
+console.log('Wrapper Address:', wrapperAddress); // bb1epzsfvc4snsrnefpcvuvp60l2q8ke92ax05m55xtszpt6flxkg7qc38zch
 ```
 
 When the denom contains an `{id}` placeholder, the placeholder stays in the hash preimage. There is one address per wrapper path regardless of token ID.
@@ -71,6 +79,8 @@ Wrapping and unwrapping are ordinary transfers, so they must match approvals. Th
 Wrapper approval (users send tokens to the wrapper address):
 
 ```ts
+import { UintRangeArray, type iCollectionApproval, type iUintRange } from 'bitbadges';
+
 export const wrapperApproval = ({
     specialAddress,
     tokenIds,
@@ -81,30 +91,24 @@ export const wrapperApproval = ({
     tokenIds: iUintRange<bigint>[];
     ownershipTimes: iUintRange<bigint>[];
     approvalId: string;
-}): RequiredApprovalProps => {
-    const id = approvalId;
-    const toSet: RequiredApprovalProps = {
-        version: 0n,
-        toListId: specialAddress,
-        toList: AddressList.getReservedAddressList(specialAddress),
-        fromListId: 'AllWithoutMint',
-        fromList: AddressList.getReservedAddressList('AllWithoutMint'),
-        initiatedByListId: 'All',
-        initiatedByList: AddressList.AllAddresses(),
-        transferTimes: UintRangeArray.FullRanges(),
-        tokenIds: tokenIds,
-        ownershipTimes: ownershipTimes,
-        approvalId: id,
-        approvalCriteria: {
-            ...EmptyApprovalCriteria,
-            allowSpecialWrapping: true, // Required for wrapper path operations
-            mustPrioritize: true, // Chain-enforced: must be true for special wrapping approvals
-            overridesToIncomingApprovals: true,
-        },
-    };
-
-    return toSet;
-};
+}): iCollectionApproval<bigint> => ({
+    version: 0n,
+    toListId: specialAddress,
+    fromListId: 'AllWithoutMint',
+    initiatedByListId: 'All',
+    transferTimes: UintRangeArray.FullRanges(),
+    tokenIds,
+    ownershipTimes,
+    approvalId,
+    uri: '',
+    customData: '',
+    approvalCriteria: {
+        ...EmptyApprovalCriteria,
+        allowSpecialWrapping: true, // Required for wrapper path operations
+        mustPrioritize: true, // Chain-enforced: must be true for special wrapping approvals
+        overridesToIncomingApprovals: true,
+    },
+});
 ```
 
 If `defaultBalances.autoApproveAllIncomingTransfers` is `true`, the wrapper address already accepts all incoming transfers and `overridesToIncomingApprovals` is not strictly needed. Setting it keeps the path working if the default ever changes.
@@ -122,30 +126,24 @@ export const unwrapperApproval = ({
     tokenIds: iUintRange<bigint>[];
     ownershipTimes: iUintRange<bigint>[];
     approvalId: string;
-}): RequiredApprovalProps => {
-    const id = approvalId;
-    const toSet: RequiredApprovalProps = {
-        version: 0n,
-        fromListId: specialAddress,
-        fromList: AddressList.getReservedAddressList(specialAddress),
-        toListId: 'All',
-        toList: AddressList.AllAddresses(),
-        initiatedByListId: 'All',
-        initiatedByList: AddressList.AllAddresses(),
-        transferTimes: UintRangeArray.FullRanges(),
-        tokenIds: tokenIds,
-        ownershipTimes: ownershipTimes,
-        approvalId: id,
-        approvalCriteria: {
-            ...EmptyApprovalCriteria,
-            allowSpecialWrapping: true, // Required for wrapper path operations
-            mustPrioritize: true, // Chain-enforced: must be true for special wrapping approvals
-            overridesFromOutgoingApprovals: true,
-        },
-    };
-
-    return toSet;
-};
+}): iCollectionApproval<bigint> => ({
+    version: 0n,
+    fromListId: specialAddress,
+    toListId: 'All',
+    initiatedByListId: 'All',
+    transferTimes: UintRangeArray.FullRanges(),
+    tokenIds,
+    ownershipTimes,
+    approvalId,
+    uri: '',
+    customData: '',
+    approvalCriteria: {
+        ...EmptyApprovalCriteria,
+        allowSpecialWrapping: true, // Required for wrapper path operations
+        mustPrioritize: true, // Chain-enforced: must be true for special wrapping approvals
+        overridesFromOutgoingApprovals: true,
+    },
+});
 ```
 
 `overridesFromOutgoingApprovals: true` is required here: the wrapper address cannot approve its own outgoing transfers.
@@ -153,17 +151,21 @@ export const unwrapperApproval = ({
 Put both next to your other approvals:
 
 ```ts
+const tokenIds = [{ start: 1n, end: 100n }];
+const ownershipTimes = UintRangeArray.FullRanges();
+
 const collection = {
     ...BaseCollectionDetails,
     collectionApprovals: [
-        ...otherApprovals,
+        mintApproval, // from Mint and distribute
+        transferableApproval, // from Set transferability
         wrapperApproval({ specialAddress: wrapperAddress, tokenIds, ownershipTimes, approvalId: 'wrap' }),
         unwrapperApproval({ specialAddress: wrapperAddress, tokenIds, ownershipTimes, approvalId: 'unwrap' }),
     ],
 };
 ```
 
-`EmptyApprovalCriteria` is the template in [Set transferability](set-transferability.md). Customize the criteria as you like (limits, allowlists, time windows); the two flags above are the only hard requirement.
+`EmptyApprovalCriteria` and `transferableApproval` are from [Set transferability](set-transferability.md); `mintApproval` is from [Mint and distribute](mint-and-distribute.md). Customize the criteria as you like (limits, allowlists, time windows); the two flags above are the only hard requirement.
 
 ## 4. Deploy and check the conversion
 
@@ -176,10 +178,10 @@ Once the collection exists, preview conversions through the path before moving a
 
 ```bash
 # Given raw backing-coin base units, how many wrapped tokens result?
-bb amount wrap-preview <collection-id> --coin-amount 1000000
+bb amount wrap-preview 1 --coin-amount 1000000
 
 # Given a token count, how much coin does unwrapping release?
-bb amount unwrap-preview <collection-id> --token-amount 5
+bb amount unwrap-preview 1 --token-amount 5
 ```
 
 Both accept `--path-index <n>` (default `0`) and `--path-kind cosmos-coin | alias` (default `cosmos-coin`). Smart tokens populate alias paths, not wrapper paths, so pass `--path-kind alias` for those.
@@ -189,7 +191,7 @@ Both accept `--path-index <n>` (default `0`) and `--path-kind cosmos-coin | alia
 Wrap: transfer tokens to the wrapper address, prioritizing the wrapper approval. The chain burns the tokens and credits the x/bank coin to the sender.
 
 ```bash
-bb build transfer --collection-id <id> --from bb1you... --to <wrapperAddress> --amount 5 | bb deploy --browser
+bb build transfer --collection-id 1 --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1epzsfvc4snsrnefpcvuvp60l2q8ke92ax05m55xtszpt6flxkg7qc38zch --amount 5 | bb deploy --browser
 ```
 
 Pick the wrapper approval in the walkthrough. `mustPrioritize: true` means the approval is never auto-scanned; the transfer must list it in `prioritizedApprovals`. See [Prioritized approvals](../token-standard/concepts/prioritized-approvals.md).
@@ -197,7 +199,7 @@ Pick the wrapper approval in the walkthrough. `mustPrioritize: true` means the a
 Unwrap: send the coin back to the wrapper address with a bank send. The chain burns the coin and mints tokens to the sender under the unwrapper approval.
 
 ```bash
-bb build send --from bb1you... --to <wrapperAddress> --amount 5000000 --denom utoken | bb deploy --browser
+bb build send --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1epzsfvc4snsrnefpcvuvp60l2q8ke92ax05m55xtszpt6flxkg7qc38zch --amount 5000000 --denom utoken | bb deploy --browser
 ```
 
 `bb build send` treats `--amount` as base units when `--denom` is a raw chain denom and as display units for known symbols; `--base-units` forces base units.

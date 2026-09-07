@@ -21,143 +21,121 @@ Two rules:
 2. A `Mint` approval must set `overridesFromOutgoingApprovals: true`, because the Mint address cannot manage its own outgoing approvals.
 
 ```ts
-const mintApprovals = [
-    // Mint approvals with fromListId: 'Mint'
-];
+const mintApprovals = [mintApproval]; // fromListId: 'Mint', from Mint and distribute
 
-const postMintApprovals = [
-    // Post-mint approvals with fromListId: '!Mint'
-    transferableApproval,
-    burnableApproval,
-];
+const postMintApprovals = [transferableApproval, burnableApproval]; // fromListId: '!Mint', step 3
 
 const collectionApprovals = [...mintApprovals, ...postMintApprovals];
 ```
 
-Reserved list IDs are `All`, `Mint`, `!Mint`, `AllWithoutMint`, a `bb1...` address, `!bb1...` (everyone except that address), and colon-separated addresses such as `bb1abc:bb1xyz`. See [Address lists](../token-standard/concepts/address-lists.md).
+Reserved list IDs are `All`, `Mint`, `!Mint`, `AllWithoutMint`, one address such as `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d`, `!bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d` (everyone except that address), and colon-separated addresses such as `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d:bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue`. See [Address lists](../token-standard/concepts/address-lists.md).
+
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools installed, paste one of these:
+
+- "Make collection 1 transferable and burnable after mint, run the review, and give me the review link."
+- "Add an admin override approval on collection 1 for bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d that can move any token, and flag anything risky in the review."
+{% endhint %}
 
 ## 2. Start from the empty criteria template
 
-Every approval carries `approvalCriteria`. This template means "no additional restrictions"; the other examples spread it and override a field or two.
+Every approval carries `approvalCriteria`. This template means "no additional restrictions"; the other examples spread it and override a field or two. Amounts and counts of `'0'` mean unlimited; `amountTrackerId` is only needed when a limit is set.
 
 ```ts
+// Every field at its proto default. Spread it, then override what you need.
 const EmptyApprovalCriteria = {
-    approvalCriteria: {
-        // No challenges to be completed
-        merkleChallenges: [],
-        // No specific balances to check
-        predeterminedBalances: {
-            manualBalances: [],
-            incrementedBalances: {
-                startBalances: [],
-                incrementTokenIdsBy: '0',
-                incrementOwnershipTimesBy: '0',
-                durationFromTimestamp: '0',
-                allowOverrideTimestamp: false,
-                recurringOwnershipTimes: {
-                    startTime: '0',
-                    intervalLength: '0',
-                    chargePeriodLength: '0',
-                },
-                allowOverrideWithAnyValidToken: false,
-                allowAmountScaling: false,
-                maxScalingMultiplier: '0',
-            },
-            orderCalculationMethod: {
-                useOverallNumTransfers: false,
-                usePerToAddressNumTransfers: false,
-                usePerFromAddressNumTransfers: false,
-                usePerInitiatedByAddressNumTransfers: false,
-                useMerkleChallengeLeafIndex: false,
-                challengeTrackerId: '',
-            },
-        },
-        // No approval amounts to check (0 = unlimited)
-        approvalAmounts: {
-            overallApprovalAmount: '0',
-            perToAddressApprovalAmount: '0',
-            perFromAddressApprovalAmount: '0',
-            perInitiatedByAddressApprovalAmount: '0',
-            amountTrackerId:
-                'a4ab9bc5e8752842a35a79238de4f627677ceae1d8fa9de44b52416e085f7f11',
-            resetTimeIntervals: {
-                startTime: '0',
-                intervalLength: '0',
-            },
-        },
-        // No max number of transfers to check (0 = unlimited)
-        maxNumTransfers: {
-            overallMaxNumTransfers: '0',
-            perToAddressMaxNumTransfers: '0',
-            perFromAddressMaxNumTransfers: '0',
-            perInitiatedByAddressMaxNumTransfers: '0',
-            amountTrackerId:
-                'd711e23dbe57b786dfb2d86d4a6792fb8c9951a18223065ea0c07d424225a738',
-            resetTimeIntervals: {
-                startTime: '0',
-                intervalLength: '0',
-            },
-        },
-        // No coin transfers to execute
-        coinTransfers: [],
-
-        // No ETH signature challenges to be completed
-        ethSignatureChallenges: [],
-        // No dynamic store challenges to be completed
-        dynamicStoreChallenges: [],
-
-        // No address matching requirements
-        requireToEqualsInitiatedBy: false,
-        requireFromEqualsInitiatedBy: false,
-        requireToDoesNotEqualInitiatedBy: false,
-        requireFromDoesNotEqualInitiatedBy: false,
-        // No overrides from outgoing approvals
-        overridesFromOutgoingApprovals: false,
-        // No overrides to incoming approvals
-        overridesToIncomingApprovals: false,
-        // No auto deletion options
-        autoDeletionOptions: {
-            afterOneUse: false,
-            afterOverallMaxNumTransfers: false,
-        },
-        // No user royalties
-        userRoyalties: {
-            percentage: '0',
-            payoutAddress: '',
-        },
-        // No tokens to check ownership of
-        mustOwnTokens: [],
-        // No address checks
-        senderChecks: {
-            mustBeEvmContract: false,
-            mustNotBeEvmContract: false,
-            mustBeLiquidityPool: false,
-            mustNotBeLiquidityPool: false,
-        },
-        recipientChecks: {
-            mustBeEvmContract: false,
-            mustNotBeEvmContract: false,
-            mustBeLiquidityPool: false,
-            mustNotBeLiquidityPool: false,
-        },
-        initiatorChecks: {
-            mustBeEvmContract: false,
-            mustNotBeEvmContract: false,
-            mustBeLiquidityPool: false,
-            mustNotBeLiquidityPool: false,
-        },
-        // No alternative time checks
-        altTimeChecks: {
-            offlineHours: [],
-            offlineDays: [],
-        },
-        // No priority requirement
-        mustPrioritize: false,
-        // No EVM query challenges
-        evmQueryChallenges: [],
-        // No voting challenges
-        votingChallenges: [],
+  merkleChallenges: [],
+  predeterminedBalances: {
+    manualBalances: [],
+    incrementedBalances: {
+      startBalances: [],
+      incrementTokenIdsBy: '0',
+      incrementOwnershipTimesBy: '0',
+      durationFromTimestamp: '0',
+      allowOverrideTimestamp: false,
+      recurringOwnershipTimes: { startTime: '0', intervalLength: '0', chargePeriodLength: '0' },
+      allowOverrideWithAnyValidToken: false,
+      allowAmountScaling: false,
+      maxScalingMultiplier: '0',
     },
+    orderCalculationMethod: {
+      useOverallNumTransfers: false,
+      usePerToAddressNumTransfers: false,
+      usePerFromAddressNumTransfers: false,
+      usePerInitiatedByAddressNumTransfers: false,
+      useMerkleChallengeLeafIndex: false,
+      challengeTrackerId: '',
+    }
+  },
+  approvalAmounts: {
+    overallApprovalAmount: '0',
+    perToAddressApprovalAmount: '0',
+    perFromAddressApprovalAmount: '0',
+    perInitiatedByAddressApprovalAmount: '0',
+    amountTrackerId: '',
+    resetTimeIntervals: { startTime: '0', intervalLength: '0' },
+  },
+  maxNumTransfers: {
+    overallMaxNumTransfers: '0',
+    perToAddressMaxNumTransfers: '0',
+    perFromAddressMaxNumTransfers: '0',
+    perInitiatedByAddressMaxNumTransfers: '0',
+    amountTrackerId: '',
+    resetTimeIntervals: { startTime: '0', intervalLength: '0' },
+  },
+  coinTransfers: [],
+  requireToEqualsInitiatedBy: false,
+  requireFromEqualsInitiatedBy: false,
+  requireToDoesNotEqualInitiatedBy: false,
+  requireFromDoesNotEqualInitiatedBy: false,
+  overridesFromOutgoingApprovals: false,
+  overridesToIncomingApprovals: false,
+  autoDeletionOptions: {
+    afterOneUse: false,
+    afterOverallMaxNumTransfers: false,
+    allowCounterpartyPurge: false,
+    allowPurgeIfExpired: false,
+  },
+  mustOwnTokens: [],
+  dynamicStoreChallenges: [],
+  ethSignatureChallenges: [],
+  senderChecks: {
+    mustBeEvmContract: false,
+    mustNotBeEvmContract: false,
+    mustBeLiquidityPool: false,
+    mustNotBeLiquidityPool: false,
+  },
+  recipientChecks: {
+    mustBeEvmContract: false,
+    mustNotBeEvmContract: false,
+    mustBeLiquidityPool: false,
+    mustNotBeLiquidityPool: false,
+  },
+  initiatorChecks: {
+    mustBeEvmContract: false,
+    mustNotBeEvmContract: false,
+    mustBeLiquidityPool: false,
+    mustNotBeLiquidityPool: false,
+  },
+  altTimeChecks: {
+    offlineHours: [],
+    offlineDays: [],
+    offlineMonths: [],
+    offlineDaysOfMonth: [],
+    offlineWeeksOfYear: [],
+    timezoneOffsetMinutes: '0',
+    timezoneOffsetNegative: false,
+  },
+  mustPrioritize: false,
+  votingChallenges: [],
+  allowBackedMinting: false,
+  allowSpecialWrapping: false,
+  evmQueryChallenges: [],
+  userApprovalSettings: {
+    allowedDenoms: [],
+    disableUserCoinTransfers: false,
+    userRoyalties: { percentage: '0', payoutAddress: '' },
+  }
 };
 ```
 
@@ -183,15 +161,112 @@ const transferableApproval = new CollectionApproval({
 });
 ```
 
-```json
+```json fold=11-20,22-40,42-48,50-101
 {
   "fromListId": "!Mint",
   "toListId": "All",
   "initiatedByListId": "All",
-  "approvalId": "transferable-approval",
-  "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
   "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
-  "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }]
+  "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
+  "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "uri": "",
+  "customData": "",
+  "approvalId": "transferable-approval",
+  "approvalCriteria": {
+    "merkleChallenges": [],
+    "predeterminedBalances": {
+      "manualBalances": [],
+      "incrementedBalances": {
+        "startBalances": [],
+        "incrementTokenIdsBy": "0",
+        "incrementOwnershipTimesBy": "0",
+        "durationFromTimestamp": "0",
+        "allowOverrideTimestamp": false,
+        "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+        "allowOverrideWithAnyValidToken": false,
+        "allowAmountScaling": false,
+        "maxScalingMultiplier": "0"
+      },
+      "orderCalculationMethod": {
+        "useOverallNumTransfers": false,
+        "usePerToAddressNumTransfers": false,
+        "usePerFromAddressNumTransfers": false,
+        "usePerInitiatedByAddressNumTransfers": false,
+        "useMerkleChallengeLeafIndex": false,
+        "challengeTrackerId": ""
+      }
+    },
+    "approvalAmounts": {
+      "overallApprovalAmount": "0",
+      "perToAddressApprovalAmount": "0",
+      "perFromAddressApprovalAmount": "0",
+      "perInitiatedByAddressApprovalAmount": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "maxNumTransfers": {
+      "overallMaxNumTransfers": "0",
+      "perToAddressMaxNumTransfers": "0",
+      "perFromAddressMaxNumTransfers": "0",
+      "perInitiatedByAddressMaxNumTransfers": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "coinTransfers": [],
+    "requireToEqualsInitiatedBy": false,
+    "requireFromEqualsInitiatedBy": false,
+    "requireToDoesNotEqualInitiatedBy": false,
+    "requireFromDoesNotEqualInitiatedBy": false,
+    "overridesFromOutgoingApprovals": false,
+    "overridesToIncomingApprovals": false,
+    "autoDeletionOptions": {
+      "afterOneUse": false,
+      "afterOverallMaxNumTransfers": false,
+      "allowCounterpartyPurge": false,
+      "allowPurgeIfExpired": false
+    },
+    "mustOwnTokens": [],
+    "dynamicStoreChallenges": [],
+    "ethSignatureChallenges": [],
+    "senderChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "recipientChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "initiatorChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "altTimeChecks": {
+      "offlineHours": [],
+      "offlineDays": [],
+      "offlineMonths": [],
+      "offlineDaysOfMonth": [],
+      "offlineWeeksOfYear": [],
+      "timezoneOffsetMinutes": "0",
+      "timezoneOffsetNegative": false
+    },
+    "mustPrioritize": false,
+    "votingChallenges": [],
+    "allowBackedMinting": false,
+    "allowSpecialWrapping": false,
+    "evmQueryChallenges": [],
+    "userApprovalSettings": {
+      "allowedDenoms": [],
+      "disableUserCoinTransfers": false,
+      "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+    }
+  },
+  "version": "0"
 }
 ```
 
@@ -215,7 +290,7 @@ const burnableApproval = new CollectionApproval({
 });
 ```
 
-```json
+```json fold=11-20,22-40,42-48,50-56,58-101
 {
   "fromListId": "!Mint",
   "toListId": "bb1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqs7gvmv",
@@ -223,32 +298,104 @@ const burnableApproval = new CollectionApproval({
   "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
   "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
   "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
-  "approvalId": "burnable-approval",
   "uri": "",
   "customData": "",
-  "version": "0",
+  "approvalId": "burnable-approval",
   "approvalCriteria": {
+    "merkleChallenges": [],
     "predeterminedBalances": {
       "manualBalances": [],
       "incrementedBalances": {
         "startBalances": [],
         "incrementTokenIdsBy": "0",
         "incrementOwnershipTimesBy": "0",
+        "durationFromTimestamp": "0",
         "allowOverrideTimestamp": false,
         "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
-        "allowOverrideWithAnyValidToken": false
+        "allowOverrideWithAnyValidToken": false,
+        "allowAmountScaling": false,
+        "maxScalingMultiplier": "0"
       },
-      "orderCalculationMethod": { "useOverallNumTransfers": false, "usePerToAddressNumTransfers": false, "usePerFromAddressNumTransfers": false, "usePerInitiatedByAddressNumTransfers": false, "useMerkleChallengeLeafIndex": false, "challengeTrackerId": "" }
+      "orderCalculationMethod": {
+        "useOverallNumTransfers": false,
+        "usePerToAddressNumTransfers": false,
+        "usePerFromAddressNumTransfers": false,
+        "usePerInitiatedByAddressNumTransfers": false,
+        "useMerkleChallengeLeafIndex": false,
+        "challengeTrackerId": ""
+      }
     },
-    "approvalAmounts": { "overallApprovalAmount": "0", "perToAddressApprovalAmount": "0", "perFromAddressApprovalAmount": "0", "perInitiatedByAddressApprovalAmount": "0", "amountTrackerId": "", "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" } },
-    "maxNumTransfers": { "overallMaxNumTransfers": "0", "perToAddressMaxNumTransfers": "0", "perFromAddressMaxNumTransfers": "0", "perInitiatedByAddressMaxNumTransfers": "0", "amountTrackerId": "", "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" } },
+    "approvalAmounts": {
+      "overallApprovalAmount": "0",
+      "perToAddressApprovalAmount": "0",
+      "perFromAddressApprovalAmount": "0",
+      "perInitiatedByAddressApprovalAmount": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "maxNumTransfers": {
+      "overallMaxNumTransfers": "0",
+      "perToAddressMaxNumTransfers": "0",
+      "perFromAddressMaxNumTransfers": "0",
+      "perInitiatedByAddressMaxNumTransfers": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
     "coinTransfers": [],
-    "merkleChallenges": [],
-    "mustOwnTokens": [],
+    "requireToEqualsInitiatedBy": false,
+    "requireFromEqualsInitiatedBy": false,
+    "requireToDoesNotEqualInitiatedBy": false,
+    "requireFromDoesNotEqualInitiatedBy": false,
     "overridesFromOutgoingApprovals": false,
     "overridesToIncomingApprovals": true,
-    "mustPrioritize": false
-  }
+    "autoDeletionOptions": {
+      "afterOneUse": false,
+      "afterOverallMaxNumTransfers": false,
+      "allowCounterpartyPurge": false,
+      "allowPurgeIfExpired": false
+    },
+    "mustOwnTokens": [],
+    "dynamicStoreChallenges": [],
+    "ethSignatureChallenges": [],
+    "senderChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "recipientChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "initiatorChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "altTimeChecks": {
+      "offlineHours": [],
+      "offlineDays": [],
+      "offlineMonths": [],
+      "offlineDaysOfMonth": [],
+      "offlineWeeksOfYear": [],
+      "timezoneOffsetMinutes": "0",
+      "timezoneOffsetNegative": false
+    },
+    "mustPrioritize": false,
+    "votingChallenges": [],
+    "allowBackedMinting": false,
+    "allowSpecialWrapping": false,
+    "evmQueryChallenges": [],
+    "userApprovalSettings": {
+      "allowedDenoms": [],
+      "disableUserCoinTransfers": false,
+      "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+    }
+  },
+  "version": "0"
 }
 ```
 
@@ -299,12 +446,14 @@ Add no post-mint approvals. Tokens stay where they were minted. Lock `canUpdateC
 
 ## 4. Make NFTs tradable on the marketplace
 
-The orderbook needs three standards together plus the transferable approval from step 3 with `approvalId: "transferable-approval"`.
+The orderbook needs three standards together plus the transferable approval from step 3 with `approvalId: "transferable-approval"`. `MsgSetStandards` replaces the list on an existing collection; at creation, or in `MsgUniversalUpdateCollection` with `updateStandards: true`, set the same `standards` array.
 
 ```json
 {
-  "updateStandards": true,
-  "standards": ["NFTMarketplace", "NFTs", "NFTPricingDenom:ubadge"]
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "collectionId": "1",
+  "standards": ["NFTMarketplace", "NFTs", "NFTPricingDenom:ubadge"],
+  "canUpdateStandards": []
 }
 ```
 
@@ -349,152 +498,144 @@ const userOutgoingApproval = {
 };
 
 const updateUserApprovals = {
-    creator: 'bb1...', // Your address
+    creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d', // Your address
     collectionId: '1',
     updateIncomingApprovals: true,
     incomingApprovals: [userIncomingApproval],
     updateOutgoingApprovals: true,
     outgoingApprovals: [userOutgoingApproval],
-    // ...
+    // Flags left false keep the current value
+    updateAutoApproveSelfInitiatedOutgoingTransfers: false,
+    autoApproveSelfInitiatedOutgoingTransfers: false,
+    updateAutoApproveSelfInitiatedIncomingTransfers: false,
+    autoApproveSelfInitiatedIncomingTransfers: false,
+    updateAutoApproveAllIncomingTransfers: false,
+    autoApproveAllIncomingTransfers: false,
+    updateUserPermissions: false,
+    userPermissions: {
+        canUpdateOutgoingApprovals: [],
+        canUpdateIncomingApprovals: [],
+        canUpdateAutoApproveSelfInitiatedOutgoingTransfers: [],
+        canUpdateAutoApproveSelfInitiatedIncomingTransfers: [],
+        canUpdateAutoApproveAllIncomingTransfers: [],
+    },
 };
 ```
 
 Raw `MsgUpdateUserApprovals` that sets one outgoing approval: the signer may send tokens 1 to 20 to anyone, one token in total and at most one per initiator, and self-initiated outgoing transfers are auto-approved. Every `update*` flag set to `false` leaves that field untouched, whatever value is passed.
 
-```json
-[
+```json fold=15-24,26-39,46-51,54-96,99-110
+{
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "collectionId": "1",
+  "updateOutgoingApprovals": true,
+  "outgoingApprovals": [
     {
-        "creator": "bb18el5ug46umcws58m445ql5scgg2n3tzagfecvl",
-        "collectionId": "1",
-        "updateOutgoingApprovals": true,
-        "outgoingApprovals": [
-            {
-                "toListId": "All",
-                "initiatedByListId": "bb18el5ug46umcws58m445ql5scgg2n3tzagfecvl",
-                "transferTimes": [
-                    {
-                        "start": "1",
-                        "end": "18446744073709551615"
-                    }
-                ],
-                "tokenIds": [
-                    {
-                        "start": "1",
-                        "end": "20"
-                    }
-                ],
-                "ownershipTimes": [
-                    {
-                        "start": "1",
-                        "end": "18446744073709551615"
-                    }
-                ],
-                "uri": "",
-                "customData": "",
-                "approvalId": "87bc6dd97492b913b3d2b6c91c71b7a2bc98d41a715e49285180e8db9f4ea0bb",
-                "approvalCriteria": {
-                    "merkleChallenges": [],
-                    "ethSignatureChallenges": [],
-                    "predeterminedBalances": {
-                        "manualBalances": [],
-                        "incrementedBalances": {
-                            "startBalances": [],
-                            "incrementTokenIdsBy": "0",
-                            "incrementOwnershipTimesBy": "0",
-                            "durationFromTimestamp": "0",
-                            "allowOverrideTimestamp": false,
-                            "recurringOwnershipTimes": {
-                                "startTime": "0",
-                                "intervalLength": "0",
-                                "chargePeriodLength": "0"
-                            },
-                            "allowOverrideWithAnyValidToken": false
-                        },
-                        "orderCalculationMethod": {
-                            "useOverallNumTransfers": false,
-                            "usePerToAddressNumTransfers": false,
-                            "usePerFromAddressNumTransfers": false,
-                            "usePerInitiatedByAddressNumTransfers": false,
-                            "useMerkleChallengeLeafIndex": false,
-                            "challengeTrackerId": ""
-                        }
-                    },
-                    "approvalAmounts": {
-                        "overallApprovalAmount": "1",
-                        "perToAddressApprovalAmount": "0",
-                        "perFromAddressApprovalAmount": "0",
-                        "perInitiatedByAddressApprovalAmount": "1",
-                        "amountTrackerId": "87bc6dd97492b913b3d2b6c91c71b7a2bc98d41a715e49285180e8db9f4ea0bb",
-                        "resetTimeIntervals": {
-                            "startTime": "0",
-                            "intervalLength": "0"
-                        }
-                    },
-                    "maxNumTransfers": {
-                        "overallMaxNumTransfers": "0",
-                        "perToAddressMaxNumTransfers": "0",
-                        "perFromAddressMaxNumTransfers": "0",
-                        "perInitiatedByAddressMaxNumTransfers": "0",
-                        "amountTrackerId": "fe1ffc5f6ff98f0e41b097f33623248868d367dc36dd7f22b2717b61b9d7c91c",
-                        "resetTimeIntervals": {
-                            "startTime": "0",
-                            "intervalLength": "0"
-                        }
-                    },
-                    "coinTransfers": [],
-                    "requireToEqualsInitiatedBy": false,
-                    "requireToDoesNotEqualInitiatedBy": false,
-                    "autoDeletionOptions": {
-                        "afterOneUse": false,
-                        "afterOverallMaxNumTransfers": false
-                    },
-                    "mustOwnTokens": [],
-                    "dynamicStoreChallenges": [],
-                    "votingChallenges": [],
-                    "evmQueryChallenges": [],
-                    "userRoyalties": {
-                        "percentage": "0",
-                        "payoutAddress": ""
-                    },
-                    "recipientChecks": {
-                        "mustBeEvmContract": false,
-                        "mustNotBeEvmContract": false,
-                        "mustBeLiquidityPool": false,
-                        "mustNotBeLiquidityPool": false
-                    },
-                    "initiatorChecks": {
-                        "mustBeEvmContract": false,
-                        "mustNotBeEvmContract": false,
-                        "mustBeLiquidityPool": false,
-                        "mustNotBeLiquidityPool": false
-                    },
-                    "altTimeChecks": {
-                        "offlineHours": [],
-                        "offlineDays": []
-                    },
-                    "mustPrioritize": false
-                },
-                "version": "0"
-            }
-        ],
-        "updateIncomingApprovals": false,
-        "incomingApprovals": [],
-        "updateAutoApproveSelfInitiatedOutgoingTransfers": true,
-        "autoApproveSelfInitiatedOutgoingTransfers": true,
-        "updateAutoApproveSelfInitiatedIncomingTransfers": false,
-        "autoApproveSelfInitiatedIncomingTransfers": false,
-        "updateAutoApproveAllIncomingTransfers": false,
-        "autoApproveAllIncomingTransfers": false,
-        "updateUserPermissions": false,
-        "userPermissions": {
-            "canUpdateOutgoingApprovals": [],
-            "canUpdateIncomingApprovals": [],
-            "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
-            "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
-            "canUpdateAutoApproveAllIncomingTransfers": []
-        }
+      "toListId": "All",
+      "initiatedByListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+      "tokenIds": [{ "start": "1", "end": "20" }],
+      "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+      "uri": "",
+      "customData": "",
+      "approvalId": "user-outgoing-approval",
+      "approvalCriteria": {
+        "merkleChallenges": [],
+        "predeterminedBalances": {
+          "manualBalances": [],
+          "incrementedBalances": {
+            "startBalances": [],
+            "incrementTokenIdsBy": "0",
+            "incrementOwnershipTimesBy": "0",
+            "durationFromTimestamp": "0",
+            "allowOverrideTimestamp": false,
+            "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+            "allowOverrideWithAnyValidToken": false,
+            "allowAmountScaling": false,
+            "maxScalingMultiplier": "0"
+          },
+          "orderCalculationMethod": {
+            "useOverallNumTransfers": false,
+            "usePerToAddressNumTransfers": false,
+            "usePerFromAddressNumTransfers": false,
+            "usePerInitiatedByAddressNumTransfers": false,
+            "useMerkleChallengeLeafIndex": false,
+            "challengeTrackerId": ""
+          }
+        },
+        "approvalAmounts": {
+          "overallApprovalAmount": "1",
+          "perToAddressApprovalAmount": "0",
+          "perFromAddressApprovalAmount": "0",
+          "perInitiatedByAddressApprovalAmount": "1",
+          "amountTrackerId": "user-outgoing-approval",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "maxNumTransfers": {
+          "overallMaxNumTransfers": "0",
+          "perToAddressMaxNumTransfers": "0",
+          "perFromAddressMaxNumTransfers": "0",
+          "perInitiatedByAddressMaxNumTransfers": "0",
+          "amountTrackerId": "user-outgoing-approval",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "coinTransfers": [],
+        "requireToEqualsInitiatedBy": false,
+        "requireToDoesNotEqualInitiatedBy": false,
+        "autoDeletionOptions": {
+          "afterOneUse": false,
+          "afterOverallMaxNumTransfers": false,
+          "allowCounterpartyPurge": false,
+          "allowPurgeIfExpired": false
+        },
+        "mustOwnTokens": [],
+        "dynamicStoreChallenges": [],
+        "ethSignatureChallenges": [],
+        "recipientChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "initiatorChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "altTimeChecks": {
+          "offlineHours": [],
+          "offlineDays": [],
+          "offlineMonths": [],
+          "offlineDaysOfMonth": [],
+          "offlineWeeksOfYear": [],
+          "timezoneOffsetMinutes": "0",
+          "timezoneOffsetNegative": false
+        },
+        "mustPrioritize": false,
+        "votingChallenges": [],
+        "evmQueryChallenges": []
+      },
+      "version": "0"
     }
-]
+  ],
+  "updateIncomingApprovals": false,
+  "incomingApprovals": [],
+  "updateAutoApproveSelfInitiatedOutgoingTransfers": true,
+  "autoApproveSelfInitiatedOutgoingTransfers": true,
+  "updateAutoApproveSelfInitiatedIncomingTransfers": false,
+  "autoApproveSelfInitiatedIncomingTransfers": false,
+  "updateAutoApproveAllIncomingTransfers": false,
+  "autoApproveAllIncomingTransfers": false,
+  "updateUserPermissions": false,
+  "userPermissions": {
+    "canUpdateOutgoingApprovals": [],
+    "canUpdateIncomingApprovals": [],
+    "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+    "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+    "canUpdateAutoApproveAllIncomingTransfers": []
+  }
+}
 ```
 
 Outgoing approvals have no `senderChecks` and no `overrides*` fields, since the sender is fixed and user approvals cannot override.

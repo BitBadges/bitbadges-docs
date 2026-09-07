@@ -9,7 +9,7 @@ Sets the valid token IDs of a collection and the permission that guards future c
 ## Example
 
 ```bash
-bb tx tokenization set-valid-token-ids ./set-valid-token-ids.json --from <manager-key> --chain-id bitbadges-1
+bb tx tokenization set-valid-token-ids ./set-valid-token-ids.json --from alice --chain-id bitbadges-1
 ```
 
 ```ts
@@ -19,7 +19,7 @@ const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, '
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
 const msg = new MsgSetValidTokenIds({
-  creator: client.address,
+  creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
   collectionId: 1n,
   validTokenIds: [{ start: 1n, end: 200n }],
   canUpdateValidTokenIds: [
@@ -32,11 +32,12 @@ const msg = new MsgSetValidTokenIds({
 });
 
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
 {
-  "creator": "bb1manager...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "collectionId": "1",
   "validTokenIds": [{ "start": "1", "end": "200" }],
   "canUpdateValidTokenIds": [

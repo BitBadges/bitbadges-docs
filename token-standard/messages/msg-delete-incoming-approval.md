@@ -9,7 +9,7 @@ Deletes a single incoming approval for the signer in one collection. It is a wra
 ## Example
 
 ```bash
-bb tx tokenization delete-incoming-approval 1 my-approval-1 --from <key> --chain-id bitbadges-1
+bb tx tokenization delete-incoming-approval 1 accept-from-alice --from bob --chain-id bitbadges-1
 ```
 
 ```ts
@@ -18,16 +18,21 @@ import { BitBadgesSigningClient, GenericCosmosAdapter, MsgDeleteIncomingApproval
 const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
-const result = await client.signAndBroadcast([
-  new MsgDeleteIncomingApproval({ creator: client.address, collectionId: 1n, approvalId: 'my-approval-1' })
-]);
+const msg = new MsgDeleteIncomingApproval({
+  creator: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
+  collectionId: 1n,
+  approvalId: 'accept-from-alice'
+});
+
+const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
 {
-  "creator": "bb1user...",
+  "creator": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
   "collectionId": "1",
-  "approvalId": "my-approval-1"
+  "approvalId": "accept-from-alice"
 }
 ```
 

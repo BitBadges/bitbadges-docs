@@ -9,7 +9,7 @@ Sets the archive flag of a collection and the permission that guards future chan
 ## Example
 
 ```bash
-bb tx tokenization set-setisarchived ./set-is-archived.json --from <manager-key> --chain-id bitbadges-1
+bb tx tokenization set-setisarchived ./set-is-archived.json --from alice --chain-id bitbadges-1
 ```
 
 ```ts
@@ -19,20 +19,24 @@ const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, '
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
 const msg = new MsgSetIsArchived({
-  creator: client.address,
+  creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
   collectionId: 1n,
   isArchived: true,
   canArchiveCollection: [
-    { permanentlyPermittedTimes: [{ start: 1n, end: 18446744073709551615n }], permanentlyForbiddenTimes: [] }
+    {
+      permanentlyPermittedTimes: [{ start: 1n, end: 18446744073709551615n }],
+      permanentlyForbiddenTimes: []
+    }
   ]
 });
 
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
 {
-  "creator": "bb1manager...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "collectionId": "1",
   "isArchived": true,
   "canArchiveCollection": [

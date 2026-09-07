@@ -17,6 +17,23 @@ bb dev skills smart-token
 bb dev feedback "the --denom flag rejects lowercase usdc"
 ```
 
+The second command returns the skill's structured instructions (mainnet-independent; `summary` trimmed to its first lines):
+
+```json
+{
+  "ok": true,
+  "data": {
+    "id": "smart-token",
+    "name": "Smart Token",
+    "category": "token-type",
+    "description": "IBC-backed smart token with 1:1 backing and two required approvals (backing + unbacking)",
+    "summary": "Required standards: [\"Smart Token\"]\n\n- MUST include cosmosCoinBackedPath in invariants with conversion sideA/sideB\n- MUST configure at least one alias path (decimals must match IBC denom decimals)\n- MUST create TWO required collection approvals (backing + unbacking)."
+  },
+  "warnings": [],
+  "error": null
+}
+```
+
 | Command | Purpose |
 | --- | --- |
 | `dev tools list` | Every builder tool with its JSON schema |
@@ -29,6 +46,10 @@ bb dev feedback "the --denom flag rejects lowercase usdc"
 
 The old top-level `tools`, `tool`, `resources`, `docs`, `skills`, and `gen-pub-key` still resolve with a deprecation banner.
 
+{% hint style="info" %}
+Ask your agent. Everything under `bb dev` is what the agent already calls through MCP (`get_skill_instructions`, `search_knowledge_base`, `fetch_docs`). "Load the smart-token skill and explain the two required approvals" runs the first example for you.
+{% endhint %}
+
 ## tools
 
 ```bash
@@ -36,6 +57,38 @@ bb dev tools list                 # full schemas
 bb dev tools list --names         # names only, in data.names
 bb dev tools call get_current_timestamp
 bb dev tools call set_collection_metadata --args-file ./metadata.json --session demo
+```
+
+`get_current_timestamp` needs no arguments and no key; it is the standard "is the registry wired" probe:
+
+```json
+{
+  "ok": true,
+  "data": {
+    "timestamp": "1788749458531",
+    "timestampMs": 1788749458531,
+    "isoDate": "2026-09-07T02:50:58.531Z",
+    "foreverEnd": "18446744073709551615",
+    "helpers": {
+      "fiveMinutesFromNow": "1788749758531",
+      "oneHourFromNow": "1788753058531",
+      "oneDayFromNow": "1788835858531",
+      "oneWeekFromNow": "1789354258531",
+      "oneMonthFromNow": "1791341458531",
+      "oneYearFromNow": "1820285458531"
+    },
+    "durations": {
+      "fiveMinutes": "300000",
+      "oneHour": "3600000",
+      "oneDay": "86400000",
+      "oneWeek": "604800000",
+      "oneMonth": "2592000000",
+      "oneYear": "31536000000"
+    }
+  },
+  "warnings": [],
+  "error": null
+}
 ```
 
 | Flag | Command | Description |
@@ -50,16 +103,16 @@ Stateful tools (`set_*`, `add_*`, `remove_*`, `get_transaction`, `get_review_url
 
 ```bash
 SESSION=demo
-bb dev tools call set_standards --session $SESSION --args '{"standards":["SmartToken"]}'
-bb dev tools call set_collection_metadata --session $SESSION --args-file ./meta.json
+bb dev tools call set_standards --session $SESSION --args '{"standards":["Smart Token"]}'
+bb dev tools call set_collection_metadata --session $SESSION --args '{"name":"Demo Vault","description":"USDC vault","image":"ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/vault.png"}'
 bb dev tools call add_approval --session $SESSION --args-file ./approval.json
 bb dev tools call get_transaction --session $SESSION
 bb dev tools call get_review_url --session $SESSION      # short bitbadges.io link to review and sign
 ```
 
-An unknown tool name exits 1 and prints the available names on stderr. The tool list and per-tool docs are in [MCP tools](../agents/mcp-tools.md). Prefer `bb build` when a template fits.
+An unknown tool name exits 1 and prints the available names on stderr. Invalid `--args` JSON returns `{ "ok": false, "error": { "code": "invalid_args" } }`. The tool list and per-tool docs are in [MCP tools](../agents/mcp-tools.md). Prefer `bb build` when a template fits.
 
-Inspect or reset sessions with `bb session list | show <id> | reset <id>`.
+Inspect or reset sessions with `bb session list`, `bb session show demo`, and `bb session reset demo`.
 
 ## resources
 
@@ -69,7 +122,19 @@ bb dev resources list --uris
 bb dev resources read bitbadges://recipes/all
 ```
 
-Static resources: the token registry, recipes, skills, error patterns, and docs slugs. `read` puts the body at `data.text`.
+Static resources: the token registry, recipes, skills, error patterns, and docs slugs. `read` puts the body at `data.text`:
+
+```json
+{
+  "ok": true,
+  "data": {
+    "uri": "bitbadges://recipes/all",
+    "text": "# BitBadges Code Recipes & Decision Matrices\n\nSnippets and decision guides for common operations.\n\n## Token Type Decision Matrix\n\nChoose the right token type for your use case"
+  },
+  "warnings": [],
+  "error": null
+}
+```
 
 ## docs
 
@@ -92,7 +157,7 @@ bb dev skills                     # list
 bb dev skills smart-token         # one skill's instructions
 ```
 
-Same as `bb dev docs builder-skills` and `bb dev docs builder-skills/<id>`. Rendered pages: [Skills](../agents/skills/README.md).
+Same as `bb dev docs builder-skills` and `bb dev docs builder-skills/smart-token`. Rendered pages: [Skills](../agents/skills/README.md).
 
 ## feedback
 

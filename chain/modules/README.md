@@ -11,7 +11,7 @@ description: "Every BitBadges-specific Cosmos SDK module: x/tokenization (the to
 curl https://lcd.bitbadges.io/osmosis/gamm/v1beta1/pools?pagination.limit=1
 curl https://lcd.bitbadges.io/osmosis/poolmanager/v1beta1/num_pools
 curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/managersplitter
-curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/sendmanager/balance/bb1abc.../badgeslp:64:utoken
+curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/sendmanager/balance/bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d/badgeslp:64:utoken
 ```
 
 | Module | Path in chain | What it does | Read when |

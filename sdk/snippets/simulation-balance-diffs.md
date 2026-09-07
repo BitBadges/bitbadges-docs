@@ -13,9 +13,25 @@ bb simulate ./tx.json
 ```
 
 ```ts
-import { BitBadgesSigningClient } from 'bitbadges';
+import { BitBadgesSigningClient, GenericCosmosAdapter, MsgTransferTokens, type NetBalanceChanges } from 'bitbadges';
 
-const client = new BitBadgesSigningClient({ adapter });
+const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
+const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
+
+const messages = [
+  new MsgTransferTokens({
+    creator: client.address,
+    collectionId: '1',
+    transfers: [
+      {
+        from: client.address,
+        toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+        balances: [{ amount: '1', tokenIds: [{ start: '1', end: '1' }], ownershipTimes: [{ start: '1', end: '18446744073709551615' }] }]
+      }
+    ]
+  })
+];
+
 const review = await client.simulateAndReview(messages);
 
 console.log('Gas used:', review.gasUsed, 'gas limit:', review.gasLimit);
@@ -31,9 +47,16 @@ for (const [address, denoms] of Object.entries(review.netChanges.coinChanges)) {
 // Tokens: address -> collectionId -> BalanceArray delta
 console.log(review.netChanges.badgeChanges);
 
+// Policy: the signer may lose at most 1 BADGE (1e9 ubadge) in fees and nothing else
+function acceptChanges(changes: NetBalanceChanges): boolean {
+  const mine = changes.coinChanges[client.address] ?? {};
+  return Object.entries(mine).every(([denom, delta]) => denom === 'ubadge' && delta >= -1_000_000_000n);
+}
+
 // Broadcast only after a human or a policy accepts the diff
 if (acceptChanges(review.netChanges)) {
   const result = await client.signAndBroadcast(messages);
+  console.log(result.txHash);
 }
 ```
 
@@ -42,12 +65,16 @@ Lower level, when you already hold raw simulation events (for example from the A
 ```ts
 import { parseSimulationEvents, calculateNetChanges } from 'bitbadges';
 
+// review.events and review.fee from simulateAndReview above, or sim.result.events from api.simulateTx
+const events = review.events ?? [];
+const txsInfo = messages.map((m) => ({ type: '/tokenization.MsgTransferTokens', msg: m }));
+
 const parsed = parseSimulationEvents(events, txsInfo);
 // parsed.coinTransferEvents: { from, to, amount, denom, isProtocolFee }[]
 // parsed.badgeTransferEvents: { from, to, balances, collectionId }[]
 // parsed.ibcTransferEvents: { from, to, amount, denom, sourcePort, sourceChannel, receiver }[]
 
-const netChanges = calculateNetChanges(parsed, { amount: fee.amount, denom: fee.denom }, signerAddress);
+const netChanges = calculateNetChanges(parsed, { amount: review.fee.amount, denom: review.fee.denom }, client.address);
 // netChanges.coinChanges: Record<address, Record<denom, bigint>>
 // netChanges.badgeChanges: Record<address, Record<collectionId, BalanceArray<bigint>>>
 ```

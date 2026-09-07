@@ -17,13 +17,28 @@ const adapter = await GenericCosmosAdapter.fromKeplr('bitbadges-1');
 
 const client = new BitBadgesSigningClient({ adapter });
 
-const result = await client.signAndBroadcast([
-  new MsgTransferTokens({ creator: client.address, collectionId: '1', transfers: [] })
-]);
+// One unit of token ID 1 in collection 1 to bob
+const messages = [
+  new MsgTransferTokens({
+    creator: client.address,
+    collectionId: '1',
+    transfers: [
+      {
+        from: client.address,
+        toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+        balances: [{ amount: '1', tokenIds: [{ start: '1', end: '1' }], ownershipTimes: [{ start: '1', end: '18446744073709551615' }] }]
+      }
+    ]
+  })
+];
+
+const result = await client.signAndBroadcast(messages);
 
 if (result.success) console.log('tx hash:', result.txHash);
 else console.error('failed:', result.code, result.error);
 ```
+
+The three blocks below reuse the same `messages` array with `client.address` as `creator` and `from`.
 
 ```ts
 import { BitBadgesSigningClient, GenericEvmAdapter } from 'bitbadges';
@@ -42,8 +57,8 @@ const result = await client.signAndBroadcast(messages); // routed through the pr
 import { BitBadgesSigningClient, GenericEvmAdapter, NETWORK_CONFIGS } from 'bitbadges';
 
 // Server side (bots, agents, backends): EVM path, recommended
-const adapter = await GenericEvmAdapter.fromMnemonic('<12 or 24 words>', NETWORK_CONFIGS['mainnet'].evmRpcUrl);
-// or GenericEvmAdapter.fromPrivateKey('0x...', NETWORK_CONFIGS['mainnet'].evmRpcUrl)
+const adapter = await GenericEvmAdapter.fromMnemonic(process.env.MNEMONIC!, NETWORK_CONFIGS['mainnet'].evmRpcUrl);
+// or GenericEvmAdapter.fromPrivateKey(process.env.PRIVATE_KEY!, NETWORK_CONFIGS['mainnet'].evmRpcUrl)
 
 const client = new BitBadgesSigningClient({ adapter });
 const result = await client.signAndBroadcast(messages);
@@ -53,10 +68,11 @@ const result = await client.signAndBroadcast(messages);
 import { BitBadgesSigningClient, GenericCosmosAdapter } from 'bitbadges';
 
 // Server side: Cosmos path
-const adapter = await GenericCosmosAdapter.fromMnemonic('<12 or 24 words>', 'bitbadges-1');
-// or GenericCosmosAdapter.fromPrivateKey('0x...', 'bitbadges-1')
+const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
+// or GenericCosmosAdapter.fromPrivateKey(process.env.PRIVATE_KEY!, 'bitbadges-1')
 
 const client = new BitBadgesSigningClient({ adapter });
+const result = await client.signAndBroadcast(messages);
 ```
 
 {% hint style="warning" %}
@@ -183,8 +199,36 @@ After a successful broadcast the cached sequence increments. On a sequence misma
 ## Multiple messages
 
 ```ts
+import { MsgTransferTokens, MsgSetTokenMetadata, MsgSetCollectionMetadata } from 'bitbadges';
+
+const BASE = 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi';
+
 await client.signAndBroadcast(
-  [new MsgTransferTokens({ /* ... */ }), new MsgSetTokenMetadata({ /* ... */ }), new MsgSetCollectionMetadata({ /* ... */ })],
+  [
+    new MsgTransferTokens({
+      creator: client.address,
+      collectionId: '1',
+      transfers: [
+        {
+          from: client.address,
+          toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+          balances: [{ amount: '1', tokenIds: [{ start: '1', end: '1' }], ownershipTimes: [{ start: '1', end: '18446744073709551615' }] }]
+        }
+      ]
+    }),
+    new MsgSetTokenMetadata({
+      creator: client.address,
+      collectionId: '1',
+      tokenMetadata: [{ uri: `${BASE}/{id}.json`, tokenIds: [{ start: '1', end: '100' }], customData: '' }],
+      canUpdateTokenMetadata: []
+    }),
+    new MsgSetCollectionMetadata({
+      creator: client.address,
+      collectionId: '1',
+      collectionMetadata: { uri: `${BASE}/collection.json`, customData: '' },
+      canUpdateCollectionMetadata: []
+    })
+  ],
   { memo: 'Batch update' }
 );
 ```

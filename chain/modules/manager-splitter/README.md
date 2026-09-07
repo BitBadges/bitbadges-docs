@@ -9,16 +9,16 @@ A manager splitter is a permissioned proxy for collection management. Its module
 ```json
 {
   "@type": "/managersplitter.MsgCreateManagerSplitter",
-  "admin": "bb1admin...",
+  "admin": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "permissions": {
-    "canUpdateCollectionMetadata": { "approvedAddresses": ["bb1marketing..."] },
-    "canUpdateTokenMetadata": { "approvedAddresses": ["bb1marketing...", "bb1ops..."] },
-    "canUpdateCollectionApprovals": { "approvedAddresses": ["bb1ops..."] }
+    "canUpdateCollectionMetadata": { "approvedAddresses": ["bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"] },
+    "canUpdateTokenMetadata": { "approvedAddresses": ["bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue", "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf"] },
+    "canUpdateCollectionApprovals": { "approvedAddresses": ["bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf"] }
   }
 }
 ```
 
-The response returns the splitter's `address`. Set that address as the collection's `manager`, and from then on route every collection update through `MsgExecuteUniversalUpdateCollection`.
+The response returns the splitter's `address` (`bb139jr5akhnvum2t2qgg3tmku9ty6a3lxey425sz8auwgzn5j2u5rsyxffly` for splitter ID 1). Set that address as the collection's `manager`, and from then on route every collection update through `MsgExecuteUniversalUpdateCollection`.
 
 ## Shape
 

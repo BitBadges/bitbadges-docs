@@ -76,7 +76,9 @@ BitBadges precompiles take JSON strings, not Solidity structs.
 
 ```solidity
 // This is how BitBadges precompiles work:
-precompile.transferTokens('{"collectionId":"1",...}');
+precompile.transferTokens(
+    '{"collectionId":"1","transfers":[{"from":"bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d","toAddresses":["bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"],"balances":[{"amount":"1","tokenIds":[{"start":"1","end":"1"}],"ownershipTimes":[{"start":"1","end":"18446744073709551615"}]}]}]}'
+);
 
 // Not like ERC20:
 token.transfer(to, amount);  // BitBadges does not use this pattern
@@ -110,40 +112,62 @@ The files live under [`contracts/`](https://github.com/BitBadges/bitbadgeschain/
 ### Transfer tokens
 
 ```solidity
-function transfer(
-    uint256 collectionId,
-    address to,
-    uint256 amount,
-    uint256 tokenId
-) external returns (bool) {
-    address[] memory recipients = new address[](1);
-    recipients[0] = to;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    string memory tokenIds = TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId);
-    string memory times = TokenizationJSONHelpers.uintRangeToJson(
-        1, TokenizationJSONHelpers.FOREVER
-    );
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
 
-    string memory json = TokenizationJSONHelpers.transferTokensJSON(
-        collectionId, recipients, amount, tokenIds, times
-    );
+contract TransferExample {
+    ITokenizationPrecompile constant PRECOMPILE =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
-    return PRECOMPILE.transferTokens(json);
+    function transfer(
+        uint256 collectionId,
+        address to,
+        uint256 amount,
+        uint256 tokenId
+    ) external returns (bool) {
+        address[] memory recipients = new address[](1);
+        recipients[0] = to;
+
+        string memory tokenIds = TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId);
+        string memory times = TokenizationJSONHelpers.uintRangeToJson(
+            1, TokenizationJSONHelpers.FOREVER
+        );
+
+        string memory json = TokenizationJSONHelpers.transferTokensJSON(
+            collectionId, recipients, amount, tokenIds, times
+        );
+
+        return PRECOMPILE.transferTokens(json);
+    }
 }
 ```
 
 ### Check a balance
 
 ```solidity
-function balanceOf(uint256 collectionId, address user) external view returns (uint256) {
-    string memory json = TokenizationJSONHelpers.getBalanceAmountJSON(
-        collectionId,
-        user,
-        1,  // tokenId
-        block.timestamp  // ownershipTime
-    );
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    return PRECOMPILE.getBalanceAmount(json);
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
+
+contract BalanceExample {
+    ITokenizationPrecompile constant PRECOMPILE =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
+
+    function balanceOf(uint256 collectionId, address user) external view returns (uint256) {
+        string memory json = TokenizationJSONHelpers.getBalanceAmountJSON(
+            collectionId,
+            user,
+            1,  // tokenId
+            block.timestamp  // ownershipTime
+        );
+
+        return PRECOMPILE.getBalanceAmount(json);
+    }
 }
 ```
 
@@ -152,65 +176,91 @@ function balanceOf(uint256 collectionId, address user) external view returns (ui
 ### Create a collection
 
 ```solidity
-function createCollection() external returns (uint256) {
-    string memory validTokenIds = TokenizationJSONHelpers.uintRangeToJson(
-        1, 1000  // Token IDs 1-1000
-    );
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    string memory metadata = TokenizationJSONHelpers.collectionMetadataToJson(
-        "ipfs://my-metadata", ""
-    );
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
 
-    string memory balances = TokenizationJSONHelpers.simpleUserBalanceStoreToJson(
-        true, true, false  // auto-approve settings
-    );
+contract CreateCollectionExample {
+    ITokenizationPrecompile constant PRECOMPILE =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
-    string[] memory standards = new string[](0);
-    string memory standardsJson = TokenizationJSONHelpers.stringArrayToJson(standards);
+    function createCollection() external returns (uint256) {
+        string memory validTokenIds = TokenizationJSONHelpers.uintRangeToJson(
+            1, 1000  // Token IDs 1-1000
+        );
 
-    string memory json = TokenizationJSONHelpers.createCollectionJSON(
-        validTokenIds,
-        TokenizationJSONHelpers.addressToString(address(this)),  // manager
-        metadata,
-        balances,
-        "{}",  // permissions (empty = default)
-        standardsJson,
-        "",    // customData
-        false  // isArchived
-    );
+        string memory metadata = TokenizationJSONHelpers.collectionMetadataToJson(
+            "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json", ""
+        );
 
-    return PRECOMPILE.createCollection(json);
+        string memory balances = TokenizationJSONHelpers.simpleUserBalanceStoreToJson(
+            true, true, false  // auto-approve settings
+        );
+
+        string[] memory standards = new string[](0);
+        string memory standardsJson = TokenizationJSONHelpers.stringArrayToJson(standards);
+
+        string memory json = TokenizationJSONHelpers.createCollectionJSON(
+            validTokenIds,
+            TokenizationJSONHelpers.addressToString(address(this)),  // manager
+            metadata,
+            balances,
+            "{}",  // permissions (empty = default)
+            standardsJson,
+            "",    // customData
+            false  // isArchived
+        );
+
+        return PRECOMPILE.createCollection(json);
+    }
 }
 ```
 
 ### KYC registry (dynamic store)
 
 ```solidity
-uint256 public kycStoreId;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-function initKYC() external {
-    string memory json = TokenizationJSONHelpers.createDynamicStoreJSON(
-        false,  // default: not KYC'd
-        "", ""  // metadata
-    );
-    kycStoreId = PRECOMPILE.createDynamicStore(json);
-}
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
 
-function setKYC(address user, bool status) external {
-    string memory json = TokenizationJSONHelpers.setDynamicStoreValueJSON(
-        kycStoreId, user, status
-    );
-    PRECOMPILE.setDynamicStoreValue(json);
+contract KycRegistryExample {
+    ITokenizationPrecompile constant PRECOMPILE =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
+
+    uint256 public kycStoreId;
+
+    function initKYC() external {
+        string memory json = TokenizationJSONHelpers.createDynamicStoreJSON(
+            false,  // default: not KYC'd
+            "", ""  // metadata
+        );
+        kycStoreId = PRECOMPILE.createDynamicStore(json);
+    }
+
+    function setKYC(address user, bool status) external {
+        string memory json = TokenizationJSONHelpers.setDynamicStoreValueJSON(
+            kycStoreId, user, status
+        );
+        PRECOMPILE.setDynamicStoreValue(json);
+    }
 }
 ```
 
 ## Error handling
 
 ```solidity
+import "./interfaces/ITokenizationPrecompile.sol";
 import "./libraries/TokenizationErrors.sol";
 
 contract MyContract {
-    function safeTransfer(...) external {
+    ITokenizationPrecompile constant PRECOMPILE =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
+
+    function safeTransfer(uint256 collectionId, string memory json) external {
         // Validate before calling precompile
         TokenizationErrors.requireValidCollectionId(collectionId);
 
@@ -262,15 +312,16 @@ Concept page: [UintRanges](../../token-standard/concepts/uint-ranges.md).
 ## Address formats
 
 ```solidity
-// In Solidity, use EVM addresses (0x...)
-address user = 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb;
+// In Solidity, use EVM addresses (0x hex)
+address user = 0x0bc63cfe31d5218eb414b142c799e20964a54a1a;
 
 // Convert to Cosmos bech32 format if needed
 string memory bech32 = PRECOMPILE.convertEvmAddressToBech32(user);
-// Returns: "bb1ws5a0nfzue5cxetfmx56y0gu30aw7h08agd7fg"
+// Returns: "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
 
 // Convert back
-address evm = PRECOMPILE.convertBech32ToEvmAddress("bb1...");
+address evm = PRECOMPILE.convertBech32ToEvmAddress("bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d");
+// Returns: 0x0bc63cfe31d5218eb414b142c799e20964a54a1a
 ```
 
 Both forms name the same account. Precompiles accept either form in JSON address fields and convert to bech32 internally.

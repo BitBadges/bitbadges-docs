@@ -22,7 +22,7 @@ A precompile is a fixed contract address that runs native Go instead of EVM byte
 
 All three take one `string calldata msgJson` argument per method. The JSON matches the protobuf JSON of the underlying Cosmos message. The caller (`msg.sender`) is set as the `creator` or `sender` on the Go side and cannot be spoofed. Addresses are the same on both sides: a `0x` address and its `bb1` bech32 form are the same 20 bytes.
 
-The chain also ships the upstream [Cosmos SDK precompiles](cosmos-precompiles.md) (staking, distribution, bank, governance, IBC, bech32, P256) at the `0x...0100` to `0x...0807` range.
+The chain also ships the upstream [Cosmos SDK precompiles](cosmos-precompiles.md) (staking, distribution, bank, governance, IBC, bech32, P256) at `0x0000000000000000000000000000000000000100` through `0x0000000000000000000000000000000000000807`.
 
 ## Pages
 

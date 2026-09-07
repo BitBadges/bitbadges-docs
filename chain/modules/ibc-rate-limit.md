@@ -89,7 +89,7 @@ Tracked state per channel: `ChannelFlow.net_flow` (positive means more inflow th
 
 ## Messages
 
-Both messages are signed by the module authority, which defaults to the `x/gov` module account. Submit them inside a governance proposal.
+Both messages are signed by the module authority, which defaults to the `x/gov` module account (`bb10d07y265gmmuvt4z0w9aw880jnsr700jelmk2z` on mainnet). Submit them inside a governance proposal.
 
 ### MsgUpdateRateLimit
 
@@ -98,7 +98,7 @@ Adds or replaces one config. If a config with the same `channel_id` and `denom` 
 ```json
 {
   "@type": "/ibcratelimit.MsgUpdateRateLimit",
-  "authority": "<gov-module-address>",
+  "authority": "bb10d07y265gmmuvt4z0w9aw880jnsr700jelmk2z",
   "rate_limit": {
     "channel_id": "channel-40",
     "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8",
@@ -123,7 +123,7 @@ Replaces the whole parameter set. All parameters must be supplied.
 ```json
 {
   "@type": "/ibcratelimit.MsgUpdateParams",
-  "authority": "<gov-module-address>",
+  "authority": "bb10d07y265gmmuvt4z0w9aw880jnsr700jelmk2z",
   "params": {
     "rate_limits": [
       {

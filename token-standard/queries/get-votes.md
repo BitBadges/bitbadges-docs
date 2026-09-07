@@ -32,8 +32,18 @@ curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_votes/1
 ```json
 {
   "votes": [
-    { "proposalId": "proposal-1", "voter": "bb1voter1...", "yesWeight": "100", "votedAt": "1735689600000" },
-    { "proposalId": "proposal-1", "voter": "bb1voter2...", "yesWeight": "60", "votedAt": "1735693200000" }
+    {
+      "proposalId": "proposal-1",
+      "voter": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf",
+      "yesWeight": "100",
+      "votedAt": "1788739200000"
+    },
+    {
+      "proposalId": "proposal-1",
+      "voter": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+      "yesWeight": "60",
+      "votedAt": "1788742800000"
+    }
   ]
 }
 ```

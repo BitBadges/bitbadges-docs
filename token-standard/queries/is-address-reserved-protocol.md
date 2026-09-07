@@ -9,11 +9,11 @@ Returns whether an address is flagged as a reserved protocol address.
 ## Example
 
 ```bash
-bb query tokenization is-address-reserved-protocol bb1abc...
+bb query tokenization is-address-reserved-protocol bb10smfkeymfghj4j5pv5qkfx8zjmm9n6u9kv540qrw7am6tswx6lzswcyh4z
 ```
 
 ```bash
-curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/is_address_reserved_protocol/bb1abc...
+curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/is_address_reserved_protocol/bb10smfkeymfghj4j5pv5qkfx8zjmm9n6u9kv540qrw7am6tswx6lzswcyh4z
 ```
 
 ## Request
@@ -25,9 +25,7 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/is_address_r
 ## Response
 
 ```json
-{
-  "isReservedProtocol": true
-}
+{ "isReservedProtocol": true }
 ```
 
 | Field | Type | Description |

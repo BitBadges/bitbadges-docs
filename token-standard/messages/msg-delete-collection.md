@@ -9,7 +9,7 @@ Deletes a collection and all of its state. Only the current manager can sign it,
 ## Example
 
 ```bash
-bb tx tokenization delete-collection 1 --from <manager-key> --chain-id bitbadges-1
+bb tx tokenization delete-collection 1 --from alice --chain-id bitbadges-1
 ```
 
 ```ts
@@ -18,16 +18,14 @@ import { BitBadgesSigningClient, GenericCosmosAdapter, MsgDeleteCollection } fro
 const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
-const result = await client.signAndBroadcast([
-  new MsgDeleteCollection({ creator: client.address, collectionId: 1n })
-]);
+const msg = new MsgDeleteCollection({ creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d', collectionId: 1n });
+
+const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
-{
-  "creator": "bb1abc...",
-  "collectionId": "1"
-}
+{ "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "collectionId": "1" }
 ```
 
 ## Fields

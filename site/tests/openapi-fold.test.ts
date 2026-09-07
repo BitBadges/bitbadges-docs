@@ -11,6 +11,7 @@ import {
   prepareFoldedPage,
   rewriteMarkdownLinks,
   sanitizeOpenApi,
+  repointSdkLinks,
 } from '../src/lib/docs/openapi';
 
 describe('rewriteMarkdownLinks', () => {
@@ -221,5 +222,24 @@ describe('fold guard — every api/*.md page on disk is folded', () => {
     const claims = spec.tags.find((t: { name: string }) => t.name === 'Claims').description as string;
     expect(claims).toContain('## Endpoints');
     expect(claims).not.toMatch(/\]\([^)]*\.md[)#]/);
+  });
+});
+
+describe('sdk link repointing', () => {
+  test('rewrites GitHub Pages TypeDoc links at the in-site SDK reference', () => {
+    const { value, count } = repointSdkLinks({
+      a: '[Payload](https://bitbadges.github.io/bitbadgesjs/interfaces/iGetAccountPayload)',
+      b: ['[Fn](https://bitbadges.github.io/bitbadgesjs/classes/BitBadgesAPI.html#getaccount)'],
+      c: 'https://github.com/BitBadges/bitbadgesjs stays',
+    });
+    expect(count).toBe(2);
+    expect(value.a).toBe('[Payload](/sdk/reference/interfaces/i-get-account-payload)');
+    expect(value.b[0]).toBe('[Fn](/sdk/reference/classes/bit-badges-api#getaccount)');
+    expect(value.c).toContain('github.com/BitBadges/bitbadgesjs');
+  });
+
+  test('the served spec carries no GitHub Pages links', async () => {
+    const spec = await Bun.file(new URL('../public/openapi.json', import.meta.url)).text();
+    expect(spec).not.toContain('bitbadges.github.io');
   });
 });

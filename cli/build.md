@@ -10,18 +10,67 @@ description: "Reference for every bb build subcommand, the shared flags, metadat
 
 ```bash
 bb build vault --backing-coin USDC \
-  --name "My Vault" --symbol vUSDC \
-  --image https://example.com/vault.png --description "USDC-backed vault" \
+  --name "Demo Vault" --symbol vUSDC \
+  --image ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/vault.png --description "USDC-backed vault" \
   --daily-withdraw-limit 1000 --explain
 
 # build, then review and sign in the browser
-bb build vault --backing-coin USDC --uri ipfs://Qm... | bb preview - --open
+bb build vault --backing-coin USDC --uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json | bb preview - --open
 
 # build and broadcast with a connected wallet
-bb build vault --backing-coin USDC --uri ipfs://Qm... --manager bb1abc... --browser
+bb build vault --backing-coin USDC --uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json \
+  --manager bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --browser
+```
+
+The first command prints the message inside the envelope (485 lines for a vault; the head, with `--creator bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d`, is):
+
+```json fold=13-35
+{
+  "ok": true,
+  "data": {
+    "typeUrl": "/tokenization.MsgCreateCollection",
+    "value": {
+      "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "validTokenIds": [
+        {
+          "start": "1",
+          "end": "1"
+        }
+      ],
+      "collectionPermissions": {
+        "canDeleteCollection": [
+          {
+            "permanentlyPermittedTimes": [],
+            "permanentlyForbiddenTimes": [
+              {
+                "start": "1",
+                "end": "18446744073709551615"
+              }
+            ]
+          }
+        ],
+        "canArchiveCollection": [
+          {
+            "permanentlyPermittedTimes": [],
+            "permanentlyForbiddenTimes": [
+              {
+                "start": "1",
+                "end": "18446744073709551615"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
 ```
 
 The walkthrough that explains the output is in [Create a collection](../guides/create-a-collection.md). This page is the flag reference.
+
+{% hint style="info" %}
+Ask your agent. Every template here has a skill (`get_skill_instructions`) and the session tools behind it: "Build a USDC vault called Demo Vault with symbol vUSDC and a 1000 daily withdraw limit, then give me the review link."
+{% endhint %}
 
 ## Subcommands
 
@@ -49,7 +98,7 @@ The subcommand list comes from `bitbadgesjs-sdk/src/cli/commands/build.ts`. Coll
 | `send` | `cosmos.bank.v1beta1.MsgSend` | Plain coin transfer that bypasses tokenization |
 | `transfer` | `MsgTransferTokens` | Guided transfer of existing tokens |
 
-Ten standards groups expose the same builder as `bb <standard> build ...` (for example `bb auctions build` is `bb build auction`). Same flags, same output. `nfts` and `dynamic-stores` have no build alias.
+Ten standards groups expose the same builder as `bb <standard> build` (for example `bb auctions build` is `bb build auction`). Same flags, same output. `nfts` and `dynamic-stores` have no build alias.
 
 ## Shared flags
 
@@ -63,8 +112,8 @@ Every subcommand accepts these. `--help` renders them under `Metadata`, `Output`
 | `--output-file <path>` | Output | Write to a file instead of stdout |
 | `--json <input>` | Output | Pass all params as one JSON object (file, inline, or `-` for stdin). Overrides individual flags. |
 | `--explain` | Output | Print a plain-English explanation to stderr in addition to the auto-review |
-| `--creator <address>` | Builder | Creator/sender address (`bb1...` or `0x...`) |
-| `--manager <address>` | Builder | Collection manager (`bb1...`) |
+| `--creator <address>` | Builder | Creator/sender address (`bb1` or `0x` form) |
+| `--manager <address>` | Builder | Collection manager (`bb1` form) |
 | `--simulate` | Builder | Also call the simulate endpoint and render gas and net balance changes (needs an API key). Different from `bb deploy --dry-run`, which simulates and exits. |
 | `--events` | Builder | With `--simulate`, dump the full events array instead of the count |
 | `--network`, `--mainnet`, `--testnet`, `--local`, `--url`, `--api-key` | Network | See [CLI](README.md#network-flags) |
@@ -76,23 +125,23 @@ Every subcommand accepts these. `--help` renders them under `Metadata`, `Output`
 
 Every metadata-bearing builder accepts exactly one of two modes per entity:
 
-1. `--uri <pre-hosted-uri>` when you already host the JSON.
+1. `--uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json` when you already host the JSON.
 2. `--name` + `--image` + `--description`. The CLI serializes them into the on-chain `customData` field. The BitBadges API, SDK, and site parse `customData` on read and show it as the resolved metadata, so no IPFS account is needed.
 
 Approvals are text-only: `--name` + `--description`, no image. The CLI errors if neither mode is complete; there are no placeholder defaults. On-chain shape: [Collections](../token-standard/concepts/collections.md).
 
 ### Denoms and amounts
 
-`--denom` style flags accept a symbol (`BADGE`, `USDC`, `ATOM`, `OSMO`) or a canonical denom (`ubadge`, `ibc/...`). Amounts are display units when the denom is a symbol and base units when it is a raw denom. `--base-units` forces base units. `USDC` resolves to the canonical Injective-routed denom; `USDC.n` is the legacy denom. See [Supported denoms](../chain/supported-denoms.md).
+`--denom` style flags accept a symbol (`BADGE`, `USDC`, `ATOM`, `OSMO`) or a canonical denom (`ubadge`, `ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8`). Amounts are display units when the denom is a symbol and base units when it is a raw denom. `--base-units` forces base units. `USDC` resolves to the canonical Injective-routed denom; `USDC.n` is the legacy denom. See [Supported denoms](../chain/supported-denoms.md).
 
 Durations accept `daily`, `monthly`, `annually`, shorthand such as `30d`, `24h`, `5m`, or ms-since-epoch.
 
 ### JSON input
 
 ```bash
-bb build vault --json '{"backingCoin":"USDC","uri":"ipfs://Qm..."}'
+bb build vault --json '{"backingCoin":"USDC","uri":"ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json"}'
 bb build vault --json ./params.json
-echo '{"backingCoin":"USDC","uri":"ipfs://Qm..."}' | bb build vault --json -
+echo '{"backingCoin":"USDC","uri":"ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json"}' | bb build vault --json -
 ```
 
 Keys are the camelCase form of the flags.
@@ -102,8 +151,8 @@ Keys are the camelCase form of the flags.
 ### vault
 
 ```bash
-bb build vault --backing-coin USDC --symbol vUSDC --uri ipfs://Qm... \
-  --daily-withdraw-limit 1000 --require-2fa 84 --emergency-recovery bb1rec...
+bb build vault --backing-coin USDC --symbol vUSDC --uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json \
+  --daily-withdraw-limit 1000 --require-2fa 84 --emergency-recovery bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf
 ```
 
 | Flag | Required | Description |
@@ -117,7 +166,7 @@ bb build vault --backing-coin USDC --symbol vUSDC --uri ipfs://Qm... \
 ### smart-token
 
 ```bash
-bb build smart-token --backing-coin USDC --symbol sUSDC --uri ipfs://Qm... \
+bb build smart-token --backing-coin USDC --symbol sUSDC --uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json \
   --tradable --ai-agent-vault
 ```
 
@@ -135,7 +184,8 @@ Vault collections are Smart Tokens with the `cosmosCoinBackedPath` invariant. `b
 
 ```bash
 bb build subscription --interval monthly --price 10 --denom USDC \
-  --recipient bb1pay... --tiers 3 --transferable --uri ipfs://Qm...
+  --recipient bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --tiers 3 --transferable \
+  --uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json
 ```
 
 | Flag | Required | Description |
@@ -144,7 +194,7 @@ bb build subscription --interval monthly --price 10 --denom USDC \
 | `--price <amount>` | no | Price per interval in display units; use with `--denom` and `--recipient` |
 | `--denom <symbol\|denom>` | no | Payment coin |
 | `--recipient <address>` | no | Payout address |
-| `--payouts <json>` | no | Several payouts: `[{"recipient","amount","denom"}]` |
+| `--payouts <json>` | no | Several payouts: `[{"recipient":"bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d","amount":"7","denom":"USDC"},{"recipient":"bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf","amount":"3","denom":"USDC"}]` |
 | `--tiers <n>` | no | Number of tiers (default `1`) |
 | `--transferable` | no | Allow post-mint transfers between users |
 
@@ -153,8 +203,9 @@ There is no `bb build recurring-payment`. A subscriber's recurring approval deri
 ### bounty
 
 ```bash
-bb build bounty --amount 500 --denom USDC --verifier bb1ver... \
-  --recipient bb1rec... --submitter bb1sub... --expiration 30d --uri ipfs://Qm...
+bb build bounty --amount 500 --denom USDC --verifier bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf \
+  --recipient bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --submitter bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d \
+  --expiration 30d --uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json
 ```
 
 | Flag | Required | Description |
@@ -170,9 +221,9 @@ bb build bounty --amount 500 --denom USDC --verifier bb1ver... \
 
 ```bash
 bb build payment-request --amount 10 --denom USDC \
-  --payer bb1payer... --recipient bb1agent... --expiration 30d \
-  --name "Service charge" --image https://example.com/i.png \
-  --context "Agent X requests payment for deliverable Y under the approved budget of 100 USDC per month."
+  --payer bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --recipient bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr --expiration 30d \
+  --name "Service charge" --image ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/invoice.png \
+  --context "Agent requests payment for the September report under the approved budget of 100 USDC per month."
 ```
 
 | Flag | Required | Description |
@@ -189,7 +240,8 @@ The inverse of `bounty`: no escrow up front. The payer approves and pays from th
 ### crowdfund
 
 ```bash
-bb build crowdfund --goal 10000 --denom USDC --crowdfunder bb1cf... --deadline 30d --uri ipfs://Qm...
+bb build crowdfund --goal 10000 --denom USDC --crowdfunder bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --deadline 30d \
+  --uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json
 ```
 
 | Flag | Required | Description |
@@ -202,8 +254,8 @@ bb build crowdfund --goal 10000 --denom USDC --crowdfunder bb1cf... --deadline 3
 ### auction
 
 ```bash
-bb build auction --bid-deadline 7d --accept-window 7d --seller bb1seller... \
-  --name "Rare Item" --description "Limited edition" --image https://example.com/i.png
+bb build auction --bid-deadline 7d --accept-window 7d --seller bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d \
+  --name "Rare Item" --description "Limited edition" --image ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/1.png
 ```
 
 | Flag | Required | Description |
@@ -215,7 +267,8 @@ bb build auction --bid-deadline 7d --accept-window 7d --seller bb1seller... \
 ### product-catalog
 
 ```bash
-bb build product-catalog --store-address bb1store... --uri ipfs://Qm... \
+bb build product-catalog --store-address bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d \
+  --uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json \
   --products '[{"name":"Widget","price":25,"denom":"USDC","maxSupply":100},{"name":"Pass","price":5,"denom":"USDC","burn":true}]'
 ```
 
@@ -229,8 +282,9 @@ Product fields: `name` (required), `price` (display units, required), `denom` (r
 ### prediction-market
 
 ```bash
-bb build prediction-market --verifier bb1res... --denom USDC \
-  --name "Will X happen by 2027?" --description "Resolves YES if ..." --image https://example.com/i.png
+bb build prediction-market --verifier bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf --denom USDC \
+  --name "Will testnet return by 2027?" --description "Resolves YES if the BitBadges testnet is back online before 2027-01-01." \
+  --image ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/market.png
 ```
 
 | Flag | Required | Description |
@@ -241,8 +295,8 @@ bb build prediction-market --verifier bb1res... --denom USDC \
 ### credit-token
 
 ```bash
-bb build credit-token --payment-denom USDC --recipient bb1rec... \
-  --symbol CREDIT --tokens-per-unit 100 --uri ipfs://Qm...
+bb build credit-token --payment-denom USDC --recipient bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d \
+  --symbol CREDIT --tokens-per-unit 100 --uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json
 ```
 
 | Flag | Required | Description |
@@ -255,8 +309,8 @@ bb build credit-token --payment-denom USDC --recipient bb1rec... \
 ### custom-2fa
 
 ```bash
-bb build custom-2fa --creator bb1manager... --name "My 2FA Token" \
-  --image ipfs://Qm... --description "Short-lived 2FA token" --burnable
+bb build custom-2fa --creator bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --name "Demo 2FA Token" \
+  --image ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/2fa.png --description "Short-lived 2FA token" --burnable
 ```
 
 | Flag | Required | Description |
@@ -270,7 +324,8 @@ Issue tokens afterwards with `bb custom-2fa mint`. The lifetime is encoded at mi
 ### address-list
 
 ```bash
-bb build address-list --name "Allowlist" --description "Approved addresses" --image https://example.com/i.png
+bb build address-list --name "Allowlist" --description "Approved addresses" \
+  --image ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/list.png
 ```
 
 Emits `MsgCreateAddressLists`. Takes the shared metadata flags only.
@@ -280,7 +335,7 @@ Emits `MsgCreateAddressLists`. Takes the shared metadata flags only.
 ### intent
 
 ```bash
-bb build intent --address bb1me... --collection-id 81 \
+bb build intent --address bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --collection-id 81 \
   --pay-denom USDC --pay-amount 100 --receive-denom BADGE --receive-amount 500 --expiration 30d
 ```
 
@@ -297,7 +352,7 @@ Identical output to `bb intents create`.
 ### listing
 
 ```bash
-bb build listing --address bb1me... --collection-id 7 --token-ids 4 \
+bb build listing --address bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --collection-id 1 --token-ids 4 \
   --price 50 --denom USDC --max-sales 1 --expiration 30d
 ```
 
@@ -315,8 +370,8 @@ Identical output to `bb nfts list`.
 ### bid
 
 ```bash
-bb build bid --address bb1me... --collection-id 7 --token-ids 4 --price 40 --denom USDC --expiration 7d
-bb build bid --address bb1me... --collection-id 7 --price 40 --denom USDC          # collection-wide
+bb build bid --address bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --collection-id 1 --token-ids 4 --price 40 --denom USDC --expiration 7d
+bb build bid --address bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --collection-id 1 --price 40 --denom USDC          # collection-wide
 ```
 
 | Flag | Required | Description |
@@ -333,8 +388,8 @@ Identical output to `bb nfts bid`.
 ### pm-sell-intent and pm-buy-intent
 
 ```bash
-bb build pm-sell-intent --address bb1me... --collection-id 12 --token yes --amount 10 --price 50 --denom USDC
-bb build pm-buy-intent  --address bb1me... --collection-id 12 --token no  --amount 10 --price 50 --denom USDC
+bb build pm-sell-intent --address bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --collection-id 12 --token yes --amount 10 --price 50 --denom USDC
+bb build pm-buy-intent  --address bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --collection-id 12 --token no  --amount 10 --price 50 --denom USDC
 ```
 
 | Flag | Required | Description |
@@ -351,13 +406,13 @@ bb build pm-buy-intent  --address bb1me... --collection-id 12 --token no  --amou
 ### send
 
 ```bash
-bb build send --from bb1me... --to bb1you... --amount 1.5 --denom BADGE
-bb build send --from bb1me... --to bb1you... --amount 1500000 --denom ubadge --base-units
+bb build send --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --amount 1.5 --denom BADGE
+bb build send --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --amount 1500000000 --denom ubadge --base-units
 ```
 
 | Flag | Required | Description |
 | --- | --- | --- |
-| `--from <address>`, `--to <address>` | yes | `bb1...` or `0x...`, auto-normalized |
+| `--from <address>`, `--to <address>` | yes | `bb1` or `0x` form, auto-normalized |
 | `--amount <n>` | yes | Display units for symbols, base units for raw denoms |
 | `--denom <symbol-or-denom>` | yes | Coin |
 | `--base-units` | no | Treat `--amount` as base units |
@@ -368,8 +423,8 @@ Use `send` for fee top-ups or returning dust. For BitBadges token transfers use 
 
 ```bash
 bb build transfer                                                        # interactive walkthrough
-bb build transfer --collection-id 1 --from bb1abc... --to bb1xyz... --amount 5
-bb build transfer --yes --collection-id 1 --from Mint --to bb1xyz...      # non-interactive
+bb build transfer --collection-id 1 --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --amount 5
+bb build transfer --yes --collection-id 1 --from Mint --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue      # non-interactive
 ```
 
 Needs an API key. The walkthrough fetches the collection, the sender's outgoing approvals, and the recipient's incoming approvals, then renders a numbered list grouped by level (collection, outgoing, incoming) with `predetermined`, `payment`, `must-own`, and `backed` tags. It asks:
@@ -384,7 +439,7 @@ If a picked approval needs a coin payment or prerequisite ownership, a "Heads up
 | Flag | Description |
 | --- | --- |
 | `--collection-id <id>` | Prompts if omitted |
-| `--from <address>` | `bb1...`, `0x...`, or `Mint` |
+| `--from <address>` | A `bb1` or `0x` address, or `Mint` |
 | `--to <address>` | Cannot be `Mint` |
 | `--amount <n>` | Per-recipient amount when not precalculated (`1` with `--yes`) |
 | `--token-ids <spec>` | `1-5`, `1,3,5`, or `all` (`all` with `--yes`) |

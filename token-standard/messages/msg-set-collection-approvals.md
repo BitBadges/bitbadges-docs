@@ -9,84 +9,275 @@ Sets the full list of collection-level approvals and the permission that guards 
 ## Example
 
 ```bash
-bb tx tokenization set-setcollectionapprovals ./set-collection-approvals.json --from <manager-key> --chain-id bitbadges-1
+bb tx tokenization set-setcollectionapprovals ./set-collection-approvals.json --from alice --chain-id bitbadges-1
 ```
 
-```ts
+```ts fold=22-113
 import { BitBadgesSigningClient, GenericCosmosAdapter, MsgSetCollectionApprovals } from 'bitbadges';
 
 const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
-const full = [{ start: 1n, end: 18446744073709551615n }];
-
+// Keep only the transferable approval, then freeze it so no manager can change it.
 const msg = new MsgSetCollectionApprovals({
-  creator: client.address,
+  creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
   collectionId: 1n,
   collectionApprovals: [
     {
-      approvalId: 'transferable',
       fromListId: 'AllWithoutMint',
       toListId: 'All',
       initiatedByListId: 'All',
-      transferTimes: full,
-      tokenIds: full,
-      ownershipTimes: full,
+      transferTimes: [{ start: 1n, end: 18446744073709551615n }],
+      tokenIds: [{ start: 1n, end: 100n }],
+      ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
       uri: '',
       customData: '',
-      version: 0n,
-      approvalCriteria: undefined
+      approvalId: 'transferable',
+      approvalCriteria: {
+        merkleChallenges: [],
+        predeterminedBalances: {
+          manualBalances: [],
+          incrementedBalances: {
+            startBalances: [],
+            incrementTokenIdsBy: 0n,
+            incrementOwnershipTimesBy: 0n,
+            durationFromTimestamp: 0n,
+            allowOverrideTimestamp: false,
+            recurringOwnershipTimes: { startTime: 0n, intervalLength: 0n, chargePeriodLength: 0n },
+            allowOverrideWithAnyValidToken: false,
+            allowAmountScaling: false,
+            maxScalingMultiplier: 0n
+          },
+          orderCalculationMethod: {
+            useOverallNumTransfers: false,
+            usePerToAddressNumTransfers: false,
+            usePerFromAddressNumTransfers: false,
+            usePerInitiatedByAddressNumTransfers: false,
+            useMerkleChallengeLeafIndex: false,
+            challengeTrackerId: ''
+          }
+        },
+        approvalAmounts: {
+          overallApprovalAmount: 0n,
+          perToAddressApprovalAmount: 0n,
+          perFromAddressApprovalAmount: 0n,
+          perInitiatedByAddressApprovalAmount: 0n,
+          amountTrackerId: '',
+          resetTimeIntervals: { startTime: 0n, intervalLength: 0n }
+        },
+        maxNumTransfers: {
+          overallMaxNumTransfers: 0n,
+          perToAddressMaxNumTransfers: 0n,
+          perFromAddressMaxNumTransfers: 0n,
+          perInitiatedByAddressMaxNumTransfers: 0n,
+          amountTrackerId: '',
+          resetTimeIntervals: { startTime: 0n, intervalLength: 0n }
+        },
+        coinTransfers: [],
+        requireToEqualsInitiatedBy: false,
+        requireFromEqualsInitiatedBy: false,
+        requireToDoesNotEqualInitiatedBy: false,
+        requireFromDoesNotEqualInitiatedBy: false,
+        overridesFromOutgoingApprovals: false,
+        overridesToIncomingApprovals: false,
+        autoDeletionOptions: {
+          afterOneUse: false,
+          afterOverallMaxNumTransfers: false,
+          allowCounterpartyPurge: false,
+          allowPurgeIfExpired: false
+        },
+        mustOwnTokens: [],
+        dynamicStoreChallenges: [],
+        ethSignatureChallenges: [],
+        senderChecks: {
+          mustBeEvmContract: false,
+          mustNotBeEvmContract: false,
+          mustBeLiquidityPool: false,
+          mustNotBeLiquidityPool: false
+        },
+        recipientChecks: {
+          mustBeEvmContract: false,
+          mustNotBeEvmContract: false,
+          mustBeLiquidityPool: false,
+          mustNotBeLiquidityPool: false
+        },
+        initiatorChecks: {
+          mustBeEvmContract: false,
+          mustNotBeEvmContract: false,
+          mustBeLiquidityPool: false,
+          mustNotBeLiquidityPool: false
+        },
+        altTimeChecks: {
+          offlineHours: [],
+          offlineDays: [],
+          offlineMonths: [],
+          offlineDaysOfMonth: [],
+          offlineWeeksOfYear: [],
+          timezoneOffsetMinutes: 0n,
+          timezoneOffsetNegative: false
+        },
+        mustPrioritize: false,
+        votingChallenges: [],
+        allowBackedMinting: false,
+        allowSpecialWrapping: false,
+        evmQueryChallenges: [],
+        userApprovalSettings: {
+          allowedDenoms: [],
+          disableUserCoinTransfers: false,
+          userRoyalties: { percentage: 0n, payoutAddress: '' }
+        }
+      },
+      version: 0n
     }
   ],
-  canUpdateCollectionApprovals: []
+  canUpdateCollectionApprovals: [
+    {
+      fromListId: 'AllWithoutMint',
+      toListId: 'All',
+      initiatedByListId: 'All',
+      transferTimes: [{ start: 1n, end: 18446744073709551615n }],
+      tokenIds: [{ start: 1n, end: 100n }],
+      ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
+      approvalId: 'transferable',
+      permanentlyPermittedTimes: [],
+      permanentlyForbiddenTimes: [{ start: 1n, end: 18446744073709551615n }]
+    }
+  ]
 });
 
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
-```json
+```json fold=16-107
 {
-  "creator": "bb1manager...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "collectionId": "1",
   "collectionApprovals": [
     {
-      "approvalId": "approval1",
-      "fromListId": "list1",
-      "toListId": "list2",
-      "initiatedByListId": "list3",
-      "transferTimes": [{ "start": "1000", "end": "2000" }],
-      "tokenIds": [{ "start": "1", "end": "10" }],
-      "ownershipTimes": [{ "start": "1", "end": "100" }],
+      "fromListId": "AllWithoutMint",
+      "toListId": "All",
+      "initiatedByListId": "All",
+      "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+      "tokenIds": [{ "start": "1", "end": "100" }],
+      "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
       "uri": "",
       "customData": "",
+      "approvalId": "transferable",
       "approvalCriteria": {
-        "mustOwnTokens": [],
         "merkleChallenges": [],
-        "ethSignatureChallenges": [],
+        "predeterminedBalances": {
+          "manualBalances": [],
+          "incrementedBalances": {
+            "startBalances": [],
+            "incrementTokenIdsBy": "0",
+            "incrementOwnershipTimesBy": "0",
+            "durationFromTimestamp": "0",
+            "allowOverrideTimestamp": false,
+            "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+            "allowOverrideWithAnyValidToken": false,
+            "allowAmountScaling": false,
+            "maxScalingMultiplier": "0"
+          },
+          "orderCalculationMethod": {
+            "useOverallNumTransfers": false,
+            "usePerToAddressNumTransfers": false,
+            "usePerFromAddressNumTransfers": false,
+            "usePerInitiatedByAddressNumTransfers": false,
+            "useMerkleChallengeLeafIndex": false,
+            "challengeTrackerId": ""
+          }
+        },
+        "approvalAmounts": {
+          "overallApprovalAmount": "0",
+          "perToAddressApprovalAmount": "0",
+          "perFromAddressApprovalAmount": "0",
+          "perInitiatedByAddressApprovalAmount": "0",
+          "amountTrackerId": "",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "maxNumTransfers": {
+          "overallMaxNumTransfers": "0",
+          "perToAddressMaxNumTransfers": "0",
+          "perFromAddressMaxNumTransfers": "0",
+          "perInitiatedByAddressMaxNumTransfers": "0",
+          "amountTrackerId": "",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
         "coinTransfers": [],
-        "predeterminedBalances": null,
-        "approvalAmounts": null,
-        "autoDeletionOptions": null,
-        "maxNumTransfers": null,
-        "dynamicStoreChallenges": []
-      }
+        "requireToEqualsInitiatedBy": false,
+        "requireFromEqualsInitiatedBy": false,
+        "requireToDoesNotEqualInitiatedBy": false,
+        "requireFromDoesNotEqualInitiatedBy": false,
+        "overridesFromOutgoingApprovals": false,
+        "overridesToIncomingApprovals": false,
+        "autoDeletionOptions": {
+          "afterOneUse": false,
+          "afterOverallMaxNumTransfers": false,
+          "allowCounterpartyPurge": false,
+          "allowPurgeIfExpired": false
+        },
+        "mustOwnTokens": [],
+        "dynamicStoreChallenges": [],
+        "ethSignatureChallenges": [],
+        "senderChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "recipientChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "initiatorChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "altTimeChecks": {
+          "offlineHours": [],
+          "offlineDays": [],
+          "offlineMonths": [],
+          "offlineDaysOfMonth": [],
+          "offlineWeeksOfYear": [],
+          "timezoneOffsetMinutes": "0",
+          "timezoneOffsetNegative": false
+        },
+        "mustPrioritize": false,
+        "votingChallenges": [],
+        "allowBackedMinting": false,
+        "allowSpecialWrapping": false,
+        "evmQueryChallenges": [],
+        "userApprovalSettings": {
+          "allowedDenoms": [],
+          "disableUserCoinTransfers": false,
+          "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+        }
+      },
+      "version": "0"
     }
   ],
   "canUpdateCollectionApprovals": [
     {
-      "fromListId": "list1",
-      "toListId": "list2",
-      "initiatedByListId": "list3",
-      "transferTimes": [{ "start": "1000", "end": "2000" }],
-      "tokenIds": [{ "start": "1", "end": "10" }],
-      "ownershipTimes": [{ "start": "1", "end": "100" }],
-      "approvalId": "approval1",
-      "permanentlyPermittedTimes": [{ "start": "1000", "end": "2000" }],
-      "permanentlyForbiddenTimes": []
+      "fromListId": "AllWithoutMint",
+      "toListId": "All",
+      "initiatedByListId": "All",
+      "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+      "tokenIds": [{ "start": "1", "end": "100" }],
+      "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+      "approvalId": "transferable",
+      "permanentlyPermittedTimes": [],
+      "permanentlyForbiddenTimes": [{ "start": "1", "end": "18446744073709551615" }]
     }
   ]
 }
 ```
+
+The `mint` approval is not in the list, so this message deletes it: minting stops for good. The permission entry forbids every future change to `transferable`, so the collection stays freely tradable.
 
 ## Fields
 

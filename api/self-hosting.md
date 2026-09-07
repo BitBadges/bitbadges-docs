@@ -26,8 +26,8 @@ bun run dev            # build and run
 The API listens on `http://localhost:3001`. The WebSocket server listens on `8080`.
 
 ```bash
-curl -X POST http://localhost:3001/api/v0/collections/fetch \
-  -H "Content-Type: application/json" -H "x-api-key: <key>" \
+curl -X POST http://localhost:3001/api/v0/collections \
+  -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
   -d '{ "collectionsToFetch": [ { "collectionId": "1" } ] }'
 ```
 
@@ -61,7 +61,7 @@ Optional, core features:
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `BITBADGES_API_KEY` | API key seeded for local use | |
+| `BITBADGES_API_KEY` | API key seeded for local use. Send it as `x-api-key` in the request above. | |
 | `FRONTEND_URL` | Frontend origin for CORS | `http://localhost:3000` |
 | `DEV_MODE` | Development mode | `true` |
 | `DISABLE_API` | Do not start the API server | `false` |

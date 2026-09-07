@@ -26,6 +26,10 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/params
 }
 ```
 
+{% hint style="info" %}
+Ask your agent: "List every denom BitBadges accepts for payments and pools, with decimals, and tell me the current USDC price of BADGE." The `bb assets list` and `bb assets price` commands read the registry and the pool prices on this page.
+{% endhint %}
+
 ## Allowlist (mainnet, 2026-09-06)
 
 | Symbol | Denom | Decimals | Route | Status |
@@ -64,10 +68,14 @@ The canonical route is proven and its allowlisting shipped with governance propo
 import { MAINNET_COINS_REGISTRY } from 'bitbadges';
 
 const usdc = MAINNET_COINS_REGISTRY['ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8'];
-// { label: 'USDC', symbol: 'USDC', decimals: '6', baseDenom: 'ibc/E1116484...', skipGoSupported: true, image: '...' }
+// { label: 'USDC', symbol: 'USDC', decimals: '6', skipGoSupported: true,
+//   baseDenom: 'ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8',
+//   image: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/_non-cosmos/ethereum/images/usdc.png' }
 
 const legacy = MAINNET_COINS_REGISTRY['ibc/F082B65C88E4B6D5EF1DB243CDA1D331D002759E938A0F5CD3FFDC5D53B3E349'];
-// { label: 'USDC.n', symbol: 'USDC.n', decimals: '6', deprecated: true, deprecationNote: 'Legacy Noble-routed USDC. ...' }
+// { label: 'USDC.n', symbol: 'USDC.n', decimals: '6', skipGoSupported: true, deprecated: true,
+//   baseDenom: 'ibc/F082B65C88E4B6D5EF1DB243CDA1D331D002759E938A0F5CD3FFDC5D53B3E349',
+//   deprecationNote: 'Legacy Noble-routed USDC. Existing balances stay fully usable, use canonical USDC (via Injective) for everything new.' }
 ```
 
 `CHAOS` and `BADGE` use 9 decimals; the three IBC stablecoins and ATOM and OSMO use 6. `CHAOS` is not Skip-supported. Images point at the Cosmos chain registry.

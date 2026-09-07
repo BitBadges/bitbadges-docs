@@ -8,7 +8,7 @@ The tokenization precompile charges a base cost per method plus a fixed buffer, 
 
 ```go
 // RequiredGas, simplified
-baseGas := <per-method constant>
+baseGas := baseGasForMethod(methodID) // the per-method constant from the tables below
 if isTransaction {
     return baseGas + 200_000
 }

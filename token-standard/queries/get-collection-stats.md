@@ -27,12 +27,12 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_collecti
 ```json
 {
   "stats": {
-    "holderCount": "150",
+    "holderCount": "2",
     "balances": [
       {
-        "amount": "10000",
-        "tokenIds": [{ "start": "1", "end": "100" }],
-        "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }]
+        "amount": "100",
+        "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+        "tokenIds": [{ "start": "1", "end": "100" }]
       }
     ]
   }

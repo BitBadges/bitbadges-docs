@@ -68,7 +68,9 @@ Every method takes one `string calldata msgJson`. The JSON is the protobuf JSON 
 
 ```solidity
 // Correct: JSON string
-string memory json = TokenizationJSONHelpers.transferTokensJSON(...);
+string memory json = TokenizationJSONHelpers.transferTokensJSON(
+    collectionId, recipients, amount, tokenIdsJson, ownershipTimesJson
+);
 bool success = TOKENIZATION.transferTokens(json);
 
 // Wrong: struct parameters (old interface)
@@ -137,60 +139,82 @@ Query methods return `uint256` for `getBalanceAmount`, `getTotalSupply`, `getCha
 ### Simple token transfer
 
 ```solidity
-function transferToken(
-    uint256 collectionId,
-    address to,
-    uint256 amount,
-    uint256 tokenId
-) external returns (bool) {
-    address[] memory recipients = new address[](1);
-    recipients[0] = to;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    // Full ownership (no expiration)
-    string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId);
-    string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER);
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
 
-    string memory transferJson = TokenizationJSONHelpers.transferTokensJSON(
-        collectionId,
-        recipients,
-        amount,
-        tokenIdsJson,
-        ownershipJson
-    );
+contract SimpleTransfer {
+    ITokenizationPrecompile constant TOKENIZATION =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
-    return TOKENIZATION.transferTokens(transferJson);
+    function transferToken(
+        uint256 collectionId,
+        address to,
+        uint256 amount,
+        uint256 tokenId
+    ) external returns (bool) {
+        address[] memory recipients = new address[](1);
+        recipients[0] = to;
+
+        // Full ownership (no expiration)
+        string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId);
+        string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER);
+
+        string memory transferJson = TokenizationJSONHelpers.transferTokensJSON(
+            collectionId,
+            recipients,
+            amount,
+            tokenIdsJson,
+            ownershipJson
+        );
+
+        return TOKENIZATION.transferTokens(transferJson);
+    }
 }
 ```
 
 ### Time-bound transfer
 
 ```solidity
-function transferWithExpiration(
-    uint256 collectionId,
-    address to,
-    uint256 amount,
-    uint256 tokenId,
-    uint256 expirationTime
-) external returns (bool) {
-    address[] memory recipients = new address[](1);
-    recipients[0] = to;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    // Time-bound ownership
-    string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId);
-    string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(
-        block.timestamp,
-        expirationTime
-    );
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
 
-    string memory transferJson = TokenizationJSONHelpers.transferTokensJSON(
-        collectionId,
-        recipients,
-        amount,
-        tokenIdsJson,
-        ownershipJson
-    );
+contract TimeBoundTransfer {
+    ITokenizationPrecompile constant TOKENIZATION =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
-    return TOKENIZATION.transferTokens(transferJson);
+    function transferWithExpiration(
+        uint256 collectionId,
+        address to,
+        uint256 amount,
+        uint256 tokenId,
+        uint256 expirationTime
+    ) external returns (bool) {
+        address[] memory recipients = new address[](1);
+        recipients[0] = to;
+
+        // Time-bound ownership
+        string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId);
+        string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(
+            block.timestamp,
+            expirationTime
+        );
+
+        string memory transferJson = TokenizationJSONHelpers.transferTokensJSON(
+            collectionId,
+            recipients,
+            amount,
+            tokenIdsJson,
+            ownershipJson
+        );
+
+        return TOKENIZATION.transferTokens(transferJson);
+    }
 }
 ```
 
@@ -199,37 +223,48 @@ Concept: [Balances](../../../token-standard/concepts/balances.md) (ownership tim
 ### KYC registry with a dynamic store
 
 ```solidity
-uint256 public kycRegistryId;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-function initializeKYCRegistry() external {
-    string memory createJson = TokenizationJSONHelpers.createDynamicStoreJSON(
-        false,  // defaultValue: not KYC'd by default
-        "ipfs://kyc-registry-metadata",
-        "{\"type\":\"kyc\"}"
-    );
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
 
-    kycRegistryId = TOKENIZATION.createDynamicStore(createJson);
-}
+contract KycRegistry {
+    ITokenizationPrecompile constant TOKENIZATION =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
-function setKYCStatus(address user, bool isKYCd) external {
-    string memory setValueJson = TokenizationJSONHelpers.setDynamicStoreValueJSON(
-        kycRegistryId,
-        user,
-        isKYCd
-    );
+    uint256 public kycRegistryId;
 
-    TOKENIZATION.setDynamicStoreValue(setValueJson);
-}
+    function initializeKYCRegistry() external {
+        string memory createJson = TokenizationJSONHelpers.createDynamicStoreJSON(
+            false,  // defaultValue: not KYC'd by default
+            "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
+            "{\"type\":\"kyc\"}"
+        );
 
-function kycValueBytes(address user) external view returns (bytes memory) {
-    string memory getValueJson = TokenizationJSONHelpers.getDynamicStoreValueJSON(
-        kycRegistryId,
-        user
-    );
+        kycRegistryId = TOKENIZATION.createDynamicStore(createJson);
+    }
 
-    // Protobuf-encoded QueryGetDynamicStoreValueResponse. Decode off-chain,
-    // or let the chain enforce the store with a dynamic store challenge.
-    return TOKENIZATION.getDynamicStoreValue(getValueJson);
+    function setKYCStatus(address user, bool isKYCd) external {
+        string memory setValueJson = TokenizationJSONHelpers.setDynamicStoreValueJSON(
+            kycRegistryId,
+            user,
+            isKYCd
+        );
+
+        TOKENIZATION.setDynamicStoreValue(setValueJson);
+    }
+
+    function kycValueBytes(address user) external view returns (bytes memory) {
+        string memory getValueJson = TokenizationJSONHelpers.getDynamicStoreValueJSON(
+            kycRegistryId,
+            user
+        );
+
+        // Protobuf-encoded QueryGetDynamicStoreValueResponse. Decode off-chain,
+        // or let the chain enforce the store with a dynamic store challenge.
+        return TOKENIZATION.getDynamicStoreValue(getValueJson);
+    }
 }
 ```
 
@@ -238,41 +273,52 @@ To enforce the registry on transfers without a contract in the loop, add a [dyna
 ### Create a collection
 
 ```solidity
-function createMyCollection(
-    string memory name,
-    string memory symbol
-) external returns (uint256) {
-    // Build JSON components
-    string memory validTokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(1, 1000);
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    string memory defaultBalancesJson = TokenizationJSONHelpers.simpleUserBalanceStoreToJson(
-        true,   // autoApproveSelfInitiatedOutgoingTransfers
-        true,   // autoApproveSelfInitiatedIncomingTransfers
-        false   // autoApproveAllIncomingTransfers
-    );
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
 
-    string memory metadataJson = TokenizationJSONHelpers.collectionMetadataToJson(
-        "ipfs://collection-metadata",
-        string(abi.encodePacked("{\"name\":\"", name, "\",\"symbol\":\"", symbol, "\"}"))
-    );
+contract CollectionFactory {
+    ITokenizationPrecompile constant TOKENIZATION =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
-    string[] memory standards = new string[](1);
-    standards[0] = "ERC-3643";
-    string memory standardsJson = TokenizationJSONHelpers.stringArrayToJson(standards);
+    function createMyCollection(
+        string memory name,
+        string memory symbol
+    ) external returns (uint256) {
+        // Build JSON components
+        string memory validTokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(1, 1000);
 
-    // Build complete JSON
-    string memory createJson = TokenizationJSONHelpers.createCollectionJSON(
-        validTokenIdsJson,
-        TokenizationJSONHelpers.addressToString(address(this)),  // manager
-        metadataJson,
-        defaultBalancesJson,
-        "{}",  // collectionPermissions (empty)
-        standardsJson,
-        "",    // customData
-        false  // isArchived
-    );
+        string memory defaultBalancesJson = TokenizationJSONHelpers.simpleUserBalanceStoreToJson(
+            true,   // autoApproveSelfInitiatedOutgoingTransfers
+            true,   // autoApproveSelfInitiatedIncomingTransfers
+            false   // autoApproveAllIncomingTransfers
+        );
 
-    return TOKENIZATION.createCollection(createJson);
+        string memory metadataJson = TokenizationJSONHelpers.collectionMetadataToJson(
+            "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
+            string(abi.encodePacked("{\"name\":\"", name, "\",\"symbol\":\"", symbol, "\"}"))
+        );
+
+        string[] memory standards = new string[](1);
+        standards[0] = "ERC-3643";
+        string memory standardsJson = TokenizationJSONHelpers.stringArrayToJson(standards);
+
+        // Build complete JSON
+        string memory createJson = TokenizationJSONHelpers.createCollectionJSON(
+            validTokenIdsJson,
+            TokenizationJSONHelpers.addressToString(address(this)),  // manager
+            metadataJson,
+            defaultBalancesJson,
+            "{}",  // collectionPermissions (empty)
+            standardsJson,
+            "",    // customData
+            false  // isArchived
+        );
+
+        return TOKENIZATION.createCollection(createJson);
+    }
 }
 ```
 
@@ -283,71 +329,82 @@ Invariants and cosmos coin wrapper paths can be set at creation through `createC
 `executeMultiple` runs several messages atomically in one call.
 
 ```solidity
-function createAndTransfer(
-    string memory name,
-    address recipient,
-    uint256 amount
-) external returns (uint256 collectionId) {
-    // Prepare messages array
-    ITokenizationPrecompile.MessageInput[] memory messages = new ITokenizationPrecompile.MessageInput[](2);
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    // Message 1: Create Collection
-    string memory validTokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(1, 1000);
-    string memory defaultBalancesJson = TokenizationJSONHelpers.simpleUserBalanceStoreToJson(true, true, false);
-    string memory metadataJson = TokenizationJSONHelpers.collectionMetadataToJson(
-        "ipfs://metadata",
-        string(abi.encodePacked("{\"name\":\"", name, "\"}"))
-    );
-    string[] memory standards = new string[](0);
-    string memory standardsJson = TokenizationJSONHelpers.stringArrayToJson(standards);
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
 
-    string memory createJson = TokenizationJSONHelpers.createCollectionJSON(
-        validTokenIdsJson,
-        TokenizationJSONHelpers.addressToString(address(this)),
-        metadataJson,
-        defaultBalancesJson,
-        "{}",
-        standardsJson,
-        "",
-        false
-    );
+contract CreateAndTransfer {
+    ITokenizationPrecompile constant TOKENIZATION =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
-    messages[0] = ITokenizationPrecompile.MessageInput({
-        messageType: "createCollection",
-        msgJson: createJson
-    });
+    function createAndTransfer(
+        string memory name,
+        address recipient,
+        uint256 amount
+    ) external returns (uint256 collectionId) {
+        // Prepare messages array
+        ITokenizationPrecompile.MessageInput[] memory messages = new ITokenizationPrecompile.MessageInput[](2);
 
-    // Message 2: Transfer Tokens (collectionId 0 = the collection created in the previous message)
-    address[] memory recipients = new address[](1);
-    recipients[0] = recipient;
-    string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(1, 1);
-    string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER);
+        // Message 1: Create Collection
+        string memory validTokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(1, 1000);
+        string memory defaultBalancesJson = TokenizationJSONHelpers.simpleUserBalanceStoreToJson(true, true, false);
+        string memory metadataJson = TokenizationJSONHelpers.collectionMetadataToJson(
+            "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
+            string(abi.encodePacked("{\"name\":\"", name, "\"}"))
+        );
+        string[] memory standards = new string[](0);
+        string memory standardsJson = TokenizationJSONHelpers.stringArrayToJson(standards);
 
-    string memory transferJson = TokenizationJSONHelpers.transferTokensJSON(
-        0,  // collectionId = 0 means "use previous collection" (auto-prev)
-        recipients,
-        amount,
-        tokenIdsJson,
-        ownershipJson
-    );
+        string memory createJson = TokenizationJSONHelpers.createCollectionJSON(
+            validTokenIdsJson,
+            TokenizationJSONHelpers.addressToString(address(this)),
+            metadataJson,
+            defaultBalancesJson,
+            "{}",
+            standardsJson,
+            "",
+            false
+        );
 
-    messages[1] = ITokenizationPrecompile.MessageInput({
-        messageType: "transferTokens",
-        msgJson: transferJson
-    });
+        messages[0] = ITokenizationPrecompile.MessageInput({
+            messageType: "createCollection",
+            msgJson: createJson
+        });
 
-    // Execute both messages atomically
-    (bool success, bytes[] memory results) = TOKENIZATION.executeMultiple(messages);
-    require(success, "Multi-message execution failed");
+        // Message 2: Transfer Tokens (collectionId 0 = the collection created in the previous message)
+        address[] memory recipients = new address[](1);
+        recipients[0] = recipient;
+        string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(1, 1);
+        string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER);
 
-    // Decode collectionId from first result
-    collectionId = abi.decode(results[0], (uint256));
+        string memory transferJson = TokenizationJSONHelpers.transferTokensJSON(
+            0,  // collectionId = 0 means "use previous collection" (auto-prev)
+            recipients,
+            amount,
+            tokenIdsJson,
+            ownershipJson
+        );
 
-    // Verify transfer succeeded (second result is bool)
-    bool transferSuccess = abi.decode(results[1], (bool));
-    require(transferSuccess, "Transfer failed");
+        messages[1] = ITokenizationPrecompile.MessageInput({
+            messageType: "transferTokens",
+            msgJson: transferJson
+        });
 
-    return collectionId;
+        // Execute both messages atomically
+        (bool success, bytes[] memory results) = TOKENIZATION.executeMultiple(messages);
+        require(success, "Multi-message execution failed");
+
+        // Decode collectionId from first result
+        collectionId = abi.decode(results[0], (uint256));
+
+        // Verify transfer succeeded (second result is bool)
+        bool transferSuccess = abi.decode(results[1], (bool));
+        require(transferSuccess, "Transfer failed");
+
+        return collectionId;
+    }
 }
 ```
 
@@ -378,7 +435,7 @@ The precompile's own pure utilities:
 ```solidity
 // Address conversion
 string memory bech32 = TOKENIZATION.convertEvmAddressToBech32(evmAddress);
-address evm = TOKENIZATION.convertBech32ToEvmAddress("bb1...");
+address evm = TOKENIZATION.convertBech32ToEvmAddress("bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d");
 
 // Range utilities
 bool inRange = TOKENIZATION.rangeContains(10, 20, 15);  // true
@@ -389,7 +446,7 @@ bool found = TOKENIZATION.searchInRanges('[{"start":"1","end":"100"}]', 50);  //
 uint256 amount = TOKENIZATION.getBalanceForIdAndTime(balancesJson, tokenId, timestamp);
 
 // List ID utilities
-string memory listId = TOKENIZATION.getReservedListId(address);  // returns bb1...
+string memory listId = TOKENIZATION.getReservedListId(user);  // returns the bech32 form, e.g. bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
 ```
 
 ## Return values
@@ -423,10 +480,17 @@ Use the helpers:
 
 ```solidity
 // Good: type-safe and readable
-string memory json = TokenizationJSONHelpers.transferTokensJSON(...);
+string memory json = TokenizationJSONHelpers.transferTokensJSON(
+    collectionId, recipients, amount, tokenIdsJson, ownershipTimesJson
+);
 
 // Bad: error-prone manual construction
-string memory json = string(abi.encodePacked('{"collectionId":"', ...));
+string memory json = string(abi.encodePacked(
+    '{"collectionId":"', TokenizationJSONHelpers.uintToString(collectionId),
+    '","transfers":[{"toAddresses":["', TokenizationJSONHelpers.addressToString(recipients[0]),
+    '"],"balances":[{"amount":"', TokenizationJSONHelpers.uintToString(amount),
+    '","tokenIds":', tokenIdsJson, ',"ownershipTimes":', ownershipTimesJson, '}]}]}'
+));
 ```
 
 Cache JSON you reuse:
@@ -443,14 +507,33 @@ string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(1, 1000);
 Validate before building:
 
 ```solidity
-function transfer(uint256 collectionId, address to, uint256 amount) external {
-    require(collectionId > 0, "Invalid collection");
-    require(to != address(0), "Invalid recipient");
-    require(amount > 0, "Invalid amount");
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    // Now build JSON
-    string memory json = TokenizationJSONHelpers.transferTokensJSON(...);
-    TOKENIZATION.transferTokens(json);
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
+
+contract ValidatedTransfer {
+    ITokenizationPrecompile constant TOKENIZATION =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
+
+    function transfer(uint256 collectionId, address to, uint256 amount) external {
+        require(collectionId > 0, "Invalid collection");
+        require(to != address(0), "Invalid recipient");
+        require(amount > 0, "Invalid amount");
+
+        // Now build JSON
+        address[] memory recipients = new address[](1);
+        recipients[0] = to;
+        string memory json = TokenizationJSONHelpers.transferTokensJSON(
+            collectionId,
+            recipients,
+            amount,
+            TokenizationJSONHelpers.uintRangeToJson(1, 1),
+            TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER)
+        );
+        TOKENIZATION.transferTokens(json);
+    }
 }
 ```
 
@@ -467,42 +550,76 @@ if (!success) {
 Validate the batch in `executeMultiple`:
 
 ```solidity
-// Good: validate inputs before building messages
-function createAndTransfer(
-    string memory name,
-    address recipient,
-    uint256 amount
-) external returns (uint256 collectionId) {
-    require(bytes(name).length > 0, "Name required");
-    require(recipient != address(0), "Invalid recipient");
-    require(amount > 0, "Amount must be positive");
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    ITokenizationPrecompile.MessageInput[] memory messages = new ITokenizationPrecompile.MessageInput[](2);
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
 
-    // Build messages
-    messages[0] = ITokenizationPrecompile.MessageInput({
-        messageType: "createCollection",
-        msgJson: createCollectionJson
-    });
+contract ValidatedBatch {
+    ITokenizationPrecompile constant TOKENIZATION =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
-    messages[1] = ITokenizationPrecompile.MessageInput({
-        messageType: "transferTokens",
-        msgJson: transferTokensJson
-    });
+    // Good: validate inputs before building messages
+    function createAndTransfer(
+        string memory name,
+        address recipient,
+        uint256 amount
+    ) external returns (uint256 collectionId) {
+        require(bytes(name).length > 0, "Name required");
+        require(recipient != address(0), "Invalid recipient");
+        require(amount > 0, "Amount must be positive");
 
-    // Execute atomically
-    (bool success, bytes[] memory results) = TOKENIZATION.executeMultiple(messages);
-    require(success, "Multi-message execution failed");
+        ITokenizationPrecompile.MessageInput[] memory messages = new ITokenizationPrecompile.MessageInput[](2);
 
-    // Decode and validate results
-    require(results.length == 2, "Unexpected result count");
-    collectionId = abi.decode(results[0], (uint256));
-    require(collectionId > 0, "Invalid collection ID");
+        // Build messages
+        string[] memory standards = new string[](0);
+        string memory createCollectionJson = TokenizationJSONHelpers.createCollectionJSON(
+            TokenizationJSONHelpers.uintRangeToJson(1, 1000),
+            TokenizationJSONHelpers.addressToString(address(this)),
+            TokenizationJSONHelpers.collectionMetadataToJson(
+                "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
+                string(abi.encodePacked("{\"name\":\"", name, "\"}"))
+            ),
+            TokenizationJSONHelpers.simpleUserBalanceStoreToJson(true, true, false),
+            "{}",
+            TokenizationJSONHelpers.stringArrayToJson(standards),
+            "",
+            false
+        );
+        messages[0] = ITokenizationPrecompile.MessageInput({
+            messageType: "createCollection",
+            msgJson: createCollectionJson
+        });
 
-    bool transferSuccess = abi.decode(results[1], (bool));
-    require(transferSuccess, "Transfer failed");
+        address[] memory recipients = new address[](1);
+        recipients[0] = recipient;
+        string memory transferTokensJson = TokenizationJSONHelpers.transferTokensJSON(
+            0,
+            recipients,
+            amount,
+            TokenizationJSONHelpers.uintRangeToJson(1, 1),
+            TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER)
+        );
+        messages[1] = ITokenizationPrecompile.MessageInput({
+            messageType: "transferTokens",
+            msgJson: transferTokensJson
+        });
 
-    return collectionId;
+        // Execute atomically
+        (bool success, bytes[] memory results) = TOKENIZATION.executeMultiple(messages);
+        require(success, "Multi-message execution failed");
+
+        // Decode and validate results
+        require(results.length == 2, "Unexpected result count");
+        collectionId = abi.decode(results[0], (uint256));
+        require(collectionId > 0, "Invalid collection ID");
+
+        bool transferSuccess = abi.decode(results[1], (bool));
+        require(transferSuccess, "Transfer failed");
+
+        return collectionId;
+    }
 }
 ```
 

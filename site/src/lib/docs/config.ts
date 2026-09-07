@@ -18,6 +18,8 @@ export type DocsConfig = {
   siteDescription: string;
   /** URL of the OpenAPI document powering the API reference page. */
   openapiUrl: string;
+  /** URL of the OpenAPI document powering the chain (LCD) API reference page. */
+  chainOpenapiUrl: string;
   /** Base for "Edit this page" links; empty disables them. */
   editBaseUrl: string;
   /** Directory names never served as documentation. */
@@ -40,6 +42,7 @@ export const docsConfig: DocsConfig = {
     'Documentation for BitBadges — the next-generation token standard for RWAs, compliance, and payments.',
   ),
   openapiUrl: env('DOCS_OPENAPI_URL', '/openapi.json'),
+  chainOpenapiUrl: env('DOCS_CHAIN_OPENAPI_URL', '/chain-openapi.json'),
   editBaseUrl: env('DOCS_EDIT_BASE_URL', 'https://github.com/trevormil/bitbadges-docs/edit/master'),
   excludedDirs: env('DOCS_EXCLUDED_DIRS', '_docs,_new,site,node_modules').split(',').map((s) => s.trim()),
   redirectsDir: path.resolve(/* turbopackIgnore: true */ process.cwd(), env('DOCS_REDIRECTS_DIR', '../_docs/redirects')),

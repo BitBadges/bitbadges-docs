@@ -25,7 +25,7 @@ bb pools show 1
 
 # Pools that contain an asset, by symbol or canonical denom
 bb pools by-denom BADGE
-bb pools by-denom ibc/E1116484...
+bb pools by-denom ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8
 
 # Pools for a pair, order-insensitive
 bb pools by-assets ubadge USDC
@@ -39,7 +39,7 @@ Prices come from the BitBadges API's asset records. Symbols resolve through asse
 ```bash
 bb price ubadge                     # native BADGE
 bb price BADGE                      # same, symbol resolved
-bb price ubadge,ibc/E1116484...     # batch via CSV
+bb price ubadge,ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8     # batch via CSV
 bb price BADGE USDC
 ```
 
@@ -48,7 +48,7 @@ Asset-pair analytics and the asset browser:
 ```bash
 bb pairs list
 bb pairs search USDC
-bb pairs by-denoms ubadge ibc/E1116484...
+bb pairs by-denoms ubadge ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8
 bb pairs top-gainers          # last 24h
 bb pairs top-losers
 bb pairs highest-volume       # sorted by 24h volume
@@ -69,7 +69,14 @@ bb swap assets --include-svm --include-cw20
 bb swap chains
 ```
 
-In TypeScript the same data is `BitBadgesApi.getAllPools`, `getPoolInfoById`, `getPoolInfosByDenom`, `getPoolInfosByAssets`, and `getAssetPairs`; see [Swaps](../api/swaps.md).
+In TypeScript the same data is `api.getAllPools`, `getPoolInfoById`, `getPoolInfosByDenom`, `getPoolInfosByAssets`, and `getAssetPairs`; see [Swaps](../api/swaps.md).
+
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools installed, paste one of these:
+
+- "Using the liquidity-pools skill, create a balancer pool of BADGE and the wrapped token of collection 1 with a 0.3% swap fee, and give me the review link."
+- "Look up the current price of BADGE in USDC and the pools that hold both."
+{% endhint %}
 
 ## 2. Check balances
 
@@ -77,17 +84,17 @@ Three asset-scoped views:
 
 ```bash
 # Cosmos native and IBC fungibles, straight from the chain LCD (no API key)
-bb balances ics20 bb1abc...
-bb balances ics20 bb1abc... --denom ubadge
+bb balances ics20 bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
+bb balances ics20 bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --denom ubadge
 
 # BitBadges-standard tokens (multi token ID, time-ranged shape)
-bb balances bitbadges bb1abc... --collection 21
+bb balances bitbadges bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --collection 1
 
 # Swap-consolidated view: Skip:Go plus verified BitBadges assets, including
 # wrapped assets (badgeslp:, badges:) with numeric amounts. Use this for swap UIs.
-bb balances assets bb1abc...
-bb balances assets 0xabc... --chain 1
-bb balances assets bb1abc... --all-chains
+bb balances assets bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
+bb balances assets 0x0bc63cfe31d5218eb414b142c799e20964a54a1a --chain 1
+bb balances assets bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --all-chains
 ```
 
 `bb balances ics20` accepts `--lcd <url>` for any Cosmos chain and `--page-key` for pagination. A 0x address passed to `bb balances bitbadges` is converted to `bb1` with a notice on stderr.
@@ -95,7 +102,7 @@ bb balances assets bb1abc... --all-chains
 For several chains in one call, pass a chain-to-addresses map. Responses for BitBadges chains include server-side wrappable amounts for verified badge denoms:
 
 ```bash
-bb swap balances '{"bitbadges-1": ["bb1abc..."], "1": [{"address": "0xabc...", "denoms": ["ethereum-native"]}]}'
+bb swap balances '{"bitbadges-1": ["bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"], "1": [{"address": "0x0bc63cfe31d5218eb414b142c799e20964a54a1a", "denoms": ["ethereum-native"]}]}'
 bb swap balances @chains.json
 ```
 
@@ -130,16 +137,20 @@ bb swap estimate ubadge uusdc 1000000 --local-only --slippage 0.5
 
 # Cross-chain: addresses are required for every chain on the route
 bb swap estimate uatom ubadge 1000000 --source-chain cosmoshub-4 \
-  --addresses '{"bitbadges-1":"bb1abc...","cosmoshub-4":"cosmos1abc..."}'
+  --addresses '{"bitbadges-1":"bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d","cosmoshub-4":"cosmos1p0rrel3365scadq5k9pv0x0zp9j22js6wwxdnu"}'
 ```
 
 ```ts
-const response = await BitBadgesApi.estimateSwap({
+import { BigIntify, BitBadgesAPI } from 'bitbadges';
+
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+
+const response = await api.estimateSwap({
   tokenIn: 'amount:1000000,denom:ubadge',
   tokenInChainId: 'bitbadges-1',
   tokenOutDenom: 'uusdc',
   tokenOutChainId: 'bitbadges-1',
-  chainIdsToAddresses: { 'bitbadges-1': 'bb1abc...' },
+  chainIdsToAddresses: { 'bitbadges-1': 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d' },
   slippageTolerancePercent: 1
 });
 
@@ -188,8 +199,8 @@ bb swap execute @estimate.json --browser
 - Cross-chain, EVM, and multi-hop estimates are returned but not executed. The execute path throws a not-implemented error with no partial execution. Sign the estimate in your wallet through the `/sign` page, broadcast the first transaction, then track it:
 
 ```bash
-bb swap track <tx-hash> --chain-id <source-chain> --token-in 1000000ubadge
-bb swap status <tx-hash> --chain-id <source-chain>
+bb swap track E5B4C3A6E5B1F3B9F0F4C1F2B7A6D5C4E3F2A1B0C9D8E7F6A5B4C3D2E1F0A9B8 --chain-id bitbadges-1 --token-in 1000000ubadge
+bb swap status E5B4C3A6E5B1F3B9F0F4C1F2B7A6D5C4E3F2A1B0C9D8E7F6A5B4C3D2E1F0A9B8 --chain-id bitbadges-1
 bb swap activities
 ```
 
@@ -199,7 +210,7 @@ To submit the on-chain message yourself, build a `MsgSwapExactAmountIn` and depl
 bb deploy '{
   "typeUrl": "/gamm.v1beta1.MsgSwapExactAmountIn",
   "value": {
-    "sender": "bb1abc...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "routes": [{ "poolId": "1", "tokenOutDenom": "uusdc" }],
     "tokenIn": { "denom": "ubadge", "amount": "1000000" },
     "tokenOutMinAmount": "4975000",
@@ -218,7 +229,7 @@ Join a pool with tokens in the pool's current proportions. You receive LP shares
 bb deploy '{
   "typeUrl": "/gamm.v1beta1.MsgJoinPool",
   "value": {
-    "sender": "bb1abc...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "poolId": "1",
     "shareOutAmount": "1000000",
     "tokenInMaxs": [
@@ -235,7 +246,7 @@ Exit by burning shares. `token_out_mins` is the floor for each asset returned; t
 bb deploy '{
   "typeUrl": "/gamm.v1beta1.MsgExitPool",
   "value": {
-    "sender": "bb1abc...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "poolId": "1",
     "shareInAmount": "100000",
     "tokenOutMins": [
@@ -252,11 +263,11 @@ Create a balancer pool with initial liquidity, weights, and fees. The pool ID is
 bb deploy '{
   "typeUrl": "/gamm.poolmodels.balancer.MsgCreateBalancerPool",
   "value": {
-    "sender": "bb1abc...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "poolParams": { "swapFee": "0.003", "exitFee": "0.000" },
     "poolAssets": [
       { "token": { "denom": "ubadge", "amount": "1000000" }, "weight": "50" },
-      { "token": { "denom": "badgeslp:21:utoken", "amount": "5000000" }, "weight": "50" }
+      { "token": { "denom": "badgeslp:1:utoken", "amount": "5000000" }, "weight": "50" }
     ]
   }
 }' --browser

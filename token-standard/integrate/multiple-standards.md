@@ -87,13 +87,23 @@ badgesMsgServer.TransferTokens(ctx, msg)
 The send manager does not manage user-level approvals. Every `x/tokenization` transfer must satisfy approvals at the collection, sender, and recipient level where applicable. Set them elsewhere, before or after the send, when a transfer needs them. Module addresses and other non-user addresses matter most here: they inherit the collection defaults.
 
 ```go
-// Example: Sometimes, you may need both pre and post approval updates to make stuff work and clean up.
-preUpdateApprovalsMsg := &badgestypes.MsgUpdateUserApprovals{ ... }
+// Example: sometimes you need both a pre and a post approval update to make the send work and clean up.
+preUpdateApprovalsMsg := &badgestypes.MsgUpdateUserApprovals{
+    Creator:                               toAddress,
+    CollectionId:                          collection.CollectionId,
+    UpdateAutoApproveAllIncomingTransfers: true,
+    AutoApproveAllIncomingTransfers:       true,
+}
 badgesMsgServer.UpdateUserApprovals(ctx, preUpdateApprovalsMsg)
 
 sendManagerKeeper.SendCoinsWithAliasRouting(ctx, from, to, coins)
 
-postUpdateApprovalsMsg := &badgestypes.MsgUpdateUserApprovals{ ... }
+postUpdateApprovalsMsg := &badgestypes.MsgUpdateUserApprovals{
+    Creator:                               toAddress,
+    CollectionId:                          collection.CollectionId,
+    UpdateAutoApproveAllIncomingTransfers: true,
+    AutoApproveAllIncomingTransfers:       false,
+}
 badgesMsgServer.UpdateUserApprovals(ctx, postUpdateApprovalsMsg)
 ```
 

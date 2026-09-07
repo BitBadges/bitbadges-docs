@@ -14,22 +14,49 @@ import { BitBadgesSigningClient, GenericCosmosAdapter, MsgTransferTokens } from 
 const adapter = await GenericCosmosAdapter.fromKeplr('bitbadges-1');
 const client = new BitBadgesSigningClient({ adapter });
 
-const result = await client.signAndBroadcast([new MsgTransferTokens({ creator: client.address, collectionId: '1', transfers: [] })]);
+// Send bob one unit of token ID 1 from collection 1
+const result = await client.signAndBroadcast([
+  new MsgTransferTokens({
+    creator: client.address,
+    collectionId: '1',
+    transfers: [
+      {
+        from: client.address,
+        toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+        balances: [{ amount: '1', tokenIds: [{ start: '1', end: '1' }], ownershipTimes: [{ start: '1', end: '18446744073709551615' }] }]
+      }
+    ]
+  })
+]);
 console.log(result.txHash);
 ```
 
-The same pipeline by hand:
+The same pipeline by hand, signed with Keplr:
 
 ```ts
 import { BitBadgesAPI, BigIntify, MsgTransferTokens, createTransactionPayload, createTxBroadcastBody, type TxContext } from 'bitbadges';
 
 const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const ALICE = 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d';
+const BOB = 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue';
 
 // 1. Build messages
-const msgs = [new MsgTransferTokens({ creator: 'bb1...', collectionId: '1', transfers: [] })];
+const msgs = [
+  new MsgTransferTokens({
+    creator: ALICE,
+    collectionId: '1',
+    transfers: [
+      {
+        from: ALICE,
+        toAddresses: [BOB],
+        balances: [{ amount: '1', tokenIds: [{ start: '1', end: '1' }], ownershipTimes: [{ start: '1', end: '18446744073709551615' }] }]
+      }
+    ]
+  })
+];
 
 // 2. Transaction context (account number, sequence, public key, fee)
-const { account } = await api.getAccount({ address: 'bb1...' });
+const { account } = await api.getAccount({ address: ALICE });
 const txContext: TxContext = {
   sender: {
     address: account.address,
@@ -44,14 +71,31 @@ const txContext: TxContext = {
 // 3. Payload to sign
 const payload = createTransactionPayload(txContext, msgs);
 
-// 4. Sign (wallet specific; see sign-cosmos and sign-ethereum)
-const hexSignature = await signWithYourWallet(payload);
+// 4. Sign (Keplr shown; see sign-cosmos and sign-ethereum for the other wallets)
+await window.keplr!.enable('bitbadges-1');
+const signed = await window.keplr!.signDirect(
+  'bitbadges-1',
+  ALICE,
+  {
+    bodyBytes: payload.signDirect.body.toBinary(),
+    authInfoBytes: payload.signDirect.authInfo.toBinary(),
+    chainId: 'bitbadges-1',
+    accountNumber: BigInt(String(account.accountNumber)) as any
+  },
+  { preferNoSetFee: true }
+);
+const hexSignature = Buffer.from(signed.signature.signature, 'base64').toString('hex');
 
 // 5. Broadcast body, then simulate or broadcast
 const txBody = createTxBroadcastBody(txContext, msgs, hexSignature);
 const sim = await api.simulateTx(txBody);
 const res = await api.broadcastTx(txBody);
+console.log(sim.gas_info.gas_used, res.tx_response.txhash);
 ```
+
+{% hint style="info" %}
+Ask your agent. The MCP builder tools run steps 1 and 3 for you (`build_transfer`, `validate_transaction`, `simulate_transaction`) and stop at `get_review_url`: "Build a transfer of one unit of token 1 in collection 1 from me to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, simulate it, and give me the link to sign." Signing stays with your wallet.
+{% endhint %}
 
 ## Choose a path
 
@@ -72,10 +116,20 @@ The CLI path is on [Deploy](../../cli/deploy.md) and [Chain](../../cli/chain.md)
 import { MsgCreateCollection, MsgTransferTokens, proto } from 'bitbadges';
 
 // SDK classes: generic over NumberType, have toProto()
-const sdkMsg = new MsgTransferTokens<bigint>({ creator: 'bb1...', collectionId: '1', transfers: [] });
+const sdkMsg = new MsgTransferTokens<bigint>({
+  creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
+  collectionId: 1n,
+  transfers: [
+    {
+      from: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
+      toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+      balances: [{ amount: 1n, tokenIds: [{ start: 1n, end: 1n }], ownershipTimes: [{ start: 1n, end: 18446744073709551615n }] }]
+    }
+  ]
+});
 
 // Proto classes: what the chain encodes; numbers are strings
-const protoMsg = new proto.tokenization.MsgDeleteCollection({ creator: 'bb1...', collectionId: '1' });
+const protoMsg = new proto.tokenization.MsgDeleteCollection({ creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d', collectionId: '1' });
 ```
 
 Both forms are accepted by `signAndBroadcast`, `createTransactionPayload`, and `createTxBroadcastBody`. Standard Cosmos messages live under `proto.cosmos` (for example `proto.cosmos.bank.v1beta1.MsgSend`). Every message page under [Messages](../../token-standard/messages/README.md) shows the fields.
@@ -88,7 +142,7 @@ Messages execute in array order inside one transaction. When a later message dep
 import { BitBadgesAPI, BigIntify, type TxContext } from 'bitbadges';
 
 const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
-const { account } = await api.getAccount({ address: 'bb1...' });
+const { account } = await api.getAccount({ address: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d' });
 
 if (BigInt(account.accountNumber) <= 0n) {
   // Unregistered: the chain has never seen this address, so it cannot verify a signature from it.
@@ -108,7 +162,7 @@ const txContext: TxContext = {
   fee: { amount: '0', denom: 'ubadge', gas: '400000' },
   memo: '',
   // Optional: set evmAddress to also get an EVM precompile call in the payload
-  evmAddress: '0x1234...'
+  evmAddress: '0x0bc63cfe31d5218eb414b142c799e20964a54a1a'
 };
 ```
 
@@ -157,7 +211,7 @@ interface TransactionPayload {
   signDirect: { body: TxBody; authInfo: AuthInfo; signBytes: string }; // present when sender is set
   legacyAmino: { body: TxBody; authInfo: AuthInfo; signBytes: string }; // present when sender is set
   evmTx?: {
-    to: string; // precompile address: 0x...1001 tokenization, 0x...1002 gamm, 0x...1003 sendmanager
+    to: string; // precompile address: 0x0000000000000000000000000000000000001001 tokenization, 0x0000000000000000000000000000000000001002 gamm, 0x0000000000000000000000000000000000001003 sendmanager
     data: string; // ABI-encoded call data
     value: string; // always "0"
     functionName: string; // for logging

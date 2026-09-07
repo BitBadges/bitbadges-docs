@@ -23,6 +23,10 @@ badgeslp:COLLECTION_ID:denom
 | base denom | `utoken` | The `denom` of one entry in the collection's `aliasPaths` |
 | amount | `5` | Integer alias units, converted to `Balances[]` by the path's `conversion` |
 
+{% hint style="info" %}
+Ask your agent: "Add an alias path to collection 1 with symbol BASETOKEN and 6 decimals so token IDs 1 to 100 can be used as an sdk.Coin." The MCP builder tools (`add_alias_path, generate_alias_path`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 1. Parse the alias into collection ID and denom.
@@ -40,43 +44,224 @@ Rules that follow from this:
 
 Alias paths are added with `aliasPathsToAdd` on `MsgCreateCollection` or `MsgUniversalUpdateCollection`.
 
-```ts
-const collection: MsgCreateCollection = {
-    // ... other fields
-    aliasPathsToAdd: [
-        {
-            denom: 'utoken',
-            conversion: {
-                sideA: {
-                    amount: '1', // Required: amount of alias unit
-                },
-                sideB: [
-                    {
-                        amount: 1n,
-                        tokenIds: [{ start: 1n, end: 100n }],
-                        ownershipTimes: [
-                            { start: 1n, end: 18446744073709551615n },
-                        ],
-                    },
-                ],
+A complete `MsgCreateCollection` with the alias path open:
+
+```json fold=3-180
+{
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "defaultBalances": {
+    "balances": [],
+    "outgoingApprovals": [],
+    "incomingApprovals": [],
+    "autoApproveSelfInitiatedOutgoingTransfers": true,
+    "autoApproveSelfInitiatedIncomingTransfers": true,
+    "autoApproveAllIncomingTransfers": true,
+    "userPermissions": {
+      "canUpdateOutgoingApprovals": [],
+      "canUpdateIncomingApprovals": [],
+      "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+      "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+      "canUpdateAutoApproveAllIncomingTransfers": []
+    }
+  },
+  "validTokenIds": [
+    { "start": "1", "end": "100" }
+  ],
+  "collectionPermissions": {
+    "canDeleteCollection": [],
+    "canArchiveCollection": [],
+    "canUpdateStandards": [],
+    "canUpdateCustomData": [],
+    "canUpdateManager": [],
+    "canUpdateCollectionMetadata": [],
+    "canUpdateValidTokenIds": [],
+    "canUpdateTokenMetadata": [],
+    "canUpdateCollectionApprovals": [],
+    "canAddMoreAliasPaths": [],
+    "canAddMoreCosmosCoinWrapperPaths": []
+  },
+  "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "collectionMetadata": {
+    "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
+    "customData": ""
+  },
+  "tokenMetadata": [
+    {
+      "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json",
+      "customData": "",
+      "tokenIds": [
+        { "start": "1", "end": "100" }
+      ]
+    }
+  ],
+  "customData": "",
+  "collectionApprovals": [
+    {
+      "fromListId": "Mint",
+      "toListId": "All",
+      "initiatedByListId": "All",
+      "transferTimes": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "tokenIds": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "ownershipTimes": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "uri": "",
+      "customData": "",
+      "approvalId": "mint",
+      "approvalCriteria": {
+        "merkleChallenges": [],
+        "predeterminedBalances": {
+          "manualBalances": [],
+          "incrementedBalances": {
+            "startBalances": [],
+            "incrementTokenIdsBy": "0",
+            "incrementOwnershipTimesBy": "0",
+            "durationFromTimestamp": "0",
+            "allowOverrideTimestamp": false,
+            "recurringOwnershipTimes": {
+              "startTime": "0",
+              "intervalLength": "0",
+              "chargePeriodLength": "0"
             },
-            symbol: 'BASETOKEN',
-            denomUnits: [
-                {
-                    decimals: 6n,
-                    symbol: 'TOKEN',
-                    isDefaultDisplay: true,
-                },
-            ],
-            metadata: { uri: '', customData: '' }, // Optional PathMetadata
+            "allowOverrideWithAnyValidToken": false,
+            "allowAmountScaling": false,
+            "maxScalingMultiplier": "0"
+          },
+          "orderCalculationMethod": {
+            "useOverallNumTransfers": false,
+            "usePerToAddressNumTransfers": false,
+            "usePerFromAddressNumTransfers": false,
+            "usePerInitiatedByAddressNumTransfers": false,
+            "useMerkleChallengeLeafIndex": false,
+            "challengeTrackerId": ""
+          }
         },
-    ],
-};
+        "approvalAmounts": {
+          "overallApprovalAmount": "0",
+          "perToAddressApprovalAmount": "0",
+          "perFromAddressApprovalAmount": "0",
+          "perInitiatedByAddressApprovalAmount": "0",
+          "amountTrackerId": "",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "maxNumTransfers": {
+          "overallMaxNumTransfers": "0",
+          "perToAddressMaxNumTransfers": "0",
+          "perFromAddressMaxNumTransfers": "0",
+          "perInitiatedByAddressMaxNumTransfers": "0",
+          "amountTrackerId": "",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "coinTransfers": [],
+        "requireToEqualsInitiatedBy": false,
+        "requireFromEqualsInitiatedBy": false,
+        "requireToDoesNotEqualInitiatedBy": false,
+        "requireFromDoesNotEqualInitiatedBy": false,
+        "overridesFromOutgoingApprovals": true,
+        "overridesToIncomingApprovals": false,
+        "autoDeletionOptions": {
+          "afterOneUse": false,
+          "afterOverallMaxNumTransfers": false,
+          "allowCounterpartyPurge": false,
+          "allowPurgeIfExpired": false
+        },
+        "mustOwnTokens": [],
+        "dynamicStoreChallenges": [],
+        "ethSignatureChallenges": [],
+        "senderChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "recipientChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "initiatorChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "altTimeChecks": {
+          "offlineHours": [],
+          "offlineDays": [],
+          "offlineMonths": [],
+          "offlineDaysOfMonth": [],
+          "offlineWeeksOfYear": [],
+          "timezoneOffsetMinutes": "0",
+          "timezoneOffsetNegative": false
+        },
+        "mustPrioritize": false,
+        "votingChallenges": [],
+        "allowBackedMinting": false,
+        "allowSpecialWrapping": false,
+        "evmQueryChallenges": [],
+        "userApprovalSettings": {
+          "allowedDenoms": [],
+          "disableUserCoinTransfers": false,
+          "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+        }
+      },
+      "version": "0"
+    }
+  ],
+  "standards": [
+    "NFTs"
+  ],
+  "isArchived": false,
+  "mintEscrowCoinsToTransfer": [],
+  "cosmosCoinWrapperPathsToAdd": [],
+  "invariants": {
+    "noCustomOwnershipTimes": false,
+    "maxSupplyPerId": "0",
+    "cosmosCoinBackedPath": null,
+    "noForcefulPostMintTransfers": false,
+    "disablePoolCreation": false,
+    "evmQueryChallenges": []
+  },
+  "aliasPathsToAdd": [
+    {
+      "denom": "utoken",
+      "conversion": {
+        "sideA": { "amount": "1" },
+        "sideB": [
+          {
+            "amount": "1",
+            "tokenIds": [
+              { "start": "1", "end": "100" }
+            ],
+            "ownershipTimes": [
+              { "start": "1", "end": "18446744073709551615" }
+            ]
+          }
+        ]
+      },
+      "symbol": "BASETOKEN",
+      "denomUnits": [
+        {
+          "decimals": "6",
+          "symbol": "TOKEN",
+          "isDefaultDisplay": true,
+          "metadata": { "uri": "", "customData": "" }
+        }
+      ],
+      "metadata": { "uri": "", "customData": "" }
+    }
+  ]
+}
 ```
 
 In this example `1 badgeslp:COLLECTION_ID:utoken` converts to one token from IDs 1 to 100 with full ownership times. The rate is 1:1 because `conversion.sideA.amount = "1"` and `conversion.sideB[0].amount = 1n`. The conversion type is `ConversionWithoutDenom` because the denom is stored on the path, not inside the conversion. An alias path has no `address` field and no `allowOverrideWithAnyValidToken` field; those belong to wrapper paths.
 
-`metadata.uri` (for example `ipfs://Qm...`) points at hosted JSON of the form `{ name, image, description }`. The image is the main use. The on-chain `symbol` identifies the path; the metadata name does not.
+`metadata.uri` (for example `ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/path.json`) points at hosted JSON of the form `{ name, image, description }`. The image is the main use. The on-chain `symbol` identifies the path; the metadata name does not.
 
 ## Use cases
 
@@ -99,8 +284,8 @@ Mixing standards in one transfer:
 
 ```ts
 const transfer = {
-    from: 'bb1...',
-    to: 'bb1...',
+    from: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
+    to: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
     amount: [
         {
             denom: 'badgeslp:73:utoken', // BitBadges token (alias)
@@ -126,8 +311,19 @@ The `canAddMoreAliasPaths` collection permission controls when the manager may a
 Allow at all times:
 
 ```ts
+// Empty = allowed by default
 const collectionPermissions: CollectionPermissions<bigint> = {
-    canAddMoreAliasPaths: [], // Empty = allowed by default
+  canDeleteCollection: [],
+  canArchiveCollection: [],
+  canUpdateStandards: [],
+  canUpdateCustomData: [],
+  canUpdateManager: [],
+  canUpdateCollectionMetadata: [],
+  canUpdateValidTokenIds: [],
+  canUpdateTokenMetadata: [],
+  canUpdateCollectionApprovals: [],
+  canAddMoreAliasPaths: [],
+  canAddMoreCosmosCoinWrapperPaths: [],
 };
 ```
 
@@ -135,14 +331,24 @@ Explicitly permit forever:
 
 ```ts
 const collectionPermissions: CollectionPermissions<bigint> = {
-    canAddMoreAliasPaths: [
-        {
-            permanentlyPermittedTimes: [
-                { start: 1n, end: 18446744073709551615n },
-            ],
-            permanentlyForbiddenTimes: [],
-        },
-    ],
+  canDeleteCollection: [],
+  canArchiveCollection: [],
+  canUpdateStandards: [],
+  canUpdateCustomData: [],
+  canUpdateManager: [],
+  canUpdateCollectionMetadata: [],
+  canUpdateValidTokenIds: [],
+  canUpdateTokenMetadata: [],
+  canUpdateCollectionApprovals: [],
+  canAddMoreAliasPaths: [
+    {
+      permanentlyPermittedTimes: [
+        { start: 1n, end: 18446744073709551615n },
+      ],
+      permanentlyForbiddenTimes: [],
+    },
+  ],
+  canAddMoreCosmosCoinWrapperPaths: [],
 };
 ```
 
@@ -150,14 +356,24 @@ Lock forever:
 
 ```ts
 const collectionPermissions: CollectionPermissions<bigint> = {
-    canAddMoreAliasPaths: [
-        {
-            permanentlyPermittedTimes: [],
-            permanentlyForbiddenTimes: [
-                { start: 1n, end: 18446744073709551615n },
-            ],
-        },
-    ],
+  canDeleteCollection: [],
+  canArchiveCollection: [],
+  canUpdateStandards: [],
+  canUpdateCustomData: [],
+  canUpdateManager: [],
+  canUpdateCollectionMetadata: [],
+  canUpdateValidTokenIds: [],
+  canUpdateTokenMetadata: [],
+  canUpdateCollectionApprovals: [],
+  canAddMoreAliasPaths: [
+    {
+      permanentlyPermittedTimes: [],
+      permanentlyForbiddenTimes: [
+        { start: 1n, end: 18446744073709551615n },
+      ],
+    },
+  ],
+  canAddMoreCosmosCoinWrapperPaths: [],
 };
 ```
 
@@ -165,14 +381,24 @@ Allow only during a window:
 
 ```ts
 const collectionPermissions: CollectionPermissions<bigint> = {
-    canAddMoreAliasPaths: [
-        {
-            permanentlyPermittedTimes: [
-                { start: 1704067200000n, end: 1735689600000n },
-            ],
-            permanentlyForbiddenTimes: [],
-        },
-    ],
+  canDeleteCollection: [],
+  canArchiveCollection: [],
+  canUpdateStandards: [],
+  canUpdateCustomData: [],
+  canUpdateManager: [],
+  canUpdateCollectionMetadata: [],
+  canUpdateValidTokenIds: [],
+  canUpdateTokenMetadata: [],
+  canUpdateCollectionApprovals: [],
+  canAddMoreAliasPaths: [
+    {
+      permanentlyPermittedTimes: [
+        { start: 1704067200000n, end: 1735689600000n },
+      ],
+      permanentlyForbiddenTimes: [],
+    },
+  ],
+  canAddMoreCosmosCoinWrapperPaths: [],
 };
 ```
 

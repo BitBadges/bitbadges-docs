@@ -17,21 +17,28 @@ Proposal file:
       "@type": "/tokenization.MsgUpdateParams",
       "authority": "bb10d07y265gmmuvt4z0w9aw880jnsr700jelmk2z",
       "params": {
-        "allowed_denoms": ["ubadge", "ibc/E1116484..."],
+        "allowed_denoms": [
+          "ubadge",
+          "ibc/F082B65C88E4B6D5EF1DB243CDA1D331D002759E938A0F5CD3FFDC5D53B3E349",
+          "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701",
+          "ibc/ED07A3391A112B175915CD8FAF43A2DA8E4790EDE12566649D0C2F97716B8518",
+          "badges:49:chaosnet",
+          "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8"
+        ],
         "affiliate_percentage": "0"
       }
     }
   ],
-  "metadata": "ipfs://...",
-  "deposit": "<deposit>ubadge",
+  "metadata": "",
+  "deposit": "10000000000ubadge",
   "title": "Update tokenization params",
-  "summary": "Adds a denom to allowed_denoms."
+  "summary": "Appends ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8 to allowed_denoms. Every other parameter is carried over unchanged."
 }
 ```
 
 ```bash
 bb query gov params   # read min_deposit first
-bb tx gov submit-proposal ./proposal.json --from <key> --chain-id bitbadges-1
+bb tx gov submit-proposal ./proposal.json --from alice --chain-id bitbadges-1
 ```
 
 Read the current values first so the proposal carries every parameter:
@@ -40,7 +47,7 @@ Read the current values first so the proposal carries every parameter:
 bb query tokenization params
 ```
 
-The TypeScript SDK has no wrapper class for this message. Build the proposal JSON and submit it with the chain CLI.
+The TypeScript SDK has no wrapper class for this message. Build the proposal JSON and submit it with the chain CLI. The deposit shown is the mainnet `min_deposit` (10,000 BADGE); an expedited proposal needs 20,000 BADGE.
 
 ## Fields
 

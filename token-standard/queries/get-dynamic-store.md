@@ -28,11 +28,11 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_dynamic_
 {
   "store": {
     "storeId": "1",
-    "createdBy": "bb1abc...",
+    "createdBy": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "defaultValue": false,
     "globalEnabled": true,
-    "uri": "https://example.com/metadata",
-    "customData": "{\"key\": \"value\"}"
+    "uri": "",
+    "customData": "{\"name\":\"Demo Membership allowlist\"}"
   }
 }
 ```

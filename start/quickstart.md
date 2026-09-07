@@ -60,7 +60,7 @@ bb doctor    # SDK CLI health and API connectivity
 Get a key from the [developer portal](https://bitbadges.io/developer), then:
 
 ```bash
-bb settings set apiKey <your-api-key>
+bb settings set apiKey "$BITBADGES_API_KEY"   # key from https://bitbadges.io/developer
 ```
 
 `BITBADGES_API_KEY` in the environment also works. Config lives in `~/.bitbadges/config.json`. See [CLI](../cli/README.md) for every settings key, environment variable, and the resolution order.
@@ -78,21 +78,21 @@ bb api tokens get-collection 1
 Build a message, then hand it to your browser wallet to sign. The agent or script builds; a person signs.
 
 ```bash
-bb build send --from bb1abc... --to bb1xyz... --amount 1 --denom BADGE \
+bb build send --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --amount 1 --denom BADGE \
   | bb deploy - --browser
 ```
 
 `bb build <type>` prints ready-to-sign JSON. `bb deploy --browser` opens the sign page on bitbadges.io and waits for your wallet (Keplr, MetaMask, and others). Two useful steps in between:
 
 ```bash
-bb build send --from bb1abc... --to bb1xyz... --amount 1 --denom BADGE > tx.json
+bb build send --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --amount 1 --denom BADGE > tx.json
 bb check tx.json      # validate the message shape
 bb simulate tx.json   # expected gas and balance changes, nothing broadcast
 bb preview tx.json    # shareable bitbadges.io preview URL; add --open to jump to review and sign
 bb deploy tx.json --browser
 ```
 
-For a BitBadges token transfer instead of a bank send, use `bb build transfer --collection-id <id> --from <addr> --to <addr>`. Builders exist for vaults, subscriptions, bounties, auctions, smart tokens, listings, and more. See [Build](../cli/build.md) and [Deploy](../cli/deploy.md).
+For a BitBadges token transfer instead of a bank send, use `bb build transfer --collection-id 1 --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --token-ids 1 --amount 1`. Builders exist for vaults, subscriptions, bounties, auctions, smart tokens, listings, and more. See [Build](../cli/build.md) and [Deploy](../cli/deploy.md).
 
 ## TypeScript path
 
@@ -107,11 +107,11 @@ import { BitBadgesAPI, BigIntify } from 'bitbadges';
 
 const api = new BitBadgesAPI({
   convertFunction: BigIntify,
-  apiKey: 'YOUR_API_KEY' // get one at bitbadges.io/developer
+  apiKey: process.env.BITBADGES_API_KEY // get one at bitbadges.io/developer
 });
 
-const res = await api.getCollection('1');
-console.log(res);
+const { collection, metadata } = await api.getCollection('1');
+console.log(collection.collectionId, metadata.name);
 ```
 
 Sign and broadcast with `BitBadgesSigningClient`. Server-side, create the adapter from a mnemonic.
@@ -121,7 +121,7 @@ import { BitBadgesSigningClient, GenericEvmAdapter, MsgTransferTokens, NETWORK_C
 
 // 1. Adapter from a mnemonic (server-side only)
 const adapter = await GenericEvmAdapter.fromMnemonic(
-  'your twelve word mnemonic phrase here ...',
+  process.env.MNEMONIC!,
   NETWORK_CONFIGS['mainnet'].evmRpcUrl
 );
 
@@ -130,20 +130,24 @@ const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
 // 3. Broadcast
 const result = await client.signAndBroadcast([
-  MsgTransferTokens.create({
+  new MsgTransferTokens({
     creator: client.address,
     collectionId: '1',
     transfers: [
       {
         from: client.address,
-        toAddresses: ['bb1...'],
+        toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
         balances: [
           {
             amount: '1',
             tokenIds: [{ start: '1', end: '1' }],
             ownershipTimes: [{ start: '1', end: '18446744073709551615' }] // forever
           }
-        ]
+        ],
+        prioritizedApprovals: [],
+        onlyCheckPrioritizedCollectionApprovals: false,
+        onlyCheckPrioritizedIncomingApprovals: false,
+        onlyCheckPrioritizedOutgoingApprovals: false
       }
     ]
   })
@@ -183,14 +187,20 @@ Cursor, Claude Desktop, Codex, or any other MCP client, in its MCP config:
   "mcpServers": {
     "bitbadges-builder": {
       "command": "npx",
-      "args": ["-y", "-p", "bitbadges", "bitbadges-builder"],
-      "env": {
-        "BITBADGES_API_KEY": "your-api-key"
-      }
+      "args": ["-y", "-p", "bitbadges", "bitbadges-builder"]
     }
   }
 }
 ```
+
+The server reads `BITBADGES_API_KEY` from its environment. Add an `env` block with that key to the entry above, or export it in the shell that launches the client.
+
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools installed, paste one of these:
+
+- "Show me collection 1 and explain its mint approval."
+- "Build a transfer of token 1 in collection 1 from my address to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, validate it, and give me the review link."
+{% endhint %}
 
 The agent builds the transaction. A person reviews and signs it in the browser through a handoff link. Get the link one of three ways:
 
@@ -220,9 +230,9 @@ Get BADGE for fees on Discord. Developers can ask for subsidized credits during 
 | SDK and MCP builder tools | `npm install bitbadges`, [MCP tools](../agents/mcp-tools.md) |
 | AI quickstarter repo | [github.com/BitBadges/bitbadges-quickstarter-ai](https://github.com/BitBadges/bitbadges-quickstarter-ai) |
 | API reference | [/api-reference](/api-reference) |
-| Proto definitions | [github.com/BitBadges/bitbadgeschain/tree/master/proto](https://github.com/BitBadges/bitbadgeschain/tree/master/proto) |
+| Proto definitions | [Proto reference](../chain/proto/README.md) |
 | Docs as text | [Reading the docs](../agents/reading-the-docs.md) (`llms.txt`, `for-llms.txt`, `bb dev docs`) |
-| SDK type reference | [TypeDoc](https://bitbadges.github.io/bitbadgesjs/classes/BitBadgesAPI.html), [types JSON](https://github.com/BitBadges/bitbadgesjs/blob/main/packages/bitbadgesjs-sdk/type-map/typedoc-output.json) |
+| SDK type reference | [SDK reference](../sdk/reference/README.md) |
 
 ## Next steps
 

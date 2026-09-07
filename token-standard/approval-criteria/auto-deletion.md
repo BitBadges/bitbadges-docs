@@ -8,13 +8,105 @@ description: "autoDeletionOptions: delete an approval after one use or after its
 
 ## Shape
 
-```json
+A complete `approvalCriteria` with the `autoDeletionOptions` object open. Folded lines are defaults.
+
+```json fold=2-51,58-97
 {
+  "merkleChallenges": [],
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": false,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
+    }
+  },
+  "approvalAmounts": {
+    "overallApprovalAmount": "0",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "0",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "coinTransfers": [],
+  "requireToEqualsInitiatedBy": false,
+  "requireFromEqualsInitiatedBy": false,
+  "requireToDoesNotEqualInitiatedBy": false,
+  "requireFromDoesNotEqualInitiatedBy": false,
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": false,
   "autoDeletionOptions": {
     "afterOneUse": true,
     "afterOverallMaxNumTransfers": false,
     "allowCounterpartyPurge": false,
     "allowPurgeIfExpired": false
+  },
+  "mustOwnTokens": [],
+  "dynamicStoreChallenges": [],
+  "ethSignatureChallenges": [],
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "recipientChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "initiatorChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
+  },
+  "mustPrioritize": false,
+  "votingChallenges": [],
+  "allowBackedMinting": false,
+  "allowSpecialWrapping": false,
+  "evmQueryChallenges": [],
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
   }
 }
 ```
@@ -35,6 +127,10 @@ interface AutoDeletionOptions {
 | `allowCounterpartyPurge` | The counterparty may purge this approval with [MsgPurgeApprovals](../messages/msg-purge-approvals.md) even though they do not own it. The counterparty is the single address in `initiatedByListId`, which must be a whitelist of exactly one address. Useful as a way to reject an offer. |
 | `allowPurgeIfExpired` | Anyone may purge this approval on the owner's behalf once it has no future `transferTimes`. Useful for cleanup. |
 
+{% hint style="info" %}
+Ask your agent: "Add a transfer approval to collection 1 that deletes itself after ten uses." The MCP builder tools (`add_approval`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 Deletion happens in the same transaction as the qualifying transfer, after the transfer succeeds. An approval used under a forceful override that never matches its own deletion condition stays in state.
@@ -44,15 +140,34 @@ Deletion happens in the same transaction as the qualifying transfer, after the t
 Single-use listing:
 
 ```json
-{ "autoDeletionOptions": { "afterOneUse": true, "afterOverallMaxNumTransfers": false } }
+{
+  "autoDeletionOptions": {
+    "afterOneUse": true,
+    "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  }
+}
 ```
 
 Delete after ten uses:
 
 ```json
 {
-  "maxNumTransfers": { "overallMaxNumTransfers": "10" },
-  "autoDeletionOptions": { "afterOneUse": false, "afterOverallMaxNumTransfers": true }
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "10",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "0",
+    "amountTrackerId": "ten-uses",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": true,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  }
 }
 ```
 
@@ -63,7 +178,8 @@ Let the counterparty reject:
   "autoDeletionOptions": {
     "afterOneUse": false,
     "afterOverallMaxNumTransfers": false,
-    "allowCounterpartyPurge": true
+    "allowCounterpartyPurge": true,
+    "allowPurgeIfExpired": false
   }
 }
 ```
@@ -75,6 +191,7 @@ Let anyone clean up expired approvals:
   "autoDeletionOptions": {
     "afterOneUse": false,
     "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
     "allowPurgeIfExpired": true
   }
 }

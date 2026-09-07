@@ -16,20 +16,20 @@ Proposal file:
     {
       "@type": "/tokenization.MsgSetReservedProtocolAddress",
       "authority": "bb10d07y265gmmuvt4z0w9aw880jnsr700jelmk2z",
-      "address": "bb1protocol...",
+      "address": "bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr",
       "isReservedProtocol": true
     }
   ],
-  "metadata": "ipfs://...",
-  "deposit": "<deposit>ubadge",
+  "metadata": "",
+  "deposit": "10000000000ubadge",
   "title": "Reserve protocol address",
-  "summary": "Marks bb1protocol... as a reserved protocol address."
+  "summary": "Marks bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr as a reserved protocol address."
 }
 ```
 
 ```bash
 bb query gov params   # read min_deposit first
-bb tx gov submit-proposal ./proposal.json --from <key> --chain-id bitbadges-1
+bb tx gov submit-proposal ./proposal.json --from alice --chain-id bitbadges-1
 ```
 
 Raw message:
@@ -37,19 +37,19 @@ Raw message:
 ```json
 {
   "authority": "bb10d07y265gmmuvt4z0w9aw880jnsr700jelmk2z",
-  "address": "bb1protocol...",
+  "address": "bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr",
   "isReservedProtocol": true
 }
 ```
 
-The TypeScript SDK has no wrapper class for this message. Build the proposal JSON and submit it with the chain CLI.
+The TypeScript SDK has no wrapper class for this message. Build the proposal JSON and submit it with the chain CLI. The deposit shown is the mainnet `min_deposit` (10,000 BADGE); an expedited proposal needs 20,000 BADGE.
 
 ## Fields
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `authority` | string | yes | Must equal the module authority (the x/gov account). |
-| `address` | string | yes | Valid `bb1...` address to mark or unmark. |
+| `address` | string | yes | Valid `bb`-prefixed bech32 address to mark or unmark. |
 | `isReservedProtocol` | bool | yes | `true` to reserve, `false` to release. |
 
 The response is empty.

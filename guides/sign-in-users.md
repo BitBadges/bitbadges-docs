@@ -9,10 +9,14 @@ At the end your app authenticates a user's BitBadges address through an OAuth2 f
 SIWBB exists mainly for OAuth authorization of the BitBadges API. If you only need wallet authentication, a Web3 auth service such as WalletConnect or Magic works too; you can then check criteria with the API directly:
 
 ```ts
+import { BigIntify, BitBadgesAPI } from 'bitbadges';
+
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+
 // Pre-req: Create claim in BitBadges site
 // 1. Authenticate your user (using your existing setup)
 // 2. Verify claim success
-const res = await BitBadgesApi.checkClaimSuccess(claimId, address);
+const res = await api.checkClaimSuccess('claim_demo_01', address);
 ```
 
 The flow:
@@ -40,6 +44,13 @@ Endpoints:
 | Client secret | Required to fetch authentication details. Confidential: never in client-side code, treated like a password. |
 | Redirect URIs | Where users land after authentication. Pre-registered, HTTPS, and an exact match with what you send. Not needed for delayed or QR code authentication. |
 
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools installed, paste one of these:
+
+- "Read the Sign In with BitBadges docs and write me an Express callback handler that exchanges the code and starts a session."
+- "Check whether the signed-in address bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue has completed claim claim_demo_01."
+{% endhint %}
+
 ## 2. Build the authorization URL
 
 The base URL is `https://bitbadges.io/siwbb/authorize`. Parameters follow `CodeGenQueryParams`:
@@ -62,12 +73,13 @@ interface CodeGenQueryParams {
 Generate it with the SDK, with [bitbadges.io/auth/linkgen](https://bitbadges.io/auth/linkgen), or with Create SIWBB URL on your app in the developer portal (recommended):
 
 ```ts
+import crypto from 'crypto';
 import { generateBitBadgesAuthUrl, CodeGenQueryParams } from 'bitbadges';
 
 const params: CodeGenQueryParams = {
-    client_id: '<client-id>',
+    client_id: process.env.SIWBB_CLIENT_ID!,
     redirect_uri: 'https://example.com/api/callback',
-    state: '<opaque-state>',
+    state: crypto.randomUUID(), // store it in the session and compare on callback
     scope: 'completeClaims,readClaimAlerts'
 };
 
@@ -122,7 +134,10 @@ Validate `state` according to your requirements, and serve the callback over HTT
 One exchange per code; BitBadges enforces this. `issuedAtTimeWindowMs` rejects codes older than the window (default 10 minutes, `0` disables). In-person flows usually need a longer window or `0`.
 
 ```ts
-import { BitBadgesApi } from 'bitbadges';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { BigIntify, BitBadgesAPI } from 'bitbadges';
+
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
 
 async function myHandler(req: NextApiRequest, res: NextApiResponse) {
     const code = req.query.code as string;
@@ -132,13 +147,13 @@ async function myHandler(req: NextApiRequest, res: NextApiResponse) {
     };
 
     // POST https://api.bitbadges.io/api/v0/siwbb/token
-    const res = await BitBadgesApi.exchangeSIWBBAuthorizationCode({
+    const res = await api.exchangeSIWBBAuthorizationCode({
         code,
         options,
         grant_type: 'authorization_code',
-        client_secret: '...',
-        client_id: '...',
-        redirect_uri: '...', //only needed for digital immediate flow
+        client_secret: process.env.SIWBB_CLIENT_SECRET!,
+        client_id: process.env.SIWBB_CLIENT_ID!,
+        redirect_uri: 'https://example.com/api/callback', //only needed for digital immediate flow
     });
 
     const { address, chain, verificationResponse } = res;
@@ -160,13 +175,27 @@ The exchange proves address ownership. It does not prove anything you attached t
 
 ```ts
 // Claim success for this address
-const claimAttemptsByAddress = await BitBadgesApi.getClaimAttempts(claimId, { address });
-const success = await BitBadgesApi.checkClaimSuccess(claimId, address);
+const claimAttemptsByAddress = await api.getClaimAttempts('claim_demo_01', { address });
+const success = await api.checkClaimSuccess('claim_demo_01', address);
 
-// Token ownership
-const ownership = await BitBadgesApi.verifyOwnershipRequirements({
+// Token ownership: holds token 1 of collection 1 right now
+const ownership = await api.verifyOwnershipRequirements({
     address,
-    assetOwnershipRequirements: { /* $and / $or of assets */ }
+    assetOwnershipRequirements: {
+        $and: [
+            {
+                assets: [
+                    {
+                        chain: 'BitBadges',
+                        collectionId: '1',
+                        assetIds: [{ start: '1', end: '1' }],
+                        ownershipTimes: [],
+                        mustOwnAmounts: { start: '1', end: '1' }
+                    }
+                ]
+            }
+        ]
+    }
 });
 ```
 
@@ -197,15 +226,15 @@ The ownership requirement shape is in [Gate access](gate-access.md).
 Access tokens expire in 1 day and refresh tokens in 60 days by default; both become invalid when the user revokes access. Send the access token as `Authorization: Bearer <token>`, or let the SDK set it:
 
 ```ts
-BitBadgesApi.setAccessToken(token);
-BitBadgesApi.unsetAccessToken();
+api.setAccessToken(access_token);
+api.unsetAccessToken();
 ```
 
 Health check (works with no scopes; returns `signedIn: false` when unauthenticated, expired, or revoked):
 
 ```ts
 // POST /api/v0/auth/status {}
-const res = await BitBadgesApi.checkIfSignedIn({})
+const res = await api.checkIfSignedIn({})
 // 200 { signedIn: boolean, scopes: [...], ... }
 console.log(res.signedIn)
 ```
@@ -213,12 +242,12 @@ console.log(res.signedIn)
 Refresh on a rolling basis, as often as needed:
 
 ```ts
-const res = await BitBadgesApi.exchangeSIWBBAuthorizationCode({
+const res = await api.exchangeSIWBBAuthorizationCode({
     refresh_token,
     grant_type: 'refresh_token',
-    client_secret: '...',
-    client_id: '...',
-    redirect_uri: '...' //only needed if redirected
+    client_secret: process.env.SIWBB_CLIENT_SECRET!,
+    client_id: process.env.SIWBB_CLIENT_ID!,
+    redirect_uri: 'https://example.com/api/callback' //only needed if redirected
 });
 
 const { access_token, access_token_expires_at, refresh_token, refresh_token_expires_at } = res;
@@ -228,7 +257,7 @@ Revoke when done. The user can also revoke under Connections, Authorizations, in
 
 ```ts
 // POST https://api.bitbadges.io/api/v0/siwbb/token/revoke
-await BitBadgesApi.revokeOauthAuthorization({ token });
+await api.revokeOauthAuthorization({ token: access_token });
 ```
 
 Sessions do not have to use these tokens. Checking IDs, stamping hands, or claim numbers are valid alternatives for in-person flows. Full token semantics and the security notes are in [Verification](../api/sign-in/verification.md).

@@ -10,7 +10,7 @@ Casts or replaces the signer's vote on a voting challenge. Only addresses in the
 
 ```bash
 # [collection-id] [approval-level] [approver-address] [approval-id] [proposal-id] [yes-weight]
-bb tx tokenization cast-vote 1 collection "" multisig-approval proposal-1 100 --from <voter-key> --chain-id bitbadges-1
+bb tx tokenization cast-vote 1 collection "" multisig-approval proposal-1 100 --from carol --chain-id bitbadges-1
 ```
 
 ```ts
@@ -20,7 +20,7 @@ const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, '
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
 const msg = new MsgCastVote({
-  creator: client.address,
+  creator: 'bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf',
   collectionId: 1n,
   approvalLevel: 'collection',
   approverAddress: '',
@@ -30,11 +30,12 @@ const msg = new MsgCastVote({
 });
 
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
 {
-  "creator": "bb1voter...",
+  "creator": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf",
   "collectionId": "1",
   "approvalLevel": "collection",
   "approverAddress": "",
@@ -48,10 +49,10 @@ A vote on a user-level approval names the approver:
 
 ```json
 {
-  "creator": "bb1voter...",
+  "creator": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf",
   "collectionId": "1",
   "approvalLevel": "outgoing",
-  "approverAddress": "bb1vault...",
+  "approverAddress": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "approvalId": "delegation-approval",
   "proposalId": "delegation-proposal-1",
   "yesWeight": "80"

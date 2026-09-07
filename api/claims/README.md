@@ -10,32 +10,71 @@ This page is also part of the [API reference](/api-reference).
 
 ## Example
 
-```ts
-// A claim document: two plugins, either one is enough
-const claim = {
-  plugins: [
-    {
-      pluginId: 'whitelist',
-      instanceId: 'vip-whitelist',
-      version: '0',
-      publicParams: { maxUsesPerAddress: 1 },
-      privateParams: { listId: 'vip-list' }
-    },
-    {
-      pluginId: 'whitelist',
-      instanceId: 'early-access',
-      version: '0',
-      publicParams: { maxUsesPerAddress: 1 },
-      privateParams: { listId: 'early-access-list' }
-    }
-  ],
-  satisfyMethod: { type: 'OR', conditions: ['vip-whitelist', 'early-access'] },
-  metadata: { name: 'Early access mint', description: '', image: '' }
-};
+A claim with three plugin instances: `numUses` caps the claim at 100 successes, and either of two whitelists is enough to pass.
 
-// Completing it: inputs are keyed by instanceId
-await BitBadgesApi.completeClaim(claimId, address, { _expectedVersion: 0 });
+```ts
+import { BigIntify, BitBadgesAPI } from 'bitbadges';
+
+const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify });
+
+// Create it: POST /api/v0/claims (needs a session with the Manage Claims scope)
+await BitBadgesApi.createClaims({
+  claims: [
+    {
+      claimId: 'claim_demo_01',
+      collectionId: '1',
+      plugins: [
+        {
+          pluginId: 'numUses',
+          instanceId: 'num-uses',
+          version: '0',
+          publicParams: { maxUses: 100, hideCurrentState: false, displayAsUnlimited: false },
+          privateParams: {}
+        },
+        {
+          pluginId: 'whitelist',
+          instanceId: 'vip-whitelist',
+          version: '0',
+          publicParams: { maxUsesPerAddress: 1, hasPrivateList: true },
+          privateParams: { listId: 'vip-list' }
+        },
+        {
+          pluginId: 'whitelist',
+          instanceId: 'early-access',
+          version: '0',
+          publicParams: { maxUsesPerAddress: 1, hasPrivateList: true },
+          privateParams: { listId: 'early-access-list' }
+        }
+      ],
+      satisfyMethod: {
+        type: 'AND',
+        conditions: ['num-uses', { type: 'OR', conditions: ['vip-whitelist', 'early-access'] }]
+      },
+      rewards: [],
+      metadata: {
+        name: 'Early access mint',
+        description: 'VIP and early-access holders can mint one Demo NFT.',
+        image: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/claim.png'
+      },
+      showInSearchResults: true,
+      categories: ['nft'],
+      estimatedCost: 'Free',
+      estimatedTime: '1 minute',
+      approach: 'in-site'
+    }
+  ]
+});
+
+// Complete it for bob: plugin inputs are keyed by instanceId (these plugins take none)
+const res = await BitBadgesApi.completeClaim('claim_demo_01', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', {
+  _expectedVersion: 0
+});
+console.log(res.claimAttemptId); // 3b9d2f7a1c4e6b8d0f2a4c6e8b1d3f5a
 ```
+
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools connected, a prompt like this works: "Create a claim for collection 1 that requires a Discord role and a password, 100 uses total, one per address." The agent calls `search_plugins` to look up the `discord` and `password` parameter schemas, then `build_claim` to produce the claim document. Review it, then create it through the API or the site.
+{% endhint %}
 
 ## What is in this section
 
@@ -74,7 +113,7 @@ Plugins never see each other's state changes inside one attempt. Each plugin rea
 | | Indexed (standard) | On-demand (non-indexed) |
 | --- | --- | --- |
 | `numUses` plugin | present | absent |
-| Attempt ledger | every success recorded with a claim number (#0, #1, #2, ...) | none |
+| Attempt ledger | every success recorded with a claim number (#0, #1, #2, and so on) | none |
 | Usage limits, per-address tracking, claim numbers | yes | no |
 | Typical use | distribution with a fixed supply | a live yes/no eligibility check such as token ownership |
 | Result caching | n/a | per the claim's cache policy |
@@ -96,7 +135,7 @@ interface iClaimCachePolicy<T extends NumberType> {
 | No policy | Cache for 5 minutes |
 | `ttl: 60` | Cache for 60 seconds |
 | `alwaysPermanent: true` | Cache forever after the first evaluation |
-| `permanentAfter: <timestamp>` | Cache with TTL until the timestamp, then permanently |
+| `permanentAfter: 1788825600000` | Cache with TTL until 2026-09-07T00:00:00Z, then permanently |
 
 Use short TTLs for criteria that change (token ownership can transfer). Use permanent caching for one-time checks.
 
@@ -119,9 +158,9 @@ interface iSatisfyMethod {
 | Rule | `satisfyMethod` |
 | --- | --- |
 | All must pass (default) | falsy |
-| 2 of 5 must pass | `{ type: 'OR', conditions: [...ids], options: { minNumSatisfied: 2 } }` |
-| Must not pass | `{ type: 'NOT', conditions: ['instanceId'] }` |
-| Nested | `{ type: 'AND', conditions: [{ type: 'OR', conditions: [...] }, 'requiredPlugin'] }` |
+| 2 of 3 social checks must pass | `{ type: 'OR', conditions: ['discord-gate', 'github-gate', 'twitter-gate'], options: { minNumSatisfied: 2 } }` |
+| Must not pass | `{ type: 'NOT', conditions: ['banned-list'] }` |
+| Nested | `{ type: 'AND', conditions: [{ type: 'OR', conditions: ['vip-whitelist', 'early-access'] }, 'num-uses'] }` |
 
 - `numUses` is always required and cannot be made optional.
 - Evaluation short-circuits. If 2 of 8 pass and that is enough, the other 6 are not checked.

@@ -4,12 +4,13 @@ description: "The BitBadges chain: what runs on it, chain IDs, the BADGE denom a
 
 # Chain
 
-BitBadges is an L1 delegated proof-of-stake chain built with the Cosmos SDK and CometBFT. Blocks reach instant finality. Accounts can sign with Cosmos keys (`bb1...` bech32 addresses) or with Ethereum keys (`0x...` addresses) through the EVM precompiles. This tab covers the chain around the token standard; the standard itself is the [Token Standard](../token-standard/README.md) tab.
+BitBadges is an L1 delegated proof-of-stake chain built with the Cosmos SDK and CometBFT. Blocks reach instant finality. Accounts can sign with Cosmos keys (`bb1` bech32 addresses) or with Ethereum keys (`0x` addresses) through the EVM precompiles. This tab covers the chain around the token standard; the standard itself is the [Token Standard](../token-standard/README.md) tab.
 
 | Area | What it covers | Read when |
 | --- | --- | --- |
+| [Chain API reference](/chain-api-reference) | Every LCD (REST) route the chain serves, with a live playground against `https://lcd.bitbadges.io` | You want to call a node query directly, or see a message's exact payload |
 | [Modules](modules/README.md) | `x/tokenization` (the token standard), `x/gamm`, `x/poolmanager`, `x/sendmanager`, `x/managersplitter`, IBC hooks, rate limits | You use the DEX, shared management, or IBC middleware |
-| [EVM](evm/README.md) | Precompiles at `0x...1001` to `0x...1003`, Solidity quickstart, JSON-RPC | You write contracts against tokens or connect an Ethereum wallet |
+| [EVM](evm/README.md) | Precompiles at `0x0000000000000000000000000000000000001001` through `0x...1003`, Solidity quickstart, JSON-RPC | You write contracts against tokens or connect an Ethereum wallet |
 | [Cross-chain queries](cross-chain-queries.md) | Interchain queries that verify ownership from another chain | Another chain gates on BitBadges balances |
 | [Supported denoms](supported-denoms.md) | The IBC coins the chain accepts for payments and pools | You attach a payment or seed a pool |
 | [Run a node](run-a-node.md) | Full node and validator setup, cosmovisor, upgrades | You operate infrastructure |

@@ -9,7 +9,7 @@ Executes one or more token transfers in a collection. The signer is the initiato
 ## Example
 
 ```bash
-bb tx tokenization transfer-tokens ./transfer.json --from <key> --chain-id bitbadges-1
+bb tx tokenization transfer-tokens ./transfer.json --from alice --chain-id bitbadges-1
 ```
 
 ```ts
@@ -18,25 +18,40 @@ import { BitBadgesSigningClient, GenericCosmosAdapter, MsgTransferTokens } from 
 const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
+// alice sends token 1 of collection 1 to bob through the transferable approval.
 const msg = new MsgTransferTokens({
-  creator: client.address,
+  creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
   collectionId: 1n,
   transfers: [
     {
-      from: client.address,
-      toAddresses: ['bb1recipient...'],
+      from: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
+      toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
       balances: [
         {
-          amount: 10n,
-          tokenIds: [{ start: 1n, end: 5n }],
+          amount: 1n,
+          tokenIds: [{ start: 1n, end: 1n }],
           ownershipTimes: [{ start: 1n, end: 18446744073709551615n }]
         }
       ],
+      precalculateBalancesFromApproval: {
+        approvalId: '',
+        approvalLevel: '',
+        approverAddress: '',
+        version: 0n,
+        precalculationOptions: { overrideTimestamp: 0n, tokenIdsOverride: [], scalingMultiplier: 0n }
+      },
       merkleProofs: [],
       ethSignatureProofs: [],
       memo: '',
-      prioritizedApprovals: [],
-      onlyCheckPrioritizedCollectionApprovals: false,
+      prioritizedApprovals: [
+        {
+          approvalId: 'transferable',
+          approvalLevel: 'collection',
+          approverAddress: '',
+          version: 0n
+        }
+      ],
+      onlyCheckPrioritizedCollectionApprovals: true,
       onlyCheckPrioritizedIncomingApprovals: false,
       onlyCheckPrioritizedOutgoingApprovals: false
     }
@@ -44,43 +59,40 @@ const msg = new MsgTransferTokens({
 });
 
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
 {
-  "creator": "bb1initiator...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "collectionId": "1",
   "transfers": [
     {
-      "from": "bb1sender...",
-      "toAddresses": ["bb1recipient..."],
+      "from": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "toAddresses": ["bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"],
       "balances": [
         {
-          "amount": "10",
-          "tokenIds": [{ "start": "1", "end": "5" }],
+          "amount": "1",
+          "tokenIds": [{ "start": "1", "end": "1" }],
           "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }]
         }
       ],
       "precalculateBalancesFromApproval": {
-        "approvalId": "approval-1",
-        "approvalLevel": "collection",
+        "approvalId": "",
+        "approvalLevel": "",
         "approverAddress": "",
-        "version": "1",
-        "precalculationOptions": {
-          "overrideTimestamp": "0",
-          "tokenIdsOverride": [],
-          "scalingMultiplier": "0"
-        }
+        "version": "0",
+        "precalculationOptions": { "overrideTimestamp": "0", "tokenIdsOverride": [], "scalingMultiplier": "0" }
       },
       "merkleProofs": [],
       "ethSignatureProofs": [],
       "memo": "",
       "prioritizedApprovals": [
         {
-          "approvalId": "approval-1",
+          "approvalId": "transferable",
           "approvalLevel": "collection",
           "approverAddress": "",
-          "version": "1"
+          "version": "0"
         }
       ],
       "onlyCheckPrioritizedCollectionApprovals": true,
@@ -91,7 +103,11 @@ const result = await client.signAndBroadcast([msg]);
 }
 ```
 
-Leave `balances` empty when `precalculateBalancesFromApproval` is set. The chain computes the balances from the approval's predetermined balances at execution time and overwrites the field.
+A `precalculateBalancesFromApproval` with every field blank is ignored. To mint from an approval that has `predeterminedBalances`, set `from` to `Mint`, leave `balances` empty, and name the approval in `precalculateBalancesFromApproval`. The chain computes the balances at execution time and overwrites the field.
+
+{% hint style="info" %}
+Ask your agent: "Send 1 of token 1 from collection 1 to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue."
+{% endhint %}
 
 ## Fields
 

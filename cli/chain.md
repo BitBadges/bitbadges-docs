@@ -4,47 +4,80 @@ description: "Chain-native bb commands from bitbadgeschaind: keys, tx, query, si
 
 # Chain commands
 
-`bb` is the chain node binary `bitbadgeschaind`, a Cosmos SDK binary with the BitBadges modules. This page covers the native commands: key management, transactions, queries, offline signing, and node operation. The SDK verbs (`build`, `deploy`, `api`, ...) are forwarded to `bitbadges-cli` and documented on the other CLI pages.
+`bb` is the chain node binary `bitbadgeschaind`, a Cosmos SDK binary with the BitBadges modules. This page covers the native commands: key management, transactions, queries, offline signing, and node operation. The SDK verbs (`build`, `deploy`, `api`, and the rest) are forwarded to `bitbadges-cli` and documented on the other CLI pages.
 
 ## Example
 
 ```bash
-bb keys add mykey
+bb keys add alice
 bb tx tokenization create-collection ./create-collection.json \
-  --from mykey --chain-id bitbadges-1 --node https://lcd.bitbadges.io:443 \
+  --from alice --chain-id bitbadges-1 --node https://rpc.bitbadges.io:443 \
   --gas auto --gas-adjustment 1.5 --fees 10000ubadge
-bb query tokenization collection 1 --node https://lcd.bitbadges.io:443 --output json
-bb sign-arbitrary mykey "auth challenge text"
+bb query tokenization collection 2 --node https://rpc.bitbadges.io:443 --output json
+bb sign-arbitrary alice "auth challenge text"
+```
+
+The query prints the on-chain collection document (mainnet output, permissions and default balances trimmed):
+
+```json
+{
+  "collection": {
+    "collectionId": "2",
+    "collectionMetadata": {
+      "uri": "ipfs://QmXSWKxRjpEVqnUnQP6mwsAqrWHo6KAsKzzhYXNu9KKmGj",
+      "customData": ""
+    },
+    "tokenMetadata": [
+      {
+        "uri": "ipfs://QmXSWKxRjpEVqnUnQP6mwsAqrWHo6KAsKzzhYXNu9KKmGj",
+        "customData": "",
+        "tokenIds": [{ "start": "1", "end": "1" }]
+      }
+    ],
+    "customData": "",
+    "manager": "",
+    "collectionApprovals": [],
+    "standards": [],
+    "isArchived": false,
+    "validTokenIds": [{ "start": "1", "end": "1" }]
+  }
+}
 ```
 
 Endpoints and chain IDs: [Network](../chain/README.md). Mainnet is `bitbadges-1`; testnet (`bitbadges-2`) is offline.
+
+{% hint style="info" %}
+Ask your agent. Queries have MCP equivalents (`query_collection`, `query_balance`, `query_dynamic_store`); signing does not, by design. "Fetch collection 2 from chain and summarize its approvals" works; the `bb tx` step stays with you and your keyring.
+{% endhint %}
 
 ## keys
 
 BitBadges supports Ethereum-style `eth_secp256k1` keys and standard Cosmos `secp256k1` keys. The default keyring backend is `test` (unencrypted). Use `--keyring-backend os` or `file` outside development.
 
 ```bash
-bb keys add mykey                          # new key; save the mnemonic
-bb keys add mykey --recover                # from a mnemonic
-bb keys add mykey --key-type secp256k1     # Cosmos key, required by sign-arbitrary
+bb keys add alice                          # new key; save the mnemonic
+bb keys add alice --recover                # from a mnemonic
+bb keys add alice --key-type secp256k1     # Cosmos key, required by sign-arbitrary
 bb keys list
-bb keys show mykey [--bech val|cons]
-bb keys export mykey                       # armored private key
-bb keys import mykey keyfile.armor
-bb keys delete mykey
+bb keys show alice
+bb keys show alice --bech val              # validator operator form
+bb keys export alice                       # armored private key
+bb keys import alice keyfile.armor
+bb keys delete alice
 ```
 
 ## tx
 
 ```bash
-bb tx <module> <command> [args...] --from mykey --chain-id bitbadges-1 --node <rpc> --gas auto --gas-adjustment 1.5 --fees 10000ubadge
+bb tx tokenization transfer-tokens ./transfer.json --from alice --chain-id bitbadges-1 \
+  --node https://rpc.bitbadges.io:443 --gas auto --gas-adjustment 1.5 --fees 10000ubadge
 ```
 
 | Flag | Default | Description |
 | --- | --- | --- |
 | `--from` | required | Key name or address |
 | `--chain-id` | `bitbadgeschain` | Cosmos chain ID (`bitbadges-1` on mainnet) |
-| `--node` | `tcp://localhost:26657` | Node RPC endpoint |
+| `--node` | `tcp://localhost:26657` | Node RPC endpoint (`https://rpc.bitbadges.io:443` on mainnet) |
 | `--gas` | `200000` | Gas limit, or `auto` to simulate |
 | `--gas-adjustment` | `1.0` | Multiplier with `--gas auto` |
 | `--fees` | | For example `10000ubadge` |
@@ -57,56 +90,58 @@ Generic subcommands under `bb tx`: `sign`, `sign-batch`, `multi-sign`, `multisig
 
 ### tokenization
 
-Most commands take a JSON argument, inline or as a file path. Field names match the protobuf messages in [Messages](../token-standard/messages/README.md).
+Most commands take a JSON argument, inline or as a file path. Field names match the protobuf messages in [Messages](../token-standard/messages/README.md). Every line below also takes the flags from the `tx` table; `FLAGS` stands for `--from alice --chain-id bitbadges-1 --node https://rpc.bitbadges.io:443 --gas auto --gas-adjustment 1.5 --fees 10000ubadge`.
 
 ```bash
+FLAGS="--from alice --chain-id bitbadges-1 --node https://rpc.bitbadges.io:443 --gas auto --gas-adjustment 1.5 --fees 10000ubadge"
+
 # collections
-bb tx tokenization create-collection ./create-collection.json --from mykey ...
-bb tx tokenization universal-update-collection ./update.json --from mykey ...
-bb tx tokenization update-collection ./update.json --from mykey ...
-bb tx tokenization delete-collection 1 --from mykey ...
+bb tx tokenization create-collection ./create-collection.json $FLAGS
+bb tx tokenization universal-update-collection ./update.json $FLAGS
+bb tx tokenization update-collection ./update.json $FLAGS
+bb tx tokenization delete-collection 1 $FLAGS
 
 # transfers
-bb tx tokenization transfer-tokens ./transfer.json --from mykey ...
+bb tx tokenization transfer-tokens ./transfer.json $FLAGS
 
 # approvals
-bb tx tokenization set-incoming-approval 1 ./approval.json --from mykey ...
-bb tx tokenization set-outgoing-approval 1 ./approval.json --from mykey ...
-bb tx tokenization delete-incoming-approval 1 my-approval-id --from mykey ...
-bb tx tokenization delete-outgoing-approval 1 my-approval-id --from mykey ...
-bb tx tokenization update-user-approved-transfers ./approvals.json --from mykey ...
-bb tx tokenization purge-approvals 1 true "" false '[]' --from mykey ...
+bb tx tokenization set-incoming-approval 1 ./approval.json $FLAGS
+bb tx tokenization set-outgoing-approval 1 ./approval.json $FLAGS
+bb tx tokenization delete-incoming-approval 1 agent-daily-budget $FLAGS
+bb tx tokenization delete-outgoing-approval 1 agent-daily-budget $FLAGS
+bb tx tokenization update-user-approved-transfers ./approvals.json $FLAGS
+bb tx tokenization purge-approvals 1 true "" false '[]' $FLAGS
 
 # metadata and configuration
-bb tx tokenization set-setcollectionmetadata ./metadata.json --from mykey ...
-bb tx tokenization set-settokenmetadata ./metadata.json --from mykey ...
-bb tx tokenization set-setcustomdata ./data.json --from mykey ...
-bb tx tokenization set-setstandards ./standards.json --from mykey ...
-bb tx tokenization set-setcollectionapprovals ./approvals.json --from mykey ...
-bb tx tokenization set-valid-token-ids ./tokenids.json --from mykey ...
-bb tx tokenization set-manager ./manager.json --from mykey ...
-bb tx tokenization set-setisarchived ./archived.json --from mykey ...
+bb tx tokenization set-setcollectionmetadata ./metadata.json $FLAGS
+bb tx tokenization set-settokenmetadata ./metadata.json $FLAGS
+bb tx tokenization set-setcustomdata ./data.json $FLAGS
+bb tx tokenization set-setstandards ./standards.json $FLAGS
+bb tx tokenization set-setcollectionapprovals ./approvals.json $FLAGS
+bb tx tokenization set-valid-token-ids ./tokenids.json $FLAGS
+bb tx tokenization set-manager ./manager.json $FLAGS
+bb tx tokenization set-setisarchived ./archived.json $FLAGS
 
 # dynamic stores
-bb tx tokenization create-dynamic-store true --from mykey ...
-bb tx tokenization update-dynamic-store 1 false true --from mykey ...
-bb tx tokenization set-dynamic-store-value 1 bb1abc... true --from mykey ...
-bb tx tokenization delete-dynamic-store 1 --from mykey ...
+bb tx tokenization create-dynamic-store true $FLAGS
+bb tx tokenization update-dynamic-store 1 false true $FLAGS
+bb tx tokenization set-dynamic-store-value 1 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue true $FLAGS
+bb tx tokenization delete-dynamic-store 1 $FLAGS
 
 # address lists and votes
-bb tx tokenization create-address-lists ./lists.json --from mykey ...
-bb tx tokenization cast-vote 1 collection bb1abc... my-approval-id proposal-1 100 --from mykey ...
+bb tx tokenization create-address-lists ./lists.json $FLAGS
+bb tx tokenization cast-vote 1 collection bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d multisig-approval proposal-1 100 $FLAGS
 ```
 
-Example `transfer.json`:
+Example `transfer.json` (alice sends bob one unit of token ID 1 in collection 1):
 
 ```json
 {
   "collectionId": "1",
   "transfers": [
     {
-      "from": "bb1abc...",
-      "toAddresses": ["bb1xyz..."],
+      "from": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "toAddresses": ["bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"],
       "balances": [
         {
           "amount": "1",
@@ -137,57 +172,77 @@ Files are easier than inline JSON for anything beyond a one-liner. Prefer `bb bu
 ### gamm
 
 ```bash
-bb tx gamm create-pool ...
-bb tx gamm join-pool ... | exit-pool ...
-bb tx gamm swap-exact-amount-in ... | swap-exact-amount-out ...
-bb tx gamm join-swap-extern-amount-in ... | join-swap-share-amount-out ... | exit-swap-extern-amount-out ... | exit-swap-share-amount-in ...
-bb tx gamm swap-exact-amount-in-with-ibc-transfer ...
+bb tx gamm create-pool --pool-file ./pool.json $FLAGS
+bb tx gamm join-pool 2 1000000 1000000000ubadge,1000000ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8 $FLAGS
+bb tx gamm exit-pool 2 1000000 1ubadge,1ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8 $FLAGS
+bb tx gamm swap-exact-amount-in '[{"poolId":"2","tokenOutDenom":"ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8"}]' 1000000000ubadge 1 '[]' $FLAGS
+bb tx gamm swap-exact-amount-out '[{"poolId":"2","tokenInDenom":"ubadge"}]' 2000000000 1000000ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8 $FLAGS
 ```
 
-Arguments and flags are in `bb tx gamm <command> --help`. Message semantics: [gamm messages](../chain/modules/gamm/messages.md).
+Positional order: `join-pool [pool-id] [share-out-amount] [token-in-maxs]`, `exit-pool [pool-id] [share-in-amount] [token-out-mins]`, `swap-exact-amount-in [routes] [token-in] [token-out-min-amount] [affiliates]`, `swap-exact-amount-out [routes] [token-in-max-amount] [token-out]`.
+
+The pool-entry and exit variants (`join-swap-extern-amount-in`, `join-swap-share-amount-out`, `exit-swap-extern-amount-out`, `exit-swap-share-amount-in`) and `swap-exact-amount-in-with-ibc-transfer` follow the same pattern. Arguments and flags are in `bb tx gamm <command> --help`. Message semantics: [gamm messages](../chain/modules/gamm/messages.md).
 
 ## query
 
 ```bash
-bb query tokenization collection 1
-bb query tokenization balance 1 bb1abc...
-bb query tokenization balance-for-token 1 bb1abc... 7 <time>
-bb query tokenization collection-stats 1
-bb query tokenization params
-bb query tokenization address-list <id>
-bb query tokenization dynamic-store <store-id>
-bb query tokenization dynamic-store-value <store-id> <address>
-bb query tokenization wrappable-balances <denom> <address>
-bb query tokenization is-address-reserved-protocol <address>
-bb query tokenization all-reserved-protocol-addresses
-bb query tokenization approvals-trackers <collectionId> <approvalLevel> <approverAddress> <approvalId> <amountTrackerId> <trackerType> <approvedAddress>
-bb query tokenization num-used-for-merkle-challenge <collectionId> <approvalLevel> <approverAddress> <approvalId> <challengeTrackerId> <leafIndex>
-bb query tokenization num-used-for-eth-signature-challenge <collectionId> <approvalLevel> <approverAddress> <approvalId> <challengeTrackerId> <signature>
-bb query tokenization vote <collection-id> <approval-level> <approver-address> <approval-id> <proposal-id> <voter-address>
-bb query tokenization votes <collection-id> <approval-level> <approver-address> <approval-id> <proposal-id>
+NODE="--node https://rpc.bitbadges.io:443 --output json"
 
-bb query gamm pools | pool <id> | pool-params <poolID> | spot-price | estimate-swap-exact-amount-in | estimate-swap-exact-amount-out | pools-with-filter <min_liquidity> <pool_type>
-bb query bank balances bb1abc...
-bb query tx <hash>
-bb query block --type=height <n>
+bb query tokenization collection 1 $NODE
+bb query tokenization balance 1 bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d $NODE
+bb query tokenization balance-for-token 1 bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d 7 1788739200000 $NODE
+bb query tokenization collection-stats 1 $NODE
+bb query tokenization params $NODE
+bb query tokenization address-list "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d:bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue" $NODE
+bb query tokenization dynamic-store 1 $NODE
+bb query tokenization dynamic-store-value 1 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue $NODE
+bb query tokenization wrappable-balances ubadge bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d $NODE
+bb query tokenization is-address-reserved-protocol bb1gycvn0nc50lh753dgk4qys5p2sdws8aw7ec9v9gg65pkhm6hqq3qjd3t3n $NODE
+bb query tokenization all-reserved-protocol-addresses $NODE
+bb query tokenization approvals-trackers 2 outgoing bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d agent-daily-budget agent-daily-budget overall "" $NODE
+bb query tokenization num-used-for-merkle-challenge 1 collection bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d code-claim code-claim 0 $NODE
+bb query tokenization num-used-for-eth-signature-challenge 1 collection bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d eth-gated eth-gated 0x9f1c2b3a4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8 $NODE
+bb query tokenization vote 1 collection bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d multisig-approval proposal-1 bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf $NODE
+bb query tokenization votes 1 collection bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d multisig-approval proposal-1 $NODE
+
+bb query gamm pools $NODE
+bb query gamm pool 2 $NODE
+bb query gamm pool-params 2 $NODE
+bb query gamm spot-price 2 ubadge ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8 false $NODE
+bb query gamm estimate-swap-exact-amount-in 2 1000000000ubadge --swap-route-pool-ids=2 --swap-route-denoms=ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8 $NODE
+bb query gamm pools-with-filter 1000000 balancer $NODE
+bb query bank balances bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d $NODE
+bb query tx 903D4A6E205AD77D334933E3C9BB455012D8A334AA2D98DFD301C3F7E8AB92C6 $NODE
+bb query block --type=height 10000000 $NODE
 ```
+
+`bb query bank balances` for an address that holds nothing prints `{ "balances": [], "pagination": {} }`.
 
 Every query accepts `--node <rpc>` and `--output json`. `q` is an alias for `query`. One page per query with the response shape: [Queries](../token-standard/queries/README.md).
 
 ## sign-arbitrary
 
 ```bash
-bb sign-arbitrary mykey "auth challenge text"
-echo -n "auth challenge text" | bb sign-arbitrary mykey
-bb sign-arbitrary mykey --message-file challenge.txt
-bb sign-arbitrary mykey "..." --output-mode raw          # only the base64 signature
+bb sign-arbitrary alice "auth challenge text"
+echo -n "auth challenge text" | bb sign-arbitrary alice
+bb sign-arbitrary alice --message-file challenge.txt
+bb sign-arbitrary alice "auth challenge text" --output-mode raw          # only the base64 signature
 ```
+
+Output for a throwaway `secp256k1` key (real signature, produced offline):
 
 ```json
-{ "format": "adr36", "algo": "secp256k1", "address": "bb1abc...", "pubKey": "AhUw...", "signature": "LIq6...", "message": "auth challenge text" }
+{
+  "address": "bb1hz59w73vsqygl7z9zl49yvwjnl534n0yyexmkf",
+  "algo": "secp256k1",
+  "format": "adr36",
+  "message": "auth challenge text",
+  "pubKey": "A7TliNEJ+WoiaZvtnrOrdIuLIaVayagqvp47kF2L3Np3",
+  "signature": "Bk/AuuDrt/kChEgF4myQJMCX//1wqoEffd+4RghpKaU0q2QRpVjw0zaf+WHs3FnM8AsEnKm3CeMLc/2/AfKQ9A=="
+}
 ```
 
-Signs any message with a keyring key in ADR-36 format, offline, with no chain access. The output feeds `bb auth login --signature ... --public-key ... --message ...`; see [Auth](auth.md). The signed bytes equal Keplr's `serializeSignDoc(makeADR36AminoSignDoc(...))` and verify with `verifyADR36Amino`.
+Signs any message with a keyring key in ADR-36 format, offline, with no chain access. The output feeds `bb auth login --signature "$SIG" --public-key "$PUBKEY" --message "$MSG"`; see [Auth](auth.md). The signed bytes equal Keplr's `serializeSignDoc(makeADR36AminoSignDoc(...))` and verify with `verifyADR36Amino`.
 
 | Flag | Description |
 | --- | --- |
@@ -202,7 +257,7 @@ Only `secp256k1` keys are supported; an `eth_secp256k1` key errors with a pointe
 | Command | Purpose |
 | --- | --- |
 | `start` | Run the node (Cosmos EVM server flags for JSON-RPC and EVM config) |
-| `init`, `genesis` | Initialize a home directory; genesis subcommands (`gentx`, `collect-gentxs`, `validate`, ...) |
+| `init`, `genesis` | Initialize a home directory; genesis subcommands (`gentx`, `collect-gentxs`, `validate`, and the rest) |
 | `status`, `version` | Node status; binary version |
 | `config` | Manage `client.toml` (chain-owned; the SDK's settings live under `bb settings`) |
 | `export`, `rollback`, `index-eth-tx` | Cosmos EVM additions |
@@ -214,11 +269,31 @@ Running a validator or full node: [Run a node](../chain/run-a-node.md). Build fr
 ## SDK alternative
 
 ```ts
-import { BitBadgesSigningClient, GenericCosmosAdapter } from 'bitbadges';
+import { BitBadgesSigningClient, GenericCosmosAdapter, MsgTransferTokens } from 'bitbadges';
 
-const adapter = await GenericCosmosAdapter.fromMnemonic('<mnemonic>', 'bitbadges-1');
-const client = new BitBadgesSigningClient({ adapter });
+const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
+const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
+
+const msg = new MsgTransferTokens({
+  creator: client.address,
+  collectionId: '1',
+  transfers: [
+    {
+      from: client.address,
+      toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+      balances: [
+        {
+          amount: '1',
+          tokenIds: [{ start: '1', end: '1' }],
+          ownershipTimes: [{ start: '1', end: '18446744073709551615' }]
+        }
+      ]
+    }
+  ]
+});
+
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 The [signing client](../sdk/transactions/signing-client.md) handles gas estimation, sequence management, and broadcasting for every message type.

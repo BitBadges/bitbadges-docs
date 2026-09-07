@@ -80,20 +80,21 @@ Use port 8545 (EVM JSON-RPC), not 26657 (Tendermint RPC).
 After starting your local chain, fund your MetaMask account:
 
 ```bash
-# Get your MetaMask address (0x... format)
-# Then fund it using the chain's genesis or by transferring from a validator
+# Your MetaMask address is a 0x address; its bech32 form is the same 20 bytes.
+# Convert it once, then send from the local validator key (alice).
+bb debug addr 092bb4851ae26850588243e7bef22a56287f4739
+# Bech32 Acc: bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue
 
-# Option 1: Transfer from a validator account
 bb tx bank send \
   $(bb keys show alice -a --keyring-backend test) \
-  <your-metamask-address> \
+  bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue \
   1000000000ubadge \
-  --chain-id bitbadges \
+  --chain-id bitbadges-1 \
   --keyring-backend test \
   --yes
-
-# Option 2: Use the chain's genesis accounts if configured
 ```
+
+A genesis account for the same address also works: add it with `bb genesis add-genesis-account bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue 1000000000000ubadge` before the first start.
 
 ## Minimal dApp
 
@@ -188,10 +189,14 @@ async function deploy() {
   const balance = await provider.getBalance(wallet.address);
   console.log("Balance:", ethers.formatEther(balance), "BADGE");
 
-  // Deploy contract
+  // Deploy contract from the Hardhat artifact; the constructor takes the collection ID
+  const artifact = JSON.parse(
+    fs.readFileSync("artifacts/contracts/MyContract.sol/MyTokenContract.json", "utf8")
+  );
+  const collectionId = 1n;
   const contractFactory = new ethers.ContractFactory(
-    CONTRACT_ABI,
-    CONTRACT_BYTECODE,
+    artifact.abi,
+    artifact.bytecode,
     wallet
   );
 
@@ -204,7 +209,7 @@ async function deploy() {
   // Save deployment info
   fs.writeFileSync(
     "deployed.json",
-    JSON.stringify({ address, abi: CONTRACT_ABI }, null, 2)
+    JSON.stringify({ address, abi: artifact.abi }, null, 2)
   );
 }
 
@@ -216,25 +221,21 @@ deploy().catch(console.error);
 ```typescript
 import { ethers } from "ethers";
 import { useState, useEffect } from "react";
+import deployed from "../deployed.json"; // written by scripts/deploy.ts
 
 export function useContract() {
   const [contract, setContract] = useState<ethers.Contract | null>(null);
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
 
   useEffect(() => {
-    if (typeof window.ethereum !== "undefined") {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      setProvider(provider);
+    if (typeof window.ethereum === "undefined") return;
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    setProvider(provider);
 
-      // Load deployed contract
-      const contractAddress = "0x..."; // Your deployed contract address
-      const contract = new ethers.Contract(
-        contractAddress,
-        CONTRACT_ABI,
-        await provider.getSigner()
-      );
-      setContract(contract);
-    }
+    // Load deployed contract
+    provider.getSigner().then((signer) => {
+      setContract(new ethers.Contract(deployed.address, deployed.abi, signer));
+    });
   }, []);
 
   const transfer = async (to: string, amount: bigint, tokenId: bigint) => {
@@ -292,63 +293,79 @@ See [TokenizationHelpers.sol](https://github.com/BitBadges/bitbadgeschain/blob/m
 ### Simple transfer
 
 ```solidity
-ITokenizationPrecompile constant precompile =
-    ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-function simpleTransfer(
-    uint256 collectionId,
-    address to,
-    uint256 amount,
-    uint256 tokenId
-) external returns (bool) {
-    address[] memory recipients = new address[](1);
-    recipients[0] = to;
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
 
-    string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId);
-    string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(
-        1, TokenizationJSONHelpers.FOREVER
-    );
+contract SimpleTransfer {
+    ITokenizationPrecompile constant precompile =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
-    return precompile.transferTokens(
-        TokenizationJSONHelpers.transferTokensJSON(
-            collectionId, recipients, amount, tokenIdsJson, ownershipJson
-        )
-    );
+    function simpleTransfer(
+        uint256 collectionId,
+        address to,
+        uint256 amount,
+        uint256 tokenId
+    ) external returns (bool) {
+        address[] memory recipients = new address[](1);
+        recipients[0] = to;
+
+        string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId);
+        string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(
+            1, TokenizationJSONHelpers.FOREVER
+        );
+
+        return precompile.transferTokens(
+            TokenizationJSONHelpers.transferTokensJSON(
+                collectionId, recipients, amount, tokenIdsJson, ownershipJson
+            )
+        );
+    }
 }
 ```
 
 ### Batch transfer
 
 ```solidity
-ITokenizationPrecompile constant precompile =
-    ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-function batchTransfer(
-    uint256 collectionId,
-    address[] calldata recipients,
-    uint256[] calldata amounts,
-    uint256 tokenId
-) external returns (bool) {
-    require(recipients.length == amounts.length, "Arrays length mismatch");
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
 
-    string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId);
-    string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(
-        1, TokenizationJSONHelpers.FOREVER
-    );
+contract BatchTransfer {
+    ITokenizationPrecompile constant precompile =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
-    // Transfer to each recipient
-    for (uint256 i = 0; i < recipients.length; i++) {
-        address[] memory singleRecipient = new address[](1);
-        singleRecipient[0] = recipients[i];
+    function batchTransfer(
+        uint256 collectionId,
+        address[] calldata recipients,
+        uint256[] calldata amounts,
+        uint256 tokenId
+    ) external returns (bool) {
+        require(recipients.length == amounts.length, "Arrays length mismatch");
 
-        precompile.transferTokens(
-            TokenizationJSONHelpers.transferTokensJSON(
-                collectionId, singleRecipient, amounts[i], tokenIdsJson, ownershipJson
-            )
+        string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId);
+        string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(
+            1, TokenizationJSONHelpers.FOREVER
         );
-    }
 
-    return true;
+        // Transfer to each recipient
+        for (uint256 i = 0; i < recipients.length; i++) {
+            address[] memory singleRecipient = new address[](1);
+            singleRecipient[0] = recipients[i];
+
+            precompile.transferTokens(
+                TokenizationJSONHelpers.transferTokensJSON(
+                    collectionId, singleRecipient, amounts[i], tokenIdsJson, ownershipJson
+                )
+            );
+        }
+
+        return true;
+    }
 }
 ```
 
@@ -357,29 +374,37 @@ For one atomic call instead of a loop, use `executeMultiple` (see [API](tokeniza
 ### Time-limited transfer
 
 ```solidity
-ITokenizationPrecompile constant precompile =
-    ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-function transferWithExpiration(
-    uint256 collectionId,
-    address to,
-    uint256 amount,
-    uint256 tokenId,
-    uint256 expirationTime
-) external returns (bool) {
-    address[] memory recipients = new address[](1);
-    recipients[0] = to;
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
 
-    string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(
-        block.timestamp, expirationTime
-    );
-    string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId);
+contract TimeLimitedTransfer {
+    ITokenizationPrecompile constant precompile =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
-    return precompile.transferTokens(
-        TokenizationJSONHelpers.transferTokensJSON(
-            collectionId, recipients, amount, tokenIdsJson, ownershipJson
-        )
-    );
+    function transferWithExpiration(
+        uint256 collectionId,
+        address to,
+        uint256 amount,
+        uint256 tokenId,
+        uint256 expirationTime
+    ) external returns (bool) {
+        address[] memory recipients = new address[](1);
+        recipients[0] = to;
+
+        string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(
+            block.timestamp, expirationTime
+        );
+        string memory tokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId);
+
+        return precompile.transferTokens(
+            TokenizationJSONHelpers.transferTokensJSON(
+                collectionId, recipients, amount, tokenIdsJson, ownershipJson
+            )
+        );
+    }
 }
 ```
 
@@ -423,6 +448,12 @@ contract HelperExample {
 ### Dynamic store for compliance
 
 ```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
+
 contract ComplianceToken {
     ITokenizationPrecompile constant precompile =
         ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
@@ -437,7 +468,7 @@ contract ComplianceToken {
         kycRegistryId = precompile.createDynamicStore(
             TokenizationJSONHelpers.createDynamicStoreJSON(
                 false,
-                "ipfs://...", // URI
+                "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json", // URI
                 ""            // customData
             )
         );
@@ -459,11 +490,21 @@ contract ComplianceToken {
         return kycMirror[user];
     }
 
-    function transfer(address to, uint256 amount, uint256 tokenId) external {
+    function transfer(address to, uint256 amount, uint256 tokenId) external returns (bool) {
         require(isKYCd(msg.sender), "Sender not KYC'd");
         require(isKYCd(to), "Recipient not KYC'd");
 
-        // Proceed with transfer...
+        address[] memory recipients = new address[](1);
+        recipients[0] = to;
+        return precompile.transferTokens(
+            TokenizationJSONHelpers.transferTokensJSON(
+                collectionId,
+                recipients,
+                amount,
+                TokenizationJSONHelpers.uintRangeToJson(tokenId, tokenId),
+                TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER)
+            )
+        );
     }
 }
 ```
@@ -501,7 +542,7 @@ Each example uses dynamic stores for compliance registries, time-bound ownership
 
 - Fund the account with BADGE:
   ```bash
-  bb tx bank send <validator> <your-address> 1000000000ubadge --keyring-backend test
+  bb tx bank send $(bb keys show alice -a --keyring-backend test) bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue 1000000000ubadge --chain-id bitbadges-1 --keyring-backend test --yes
   ```
 - Check gas prices (adjust in MetaMask if needed)
 - Confirm approvals are set for token transfers

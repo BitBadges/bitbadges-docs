@@ -11,21 +11,58 @@ After signing you have a `{ tx_bytes, mode }` body. Simulate it to get gas, broa
 ```bash
 bb simulate ./tx.json
 bb deploy ./tx.json --browser          # sign in the browser wallet and broadcast
-bb tx wait <hash>                      # poll until the tx commits or fails
+bb tx wait 903D4A6E205AD77D334933E3C9BB455012D8A334AA2D98DFD301C3F7E8AB92C6    # poll until the tx commits or fails
 ```
 
 ```ts
-import { BitBadgesAPI, BigIntify } from 'bitbadges';
+import { BitBadgesAPI, BigIntify, MsgTransferTokens, createTransactionPayload, createTxBroadcastBody, type TxContext } from 'bitbadges';
 import axios from 'axios';
 
 const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const ALICE = 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d';
 
-// 1. Simulate. Signatures are not checked, so the body from a simulate=true signing pass works.
+const msgs = [
+  new MsgTransferTokens({
+    creator: ALICE,
+    collectionId: '1',
+    transfers: [
+      {
+        from: ALICE,
+        toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+        balances: [{ amount: '1', tokenIds: [{ start: '1', end: '1' }], ownershipTimes: [{ start: '1', end: '18446744073709551615' }] }]
+      }
+    ]
+  })
+];
+const { account } = await api.getAccount({ address: ALICE });
+const txContext: TxContext = {
+  sender: { address: account.address, sequence: account.sequence ?? 0n, accountNumber: account.accountNumber, publicKey: account.publicKey },
+  fee: { amount: '0', denom: 'ubadge', gas: '400000' },
+  memo: ''
+};
+
+// 1. Simulate. Signatures are not checked, so an empty signature works.
+const simBody = createTxBroadcastBody(txContext, msgs, '');
 const sim = await api.simulateTx(simBody); // POST https://api.bitbadges.io/api/v0/simulate
 console.log(sim.gas_info.gas_used);
-// Update txContext.fee from gas_used, re-create the payload, sign for real.
+txContext.fee.gas = String(Math.ceil(Number(sim.gas_info.gas_used) * 1.3));
 
-// 2. Broadcast
+// 2. Sign for real (Keplr signDirect shown; see sign-cosmos and sign-ethereum), then broadcast
+const payload = createTransactionPayload(txContext, msgs);
+await window.keplr!.enable('bitbadges-1');
+const signed = await window.keplr!.signDirect(
+  'bitbadges-1',
+  ALICE,
+  {
+    bodyBytes: payload.signDirect.body.toBinary(),
+    authInfoBytes: payload.signDirect.authInfo.toBinary(),
+    chainId: 'bitbadges-1',
+    accountNumber: BigInt(String(account.accountNumber)) as any
+  },
+  { preferNoSetFee: true }
+);
+const hexSignature = Buffer.from(signed.signature.signature, 'base64').toString('hex');
+const txBody = createTxBroadcastBody(txContext, msgs, hexSignature);
 const res = await api.broadcastTx(txBody); // POST https://api.bitbadges.io/api/v0/broadcast
 const { code, txhash } = res.tx_response;
 if (code !== 0) {

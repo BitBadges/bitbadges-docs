@@ -4,13 +4,13 @@ description: "x/sendmanager routes sdk.Coins by denom prefix to x/bank or x/toke
 
 # x/sendmanager
 
-`x/sendmanager` is a bank-shaped send layer that understands [alias denoms](../../token-standard/ibc/alias-denoms.md). It inspects each coin's denom prefix: `badgeslp:` routes to `x/tokenization`, anything else routes to `x/bank`. One message or keeper call can therefore carry a native token and a standard coin side by side. The [send manager precompile](../evm/send-manager-precompile.md) at `0x...1003` exposes the same message to Solidity.
+`x/sendmanager` is a bank-shaped send layer that understands [alias denoms](../../token-standard/ibc/alias-denoms.md). It inspects each coin's denom prefix: `badgeslp:` routes to `x/tokenization`, anything else routes to `x/bank`. One message or keeper call can therefore carry a native token and a standard coin side by side. The [send manager precompile](../evm/send-manager-precompile.md) at `0x0000000000000000000000000000000000001003` (`0x...1003`) exposes the same message to Solidity.
 
 ```json
 {
   "@type": "/sendmanager.MsgSendWithAliasRouting",
-  "from_address": "bb1sender...",
-  "to_address": "bb1recipient...",
+  "from_address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "to_address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
   "amount": [
     { "denom": "badgeslp:64:utoken", "amount": "5" },
     { "denom": "ubadge", "amount": "1000000000" }
@@ -53,12 +53,24 @@ Behavior:
 
 Governance-only. `Params` has no fields today.
 
+```json
+{
+  "@type": "/sendmanager.MsgUpdateParams",
+  "authority": "bb10d07y265gmmuvt4z0w9aw880jnsr700jelmk2z",
+  "params": {}
+}
+```
+
 ```proto
 message MsgUpdateParams {
   option (cosmos.msg.v1.signer) = "authority";
+  option (amino.name) = "bitbadgeschain/x/sendmanager/MsgUpdateParams";
+
   string authority = 1;
   Params params = 2;
 }
+
+message MsgUpdateParamsResponse {}
 ```
 
 ## Queries

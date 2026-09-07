@@ -10,7 +10,7 @@ A chain that embeds `x/tokenization` can register Go callbacks that run at fixed
 // app.go
 app.BadgesKeeper.RegisterCustomApprovalCriteriaChecker(approvalCriteriaFactory)
 app.BadgesKeeper.RegisterCustomGlobalTransferChecker(globalTransferFactory)
-app.BadgesKeeper.RegisterCustomCollectionVerifier(NewRequireSpecificManagerVerifier("bb1..."))
+app.BadgesKeeper.RegisterCustomCollectionVerifier(NewRequireSpecificManagerVerifier("bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"))
 ```
 
 | Hook | Runs when | Sees | Typical use |
@@ -28,7 +28,7 @@ The factory receives each `CollectionApproval` and returns zero or more checkers
 app.BadgesKeeper.RegisterCustomApprovalCriteriaChecker(func(approval *types.CollectionApproval) []approvalcriteria.ApprovalCriteriaChecker {
 	if approval.ApprovalId == "special-approval" {
 		return []approvalcriteria.ApprovalCriteriaChecker{
-			NewRequireSpecificAddressChecker("bb1abc123..."),
+			NewRequireSpecificAddressChecker("bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"),
 		}
 	}
 	return nil
@@ -50,7 +50,12 @@ func (c *RequireSpecificAddressChecker) Check(
 	to string,
 	from string,
 	initiator string,
-	// ... other params
+	approvalLevel string,
+	approverAddress string,
+	merkleProofs []*types.MerkleProof,
+	ethSignatureProofs []*types.ETHSignatureProof,
+	memo string,
+	isPrioritized bool,
 ) (detErrMsg string, err error) {
 	if initiator != c.requiredAddress {
 		return "initiator must be " + c.requiredAddress,
@@ -118,7 +123,7 @@ Verifiers run before a collection is written to the store, on creation and on ev
 ```go
 // Usage in app.go:
 app.BadgesKeeper.RegisterCustomCollectionVerifier(
-	NewRequireSpecificManagerVerifier("bb1..."),
+	NewRequireSpecificManagerVerifier("bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"),
 )
 
 // Implementation

@@ -1,5 +1,5 @@
 ---
-description: "The GAMM precompile at 0x...1002: join and exit liquidity pools, swap, swap with an IBC transfer, create a pool, and query pools from Solidity."
+description: "The GAMM precompile at 0x0000000000000000000000000000000000001002: join and exit liquidity pools, swap, swap with an IBC transfer, create a pool, and query pools from Solidity."
 ---
 
 # GAMM precompile
@@ -37,7 +37,7 @@ contract MyPoolContract {
 
     // Swap tokens
     function swap(
-        string memory routesJson,   // e.g. [{"pool_id":"1","token_out_denom":"uatom"}]
+        string memory routesJson,   // e.g. [{"pool_id":"1","token_out_denom":"badgeslp:64:utoken"}]
         string memory tokenInJson,  // e.g. {"denom":"ubadge","amount":"1000000000"}
         uint256 minTokenOutAmount
     ) external returns (uint256 tokenOutAmount) {
@@ -59,7 +59,7 @@ Every method takes one `string calldata msgJson`. The JSON is the protobuf JSON 
 
 ```solidity
 // Correct: JSON string
-string memory json = GammJSONHelpers.joinPoolJSON(...);
+string memory json = GammJSONHelpers.joinPoolJSON(poolId, shareOutAmount, tokenInMaxsJson);
 (uint256 shares, ) = GAMM.joinPool(json);
 
 // Wrong: struct parameters (old interface)
@@ -76,7 +76,12 @@ string memory json = GammJSONHelpers.getPoolJSON(poolId);
 bytes memory pool = GAMM.getPool(json);
 
 // Complex operations
-string memory swapJson = GammJSONHelpers.swapExactAmountInJSON(...);
+string memory swapJson = GammJSONHelpers.swapExactAmountInJSON(
+    '[{"pool_id":"1","token_out_denom":"badgeslp:64:utoken"}]',
+    '{"denom":"ubadge","amount":"1000000000"}',
+    60,
+    "[]"
+);
 uint256 amountOut = GAMM.swapExactAmountIn(swapJson);
 ```
 
@@ -115,102 +120,150 @@ Signatures and JSON shapes: [API reference](api.md).
 ### Join a pool
 
 ```solidity
-function joinPool(
-    uint64 poolId,
-    uint256 desiredShares,
-    string memory denom1,
-    uint256 amount1,
-    string memory denom2,
-    uint256 amount2
-) external returns (uint256 sharesReceived) {
-    GammTypes.Coin[] memory maxIn = new GammTypes.Coin[](2);
-    maxIn[0] = GammTypes.Coin(denom1, amount1);
-    maxIn[1] = GammTypes.Coin(denom2, amount2);
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    string memory msgJson = GammJSONHelpers.joinPoolJSON(
-        poolId,
-        desiredShares,
-        GammJSONHelpers.coinsToJson(maxIn)
-    );
+import "./interfaces/IGammPrecompile.sol";
+import "./libraries/GammJSONHelpers.sol";
+import "./types/GammTypes.sol";
 
-    (sharesReceived, ) = GAMM.joinPool(msgJson);
-    return sharesReceived;
+contract JoinPoolExample {
+    IGammPrecompile constant GAMM =
+        IGammPrecompile(0x0000000000000000000000000000000000001002);
+
+    function joinPool(
+        uint64 poolId,
+        uint256 desiredShares,
+        string memory denom1,
+        uint256 amount1,
+        string memory denom2,
+        uint256 amount2
+    ) external returns (uint256 sharesReceived) {
+        GammTypes.Coin[] memory maxIn = new GammTypes.Coin[](2);
+        maxIn[0] = GammTypes.Coin(denom1, amount1);
+        maxIn[1] = GammTypes.Coin(denom2, amount2);
+
+        string memory msgJson = GammJSONHelpers.joinPoolJSON(
+            poolId,
+            desiredShares,
+            GammJSONHelpers.coinsToJson(maxIn)
+        );
+
+        (sharesReceived, ) = GAMM.joinPool(msgJson);
+        return sharesReceived;
+    }
 }
 ```
 
 ### Exit a pool
 
 ```solidity
-function exitPool(
-    uint64 poolId,
-    uint256 shareAmount,
-    string memory tokenOutMinsJson
-) external returns (uint256[] memory amountsOut) {
-    string memory msgJson = GammJSONHelpers.exitPoolJSON(
-        poolId,
-        shareAmount,
-        tokenOutMinsJson
-    );
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    GammTypes.Coin[] memory tokensOut = GAMM.exitPool(msgJson);
+import "./interfaces/IGammPrecompile.sol";
+import "./libraries/GammJSONHelpers.sol";
+import "./types/GammTypes.sol";
 
-    // Convert to array
-    amountsOut = new uint256[](tokensOut.length);
-    for (uint i = 0; i < tokensOut.length; i++) {
-        amountsOut[i] = tokensOut[i].amount;
+contract ExitPoolExample {
+    IGammPrecompile constant GAMM =
+        IGammPrecompile(0x0000000000000000000000000000000000001002);
+
+    function exitPool(
+        uint64 poolId,
+        uint256 shareAmount,
+        string memory tokenOutMinsJson
+    ) external returns (uint256[] memory amountsOut) {
+        string memory msgJson = GammJSONHelpers.exitPoolJSON(
+            poolId,
+            shareAmount,
+            tokenOutMinsJson
+        );
+
+        GammTypes.Coin[] memory tokensOut = GAMM.exitPool(msgJson);
+
+        // Convert to array
+        amountsOut = new uint256[](tokensOut.length);
+        for (uint i = 0; i < tokensOut.length; i++) {
+            amountsOut[i] = tokensOut[i].amount;
+        }
+
+        return amountsOut;
     }
-
-    return amountsOut;
 }
 ```
 
 ### Single-hop swap
 
 ```solidity
-function swapTokens(
-    uint64 poolId,
-    string memory tokenInDenom,
-    uint256 tokenInAmount,
-    string memory tokenOutDenom,
-    uint256 minTokenOutAmount
-) external returns (uint256 tokenOutAmount) {
-    GammTypes.SwapAmountInRoute[] memory routes = new GammTypes.SwapAmountInRoute[](1);
-    routes[0] = GammTypes.SwapAmountInRoute(poolId, tokenOutDenom);
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    string memory msgJson = GammJSONHelpers.swapExactAmountInJSON(
-        GammJSONHelpers.swapRoutesToJson(routes),
-        GammJSONHelpers.coinToJson(GammTypes.Coin(tokenInDenom, tokenInAmount)),
-        minTokenOutAmount,
-        "[]"
-    );
+import "./interfaces/IGammPrecompile.sol";
+import "./libraries/GammJSONHelpers.sol";
+import "./types/GammTypes.sol";
 
-    return GAMM.swapExactAmountIn(msgJson);
+contract SingleHopSwapExample {
+    IGammPrecompile constant GAMM =
+        IGammPrecompile(0x0000000000000000000000000000000000001002);
+
+    function swapTokens(
+        uint64 poolId,
+        string memory tokenInDenom,
+        uint256 tokenInAmount,
+        string memory tokenOutDenom,
+        uint256 minTokenOutAmount
+    ) external returns (uint256 tokenOutAmount) {
+        GammTypes.SwapAmountInRoute[] memory routes = new GammTypes.SwapAmountInRoute[](1);
+        routes[0] = GammTypes.SwapAmountInRoute(poolId, tokenOutDenom);
+
+        string memory msgJson = GammJSONHelpers.swapExactAmountInJSON(
+            GammJSONHelpers.swapRoutesToJson(routes),
+            GammJSONHelpers.coinToJson(GammTypes.Coin(tokenInDenom, tokenInAmount)),
+            minTokenOutAmount,
+            "[]"
+        );
+
+        return GAMM.swapExactAmountIn(msgJson);
+    }
 }
 ```
 
 ### Multi-hop swap
 
 ```solidity
-function multiHopSwap(
-    uint64[] memory poolIds,
-    string[] memory tokenOutDenoms,  // one per hop
-    string memory tokenInDenom,
-    uint256 tokenInAmount,
-    uint256 minTokenOutAmount
-) external returns (uint256 finalAmountOut) {
-    GammTypes.SwapAmountInRoute[] memory routes = new GammTypes.SwapAmountInRoute[](poolIds.length);
-    for (uint i = 0; i < poolIds.length; i++) {
-        routes[i] = GammTypes.SwapAmountInRoute(poolIds[i], tokenOutDenoms[i]);
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "./interfaces/IGammPrecompile.sol";
+import "./libraries/GammJSONHelpers.sol";
+import "./types/GammTypes.sol";
+
+contract MultiHopSwapExample {
+    IGammPrecompile constant GAMM =
+        IGammPrecompile(0x0000000000000000000000000000000000001002);
+
+    function multiHopSwap(
+        uint64[] memory poolIds,
+        string[] memory tokenOutDenoms,  // one per hop
+        string memory tokenInDenom,
+        uint256 tokenInAmount,
+        uint256 minTokenOutAmount
+    ) external returns (uint256 finalAmountOut) {
+        GammTypes.SwapAmountInRoute[] memory routes = new GammTypes.SwapAmountInRoute[](poolIds.length);
+        for (uint i = 0; i < poolIds.length; i++) {
+            routes[i] = GammTypes.SwapAmountInRoute(poolIds[i], tokenOutDenoms[i]);
+        }
+
+        string memory msgJson = GammJSONHelpers.swapExactAmountInJSON(
+            GammJSONHelpers.swapRoutesToJson(routes),
+            GammJSONHelpers.coinToJson(GammTypes.Coin(tokenInDenom, tokenInAmount)),
+            minTokenOutAmount,
+            "[]"
+        );
+
+        return GAMM.swapExactAmountIn(msgJson);
     }
-
-    string memory msgJson = GammJSONHelpers.swapExactAmountInJSON(
-        GammJSONHelpers.swapRoutesToJson(routes),
-        GammJSONHelpers.coinToJson(GammTypes.Coin(tokenInDenom, tokenInAmount)),
-        minTokenOutAmount,
-        "[]"
-    );
-
-    return GAMM.swapExactAmountIn(msgJson);
 }
 ```
 
@@ -255,22 +308,38 @@ Use the helpers:
 
 ```solidity
 // Good: type-safe and readable
-string memory json = GammJSONHelpers.joinPoolJSON(...);
+string memory json = GammJSONHelpers.joinPoolJSON(poolId, shareOutAmount, tokenInMaxsJson);
 
 // Bad: error-prone manual construction
-string memory json = string(abi.encodePacked('{"pool_id":"', ...));
+string memory json = string(abi.encodePacked(
+    '{"pool_id":"', GammJSONHelpers.uintToString(poolId),
+    '","share_out_amount":"', GammJSONHelpers.uintToString(shareOutAmount),
+    '","token_in_maxs":', tokenInMaxsJson, '}'
+));
 ```
 
 Validate before building JSON:
 
 ```solidity
-function joinPool(uint64 poolId, uint256 shares) external {
-    require(poolId > 0, "Invalid pool ID");
-    require(shares > 0, "Invalid share amount");
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    // Now build JSON
-    string memory json = GammJSONHelpers.joinPoolJSON(...);
-    GAMM.joinPool(json);
+import "./interfaces/IGammPrecompile.sol";
+import "./libraries/GammJSONHelpers.sol";
+import "./types/GammTypes.sol";
+
+contract ValidatedJoinExample {
+    IGammPrecompile constant GAMM =
+        IGammPrecompile(0x0000000000000000000000000000000000001002);
+
+    function joinPool(uint64 poolId, uint256 shares, string memory tokenInMaxsJson) external {
+        require(poolId > 0, "Invalid pool ID");
+        require(shares > 0, "Invalid share amount");
+
+        // Now build JSON
+        string memory json = GammJSONHelpers.joinPoolJSON(poolId, shares, tokenInMaxsJson);
+        GAMM.joinPool(json);
+    }
 }
 ```
 

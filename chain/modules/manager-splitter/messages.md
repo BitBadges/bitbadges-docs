@@ -21,13 +21,13 @@ Creates a splitter with the given permissions and returns its module-derived add
 ```json
 {
   "@type": "/managersplitter.MsgCreateManagerSplitter",
-  "admin": "bb1...",
+  "admin": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "permissions": {
     "canUpdateCollectionMetadata": {
-      "approvedAddresses": ["bb1abc..."]
+      "approvedAddresses": ["bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"]
     },
     "canUpdateTokenMetadata": {
-      "approvedAddresses": ["bb1def456..."]
+      "approvedAddresses": ["bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf"]
     },
     "canUpdateValidTokenIds": {
       "approvedAddresses": []
@@ -64,7 +64,7 @@ Behavior:
 3. Store the splitter with the next available ID, the admin, and the permissions (or empty).
 4. Increment the next splitter ID.
 
-Response `address` is deterministic from the ID, derived as `ModuleAddress(ModuleName, ID_bytes)`, and is the value to set as a collection manager.
+Response `address` is deterministic from the ID, derived as `address.Module("managersplitter", []byte(id.String()))`, and is the value to set as a collection manager. Splitter ID 1 is `bb139jr5akhnvum2t2qgg3tmku9ty6a3lxey425sz8auwgzn5j2u5rsyxffly`.
 
 ## MsgUpdateManagerSplitter
 
@@ -73,14 +73,14 @@ Replaces the whole permission set. Only the admin can send it.
 ```json
 {
   "@type": "/managersplitter.MsgUpdateManagerSplitter",
-  "admin": "bb1abc123...",
-  "address": "bb1managersplitter...",
+  "admin": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "address": "bb139jr5akhnvum2t2qgg3tmku9ty6a3lxey425sz8auwgzn5j2u5rsyxffly",
   "permissions": {
     "canUpdateCollectionMetadata": {
-      "approvedAddresses": ["bb1..."]
+      "approvedAddresses": ["bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue", "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf"]
     },
     "canUpdateTokenMetadata": {
-      "approvedAddresses": ["bb1..."]
+      "approvedAddresses": ["bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf"]
     }
   }
 }
@@ -114,8 +114,8 @@ Deletes a splitter. Only the admin can send it.
 ```json
 {
   "@type": "/managersplitter.MsgDeleteManagerSplitter",
-  "admin": "bb1abc123...",
-  "address": "bb1managersplitter..."
+  "admin": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "address": "bb139jr5akhnvum2t2qgg3tmku9ty6a3lxey425sz8auwgzn5j2u5rsyxffly"
 }
 ```
 
@@ -145,13 +145,13 @@ Runs a `MsgUniversalUpdateCollection` through the splitter. The module checks ev
 ```json
 {
   "@type": "/managersplitter.MsgExecuteUniversalUpdateCollection",
-  "executor": "bb1...",
-  "managerSplitterAddress": "bb1managersplitter...",
+  "executor": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+  "managerSplitterAddress": "bb139jr5akhnvum2t2qgg3tmku9ty6a3lxey425sz8auwgzn5j2u5rsyxffly",
   "universalUpdateCollectionMsg": {
-    "creator": "bb1managersplitter...",
+    "creator": "bb139jr5akhnvum2t2qgg3tmku9ty6a3lxey425sz8auwgzn5j2u5rsyxffly",
     "collectionId": "1",
     "updateCollectionMetadata": true,
-    "collectionMetadata": { "uri": "ipfs://...", "customData": "" }
+    "collectionMetadata": { "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json", "customData": "" }
   }
 }
 ```
@@ -210,7 +210,7 @@ Governance message that sets module params. The `Params` message currently has n
 ```json
 {
   "@type": "/managersplitter.MsgUpdateParams",
-  "authority": "<gov-module-address>",
+  "authority": "bb10d07y265gmmuvt4z0w9aw880jnsr700jelmk2z",
   "params": {}
 }
 ```
@@ -249,16 +249,16 @@ curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/managersplitter?paginati
 ```
 
 ```bash
-curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/managersplitter/bb1managersplitter...
+curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/managersplitter/bb139jr5akhnvum2t2qgg3tmku9ty6a3lxey425sz8auwgzn5j2u5rsyxffly
 ```
 
 ```json
 {
   "managerSplitter": {
-    "address": "bb1managersplitter...",
-    "admin": "bb1admin...",
+    "address": "bb139jr5akhnvum2t2qgg3tmku9ty6a3lxey425sz8auwgzn5j2u5rsyxffly",
+    "admin": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "permissions": {
-      "canUpdateCollectionMetadata": { "approvedAddresses": ["bb1marketing..."] }
+      "canUpdateCollectionMetadata": { "approvedAddresses": ["bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"] }
     }
   }
 }

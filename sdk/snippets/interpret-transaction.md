@@ -13,7 +13,13 @@ bb explain ./tx.json
 ```
 
 ```ts
+import { readFileSync } from 'node:fs';
 import { interpretTransaction } from 'bitbadges';
+
+// tx.json is { "messages": [{ "typeUrl": "/tokenization.MsgUniversalUpdateCollection", "value": {} }] } from bb build or get_transaction
+const tx = JSON.parse(readFileSync('./tx.json', 'utf8'));
+const messages: { typeUrl: string; value: Record<string, any> }[] = tx.messages;
+const txBody = messages[0].value;
 
 // A new collection: describe every field
 const created = interpretTransaction(txBody);
@@ -23,6 +29,7 @@ const updated = interpretTransaction(txBody, true, ['updateCollectionApprovals',
 
 // A multi-message transaction: also explain bundled MsgTransferTokens
 const bundle = interpretTransaction(txBody, false, [], messages);
+console.log(bundle);
 ```
 
 ## Fields

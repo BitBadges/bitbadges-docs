@@ -8,19 +8,120 @@ description: "mustOwnTokens: require the initiator, sender, recipient, or a fixe
 
 ## Shape
 
-```json
+A complete `approvalCriteria` with the `mustOwnTokens` array open. Folded lines are defaults.
+
+```json fold=2-57,73-111
 {
+  "merkleChallenges": [],
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": false,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
+    }
+  },
+  "approvalAmounts": {
+    "overallApprovalAmount": "0",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "0",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "coinTransfers": [],
+  "requireToEqualsInitiatedBy": false,
+  "requireFromEqualsInitiatedBy": false,
+  "requireToDoesNotEqualInitiatedBy": false,
+  "requireFromDoesNotEqualInitiatedBy": false,
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": false,
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  },
   "mustOwnTokens": [
     {
       "collectionId": "1",
       "amountRange": { "start": "1", "end": "1" },
-      "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
-      "tokenIds": [{ "start": "1", "end": "1" }],
+      "ownershipTimes": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "tokenIds": [
+        { "start": "1", "end": "1" }
+      ],
       "overrideWithCurrentTime": false,
       "mustSatisfyForAllAssets": true,
       "ownershipCheckParty": "initiator"
     }
-  ]
+  ],
+  "dynamicStoreChallenges": [],
+  "ethSignatureChallenges": [],
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "recipientChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "initiatorChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
+  },
+  "mustPrioritize": false,
+  "votingChallenges": [],
+  "allowBackedMinting": false,
+  "allowSpecialWrapping": false,
+  "evmQueryChallenges": [],
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+  }
 }
 ```
 
@@ -46,6 +147,10 @@ interface MustOwnTokens<T extends NumberType> {
 | `mustSatisfyForAllAssets` | bool | `true`: every (token ID, ownership time) combination must satisfy `amountRange`. `false`: at least one must. |
 | `ownershipCheckParty` | string | `"initiator"` (default when empty), `"sender"`, `"recipient"`, or a fixed `bb1` address |
 
+{% hint style="info" %}
+Ask your agent: "Add a transfer approval to collection 2 that only lets holders of token ID 1 in collection 1 receive tokens." The MCP builder tools (`add_approval`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 For each entry the chain loads the party's balances in `collectionId` and expands them over `tokenIds` and `ownershipTimes` (or the current block time). Each combination's amount is compared with `amountRange`. With `mustSatisfyForAllAssets: true`, all combinations must be inside the range; with `false`, one is enough. Every entry in the array must pass.
@@ -62,7 +167,14 @@ Initiator (default):
     {
       "collectionId": "1",
       "amountRange": { "start": "1", "end": "1" },
-      "tokenIds": [{ "start": "1", "end": "1" }],
+      "ownershipTimes": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "tokenIds": [
+        { "start": "1", "end": "1" }
+      ],
+      "overrideWithCurrentTime": false,
+      "mustSatisfyForAllAssets": true,
       "ownershipCheckParty": "initiator"
     }
   ]
@@ -77,7 +189,14 @@ Sender:
     {
       "collectionId": "1",
       "amountRange": { "start": "1", "end": "1" },
-      "tokenIds": [{ "start": "1", "end": "1" }],
+      "ownershipTimes": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "tokenIds": [
+        { "start": "1", "end": "1" }
+      ],
+      "overrideWithCurrentTime": false,
+      "mustSatisfyForAllAssets": true,
       "ownershipCheckParty": "sender"
     }
   ]
@@ -92,7 +211,14 @@ Recipient:
     {
       "collectionId": "1",
       "amountRange": { "start": "1", "end": "1" },
-      "tokenIds": [{ "start": "1", "end": "1" }],
+      "ownershipTimes": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "tokenIds": [
+        { "start": "1", "end": "1" }
+      ],
+      "overrideWithCurrentTime": false,
+      "mustSatisfyForAllAssets": true,
       "ownershipCheckParty": "recipient"
     }
   ]
@@ -107,8 +233,15 @@ A fixed address, whoever is transferring (a multisig or contract that must hold 
     {
       "collectionId": "1",
       "amountRange": { "start": "1", "end": "1" },
-      "tokenIds": [{ "start": "1", "end": "1" }],
-      "ownershipCheckParty": "bb1kj9kt5y64n5a8677fhjqnmcc24ht2vy9atmdls"
+      "ownershipTimes": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "tokenIds": [
+        { "start": "1", "end": "1" }
+      ],
+      "overrideWithCurrentTime": false,
+      "mustSatisfyForAllAssets": true,
+      "ownershipCheckParty": "bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr"
     }
   ]
 }

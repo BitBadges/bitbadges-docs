@@ -12,18 +12,30 @@ With `evmAddress` in the `TxContext`, `createTransactionPayload` converts the me
 import { createTransactionPayload, MsgTransferTokens, type TxContext } from 'bitbadges';
 import { ethers } from 'ethers';
 
-const msg = new MsgTransferTokens({ creator: 'bb1...', collectionId: '1', transfers: [] });
+const ALICE = 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d';
+
+const msg = new MsgTransferTokens({
+  creator: ALICE,
+  collectionId: '1',
+  transfers: [
+    {
+      from: ALICE,
+      toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+      balances: [{ amount: '1', tokenIds: [{ start: '1', end: '1' }], ownershipTimes: [{ start: '1', end: '18446744073709551615' }] }]
+    }
+  ]
+});
 
 const txContext: TxContext = {
   sender: {
-    address: 'bb1...', // bb1 form of the same account
+    address: ALICE, // bb1 form of the same account
     sequence: '0',
     accountNumber: '17246720312988307372', // decimal string, as the API returned it
     publicKey: '' // not needed for EVM
   },
   fee: { amount: '0', denom: 'ubadge', gas: '200000' },
   memo: '',
-  evmAddress: '0x1234...' // enables precompile conversion
+  evmAddress: '0x0bc63cfe31d5218eb414b142c799e20964a54a1a' // enables precompile conversion
 };
 
 const payload = createTransactionPayload(txContext, msg);
@@ -104,7 +116,7 @@ function useEthereumSigning() {
 | | Cosmos | Ethereum |
 | --- | --- | --- |
 | Wallets | Keplr, Leap, Cosmostation | MetaMask, Privy, any EIP-1193 provider |
-| Address in wallet | `bb1...` | `0x...` |
+| Address in wallet | `bb1` form | `0x` form |
 | Public key in context | Required | Not required |
 | Signature | Cosmos `signDirect` | EIP-155 |
 | What is signed | Protobuf `SignDoc` | A contract call to a precompile |

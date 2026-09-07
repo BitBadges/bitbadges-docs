@@ -8,13 +8,124 @@ A collection approval can skip the sender's outgoing approvals, the recipient's 
 
 ## Shape
 
-```json
+A complete collection approval with `fromListId` and the two override flags open. Folded lines are defaults.
+
+```json fold=3-16,18-65,68-113
 {
   "fromListId": "Mint",
+  "toListId": "All",
+  "initiatedByListId": "All",
+  "transferTimes": [
+    { "start": "1", "end": "18446744073709551615" }
+  ],
+  "tokenIds": [
+    { "start": "1", "end": "18446744073709551615" }
+  ],
+  "ownershipTimes": [
+    { "start": "1", "end": "18446744073709551615" }
+  ],
+  "uri": "",
+  "customData": "",
+  "approvalId": "mint",
   "approvalCriteria": {
+    "merkleChallenges": [],
+    "predeterminedBalances": {
+      "manualBalances": [],
+      "incrementedBalances": {
+        "startBalances": [],
+        "incrementTokenIdsBy": "0",
+        "incrementOwnershipTimesBy": "0",
+        "durationFromTimestamp": "0",
+        "allowOverrideTimestamp": false,
+        "recurringOwnershipTimes": {
+          "startTime": "0",
+          "intervalLength": "0",
+          "chargePeriodLength": "0"
+        },
+        "allowOverrideWithAnyValidToken": false,
+        "allowAmountScaling": false,
+        "maxScalingMultiplier": "0"
+      },
+      "orderCalculationMethod": {
+        "useOverallNumTransfers": false,
+        "usePerToAddressNumTransfers": false,
+        "usePerFromAddressNumTransfers": false,
+        "usePerInitiatedByAddressNumTransfers": false,
+        "useMerkleChallengeLeafIndex": false,
+        "challengeTrackerId": ""
+      }
+    },
+    "approvalAmounts": {
+      "overallApprovalAmount": "0",
+      "perToAddressApprovalAmount": "0",
+      "perFromAddressApprovalAmount": "0",
+      "perInitiatedByAddressApprovalAmount": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "maxNumTransfers": {
+      "overallMaxNumTransfers": "0",
+      "perToAddressMaxNumTransfers": "0",
+      "perFromAddressMaxNumTransfers": "0",
+      "perInitiatedByAddressMaxNumTransfers": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "coinTransfers": [],
+    "requireToEqualsInitiatedBy": false,
+    "requireFromEqualsInitiatedBy": false,
+    "requireToDoesNotEqualInitiatedBy": false,
+    "requireFromDoesNotEqualInitiatedBy": false,
     "overridesFromOutgoingApprovals": true,
-    "overridesToIncomingApprovals": false
-  }
+    "overridesToIncomingApprovals": false,
+    "autoDeletionOptions": {
+      "afterOneUse": false,
+      "afterOverallMaxNumTransfers": false,
+      "allowCounterpartyPurge": false,
+      "allowPurgeIfExpired": false
+    },
+    "mustOwnTokens": [],
+    "dynamicStoreChallenges": [],
+    "ethSignatureChallenges": [],
+    "senderChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "recipientChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "initiatorChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "altTimeChecks": {
+      "offlineHours": [],
+      "offlineDays": [],
+      "offlineMonths": [],
+      "offlineDaysOfMonth": [],
+      "offlineWeeksOfYear": [],
+      "timezoneOffsetMinutes": "0",
+      "timezoneOffsetNegative": false
+    },
+    "mustPrioritize": false,
+    "votingChallenges": [],
+    "allowBackedMinting": false,
+    "allowSpecialWrapping": false,
+    "evmQueryChallenges": [],
+    "userApprovalSettings": {
+      "allowedDenoms": [],
+      "disableUserCoinTransfers": false,
+      "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+    }
+  },
+  "version": "0"
 }
 ```
 
@@ -32,6 +143,10 @@ interface ApprovalCriteria<T extends NumberType> {
 
 Collection approvals only.
 
+{% hint style="info" %}
+Ask your agent: "Add a manager-only approval to collection 1 that lets alice move tokens out of any address, so she can revoke." The MCP builder tools (`add_approval`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 When the matched collection approval sets an override, the chain skips that user-level check entirely. The transfer then executes without the sender's or recipient's consent. Uses:
@@ -44,8 +159,123 @@ When the matched collection approval sets an override, the chain skips that user
 
 The Mint address has no outgoing approvals, so every mint approval must set `overridesFromOutgoingApprovals: true` or it can never match.
 
-```json
-{ "fromListId": "Mint", "approvalCriteria": { "overridesFromOutgoingApprovals": true } }
+```json fold=3-16,18-65,67-113
+{
+  "fromListId": "Mint",
+  "toListId": "All",
+  "initiatedByListId": "All",
+  "transferTimes": [
+    { "start": "1", "end": "18446744073709551615" }
+  ],
+  "tokenIds": [
+    { "start": "1", "end": "18446744073709551615" }
+  ],
+  "ownershipTimes": [
+    { "start": "1", "end": "18446744073709551615" }
+  ],
+  "uri": "",
+  "customData": "",
+  "approvalId": "mint",
+  "approvalCriteria": {
+    "merkleChallenges": [],
+    "predeterminedBalances": {
+      "manualBalances": [],
+      "incrementedBalances": {
+        "startBalances": [],
+        "incrementTokenIdsBy": "0",
+        "incrementOwnershipTimesBy": "0",
+        "durationFromTimestamp": "0",
+        "allowOverrideTimestamp": false,
+        "recurringOwnershipTimes": {
+          "startTime": "0",
+          "intervalLength": "0",
+          "chargePeriodLength": "0"
+        },
+        "allowOverrideWithAnyValidToken": false,
+        "allowAmountScaling": false,
+        "maxScalingMultiplier": "0"
+      },
+      "orderCalculationMethod": {
+        "useOverallNumTransfers": false,
+        "usePerToAddressNumTransfers": false,
+        "usePerFromAddressNumTransfers": false,
+        "usePerInitiatedByAddressNumTransfers": false,
+        "useMerkleChallengeLeafIndex": false,
+        "challengeTrackerId": ""
+      }
+    },
+    "approvalAmounts": {
+      "overallApprovalAmount": "0",
+      "perToAddressApprovalAmount": "0",
+      "perFromAddressApprovalAmount": "0",
+      "perInitiatedByAddressApprovalAmount": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "maxNumTransfers": {
+      "overallMaxNumTransfers": "0",
+      "perToAddressMaxNumTransfers": "0",
+      "perFromAddressMaxNumTransfers": "0",
+      "perInitiatedByAddressMaxNumTransfers": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "coinTransfers": [],
+    "requireToEqualsInitiatedBy": false,
+    "requireFromEqualsInitiatedBy": false,
+    "requireToDoesNotEqualInitiatedBy": false,
+    "requireFromDoesNotEqualInitiatedBy": false,
+    "overridesFromOutgoingApprovals": true,
+    "overridesToIncomingApprovals": false,
+    "autoDeletionOptions": {
+      "afterOneUse": false,
+      "afterOverallMaxNumTransfers": false,
+      "allowCounterpartyPurge": false,
+      "allowPurgeIfExpired": false
+    },
+    "mustOwnTokens": [],
+    "dynamicStoreChallenges": [],
+    "ethSignatureChallenges": [],
+    "senderChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "recipientChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "initiatorChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "altTimeChecks": {
+      "offlineHours": [],
+      "offlineDays": [],
+      "offlineMonths": [],
+      "offlineDaysOfMonth": [],
+      "offlineWeeksOfYear": [],
+      "timezoneOffsetMinutes": "0",
+      "timezoneOffsetNegative": false
+    },
+    "mustPrioritize": false,
+    "votingChallenges": [],
+    "allowBackedMinting": false,
+    "allowSpecialWrapping": false,
+    "evmQueryChallenges": [],
+    "userApprovalSettings": {
+      "allowedDenoms": [],
+      "disableUserCoinTransfers": false,
+      "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+    }
+  },
+  "version": "0"
+}
 ```
 
 ### Dangerous configuration

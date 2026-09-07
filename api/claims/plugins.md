@@ -11,11 +11,11 @@ This page is also part of the [API reference](/api-reference).
 ## Look up any plugin
 
 ```bash
-curl https://api.bitbadges.io/api/v0/plugins/must-own-badges -H "x-api-key: <key>"
+curl https://api.bitbadges.io/api/v0/plugins/must-own-badges -H "x-api-key: $BITBADGES_API_KEY"
 ```
 
 ```ts
-const plugin = await BitBadgesApi.getPlugin('must-own-badges');
+const { plugin } = await BitBadgesApi.getPlugin('must-own-badges');
 const latest = plugin.versions[plugin.versions.length - 1];
 console.log(latest.userInputsSchema);     // what the claiming user provides
 console.log(latest.publicParamsSchema);   // creator-configured, public
@@ -30,10 +30,78 @@ const many = await BitBadgesApi.getPlugins({
 });
 
 // Directory search: GET /api/v0/plugins/search
-const found = await BitBadgesApi.searchPlugins({ searchValue: 'badge', bookmark: undefined, locale: 'en' });
+const found = await BitBadgesApi.searchPlugins({ searchValue: 'badge', bookmark: '', locale: 'en' });
 
-// Execution errors for your own plugin: POST /api/v0/plugins/errors
-const errors = await BitBadgesApi.getPluginErrors({ pluginId: 'your-plugin-id', bookmark: '' });
+// Execution errors for your own plugin: GET /api/v0/plugins/errors
+const errors = await BitBadgesApi.getPluginErrors({ pluginId: 'ticket-check', bookmark: '' });
+```
+
+The `must-own-badges` plugin document (synthesized from the indexer's seed data; timestamps vary):
+
+```json fold=15-19,24-25
+{
+  "plugin": {
+    "_docId": "must-own-badges",
+    "pluginId": "must-own-badges",
+    "createdBy": "",
+    "managedBy": "",
+    "metadata": {
+      "name": "Token Requirements",
+      "description": "Which tokens must the user own?",
+      "image": "https://bitbadges.io/images/bitbadgeslogo.png",
+      "createdBy": "BitBadges",
+      "documentation": "https://docs.bitbadges.io",
+      "sourceCode": ""
+    },
+    "locale": "en",
+    "toPublish": false,
+    "reviewCompleted": true,
+    "lastUpdated": "1788652800000",
+    "createdAt": "1788652800000",
+    "versions": [
+      {
+        "version": "0",
+        "finalized": true,
+        "createdAt": "1788652800000",
+        "lastUpdated": "1788652800000",
+        "requiresSessions": false,
+        "requiresUserInputs": false,
+        "duplicatesAllowed": true,
+        "reuseForNonIndexed": true,
+        "receiveStatusWebhook": false,
+        "stateFunctionPreset": "Stateless",
+        "userInputsSchema": [],
+        "privateParamsSchema": [],
+        "publicParamsSchema": [
+          { "key": "ownershipRequirements", "label": "Requirements", "type": "ownershipRequirements", "required": true }
+        ],
+        "verificationCall": {
+          "uri": "https://api.bitbadges.io/api/v0/integrations/query/must-own-badges",
+          "passAddress": true,
+          "hardcodedInputs": []
+        }
+      }
+    ]
+  }
+}
+```
+
+`getPluginErrors` returns the stored failures for a plugin you own:
+
+```json
+{
+  "docs": [
+    {
+      "_docId": "ticket-check-1788739200000",
+      "pluginId": "ticket-check",
+      "timestamp": 1788739200000,
+      "error": "Ticket 4821 was already redeemed",
+      "context": { "claimId": "claim_demo_01", "claimAttemptId": "8e1c4a6f2d9b3e7a5c0f1d4b6a8e2c9f", "instanceId": "ticket-gate" }
+    }
+  ],
+  "bookmark": "eyJza2lwIjoyNX0",
+  "total": 1
+}
 ```
 
 The eight core plugins below are not plugin documents, so `getPlugin` does not return them. Their schemas are fixed and listed here. Every other id is a plugin document that `getPlugin` describes in full.
@@ -211,31 +279,42 @@ A custom plugin is an HTTPS endpoint you register in the developer portal (**Plu
 
 ### Request
 
-BitBadges always sends `POST` with a JSON body. Fields from every source are merged into one flat object:
+BitBadges always sends `POST` with a JSON body. Fields from every source are merged into one flat object. The example is a plugin `ticket-check` with one user input (`ticketNumber`), one public param (`eventId`), one private param (`venueSecret`), and `passAddress: true`, running as instance `ticket-gate` in `claim_demo_01`:
 
-```ts
+```json
 {
-  // Your params, flattened: userInputs, publicParams, privateParams, hardcodedInputs
-  ...customInputs,
+  "ticketNumber": "4821",
+  "eventId": "demo-launch-2026",
+  "venueSecret": "vs_9b2d7a4f1e8c5f3a0e6c9b2d7a4f1e8c",
 
-  // Identity (only when verificationCall.passAddress is true; otherwise null)
-  bitbadgesAddress: 'bb1...',
-  ethAddress: '0x...',          // derived from bitbadgesAddress when the user has no ETH wallet
-  isAddressSignedIn: true,      // true when the claiming address is signed in
+  "bitbadgesAddress": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+  "ethAddress": "0x092bb4851ae26850588243e7bef22a56287f4739",
+  "isAddressSignedIn": true,
 
-  // Context
-  pluginSecret: '...',          // verify BitBadges is the caller
-  version: 0,                   // plugin version in use
-  claimId: '...',
-  claimAttemptId: '...',        // empty for simulations
-  instanceId: '...',            // this plugin instance in the claim
-  _isSimulation: false,         // true = dry run
-  _attemptStatus: 'executing',  // 'success' | 'failure' on the status webhook
-  lastUpdated: 1800000000000,   // claim last updated, UNIX ms
-  createdAt: 1800000000000,     // claim created, UNIX ms
-  locale: 'en'
+  "pluginSecret": "ps_3f9c1e7a2b8d6f4a0c5e9b2d7a4f1e8c",
+  "version": 0,
+  "claimId": "claim_demo_01",
+  "claimAttemptId": "3b9d2f7a1c4e6b8d0f2a4c6e8b1d3f5a",
+  "instanceId": "ticket-gate",
+  "_isSimulation": false,
+  "_attemptStatus": "executing",
+  "lastUpdated": 1788652800000,
+  "createdAt": 1788652800000,
+  "locale": "en"
 }
 ```
+
+| Field | Source | Description |
+| --- | --- | --- |
+| `ticketNumber`, `eventId`, `venueSecret` | your schemas | `userInputsSchema`, `publicParamsSchema`, `privateParamsSchema`, and `hardcodedInputs`, flattened into the body (or sent as headers when `headerField` is set). |
+| `bitbadgesAddress`, `ethAddress`, `isAddressSignedIn` | identity | Only when `verificationCall.passAddress` is true; otherwise `null`. `ethAddress` is derived from `bitbadgesAddress` when the user has no ETH wallet. `isAddressSignedIn` is true when the claiming address is signed in. |
+| `pluginSecret` | context | Verify BitBadges is the caller. |
+| `version` | context | Plugin version in use. |
+| `claimId`, `claimAttemptId`, `instanceId` | context | The claim, the attempt (empty for simulations), and this plugin instance in the claim. |
+| `_isSimulation` | context | `true` for a dry run. |
+| `_attemptStatus` | context | `executing` during the claim, `success` or `failure` on the status webhook. |
+| `lastUpdated`, `createdAt` | context | Claim last updated and created, UNIX ms. |
+| `locale` | context | The claiming user's locale. |
 
 Headers:
 
@@ -266,7 +345,7 @@ Return `200` and a JSON body that matches the version's `stateFunctionPreset`:
 | Preset | Body | Meaning |
 | --- | --- | --- |
 | `Stateless` | `{}` | Pass. Nothing else is read. |
-| `ClaimToken` | `{ "claimToken": "unique-token" }` | A one-time token you issued. BitBadges marks it used only if the whole claim succeeds; a failed claim leaves it available for retry. |
+| `ClaimToken` | `{ "claimToken": "ticket-4821" }` | A one-time token you issued. BitBadges marks it used only if the whole claim succeeds; a failed claim leaves it available for retry. |
 | `ClaimNumbers` | `{ "claimNumber": 0 }` | The zero-based claim number to assign. Only one plugin per claim can assign claim numbers. |
 | `CustomResponseHandler` | your shape | You manage state and interpretation yourself. |
 
@@ -276,7 +355,13 @@ Returned JSON keys must not contain `.` (write `bob@abc[dot]com`, not `bob@abc.c
 
 ### Errors
 
-Return a non-200 status with `{ "message": "..." }`. BitBadges stores the error for debugging (`getPluginErrors`) and may show it to the claiming user or the creator. Be informative without revealing secrets or internal details.
+Return a non-200 status with a `message` field:
+
+```json
+{ "message": "Ticket 4821 was already redeemed" }
+```
+
+BitBadges stores the error for debugging (`getPluginErrors`) and may show it to the claiming user or the creator. Be informative without revealing secrets or internal details.
 
 ### Simulations
 
@@ -286,7 +371,7 @@ For a custom plugin, the execution step trusts the simulation result and replays
 
 ### Status webhook
 
-With `receiveStatusWebhook: true`, BitBadges POSTs the same payload to your endpoint after the claim resolves with `_attemptStatus: 'success'` or `'failure'`. Retries use exponential backoff: base delay 1 hour, `2^retries * base`, maximum 7 days (1h, 2h, 4h, 8h, 16h, ...). Make the handler idempotent and deduplicate on `claimAttemptId`.
+With `receiveStatusWebhook: true`, BitBadges POSTs the same payload to your endpoint after the claim resolves with `_attemptStatus: 'success'` or `'failure'`. Retries use exponential backoff: base delay 1 hour, `2^retries * base`, maximum 7 days (1h, 2h, 4h, 8h, 16h, and so on). Make the handler idempotent and deduplicate on `claimAttemptId`.
 
 ### State rules
 
@@ -363,6 +448,22 @@ interface JsonBodyInputSchema {
   headerField?: boolean;         // send as an HTTP header instead of a body field
   hideFromDetailsDisplay?: boolean; // public params only: hide from the public view
   hyperlink?: { url: string; showAsGenericView?: boolean };
+}
+```
+
+The `ticket-check` plugin from the request example declares its three inputs like this:
+
+```json
+{
+  "userInputsSchema": [
+    { "key": "ticketNumber", "label": "Ticket number", "type": "string", "required": true, "helper": "Printed on your ticket" }
+  ],
+  "publicParamsSchema": [
+    { "key": "eventId", "label": "Event", "type": "string", "required": true }
+  ],
+  "privateParamsSchema": [
+    { "key": "venueSecret", "label": "Venue secret", "type": "string", "required": true }
+  ]
 }
 ```
 

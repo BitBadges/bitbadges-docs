@@ -10,7 +10,7 @@ Replaces the default value, the `globalEnabled` kill switch, and the metadata of
 
 ```bash
 # [store-id] [default-value] [global-enabled]
-bb tx tokenization update-dynamic-store 1 true false --from <key> --chain-id bitbadges-1
+bb tx tokenization update-dynamic-store 1 false false --from alice --chain-id bitbadges-1
 ```
 
 ```ts
@@ -21,25 +21,26 @@ const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
 // Halt every approval that depends on store 1.
 const msg = new MsgUpdateDynamicStore({
-  creator: client.address,
+  creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
   storeId: 1n,
-  defaultValue: true,
+  defaultValue: false,
   globalEnabled: false,
-  uri: 'https://example.com/updated-metadata',
-  customData: ''
+  uri: '',
+  customData: '{"name":"Demo Membership allowlist"}'
 });
 
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
 {
-  "creator": "bb1abc...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "storeId": "1",
-  "defaultValue": true,
+  "defaultValue": false,
   "globalEnabled": false,
-  "uri": "https://example.com/updated-metadata",
-  "customData": ""
+  "uri": "",
+  "customData": "{\"name\":\"Demo Membership allowlist\"}"
 }
 ```
 
@@ -47,16 +48,20 @@ To change only the metadata, pass the current `defaultValue` and `globalEnabled`
 
 ```json
 {
-  "creator": "bb1abc...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "storeId": "1",
-  "defaultValue": true,
+  "defaultValue": false,
   "globalEnabled": true,
-  "uri": "https://example.com/updated-metadata",
-  "customData": "{\"updated\": true, \"timestamp\": \"2024-01-01\"}"
+  "uri": "",
+  "customData": "{\"name\":\"Demo Membership allowlist\",\"updated\":1788739200000}"
 }
 ```
 
 To clear the metadata, pass empty strings.
+
+{% hint style="info" %}
+Ask your agent: "Halt dynamic store 1 so every approval that checks it fails until I turn it back on."
+{% endhint %}
 
 ## Fields
 

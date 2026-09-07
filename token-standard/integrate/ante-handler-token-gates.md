@@ -136,24 +136,46 @@ func (cad ComplianceAnteDecorator) AnteHandle(
 
 ## Wiring in app.go
 
-Add the decorator to the ante chain. The `requirements` map holds your chain's policies; each section below is an entry for that map.
+Add the decorator to the ante chain. The `requirements` map holds your chain's policies; each section below is an entry for that map. The wiring below starts with the KYC entry and the standard Cosmos SDK decorators.
 
 ```go
 // In app.go, where you build the AnteHandler:
 requirements := map[string][]TokenRequirement{
-	// Add your requirements here (see examples below)
+	"/cosmos.bank.v1beta1.MsgSend": {
+		{
+			CollectionId: sdkmath.NewUint(100), // KYC credential collection
+			TokenId:      sdkmath.NewUint(1),   // basic KYC token
+			MinBalance:   sdkmath.NewUint(1),
+			CheckAddress: "",                   // empty = check tx sender
+			MustHold:     true,
+			ErrorMsg:     "KYC credential required to send funds",
+		},
+	},
 }
 
 complianceDecorator := NewComplianceAnteDecorator(
-	app.BadgesKeeper,
+	app.TokenizationKeeper,
 	requirements,
 )
 
 anteHandler, err := sdk.ChainAnteDecorators(
-	// ... your existing decorators ...
+	ante.NewSetUpContextDecorator(),
+	ante.NewValidateBasicDecorator(),
+	ante.NewTxTimeoutHeightDecorator(),
+	ante.NewValidateMemoDecorator(app.AccountKeeper),
+	ante.NewConsumeGasForTxSizeDecorator(app.AccountKeeper),
+	ante.NewDeductFeeDecorator(app.AccountKeeper, app.BankKeeper, app.FeeGrantKeeper, nil),
+	ante.NewSetPubKeyDecorator(app.AccountKeeper),
+	ante.NewValidateSigCountDecorator(app.AccountKeeper),
+	ante.NewSigGasConsumeDecorator(app.AccountKeeper, ante.DefaultSigVerificationGasConsumer),
+	ante.NewSigVerificationDecorator(app.AccountKeeper, txConfig.SignModeHandler()),
 	complianceDecorator,
-	// ... remaining decorators ...
+	ante.NewIncrementSequenceDecorator(app.AccountKeeper),
 )
+if err != nil {
+	panic(err)
+}
+app.SetAnteHandler(anteHandler)
 ```
 
 ## Circuit breaker (replacing x/circuit)
@@ -167,7 +189,7 @@ The Cosmos SDK `x/circuit` module is deprecated. Replace it with a "halt token" 
 		CollectionId: sdkmath.NewUint(42),
 		TokenId:      sdkmath.NewUint(1),
 		MinBalance:   sdkmath.NewUint(1),
-		CheckAddress: "bb1authority...", // fixed address, not sender
+		CheckAddress: "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", // fixed address, not sender
 		MustHold:     false,            // must NOT hold -> message allowed
 		ErrorMsg:     "circuit breaker: MsgSend is currently disabled",
 	},
@@ -177,7 +199,7 @@ The Cosmos SDK `x/circuit` module is deprecated. Replace it with a "halt token" 
 		CollectionId: sdkmath.NewUint(42),
 		TokenId:      sdkmath.NewUint(2),
 		MinBalance:   sdkmath.NewUint(1),
-		CheckAddress: "bb1authority...",
+		CheckAddress: "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
 		MustHold:     false,
 		ErrorMsg:     "circuit breaker: IBC transfers are currently disabled",
 	},
@@ -317,7 +339,7 @@ Requirements stack. One `MsgSend` can require a KYC token and also not be circui
 		CollectionId: sdkmath.NewUint(42),   // circuit breaker
 		TokenId:      sdkmath.NewUint(1),
 		MinBalance:   sdkmath.NewUint(1),
-		CheckAddress: "bb1authority...",
+		CheckAddress: "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
 		MustHold:     false,
 		ErrorMsg:     "circuit breaker: MsgSend is currently disabled",
 	},

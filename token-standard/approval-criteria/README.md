@@ -100,6 +100,10 @@ The proto defines three criteria types. Fields missing from a level cannot be se
 | `requireFromEqualsInitiatedBy`, `requireFromDoesNotEqualInitiatedBy`, `senderChecks` | yes | no (sender is the owner) | yes |
 | `overridesFromOutgoingApprovals`, `overridesToIncomingApprovals`, `allowBackedMinting`, `allowSpecialWrapping`, `userApprovalSettings` | yes | no | no |
 
+{% hint style="info" %}
+Ask your agent: "Add a collection approval to collection 1 that lets anyone mint one token each, and show me the full approvalCriteria it generates." The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 ### require flags

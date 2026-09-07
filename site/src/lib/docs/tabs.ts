@@ -28,8 +28,14 @@ export type NavTab = {
 
 export const API_REFERENCE_ROUTE = '/api-reference';
 
+/** The second Scalar reference: the chain LCD, owned by the Chain tab. */
+export const CHAIN_API_REFERENCE_ROUTE = '/chain-api-reference';
+
 /** The `##` group whose pages sit alongside the Scalar API reference. */
 const API_TAB_LABEL = 'API';
+
+/** The `##` group that owns the chain LCD reference. */
+const CHAIN_TAB_LABEL = 'Chain';
 
 const LEADING_EMOJI = /^(?:[\p{Extended_Pictographic}\p{Emoji_Component}\uFE0F\u200D]|\s)+/u;
 
@@ -63,6 +69,12 @@ export function tabsFromNav(groups: NavGroup[]): NavTab[] {
     const href = routes[0];
     tabs.push({ label, short: label.split(/\s+/)[0], href, groups: [group], routes, prefixes: prefixesFor(label, href) });
   }
+
+  // The chain reference is a Next route, not a markdown page. SUMMARY.md lists
+  // it, but claim it here too so the Chain tab still highlights if that line is
+  // ever dropped — `/chain-api-reference` is not under the `/chain` prefix.
+  const chain = tabs.find((t) => t.label === CHAIN_TAB_LABEL);
+  if (chain && !chain.routes.includes(CHAIN_API_REFERENCE_ROUTE)) chain.routes.push(CHAIN_API_REFERENCE_ROUTE);
 
   const api = tabs.find((t) => t.label === API_TAB_LABEL);
   if (api) {

@@ -23,9 +23,9 @@ const updated = TokenMetadataDetails.updateTokenMetadata(
   current,
   new TokenMetadataDetails<bigint>({
     tokenIds: [{ start: 7n, end: 7n }],
-    uri: 'ipfs://Qm...', // or 'Placeholder'
+    uri: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/7.json', // or 'Placeholder'
     customData: '',
-    metadata: { name: 'Token 7', description: '', image: 'ipfs://Qm...' }
+    metadata: { name: 'Token 7', description: 'The seventh demo token.', image: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/7.png' }
   })
 );
 
@@ -43,7 +43,7 @@ const metadata = TokenMetadataDetails.getMetadataForTokenId(15n, current); // Me
 | `tokenIds` | `UintRangeArray<T>` | yes | Token IDs this entry covers |
 | `uri` | `string` | yes | Where the metadata was or will be fetched from. May contain `{id}` |
 | `customData` | `string` | yes | Arbitrary on-chain string |
-| `metadata` | `Metadata<T>` | no | The fetched JSON (`name`, `description`, `image`, ...) |
+| `metadata` | `Metadata<T>` | no | The fetched JSON (`name`, `description`, `image`, and the rest) |
 | `fetchedUri` | `string` | no | The URI actually fetched after `{id}` substitution |
 | `toUploadToIpfs` | `boolean` | no | Frontend flag: upload `metadata` and replace `uri` before submit |
 

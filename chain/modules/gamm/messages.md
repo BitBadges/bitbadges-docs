@@ -21,6 +21,10 @@ Every message is signed by `sender`. Amounts are integer strings in the coin's b
 | [MsgCreateStableswapPool](#msgcreatestableswappool) | Create a stableswap pool |
 | [MsgStableSwapAdjustScalingFactors](#msgstableswapadjustscalingfactors) | Adjust a stableswap pool's scaling factors |
 
+{% hint style="info" %}
+Ask your agent: "Swap 1 BADGE for badgeslp:64:utoken through pool 1 with 1% slippage and show me the transaction before you sign it." The `bb swap estimate ubadge badgeslp:64:utoken 1000000 --slippage 1` command and the liquidity-pools skill produce the `MsgSwapExactAmountIn` on this page.
+{% endhint %}
+
 ## MsgCreateBalancerPool
 
 Creates a balancer pool. The pool ID is assigned at execution and returned in the response. The creator supplies the initial liquidity and sets the fees and weights; a dedicated module account is created for the pool.
@@ -28,7 +32,7 @@ Creates a balancer pool. The pool ID is assigned at execution and returned in th
 ```json
 {
     "@type": "/gamm.poolmodels.balancer.MsgCreateBalancerPool",
-    "sender": "bb1abc123...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "pool_params": {
         "swap_fee": "0.003000000000000000",
         "exit_fee": "0.000000000000000000"
@@ -79,12 +83,12 @@ Joins a pool by depositing every asset in the current pool ratio. LP shares are 
 ```json
 {
     "@type": "/gamm.v1beta1.MsgJoinPool",
-    "sender": "bb1abc123...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "pool_id": "1",
     "share_out_amount": "1000000",
     "token_in_maxs": [
-        { "denom": "uatom", "amount": "100000" },
-        { "denom": "uosmo", "amount": "500000" }
+        { "denom": "badgeslp:64:utoken", "amount": "10" },
+        { "denom": "ubadge", "amount": "160000000" }
     ]
 }
 ```
@@ -122,12 +126,12 @@ Burns LP shares and returns every underlying asset in proportion to the share. T
 ```json
 {
     "@type": "/gamm.v1beta1.MsgExitPool",
-    "sender": "bb1abc123...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "pool_id": "1",
     "share_in_amount": "100000",
     "token_out_mins": [
-        { "denom": "uatom", "amount": "10000" },
-        { "denom": "uosmo", "amount": "50000" }
+        { "denom": "badgeslp:64:utoken", "amount": "1" },
+        { "denom": "ubadge", "amount": "15000000" }
     ]
 }
 ```
@@ -164,14 +168,14 @@ Swaps an exact `token_in` for at least `token_out_min_amount` of the last route'
 ```json
 {
     "@type": "/gamm.v1beta1.MsgSwapExactAmountIn",
-    "sender": "bb1abc123...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "routes": [
-        { "pool_id": "1", "token_out_denom": "uosmo" }
+        { "pool_id": "1", "token_out_denom": "badgeslp:64:utoken" }
     ],
-    "token_in": { "denom": "uatom", "amount": "1000000" },
-    "token_out_min_amount": "5000000",
+    "token_in": { "denom": "ubadge", "amount": "1000000000" },
+    "token_out_min_amount": "60",
     "affiliates": [
-        { "basis_points_fee": "10", "address": "bb1..." }
+        { "basis_points_fee": "10", "address": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf" }
     ]
 }
 ```
@@ -215,7 +219,7 @@ Swaps up to `token_in_max_amount` of the first route's input denom for exactly `
 ```json
 {
     "@type": "/gamm.v1beta1.MsgSwapExactAmountOut",
-    "sender": "bb1abc123...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "routes": [
         { "pool_id": "1", "token_in_denom": "ubadge" }
     ],
@@ -256,20 +260,21 @@ Runs `MsgSwapExactAmountIn`, then sends the output to another chain over IBC in 
 ```json
 {
     "@type": "/gamm.v1beta1.MsgSwapExactAmountInWithIBCTransfer",
-    "sender": "bb1abc123...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "routes": [
-        { "pool_id": "1", "token_out_denom": "uosmo" }
+        { "pool_id": "1", "token_out_denom": "ubadge" },
+        { "pool_id": "4", "token_out_denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701" }
     ],
-    "token_in": { "denom": "uatom", "amount": "1000000" },
-    "token_out_min_amount": "5000000",
+    "token_in": { "denom": "badgeslp:64:utoken", "amount": "10" },
+    "token_out_min_amount": "900000",
     "ibc_transfer_info": {
-        "source_channel": "channel-0",
-        "receiver": "cosmos1xyz789...",
-        "memo": "Cross-chain swap",
-        "timeout_timestamp": "1234567890000000000"
+        "source_channel": "channel-3",
+        "receiver": "cosmos1py4mfpg6uf59qkyzg0nmau322c5873ee8df8qg",
+        "memo": "",
+        "timeout_timestamp": "1788825600000000000"
     },
     "affiliates": [
-        { "basis_points_fee": "10", "address": "bb1..." }
+        { "basis_points_fee": "10", "address": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf" }
     ]
 }
 ```
@@ -318,7 +323,7 @@ Joins a pool with a single asset. The pool swaps part of the deposit internally 
 ```json
 {
     "@type": "/gamm.v1beta1.MsgJoinSwapExternAmountIn",
-    "sender": "bb1abc123...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "pool_id": "1",
     "token_in": { "denom": "ubadge", "amount": "1000000000" },
     "share_out_min_amount": "1000000000000000"
@@ -357,7 +362,7 @@ Single-asset join for an exact number of shares. The pool computes how much of `
 ```json
 {
     "@type": "/gamm.v1beta1.MsgJoinSwapShareAmountOut",
-    "sender": "bb1abc123...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "pool_id": "1",
     "token_in_denom": "ubadge",
     "share_out_amount": "1000000000000000",
@@ -399,7 +404,7 @@ Burns an exact number of shares and receives a single asset. The pool swaps the 
 ```json
 {
     "@type": "/gamm.v1beta1.MsgExitSwapShareAmountIn",
-    "sender": "bb1abc123...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "pool_id": "1",
     "token_out_denom": "ubadge",
     "share_in_amount": "1000000000000000",
@@ -441,7 +446,7 @@ Receives an exact single-asset `token_out` by burning at most `share_in_max_amou
 ```json
 {
     "@type": "/gamm.v1beta1.MsgExitSwapExternAmountOut",
-    "sender": "bb1abc123...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "pool_id": "1",
     "token_out": { "denom": "ubadge", "amount": "1000000000" },
     "share_in_max_amount": "1200000000000000"
@@ -480,7 +485,7 @@ Creates a stableswap pool for assets that should trade near parity. Scaling fact
 ```json
 {
     "@type": "/gamm.poolmodels.stableswap.MsgCreateStableswapPool",
-    "sender": "bb1abc123...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "pool_params": {
         "swap_fee": "0.001000000000000000",
         "exit_fee": "0.000000000000000000"
@@ -491,7 +496,7 @@ Creates a stableswap pool for assets that should trade near parity. Scaling fact
     ],
     "scaling_factors": ["1", "1"],
     "future_pool_governor": "",
-    "scaling_factor_controller": "bb1abc123..."
+    "scaling_factor_controller": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
 }
 ```
 
@@ -532,7 +537,7 @@ Adjusts the scaling factors of a stableswap pool. The sender must be the pool's 
 ```json
 {
     "@type": "/gamm.poolmodels.stableswap.MsgStableSwapAdjustScalingFactors",
-    "sender": "bb1abc123...",
+    "sender": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "pool_id": "3",
     "scaling_factors": ["1", "1000"]
 }

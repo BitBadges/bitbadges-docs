@@ -8,27 +8,30 @@ The claims routes let a backend or an agent complete claims for users, check who
 
 This page is also part of the [API reference](/api-reference).
 
-Addresses in paths accept any supported format. `0x` and `bb1` addresses both work and resolve to the same account.
+Addresses in paths accept any supported format. `0x` and `bb1` addresses both work and resolve to the same account. The examples complete `claim_demo_01` (a code-gated claim on collection 1 with the instance id `codes-gate`) for bob.
 
 ## Complete a claim
 
 ```bash
-curl -X POST https://api.bitbadges.io/api/v0/claims/complete/<claimId>/bb1abc... \
-  -H "Content-Type: application/json" -H "x-api-key: <key>" \
-  -d '{ "_expectedVersion": 0, "codes-instance": { "code": "abc-def-ghi" } }'
+curl -X POST https://api.bitbadges.io/api/v0/claims/complete/claim_demo_01/bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue \
+  -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
+  -d '{ "_expectedVersion": 0, "codes-gate": { "code": "54cf408a23d18090ae296d44ee588da291bdc4bec75ef0af8b2513e5903caaba-0" } }'
 ```
 
 ```ts
-const res = await BitBadgesApi.completeClaim(claimId, 'bb1abc...', {
+const res = await BitBadgesApi.completeClaim('claim_demo_01', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', {
   _expectedVersion: 0,
-  'password-instance': { password: 'secret123' },
-  'codes-instance': { code: 'abc-def-ghi' }
+  'codes-gate': { code: '54cf408a23d18090ae296d44ee588da291bdc4bec75ef0af8b2513e5903caaba-0' }
 });
-console.log(res.claimAttemptId);
+console.log(res.claimAttemptId); // 3b9d2f7a1c4e6b8d0f2a4c6e8b1d3f5a
 
 // Claims process asynchronously. Poll the attempt.
 const status = await BitBadgesApi.getClaimAttemptStatus(res.claimAttemptId);
-console.log(status); // { success: true, error: '', bitbadgesAddress: 'bb1...' }
+console.log(status.success); // true once the queue has processed it
+```
+
+```json
+{ "claimAttemptId": "3b9d2f7a1c4e6b8d0f2a4c6e8b1d3f5a" }
 ```
 
 ### Body
@@ -37,7 +40,7 @@ console.log(status); // { success: true, error: '', bitbadgesAddress: 'bb1...' }
 {
   _expectedVersion: number;        // claim.version from getClaim(). -1 skips the check (not recommended)
   _specificInstanceIds?: string[]; // only run these plugin instances
-  [instanceId: string]: { ...pluginInputs }; // per-plugin user inputs, keyed by instance ID
+  [instanceId: string]: Record<string, unknown>; // per-plugin user inputs, keyed by instance ID
 }
 ```
 
@@ -57,36 +60,45 @@ console.log(status); // { success: true, error: '', bitbadgesAddress: 'bb1...' }
 ## Simulate a claim
 
 ```ts
-const res = await BitBadgesApi.simulateClaim(claimId, address, {
+const res = await BitBadgesApi.simulateClaim('claim_demo_01', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', {
   _expectedVersion: 0,
-  _specificInstanceIds: ['plugin-a', 'plugin-b'],
-  'plugin-a': { /* ... */ }
+  _specificInstanceIds: ['num-uses', 'codes-gate'],
+  'codes-gate': { code: '54cf408a23d18090ae296d44ee588da291bdc4bec75ef0af8b2513e5903caaba-0' }
 });
 ```
 
 ```bash
-curl -X POST https://api.bitbadges.io/api/v0/claims/simulate/<claimId>/<address> \
-  -H "Content-Type: application/json" -H "x-api-key: <key>" \
-  -d '{ "_expectedVersion": 0 }'
+curl -X POST https://api.bitbadges.io/api/v0/claims/simulate/claim_demo_01/bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue \
+  -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
+  -d '{ "_expectedVersion": 0, "codes-gate": { "code": "54cf408a23d18090ae296d44ee588da291bdc4bec75ef0af8b2513e5903caaba-0" } }'
 ```
 
-Simulation is instant, is not queued, and consumes no use. The body is the same as `completeClaim`. Use `_specificInstanceIds` to test only some plugins. The returned `claimAttemptId` is a placeholder for compatibility.
+```json
+{ "claimAttemptId": "00000000000000000000000000000000" }
+```
+
+Simulation is instant, is not queued, and consumes no use. The body is the same as `completeClaim`. Use `_specificInstanceIds` to test only some plugins. The returned `claimAttemptId` is a zeroed placeholder for compatibility.
 
 ## Check an attempt
 
 ```bash
-curl https://api.bitbadges.io/api/v0/claims/status/<claimAttemptId> -H "x-api-key: <key>"
+curl https://api.bitbadges.io/api/v0/claims/status/3b9d2f7a1c4e6b8d0f2a4c6e8b1d3f5a -H "x-api-key: $BITBADGES_API_KEY"
 ```
 
 ```ts
-const status = await BitBadgesApi.getClaimAttemptStatus(claimAttemptId);
+const status = await BitBadgesApi.getClaimAttemptStatus('3b9d2f7a1c4e6b8d0f2a4c6e8b1d3f5a');
 if (status.success) {
   // this attempt succeeded
 }
 ```
 
 ```json
-{ "success": true, "error": "", "code": "abc123...", "bitbadgesAddress": "bb1..." }
+{
+  "success": true,
+  "error": "",
+  "code": "54cf408a23d18090ae296d44ee588da291bdc4bec75ef0af8b2513e5903caaba-0",
+  "bitbadgesAddress": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"
+}
 ```
 
 | Field | Description |
@@ -101,7 +113,10 @@ The route accepts `GET` and `POST`. Obtain `claimAttemptId` from `completeClaim`
 ### Polling
 
 ```ts
-const res = await BitBadgesApi.completeClaim(claimId, address, body);
+const res = await BitBadgesApi.completeClaim('claim_demo_01', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', {
+  _expectedVersion: 0,
+  'codes-gate': { code: '54cf408a23d18090ae296d44ee588da291bdc4bec75ef0af8b2513e5903caaba-0' }
+});
 
 const pollStatus = async (attemptId: string, maxRetries = 10): Promise<boolean> => {
   for (let i = 0; i < maxRetries; i++) {
@@ -120,11 +135,11 @@ Typical processing time is 1 to 5 seconds. Claims for the same collection proces
 ## Check success by address
 
 ```bash
-curl https://api.bitbadges.io/api/v0/claims/success/<claimId>/<address> -H "x-api-key: <key>"
+curl https://api.bitbadges.io/api/v0/claims/success/claim_demo_01/bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue -H "x-api-key: $BITBADGES_API_KEY"
 ```
 
 ```ts
-const res = await BitBadgesApi.checkClaimSuccess(claimId, address);
+const res = await BitBadgesApi.checkClaimSuccess('claim_demo_01', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue');
 if (res.successCount >= 1) {
   // the address has completed the claim
 }
@@ -141,46 +156,148 @@ Verifying a claim is two-fold. First authenticate the user (with [Sign In with B
 ## Fetch claim attempts
 
 ```ts
-const res = await BitBadgesApi.getClaimAttempts(claimId, {
-  address: 'bb1abc...', // omit for the most recent attempts
+const res = await BitBadgesApi.getClaimAttempts('claim_demo_01', {
+  address: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', // omit for the most recent attempts
   includeErrors: true,
   bookmark: ''
 });
 ```
 
-Route: `POST /api/v0/claims/{claimId}/attempts`. Paginated with a bookmark. See [Pagination and views](../pagination-and-views.md).
+```bash
+curl "https://api.bitbadges.io/api/v0/claims/claim_demo_01/attempts?address=bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue&includeErrors=true" \
+  -H "x-api-key: $BITBADGES_API_KEY"
+```
+
+```json
+{
+  "docs": [
+    {
+      "success": true,
+      "attemptedAt": "1788739200000",
+      "claimId": "claim_demo_01",
+      "bitbadgesAddress": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+      "claimAttemptId": "3b9d2f7a1c4e6b8d0f2a4c6e8b1d3f5a",
+      "claimNumber": 0
+    },
+    {
+      "success": false,
+      "attemptedAt": "1788738900000",
+      "claimId": "claim_demo_01",
+      "bitbadgesAddress": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+      "claimAttemptId": "8e1c4a6f2d9b3e7a5c0f1d4b6a8e2c9f",
+      "claimNumber": -1,
+      "error": "Invalid code. Not found in list of codes."
+    }
+  ],
+  "bookmark": "eyJza2lwIjoyNX0",
+  "total": 2
+}
+```
+
+Route: `GET /api/v0/claims/{claimId}/attempts` with `address`, `includeErrors`, and `bookmark` as query parameters. Paginated with a bookmark. See [Pagination and views](../pagination-and-views.md).
 
 ## Fetch a claim
 
 ```bash
-curl "https://api.bitbadges.io/api/v0/claim/<claimId>?fetchAllClaimedUsers=true" -H "x-api-key: <key>"
+curl "https://api.bitbadges.io/api/v0/claim/claim_demo_01?fetchAllClaimedUsers=true" -H "x-api-key: $BITBADGES_API_KEY"
 ```
 
 ```ts
-const claim = await BitBadgesApi.getClaim(claimId, {
+const { claim } = await BitBadgesApi.getClaim('claim_demo_01', {
   fetchPrivateParams: false,      // true = include private params (creator or manager only, needs auth)
   fetchAllClaimedUsers: true,     // populates numUses publicState.claimedUsers { [address]: [claimNumbers] }
-  privateStatesToFetch: ['instanceId'] // private state for specific plugin instances
+  privateStatesToFetch: ['codes-gate'] // private state for specific plugin instances
 });
 
 // Batch form: POST /api/v1/claims/fetch
 const res = await BitBadgesApi.getClaims({
-  claimsToFetch: [{ claimId, fetchAllClaimedUsers: true }]
+  claimsToFetch: [{ claimId: 'claim_demo_01', fetchAllClaimedUsers: true }]
 });
 ```
 
-The **JSON** tab of a claim on the site shows a full example document. `fetchPrivateParams: true` requires the `Read Private Claim Data` scope for that claim's creator or manager.
+The claim document after one success (synthesized from the SDK types; private params are stripped because `fetchPrivateParams` is false):
+
+```json fold=9-15,38-44,46-51
+{
+  "claim": {
+    "_includesPrivateParams": false,
+    "claimId": "claim_demo_01",
+    "createdBy": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+    "managedBy": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+    "collectionId": "1",
+    "standaloneClaim": false,
+    "trackerDetails": {
+      "collectionId": "1",
+      "approvalId": "mint-approval",
+      "challengeTrackerId": "claim_demo_01",
+      "approvalLevel": "collection",
+      "approverAddress": ""
+    },
+    "plugins": [
+      {
+        "pluginId": "numUses",
+        "instanceId": "num-uses",
+        "version": "0",
+        "publicParams": { "maxUses": 100, "hideCurrentState": false, "displayAsUnlimited": false },
+        "privateParams": {},
+        "publicState": {
+          "numUses": 1,
+          "usedClaimNumbers": [{ "start": "0", "end": "0" }],
+          "claimedUsers": { "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue": [0] }
+        }
+      },
+      {
+        "pluginId": "codes",
+        "instanceId": "codes-gate",
+        "version": "0",
+        "publicParams": { "numCodes": 100, "hideCurrentState": false },
+        "privateParams": {},
+        "publicState": { "usedCodeRanges": [{ "start": "0", "end": "0" }] }
+      },
+      {
+        "pluginId": "initiatedBy",
+        "instanceId": "sign-in",
+        "version": "0",
+        "publicParams": {},
+        "privateParams": {},
+        "publicState": {}
+      }
+    ],
+    "rewards": [],
+    "showInSearchResults": true,
+    "categories": ["nft"],
+    "estimatedCost": "Free",
+    "estimatedTime": "1 minute",
+    "approach": "in-site",
+    "metadata": {
+      "name": "Demo NFT mint",
+      "description": "Redeem a one-time code for one Demo NFT.",
+      "image": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/claim.png"
+    },
+    "assignMethod": "",
+    "lastUpdated": "1788652800000",
+    "version": "0"
+  }
+}
+```
+
+The **JSON** tab of a claim on the site shows the same document. `fetchPrivateParams: true` requires the `Read Private Claim Data` scope for that claim's creator or manager.
 
 ## Search claims
 
 ```ts
 const res = await BitBadgesApi.searchClaims({
-  searchValue: 'nft mint', // regex match on name
-  bookmark: undefined
+  searchValue: 'demo nft', // regex match on name
+  bookmark: ''
 });
+console.log(res.claims.map((c) => c.claimId)); // ['claim_demo_01']
 ```
 
-Route: `POST /api/v0/claims/search`. Only claims with `showInSearchResults: true` appear.
+```bash
+curl "https://api.bitbadges.io/api/v0/claims/search?searchValue=demo%20nft" -H "x-api-key: $BITBADGES_API_KEY"
+```
+
+Route: `GET /api/v0/claims/search` with `searchValue` and `bookmark` as query parameters. The response is `{ claims, bookmark }` with the same claim documents as above. Only claims with `showInSearchResults: true` appear.
 
 ## Create claims
 
@@ -201,38 +318,45 @@ for (let i = 0; i < numCodes; i++) {
 await api.createClaims({
   claims: [
     {
+      claimId: 'claim_demo_02',
       plugins: [
         {
           pluginId: 'numUses',
           instanceId: 'num-uses',
           version: '0',
-          publicParams: { maxUses: numCodes },
+          publicParams: { maxUses: numCodes, hideCurrentState: false, displayAsUnlimited: false },
           privateParams: {}
         },
         {
           pluginId: 'codes',
           instanceId: 'codes-gate',
           version: '0',
-          publicParams: { numCodes },
+          publicParams: { numCodes, hideCurrentState: false },
           privateParams: { codes, seedCode }
         }
       ],
-      state: {},
-      action: { seedCode },
-      metadata: { name: 'My Agent Claim', description: 'Codes distributed by my bot' }
+      rewards: [],
+      metadata: { name: 'Bot code drop', description: 'Codes distributed by my bot', image: '' },
+      showInSearchResults: false,
+      categories: [],
+      approach: 'api'
     }
   ]
 });
 ```
 
-Route: `POST /api/v0/claims`. Requires a session with the `Manage Claims` scope. Pass `testClaims: true` to create test claims that disappear when the browser session ends and never show in search. Linking a claim to an on-chain collection approval requires the proper permissions and extra setup; the site or the MCP builder tools apply `collectionId` and the tracker details for you. If you use the MCP builder tools or the AI builder, call the `build_claim` tool instead of writing this payload. For the `codes` plugin, set `publicParams.numCodes` as a number and leave `privateParams` empty. The server generates `seedCode` and the codes. Use the `search_plugins` tool to list plugins and their parameters.
+Route: `POST /api/v0/claims`. Requires a session with the `Manage Claims` scope. The response is `{}`. Pass `testClaims: true` to create test claims that disappear when the browser session ends and never show in search. Linking a claim to an on-chain collection approval requires the proper permissions and extra setup; the site or the MCP builder tools apply `collectionId` and the tracker details for you. If you use the MCP builder tools or the AI builder, call the `build_claim` tool instead of writing this payload. For the `codes` plugin, set `publicParams.numCodes` as a number and leave `privateParams` empty. The server generates `seedCode` and the codes. Use the `search_plugins` tool to list plugins and their parameters.
 
 Update with `PUT /api/v0/claims` (`{ claims: UpdateClaimRequest[] }`).
 
 ## Delete claims
 
 ```ts
-await BitBadgesApi.deleteClaims({ claimIds: ['claim-id-1', 'claim-id-2'] });
+await BitBadgesApi.deleteClaims({ claimIds: ['claim_demo_02'] });
+```
+
+```json
+{}
 ```
 
 Route: `DELETE /api/v0/claims`. Deletion is a soft delete. The claim gets `deletedAt` and drops out of queries. Attempt records stay for history.
@@ -244,38 +368,54 @@ An on-chain gated claim reserves a merkle code for the user when the claim succe
 ### 1. Get reserved codes and leaf signatures
 
 ```ts
-const reserved = await BitBadgesApi.getReservedClaimCodes(claimId, userAddress, {
+const reserved = await BitBadgesApi.getReservedClaimCodes('claim_demo_01', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', {
   _expectedVersion: claim.version
 });
-// reserved.reservedCodes = ['abc123...-0']
-// reserved.leafSignatures = ['0x...']  proves the address to leaf mapping
 ```
 
-Route: `POST /api/v0/claims/reserved/{claimId}/{address}`.
+```json
+{
+  "reservedCodes": ["54cf408a23d18090ae296d44ee588da291bdc4bec75ef0af8b2513e5903caaba-0"],
+  "leafSignatures": [
+    "0x5c1d8f0b3a7e2c9d4f6a1b8e0c3d5f7a9b2e4c6d8f0a1b3c5d7e9f2a4b6c8d0e1f3a5b7c9d0e2f4a6b8c1d3e5f7a9b0c2d4e6f8a1b3c5d7e9f0a2b4c6d8e1b"
+  ]
+}
+```
+
+Route: `POST /api/v0/claims/reserved/{claimId}/{address}`. `leafSignatures[i]` proves the mapping between `reservedCodes[i]` and the address.
 
 ### 2. Get the merkle path
 
-The proof route is HTTP only (no SDK wrapper). Leaves are `sha256(code)`, or `sha256(bitbadgesAddress)` when the challenge uses `useCreatorAddressAsLeaf`.
+The proof route is HTTP only (no SDK wrapper). Leaves are `sha256(code)`, or `sha256(bitbadgesAddress)` when the challenge uses `useCreatorAddressAsLeaf`. The leaf below is `sha256` of the reserved code above.
 
 ```bash
 curl -X POST https://api.bitbadges.io/api/v0/merkleProofInfo \
-  -H "Content-Type: application/json" -H "x-api-key: <key>" \
+  -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
   -d '{
-    "collectionId": "123",
+    "collectionId": "1",
     "approvalId": "mint-approval",
     "approvalLevel": "collection",
     "approverAddress": "",
-    "challengeTrackerId": "<challengeTrackerId>",
-    "bitbadgesAddress": "bb1abc...",
-    "claimCodes": ["abc123...-0"],
-    "leaves": ["<sha256 of each code>"]
+    "challengeTrackerId": "claim_demo_01",
+    "bitbadgesAddress": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+    "claimCodes": ["54cf408a23d18090ae296d44ee588da291bdc4bec75ef0af8b2513e5903caaba-0"],
+    "leaves": ["ab24f755d460e42069f4e20715f9807c896a8c5b974c4fda776ebdbd357a8526"]
   }'
 ```
 
 ```json
 {
   "allProofDetails": [
-    { "proofObj": [ { "aunt": "<hash>", "onRight": true } ], "isValidProof": true, "leafIndex": 0, "leaf": "<hash>" }
+    {
+      "proofObj": [
+        { "aunt": "0647c17406a5682d95a118679d324a19eee7556a06158a1f475a7ea664d7d73f", "onRight": true },
+        { "aunt": "64c8e890a8cfacb411332d91e3b6c260c59d1d63c3122ed5d4e461c4afaed04e", "onRight": true },
+        { "aunt": "a70e0dae15ca1d64303f6f50b22a961f46e9b4d0e29dce2718149d113bdf2b32", "onRight": true }
+      ],
+      "isValidProof": true,
+      "leafIndex": 0,
+      "leaf": "ab24f755d460e42069f4e20715f9807c896a8c5b974c4fda776ebdbd357a8526"
+    }
   ]
 }
 ```
@@ -299,7 +439,7 @@ const proof = proofInfo.allProofDetails[0];
 const result = await client.signAndBroadcast([
   MsgTransferTokens.create({
     creator: client.address,
-    collectionId: '123',
+    collectionId: '1',
     transfers: [
       {
         from: 'Mint',
@@ -331,7 +471,7 @@ const result = await client.signAndBroadcast([
 ]);
 ```
 
-`prioritizedApprovals` tells the chain which approval to check. The `approvalId` must match the approval that references the claim's merkle challenge. Always pass `prioritizedApprovals`, even when empty. See [Prioritized approvals](../../token-standard/concepts/prioritized-approvals.md) and [MsgTransferTokens](../../token-standard/messages/msg-transfer-tokens.md).
+`client` is the signing client for the claiming address (bob), so `client.address` is `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue`. `prioritizedApprovals` tells the chain which approval to check. The `approvalId` must match the approval that references the claim's merkle challenge. Always pass `prioritizedApprovals`, even when empty. See [Prioritized approvals](../../token-standard/concepts/prioritized-approvals.md) and [MsgTransferTokens](../../token-standard/messages/msg-transfer-tokens.md).
 
 ## Patterns for agents and backends
 

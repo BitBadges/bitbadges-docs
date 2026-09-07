@@ -57,6 +57,13 @@ Each field's meaning is tabled in [Plugins](../api/claims/plugins.md). The choic
 - `receiveStatusWebhook` sends you a second POST with the final claim outcome (step 4).
 - `hardcodedInputs` are static key-value pairs (API keys, config) added to every request.
 
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools installed, paste one of these:
+
+- "Search the claim plugins for one that checks GitHub contributions and explain what params it needs."
+- "Write a Next.js API route for a Stateless claim plugin that verifies pluginSecret, returns 200 on simulation, and rejects users whose answer does not match a private param."
+{% endhint %}
+
 ## 2. Define parameters and user inputs
 
 Three parameter sets exist. All are merged flat into the request body with the context fields:
@@ -152,8 +159,11 @@ const handlePlugin = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(200).json({});
     }
 
-    // 3. Your custom logic
-    // ...
+    // 3. Your custom logic. This plugin passes when the user's answer matches the
+    //    creator's private param `expectedAnswer`.
+    if (customInputs.answer !== customInputs.expectedAnswer) {
+      return res.status(400).json({ message: 'Wrong answer' });
+    }
 
     // 4. Return response based on your preset
     return res.status(200).json({});
@@ -199,7 +209,8 @@ State follows one rule: your plugin passing does not mean the claim succeeded. A
 
 ```ts
 // After some delay, check if the claim actually succeeded
-const status = await BitBadgesApi.getClaimAttemptStatus(claimAttemptId);
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const status = await api.getClaimAttemptStatus(claimAttemptId);
 if (status.success) {
   // Now safe to update your external state
 }
@@ -225,20 +236,20 @@ Security checklist:
 
 ## 5. Test
 
-Local, with curl (replace the values with yours):
+Local, with curl. `PLUGIN_SECRET` is the secret from step 1:
 
 ```bash
-curl -X POST https://your-handler.com \
+curl -X POST https://example.com/api/plugin \
   -H 'Content-Type: application/json' \
   -d '{
-    "pluginSecret": "your-secret",
-    "claimId": "test-claim",
+    "pluginSecret": "'"$PLUGIN_SECRET"'",
+    "claimId": "claim_demo_01",
     "claimAttemptId": "test-attempt",
     "_isSimulation": false,
     "_attemptStatus": "executing",
-    "bitbadgesAddress": "bb1...",
-    "lastUpdated": 1800000000000,
-    "createdAt": 1800000000000,
+    "bitbadgesAddress": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+    "lastUpdated": 1788739200000,
+    "createdAt": 1788739200000,
     "version": "0"
   }'
 ```
@@ -272,7 +283,8 @@ Add the plugin to a claim by its plugin ID in the claim builder or through the [
 To make it available to everyone, publish it to the plugin directory from the portal's visibility settings. Published plugins need a clear description, documented schemas, and stable finalized versions. Users find them by search:
 
 ```ts
-const results = await BitBadgesApi.searchPlugins({
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const results = await api.searchPlugins({
   searchValue: 'badge ownership',
   bookmark: undefined,
   locale: 'en'

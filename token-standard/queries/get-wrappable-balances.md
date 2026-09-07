@@ -9,12 +9,12 @@ Returns the maximum amount of a cosmos coin denom that an address can wrap from 
 ## Example
 
 ```bash
-bb query tokenization wrappable-balances "badges:1:mytoken" bb1abc...
-bb query tokenization wrappable-balances "badgeslp:1:token123" bb1abc...
+bb query tokenization wrappable-balances "badges:1:utoken" bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
+bb query tokenization wrappable-balances "badgeslp:1:utoken" bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
 ```
 
 ```bash
-curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_wrappable_balances/badges%3A1%3Amytoken/bb1abc..."
+curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_wrappable_balances/badges%3A1%3Autoken/bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
 ```
 
 The denom is a path segment, so encode `:` as `%3A`.
@@ -29,9 +29,7 @@ The denom is a path segment, so encode `:` as `%3A`.
 ## Response
 
 ```json
-{
-  "amount": "1000"
-}
+{ "amount": "100" }
 ```
 
 | Field | Type | Description |

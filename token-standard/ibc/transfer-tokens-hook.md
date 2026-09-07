@@ -13,15 +13,24 @@ description: "The x/custom-hooks IBC middleware: transfer_tokens (run MsgTransfe
     "transfers": [
       {
         "from": "Mint",
-        "to_addresses": ["bb1..."],
+        "to_addresses": [
+          "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"
+        ],
         "balances": [
           {
             "amount": "1",
-            "badge_ids": [{ "start": "1", "end": "1" }],
-            "ownership_times": [{ "start": "1", "end": "18446744073709551615" }]
+            "badge_ids": [
+              { "start": "1", "end": "1" }
+            ],
+            "ownership_times": [
+              { "start": "1", "end": "18446744073709551615" }
+            ]
           }
         ],
         "prioritized_approvals": [],
+        "merkle_proofs": [],
+        "eth_signature_proofs": [],
+        "memo": "",
         "only_check_prioritized_collection_approvals": false,
         "only_check_prioritized_incoming_approvals": false,
         "only_check_prioritized_outgoing_approvals": false
@@ -61,7 +70,7 @@ The module derives a deterministic address from the IBC channel and the original
 import { deriveIntermediateSender } from 'bitbadges';
 
 // Derive the intermediate sender for a given channel + source address
-const creator = deriveIntermediateSender('channel-0', 'osmo1...', 'bb');
+const creator = deriveIntermediateSender('channel-0', 'osmo1p0rrel3365scadq5k9pv0x0zp9j22js6x44a9w', 'bb');
 // Use this address in your collection's approval initiatedByList
 ```
 
@@ -105,13 +114,38 @@ Transfer object (snake_case keys, converted to camelCase internally for protobuf
 
 `fail_on_error: false`: a failed token transfer sends the IBC coins to `recover_address`. The IBC transfer itself succeeds (success acknowledgement) but no token transfer runs. Use this when the sender should not have to recover coins on the source chain.
 
-```json
+```json fold=4-29
 {
   "transfer_tokens": {
     "collection_id": "123",
-    "transfers": [{ "..." }],
+    "transfers": [
+      {
+        "from": "Mint",
+        "to_addresses": [
+          "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"
+        ],
+        "balances": [
+          {
+            "amount": "1",
+            "badge_ids": [
+              { "start": "1", "end": "1" }
+            ],
+            "ownership_times": [
+              { "start": "1", "end": "18446744073709551615" }
+            ]
+          }
+        ],
+        "prioritized_approvals": [],
+        "merkle_proofs": [],
+        "eth_signature_proofs": [],
+        "memo": "",
+        "only_check_prioritized_collection_approvals": false,
+        "only_check_prioritized_incoming_approvals": false,
+        "only_check_prioritized_outgoing_approvals": false
+      }
+    ],
     "fail_on_error": false,
-    "recover_address": "bb1recoveryaddress..."
+    "recover_address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
   }
 }
 ```
@@ -120,10 +154,10 @@ Transfer object (snake_case keys, converted to camelCase internally for protobuf
 
 The hook rides on standard ICS-20 rails. There is no restriction on which denom or amount carries the memo. A negligible amount of any ICS-20 asset works as a pure trigger:
 
-```json
-// IBC MsgTransfer fields:
-// token: { denom: "ubadge", amount: "1" }   (0.000001 BADGE, effectively free)
-// memo: { "transfer_tokens": { ... } }
+```text
+IBC MsgTransfer fields:
+  token: { denom: "ubadge", amount: "1" }   (0.000001 BADGE, effectively free)
+  memo:  the transfer_tokens JSON shown above
 ```
 
 The transferred coin does not need to relate to the token transfer:
@@ -233,7 +267,7 @@ type Affiliate struct {
 
 ### Affiliates
 
-`affiliates` names fee recipients who take a share of the swap output. Useful for referral programs, partnerships, and revenue sharing.
+`affiliates` names fee recipients who take a share of the swap output. Useful for referral programs, partnerships, and revenue sharing. In the example, alice takes 10 basis points (0.1%) and bob takes 25 (0.25%).
 
 - Optional. No affiliates means no fee.
 - Fees are in basis points (1 basis point = 0.01%, 100 basis points = 1%).
@@ -243,16 +277,16 @@ type Affiliate struct {
 
 ```json
 {
-    "affiliates": [
-        {
-            "basis_points_fee": "10", // 0.1% fee
-            "address": "bb1..."
-        },
-        {
-            "basis_points_fee": "25", // 0.25% fee
-            "address": "bb1..."
-        }
-    ]
+  "affiliates": [
+    {
+      "basis_points_fee": "10",
+      "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
+    },
+    {
+      "basis_points_fee": "25",
+      "address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"
+    }
+  ]
 }
 ```
 
@@ -264,7 +298,7 @@ By default a failed swap of asset A to asset B fails the whole IBC transfer, and
 
 ```json
 {
-    "destination_recover_address": "bb1..." // Destination chain address (optional)
+  "destination_recover_address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
 }
 ```
 
@@ -308,9 +342,7 @@ Local transfer:
 
 ```json
 {
-    "transfer": {
-        "to_address": "bb1..."
-    }
+  "transfer": { "to_address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue" }
 }
 ```
 
@@ -318,14 +350,14 @@ IBC transfer:
 
 ```json
 {
-    "ibc_transfer": {
-        "ibc_info": {
-            "source_channel": "channel-0",
-            "receiver": "bb1...",
-            "memo": "...",
-            "recover_address": "bb1..."
-        }
+  "ibc_transfer": {
+    "ibc_info": {
+      "source_channel": "channel-0",
+      "receiver": "cosmos1py4mfpg6uf59qkyzg0nmau322c5873ee8df8qg",
+      "memo": "",
+      "recover_address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
     }
+  }
 }
 ```
 
@@ -342,31 +374,29 @@ Swap and local transfer:
 
 ```json
 {
-    "swap_and_action": {
-        "user_swap": {
-            "swap_exact_asset_in": {
-                "swap_venue_name": "bitbadges-poolmanager",
-                "operations": [
-                    {
-                        "pool": "1",
-                        "denom_in": "ubadge",
-                        "denom_out": "ibc/ABC..."
-                    }
-                ]
-            }
-        },
-        "min_asset": {
-            "native": {
-                "denom": "ibc/ABC...",
-                "amount": "1000000"
-            }
-        },
-        "post_swap_action": {
-            "transfer": {
-                "to_address": "bb1..."
-            }
-        }
+  "swap_and_action": {
+    "user_swap": {
+      "swap_exact_asset_in": {
+        "swap_venue_name": "bitbadges-poolmanager",
+        "operations": [
+          {
+            "pool": "1",
+            "denom_in": "ubadge",
+            "denom_out": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8"
+          }
+        ]
+      }
+    },
+    "min_asset": {
+      "native": {
+        "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8",
+        "amount": "1000000"
+      }
+    },
+    "post_swap_action": {
+      "transfer": { "to_address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue" }
     }
+  }
 }
 ```
 
@@ -374,85 +404,83 @@ Swap and IBC transfer:
 
 ```json
 {
-    "swap_and_action": {
-        "user_swap": {
-            "swap_exact_asset_in": {
-                "swap_venue_name": "bitbadges-poolmanager",
-                "operations": [
-                    {
-                        "pool": "1",
-                        "denom_in": "ubadge",
-                        "denom_out": "ibc/ABC..."
-                    }
-                ]
-            }
-        },
-        "min_asset": {
-            "native": {
-                "denom": "ibc/ABC...",
-                "amount": "1000000"
-            }
-        },
-        "timeout_timestamp": 1234567890000000000,
-        "post_swap_action": {
-            "ibc_transfer": {
-                "ibc_info": {
-                    "source_channel": "channel-0",
-                    "receiver": "cosmos1xyz789...",
-                    "recover_address": "cosmos1intermediate..."
-                }
-            }
-        },
-        "destination_recover_address": "bb1...",
-        "affiliates": [
-            {
-                "basis_points_fee": "10",
-                "address": "bb1..."
-            }
+  "swap_and_action": {
+    "user_swap": {
+      "swap_exact_asset_in": {
+        "swap_venue_name": "bitbadges-poolmanager",
+        "operations": [
+          {
+            "pool": "1",
+            "denom_in": "ubadge",
+            "denom_out": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8"
+          }
         ]
-    }
+      }
+    },
+    "min_asset": {
+      "native": {
+        "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8",
+        "amount": "1000000"
+      }
+    },
+    "post_swap_action": {
+      "ibc_transfer": {
+        "ibc_info": {
+          "source_channel": "channel-0",
+          "receiver": "cosmos1py4mfpg6uf59qkyzg0nmau322c5873ee8df8qg",
+          "recover_address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
+        }
+      }
+    },
+    "timeout_timestamp": 1234567890000000000,
+    "destination_recover_address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+    "affiliates": [
+      {
+        "basis_points_fee": "10",
+        "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
+      }
+    ]
+  }
 }
 ```
 
-Swap with affiliates:
+Swap with affiliates (alice takes 0.5%, bob takes 0.25%):
 
 ```json
 {
-    "swap_and_action": {
-        "user_swap": {
-            "swap_exact_asset_in": {
-                "swap_venue_name": "bitbadges-poolmanager",
-                "operations": [
-                    {
-                        "pool": "1",
-                        "denom_in": "ubadge",
-                        "denom_out": "ibc/ABC..."
-                    }
-                ]
-            }
-        },
-        "min_asset": {
-            "native": {
-                "denom": "ibc/ABC...",
-                "amount": "1000000"
-            }
-        },
-        "post_swap_action": {
-            "transfer": {
-                "to_address": "bb1..."
-            }
-        },
-        "affiliates": [
-            {
-                "basis_points_fee": "50", // 0.5% fee
-                "address": "bb1affiliate1..."
-            },
-            {
-                "basis_points_fee": "25", // 0.25% fee
-                "address": "bb1affiliate2..."
-            }
+  "swap_and_action": {
+    "user_swap": {
+      "swap_exact_asset_in": {
+        "swap_venue_name": "bitbadges-poolmanager",
+        "operations": [
+          {
+            "pool": "1",
+            "denom_in": "ubadge",
+            "denom_out": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8"
+          }
         ]
-    }
+      }
+    },
+    "min_asset": {
+      "native": {
+        "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8",
+        "amount": "1000000"
+      }
+    },
+    "post_swap_action": {
+      "transfer": { "to_address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue" }
+    },
+    "affiliates": [
+      {
+        "basis_points_fee": "50",
+        "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
+      },
+      {
+        "basis_points_fee": "25",
+        "address": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"
+      }
+    ]
+  }
 }
 ```
 

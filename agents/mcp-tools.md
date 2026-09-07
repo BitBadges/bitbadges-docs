@@ -29,13 +29,15 @@ Add to `claude_desktop_config.json`:
       "command": "npx",
       "args": ["-y", "-p", "bitbadges", "bitbadges-builder"],
       "env": {
-        "BITBADGES_API_KEY": "your-api-key",
-        "BITBADGES_MNEMONIC": "your mnemonic phrase"
+        "BITBADGES_API_KEY": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+        "BITBADGES_MNEMONIC": "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"
       }
     }
   }
 }
 ```
+
+The key is a fake example and the mnemonic is the public BIP39 test vector. Replace the key with yours from [bitbadges.io/developer](https://bitbadges.io/developer); drop `BITBADGES_MNEMONIC` to keep signing in the browser.
 
 ### Claude Code
 
@@ -65,7 +67,7 @@ Add to `.cursor/mcp.json`:
       "command": "npx",
       "args": ["-y", "-p", "bitbadges", "bitbadges-builder"],
       "env": {
-        "BITBADGES_API_KEY": "your-api-key"
+        "BITBADGES_API_KEY": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
       }
     }
   }
@@ -86,7 +88,37 @@ The server is model-agnostic. It does not read `ANTHROPIC_API_KEY` or `OPENAI_AP
 
 ## Tools
 
-Params marked `*` are required. Session tools also accept `sessionId` and `creatorAddress` (bb1... or 0x...) for per-request isolation; those two are omitted from the tables.
+Params marked `*` are required. Session tools also accept `sessionId` and `creatorAddress` (`bb1` or `0x` form) for per-request isolation; those two are omitted from the tables.
+
+A complete call, as the client sends it and as `bb dev tools call add_approval --args-file ./approval.json` reads it. This adds a public mint of Demo Coin (collection token ID 1) with at most 10 units per address:
+
+```json
+{
+  "sessionId": "demo-coin",
+  "creatorAddress": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "approvalId": "public-mint",
+  "fromListId": "Mint",
+  "toListId": "All",
+  "initiatedByListId": "All",
+  "tokenIds": [{ "start": "1", "end": "1" }],
+  "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "approvalCriteria": {
+    "overridesFromOutgoingApprovals": true,
+    "overridesToIncomingApprovals": true,
+    "approvalAmounts": {
+      "overallApprovalAmount": "0",
+      "perToAddressApprovalAmount": "10",
+      "perFromAddressApprovalAmount": "0",
+      "perInitiatedByAddressApprovalAmount": "0",
+      "amountTrackerId": "public-mint",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    }
+  }
+}
+```
+
+The tool answers with the approval as stored in the session plus any validation notes.
 
 ### Session builders (recommended for collections)
 
@@ -100,7 +132,7 @@ Each tool sets one field on a session-scoped transaction. Calls in the same roun
 | `set_permissions` | Set collection permissions from a preset or a custom object. Fields are frozen (`permanentlyForbiddenTimes: FOREVER`) or neutral (`[]`) | `preset` (`fully-immutable`, `manager-controlled`, `locked-approvals` default), `permissions` (object, overrides preset) |
 | `set_invariants` | Set on-chain invariants. They cannot be removed after creation | `invariants*` (object or null; keys `noCustomOwnershipTimes`, `maxSupplyPerId`, `cosmosCoinBackedPath`) |
 | `set_manager` | Set the manager address. Defaults to the creator | `manager*` |
-| `set_collection_metadata` | Set name, description, and image. Auto-creates a metadata placeholder URI | `name*`, `description*`, `image*` (`IMAGE_N`, `https://`, `ipfs://`, or `data:image/svg+xml;base64,...`) |
+| `set_collection_metadata` | Set name, description, and image. Auto-creates a metadata placeholder URI | `name*`, `description*`, `image*` (`IMAGE_N`, an `https://` or `ipfs://` URL, or a `data:image/svg+xml;base64` URI) |
 | `set_token_metadata` | Set metadata for token ID ranges. `{id}` works in the URI only | `tokenIds*`, `name*`, `description*`, `image*` |
 | `set_custom_data` | Set the on-chain custom data string (any JSON or text) | `customData*` |
 | `set_mint_escrow_coins` | Fund the mint escrow address at creation. Required for quest rewards and escrow payouts where `coinTransfers` use `overrideFromWithApproverAddress` | `coins*` (array; for quests `rewardAmount * maxClaims`) |
@@ -238,7 +270,7 @@ If `get_review_url` is unavailable in your installed version, save the JSON to a
 
 ## Resources
 
-The server also exposes embedded documents as MCP resources. Read them with your client's resource support or with `bb dev resources read <uri>`.
+The server also exposes embedded documents as MCP resources. Read them with your client's resource support or with `bb dev resources read bitbadges://recipes/all`.
 
 | Resource URI | Name | Description |
 | --- | --- | --- |
@@ -276,10 +308,11 @@ bb dev tools call set_collection_metadata --args-file ./metadata.json --session 
 Stateful tools (`set_*`, `add_*`, `remove_*`, `get_transaction`) read and write the named session. Sessions survive across invocations, so an agent can compose a collection across many calls:
 
 ```bash
-SESSION=demo
-bb dev tools call set_standards --session $SESSION --args '{"standards":["SmartToken"]}'
-bb dev tools call set_collection_metadata --session $SESSION --args-file ./meta.json
-bb dev tools call add_approval --session $SESSION --args-file ./approval.json
+SESSION=demo-coin
+bb dev tools call set_standards --session $SESSION --args '{"standards":["Fungible Tokens"]}'
+bb dev tools call set_valid_token_ids --session $SESSION --args '{"tokenIds":[{"start":"1","end":"1"}]}'
+bb dev tools call set_collection_metadata --session $SESSION --args '{"name":"Demo Coin","description":"One million units of token ID 1.","image":"ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/coin.png"}'
+bb dev tools call add_approval --session $SESSION --args-file ./approval.json     # the public-mint call from the Tools section
 bb dev tools call get_transaction --session $SESSION
 ```
 

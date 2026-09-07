@@ -43,12 +43,12 @@ npm install bitbadges openai
 The SDK never bundles either provider. The key stays in your process.
 
 ```bash
-# Pick one: Anthropic (default) or OpenAI
-export ANTHROPIC_API_KEY=sk-ant-...
-export OPENAI_API_KEY=sk-proj-...
+# Pick one: Anthropic (default) or OpenAI. Values shown are fake.
+export ANTHROPIC_API_KEY=sk-ant-api03-0123456789abcdef0123456789abcdef
+export OPENAI_API_KEY=sk-proj-0123456789abcdef0123456789abcdef
 
 # Optional: needed when prompts trigger query, search, or simulate tools
-export BITBADGES_API_KEY=bb-...
+export BITBADGES_API_KEY=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 ```
 
 Anthropic and OpenAI keys are required only for `BitBadgesBuilderAgent`, the Node-side build loop on this page. The MCP server (`bitbadges-builder`, used by Cursor, Claude Desktop, Claude Code, Cline, OpenAI Codex, and Gemini Code Assist) is model-agnostic and does not read these variables. If you only want the MCP server, go to [MCP builder tools](mcp-tools.md).
@@ -88,29 +88,38 @@ Token-type inference has parity across providers. Both run a fast classifier (An
 ### Anthropic
 
 ```ts
+import Anthropic from '@anthropic-ai/sdk';
+import { BitBadgesBuilderAgent } from 'bitbadges/builder/agent';
+
 // 1. API key (most common)
-new BitBadgesBuilderAgent({ anthropicKey: 'sk-ant-...' });
+new BitBadgesBuilderAgent({ anthropicKey: process.env.ANTHROPIC_API_KEY });
 
 // 2. OAuth token, for Claude Code / Claude Pro flows
-new BitBadgesBuilderAgent({ anthropicAuthToken: 'oauth-...' });
+new BitBadgesBuilderAgent({ anthropicAuthToken: process.env.ANTHROPIC_OAUTH_TOKEN });
 
 // 3. Pre-built Anthropic client, for custom retry or interceptor logic
-import Anthropic from '@anthropic-ai/sdk';
-new BitBadgesBuilderAgent({ anthropicClient: new Anthropic({ apiKey, baseURL: proxy }) });
+new BitBadgesBuilderAgent({
+  anthropicClient: new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY, baseURL: 'https://llm-gateway.example.com', maxRetries: 5 })
+});
 ```
 
 ### OpenAI
 
 ```ts
+import OpenAI from 'openai';
+import { BitBadgesBuilderAgent } from 'bitbadges/builder/agent';
+
 // 1. API key (most common)
-new BitBadgesBuilderAgent({ provider: 'openai', apiKey: 'sk-proj-...' });
+new BitBadgesBuilderAgent({ provider: 'openai', apiKey: process.env.OPENAI_API_KEY });
 
 // 2. Custom base URL, for Azure OpenAI, proxies, gateways
-new BitBadgesBuilderAgent({ provider: 'openai', apiKey, baseURL: 'https://your-proxy/v1' });
+new BitBadgesBuilderAgent({ provider: 'openai', apiKey: process.env.OPENAI_API_KEY, baseURL: 'https://llm-gateway.example.com/v1' });
 
 // 3. Pre-built OpenAI client, for custom retry, interceptor, or Azure AD logic
-import OpenAI from 'openai';
-new BitBadgesBuilderAgent({ provider: 'openai', providerClient: new OpenAI({ apiKey, baseURL }) });
+new BitBadgesBuilderAgent({
+  provider: 'openai',
+  providerClient: new OpenAI({ apiKey: process.env.OPENAI_API_KEY, baseURL: 'https://llm-gateway.example.com/v1', maxRetries: 5 })
+});
 ```
 
 Environment variables are read when no explicit credentials are passed:
@@ -122,6 +131,8 @@ Environment variables are read when no explicit credentials are passed:
 ## Customization
 
 ```ts
+import { BitBadgesBuilderAgent, MemoryStore } from 'bitbadges/builder/agent';
+
 const agent = new BitBadgesBuilderAgent({
   // Provider: pick one of the auth-mode patterns above
   anthropicKey: process.env.ANTHROPIC_API_KEY,
@@ -138,11 +149,11 @@ const agent = new BitBadgesBuilderAgent({
   hooks: {
     onTokenUsage:   (u) => console.log(`$${u.cumulativeCostUsd.toFixed(4)}`),
     onToolCall:     (e) => console.log(`[${e.name}] ${e.durationMs}ms`),
-    onStatusUpdate: (s) => showToUser(s),   // "Building...", "Validating...", etc.
-    onLog:          (e) => writeToLogSink(e), // info / ai_text / validation / error
-    onCompletion:   (trace) => saveTraceToDb(trace)
+    onStatusUpdate: (s) => console.log(`status: ${s}`),           // "Building", "Validating", and so on
+    onLog:          (e) => console.log(`[${e.type}] ${e.label}`), // info / ai_text / validation / error
+    onCompletion:   (trace) => console.log(`done in ${trace.rounds} rounds`)
   },
-  defaultCreatorAddress: 'bb1...',
+  defaultCreatorAddress: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
   debug: false                           // true dumps prompts and responses to stderr
 });
 ```
@@ -242,11 +253,11 @@ new BitBadgesBuilderAgent({
     remove: ['build_claim'],
     add: [{
       definition: {
-        name: 'my_custom_tool',
-        description: '...',
-        input_schema: { type: 'object', properties: { foo: { type: 'string' } } }
+        name: 'lookup_sku',
+        description: 'Return the price in USDC for a product SKU from the merchant catalog.',
+        input_schema: { type: 'object', properties: { sku: { type: 'string' } }, required: ['sku'] }
       },
-      execute: async (args, ctx) => ({ ok: true, echo: args })
+      execute: async (args, ctx) => ({ sku: args.sku, priceUsdc: '25', requestedBy: ctx.sessionId })
     }]
   }
 });
@@ -257,7 +268,10 @@ new BitBadgesBuilderAgent({
 Conversation messages and token counters persist so refinement works across HTTP requests.
 
 ```ts
-import { MemoryStore, FileStore } from 'bitbadges/builder/agent';
+import Redis from 'ioredis';
+import { BitBadgesBuilderAgent, MemoryStore, FileStore, type KVStore, type KVStoreSetOptions } from 'bitbadges/builder/agent';
+
+const anthropicKey = process.env.ANTHROPIC_API_KEY;
 
 // Default: single process, in memory
 new BitBadgesBuilderAgent({ anthropicKey, sessionStore: new MemoryStore() });
@@ -267,9 +281,23 @@ new BitBadgesBuilderAgent({ anthropicKey, sessionStore: new FileStore({ dir: '/v
 
 // Bring your own: any object matching the KVStore interface
 class RedisStore implements KVStore {
-  async get(key)          { /* ... */ }
-  async set(key, value)   { /* ... */ }
-  async delete(key)       { /* ... */ }
+  private redis = new Redis(process.env.REDIS_URL!);
+
+  async get(key: string): Promise<string | null> {
+    return this.redis.get(key);
+  }
+
+  async set(key: string, value: string, opts?: KVStoreSetOptions): Promise<void> {
+    if (opts?.ttlSeconds) {
+      await this.redis.set(key, value, 'EX', opts.ttlSeconds);
+    } else {
+      await this.redis.set(key, value);
+    }
+  }
+
+  async delete(key: string): Promise<void> {
+    await this.redis.del(key);
+  }
 }
 new BitBadgesBuilderAgent({ anthropicKey, sessionStore: new RedisStore() });
 ```
@@ -319,7 +347,9 @@ The SDK never signs for the user. `result.reviewUrl` is a bitbadges.io link that
 ```ts
 const result = await agent.build('create a subscription token for $10/mo');
 console.log(result.reviewUrl);
-// https://bitbadges.io/mint/local-builder#tx=eyJtZXNzYWdlcyI6...
+// https://bitbadges.io/mint/local-builder#tx=<base64url of result.transaction>
+// For a one-message transaction the hash part looks like:
+// eyJtZXNzYWdlcyI6W3sidHlwZVVybCI6Ii90b2tlbml6YXRpb24uTXNnRGVsZXRlT3V0Z29pbmdBcHByb3ZhbCIsInZhbHVlIjp7ImNyZWF0b3IiOiJiYjFwMHJyZWwzMzY1c2NhZHE1azlwdjB4MHpwOWoyMmpzNmRudzcwZCIsImNvbGxlY3Rpb25JZCI6IjIiLCJhcHByb3ZhbElkIjoiYWdlbnQtZGFpbHktYnVkZ2V0In19XX0
 ```
 
 For a short, shareable link (chat, email, an LLM relaying it to a user), upload through the open preview endpoint instead. This is what the MCP `get_review_url` tool and `bb preview` do:
@@ -332,9 +362,9 @@ const res = await fetch('https://api.bitbadges.io/api/v0/builder/preview', {
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ transaction: result.transaction })
 });
-const { code } = await res.json(); // prv_xxxxxxxx, valid 1 hour
+const { code } = await res.json(); // for example prv_ab12cd34, valid 1 hour
 console.log(buildReviewUrlFromCode('https://bitbadges.io', code, result.transaction));
-// https://bitbadges.io/mint/local-builder?code=prv_xxxxxxxx
+// https://bitbadges.io/mint/local-builder?code=prv_ab12cd34
 ```
 
 Update transactions (a non-zero `collectionId`) route to `/update/local-builder/:id` so the site diffs against on-chain state. The helpers `buildHandoffUrl`, `buildReviewUrlFromCode`, `buildPreviewUrlFromCode`, `detectExistingCollectionId`, and `encodeTxForHash` are exported from `bitbadges/builder/agent`.
@@ -367,7 +397,7 @@ const result = await agent.build(prompt, {
 
 const finalTx = agent.substituteImages(result.transaction, {
   IMAGE_1: 'https://cdn.example.com/hero.png',   // or a data: URL
-  IMAGE_2: 'ipfs://bafy...'
+  IMAGE_2: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/1.png'
 });
 ```
 
@@ -388,7 +418,9 @@ const report = await agent.healthCheck();
 ## Validate without building
 
 ```ts
-const existing = loadTxFromDisk();
+import { readFileSync } from 'node:fs';
+
+const existing = JSON.parse(readFileSync('./tx.json', 'utf8'));
 const { valid, errors, simulation } = await agent.validate(existing);
 ```
 

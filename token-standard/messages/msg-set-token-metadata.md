@@ -9,7 +9,7 @@ Sets the token metadata entries of a collection and the permission that guards f
 ## Example
 
 ```bash
-bb tx tokenization set-settokenmetadata ./set-token-metadata.json --from <manager-key> --chain-id bitbadges-1
+bb tx tokenization set-settokenmetadata ./set-token-metadata.json --from alice --chain-id bitbadges-1
 ```
 
 ```ts
@@ -19,14 +19,18 @@ const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, '
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
 const msg = new MsgSetTokenMetadata({
-  creator: client.address,
+  creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
   collectionId: 1n,
   tokenMetadata: [
-    { uri: 'https://example.com/{id}.json', customData: '', tokenIds: [{ start: 1n, end: 10n }] }
+    {
+      uri: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json',
+      customData: '',
+      tokenIds: [{ start: 1n, end: 100n }]
+    }
   ],
   canUpdateTokenMetadata: [
     {
-      tokenIds: [{ start: 1n, end: 10n }],
+      tokenIds: [{ start: 1n, end: 100n }],
       permanentlyPermittedTimes: [{ start: 1n, end: 18446744073709551615n }],
       permanentlyForbiddenTimes: []
     }
@@ -34,22 +38,23 @@ const msg = new MsgSetTokenMetadata({
 });
 
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
 {
-  "creator": "bb1manager...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "collectionId": "1",
   "tokenMetadata": [
     {
-      "uri": "https://example.com/{id}.json",
+      "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json",
       "customData": "",
-      "tokenIds": [{ "start": "1", "end": "10" }]
+      "tokenIds": [{ "start": "1", "end": "100" }]
     }
   ],
   "canUpdateTokenMetadata": [
     {
-      "tokenIds": [{ "start": "1", "end": "10" }],
+      "tokenIds": [{ "start": "1", "end": "100" }],
       "permanentlyPermittedTimes": [{ "start": "1", "end": "18446744073709551615" }],
       "permanentlyForbiddenTimes": []
     }
@@ -61,12 +66,12 @@ Inline metadata without hosting: leave `uri` empty and put the metadata document
 
 ```json
 {
-  "creator": "bb1manager...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "collectionId": "1",
   "tokenMetadata": [
     {
       "uri": "",
-      "customData": "{\"name\":\"Token #1\",\"image\":\"ipfs://Qm.../1.png\",\"description\":\"First token in the series.\"}",
+      "customData": "{\"name\":\"Demo NFT #1\",\"image\":\"ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/1.png\",\"description\":\"First token in the series.\"}",
       "tokenIds": [{ "start": "1", "end": "1" }]
     }
   ],

@@ -139,6 +139,10 @@ Subscription and not banned:
 }
 ```
 
+{% hint style="info" %}
+Ask your agent: "Check whether bob (bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue) owns token ID 1 of collection 42 right now." The MCP builder tools (`verify_ownership`) produce the objects on this page.
+{% endhint %}
+
 ## Security notes
 
 - HTTPS only. Proof headers are replayable over plaintext HTTP.

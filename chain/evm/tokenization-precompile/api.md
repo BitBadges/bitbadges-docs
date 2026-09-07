@@ -84,6 +84,10 @@ The full interface with events and doc comments is [`contracts/interfaces/IToken
 - Unknown fields, wrong types, and missing required fields revert with code 1. See [Errors](errors.md).
 - Invariants and cosmos coin wrapper paths are settable at creation (`createCollectionWithInvariantsJSON`); the chain README notes some deeply nested items may be skipped silently on conversion, so verify with `getCollection` after creation.
 
+{% hint style="info" %}
+Ask your agent: "Build the MsgTransferTokens JSON that sends 1 of token ID 1 in collection 1 from alice to bob, with no prioritized approvals, so I can pass it as msgJson to transferTokens." The `bb build transfer` command and the MCP builder tools emit the same camelCase JSON the precompile accepts; strip the outer `typeUrl`/`value` envelope and the `creator` field.
+{% endhint %}
+
 ## Transaction methods
 
 ### transferTokens
@@ -99,8 +103,8 @@ function transferTokens(string calldata msgJson) external returns (bool success)
   "collectionId": "123",
   "transfers": [
     {
-      "from": "bb1sender...",
-      "toAddresses": ["bb1recipient..."],
+      "from": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "toAddresses": ["bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"],
       "balances": [
         {
           "amount": "1000",
@@ -122,12 +126,14 @@ function transferTokens(string calldata msgJson) external returns (bool success)
 Helper (the common single-balance case):
 
 ```solidity
+address[] memory recipients = new address[](1);
+recipients[0] = 0x092bb4851ae26850588243e7bef22a56287f4739;
 string memory json = TokenizationJSONHelpers.transferTokensJSON(
-    collectionId,
-    recipients,        // address[] recipients
-    amount,            // uint256
-    tokenIdsJson,      // uintRangeToJson(...)
-    ownershipTimesJson // uintRangeToJson(...)
+    1,                                                                          // collectionId
+    recipients,                                                                 // address[] recipients
+    1000,                                                                       // uint256 amount
+    TokenizationJSONHelpers.uintRangeToJson(1, 1),                              // tokenIdsJson
+    TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER) // ownershipTimesJson
 );
 ```
 
@@ -142,7 +148,7 @@ string memory balancesJson = TokenizationJSONHelpers.balanceToJson(
 
 string memory transferJson = string(abi.encodePacked(
     '{"collectionId":"', TokenizationJSONHelpers.uintToString(collectionId),
-    '","transfers":[{"from":"bb1sender...","toAddresses":["bb1recipient..."],',
+    '","transfers":[{"from":"bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d","toAddresses":["bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"],',
     '"balances":[', balancesJson, ']}]}'
 ));
 
@@ -189,7 +195,7 @@ function setOutgoingApproval(string calldata msgJson) external returns (bool suc
   "collectionId": "123",
   "approval": {
     "toListId": "All",
-    "initiatedByListId": "bb1contract...",
+    "initiatedByListId": "bb1t77myv2k0zh7evm87qedj0my9ajpsz4rp7vqsa",
     "transferTimes": [{"start": "1", "end": "18446744073709551615"}],
     "tokenIds": [{"start": "1", "end": "100"}],
     "ownershipTimes": [{"start": "1", "end": "18446744073709551615"}],
@@ -255,7 +261,7 @@ function updateUserApprovals(string calldata msgJson) external returns (bool suc
 }
 ```
 
-Helper: `updateUserApprovalsJSON(...)`.
+Helper: `updateUserApprovalsJSON(collectionId, updateOutgoingApprovals, outgoingApprovalsJson, updateIncomingApprovals, incomingApprovalsJson, updateAutoApproveSelfInitiatedOutgoingTransfers, autoApproveSelfInitiatedOutgoingTransfers, updateAutoApproveSelfInitiatedIncomingTransfers, autoApproveSelfInitiatedIncomingTransfers, updateAutoApproveAllIncomingTransfers, autoApproveAllIncomingTransfers, updateUserPermissions, userPermissionsJson)`.
 
 ### purgeApprovals
 
@@ -269,13 +275,13 @@ function purgeApprovals(string calldata msgJson) external returns (uint256 numPu
 {
   "collectionId": "123",
   "purgeExpired": true,
-  "approverAddress": "bb1...",
+  "approverAddress": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "purgeCounterpartyApprovals": false,
   "approvalsToPurge": []
 }
 ```
 
-Helper: `purgeApprovalsJSON(...)`.
+Helper: `purgeApprovalsJSON(collectionId, purgeExpired, approverAddress, purgeCounterpartyApprovals, approvalsToPurgeJson)`.
 
 ### createCollection
 
@@ -288,15 +294,25 @@ function createCollection(string calldata msgJson) external returns (uint256 col
 ```json
 {
   "validTokenIds": [{"start": "1", "end": "1000"}],
-  "manager": "bb1abc...",
+  "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "collectionMetadata": {
-    "uri": "ipfs://...",
+    "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
     "customData": "{\"name\":\"My Token\"}"
   },
   "defaultBalances": {
+    "balances": [],
+    "outgoingApprovals": [],
+    "incomingApprovals": [],
     "autoApproveSelfInitiatedOutgoingTransfers": true,
     "autoApproveSelfInitiatedIncomingTransfers": true,
-    "balances": []
+    "autoApproveAllIncomingTransfers": false,
+    "userPermissions": {
+      "canUpdateOutgoingApprovals": [],
+      "canUpdateIncomingApprovals": [],
+      "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+      "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+      "canUpdateAutoApproveAllIncomingTransfers": []
+    }
   },
   "standards": ["ERC-3643"],
   "isArchived": false
@@ -321,7 +337,7 @@ string memory json = TokenizationJSONHelpers.createCollectionJSON(
 ```solidity
 string memory validTokenIdsJson = TokenizationJSONHelpers.uintRangeToJson(1, 1000);
 string memory metadataJson = TokenizationJSONHelpers.collectionMetadataToJson(
-    "ipfs://metadata",
+    "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
     "{\"name\":\"My Token\"}"
 );
 string memory defaultBalancesJson = TokenizationJSONHelpers.simpleUserBalanceStoreToJson(
@@ -359,7 +375,7 @@ function updateCollection(string calldata msgJson) external returns (uint256 col
 {
   "collectionId": "123",
   "updateCollectionMetadata": true,
-  "collectionMetadata": {"uri": "ipfs://new", "customData": ""},
+  "collectionMetadata": {"uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json", "customData": ""},
   "updateManager": false,
   "updateValidTokenIds": false,
   "updateCollectionPermissions": false,
@@ -384,13 +400,27 @@ function universalUpdateCollection(string calldata msgJson) external returns (ui
 ```json
 {
   "collectionId": "0",
-  "defaultBalances": {"autoApproveSelfInitiatedOutgoingTransfers": true, "autoApproveSelfInitiatedIncomingTransfers": true, "balances": []},
+  "defaultBalances": {
+    "balances": [],
+    "outgoingApprovals": [],
+    "incomingApprovals": [],
+    "autoApproveSelfInitiatedOutgoingTransfers": true,
+    "autoApproveSelfInitiatedIncomingTransfers": true,
+    "autoApproveAllIncomingTransfers": false,
+    "userPermissions": {
+      "canUpdateOutgoingApprovals": [],
+      "canUpdateIncomingApprovals": [],
+      "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+      "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+      "canUpdateAutoApproveAllIncomingTransfers": []
+    }
+  },
   "updateValidTokenIds": true,
   "validTokenIds": [{"start": "1", "end": "100"}],
   "updateManager": true,
-  "manager": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+  "manager": "0x0bc63cfe31d5218eb414b142c799e20964a54a1a",
   "updateCollectionMetadata": true,
-  "collectionMetadata": {"uri": "ipfs://...", "customData": ""},
+  "collectionMetadata": {"uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json", "customData": ""},
   "updateCollectionPermissions": false,
   "updateTokenMetadata": false,
   "updateCustomData": false,
@@ -449,7 +479,7 @@ function setManager(string calldata msgJson) external returns (uint256 collectio
 ```json
 {
   "collectionId": "123",
-  "manager": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+  "manager": "0x0bc63cfe31d5218eb414b142c799e20964a54a1a",
   "canUpdateManager": []
 }
 ```
@@ -467,7 +497,7 @@ function setCollectionMetadata(string calldata msgJson) external returns (uint25
 ```json
 {
   "collectionId": "123",
-  "collectionMetadata": {"uri": "ipfs://...", "customData": ""},
+  "collectionMetadata": {"uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json", "customData": ""},
   "canUpdateCollectionMetadata": []
 }
 ```
@@ -486,13 +516,13 @@ function setTokenMetadata(string calldata msgJson) external returns (uint256 col
 {
   "collectionId": "123",
   "tokenMetadata": [
-    {"uri": "ipfs://.../{id}", "customData": "", "tokenIds": [{"start": "1", "end": "100"}]}
+    {"uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json", "customData": "", "tokenIds": [{"start": "1", "end": "100"}]}
   ],
   "canUpdateTokenMetadata": []
 }
 ```
 
-Helper: `setTokenMetadataJSON(...)` with `tokenMetadataToJson`.
+Helper: `setTokenMetadataJSON(collectionId, tokenMetadataJson, canUpdateTokenMetadataJson)` with `tokenMetadataToJson(uri, customData)`.
 
 ### setCustomData
 
@@ -545,7 +575,7 @@ function setCollectionApprovals(string calldata msgJson) external returns (uint2
     {
       "fromListId": "Mint",
       "toListId": "All",
-      "initiatedByListId": "bb1contract...",
+      "initiatedByListId": "bb1t77myv2k0zh7evm87qedj0my9ajpsz4rp7vqsa",
       "transferTimes": [{"start": "1", "end": "18446744073709551615"}],
       "tokenIds": [{"start": "1", "end": "100"}],
       "ownershipTimes": [{"start": "1", "end": "18446744073709551615"}],
@@ -557,7 +587,7 @@ function setCollectionApprovals(string calldata msgJson) external returns (uint2
 }
 ```
 
-Helper: `setCollectionApprovalsJSON(...)` with `collectionApprovalToJson` and `collectionApprovalArrayToJson`. Hex addresses inside approvals and criteria are converted. Criteria reference: [Approval criteria](../../../token-standard/approval-criteria/README.md).
+Helper: `setCollectionApprovalsJSON(collectionId, collectionApprovalsJson, canUpdateCollectionApprovalsJson)` with `collectionApprovalToJson` and `collectionApprovalArrayToJson`. Hex addresses inside approvals and criteria are converted. Criteria reference: [Approval criteria](../../../token-standard/approval-criteria/README.md).
 
 ### setIsArchived
 
@@ -588,7 +618,7 @@ function createDynamicStore(string calldata msgJson) external returns (uint256 s
 ```json
 {
   "defaultValue": false,
-  "uri": "ipfs://store-metadata",
+  "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
   "customData": "{\"type\":\"kyc\"}"
 }
 ```
@@ -604,7 +634,7 @@ string memory json = TokenizationJSONHelpers.createDynamicStoreJSON(
 ```solidity
 string memory createJson = TokenizationJSONHelpers.createDynamicStoreJSON(
     false,
-    "ipfs://kyc-registry",
+    "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
     "{\"type\":\"kyc\"}"
 );
 
@@ -626,12 +656,12 @@ function updateDynamicStore(string calldata msgJson) external returns (bool succ
   "storeId": "123",
   "defaultValue": false,
   "globalEnabled": true,
-  "uri": "ipfs://...",
+  "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
   "customData": ""
 }
 ```
 
-Helper: `updateDynamicStoreJSON(...)`.
+Helper: `updateDynamicStoreJSON(storeId, defaultValue, globalEnabled, uri, customData)`.
 
 ### deleteDynamicStore
 
@@ -660,7 +690,7 @@ function setDynamicStoreValue(string calldata msgJson) external returns (bool su
 ```json
 {
   "storeId": "123",
-  "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+  "address": "0x0bc63cfe31d5218eb414b142c799e20964a54a1a",
   "value": true
 }
 ```
@@ -696,7 +726,7 @@ function createAddressLists(string calldata msgJson) external returns (bool succ
   "addressLists": [
     {
       "listId": "my-allowlist",
-      "addresses": ["0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb", "bb1..."],
+      "addresses": ["0x0bc63cfe31d5218eb414b142c799e20964a54a1a", "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"],
       "whitelist": true,
       "uri": "",
       "customData": ""
@@ -705,7 +735,7 @@ function createAddressLists(string calldata msgJson) external returns (bool succ
 }
 ```
 
-Helper: `createAddressListsJSON(...)` with `addressListInputToJson`. At most 1,000 addresses per list. Emits `AddressListsCreated`. Concept: [Address lists](../../../token-standard/concepts/address-lists.md).
+Helper: `createAddressListsJSON(addressListsJson)` with `addressListInputToJson(listId, addressesJson, whitelist, uri, customData)`. At most 1,000 addresses per list. Emits `AddressListsCreated`. Concept: [Address lists](../../../token-standard/concepts/address-lists.md).
 
 ### castVote
 
@@ -726,7 +756,7 @@ function castVote(string calldata msgJson) external returns (bool success)
 }
 ```
 
-Helper: `castVoteJSON(...)`. Criteria: [Voting challenges](../../../token-standard/approval-criteria/voting-challenges.md).
+Helper: `castVoteJSON(collectionId, approvalLevel, approverAddress, approvalId, proposalId, yesWeight)`. Criteria: [Voting challenges](../../../token-standard/approval-criteria/voting-challenges.md).
 
 ### executeMultiple
 
@@ -747,19 +777,31 @@ struct MessageInput {
 ITokenizationPrecompile.MessageInput[] memory messages = new ITokenizationPrecompile.MessageInput[](2);
 
 // Message 1: Create Collection
-string memory createJson = TokenizationJSONHelpers.createCollectionJSON(...);
+string[] memory standards = new string[](0);
+string memory createJson = TokenizationJSONHelpers.createCollectionJSON(
+    TokenizationJSONHelpers.uintRangeToJson(1, 1000),
+    TokenizationJSONHelpers.addressToString(address(this)),
+    TokenizationJSONHelpers.collectionMetadataToJson("ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json", ""),
+    TokenizationJSONHelpers.simpleUserBalanceStoreToJson(true, true, false),
+    "{}",
+    TokenizationJSONHelpers.stringArrayToJson(standards),
+    "",
+    false
+);
 messages[0] = ITokenizationPrecompile.MessageInput({
     messageType: "createCollection",
     msgJson: createJson
 });
 
 // Message 2: Transfer Tokens (using collectionId = 0 for auto-prev)
+address[] memory recipients = new address[](1);
+recipients[0] = 0x092bb4851ae26850588243e7bef22a56287f4739;
 string memory transferJson = TokenizationJSONHelpers.transferTokensJSON(
     0,  // collectionId = 0 means "use previous collection" (auto-prev)
     recipients,
-    amount,
-    tokenIdsJson,
-    ownershipJson
+    1,
+    TokenizationJSONHelpers.uintRangeToJson(1, 1),
+    TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER)
 );
 messages[1] = ITokenizationPrecompile.MessageInput({
     messageType: "transferTokens",
@@ -832,7 +874,7 @@ function getCollectionStats(string calldata msgJson) external view returns (byte
 
 ```solidity
 string memory queryJson = string(abi.encodePacked(
-    '{"collectionId":"', Strings.toString(collectionId), '"}'
+    '{"collectionId":"', TokenizationJSONHelpers.uintToString(collectionId), '"}'
 ));
 
 bytes memory stats = TOKENIZATION.getCollectionStats(queryJson);
@@ -852,7 +894,7 @@ function getBalance(string calldata msgJson) external view returns (bytes memory
 ```json
 {
   "collectionId": "123",
-  "address": "bb1..."
+  "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
 }
 ```
 
@@ -869,7 +911,7 @@ function getBalanceAmount(string calldata msgJson) external view returns (uint25
 ```json
 {
   "collectionId": "123",
-  "address": "bb1...",
+  "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "tokenId": "1",
   "ownershipTime": "1609459200000"
 }
@@ -885,10 +927,10 @@ function getBalanceAmount(string calldata msgJson) external view returns (uint25
 ```solidity
 // Build JSON manually or use a helper
 string memory balanceJson = string(abi.encodePacked(
-    '{"collectionId":"', Strings.toString(collectionId),
-    '","address":"', userAddress,
-    '","tokenId":"', Strings.toString(tokenId),
-    '","ownershipTime":"', Strings.toString(block.timestamp * 1000),
+    '{"collectionId":"', TokenizationJSONHelpers.uintToString(collectionId),
+    '","address":"', TokenizationJSONHelpers.addressToString(userAddress),
+    '","tokenId":"', TokenizationJSONHelpers.uintToString(tokenId),
+    '","ownershipTime":"', TokenizationJSONHelpers.uintToString(block.timestamp * 1000),
     '"}'
 ));
 
@@ -921,9 +963,9 @@ function getTotalSupply(string calldata msgJson) external view returns (uint256 
 
 ```solidity
 string memory supplyJson = string(abi.encodePacked(
-    '{"collectionId":"', Strings.toString(collectionId),
-    '","tokenId":"', Strings.toString(tokenId),
-    '","ownershipTime":"', Strings.toString(block.timestamp * 1000),
+    '{"collectionId":"', TokenizationJSONHelpers.uintToString(collectionId),
+    '","tokenId":"', TokenizationJSONHelpers.uintToString(tokenId),
+    '","ownershipTime":"', TokenizationJSONHelpers.uintToString(block.timestamp * 1000),
     '"}'
 ));
 
@@ -970,7 +1012,7 @@ function getApprovalTracker(string calldata msgJson) external view returns (byte
 }
 ```
 
-Helper: `getApprovalTrackerJSON(...)`. `approverAddress` and `approvedAddress` accept hex. Criteria: [Approval trackers](../../../token-standard/approval-criteria/approval-trackers.md).
+Helper: `getApprovalTrackerJSON(collectionId, approvalLevel, approverAddress, approvalId, trackerType, trackedAddress)` (it reuses `approvalId` as the `amountTrackerId`). `approverAddress` and `approvedAddress` accept hex. Criteria: [Approval trackers](../../../token-standard/approval-criteria/approval-trackers.md).
 
 ### getChallengeTracker
 
@@ -991,7 +1033,7 @@ function getChallengeTracker(string calldata msgJson) external view returns (uin
 }
 ```
 
-Helper: `getChallengeTrackerJSON(...)`. Criteria: [Merkle challenges](../../../token-standard/approval-criteria/merkle-challenges.md).
+Helper: `getChallengeTrackerJSON(collectionId, approvalLevel, approverAddress, approvalId, challengeId, leafIndex)`. Criteria: [Merkle challenges](../../../token-standard/approval-criteria/merkle-challenges.md).
 
 ### getETHSignatureTracker
 
@@ -1008,7 +1050,7 @@ function getETHSignatureTracker(string calldata msgJson) external view returns (
   "approverAddress": "",
   "approvalId": "signed-claim",
   "challengeTrackerId": "signed-claim",
-  "signature": "0x..."
+  "signature": "0xdbcfa79865ccab596d4e5fbc06e34ba09befd01cfd833a73427bd38d5cab2e77dcdbfee5f745b5b082bd17b9ae41a3cffb160ee9343fd777de4a3fbd682397301b"
 }
 ```
 
@@ -1041,7 +1083,7 @@ function getDynamicStoreValue(string calldata msgJson) external view returns (by
 ```json
 {
   "storeId": "123",
-  "address": "bb1..."
+  "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
 }
 ```
 
@@ -1075,8 +1117,8 @@ function getWrappableBalances(string calldata msgJson) external view returns (ui
 
 ```json
 {
-  "denom": "badges:123:mytoken",
-  "address": "bb1..."
+  "denom": "badges:1:utoken",
+  "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
 }
 ```
 
@@ -1092,7 +1134,7 @@ function isAddressReservedProtocol(string calldata msgJson) external view return
 
 ```json
 {
-  "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"
+  "address": "0x0bc63cfe31d5218eb414b142c799e20964a54a1a"
 }
 ```
 
@@ -1127,11 +1169,11 @@ function getVote(string calldata msgJson) external view returns (bytes memory vo
   "approverAddress": "",
   "approvalId": "gated-transfer",
   "proposalId": "proposal-1",
-  "voterAddress": "bb1..."
+  "voterAddress": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf"
 }
 ```
 
-Helper: `getVoteJSON(...)`.
+Helper: `getVoteJSON(collectionId, approvalLevel, approverAddress, approvalId, proposalId, voterAddress)`.
 
 ### getVotes
 
@@ -1151,7 +1193,7 @@ function getVotes(string calldata msgJson) external view returns (bytes memory v
 }
 ```
 
-Helper: `getVotesJSON(...)`.
+Helper: `getVotesJSON(collectionId, approvalLevel, approverAddress, approvalId, proposalId)`.
 
 ### params
 
@@ -1178,8 +1220,8 @@ function convertEvmAddressToBech32(address evmAddress) external pure returns (st
 ```
 
 ```solidity
-string memory bech32 = TOKENIZATION.convertEvmAddressToBech32(msg.sender);
-// Returns: "bb1qy2q3j4k5l6m7n8p9q0r..."
+string memory bech32 = TOKENIZATION.convertEvmAddressToBech32(0x0bc63cfe31d5218eb414b142c799e20964a54a1a);
+// Returns: "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
 ```
 
 ### convertBech32ToEvmAddress
@@ -1189,8 +1231,8 @@ function convertBech32ToEvmAddress(string calldata bech32Address) external pure 
 ```
 
 ```solidity
-address evm = TOKENIZATION.convertBech32ToEvmAddress("bb1qy2q3j4k5l6m7n8p9q0r...");
-// Returns: 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
+address evm = TOKENIZATION.convertBech32ToEvmAddress("bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d");
+// Returns: 0x0bc63cfe31d5218eb414b142c799e20964a54a1a
 ```
 
 ### rangeContains
@@ -1268,8 +1310,8 @@ function getReservedListId(address addr) external pure returns (string memory li
 ```
 
 ```solidity
-string memory listId = TOKENIZATION.getReservedListId(msg.sender);
-// Returns: "bb1qy2q3j4k5l6m7n8p9q0r..." (the bech32 address)
+string memory listId = TOKENIZATION.getReservedListId(0x0bc63cfe31d5218eb414b142c799e20964a54a1a);
+// Returns: "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d" (the bech32 address)
 ```
 
 To test whether a list ID is `"All"`, compare the string: `keccak256(bytes(listId)) == keccak256(bytes("All"))`. Reserved IDs: [Address lists](../../../token-standard/concepts/address-lists.md).
@@ -1295,7 +1337,7 @@ string memory json = TokenizationJSONHelpers.uintRangeArrayToJson(starts, ends);
 
 ```solidity
 string memory json = TokenizationJSONHelpers.collectionMetadataToJson(
-    "ipfs://metadata",
+    "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
     "{\"name\":\"My Token\"}"
 );
 ```

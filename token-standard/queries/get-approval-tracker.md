@@ -10,14 +10,14 @@ Returns the tracker that an approval's `approvalAmounts` and `maxNumTransfers` c
 
 ```bash
 # [collectionId] [approvalLevel] [approverAddress] [approvalId] [amountTrackerId] [trackerType] [approvedAddress]
-bb query tokenization approvals-trackers 1 collection "" approval-1 tracker-1 overall ""
+bb query tokenization approvals-trackers 1 outgoing bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d sell-token-5-to-bob sell-token-5-to-bob overall ""
 ```
 
 ```bash
-curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_approvals_tracker/1/collection//tracker-1/overall/"
+curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_approvals_tracker/1/outgoing/bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d/sell-token-5-to-bob/overall/"
 ```
 
-The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{amountTrackerId}/{trackerType}/{approvedAddress}`. Empty segments stay empty, which produces `//`.
+The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{amountTrackerId}/{trackerType}/{approvedAddress}`. Empty segments stay empty; a collection-level tracker produces `//` after the level.
 
 ## Request
 
@@ -36,15 +36,15 @@ The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{amount
 ```json
 {
   "tracker": {
-    "numTransfers": "5",
+    "numTransfers": "1",
     "amounts": [
       {
-        "amount": "100",
-        "tokenIds": [{ "start": "1", "end": "10" }],
-        "ownershipTimes": [{ "start": "1672531200000", "end": "18446744073709551615" }]
+        "amount": "1",
+        "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+        "tokenIds": [{ "start": "5", "end": "5" }]
       }
     ],
-    "lastUpdatedAt": "1672531200000"
+    "lastUpdatedAt": "1788739200000"
   }
 }
 ```

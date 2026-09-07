@@ -8,9 +8,9 @@ Tokens in `x/tokenization` are not `sdk.Coin` values and cannot be sent over IBC
 
 ```bash
 # The same collection seen three ways (mainnet LCD)
-curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_balance/21/bb1abc...   # native balance
-curl https://lcd.bitbadges.io/cosmos/bank/v1beta1/balances/bb1abc.../by_denom?denom=badges:21:utoken   # wrapped x/bank coin
-curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/sendmanager/balance/bb1abc.../badgeslp:21:utoken   # alias denom view
+curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_balance/21/bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d   # native balance
+curl https://lcd.bitbadges.io/cosmos/bank/v1beta1/balances/bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d/by_denom?denom=badges:21:utoken   # wrapped x/bank coin
+curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/sendmanager/balance/bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d/badgeslp:21:utoken   # alias denom view
 ```
 
 ## The four mechanisms
@@ -19,13 +19,17 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/sendmanager/balance/bb1ab
 | --- | --- | --- | --- | --- |
 | [Alias denoms](alias-denoms.md) | `badgeslp:<collectionId>:<denom>` | No | `aliasPaths` on the collection | A local module (pools, send manager) needs an `sdk.Coin` view of native tokens |
 | [Cosmos coin wrapper paths](cosmos-coin-wrapper-paths.md) | `badges:<collectionId>:<denom>` | Yes, a new x/bank denom | `cosmosCoinWrapperPaths` on the collection | Tokens must leave the chain over ICS-20 or sit in any x/bank account |
-| [Backed minting](backed-minting.md) | An existing `ibc/...` denom | No, escrows the IBC coin | `invariants.cosmosCoinBackedPath` at creation | Each token must be backed 1:1 by an existing IBC asset (compliant wrappers of ATOM, USDC, and so on) |
+| [Backed minting](backed-minting.md) | An existing `ibc/` denom | No, escrows the IBC coin | `invariants.cosmosCoinBackedPath` at creation | Each token must be backed 1:1 by an existing IBC asset (compliant wrappers of ATOM, USDC, and so on) |
 | [Transfer tokens hook](transfer-tokens-hook.md) | None | Runs `MsgTransferTokens` | The ICS-20 memo of an inbound transfer | An inbound IBC transfer should mint or move tokens atomically |
 
 Two supporting pages complete the picture:
 
 - [Rate limits](../../chain/modules/ibc-rate-limit.md): the `x/ibc-rate-limit` middleware that caps net flow, unique senders, and per-address volume per channel and denom.
 - [Cross-chain queries](../../chain/cross-chain-queries.md): interchain queries that let another chain verify ownership without moving tokens.
+
+{% hint style="info" %}
+Ask your agent: "Give collection 1 an alias denom with symbol DEMO and 6 decimals so token ID 1 can sit in a liquidity pool." The MCP builder tools (`add_alias_path`) produce the objects on this page.
+{% endhint %}
 
 ## How to choose
 

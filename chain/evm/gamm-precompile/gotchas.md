@@ -15,13 +15,14 @@ Pool IDs are `uint64` in Go, but the JSON must carry them as strings.
 string memory json = string(abi.encodePacked(
     '{"pool_id":"1",',  // Note: "1" not 1
     '"share_out_amount":"1000000",',
-    // ...
+    '"token_in_maxs":[{"denom":"ubadge","amount":"1000000000"}]}'
 ));
 
 // Wrong: pool ID as a number
 string memory json = string(abi.encodePacked(
     '{"pool_id":1,',  // This will fail!
-    // ...
+    '"share_out_amount":"1000000",',
+    '"token_in_maxs":[{"denom":"ubadge","amount":"1000000000"}]}'
 ));
 ```
 
@@ -69,14 +70,26 @@ string memory json = string(abi.encodePacked(
 A conversion helper:
 
 ```solidity
-// Convert human-readable amount to smallest unit string
-function amountToJson(uint256 amount, uint8 decimals) internal pure returns (string memory) {
-    // amount is already in smallest unit (e.g., 1000000000 for 1 token with 9 decimals)
-    return GammJSONHelpers.uintToString(amount);
-}
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-// Example: 1 BADGE with 9 decimals = 1000000000
-string memory amountJson = amountToJson(1e9, 9);  // Returns "1000000000"
+import "./interfaces/IGammPrecompile.sol";
+import "./libraries/GammJSONHelpers.sol";
+import "./types/GammTypes.sol";
+
+contract AmountExample {
+    IGammPrecompile constant GAMM =
+        IGammPrecompile(0x0000000000000000000000000000000000001002);
+
+    // Convert human-readable amount to smallest unit string
+    function amountToJson(uint256 amount, uint8 decimals) internal pure returns (string memory) {
+        // amount is already in smallest unit (e.g., 1000000000 for 1 token with 9 decimals)
+        return GammJSONHelpers.uintToString(amount);
+    }
+
+    // Example: 1 BADGE with 9 decimals = 1000000000
+    string memory amountJson = amountToJson(1e9, 9);  // Returns "1000000000"
+}
 ```
 
 Three common mistakes:
@@ -258,8 +271,8 @@ uint256 tokenInAmount = 1000000000;
 uint256 minTokenOutAmount = tokenInAmount * 98 / 100;  // 2% slippage tolerance
 
 string memory json = GammJSONHelpers.swapExactAmountInJSON(
-    routesJson,      // two routes: pool1 -> B, pool2 -> C
-    tokenInJson,     // {"denom":"A","amount":"1000000000"}
+    routesJson,      // two routes: pool 1 -> ubadge, pool 4 -> ATOM
+    tokenInJson,     // {"denom":"badgeslp:64:utoken","amount":"1000000000"}
     minTokenOutAmount,
     affiliatesJson
 );
@@ -272,18 +285,18 @@ Route format:
   "routes": [
     {
       "pool_id": "1",
-      "token_out_denom": "uatom"
+      "token_out_denom": "ubadge"
     },
     {
-      "pool_id": "2",
-      "token_out_denom": "ustake"
+      "pool_id": "4",
+      "token_out_denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701"
     }
   ],
   "token_in": {
-    "denom": "ubadge",
-    "amount": "1000000000"
+    "denom": "badgeslp:64:utoken",
+    "amount": "10"
   },
-  "token_out_min_amount": "1800000000",
+  "token_out_min_amount": "900000",
   "affiliates": []
 }
 ```
@@ -324,10 +337,13 @@ The JSON is malformed or uses the wrong types.
 
 ```solidity
 // Correct: use helper functions
-string memory json = GammJSONHelpers.joinPoolJSON(...);
+string memory json = GammJSONHelpers.joinPoolJSON(poolId, shareOutAmount, tokenInMaxsJson);
 
 // Wrong: manual construction prone to errors
-string memory json = string(abi.encodePacked('{"pool_id":', ...));  // Missing quotes, wrong types
+string memory json = string(abi.encodePacked(
+    '{"pool_id":', GammJSONHelpers.uintToString(poolId),  // Missing quotes: the number is not a string
+    ',"share_out_amount":', GammJSONHelpers.uintToString(shareOutAmount), '}'
+));
 ```
 
 ### `denom cannot be empty`
@@ -355,7 +371,9 @@ string memory denom = "";  // Will fail validation
 Log the JSON before sending:
 
 ```solidity
-string memory json = GammJSONHelpers.joinPoolJSON(...);
+import "hardhat/console.sol";
+
+string memory json = GammJSONHelpers.joinPoolJSON(poolId, shareOutAmount, tokenInMaxsJson);
 console.log("JSON:", json);  // Verify format
 ```
 
@@ -371,9 +389,10 @@ for (uint i = 0; i < tokens.length; i++) {
 
 Use a static call to test without sending a transaction:
 
-```solidity
-// Test without sending transaction
-(uint256 shares, ) = GAMM.joinPool.staticCall(json);
+```typescript
+// Test without sending a transaction (ethers.js v6 against the precompile address)
+const gamm = new ethers.Contract("0x0000000000000000000000000000000000001002", gammAbi, signer);
+const [shares] = await gamm.joinPool.staticCall(json);
 console.log("Expected shares:", shares);
 ```
 

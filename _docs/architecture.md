@@ -224,3 +224,17 @@ Every writer appends rows to `_docs/redirects.tsv` (old route TAB new route, rou
 2. Asset resolution: any image src containing `.gitbook/assets/` resolves from the content root.
 3. `redirects.json` generated from `_docs/redirects.tsv`, wired into `next.config.ts`, with a test that every destination resolves and no source is a live route.
 4. Tests updated for the new group titles and page count.
+
+## Upstream follow-ups found during the rewrite
+
+These cannot be fixed in this repo because the content is generated from another repo's source.
+
+| Item | Where | Fix |
+| --- | --- | --- |
+| 39 `bb1...` placeholders in the 23 skill pages | bitbadgesjs `packages/bitbadgesjs-sdk/src/builder/resources/skillInstructions.ts` | Replace with the fixture addresses in `_docs/fixtures.md`. The docs generator (`site/scripts/gen-skills.ts`) copies the text verbatim by design. |
+| Em-dashes, escaped backticks, six over-long descriptions | same file | The generator patches dashes and fences on output; fixing the source removes the need. |
+| `bb` forwards only a fixed list of SDK verbs | bitbadgeschain `cmd/bitbadgeschaind/cmd/sdk_forwarders.go` | PR #120 (open) adds `amount`, `url`, `assets`, `balances`, `custom-2fa`, `tx status`, `tx wait`. |
+| GitHub Pages TypeDoc and Stoplight retirement | bitbadgesjs `.github/workflows/{docs,genapi}.yml` | See `_docs/runbooks/docs-sync.md`. The spec's 289 TypeDoc links are repointed at sync time, so the docs no longer depend on Pages. |
+| Chain OpenAPI 3.1 document | bitbadgeschain | Add `scripts/gen-openapi.ts` and the workflow from `scratchpad/upstream-ci/`, writing to `docs/openapi/openapi.json`, never `docs/static/` (that directory is embedded in the release binary). |
+| `getAliasDerivationKeysForCollection` does not reproduce the chain's mint escrow address | bitbadgesjs SDK | Verified against collections 1 and 49; docs use the live address meanwhile. |
+| `GammJSONHelpers` emits camelCase keys, the Go decoder expects snake_case | bitbadgeschain | Docs follow the Go side. |

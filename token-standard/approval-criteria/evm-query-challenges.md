@@ -8,11 +8,103 @@ An EVM query challenge calls a contract with `staticcall` before the transfer an
 
 ## Shape
 
-```json
+A complete `approvalCriteria` with the `evmQueryChallenges` array open. Folded lines are defaults.
+
+```json fold=2-91,103-107
 {
+  "merkleChallenges": [],
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": false,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
+    }
+  },
+  "approvalAmounts": {
+    "overallApprovalAmount": "0",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "0",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "coinTransfers": [],
+  "requireToEqualsInitiatedBy": false,
+  "requireFromEqualsInitiatedBy": false,
+  "requireToDoesNotEqualInitiatedBy": false,
+  "requireFromDoesNotEqualInitiatedBy": false,
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": false,
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  },
+  "mustOwnTokens": [],
+  "dynamicStoreChallenges": [],
+  "ethSignatureChallenges": [],
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "recipientChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "initiatorChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
+  },
+  "mustPrioritize": false,
+  "votingChallenges": [],
+  "allowBackedMinting": false,
+  "allowSpecialWrapping": false,
   "evmQueryChallenges": [
     {
-      "contractAddress": "0x1234567890123456789012345678901234567890",
+      "contractAddress": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
       "calldata": "70a08231000000000000000000000000$initiator",
       "expectedResult": "0000000000000000000000000000000000000000000000000000000000000001",
       "comparisonOperator": "gte",
@@ -20,7 +112,12 @@ An EVM query challenge calls a contract with `staticcall` before the transfer an
       "uri": "",
       "customData": ""
     }
-  ]
+  ],
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+  }
 }
 ```
 
@@ -46,6 +143,10 @@ interface EVMQueryChallenge {
 | `uri`, `customData` | string | no | Metadata. Use `uri` to document what the check verifies. |
 
 The same structure is used for post-transfer [invariants](invariants.md) on the collection. This page covers the approval criterion.
+
+{% hint style="info" %}
+Ask your agent: "Add a transfer approval to collection 1 that only lets addresses holding at least 100 units of the ERC-20 at 0x5fbdb2315678afecb367f032d93f642f64180aa3 send tokens." The MCP builder tools (`add_approval`) produce the objects on this page.
+{% endhint %}
 
 ## How it works
 
@@ -101,33 +202,37 @@ A query that runs out of gas fails the challenge. Contracts that call precompile
 
 ### Examples
 
-Sender must hold at least 100 units of an ERC-20 (`0x64` = 100):
+Sender must hold at least 100 units of the ERC-20 at `0x5fbdb2315678afecb367f032d93f642f64180aa3` (`0x64` = 100):
 
 ```json
 {
   "evmQueryChallenges": [
     {
-      "contractAddress": "0xUSDCAddress...",
+      "contractAddress": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
       "calldata": "70a08231000000000000000000000000$sender",
       "expectedResult": "0000000000000000000000000000000000000000000000000000000000000064",
       "comparisonOperator": "gte",
-      "gasLimit": "250000"
+      "gasLimit": "250000",
+      "uri": "",
+      "customData": ""
     }
   ]
 }
 ```
 
-Initiator must own NFT #1 (`ownerOf(uint256)` is `6352211e`):
+Initiator must own NFT #1 of the ERC-721 at the same address (`ownerOf(uint256)` is `6352211e`):
 
 ```json
 {
   "evmQueryChallenges": [
     {
-      "contractAddress": "0xNFTContract...",
+      "contractAddress": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
       "calldata": "6352211e0000000000000000000000000000000000000000000000000000000000000001",
       "expectedResult": "$initiator",
       "comparisonOperator": "eq",
-      "gasLimit": "250000"
+      "gasLimit": "250000",
+      "uri": "",
+      "customData": ""
     }
   ]
 }

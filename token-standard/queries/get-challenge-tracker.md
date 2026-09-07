@@ -10,11 +10,11 @@ Returns the number of times a leaf index has been used to satisfy a Merkle chall
 
 ```bash
 # [collectionId] [approvalLevel] [approverAddress] [approvalId] [challengeTrackerId] [leafIndex]
-bb query tokenization num-used-for-merkle-challenge 1 collection "" approval-123 challenge-1 42
+bb query tokenization num-used-for-merkle-challenge 1 collection "" claim claim_demo_01 42
 ```
 
 ```bash
-curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_challenge_tracker/1/collection//challenge-1/42"
+curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_challenge_tracker/1/collection//claim_demo_01/42"
 ```
 
 The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{challengeTrackerId}/{leafIndex}`. It does not include `approvalId`; the gRPC request does.
@@ -33,9 +33,7 @@ The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{challe
 ## Response
 
 ```json
-{
-  "numUsed": "1"
-}
+{ "numUsed": "1" }
 ```
 
 | Field | Type | Description |

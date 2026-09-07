@@ -17,7 +17,7 @@ const blockNumber = await provider.getBlockNumber();
 console.log("Current block:", blockNumber);
 
 // Get balance of an address
-const balance = await provider.getBalance("0x...");
+const balance = await provider.getBalance("0x0bc63cfe31d5218eb414b142c799e20964a54a1a");
 console.log("Balance:", ethers.formatEther(balance), "BADGE");
 ```
 
@@ -96,14 +96,17 @@ async function deploy() {
   const balance = await provider.getBalance(wallet.address);
   console.log("Balance:", ethers.formatEther(balance), "BADGE");
 
-  // Deploy contract
+  // Deploy the Counter contract from the Hardhat artifact (no constructor args)
+  const artifact = JSON.parse(
+    fs.readFileSync("artifacts/contracts/Counter.sol/Counter.json", "utf8")
+  );
   const contractFactory = new ethers.ContractFactory(
-    CONTRACT_ABI,
-    CONTRACT_BYTECODE,
+    artifact.abi,
+    artifact.bytecode,
     wallet
   );
 
-  const contract = await contractFactory.deploy(/* constructor args */);
+  const contract = await contractFactory.deploy();
   await contract.waitForDeployment();
 
   const address = await contract.getAddress();
@@ -121,22 +124,22 @@ async function interactWithContract() {
   const provider = new ethers.JsonRpcProvider("https://evm-rpc.bitbadges.io");
 
   // Load contract
-  const contractAddress = "0x..."; // Your contract address
-  const contract = new ethers.Contract(
-    contractAddress,
-    CONTRACT_ABI,
-    provider
-  );
+  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Counter deployed above
+  const counterAbi = [
+    "function count() view returns (uint256)",
+    "function increment()"
+  ];
+  const contract = new ethers.Contract(contractAddress, counterAbi, provider);
 
   // Read from contract
-  const value = await contract.someViewFunction();
+  const value = await contract.count();
   console.log("Value:", value);
 
   // Write to contract (requires signer)
   const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
   const contractWithSigner = contract.connect(signer);
 
-  const tx = await contractWithSigner.someWriteFunction(/* args */);
+  const tx = await contractWithSigner.increment();
   await tx.wait();
   console.log("Transaction confirmed:", tx.hash);
 }

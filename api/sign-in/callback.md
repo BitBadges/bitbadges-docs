@@ -10,17 +10,46 @@ This page is also part of the [API reference](/api-reference).
 
 ## Example
 
+A Next.js API route at `https://example.com/api/callback`. BitBadges redirects to `/api/callback?code=9c1f4e2b7a6d5c4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e&state=f3a9c2e1b7d4a6c8`.
+
 ```ts
-// GET /api/callback?code=...&state=...
-const callbackHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { BigIntify, BitBadgesAPI } from 'bitbadges';
+import { getSession } from '../../lib/session'; // your own session helper
+
+const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify });
+
+export default async function callbackHandler(req: NextApiRequest, res: NextApiResponse) {
   const code = req.query.code as string;
   const state = req.query.state as string;
+  const session = await getSession(req, res);
 
-  // 1. Validate state against the value you issued
+  // 1. Validate state against the value you issued when building the authorization URL
+  if (!state || state !== session.siwbbState) {
+    return res.status(400).json({ error: 'Invalid state' });
+  }
+  delete session.siwbbState;
+
   // 2. Exchange the code (see Verification)
-  //    const auth = await BitBadgesApi.exchangeSIWBBAuthorizationCode({ code, ... });
+  const auth = await BitBadgesApi.exchangeSIWBBAuthorizationCode({
+    code,
+    grant_type: 'authorization_code',
+    client_id: 'app_demo_01',
+    client_secret: process.env.SIWBB_CLIENT_SECRET,
+    redirect_uri: 'https://example.com/api/callback'
+  });
+  if (!auth.verificationResponse?.success) {
+    return res.status(401).json({ error: auth.verificationResponse?.errorMessage ?? 'Not authenticated' });
+  }
+
   // 3. Apply your own checks and start a session
-};
+  session.bitbadgesAddress = auth.bitbadgesAddress;
+  session.accessToken = auth.access_token;
+  session.refreshToken = auth.refresh_token;
+  await session.save();
+
+  return res.redirect('/dashboard');
+}
 ```
 
 ## How it works

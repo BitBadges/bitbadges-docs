@@ -29,9 +29,20 @@ Rules that apply to every mint approval:
 | Capped mint | any | `maxNumTransfers` or `approvalAmounts` with an `amountTrackerId` |
 | One-shot approval | any | `autoDeletionOptions.afterOneUse: true` |
 
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools installed, paste one of these:
+
+- "Add a public mint to collection 1 that charges 5 BADGE per mint, one per address, capped at 1,000 mints, and give me the review link."
+- "Build a transfer that mints token 1 of collection 1 to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue through the manager-mint approval, validate it, and give me the review link."
+{% endhint %}
+
 ### Creator-only mint
 
 ```ts
+import { UintRangeArray } from 'bitbadges';
+
+const myAddress = 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d';
+
 const mintApproval = {
     fromListId: 'Mint', // From the mint address
     toListId: 'All', // To any address
@@ -50,11 +61,11 @@ const mintApproval = {
 
 const collection = {
     ...BaseCollectionDetails,
-    collectionApprovals: [mintApproval, ...otherApprovals],
+    collectionApprovals: [mintApproval, transferableApproval],
 };
 ```
 
-`EmptyApprovalCriteria` is the no-restrictions template in [Set transferability](set-transferability.md). `BaseCollectionDetails` is from [Create a collection](create-a-collection.md).
+`EmptyApprovalCriteria` and `transferableApproval` are the no-restrictions template and the post-mint approval in [Set transferability](set-transferability.md). `BaseCollectionDetails` is from [Create a collection](create-a-collection.md).
 
 ### Paid mint
 
@@ -62,7 +73,7 @@ const collection = {
 {
   "approvalCriteria": {
     "coinTransfers": [{
-      "to": "bb1creator...",
+      "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
       "coins": [{ "denom": "ubadge", "amount": "5000000000" }],
       "overrideFromWithApproverAddress": false,
       "overrideToWithInitiator": false
@@ -90,7 +101,9 @@ Both override flags are `false` for a standard payment: the initiator pays, and 
         "durationFromTimestamp": "0",
         "allowOverrideTimestamp": false,
         "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
-        "allowOverrideWithAnyValidToken": false
+        "allowOverrideWithAnyValidToken": false,
+        "allowAmountScaling": false,
+        "maxScalingMultiplier": "0"
       },
       "orderCalculationMethod": {
         "useOverallNumTransfers": true,
@@ -118,7 +131,7 @@ For one-time or fixed-use approvals, prefer `incrementedBalances` with zero incr
       "perInitiatedByAddressMaxNumTransfers": "1",
       "perToAddressMaxNumTransfers": "0",
       "perFromAddressMaxNumTransfers": "0",
-      "amountTrackerId": "mint-tracker-id",
+      "amountTrackerId": "mint-tracker",
       "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
     }
   }
@@ -146,27 +159,187 @@ See [Auto-deletion](../token-standard/approval-criteria/auto-deletion.md).
 
 ### Free mint with a payout from escrow
 
-The mint escrow address is a reserved address derived from the collection ID. It holds native coins and has no private key; only collection approvals can move funds out of it. Fund it at creation with `mintEscrowCoinsToTransfer` (the address depends on the collection ID, so genesis is the convenient moment) or top it up later.
+The mint escrow address is a reserved address derived from the collection ID. It holds native coins and has no private key; only collection approvals can move funds out of it. Fund it at creation with `mintEscrowCoinsToTransfer` (the address depends on the collection ID, so genesis is the convenient moment) or top it up later. This complete `MsgCreateCollection` funds the escrow with 10,000 BADGE, pays each minter 1 BADGE, and caps the mint at one token per address and ten in total:
 
-```json
+```json fold=3-6,10-17,19-31,56-60,73-77,79-91,108-113,115-159,161-165,169-172,174-178
 {
-  "collectionId": "0",
-  "mintEscrowCoinsToTransfer": [{ "denom": "ubadge", "amount": "10000000000" }],
-  "collectionApprovals": [{
-    "fromListId": "Mint",
-    "toListId": "All",
-    "initiatedByListId": "All",
-    "approvalId": "free-mint",
-    "approvalCriteria": {
-      "coinTransfers": [{
-        "to": "bb1user...",
-        "coins": [{ "denom": "ubadge", "amount": "1000000000" }],
-        "overrideFromWithApproverAddress": true,
-        "overrideToWithInitiator": true
-      }],
-      "overridesFromOutgoingApprovals": true
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "defaultBalances": {
+    "balances": [],
+    "outgoingApprovals": [],
+    "incomingApprovals": [],
+    "autoApproveSelfInitiatedOutgoingTransfers": true,
+    "autoApproveSelfInitiatedIncomingTransfers": true,
+    "autoApproveAllIncomingTransfers": true,
+    "userPermissions": {
+      "canUpdateOutgoingApprovals": [],
+      "canUpdateIncomingApprovals": [],
+      "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+      "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+      "canUpdateAutoApproveAllIncomingTransfers": []
     }
-  }]
+  },
+  "validTokenIds": [{ "start": "1", "end": "100" }],
+  "collectionPermissions": {
+    "canDeleteCollection": [],
+    "canArchiveCollection": [],
+    "canUpdateStandards": [],
+    "canUpdateCustomData": [],
+    "canUpdateManager": [],
+    "canUpdateCollectionMetadata": [],
+    "canUpdateValidTokenIds": [],
+    "canUpdateTokenMetadata": [],
+    "canUpdateCollectionApprovals": [],
+    "canAddMoreAliasPaths": [],
+    "canAddMoreCosmosCoinWrapperPaths": []
+  },
+  "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "collectionMetadata": {
+    "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
+    "customData": ""
+  },
+  "tokenMetadata": [
+    {
+      "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json",
+      "customData": "",
+      "tokenIds": [{ "start": "1", "end": "100" }]
+    }
+  ],
+  "customData": "",
+  "collectionApprovals": [
+    {
+      "fromListId": "Mint",
+      "toListId": "All",
+      "initiatedByListId": "All",
+      "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+      "tokenIds": [{ "start": "1", "end": "100" }],
+      "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+      "uri": "",
+      "customData": "",
+      "approvalId": "free-mint",
+      "approvalCriteria": {
+        "merkleChallenges": [],
+        "predeterminedBalances": {
+          "manualBalances": [],
+          "incrementedBalances": {
+            "startBalances": [
+              {
+                "amount": "1",
+                "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+                "tokenIds": [{ "start": "1", "end": "1" }]
+              }
+            ],
+            "incrementTokenIdsBy": "1",
+            "incrementOwnershipTimesBy": "0",
+            "durationFromTimestamp": "0",
+            "allowOverrideTimestamp": false,
+            "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+            "allowOverrideWithAnyValidToken": false,
+            "allowAmountScaling": false,
+            "maxScalingMultiplier": "0"
+          },
+          "orderCalculationMethod": {
+            "useOverallNumTransfers": true,
+            "usePerToAddressNumTransfers": false,
+            "usePerFromAddressNumTransfers": false,
+            "usePerInitiatedByAddressNumTransfers": false,
+            "useMerkleChallengeLeafIndex": false,
+            "challengeTrackerId": ""
+          }
+        },
+        "approvalAmounts": {
+          "overallApprovalAmount": "0",
+          "perToAddressApprovalAmount": "0",
+          "perFromAddressApprovalAmount": "0",
+          "perInitiatedByAddressApprovalAmount": "0",
+          "amountTrackerId": "",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "maxNumTransfers": {
+          "overallMaxNumTransfers": "10",
+          "perToAddressMaxNumTransfers": "0",
+          "perFromAddressMaxNumTransfers": "0",
+          "perInitiatedByAddressMaxNumTransfers": "1",
+          "amountTrackerId": "free-mint",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "coinTransfers": [
+          {
+            "to": "",
+            "coins": [{ "denom": "ubadge", "amount": "1000000000" }],
+            "overrideFromWithApproverAddress": true,
+            "overrideToWithInitiator": true
+          }
+        ],
+        "requireToEqualsInitiatedBy": false,
+        "requireFromEqualsInitiatedBy": false,
+        "requireToDoesNotEqualInitiatedBy": false,
+        "requireFromDoesNotEqualInitiatedBy": false,
+        "overridesFromOutgoingApprovals": true,
+        "overridesToIncomingApprovals": false,
+        "autoDeletionOptions": {
+          "afterOneUse": false,
+          "afterOverallMaxNumTransfers": false,
+          "allowCounterpartyPurge": false,
+          "allowPurgeIfExpired": false
+        },
+        "mustOwnTokens": [],
+        "dynamicStoreChallenges": [],
+        "ethSignatureChallenges": [],
+        "senderChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "recipientChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "initiatorChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "altTimeChecks": {
+          "offlineHours": [],
+          "offlineDays": [],
+          "offlineMonths": [],
+          "offlineDaysOfMonth": [],
+          "offlineWeeksOfYear": [],
+          "timezoneOffsetMinutes": "0",
+          "timezoneOffsetNegative": false
+        },
+        "mustPrioritize": false,
+        "votingChallenges": [],
+        "allowBackedMinting": false,
+        "allowSpecialWrapping": false,
+        "evmQueryChallenges": [],
+        "userApprovalSettings": {
+          "allowedDenoms": [],
+          "disableUserCoinTransfers": false,
+          "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+        }
+      },
+      "version": "0"
+    }
+  ],
+  "standards": ["NFTs"],
+  "isArchived": false,
+  "mintEscrowCoinsToTransfer": [{ "denom": "ubadge", "amount": "10000000000" }],
+  "cosmosCoinWrapperPathsToAdd": [],
+  "invariants": {
+    "noCustomOwnershipTimes": false,
+    "maxSupplyPerId": "0",
+    "cosmosCoinBackedPath": { "conversion": { "sideA": { "amount": "0", "denom": "" }, "sideB": [] } },
+    "noForcefulPostMintTransfers": false,
+    "disablePoolCreation": false,
+    "evmQueryChallenges": []
+  },
+  "aliasPathsToAdd": []
 }
 ```
 
@@ -175,54 +348,127 @@ The mint escrow address is a reserved address derived from the collection ID. It
 
 ### Complete example: public paid mint with sequential IDs and caps
 
-```json
+One complete `CollectionApproval` for `collectionApprovals`:
+
+```json fold=11-15,28-32,34-46,61-68,70-114
 {
-  "collectionApprovals": [{
-    "fromListId": "Mint",
-    "toListId": "All",
-    "initiatedByListId": "All",
-    "approvalId": "public-mint-5-badge",
-    "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
-    "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
-    "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
-    "approvalCriteria": {
-      "overridesFromOutgoingApprovals": true,
-      "coinTransfers": [{
-        "to": "bb1creator...",
+  "fromListId": "Mint",
+  "toListId": "All",
+  "initiatedByListId": "All",
+  "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
+  "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "uri": "",
+  "customData": "",
+  "approvalId": "public-mint-5-badge",
+  "approvalCriteria": {
+    "merkleChallenges": [],
+    "predeterminedBalances": {
+      "manualBalances": [],
+      "incrementedBalances": {
+        "startBalances": [
+          {
+            "amount": "1",
+            "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+            "tokenIds": [{ "start": "1", "end": "1" }]
+          }
+        ],
+        "incrementTokenIdsBy": "1",
+        "incrementOwnershipTimesBy": "0",
+        "durationFromTimestamp": "0",
+        "allowOverrideTimestamp": false,
+        "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+        "allowOverrideWithAnyValidToken": false,
+        "allowAmountScaling": false,
+        "maxScalingMultiplier": "0"
+      },
+      "orderCalculationMethod": {
+        "useOverallNumTransfers": true,
+        "usePerToAddressNumTransfers": false,
+        "usePerFromAddressNumTransfers": false,
+        "usePerInitiatedByAddressNumTransfers": false,
+        "useMerkleChallengeLeafIndex": false,
+        "challengeTrackerId": ""
+      }
+    },
+    "approvalAmounts": {
+      "overallApprovalAmount": "0",
+      "perToAddressApprovalAmount": "0",
+      "perFromAddressApprovalAmount": "0",
+      "perInitiatedByAddressApprovalAmount": "0",
+      "amountTrackerId": "",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "maxNumTransfers": {
+      "overallMaxNumTransfers": "1000",
+      "perToAddressMaxNumTransfers": "0",
+      "perFromAddressMaxNumTransfers": "0",
+      "perInitiatedByAddressMaxNumTransfers": "1",
+      "amountTrackerId": "public-mint-tracker",
+      "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+    },
+    "coinTransfers": [
+      {
+        "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
         "coins": [{ "denom": "ubadge", "amount": "5000000000" }],
         "overrideFromWithApproverAddress": false,
         "overrideToWithInitiator": false
-      }],
-      "predeterminedBalances": {
-        "incrementedBalances": {
-          "startBalances": [{ "amount": "1", "tokenIds": [{ "start": "1", "end": "1" }], "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }] }],
-          "incrementTokenIdsBy": "1",
-          "incrementOwnershipTimesBy": "0",
-          "durationFromTimestamp": "0",
-          "allowOverrideTimestamp": false,
-          "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
-          "allowOverrideWithAnyValidToken": false
-        },
-        "orderCalculationMethod": {
-          "useOverallNumTransfers": true,
-          "usePerToAddressNumTransfers": false,
-          "usePerFromAddressNumTransfers": false,
-          "usePerInitiatedByAddressNumTransfers": false,
-          "useMerkleChallengeLeafIndex": false,
-          "challengeTrackerId": ""
-        },
-        "manualBalances": []
-      },
-      "maxNumTransfers": {
-        "overallMaxNumTransfers": "1000",
-        "perInitiatedByAddressMaxNumTransfers": "1",
-        "perToAddressMaxNumTransfers": "0",
-        "perFromAddressMaxNumTransfers": "0",
-        "amountTrackerId": "public-mint-tracker",
-        "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
       }
+    ],
+    "requireToEqualsInitiatedBy": false,
+    "requireFromEqualsInitiatedBy": false,
+    "requireToDoesNotEqualInitiatedBy": false,
+    "requireFromDoesNotEqualInitiatedBy": false,
+    "overridesFromOutgoingApprovals": true,
+    "overridesToIncomingApprovals": false,
+    "autoDeletionOptions": {
+      "afterOneUse": false,
+      "afterOverallMaxNumTransfers": false,
+      "allowCounterpartyPurge": false,
+      "allowPurgeIfExpired": false
+    },
+    "mustOwnTokens": [],
+    "dynamicStoreChallenges": [],
+    "ethSignatureChallenges": [],
+    "senderChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "recipientChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "initiatorChecks": {
+      "mustBeEvmContract": false,
+      "mustNotBeEvmContract": false,
+      "mustBeLiquidityPool": false,
+      "mustNotBeLiquidityPool": false
+    },
+    "altTimeChecks": {
+      "offlineHours": [],
+      "offlineDays": [],
+      "offlineMonths": [],
+      "offlineDaysOfMonth": [],
+      "offlineWeeksOfYear": [],
+      "timezoneOffsetMinutes": "0",
+      "timezoneOffsetNegative": false
+    },
+    "mustPrioritize": false,
+    "votingChallenges": [],
+    "allowBackedMinting": false,
+    "allowSpecialWrapping": false,
+    "evmQueryChallenges": [],
+    "userApprovalSettings": {
+      "allowedDenoms": [],
+      "disableUserCoinTransfers": false,
+      "userRoyalties": { "percentage": "0", "payoutAddress": "" }
     }
-  }]
+  },
+  "version": "0"
 }
 ```
 
@@ -232,31 +478,46 @@ To add a mint approval after creation, the collection's `canUpdateCollectionAppr
 
 One transaction can carry the `MsgUniversalUpdateCollection` that creates the collection plus one or more `MsgTransferTokens`. Every transfer uses `collectionId: "0"`, which refers to the collection created by the first message in the same transaction.
 
-```json
+```json fold=15-21,23-26,31-40
 {
   "typeUrl": "/tokenization.MsgTransferTokens",
   "value": {
-    "creator": "bb1...",
+    "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
     "collectionId": "0",
-    "transfers": [{
-      "from": "Mint",
-      "toAddresses": ["bb1recipientaddress..."],
-      "balances": [{
-        "amount": "1",
-        "tokenIds": [{ "start": "1", "end": "1" }],
-        "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }]
-      }],
-      "prioritizedApprovals": [{
-        "approvalId": "the-mint-approval-id",
-        "approvalLevel": "collection",
-        "approverAddress": "",
-        "version": "0"
-      }],
-      "onlyCheckPrioritizedCollectionApprovals": false,
-      "onlyCheckPrioritizedIncomingApprovals": false,
-      "onlyCheckPrioritizedOutgoingApprovals": false,
-      "memo": ""
-    }]
+    "transfers": [
+      {
+        "from": "Mint",
+        "toAddresses": ["bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"],
+        "balances": [
+          {
+            "amount": "1",
+            "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+            "tokenIds": [{ "start": "1", "end": "1" }]
+          }
+        ],
+        "precalculateBalancesFromApproval": {
+          "approvalId": "",
+          "approvalLevel": "",
+          "approverAddress": "",
+          "version": "0",
+          "precalculationOptions": { "overrideTimestamp": "0", "tokenIdsOverride": [], "scalingMultiplier": "0" }
+        },
+        "merkleProofs": [],
+        "ethSignatureProofs": [],
+        "memo": "",
+        "prioritizedApprovals": [
+          {
+            "approvalId": "manager-mint",
+            "approvalLevel": "collection",
+            "approverAddress": "",
+            "version": "0"
+          }
+        ],
+        "onlyCheckPrioritizedCollectionApprovals": false,
+        "onlyCheckPrioritizedIncomingApprovals": false,
+        "onlyCheckPrioritizedOutgoingApprovals": false
+      }
+    ]
   }
 }
 ```
@@ -266,17 +527,18 @@ Use this when you want tokens in wallets right after creation: minting to yourse
 Rules:
 
 1. `prioritizedApprovals` must be present, even as `[]`. Match `approvalId` to one of the collection's `collectionApprovals`.
-2. `from: "Mint"` mints new tokens. A `bb1...` address makes a peer-to-peer transfer.
+2. `from: "Mint"` mints new tokens. A regular `bb1` address makes a peer-to-peer transfer.
 3. The signer (`creator`) is the initiator, so the collection needs an approval that allows this address as `initiatedBy`.
 4. All numbers are strings.
 
-For expiring tokens, set `ownershipTimes` to a window in milliseconds since the epoch. Five minutes from now is the current timestamp plus `5 * 60 * 1000`:
+For expiring tokens, set `ownershipTimes` on the balance to a window in milliseconds since the epoch. This one lasts five minutes from `1788739200000` (2026-09-06T00:00:00Z), the current timestamp plus `5 * 60 * 1000`:
 
 ```json
-"ownershipTimes": [{
-  "start": "1706000000000",
-  "end": "1706000300000"
-}]
+{
+  "amount": "1",
+  "tokenIds": [{ "start": "1", "end": "1" }],
+  "ownershipTimes": [{ "start": "1788739200000", "end": "1788739500000" }]
+}
 ```
 
 MCP builder tool sessions edit these messages with patch operations: `add_transfer` (`{ op: "add_transfer", transfer: { transfers: [...] } }`) appends a `MsgTransferTokens`, `remove_transfer` (`{ op: "remove_transfer", index: 0 }`) removes one by 0-based index among the transfer messages, and `update_transfer` (`{ op: "update_transfer", index: 0, changes: {...} }`) deep-merges changes. See [MCP tools](../agents/mcp-tools.md).
@@ -292,17 +554,17 @@ MCP builder tool sessions edit these messages with patch operations: `add_transf
 bb build transfer
 
 # Flag-driven: still prompts for the approval-selection step
-bb build transfer --collection-id 1 --from Mint --to bb1xyz... --amount 5
+bb build transfer --collection-id 1 --from Mint --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --amount 5
 
 # Fully non-interactive: no prioritized approvals (chain matches), no
 # precalculation, default amount=1, default tokenIds=all valid
-bb build transfer --yes --collection-id 1 --from Mint --to bb1xyz... | bb deploy --browser
+bb build transfer --yes --collection-id 1 --from Mint --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue | bb deploy --browser
 ```
 
 | Flag | Required | Description |
 | --- | --- | --- |
 | `--collection-id <id>` | No | Collection ID (prompts if omitted) |
-| `--from <address>` | No | Sender: `bb1...`, `0x...`, or `Mint` for minting (prompts if omitted) |
+| `--from <address>` | No | Sender: a `bb1` or `0x` address, or `Mint` for minting (prompts if omitted) |
 | `--to <address>` | No | Recipient (cannot be `Mint`; prompts if omitted) |
 | `--amount <n>` | No | Per-recipient amount when not precalculated (default: prompt; `1` with `--yes`) |
 | `--token-ids <spec>` | No | `1-5`, `1,3,5`, or `all` (default: prompt; `all` with `--yes`) |
@@ -319,106 +581,91 @@ If a picked approval requires a coin payment or prerequisite token ownership, th
 
 ### Raw JSON: explicit balances
 
-Mint token ID 1 of collection 20 to the creator, naming the collection approval to use. `onlyCheckPrioritizedCollectionApprovals: true` skips auto-scanning of other collection approvals; the user-level approvals still auto-scan.
+Mint token ID 1 of collection 1 to the creator, naming the collection approval to use. `onlyCheckPrioritizedCollectionApprovals: true` skips auto-scanning of other collection approvals; the user-level approvals still auto-scan.
 
-```json
-[
+```json fold=13-19,21-24,29-32,34-37
+{
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "collectionId": "1",
+  "transfers": [
     {
-        "creator": "bb18el5ug46umcws58m445ql5scgg2n3tzagfecvl",
-        "collectionId": "20",
-        "transfers": [
-            {
-                "from": "Mint",
-                "toAddresses": ["bb18el5ug46umcws58m445ql5scgg2n3tzagfecvl"],
-                "balances": [
-                    {
-                        "amount": "1",
-                        "ownershipTimes": [
-                            {
-                                "start": "1",
-                                "end": "18446744073709551615"
-                            }
-                        ],
-                        "tokenIds": [
-                            {
-                                "start": "1",
-                                "end": "1"
-                            }
-                        ]
-                    }
-                ],
-                "precalculateBalancesFromApproval": {
-                    "approvalId": "",
-                    "approvalLevel": "",
-                    "approverAddress": "",
-                    "version": "0"
-                },
-                "merkleProofs": [],
-                "ethSignatureProofs": [],
-                "memo": "",
-                "prioritizedApprovals": [
-                    {
-                        "approvalId": "4a1ed47db7bc0f9f7174eab12aa9b8c9b9e4e37474ca2264668cf8e1b1598dde",
-                        "approvalLevel": "collection",
-                        "approverAddress": "",
-                        "version": "0"
-                    }
-                ],
-                "onlyCheckPrioritizedCollectionApprovals": true,
-                "onlyCheckPrioritizedIncomingApprovals": false,
-                "onlyCheckPrioritizedOutgoingApprovals": false
-            }
-        ]
+      "from": "Mint",
+      "toAddresses": ["bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"],
+      "balances": [
+        {
+          "amount": "1",
+          "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+          "tokenIds": [{ "start": "1", "end": "1" }]
+        }
+      ],
+      "precalculateBalancesFromApproval": {
+        "approvalId": "",
+        "approvalLevel": "",
+        "approverAddress": "",
+        "version": "0",
+        "precalculationOptions": { "overrideTimestamp": "0", "tokenIdsOverride": [], "scalingMultiplier": "0" }
+      },
+      "merkleProofs": [],
+      "ethSignatureProofs": [],
+      "memo": "",
+      "prioritizedApprovals": [
+        {
+          "approvalId": "manager-mint",
+          "approvalLevel": "collection",
+          "approverAddress": "",
+          "version": "0"
+        }
+      ],
+      "onlyCheckPrioritizedCollectionApprovals": true,
+      "onlyCheckPrioritizedIncomingApprovals": false,
+      "onlyCheckPrioritizedOutgoingApprovals": false
     }
-]
+  ]
+}
 ```
 
 ### Raw JSON: precalculated balances
 
 When the approval has `predeterminedBalances`, leave `balances` empty and let the chain compute them from the approval. Only the named approval is checked; no other approval is scanned. This is how approvals with side effects (Merkle challenges, ETH signature challenges, payments) are used deliberately, and it shows the approval version being pinned.
 
-```json
-[
+```json fold=15-18,23-26,28-31
+{
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "collectionId": "1",
+  "transfers": [
     {
-        "creator": "bb18el5ug46umcws58m445ql5scgg2n3tzagfecvl",
-        "collectionId": "20",
-        "transfers": [
-            {
-                "from": "Mint",
-                "toAddresses": ["bb18el5ug46umcws58m445ql5scgg2n3tzagfecvl"],
-                "balances": [],
-                "precalculateBalancesFromApproval": {
-                    "approvalId": "fd1cef5941fb08487ecc1038af09fb29a6d7d40a89d8e4889c9c954978aa7e41",
-                    "approvalLevel": "collection",
-                    "approverAddress": "",
-                    "version": "0",
-                    "precalculationOptions": {
-                        "overrideTimestamp": "0",
-                        "tokenIdsOverride": []
-                    }
-                },
-                "merkleProofs": [],
-                "ethSignatureProofs": [],
-                "memo": "",
-                "prioritizedApprovals": [
-                    {
-                        "approvalId": "fd1cef5941fb08487ecc1038af09fb29a6d7d40a89d8e4889c9c954978aa7e41",
-                        "approvalLevel": "collection",
-                        "approverAddress": "",
-                        "version": "0"
-                    }
-                ],
-                "onlyCheckPrioritizedCollectionApprovals": true,
-                "onlyCheckPrioritizedIncomingApprovals": false,
-                "onlyCheckPrioritizedOutgoingApprovals": false
-            }
-        ]
+      "from": "Mint",
+      "toAddresses": ["bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"],
+      "balances": [],
+      "precalculateBalancesFromApproval": {
+        "approvalId": "manager-mint",
+        "approvalLevel": "collection",
+        "approverAddress": "",
+        "version": "0",
+        "precalculationOptions": { "overrideTimestamp": "0", "tokenIdsOverride": [], "scalingMultiplier": "0" }
+      },
+      "merkleProofs": [],
+      "ethSignatureProofs": [],
+      "memo": "",
+      "prioritizedApprovals": [
+        {
+          "approvalId": "manager-mint",
+          "approvalLevel": "collection",
+          "approverAddress": "",
+          "version": "0"
+        }
+      ],
+      "onlyCheckPrioritizedCollectionApprovals": true,
+      "onlyCheckPrioritizedIncomingApprovals": false,
+      "onlyCheckPrioritizedOutgoingApprovals": false
     }
-]
+  ]
+}
 ```
 
 - `precalculationOptions.overrideTimestamp: "0"` uses the current time. It applies only if the approval has `allowOverrideTimestamp: true`.
 - `precalculationOptions.tokenIdsOverride: []` uses the approval's own token IDs. It applies only if the approval has `allowOverrideWithAnyValidToken: true`.
+- `precalculationOptions.scalingMultiplier: "0"` consumes one predetermined step. A larger value consumes that many steps in one transaction and applies only if the approval has `allowAmountScaling: true`.
 
 | | Explicit balances | Precalculated |
 | --- | --- | --- |
@@ -431,6 +678,12 @@ See [Prioritized approvals](../token-standard/concepts/prioritized-approvals.md)
 ### TypeScript SDK
 
 ```ts
+import { BitBadgesSigningClient, GenericCosmosAdapter, MsgTransferTokens, UintRangeArray } from 'bitbadges';
+
+const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
+const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
+const myAddress = client.address;
+
 const transfers = [
     {
         from: 'Mint', // From mint address
@@ -444,14 +697,17 @@ const transfers = [
         ],
         prioritizedApprovals: [{ approvalId: 'mint-approval', approvalLevel: 'collection', approverAddress: '', version: 0n }],
         onlyCheckPrioritizedCollectionApprovals: true,
+        onlyCheckPrioritizedIncomingApprovals: false,
+        onlyCheckPrioritizedOutgoingApprovals: false,
         merkleProofs: [],
         ethSignatureProofs: [],
         memo: '',
     },
 ];
 
-const msg = MsgTransferTokens.create({ creator: myAddress, collectionId: '1', transfers });
-await client.signAndBroadcast([msg]);
+const msg = new MsgTransferTokens({ creator: myAddress, collectionId: '1', transfers });
+const result = await client.signAndBroadcast([msg]);
+console.log(result.success ? result.txHash : result.error);
 ```
 
 ## 4. Define and lock circulating supply
@@ -467,83 +723,71 @@ const FullTimeRanges = [
 ];
 ```
 
+Each block below is the `canUpdateCollectionApprovals` value to set inside `collectionPermissions`; the other ten permission arrays stay as in [Create a collection](create-a-collection.md).
+
 Lock supply forever (fixed cap). Every existing Mint approval stays as it is and no new one can be added:
 
 ```ts
-const collectionPermissions = {
-    // ... other permissions
-    canUpdateCollectionApprovals: [
-        {
-            fromListId: 'Mint', // Target all mint approvals
-            toListId: 'All',
-            initiatedByListId: 'All',
-            transferTimes: FullTimeRanges,
-            tokenIds: FullTimeRanges,
-            ownershipTimes: FullTimeRanges,
-            approvalId: 'All',
-            permanentlyPermittedTimes: [],
-            permanentlyForbiddenTimes: FullTimeRanges, // Cannot update mint approvals
-        },
-    ],
-};
+const canUpdateCollectionApprovals = [
+    {
+        fromListId: 'Mint', // Target all mint approvals
+        toListId: 'All',
+        initiatedByListId: 'All',
+        transferTimes: FullTimeRanges,
+        tokenIds: FullTimeRanges,
+        ownershipTimes: FullTimeRanges,
+        approvalId: 'All',
+        permanentlyPermittedTimes: [],
+        permanentlyForbiddenTimes: FullTimeRanges, // Cannot update mint approvals
+    },
+];
 ```
 
 Controlled supply. Only the `initial-mint` approval is locked; the manager can add new ones:
 
 ```ts
-const collectionPermissions = {
-    // ... other permissions
-    canUpdateCollectionApprovals: [
-        {
-            fromListId: 'Mint',
-            toListId: 'All',
-            initiatedByListId: 'All',
-            transferTimes: FullTimeRanges,
-            tokenIds: FullTimeRanges,
-            ownershipTimes: FullTimeRanges,
-            approvalId: 'initial-mint', // Only lock initial mint approval
-            permanentlyPermittedTimes: [],
-            permanentlyForbiddenTimes: FullTimeRanges,
-        },
-    ],
-};
+const canUpdateCollectionApprovals = [
+    {
+        fromListId: 'Mint',
+        toListId: 'All',
+        initiatedByListId: 'All',
+        transferTimes: FullTimeRanges,
+        tokenIds: FullTimeRanges,
+        ownershipTimes: FullTimeRanges,
+        approvalId: 'initial-mint', // Only lock initial mint approval
+        permanentlyPermittedTimes: [],
+        permanentlyForbiddenTimes: FullTimeRanges,
+    },
+];
 ```
 
 Dynamic supply. The manager can always change mint approvals:
 
 ```ts
-const collectionPermissions = {
-    // ... other permissions
-    canUpdateCollectionApprovals: [], // Soft-enabled
-    canAddMoreAliasPaths: [],
-    canAddMoreCosmosCoinWrapperPaths: [],
-};
+const canUpdateCollectionApprovals = []; // Soft-enabled, like canAddMoreAliasPaths and canAddMoreCosmosCoinWrapperPaths
 ```
 
 Lock specific token IDs. Mint approvals for tokens 1 to 100 are final; the manager can still add Mint approvals for other IDs, and post-mint approvals for these:
 
 ```ts
-const collectionPermissions = {
-    // ... other permissions
-    canUpdateCollectionApprovals: [
-        {
-            fromListId: 'Mint',
-            toListId: 'All',
-            initiatedByListId: 'All',
-            transferTimes: FullTimeRanges,
-            tokenIds: [
-                {
-                    start: '1',
-                    end: '100',
-                },
-            ],
-            ownershipTimes: FullTimeRanges,
-            approvalId: 'All',
-            permanentlyPermittedTimes: [],
-            permanentlyForbiddenTimes: FullTimeRanges,
-        },
-    ],
-};
+const canUpdateCollectionApprovals = [
+    {
+        fromListId: 'Mint',
+        toListId: 'All',
+        initiatedByListId: 'All',
+        transferTimes: FullTimeRanges,
+        tokenIds: [
+            {
+                start: '1',
+                end: '100',
+            },
+        ],
+        ownershipTimes: FullTimeRanges,
+        approvalId: 'All',
+        permanentlyPermittedTimes: [],
+        permanentlyForbiddenTimes: FullTimeRanges,
+    },
+];
 ```
 
 More locking patterns are in [Lock permissions](lock-permissions.md).

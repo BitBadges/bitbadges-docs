@@ -8,14 +8,108 @@ description: "altTimeChecks: deny transfers by hour, weekday, month, day of mont
 
 ## Shape
 
-```json
+A complete `approvalCriteria` with the `altTimeChecks` object open. Folded lines are defaults.
+
+```json fold=2-78,91-100
 {
-  "approvalCriteria": {
-    "altTimeChecks": {
-      "offlineDays": [{ "start": "0", "end": "0" }, { "start": "6", "end": "6" }],
-      "timezoneOffsetMinutes": "300",
-      "timezoneOffsetNegative": true
+  "merkleChallenges": [],
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": false,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
     }
+  },
+  "approvalAmounts": {
+    "overallApprovalAmount": "0",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "0",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "coinTransfers": [],
+  "requireToEqualsInitiatedBy": false,
+  "requireFromEqualsInitiatedBy": false,
+  "requireToDoesNotEqualInitiatedBy": false,
+  "requireFromDoesNotEqualInitiatedBy": false,
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": false,
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  },
+  "mustOwnTokens": [],
+  "dynamicStoreChallenges": [],
+  "ethSignatureChallenges": [],
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "recipientChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "initiatorChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [
+      { "start": "0", "end": "0" },
+      { "start": "6", "end": "6" }
+    ],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "300",
+    "timezoneOffsetNegative": true
+  },
+  "mustPrioritize": false,
+  "votingChallenges": [],
+  "allowBackedMinting": false,
+  "allowSpecialWrapping": false,
+  "evmQueryChallenges": [],
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
   }
 }
 ```
@@ -44,6 +138,10 @@ interface AltTimeChecks {
 
 All ranges are inclusive. Ranges in one array must not overlap, and `start` must be less than or equal to `end`.
 
+{% hint style="info" %}
+Ask your agent: "Add a transfer approval to collection 1 that blocks transfers on weekends in US Eastern time." The MCP builder tools (`add_approval`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 1. Take the block time in UTC. If `timezoneOffsetMinutes` is set, add or subtract it to get local time.
@@ -66,10 +164,17 @@ Deny 10 PM to 6 AM UTC:
 
 ```json
 {
-  "approvalCriteria": {
-    "altTimeChecks": {
-      "offlineHours": [{ "start": "22", "end": "23" }, { "start": "0", "end": "5" }]
-    }
+  "altTimeChecks": {
+    "offlineHours": [
+      { "start": "22", "end": "23" },
+      { "start": "0", "end": "5" }
+    ],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
   }
 }
 ```
@@ -78,12 +183,17 @@ Deny weekends in US Eastern time. A transfer at 03:00 UTC Monday is 22:00 EST Su
 
 ```json
 {
-  "approvalCriteria": {
-    "altTimeChecks": {
-      "offlineDays": [{ "start": "0", "end": "0" }, { "start": "6", "end": "6" }],
-      "timezoneOffsetMinutes": "300",
-      "timezoneOffsetNegative": true
-    }
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [
+      { "start": "0", "end": "0" },
+      { "start": "6", "end": "6" }
+    ],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "300",
+    "timezoneOffsetNegative": true
   }
 }
 ```
@@ -91,17 +201,36 @@ Deny weekends in US Eastern time. A transfer at 03:00 UTC Monday is 22:00 EST Su
 Deny all of December:
 
 ```json
-{ "approvalCriteria": { "altTimeChecks": { "offlineMonths": [{ "start": "12", "end": "12" }] } } }
+{
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [
+      { "start": "12", "end": "12" }
+    ],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
+  }
+}
 ```
 
 Deny the 1st and 15th of every month:
 
 ```json
 {
-  "approvalCriteria": {
-    "altTimeChecks": {
-      "offlineDaysOfMonth": [{ "start": "1", "end": "1" }, { "start": "15", "end": "15" }]
-    }
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [
+      { "start": "1", "end": "1" },
+      { "start": "15", "end": "15" }
+    ],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
   }
 }
 ```

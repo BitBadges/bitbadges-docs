@@ -19,71 +19,248 @@ Wrapper addresses have no private key. Collection approvals must override the wr
 
 A collection with one wrapper path and one alias path:
 
-```ts
-// Collection with wrapper path
-const collection: MsgCreateCollection = {
-    creator: 'bb1kj9kt5y64n5a8677fhjqnmcc24ht2vy9atmdls',
-    collectionId: '0', // 0 for new collection
-    validTokenIds: [{ start: 1n, end: 100n }],
-    cosmosCoinWrapperPathsToAdd: [
-        {
-            denom: 'utoken',
-            conversion: {
-                sideA: {
-                    amount: '1', // Required: amount of wrapped coin
-                },
-                sideB: [
-                    {
-                        amount: 1n,
-                        tokenIds: [{ start: 1n, end: 100n }],
-                        ownershipTimes: [
-                            { start: 1n, end: 18446744073709551615n },
-                        ],
-                    },
-                ],
+A complete `MsgCreateCollection` with both paths open:
+
+```json fold=3-17,21-171,202-209
+{
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "defaultBalances": {
+    "balances": [],
+    "outgoingApprovals": [],
+    "incomingApprovals": [],
+    "autoApproveSelfInitiatedOutgoingTransfers": true,
+    "autoApproveSelfInitiatedIncomingTransfers": true,
+    "autoApproveAllIncomingTransfers": true,
+    "userPermissions": {
+      "canUpdateOutgoingApprovals": [],
+      "canUpdateIncomingApprovals": [],
+      "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+      "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+      "canUpdateAutoApproveAllIncomingTransfers": []
+    }
+  },
+  "validTokenIds": [
+    { "start": "1", "end": "100" }
+  ],
+  "collectionPermissions": {
+    "canDeleteCollection": [],
+    "canArchiveCollection": [],
+    "canUpdateStandards": [],
+    "canUpdateCustomData": [],
+    "canUpdateManager": [],
+    "canUpdateCollectionMetadata": [],
+    "canUpdateValidTokenIds": [],
+    "canUpdateTokenMetadata": [],
+    "canUpdateCollectionApprovals": [],
+    "canAddMoreAliasPaths": [],
+    "canAddMoreCosmosCoinWrapperPaths": []
+  },
+  "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "collectionMetadata": {
+    "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
+    "customData": ""
+  },
+  "tokenMetadata": [
+    {
+      "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json",
+      "customData": "",
+      "tokenIds": [
+        { "start": "1", "end": "100" }
+      ]
+    }
+  ],
+  "customData": "",
+  "collectionApprovals": [
+    {
+      "fromListId": "Mint",
+      "toListId": "All",
+      "initiatedByListId": "All",
+      "transferTimes": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "tokenIds": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "ownershipTimes": [
+        { "start": "1", "end": "18446744073709551615" }
+      ],
+      "uri": "",
+      "customData": "",
+      "approvalId": "mint",
+      "approvalCriteria": {
+        "merkleChallenges": [],
+        "predeterminedBalances": {
+          "manualBalances": [],
+          "incrementedBalances": {
+            "startBalances": [],
+            "incrementTokenIdsBy": "0",
+            "incrementOwnershipTimesBy": "0",
+            "durationFromTimestamp": "0",
+            "allowOverrideTimestamp": false,
+            "recurringOwnershipTimes": {
+              "startTime": "0",
+              "intervalLength": "0",
+              "chargePeriodLength": "0"
             },
-            symbol: 'TOKEN',
-            denomUnits: [
-                {
-                    decimals: 6n,
-                    symbol: 'TOKEN',
-                    isDefaultDisplay: true,
-                },
-            ],
-            allowOverrideWithAnyValidToken: false,
-            metadata: { uri: '', customData: '' }, // Optional metadata
+            "allowOverrideWithAnyValidToken": false,
+            "allowAmountScaling": false,
+            "maxScalingMultiplier": "0"
+          },
+          "orderCalculationMethod": {
+            "useOverallNumTransfers": false,
+            "usePerToAddressNumTransfers": false,
+            "usePerFromAddressNumTransfers": false,
+            "usePerInitiatedByAddressNumTransfers": false,
+            "useMerkleChallengeLeafIndex": false,
+            "challengeTrackerId": ""
+          }
         },
-    ],
-    aliasPathsToAdd: [
+        "approvalAmounts": {
+          "overallApprovalAmount": "0",
+          "perToAddressApprovalAmount": "0",
+          "perFromAddressApprovalAmount": "0",
+          "perInitiatedByAddressApprovalAmount": "0",
+          "amountTrackerId": "",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "maxNumTransfers": {
+          "overallMaxNumTransfers": "0",
+          "perToAddressMaxNumTransfers": "0",
+          "perFromAddressMaxNumTransfers": "0",
+          "perInitiatedByAddressMaxNumTransfers": "0",
+          "amountTrackerId": "",
+          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+        },
+        "coinTransfers": [],
+        "requireToEqualsInitiatedBy": false,
+        "requireFromEqualsInitiatedBy": false,
+        "requireToDoesNotEqualInitiatedBy": false,
+        "requireFromDoesNotEqualInitiatedBy": false,
+        "overridesFromOutgoingApprovals": true,
+        "overridesToIncomingApprovals": false,
+        "autoDeletionOptions": {
+          "afterOneUse": false,
+          "afterOverallMaxNumTransfers": false,
+          "allowCounterpartyPurge": false,
+          "allowPurgeIfExpired": false
+        },
+        "mustOwnTokens": [],
+        "dynamicStoreChallenges": [],
+        "ethSignatureChallenges": [],
+        "senderChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "recipientChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "initiatorChecks": {
+          "mustBeEvmContract": false,
+          "mustNotBeEvmContract": false,
+          "mustBeLiquidityPool": false,
+          "mustNotBeLiquidityPool": false
+        },
+        "altTimeChecks": {
+          "offlineHours": [],
+          "offlineDays": [],
+          "offlineMonths": [],
+          "offlineDaysOfMonth": [],
+          "offlineWeeksOfYear": [],
+          "timezoneOffsetMinutes": "0",
+          "timezoneOffsetNegative": false
+        },
+        "mustPrioritize": false,
+        "votingChallenges": [],
+        "allowBackedMinting": false,
+        "allowSpecialWrapping": false,
+        "evmQueryChallenges": [],
+        "userApprovalSettings": {
+          "allowedDenoms": [],
+          "disableUserCoinTransfers": false,
+          "userRoyalties": { "percentage": "0", "payoutAddress": "" }
+        }
+      },
+      "version": "0"
+    }
+  ],
+  "standards": [
+    "NFTs"
+  ],
+  "isArchived": false,
+  "mintEscrowCoinsToTransfer": [],
+  "cosmosCoinWrapperPathsToAdd": [
+    {
+      "denom": "utoken",
+      "conversion": {
+        "sideA": { "amount": "1" },
+        "sideB": [
+          {
+            "amount": "1",
+            "tokenIds": [
+              { "start": "1", "end": "100" }
+            ],
+            "ownershipTimes": [
+              { "start": "1", "end": "18446744073709551615" }
+            ]
+          }
+        ]
+      },
+      "symbol": "TOKEN",
+      "denomUnits": [
         {
-            denom: 'utoken-alias',
-            conversion: {
-                sideA: {
-                    amount: '1', // Required: amount of wrapped coin
-                },
-                sideB: [
-                    {
-                        amount: 1n,
-                        tokenIds: [{ start: 1n, end: 100n }],
-                        ownershipTimes: [
-                            { start: 1n, end: 18446744073709551615n },
-                        ],
-                    },
-                ],
-            },
-            symbol: 'ALIAS',
-            denomUnits: [
-                {
-                    decimals: 6n,
-                    symbol: 'ALIAS',
-                    isDefaultDisplay: true,
-                },
+          "decimals": "6",
+          "symbol": "TOKEN",
+          "isDefaultDisplay": true,
+          "metadata": { "uri": "", "customData": "" }
+        }
+      ],
+      "allowOverrideWithAnyValidToken": false,
+      "metadata": { "uri": "", "customData": "" }
+    }
+  ],
+  "invariants": {
+    "noCustomOwnershipTimes": false,
+    "maxSupplyPerId": "0",
+    "cosmosCoinBackedPath": null,
+    "noForcefulPostMintTransfers": false,
+    "disablePoolCreation": false,
+    "evmQueryChallenges": []
+  },
+  "aliasPathsToAdd": [
+    {
+      "denom": "utoken-alias",
+      "conversion": {
+        "sideA": { "amount": "1" },
+        "sideB": [
+          {
+            "amount": "1",
+            "tokenIds": [
+              { "start": "1", "end": "100" }
             ],
-            metadata: { uri: '', customData: '' }, // Optional metadata
-        },
-    ],
-    // ... other fields
-};
+            "ownershipTimes": [
+              { "start": "1", "end": "18446744073709551615" }
+            ]
+          }
+        ]
+      },
+      "symbol": "ALIAS",
+      "denomUnits": [
+        {
+          "decimals": "6",
+          "symbol": "ALIAS",
+          "isDefaultDisplay": true,
+          "metadata": { "uri": "", "customData": "" }
+        }
+      ],
+      "metadata": { "uri": "", "customData": "" }
+    }
+  ]
+}
 ```
 
 | Field | Type | Required | Description |
@@ -95,6 +272,10 @@ const collection: MsgCreateCollection = {
 | `allowOverrideWithAnyValidToken` | bool | no | Accept any single valid token ID and override `sideB[].tokenIds` at transfer time |
 | `metadata` | `PathMetadata` | no | `uri` and `customData` |
 | `address` | string | derived | The wrapper address, generated from `denom`. Not present on alias paths. |
+
+{% hint style="info" %}
+Ask your agent: "Add a wrapper path to collection 1 with denom utoken and symbol TOKEN, plus the wrap and unwrap approvals it needs." The MCP builder tools (`add_cosmos_wrapper_path, generate_wrapper_address, add_approval`) produce the objects on this page.
+{% endhint %}
 
 ## Wrapper paths versus alias paths
 
@@ -108,31 +289,34 @@ Cosmos coin wrapper paths do real wrapping:
 - Storage: the `cosmosCoinWrapperPaths` array.
 - Extra fields: `address` (the wrapper address) and `allowOverrideWithAnyValidToken`.
 
-```ts
+```json
 {
-    denom: 'utoken',
-    conversion: {
-        sideA: {
-            amount: '1', // Required: amount of wrapped coin
-        },
-        sideB: [
-            {
-                amount: 1n,
-                tokenIds: [{ start: 1n, end: 100n }],
-                ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
-            },
+  "denom": "utoken",
+  "conversion": {
+    "sideA": { "amount": "1" },
+    "sideB": [
+      {
+        "amount": "1",
+        "tokenIds": [
+          { "start": "1", "end": "100" }
         ],
-    },
-    symbol: 'TOKEN',
-    denomUnits: [
-        {
-            decimals: 6n,
-            symbol: 'TOKEN',
-            isDefaultDisplay: true,
-        },
-    ],
-    allowOverrideWithAnyValidToken: false,
-    metadata: { uri: '', customData: '' }, // Optional PathMetadata
+        "ownershipTimes": [
+          { "start": "1", "end": "18446744073709551615" }
+        ]
+      }
+    ]
+  },
+  "symbol": "TOKEN",
+  "denomUnits": [
+    {
+      "decimals": "6",
+      "symbol": "TOKEN",
+      "isDefaultDisplay": true,
+      "metadata": { "uri": "", "customData": "" }
+    }
+  ],
+  "allowOverrideWithAnyValidToken": false,
+  "metadata": { "uri": "", "customData": "" }
 }
 ```
 
@@ -144,30 +328,33 @@ Alias paths do no wrapping:
 - Storage: the `aliasPaths` array, separate from wrapper paths.
 - No `address` and no `allowOverrideWithAnyValidToken` fields.
 
-```ts
+```json
 {
-    denom: 'utoken',
-    conversion: {
-        sideA: {
-            amount: '1', // Required: amount of alias unit
-        },
-        sideB: [
-            {
-                amount: 1n,
-                tokenIds: [{ start: 1n, end: 100n }],
-                ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
-            },
+  "denom": "utoken",
+  "conversion": {
+    "sideA": { "amount": "1" },
+    "sideB": [
+      {
+        "amount": "1",
+        "tokenIds": [
+          { "start": "1", "end": "100" }
         ],
-    },
-    symbol: 'TOKEN',
-    denomUnits: [
-        {
-            decimals: 6n,
-            symbol: 'TOKEN',
-            isDefaultDisplay: true,
-        },
-    ],
-    metadata: { uri: '', customData: '' }, // Optional PathMetadata
+        "ownershipTimes": [
+          { "start": "1", "end": "18446744073709551615" }
+        ]
+      }
+    ]
+  },
+  "symbol": "TOKEN",
+  "denomUnits": [
+    {
+      "decimals": "6",
+      "symbol": "TOKEN",
+      "isDefaultDisplay": true,
+      "metadata": { "uri": "", "customData": "" }
+    }
+  ],
+  "metadata": { "uri": "", "customData": "" }
 }
 ```
 
@@ -189,21 +376,34 @@ console.log('Wrapper Address:', wrapperAddress);
 
 Wrapper paths and alias paths both use `ConversionWithoutDenom`. The denom is stored at the path level, which is why the type carries "WithoutDenom".
 
-```ts
+```json fold=17-27
 {
-    conversion: {
-        sideA: {
-            amount: '1', // Required: amount of wrapped/alias coin (Uint type)
-        },
-        sideB: [
-            // Balances[] that define which tokens participate
-            {
-                amount: 1n,
-                tokenIds: [{ start: 1n, end: 100n }],
-                ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
-            },
+  "denom": "utoken",
+  "conversion": {
+    "sideA": { "amount": "1" },
+    "sideB": [
+      {
+        "amount": "1",
+        "tokenIds": [
+          { "start": "1", "end": "100" }
         ],
-    },
+        "ownershipTimes": [
+          { "start": "1", "end": "18446744073709551615" }
+        ]
+      }
+    ]
+  },
+  "symbol": "TOKEN",
+  "denomUnits": [
+    {
+      "decimals": "6",
+      "symbol": "TOKEN",
+      "isDefaultDisplay": true,
+      "metadata": { "uri": "", "customData": "" }
+    }
+  ],
+  "allowOverrideWithAnyValidToken": false,
+  "metadata": { "uri": "", "customData": "" }
 }
 ```
 
@@ -219,29 +419,67 @@ With `sideA.amount = "1"` and `sideB = [{ amount: 1n, ... }]`, one wrapped coin 
 
 The full Cosmos denom is `badges:collectionId:denom`. `badges:` is the wrapper prefix; `badgeslp:` is the alias prefix.
 
-```ts
+```json fold=3-27
 {
-    denom: 'utoken', // Base denom
-    // Full denom: badges:1:utoken
+  "denom": "utoken",
+  "conversion": {
+    "sideA": { "amount": "1" },
+    "sideB": [
+      {
+        "amount": "1",
+        "tokenIds": [
+          { "start": "1", "end": "100" }
+        ],
+        "ownershipTimes": [
+          { "start": "1", "end": "18446744073709551615" }
+        ]
+      }
+    ]
+  },
+  "symbol": "TOKEN",
+  "denomUnits": [
+    {
+      "decimals": "6",
+      "symbol": "TOKEN",
+      "isDefaultDisplay": true,
+      "metadata": { "uri": "", "customData": "" }
+    }
+  ],
+  "allowOverrideWithAnyValidToken": false,
+  "metadata": { "uri": "", "customData": "" }
 }
 ```
 
 ### Conversion
 
-```ts
+```json fold=17-27
 {
-    conversion: {
-        sideA: {
-            amount: '1', // Required: amount of wrapped coin
-        },
-        sideB: [
-            {
-                amount: 1n, // Token amount
-                tokenIds: [{ start: 1n, end: 100n }], // Token IDs that can wrap
-                ownershipTimes: [{ start: 1n, end: 18446744073709551615n }], // Ownership times
-            },
+  "denom": "utoken",
+  "conversion": {
+    "sideA": { "amount": "1" },
+    "sideB": [
+      {
+        "amount": "1",
+        "tokenIds": [
+          { "start": "1", "end": "100" }
         ],
-    },
+        "ownershipTimes": [
+          { "start": "1", "end": "18446744073709551615" }
+        ]
+      }
+    ]
+  },
+  "symbol": "TOKEN",
+  "denomUnits": [
+    {
+      "decimals": "6",
+      "symbol": "TOKEN",
+      "isDefaultDisplay": true,
+      "metadata": { "uri": "", "customData": "" }
+    }
+  ],
+  "allowOverrideWithAnyValidToken": false,
+  "metadata": { "uri": "", "customData": "" }
 }
 ```
 
@@ -251,22 +489,40 @@ Rate: `conversion.sideA.amount` wrapped coin = `conversion.sideB[]` tokens.
 
 Several display units can describe the same base unit.
 
-```ts
+```json fold=2-17,32-33
 {
-    denomUnits: [
-        {
-            decimals: 3n, // 3 decimal places
-            symbol: 'mtoken', // Milli-token
-            isDefaultDisplay: false,
-            metadata: { uri: '', customData: '' }, // Optional PathMetadata
-        },
-        {
-            decimals: 6n, // 6 decimal places
-            symbol: 'TOKEN', // Full token
-            isDefaultDisplay: true, // Shown by default
-            metadata: { uri: '', customData: '' }, // Optional PathMetadata
-        },
-    ],
+  "denom": "utoken",
+  "conversion": {
+    "sideA": { "amount": "1" },
+    "sideB": [
+      {
+        "amount": "1",
+        "tokenIds": [
+          { "start": "1", "end": "100" }
+        ],
+        "ownershipTimes": [
+          { "start": "1", "end": "18446744073709551615" }
+        ]
+      }
+    ]
+  },
+  "symbol": "TOKEN",
+  "denomUnits": [
+    {
+      "decimals": "3",
+      "symbol": "mtoken",
+      "isDefaultDisplay": false,
+      "metadata": { "uri": "", "customData": "" }
+    },
+    {
+      "decimals": "6",
+      "symbol": "TOKEN",
+      "isDefaultDisplay": true,
+      "metadata": { "uri": "", "customData": "" }
+    }
+  ],
+  "allowOverrideWithAnyValidToken": false,
+  "metadata": { "uri": "", "customData": "" }
 }
 ```
 
@@ -280,22 +536,34 @@ Each `DenomUnit` carries an optional `metadata` field of type `PathMetadata`.
 
 When `true`, the wrapper accepts any single token ID inside the collection's `validTokenIds`.
 
-```ts
+```json fold=17-25
 {
-    denom: 'utoken',
-    conversion: {
-        sideA: {
-            amount: '1',
-        },
-        sideB: [
-            {
-                amount: 1n,
-                tokenIds: [{ start: 1n, end: 1n }], // Overridden during transfer
-                ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
-            },
+  "denom": "utoken",
+  "conversion": {
+    "sideA": { "amount": "1" },
+    "sideB": [
+      {
+        "amount": "1",
+        "tokenIds": [
+          { "start": "1", "end": "1" }
         ],
-    },
-    allowOverrideWithAnyValidToken: true, // Accept any valid token ID
+        "ownershipTimes": [
+          { "start": "1", "end": "18446744073709551615" }
+        ]
+      }
+    ]
+  },
+  "symbol": "TOKEN",
+  "denomUnits": [
+    {
+      "decimals": "6",
+      "symbol": "TOKEN",
+      "isDefaultDisplay": true,
+      "metadata": { "uri": "", "customData": "" }
+    }
+  ],
+  "allowOverrideWithAnyValidToken": true,
+  "metadata": { "uri": "", "customData": "" }
 }
 ```
 
@@ -308,23 +576,34 @@ When `true`, the wrapper accepts any single token ID inside the collection's `va
 
 `{id}` in `denom` or `symbol` is replaced by the actual token ID.
 
-```ts
+```json fold=3-16,18-25
 {
-    denom: 'utoken{id}', // Dynamic denom
-    symbol: 'TOKEN:{id}',
-    conversion: {
-        sideA: {
-            amount: '1',
-        },
-        sideB: [
-            {
-                amount: 1n,
-                tokenIds: [{ start: 1n, end: 1n }],
-                ownershipTimes: [{ start: 1n, end: 18446744073709551615n }],
-            },
+  "denom": "utoken{id}",
+  "conversion": {
+    "sideA": { "amount": "1" },
+    "sideB": [
+      {
+        "amount": "1",
+        "tokenIds": [
+          { "start": "1", "end": "1" }
         ],
-    },
-    allowOverrideWithAnyValidToken: true,
+        "ownershipTimes": [
+          { "start": "1", "end": "18446744073709551615" }
+        ]
+      }
+    ]
+  },
+  "symbol": "TOKEN:{id}",
+  "denomUnits": [
+    {
+      "decimals": "6",
+      "symbol": "TOKEN",
+      "isDefaultDisplay": true,
+      "metadata": { "uri": "", "customData": "" }
+    }
+  ],
+  "allowOverrideWithAnyValidToken": true,
+  "metadata": { "uri": "", "customData": "" }
 }
 ```
 
@@ -332,12 +611,37 @@ Transferring token ID 5 produces the denom `utoken5`.
 
 ### Metadata
 
-```ts
+```json fold=2-26
 {
-    metadata: {
-        uri: 'ipfs://Qm...', // Optional URI to hosted JSON metadata
-        customData: '{"key": "value"}', // Optional custom JSON data
-    },
+  "denom": "utoken",
+  "conversion": {
+    "sideA": { "amount": "1" },
+    "sideB": [
+      {
+        "amount": "1",
+        "tokenIds": [
+          { "start": "1", "end": "100" }
+        ],
+        "ownershipTimes": [
+          { "start": "1", "end": "18446744073709551615" }
+        ]
+      }
+    ]
+  },
+  "symbol": "TOKEN",
+  "denomUnits": [
+    {
+      "decimals": "6",
+      "symbol": "TOKEN",
+      "isDefaultDisplay": true,
+      "metadata": { "uri": "", "customData": "" }
+    }
+  ],
+  "allowOverrideWithAnyValidToken": false,
+  "metadata": {
+    "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/path.json",
+    "customData": "{\"key\": \"value\"}"
+  }
 }
 ```
 
@@ -363,8 +667,12 @@ const collectionApprovals = [
             allowSpecialWrapping: true, // Required for wrapper path operations
             mustPrioritize: true, // Chain-enforced: required for allowSpecialWrapping
             maxNumTransfers: {
+                overallMaxNumTransfers: 0n,
+                perToAddressMaxNumTransfers: 0n,
+                perFromAddressMaxNumTransfers: 0n,
                 perInitiatedByAddressMaxNumTransfers: 10n, // 10 wraps per day
-                // ... reset time intervals
+                amountTrackerId: 'wrap-daily',
+                resetTimeIntervals: { startTime: 1788739200000n, intervalLength: 86400000n },
             },
         },
     },
@@ -401,11 +709,11 @@ const collectionApprovals = [
 // Wrapping tokens
 // Wrapping/unwrapping requires prioritized approvals (not compatible with auto-scan mode)
 const wrapTokens: MsgTransferTokens = {
-    creator: 'bb1user...',
+    creator: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
     collectionId: '1',
     transfers: [
         {
-            from: 'bb1user...',
+            from: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
             toAddresses: [wrapperAddress],
             balances: [
                 {
@@ -446,12 +754,12 @@ Unwrapping also uses `MsgTransferTokens`. The user initiates a transfer on behal
 // Wrapping/unwrapping requires prioritized approvals (not compatible with auto-scan mode)
 // You initiate a transfer on behalf of the wrapper address
 const unwrapCoins: MsgTransferTokens = {
-    creator: 'bb1user...',
+    creator: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
     collectionId: '1',
     transfers: [
         {
             from: wrapperAddress, // Transfer from wrapper address
-            toAddresses: ['bb1user...'], // To user
+            toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'], // To user
             balances: [
                 {
                     amount: 10n,
@@ -487,11 +795,11 @@ Wrap, then send the x/bank coin over ICS-20.
 // Requires prioritized approvals
 // The conversion rate is defined in the wrapper path's conversion field
 const wrapForIBC: MsgTransferTokens = {
-    creator: 'bb1user...',
+    creator: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
     collectionId: '1',
     transfers: [
         {
-            from: 'bb1user...',
+            from: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
             toAddresses: [wrapperAddress],
             balances: [
                 {
@@ -521,8 +829,8 @@ const ibcTransfer = {
         denom: 'badges:1:utoken',
         amount: '100',
     },
-    sender: 'bb1user...',
-    receiver: 'cosmos1...',
+    sender: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
+    receiver: 'cosmos1py4mfpg6uf59qkyzg0nmau322c5873ee8df8qg',
 };
 ```
 
@@ -532,7 +840,7 @@ const ibcTransfer = {
 // Add wrapped tokens to liquidity pool
 const addLiquidity = {
     poolId: '1',
-    sender: 'bb1user...',
+    sender: 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue',
     tokenInMaxs: [
         {
             denom: 'badges:1:utoken',
@@ -556,8 +864,19 @@ The `canAddMoreCosmosCoinWrapperPaths` collection permission controls when the m
 Allow at all times:
 
 ```ts
+// Empty = allowed by default
 const collectionPermissions: CollectionPermissions<bigint> = {
-    canAddMoreCosmosCoinWrapperPaths: [], // Empty = allowed by default
+  canDeleteCollection: [],
+  canArchiveCollection: [],
+  canUpdateStandards: [],
+  canUpdateCustomData: [],
+  canUpdateManager: [],
+  canUpdateCollectionMetadata: [],
+  canUpdateValidTokenIds: [],
+  canUpdateTokenMetadata: [],
+  canUpdateCollectionApprovals: [],
+  canAddMoreAliasPaths: [],
+  canAddMoreCosmosCoinWrapperPaths: [],
 };
 ```
 
@@ -565,14 +884,24 @@ Explicitly permit forever:
 
 ```ts
 const collectionPermissions: CollectionPermissions<bigint> = {
-    canAddMoreCosmosCoinWrapperPaths: [
-        {
-            permanentlyPermittedTimes: [
-                { start: 1n, end: 18446744073709551615n },
-            ],
-            permanentlyForbiddenTimes: [],
-        },
-    ],
+  canDeleteCollection: [],
+  canArchiveCollection: [],
+  canUpdateStandards: [],
+  canUpdateCustomData: [],
+  canUpdateManager: [],
+  canUpdateCollectionMetadata: [],
+  canUpdateValidTokenIds: [],
+  canUpdateTokenMetadata: [],
+  canUpdateCollectionApprovals: [],
+  canAddMoreAliasPaths: [],
+  canAddMoreCosmosCoinWrapperPaths: [
+    {
+      permanentlyPermittedTimes: [
+        { start: 1n, end: 18446744073709551615n },
+      ],
+      permanentlyForbiddenTimes: [],
+    },
+  ],
 };
 ```
 
@@ -580,14 +909,24 @@ Lock forever:
 
 ```ts
 const collectionPermissions: CollectionPermissions<bigint> = {
-    canAddMoreCosmosCoinWrapperPaths: [
-        {
-            permanentlyPermittedTimes: [],
-            permanentlyForbiddenTimes: [
-                { start: 1n, end: 18446744073709551615n },
-            ],
-        },
-    ],
+  canDeleteCollection: [],
+  canArchiveCollection: [],
+  canUpdateStandards: [],
+  canUpdateCustomData: [],
+  canUpdateManager: [],
+  canUpdateCollectionMetadata: [],
+  canUpdateValidTokenIds: [],
+  canUpdateTokenMetadata: [],
+  canUpdateCollectionApprovals: [],
+  canAddMoreAliasPaths: [],
+  canAddMoreCosmosCoinWrapperPaths: [
+    {
+      permanentlyPermittedTimes: [],
+      permanentlyForbiddenTimes: [
+        { start: 1n, end: 18446744073709551615n },
+      ],
+    },
+  ],
 };
 ```
 
@@ -595,14 +934,24 @@ Allow only during a window:
 
 ```ts
 const collectionPermissions: CollectionPermissions<bigint> = {
-    canAddMoreCosmosCoinWrapperPaths: [
-        {
-            permanentlyPermittedTimes: [
-                { start: 1704067200000n, end: 1735689600000n },
-            ],
-            permanentlyForbiddenTimes: [],
-        },
-    ],
+  canDeleteCollection: [],
+  canArchiveCollection: [],
+  canUpdateStandards: [],
+  canUpdateCustomData: [],
+  canUpdateManager: [],
+  canUpdateCollectionMetadata: [],
+  canUpdateValidTokenIds: [],
+  canUpdateTokenMetadata: [],
+  canUpdateCollectionApprovals: [],
+  canAddMoreAliasPaths: [],
+  canAddMoreCosmosCoinWrapperPaths: [
+    {
+      permanentlyPermittedTimes: [
+        { start: 1704067200000n, end: 1735689600000n },
+      ],
+      permanentlyForbiddenTimes: [],
+    },
+  ],
 };
 ```
 

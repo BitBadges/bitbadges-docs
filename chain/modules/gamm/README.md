@@ -28,6 +28,10 @@ curl https://lcd.bitbadges.io/osmosis/gamm/v1beta1/pools/1
 }
 ```
 
+{% hint style="info" %}
+Ask your agent: "Create a 50/50 pool between badges:1:utoken and ubadge with 1,000 of each and show me the pool id." The liquidity-pools skill, `bb pools`, and `bb swap` cover pool creation, joins, and swaps.
+{% endhint %}
+
 ## Concepts
 
 An AMM prices trades with a formula over pool reserves instead of an orderbook. A liquidity pool holds a set of assets and issues LP shares (`gamm/pool/<id>`) to depositors. Each pool has:
@@ -81,7 +85,7 @@ See [Approval criteria](../../../token-standard/approval-criteria/README.md) and
 
 - [Messages](messages.md): all 12 `Msg` types with fields and examples.
 - [Queries](queries.md): all 16 gRPC and LCD queries.
-- [gamm precompile](../../evm/gamm-precompile/README.md): the same operations from Solidity at `0x...1002`.
+- [gamm precompile](../../evm/gamm-precompile/README.md): the same operations from Solidity at `0x0000000000000000000000000000000000001002` (`0x...1002`).
 - Proto definitions: `proto/gamm/` in [bitbadgeschain](https://github.com/bitbadges/bitbadgeschain/tree/master/proto/gamm).
 
 ## Related

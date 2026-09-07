@@ -8,16 +8,105 @@ Address checks constrain the type of address on each side of a transfer. They ar
 
 ## Shape
 
-```json
+A complete `approvalCriteria` with the `recipientChecks` and `initiatorChecks` fields open. Folded lines are defaults.
+
+```json fold=2-66,79-97
 {
-  "approvalCriteria": {
-    "recipientChecks": {
-      "mustBeEvmContract": true,
-      "mustNotBeLiquidityPool": true
+  "merkleChallenges": [],
+  "predeterminedBalances": {
+    "manualBalances": [],
+    "incrementedBalances": {
+      "startBalances": [],
+      "incrementTokenIdsBy": "0",
+      "incrementOwnershipTimesBy": "0",
+      "durationFromTimestamp": "0",
+      "allowOverrideTimestamp": false,
+      "recurringOwnershipTimes": {
+        "startTime": "0",
+        "intervalLength": "0",
+        "chargePeriodLength": "0"
+      },
+      "allowOverrideWithAnyValidToken": false,
+      "allowAmountScaling": false,
+      "maxScalingMultiplier": "0"
     },
-    "initiatorChecks": {
-      "mustNotBeEvmContract": true
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": false,
+      "usePerToAddressNumTransfers": false,
+      "usePerFromAddressNumTransfers": false,
+      "usePerInitiatedByAddressNumTransfers": false,
+      "useMerkleChallengeLeafIndex": false,
+      "challengeTrackerId": ""
     }
+  },
+  "approvalAmounts": {
+    "overallApprovalAmount": "0",
+    "perToAddressApprovalAmount": "0",
+    "perFromAddressApprovalAmount": "0",
+    "perInitiatedByAddressApprovalAmount": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "0",
+    "perToAddressMaxNumTransfers": "0",
+    "perFromAddressMaxNumTransfers": "0",
+    "perInitiatedByAddressMaxNumTransfers": "0",
+    "amountTrackerId": "",
+    "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+  },
+  "coinTransfers": [],
+  "requireToEqualsInitiatedBy": false,
+  "requireFromEqualsInitiatedBy": false,
+  "requireToDoesNotEqualInitiatedBy": false,
+  "requireFromDoesNotEqualInitiatedBy": false,
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": false,
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": false,
+    "allowCounterpartyPurge": false,
+    "allowPurgeIfExpired": false
+  },
+  "mustOwnTokens": [],
+  "dynamicStoreChallenges": [],
+  "ethSignatureChallenges": [],
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "recipientChecks": {
+    "mustBeEvmContract": true,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": true
+  },
+  "initiatorChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": true,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  },
+  "altTimeChecks": {
+    "offlineHours": [],
+    "offlineDays": [],
+    "offlineMonths": [],
+    "offlineDaysOfMonth": [],
+    "offlineWeeksOfYear": [],
+    "timezoneOffsetMinutes": "0",
+    "timezoneOffsetNegative": false
+  },
+  "mustPrioritize": false,
+  "votingChallenges": [],
+  "allowBackedMinting": false,
+  "allowSpecialWrapping": false,
+  "evmQueryChallenges": [],
+  "userApprovalSettings": {
+    "allowedDenoms": [],
+    "disableUserCoinTransfers": false,
+    "userRoyalties": { "percentage": "0", "payoutAddress": "" }
   }
 }
 ```
@@ -48,6 +137,10 @@ The checks attach to a party:
 
 An outgoing approval cannot check the sender and an incoming approval cannot check the recipient, because that party is the approval's owner.
 
+{% hint style="info" %}
+Ask your agent: "Add a transfer approval to collection 1 where only EVM contracts can receive tokens, and never let tokens move into a liquidity pool." The MCP builder tools (`add_approval`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 The chain converts the `bb1` address to its 20-byte EVM form and asks the EVM module whether code exists there. For pools it looks the address up in the pool address cache that `x/gamm` fills at pool creation. If the EVM or gamm module is not wired in, the corresponding check answers `false`.
@@ -59,25 +152,53 @@ Checks run after the address lists match. An address must be in `fromListId`, `t
 Only contracts can receive:
 
 ```json
-{ "approvalCriteria": { "recipientChecks": { "mustBeEvmContract": true } } }
+{
+  "recipientChecks": {
+    "mustBeEvmContract": true,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  }
+}
 ```
 
 Pools cannot send (collection approval):
 
 ```json
-{ "approvalCriteria": { "senderChecks": { "mustNotBeLiquidityPool": true } } }
+{
+  "senderChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": true
+  }
+}
 ```
 
 Only contracts can initiate (incoming approval):
 
 ```json
-{ "approvalCriteria": { "initiatorChecks": { "mustBeEvmContract": true } } }
+{
+  "initiatorChecks": {
+    "mustBeEvmContract": true,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": false
+  }
+}
 ```
 
 Never send to a pool (outgoing approval):
 
 ```json
-{ "approvalCriteria": { "recipientChecks": { "mustNotBeLiquidityPool": true } } }
+{
+  "recipientChecks": {
+    "mustBeEvmContract": false,
+    "mustNotBeEvmContract": false,
+    "mustBeLiquidityPool": false,
+    "mustNotBeLiquidityPool": true
+  }
+}
 ```
 
 Uses: contract-only integrations, keeping a token out of liquidity pools, requiring that a human (non-contract) initiates, and protocol-specific routing rules. Pair `mustNotBeLiquidityPool` with the reserved-address protection described on [Overrides](overrides.md) when you use forceful transfers.

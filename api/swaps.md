@@ -10,13 +10,15 @@ This page is also part of the [API reference](/api-reference).
 
 ## Example
 
+Swap 1 BADGE (`1000000ubadge`) for USDC (denom `ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8`) from bob's address:
+
 ```bash
 curl -X POST https://api.bitbadges.io/api/v0/swap/estimate \
-  -H "Content-Type: application/json" -H "x-api-key: <key>" \
+  -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
   -d '{
     "tokenIn": "amount:1000000,denom:ubadge",
-    "tokenOutDenom": "uusdc",
-    "chainIdsToAddresses": { "bitbadges-1": "bb1abc..." },
+    "tokenOutDenom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8",
+    "chainIdsToAddresses": { "bitbadges-1": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue" },
     "slippageTolerancePercent": 1
   }'
 ```
@@ -24,18 +26,48 @@ curl -X POST https://api.bitbadges.io/api/v0/swap/estimate \
 ```ts
 const res = await BitBadgesApi.estimateSwap({
   tokenIn: 'amount:1000000,denom:ubadge', // or '1000000ubadge'
-  tokenOutDenom: 'uusdc',
-  chainIdsToAddresses: { 'bitbadges-1': 'bb1abc...' },
+  tokenOutDenom: 'ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8',
+  chainIdsToAddresses: { 'bitbadges-1': 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue' },
   slippageTolerancePercent: 1
 });
 
-console.log(res.estimate.tokenOutAmount);
+console.log(res.estimate.tokenOutAmount); // "1834"
 console.log(res.estimate.skipGoMsgs);
 // Sign and broadcast the msgs to execute the swap
 ```
 
 ```bash
-bb swap estimate ubadge uusdc 1000000 --execute --browser
+bb swap estimate ubadge ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8 1000000 --execute --browser
+```
+
+A BitBadges-only route answers with one `multi_chain_msg` that wraps a `gamm.v1beta1.MsgSwapExactAmountIn` (synthesized from the SDK types):
+
+```json
+{
+  "success": true,
+  "estimate": {
+    "tokenOutAmount": "1834",
+    "tokenInAmount": "1000000",
+    "skipGoMsgs": [
+      {
+        "multi_chain_msg": {
+          "chain_id": "bitbadges-1",
+          "path": ["bitbadges-1"],
+          "msg": "{\"sender\":\"bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue\",\"routes\":[{\"pool_id\":\"1\",\"token_out_denom\":\"ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8\"}],\"token_in\":{\"denom\":\"ubadge\",\"amount\":\"1000000\"},\"token_out_min_amount\":\"1815\"}",
+          "msg_type_url": "/gamm.v1beta1.MsgSwapExactAmountIn"
+        }
+      }
+    ],
+    "assetPath": [
+      { "denom": "ubadge", "chainId": "bitbadges-1", "how": "genesis" },
+      { "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8", "chainId": "bitbadges-1", "how": "swap" }
+    ],
+    "doesSwap": true,
+    "lowLiquidityWarning": false,
+    "complianceNotPassedWarning": false,
+    "estimatedTime": 6
+  }
+}
 ```
 
 The older path `/api/v0/swaps/estimate` still works as a deprecated alias that forwards to the same handler.
@@ -88,13 +120,25 @@ interface iEstimateSwapSuccessResponse {
     rerouted?: boolean;
   };
 }
+
+interface SkipGoMessage {
+  multi_chain_msg?: { chain_id: string; path: string[]; msg: string; msg_type_url: string };
+  evm_tx?: {
+    chain_id: string;
+    to: string;
+    value: string;
+    data: string;
+    required_erc20_approvals?: { token: string; spender: string }[];
+    signer_address: string;
+  };
+}
 ```
 
 | Field | Description |
 | --- | --- |
 | `tokenOutAmount` | Estimated amount received. |
 | `tokenInAmount` | Amount swapped in. |
-| `skipGoMsgs` | Messages for execution. Each entry is either a `multi_chain_msg` (Cosmos chains) or an `evm_tx` (EVM chains). |
+| `skipGoMsgs` | Messages for execution. Each entry is either a `multi_chain_msg` (Cosmos chains) or an `evm_tx` (EVM chains). `msg` is a JSON string of the Cosmos message. |
 | `assetPath` | The path the asset takes: denom, chain ID, and how it moves (`genesis`, `swap`, `transfer`). |
 | `doesSwap` | `true` when a swap occurs, `false` for a pure transfer. |
 | `lowLiquidityWarning` | The pool has low liquidity. Execution may fail or slip. |
@@ -117,7 +161,7 @@ The API mirrors Skip Go where it can. Full integration is planned, but there are
 For a BitBadges-only route (one native swap on the BitBadges chain with no Skip Go rerouting, EVM transaction, IBC transfer leg, or WETH redirect), the CLI signs and broadcasts without you handling `skipGoMsgs`:
 
 ```bash
-bb swap estimate ubadge uusdc 1000000 --execute --browser
+bb swap estimate ubadge ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8 1000000 --execute --browser
 ```
 
 Cross-chain, EVM, and multi-hop routes are returned but not auto-executed. Sign the estimate in your wallet, broadcast the first transaction, then run `bb swap track`. See [CLI swap](../cli/swap.md).

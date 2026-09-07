@@ -49,9 +49,16 @@ Design tips:
 - Mint a non-transferable token when the criteria must persist and be verifiable by third parties or on-chain.
 - Simulate before going live (step 4).
 
+{% hint style="info" %}
+**Ask your agent.** With the MCP builder tools installed, paste one of these:
+
+- "Build a claim gated by 100 one-time codes, one use per address, and show me the claim JSON and the codes."
+- "Search the claim plugins for a way to gate by Discord server membership, then build the claim with it."
+{% endhint %}
+
 ## 2. Configure the claim
 
-A claim is an `iClaimBuilderDoc`. Each entry in `plugins` has this shape:
+A claim is stored as an `iClaimBuilderDoc`. You create one with `api.createClaims({ claims: [...] })`, whose entries are `CreateClaimRequest` objects. Each entry in `plugins` has this shape:
 
 ```ts
 interface IntegrationPluginParams<T extends ClaimIntegrationPluginType> {
@@ -70,6 +77,9 @@ To build the document yourself, start with a code-gated claim limited to 100 use
 ```ts
 import crypto from 'crypto';
 import CryptoJS from 'crypto-js';
+import { BigIntify, BitBadgesAPI, type CreateClaimRequest } from 'bitbadges';
+
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
 
 const seedCode = crypto.randomBytes(32).toString('hex');
 const numCodes = 100;
@@ -81,7 +91,9 @@ for (let i = 0; i < numCodes; i++) {
   codes.push(`${hash}-${i}`);
 }
 
-const claim: iClaimBuilderDoc = {
+const claim: CreateClaimRequest<bigint> = {
+  claimId: 'claim_demo_01',
+  metadata: { name: 'Demo codes', description: 'One code per person', image: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/claim.png' },
   plugins: [
     {
       pluginId: 'numUses',
@@ -98,15 +110,15 @@ const claim: iClaimBuilderDoc = {
       privateParams: { codes, seedCode }
     }
   ],
-  state: {},
-  action: { seedCode },
-  // ... other required fields (collectionId, createdBy, etc.)
+  seedCode
 };
+
+await api.createClaims({ claims: [claim] });
 ```
 
 Codes are one-time use by default. Distribute them however you want.
 
-Create the claim with `bb api claims create-claim --body @claim.json` or `BitBadgesApi.createClaim`. See [Claims API](../api/claims/endpoints.md) for the payload.
+Create the claim with `bb api claims create-claim --body @claim.json` or `api.createClaims`. See [Claims API](../api/claims/endpoints.md) for the payload.
 
 ## 3. Combine gates
 
@@ -115,7 +127,9 @@ Plugins pass together (AND) by default. `satisfyMethod` switches to OR or M-of-N
 Whitelist AND token ownership, with sign-in required:
 
 ```ts
-const claim: iClaimBuilderDoc = {
+const claim: CreateClaimRequest<bigint> = {
+  claimId: 'claim_demo_02',
+  metadata: { name: 'VIP holders', description: 'Allowlisted holders of Demo NFT 1', image: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/vip.png' },
   plugins: [
     {
       pluginId: 'numUses',
@@ -139,7 +153,7 @@ const claim: iClaimBuilderDoc = {
       privateParams: {
         list: {
           listId: '',
-          addresses: ['bb1abc...', 'bb1def...', 'bb1ghi...'],
+          addresses: ['bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', 'bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf'],
           whitelist: true
         }
       }
@@ -162,17 +176,16 @@ const claim: iClaimBuilderDoc = {
         }
       }
     }
-  ],
-  state: {},
-  action: {},
-  // ... other required fields
+  ]
 };
 ```
 
 Code OR whitelist, where the whitelist reads a dynamic store:
 
 ```ts
-const claim: iClaimBuilderDoc = {
+const claim: CreateClaimRequest<bigint> = {
+  claimId: 'claim_demo_03',
+  metadata: { name: 'Code or allowlist', description: 'Redeem a code, or be on the eligible list', image: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/either.png' },
   plugins: [
     {
       pluginId: 'numUses',
@@ -186,7 +199,7 @@ const claim: iClaimBuilderDoc = {
       instanceId: 'codes-path',
       version: '0',
       publicParams: { numCodes: 100 },
-      privateParams: { codes: [...], seedCode: '...' }
+      privateParams: { codes, seedCode } // from step 2
     },
     {
       pluginId: 'whitelist',
@@ -195,8 +208,8 @@ const claim: iClaimBuilderDoc = {
       publicParams: { maxUsesPerAddress: 1 },
       privateParams: {
         useDynamicStore: true,
-        dynamicDataId: 'my-store-id',
-        dataSecret: 'my-store-secret'
+        dynamicDataId: 'eligible-users',
+        dataSecret: process.env.STORE_SECRET!
       }
     }
   ],
@@ -205,18 +218,16 @@ const claim: iClaimBuilderDoc = {
     conditions: ['codes-path', 'whitelist-path']
     // numUses is always required and not included in OR conditions
   },
-  state: {},
-  action: {},
-  // ... other required fields
+  seedCode
 };
 ```
 
 Feed the dynamic store from anywhere that can send HTTP. Pre-evaluating users this way (for example with an AI model) avoids long waits during claim execution:
 
 ```ts
-const eligible = await yourAIModel.evaluate(userAddress);
+const eligible = await isEligible(userAddress); // your own model or rules
 if (eligible) {
-  await BitBadgesApi.performStoreAction({
+  await api.performStoreAction({
     dynamicDataId: 'eligible-users',
     dataSecret: process.env.STORE_SECRET,
     actionName: 'add',
@@ -228,7 +239,9 @@ if (eligible) {
 Time-windowed claim, open for one week:
 
 ```ts
-const claim: iClaimBuilderDoc = {
+const claim: CreateClaimRequest<bigint> = {
+  claimId: 'claim_demo_04',
+  metadata: { name: 'Launch week', description: 'Open for seven days', image: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/week.png' },
   plugins: [
     {
       pluginId: 'numUses',
@@ -243,8 +256,8 @@ const claim: iClaimBuilderDoc = {
       version: '0',
       publicParams: {
         transferTimes: [{
-          start: '1741564800000',  // March 10, 2025 00:00 UTC
-          end: '1742169600000'     // March 17, 2025 00:00 UTC
+          start: '1788739200000',  // 2026-09-06 00:00 UTC
+          end: '1789344000000'     // 2026-09-13 00:00 UTC
         }]
       },
       privateParams: {}
@@ -256,17 +269,16 @@ const claim: iClaimBuilderDoc = {
       publicParams: {},
       privateParams: {}
     }
-  ],
-  state: {},
-  action: {},
-  // ... other required fields
+  ]
 };
 ```
 
 Password-gated claim for backend auto-completion. No sign-in; only your server knows the password, and `approach: 'api'` marks it as API-driven:
 
 ```ts
-const claim: iClaimBuilderDoc = {
+const claim: CreateClaimRequest<bigint> = {
+  claimId: 'claim_demo_05',
+  metadata: { name: 'Backend grants', description: 'Completed by the server', image: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/server.png' },
   plugins: [
     {
       pluginId: 'numUses',
@@ -280,13 +292,10 @@ const claim: iClaimBuilderDoc = {
       instanceId: 'backend-password',
       version: '0',
       publicParams: {},
-      privateParams: { password: 'my-backend-secret-password' }
+      privateParams: { password: process.env.CLAIM_PASSWORD! }
     }
   ],
-  state: {},
-  action: {},
-  approach: 'api',
-  // ... other required fields
+  approach: 'api'
 };
 ```
 
@@ -295,35 +304,35 @@ const claim: iClaimBuilderDoc = {
 A simulation is instant and has no side effects. Complete for real only after it passes. The body is keyed by `instanceId`; `_expectedVersion` fails the call if the claim changed since you fetched it (`-1` overrides).
 
 ```bash
-bb api claims simulate-claim <claimId> bb1abc... \
+bb api claims simulate-claim claim_demo_01 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue \
   --body '{"_expectedVersion": 0, "codes-instance": {"code": "abc-123"}}'
 
-bb api claims complete-claim <claimId> bb1abc... \
+bb api claims complete-claim claim_demo_01 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue \
   --body '{"_expectedVersion": 0, "codes-instance": {"code": "abc-123"}}'
 
-# Poll the attempt after ~2 seconds
-bb api claims get-claim-attempt-status <claimAttemptId>
+# Poll the attempt after ~2 seconds, with the claimAttemptId that complete-claim returned
+bb api claims get-claim-attempt-status "$CLAIM_ATTEMPT_ID"
 ```
 
 ```ts
-const sim = await BitBadgesApi.simulateClaim(claimId, 'bb1...', {
+const sim = await api.simulateClaim('claim_demo_01', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', {
   _expectedVersion: 0,
   'codes-instance': { code: codes[0] }  // Keyed by instanceId
 });
 
-const res = await BitBadgesApi.completeClaim(claimId, 'bb1...', {
+const res = await api.completeClaim('claim_demo_01', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', {
   _expectedVersion: 0,
   'codes-instance': { code: codes[0] }
 });
 
 // Check status after ~2 seconds
-const status = await BitBadgesApi.getClaimAttemptStatus(res.claimAttemptId);
+const status = await api.getClaimAttemptStatus(res.claimAttemptId);
 ```
 
 For OR claims, `_specificInstanceIds` limits the attempt to one path:
 
 ```ts
-await BitBadgesApi.completeClaim(claimId, 'bb1...', {
+await api.completeClaim('claim_demo_03', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', {
   _expectedVersion: 0,
   _specificInstanceIds: ['codes-path'],  // Only attempt the code path
   'codes-path': { code: 'abc-123' }
@@ -333,9 +342,9 @@ await BitBadgesApi.completeClaim(claimId, 'bb1...', {
 Backend auto-completion for the password claim above completes on behalf of any address without that user signing in:
 
 ```ts
-await BitBadgesApi.completeClaim(claimId, userAddress, {
+await api.completeClaim('claim_demo_05', userAddress, {
   _expectedVersion: 0,
-  'backend-password': { password: 'my-backend-secret-password' }
+  'backend-password': { password: process.env.CLAIM_PASSWORD! }
 });
 ```
 
@@ -345,13 +354,13 @@ Check an address, or a specific attempt, before you grant access:
 
 ```ts
 // Has this address claimed?
-const result = await BitBadgesApi.checkClaimSuccess(claimId, 'bb1...');
+const result = await api.checkClaimSuccess('claim_demo_01', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue');
 if (result.successCount >= 1) {
   // Grant access, show content, etc.
 }
 
 // Did this attempt succeed?
-const status = await BitBadgesApi.getClaimAttemptStatus(claimAttemptId);
+const status = await api.getClaimAttemptStatus(res.claimAttemptId);
 if (status.success) {
   // This attempt succeeded
 }

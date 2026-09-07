@@ -15,7 +15,11 @@ import { BigIntify, Numberify, Stringify, NumberifyIfPossible, TokenMetadata, ty
 // export type NumberType = bigint | number | string;
 // export type JSPrimitiveNumberType = string | number;
 
-const stringified: TokenMetadata<string> = new TokenMetadata({ uri: 'ipfs://...', customData: '', tokenIds: [{ start: '1', end: '10' }] });
+const stringified: TokenMetadata<string> = new TokenMetadata({
+  uri: 'ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json',
+  customData: '',
+  tokenIds: [{ start: '1', end: '10' }]
+});
 const asBigInt = stringified.convert(BigIntify); // TokenMetadata<bigint>
 const asNumber = asBigInt.convert(Numberify); // TokenMetadata<number>, silently rounds above Number.MAX_SAFE_INTEGER
 const backToString = asNumber.convert(Stringify); // TokenMetadata<string>
@@ -85,7 +89,7 @@ balances.addBalances([{ amount: 1n, tokenIds: [{ start: 1n, end: 2n }], ownershi
 const first = balances.find((b) => b.amount === 3n);
 ```
 
-`BalanceArray` and `UintRangeArray` extend the native array. `find`, `map`, and `filter` work as usual, and each adds domain methods (`addBalances`, `sortAndMerge`, `search`, ...). Build one with `.From(...)` or `new` plus `push`. See [Balances](snippets/balances.md) and [Uint ranges](snippets/uint-ranges.md).
+`BalanceArray` and `UintRangeArray` extend the native array. `find`, `map`, and `filter` work as usual, and each adds domain methods (`addBalances`, `sortAndMerge`, `search`, and more). Build one with `.From(...)` or `new` plus `push`. See [Balances](snippets/balances.md) and [Uint ranges](snippets/uint-ranges.md).
 
 ## Proto types
 
@@ -96,7 +100,7 @@ const MsgCreateCollection = proto.tokenization.MsgCreateCollection;
 const MsgSend = proto.cosmos.bank.v1beta1.MsgSend;
 ```
 
-The chain speaks protobuf. The SDK generates a class for every proto message and exports them under the `proto` namespace, grouped by module (`proto.tokenization`, `proto.cosmos`, `proto.gamm`, `proto.ibc`, ...). Use them only when you build a raw transaction. For everything else use the SDK classes, which have the same names, carry `NumberType` generics, and expose `.toProto()` when a transaction needs them.
+The chain speaks protobuf. The SDK generates a class for every proto message and exports them under the `proto` namespace, grouped by module (`proto.tokenization`, `proto.cosmos`, `proto.gamm`, `proto.ibc`, and the rest). Use them only when you build a raw transaction. For everything else use the SDK classes, which have the same names, carry `NumberType` generics, and expose `.toProto()` when a transaction needs them.
 
 Some names exist in both places. If an import resolves to `bitbadges/dist/proto/...`, that is the proto class, not the SDK class. Prefer `proto.module.Name` so the intent is visible.
 
@@ -109,4 +113,4 @@ const protoMsg = proto.tokenization.MsgTransferTokens; // proto class: string nu
 
 - [Snippets](snippets/README.md)
 - [Transactions](transactions/README.md)
-- [TypeDoc reference](https://bitbadges.github.io/bitbadgesjs/)
+- [SDK reference](reference/README.md)

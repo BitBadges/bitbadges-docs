@@ -9,7 +9,7 @@ Creates a dynamic store: a per-address boolean map that approvals can check thro
 ## Example
 
 ```bash
-bb tx tokenization create-dynamic-store false --from <key> --chain-id bitbadges-1
+bb tx tokenization create-dynamic-store false --from alice --chain-id bitbadges-1
 ```
 
 ```ts
@@ -19,25 +19,30 @@ const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, '
 const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
 
 const msg = new MsgCreateDynamicStore({
-  creator: client.address,
+  creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
   defaultValue: false,
-  uri: 'https://example.com/store-metadata',
-  customData: JSON.stringify({ description: 'Member store', version: '1.0' })
+  uri: '',
+  customData: '{"name":"Demo Membership allowlist"}'
 });
 
 const result = await client.signAndBroadcast([msg]);
+console.log(result.txHash, result.success);
 ```
 
 ```json
 {
-  "creator": "bb1abc...",
+  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
   "defaultValue": false,
-  "uri": "https://example.com/store-metadata",
-  "customData": "{\"description\": \"Member store\", \"version\": \"1.0\"}"
+  "uri": "",
+  "customData": "{\"name\":\"Demo Membership allowlist\"}"
 }
 ```
 
-`uri` and `customData` are optional. Omit them for a bare store.
+`uri` and `customData` are optional. Pass empty strings for a bare store.
+
+{% hint style="info" %}
+Ask your agent: "Create a dynamic store that defaults to false, so I can allowlist addresses for my membership collection."
+{% endhint %}
 
 ## Fields
 

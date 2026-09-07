@@ -41,6 +41,8 @@ export type SanitizeReport = {
   cutSelfRefs: string[];
   /** Schema names referenced but never defined in the source document. */
   stubbedRefs: string[];
+  /** Count of GitHub Pages TypeDoc links repointed at the in-site SDK reference. */
+  repointedSdkLinks: number;
 };
 
 const HTTP_METHODS = new Set(['get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace']);
@@ -136,6 +138,41 @@ export function demoteHeadings(markdown: string): string {
     .join('\n');
 }
 
+/**
+ * The upstream spec links type and method docs at the retired GitHub Pages
+ * TypeDoc site. That reference now lives in this corpus under /sdk/reference,
+ * so rewrite the links at sync time; doing it here means the next upstream
+ * pull cannot reintroduce them.
+ *
+ * `interfaces/iGetAccountPayload`      -> `/sdk/reference/interfaces/i-get-account-payload`
+ * `classes/BitBadgesAPI.html#getaccount` -> `/sdk/reference/classes/bit-badges-api#getaccount`
+ */
+const GH_PAGES_TYPEDOC = /https?:\/\/bitbadges\.github\.io\/bitbadgesjs\/([a-z]+)\/([A-Za-z0-9_]+)(?:\.html)?(#[A-Za-z0-9_-]*)?/g;
+
+const kebab = (symbol: string): string =>
+  symbol
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
+    .toLowerCase();
+
+export function repointSdkLinks<T>(node: T): { value: T; count: number } {
+  let count = 0;
+  const walk = (value: unknown): unknown => {
+    if (typeof value === 'string') {
+      return value.replace(GH_PAGES_TYPEDOC, (_match, group: string, symbol: string, hash = '') => {
+        count += 1;
+        return `/sdk/reference/${group}/${kebab(symbol)}${hash}`;
+      });
+    }
+    if (Array.isArray(value)) return value.map(walk);
+    if (value && typeof value === 'object') {
+      return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, walk(v)]));
+    }
+    return value;
+  };
+  return { value: walk(node) as T, count };
+}
+
 export function sanitizeOpenApi<T extends Json>(
   input: T,
   options: SanitizeOptions = {},
@@ -154,7 +191,8 @@ export function sanitizeOpenApi<T extends Json>(
     }
   }
 
-  const spec = pruneInternal(input) as T;
+  const pruned = pruneInternal(input) as T;
+  const { value: spec, count: repointedSdkLinks } = repointSdkLinks(pruned);
 
   // A path item with every operation hidden would render as an empty entry.
   if (spec.paths) {
@@ -202,6 +240,7 @@ export function sanitizeOpenApi<T extends Json>(
       hiddenOperations: hiddenOperations.sort(),
       cutSelfRefs: cutSelfRefs.sort(),
       stubbedRefs: stubbedRefs.sort(),
+      repointedSdkLinks,
     },
   };
 }

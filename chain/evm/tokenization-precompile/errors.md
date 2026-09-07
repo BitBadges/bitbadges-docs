@@ -63,15 +63,26 @@ Defined in both `TokenizationJSONHelpers` and `TokenizationHelpers`.
 Basic:
 
 ```solidity
-function safeTransfer(...) external {
-    try precompile.transferTokens(json) returns (bool success) {
-        require(success, "Transfer failed");
-    } catch Error(string memory reason) {
-        // Precompile error with message
-        revert(reason);
-    } catch (bytes memory lowLevelData) {
-        // Low-level error - decode if possible
-        revert("Unknown precompile error");
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "./interfaces/ITokenizationPrecompile.sol";
+import "./libraries/TokenizationJSONHelpers.sol";
+
+contract SafeTransfer {
+    ITokenizationPrecompile constant precompile =
+        ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
+
+    function safeTransfer(string memory json) external {
+        try precompile.transferTokens(json) returns (bool success) {
+            require(success, "Transfer failed");
+        } catch Error(string memory reason) {
+            // Precompile error with message
+            revert(reason);
+        } catch (bytes memory lowLevelData) {
+            // Low-level error - decode if possible
+            revert("Unknown precompile error");
+        }
     }
 }
 ```
@@ -84,7 +95,7 @@ import "./libraries/TokenizationErrors.sol";
 contract MyContract {
     using TokenizationErrors for *;
 
-    function transfer(...) external {
+    function transfer(uint256 collectionId, string memory json) external {
         // Validate inputs before calling precompile
         TokenizationErrors.requireValidCollectionId(collectionId);
         TokenizationErrors.requireNonEmptyString(json, "JSON");
@@ -128,10 +139,10 @@ Cause: a wrong field name, or an empty address. Query requests accept `userAddre
 
 ```solidity
 // Wrong: "userAddress" is not a field of MsgSetDynamicStoreValue
-'{"storeId":"1","userAddress":"0x...","value":true}'
+'{"storeId":"1","userAddress":"0x0bc63cfe31d5218eb414b142c799e20964a54a1a","value":true}'
 
 // Correct: use "address"
-'{"storeId":"1","address":"0x...","value":true}'
+'{"storeId":"1","address":"0x0bc63cfe31d5218eb414b142c799e20964a54a1a","value":true}'
 
 // Or use the helper
 string memory json = TokenizationJSONHelpers.setDynamicStoreValueJSON(
@@ -153,13 +164,13 @@ Causes: invalid JSON syntax (missing quotes, commas, brackets); wrong field type
 | --- | --- | --- |
 | Numbers | `"123"` | `123` |
 | Booleans | `true` / `false` | `"true"` / `"false"` |
-| Addresses | `"0x742d..."` | `0x742d...` |
+| Addresses | `"0x0bc63cfe31d5218eb414b142c799e20964a54a1a"` | `0x0bc63cfe31d5218eb414b142c799e20964a54a1a` (unquoted) |
 | Ranges | `[{"start":"1","end":"100"}]` | `[{start:1,end:100}]` |
 
 ```json
 {
   "storeId": "123",
-  "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+  "address": "0x0bc63cfe31d5218eb414b142c799e20964a54a1a",
   "value": true
 }
 ```
@@ -274,9 +285,10 @@ Debugging:
 
 ```solidity
 // Test the EVM query manually before using in invariants
-(bool success, bytes memory result) = targetContract.staticcall(calldata);
+(bool success, bytes memory result) = targetContract.staticcall(callData);
 require(success, "EVM call failed");
-// Decode result and compare with expected
+uint256 value = abi.decode(result, (uint256));
+require(value >= 1, "challenge would fail: contract returned 0, expected >= 1");
 ```
 
 ### Dynamic store not found
@@ -306,8 +318,16 @@ precompile error [code=6]: query failed: approval "my-approval" does not exist
 Cause: deleting or referencing an approval ID that does not exist.
 
 ```solidity
-// Check if approval exists before deleting
-// Approvals are identified by approvalId string
+// Approvals are identified by approvalId string. Delete inside try/catch so a
+// missing approval does not revert the whole call.
+try precompile.deleteOutgoingApproval(
+    TokenizationJSONHelpers.deleteOutgoingApprovalJSON(collectionId, "my-approval")
+) returns (bool) {
+    // deleted
+} catch Error(string memory reason) {
+    // "precompile error [code=6]: query failed: approval \"my-approval\" does not exist"
+    emit ApprovalMissing(reason);
+}
 ```
 
 ### Invalid approval criteria
@@ -326,8 +346,16 @@ Log the JSON before sending:
 // Emit event with JSON for debugging (remove in production)
 event DebugJSON(string json);
 
-function debugTransfer(...) external {
-    string memory json = TokenizationJSONHelpers.transferTokensJSON(...);
+function debugTransfer(uint256 collectionId, address to, uint256 amount) external {
+    address[] memory recipients = new address[](1);
+    recipients[0] = to;
+    string memory json = TokenizationJSONHelpers.transferTokensJSON(
+        collectionId,
+        recipients,
+        amount,
+        TokenizationJSONHelpers.uintRangeToJson(1, 1),
+        TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER)
+    );
     emit DebugJSON(json);
     precompile.transferTokens(json);
 }
@@ -343,8 +371,8 @@ string memory rangeJson = TokenizationJSONHelpers.uintRangeToJson(1, 100);
 // Expected: [{"start":"1","end":"100"}]
 
 // Test address conversion
-string memory addrStr = TokenizationJSONHelpers.addressToString(msg.sender);
-// Expected: 0x742d35cc6634c0532925a3b844bc9e7595f0beb
+string memory addrStr = TokenizationJSONHelpers.addressToString(0x0bc63cfe31d5218eb414b142c799e20964a54a1a);
+// Expected: 0x0bc63cfe31d5218eb414b142c799e20964a54a1a
 ```
 
 Check that the precompile responds:
@@ -362,8 +390,8 @@ Convert the caller for a Cosmos-side check:
 
 ```solidity
 // Convert EVM address to bech32 for checking on Cosmos side
-string memory bech32 = precompile.convertEvmAddressToBech32(msg.sender);
-// Returns: bb1...
+string memory bech32 = precompile.convertEvmAddressToBech32(0x0bc63cfe31d5218eb414b142c799e20964a54a1a);
+// Returns: bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
 ```
 
 ## JSON quick reference
@@ -373,7 +401,7 @@ string memory bech32 = precompile.convertEvmAddressToBech32(msg.sender);
 | `uint256` | String | `"123456789"` |
 | `uint64` | String | `"18446744073709551615"` |
 | `bool` | Raw boolean | `true` or `false` |
-| `address` | Hex string or bech32 | `"0x742d35Cc..."` or `"bb1..."` |
+| `address` | Hex string or bech32 | `"0x0bc63cfe31d5218eb414b142c799e20964a54a1a"` or `"bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"` |
 | `string` | Quoted string | `"hello world"` |
 | `UintRange[]` | Object array | `[{"start":"1","end":"100"}]` |
 | `string[]` | String array | `["a","b","c"]` |

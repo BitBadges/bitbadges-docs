@@ -11,11 +11,15 @@ An address list is a named set of addresses used by the `fromListId`, `toListId`
 ```json
 {
   "listId": "vipMembers",
-  "addresses": ["bb1alice...", "bb1bob...", "bb1charlie..."],
+  "addresses": [
+    "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+    "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+    "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf"
+  ],
   "whitelist": true,
   "uri": "",
   "customData": "",
-  "createdBy": "bb1manager..."
+  "createdBy": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
 }
 ```
 
@@ -48,6 +52,10 @@ function checkAddress(address, list) {
 }
 ```
 
+{% hint style="info" %}
+Ask your agent: "Add a mint approval to collection 1 that only alice and bob can initiate. Pass the two addresses as an inline list." The MCP builder tools (`add_approval`) produce the objects on this page.
+{% endhint %}
+
 ## How it works
 
 There are three kinds of list ID. The chain resolves reserved and inline IDs on the fly with no storage; stored lists live in state.
@@ -71,7 +79,7 @@ Prefix an ID with `!` to flip `whitelist`. Use `!(...)` when the ID itself could
 ```js
 '!Mint';                    // everyone except Mint (same as AllWithoutMint)
 '!All';                     // no one
-'!bb1alice...:bb1bob...';   // everyone except alice and bob
+'!bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d:bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'; // everyone except alice and bob
 '!(AllWithoutMint)';        // only Mint
 '!vipMembers';              // everyone except the stored vipMembers list
 ```
@@ -83,8 +91,10 @@ The chain treats `"!x"` as inverted when the ID does not end with `)`, and `"!(x
 `"All"` and any blacklist include `"Mint"`. Because the Mint address has unlimited balance, a `fromListId` that includes it by accident lets anyone mint. Use `"Mint"` for mint approvals and `"!Mint"` or `"AllWithoutMint"` for everything else. See [Minting and supply](minting-and-supply.md).
 
 ```json
-{ "fromListId": "AllWithoutMint", "toListId": "All" }
-{ "fromListId": "Mint", "toListId": "All" }
+[
+  { "fromListId": "AllWithoutMint", "toListId": "All" },
+  { "fromListId": "Mint", "toListId": "All" }
+]
 ```
 
 ### Stored lists
@@ -114,8 +124,8 @@ Off-chain lists also exist in the BitBadges API. They are editable and deletable
 
 ```json
 {
-  "fromListId": "bb1alice...:bb1bob...:bb1charlie...",
-  "toListId": "AllWithoutMint:bb1blocked...",
+  "fromListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d:bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue:bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf",
+  "toListId": "AllWithoutMint:bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr",
   "initiatedByListId": "All"
 }
 ```
@@ -123,7 +133,7 @@ Off-chain lists also exist in the BitBadges API. They are editable and deletable
 ```json
 {
   "fromListId": "vipMembers",
-  "toListId": "!bb1banned...",
+  "toListId": "!bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr",
   "initiatedByListId": "All"
 }
 ```

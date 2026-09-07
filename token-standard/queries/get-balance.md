@@ -9,11 +9,11 @@ Returns the `UserBalanceStore` for one address in one collection: balances, outg
 ## Example
 
 ```bash
-bb query tokenization balance 1 bb1abc...
+bb query tokenization balance 1 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue
 ```
 
 ```bash
-curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_balance/1/bb1abc...
+curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_balance/1/bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue
 ```
 
 ## Request
@@ -31,8 +31,8 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_balance/
     "balances": [
       {
         "amount": "1",
-        "tokenIds": [{ "start": "1", "end": "1" }],
-        "ownershipTimes": [{ "start": "1672531200000", "end": "18446744073709551615" }]
+        "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+        "tokenIds": [{ "start": "1", "end": "1" }]
       }
     ],
     "outgoingApprovals": [],

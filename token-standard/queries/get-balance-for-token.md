@@ -9,13 +9,13 @@ Returns a single amount: how much of one token ID an address owns at one timesta
 ## Example
 
 ```bash
-bb query tokenization balance-for-token 1 bb1abc... 5
-bb query tokenization balance-for-token 1 bb1abc... 5 1735689600000
+bb query tokenization balance-for-token 1 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue 1
+bb query tokenization balance-for-token 1 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue 1 1791331200000
 ```
 
 ```bash
-curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_balance_for_token/1/bb1abc.../5
-curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_balance_for_token/1/bb1abc.../5?time=1735689600000"
+curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_balance_for_token/1/bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue/1
+curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_balance_for_token/1/bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue/1?time=1791331200000"
 ```
 
 ## Request
@@ -30,9 +30,7 @@ curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_balance
 ## Response
 
 ```json
-{
-  "balance": "3"
-}
+{ "balance": "1" }
 ```
 
 | Field | Type | Description |

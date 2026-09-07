@@ -27,4 +27,10 @@ export {
 export { filePathToRoute, resolveAssetPath, resolveDocLink, routeToCandidates } from './paths';
 export { loadRedirects, parseRedirects, type Redirect } from './redirects';
 export { flattenNav, parseSummary, type NavGroup, type NavNode } from './summary';
-export { activeTabIndex, API_REFERENCE_ROUTE, tabsFromNav, type NavTab } from './tabs';
+export {
+  activeTabIndex,
+  API_REFERENCE_ROUTE,
+  CHAIN_API_REFERENCE_ROUTE,
+  tabsFromNav,
+  type NavTab,
+} from './tabs';

@@ -14,6 +14,10 @@ curl https://lcd.bitbadges.io/osmosis/gamm/v1beta1/pools/1/total_pool_liquidity
 {"liquidity":[{"denom":"badgeslp:64:utoken","amount":"800"},{"denom":"ubadge","amount":"12523362993"}]}
 ```
 
+{% hint style="info" %}
+Ask your agent: "Show me pool 1 on mainnet: its assets, total shares, and the spot price of badgeslp:64:utoken in BADGE." The `bb pools show 1` and `bb price` commands read the queries on this page.
+{% endhint %}
+
 ## All queries
 
 | Query | LCD path | Status | Returns |
@@ -88,7 +92,7 @@ curl https://lcd.bitbadges.io/osmosis/gamm/v1beta1/total_liquidity
 ```
 
 ```json
-{"liquidity":[{"denom":"badges:49:chaosnet","amount":"761389759510602"},{"denom":"badgeslp:64:utoken","amount":"800"},{"denom":"badgeslp:73:cubadge","amount":"6991373129902"},{"denom":"ibc/A4DB47A9...","amount":"..."}]}
+{"liquidity":[{"denom":"badges:49:chaosnet","amount":"761389759510602"},{"denom":"badgeslp:64:utoken","amount":"800"},{"denom":"badgeslp:73:cubadge","amount":"6991373129902"},{"denom":"ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701","amount":"1169539"},{"denom":"ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8","amount":"4655"},{"denom":"ibc/ED07A3391A112B175915CD8FAF43A2DA8E4790EDE12566649D0C2F97716B8518","amount":"31960810"},{"denom":"ibc/F082B65C88E4B6D5EF1DB243CDA1D331D002759E938A0F5CD3FFDC5D53B3E349","amount":"14765962"},{"denom":"ubadge","amount":"63007504431337"}]}
 ```
 
 No request fields. Response: `liquidity` (`Coin[]`) summed across all pools.
@@ -139,8 +143,8 @@ gRPC only: `gamm.v1beta1.Query/CalcJoinPoolNoSwapShares`. Simulates a proportion
 Response: `tokens_out` (`Coin[]`, the deposit actually consumed) and `shares_out` (Int).
 
 ```bash
-grpcurl -plaintext -d '{"pool_id":"1","tokens_in":[{"denom":"ubadge","amount":"1000000"},{"denom":"badgeslp:64:utoken","amount":"1"}]}' \
-  <node>:9090 gamm.v1beta1.Query/CalcJoinPoolNoSwapShares
+grpcurl -d '{"pool_id":"1","tokens_in":[{"denom":"ubadge","amount":"1000000"},{"denom":"badgeslp:64:utoken","amount":"1"}]}' \
+  grpc.bitbadges.io:443 gamm.v1beta1.Query/CalcJoinPoolNoSwapShares
 ```
 
 ## CalcJoinPoolShares

@@ -128,7 +128,7 @@ export function TransferButton({ adapter }: { adapter: WalletAdapter }) {
       transfers: [
         {
           from: client.address,
-          toAddresses: ['bb1...'], // recipient
+          toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'], // recipient
           balances: [
             {
               amount: '1',

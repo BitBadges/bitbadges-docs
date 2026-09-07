@@ -9,18 +9,41 @@ This section is for teams building their own Cosmos SDK chain with `x/tokenizati
 ```go
 // app.go: the pieces every integration touches
 app.TokenizationKeeper = tokenizationkeeper.NewKeeper(
-    appCodec, keys[tokenizationtypes.StoreKey],
-    app.AccountKeeper, app.BankKeeper, app.SendManagerKeeper, // ... other keepers
+    appCodec,
+    runtime.NewKVStoreService(keys[tokenizationtypes.StoreKey]),
+    logger,
+    authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+    app.BankKeeper,
+    app.AccountKeeper,
+    app.DistrKeeper,
+    app.SendManagerKeeper,
+    func() *ibckeeper.Keeper { return app.IBCKeeper },
 )
+app.TokenizationKeeper.SetGammKeeper(app.GammKeeper) // optional
+app.TokenizationKeeper.SetEVMKeeper(app.EVMKeeper)   // optional
 
 app.TokenizationKeeper.RegisterCustomApprovalCriteriaChecker(myCriteriaFactory)
 app.TokenizationKeeper.RegisterCustomGlobalTransferChecker(myTransferFactory)
 app.TokenizationKeeper.RegisterCustomCollectionVerifier(myVerifier)
 
-anteHandler, _ := sdk.ChainAnteDecorators(
-    // ... standard decorators ...
+anteHandler, err := sdk.ChainAnteDecorators(
+    ante.NewSetUpContextDecorator(),
+    ante.NewValidateBasicDecorator(),
+    ante.NewTxTimeoutHeightDecorator(),
+    ante.NewValidateMemoDecorator(app.AccountKeeper),
+    ante.NewConsumeGasForTxSizeDecorator(app.AccountKeeper),
+    ante.NewDeductFeeDecorator(app.AccountKeeper, app.BankKeeper, app.FeeGrantKeeper, nil),
+    ante.NewSetPubKeyDecorator(app.AccountKeeper),
+    ante.NewValidateSigCountDecorator(app.AccountKeeper),
+    ante.NewSigGasConsumeDecorator(app.AccountKeeper, ante.DefaultSigVerificationGasConsumer),
+    ante.NewSigVerificationDecorator(app.AccountKeeper, txConfig.SignModeHandler()),
     NewComplianceAnteDecorator(app.TokenizationKeeper, requirements),
+    ante.NewIncrementSequenceDecorator(app.AccountKeeper),
 )
+if err != nil {
+    panic(err)
+}
+app.SetAnteHandler(anteHandler)
 ```
 
 ## What the module needs from an app
@@ -30,7 +53,7 @@ anteHandler, _ := sdk.ChainAnteDecorators(
 - IBC wiring only if you want wrapper paths to reach other chains, backed minting against IBC denoms, the transfer tokens hook, or interchain queries. See [IBC and x/bank compatibility](../ibc/README.md).
 - Optional EVM wiring for the precompiles. See [EVM](../../chain/evm/README.md).
 
-The source of truth is [bitbadgeschain](https://github.com/bitbadges/bitbadgeschain) `app/` and `x/tokenization`. Copy the wiring from there rather than from memory; keeper constructor signatures change between versions.
+The source of truth is [bitbadgeschain](https://github.com/bitbadges/bitbadgeschain) `app/` and `x/tokenization`. The BitBadges app itself wires the keeper through depinject in `app_config.go`; the explicit `NewKeeper` call above matches `x/tokenization/keeper/keeper.go`. Copy the wiring from the repository rather than from memory; keeper constructor signatures change between versions.
 
 ## Patterns
 

@@ -28,13 +28,14 @@ const unhandled = getUnhandledCollectionApprovals(collection.collectionApprovals
 const sameThing = collection.getUnhandledCollectionApprovals();
 
 // User level: the same question for one user's outgoing and incoming approvals
-const balanceDoc = await api.getBalanceByAddress('1', 'bb1...');
-const unhandledOut = getUnhandledUserOutgoingApprovals(balanceDoc.outgoingApprovals, 'bb1...', true);
-const unhandledIn = getUnhandledUserIncomingApprovals(balanceDoc.incomingApprovals, 'bb1...', true);
+const BOB = 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue';
+const balanceDoc = await api.getBalanceByAddress('1', BOB);
+const unhandledOut = getUnhandledUserOutgoingApprovals(balanceDoc.outgoingApprovals, BOB, true);
+const unhandledIn = getUnhandledUserIncomingApprovals(balanceDoc.incomingApprovals, BOB, true);
 
 // Add the implicit defaults before you evaluate a user's approvals
-const withDefaults = appendSelfInitiatedOutgoingApproval(balanceDoc.outgoingApprovals, 'bb1...');
-const incomingWithDefaults = appendSelfInitiatedIncomingApproval(balanceDoc.incomingApprovals, 'bb1...');
+const withDefaults = appendSelfInitiatedOutgoingApproval(balanceDoc.outgoingApprovals, BOB);
+const incomingWithDefaults = appendSelfInitiatedIncomingApproval(balanceDoc.incomingApprovals, BOB);
 ```
 
 ## Signatures

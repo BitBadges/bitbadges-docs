@@ -20,4 +20,4 @@ Working examples for the SDK helper classes and functions. Each snippet imports 
 | [Interpret a transaction](interpret-transaction.md) | `interpretTransaction`: a plain-language report of an unsigned `MsgUniversalUpdateCollection` |
 | [Simulation balance diffs](simulation-balance-diffs.md) | `simulateAndReview`, `parseSimulationEvents`, `calculateNetChanges` |
 
-Concepts behind these helpers live in the [Token standard](../../token-standard/concepts/README.md). The generated API is at the [TypeDoc reference](https://bitbadges.github.io/bitbadgesjs/).
+Concepts behind these helpers live in the [Token standard](../../token-standard/concepts/README.md). The generated API is at the [SDK reference](../reference/README.md).

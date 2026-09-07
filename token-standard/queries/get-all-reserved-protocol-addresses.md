@@ -24,7 +24,11 @@ No parameters.
 
 ```json
 {
-  "addresses": ["bb1wrapperpath...", "bb1backedpath...", "bb1protocol..."]
+  "addresses": [
+    "bb10smfkeymfghj4j5pv5qkfx8zjmm9n6u9kv540qrw7am6tswx6lzswcyh4z",
+    "bb126j5d7en78tfjtxdusqgn62cm8sh4c3gvr2nlwj6yknfvsrhcajqu523q7",
+    "bb12mdruht2nfqfgkjt2mgtfqn0e02s5vmqduyv3plskx67fv9gsq9qlrxrxv"
+  ]
 }
 ```
 
