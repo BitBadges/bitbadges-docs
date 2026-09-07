@@ -150,6 +150,7 @@
 ## API
 
 * [BitBadges API](api/README.md)
+* [OpenAPI reference](/api-reference)
 * [Pagination and views](api/pagination-and-views.md)
 * [Swaps](api/swaps.md)
 * [Claims](api/claims/README.md)
@@ -163,7 +164,6 @@
   * [Verification](api/sign-in/verification.md)
   * [Frameworks](api/sign-in/frameworks.md)
 * [Self-hosting the indexer](api/self-hosting.md)
-* [API reference](https://docs.bitbadges.io/api-reference)
 
 ## SDK & CLI
 

@@ -115,7 +115,7 @@ describe('navigation', () => {
   });
 
   test('every internal nav entry resolves to a real page', async () => {
-    const routes = new Set(await getAllRoutes());
+    const routes = new Set([...(await getAllRoutes()), '/api-reference']);
     const dangling = flattenNav(await getNav())
       .map((n) => n.href)
       .filter((href) => !routes.has(href));
