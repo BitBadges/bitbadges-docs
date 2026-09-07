@@ -26,16 +26,22 @@ function ancestryOf(groups: NavGroup[], pathname: string): Set<string> {
   return open;
 }
 
-function NavItem({ node, depth, expanded, onToggle, pathname }: {
+function NavItem({ node, depth, expanded, onToggle, pathname, tabRoot }: {
   node: NavNode;
   depth: number;
   expanded: Set<string>;
   onToggle: (href: string) => void;
   pathname: string;
+  /** First path segment the active tab owns, so a link out of it can be marked. */
+  tabRoot?: string;
 }) {
   const hasChildren = node.children.length > 0;
   const isOpen = expanded.has(node.href);
   const isCurrent = !node.external && node.href === pathname;
+  // A link out of this tab (x/tokenization under Chain > Modules) carries the
+  // same arrow as an external link, because it takes the reader somewhere
+  // else, but it stays in this window.
+  const leavesTab = !node.external && tabRoot !== undefined && !node.href.startsWith(tabRoot);
 
   return (
     <li>
@@ -50,6 +56,11 @@ function NavItem({ node, depth, expanded, onToggle, pathname }: {
             <span>{node.title}</span>
             <ExternalIcon className="h-3 w-3 opacity-55" />
           </a>
+        ) : leavesTab ? (
+          <Link href={node.href} className="nav-link nav-link--external flex-1">
+            <span>{node.title}</span>
+            <ExternalIcon className="h-3 w-3 opacity-55" />
+          </Link>
         ) : (
           <Link href={node.href} aria-current={isCurrent ? 'page' : undefined} className="nav-link flex-1 truncate">
             {node.title}
@@ -79,6 +90,7 @@ function NavItem({ node, depth, expanded, onToggle, pathname }: {
               expanded={expanded}
               onToggle={onToggle}
               pathname={pathname}
+              tabRoot={tabRoot}
             />
           ))}
         </ul>
@@ -90,7 +102,9 @@ function NavItem({ node, depth, expanded, onToggle, pathname }: {
 /** The active tab's groups only — each tab reads as its own book. */
 export function Sidebar({ tabs, onNavigate }: { tabs: NavTab[]; onNavigate?: () => void }) {
   const pathname = usePathname();
-  const groups = tabs[activeTabIndex(tabs, pathname)]?.groups ?? [];
+  const tab = tabs[activeTabIndex(tabs, pathname)];
+  const groups = tab?.groups ?? [];
+  const tabRoot = tab?.href ? `/${tab.href.split('/').filter(Boolean)[0] ?? ''}` : undefined;
   const ancestry = useMemo(() => ancestryOf(groups, pathname), [groups, pathname]);
   const [expanded, setExpanded] = useState<Set<string>>(ancestry);
 
@@ -126,6 +140,7 @@ export function Sidebar({ tabs, onNavigate }: { tabs: NavTab[]; onNavigate?: () 
                 expanded={expanded}
                 onToggle={toggle}
                 pathname={pathname}
+                tabRoot={tabRoot}
               />
             ))}
           </ul>

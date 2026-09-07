@@ -9,7 +9,14 @@ import { useEffect } from 'react';
  * folded lines included — never the text that happens to be visible.
  */
 export function codeSourceFor(button: Element | null): string | null {
-  return button?.closest('figure')?.getAttribute('data-code-source') ?? null;
+  const figure = button?.closest('figure');
+  if (!figure) return null;
+  // Copy what the reader is looking at. Both views are complete: the collapsed
+  // one is the same JSON document with its boilerplate members removed.
+  if (figure.getAttribute('data-view') === 'collapsed') {
+    return figure.getAttribute('data-code-collapsed') ?? figure.getAttribute('data-code-source');
+  }
+  return figure.getAttribute('data-code-source');
 }
 
 export type CodeView = 'collapsed' | 'full';
@@ -21,12 +28,6 @@ export function setCodeView(figure: Element, view: CodeView) {
   figure.setAttribute('data-view', view);
   for (const tab of figure.querySelectorAll<HTMLButtonElement>('button[data-view-tab]')) {
     tab.setAttribute('aria-selected', String(tab.getAttribute('data-view-tab') === view));
-  }
-  // The folded lines are rendered but clipped while collapsed, so without
-  // this they would be read out alongside the elision row.
-  for (const lines of figure.querySelectorAll('.code-fold-lines')) {
-    if (view === 'full') lines.removeAttribute('aria-hidden');
-    else lines.setAttribute('aria-hidden', 'true');
   }
 }
 

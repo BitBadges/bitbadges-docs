@@ -19,10 +19,10 @@ import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { visit } from 'unist-util-visit';
 import { toString as hastToString } from 'hast-util-to-string';
-import type { Root as HastRoot, Element } from 'hast';
+import type { Element, ElementContent, Root as HastRoot } from 'hast';
 import type { Root as MdastRoot } from 'mdast';
 
-import { applyCodeFolds, deserializeRanges, foldRangesFor, serializeRanges } from './fold';
+import { collapsedSourceFor } from './fold';
 import { rehypeMermaid } from './mermaid';
 import { rehypeThemedImages } from './themedImages';
 import { stripWidgets } from './widgets';
@@ -242,7 +242,63 @@ function rehypeContentChrome() {
       delete code.properties?.['data-meta'];
       delete code.properties?.dataMeta;
       const source = hastToString(code).replace(/\n$/, '');
-      const folds = foldRangesFor(lang, meta, source);
+      const collapsed = collapsedSourceFor(lang, meta, source);
+
+      // Two complete listings rather than one with pieces spliced out: the
+      // collapsed JSON is then a document in its own right, and there is
+      // nothing to mark where a member was dropped.
+      // The wrapper carries the view name because Shiki replaces the `pre` it
+      // highlights, and any attribute set on that `pre` goes with it.
+      const view = (text: string, name: 'collapsed' | 'full'): Element => ({
+        type: 'element',
+        tagName: 'div',
+        properties: { 'data-code-view': name },
+        children: [
+          {
+            type: 'element',
+            tagName: 'pre',
+            properties: {},
+            children: [
+              {
+                type: 'element',
+                tagName: 'code',
+                properties: { className: [`language-${lang}`] },
+                children: [{ type: 'text', value: `${text}\n` }],
+              },
+            ],
+          },
+        ],
+      });
+
+      const caption: ElementContent[] = [
+        { type: 'element', tagName: 'span', properties: {}, children: [{ type: 'text', value: lang }] },
+      ];
+      if (collapsed !== null) {
+        const tab = (name: 'collapsed' | 'full', label: string): Element => ({
+          type: 'element',
+          tagName: 'button',
+          properties: {
+            type: 'button',
+            role: 'tab',
+            className: ['code-view-tab'],
+            'data-view-tab': name,
+            'aria-selected': name === 'collapsed' ? 'true' : 'false',
+          },
+          children: [{ type: 'text', value: label }],
+        });
+        caption.push({
+          type: 'element',
+          tagName: 'span',
+          properties: { className: ['code-view'], role: 'tablist', 'aria-label': 'Code view' },
+          children: [tab('collapsed', 'Collapsed'), tab('full', 'Full')],
+        });
+      }
+      caption.push({
+        type: 'element',
+        tagName: 'button',
+        properties: { type: 'button', className: ['copy-button'], 'data-copy': '' },
+        children: [{ type: 'text', value: 'Copy' }],
+      });
 
       parent.children[index] = {
         type: 'element',
@@ -250,97 +306,16 @@ function rehypeContentChrome() {
         properties: {
           'data-code': '',
           'data-code-source': source,
-          ...(folds.length ? { 'data-fold': serializeRanges(folds) } : {}),
+          ...(collapsed !== null ? { 'data-code-collapsed': collapsed, 'data-view': 'collapsed' } : {}),
         },
         children: [
-          {
-            type: 'element',
-            tagName: 'figcaption',
-            properties: {},
-            children: [
-              { type: 'element', tagName: 'span', properties: {}, children: [{ type: 'text', value: lang }] },
-              {
-                type: 'element',
-                tagName: 'button',
-                properties: { type: 'button', className: ['copy-button'], 'data-copy': '' },
-                children: [{ type: 'text', value: 'Copy' }],
-              },
-            ],
-          },
-          node,
+          { type: 'element', tagName: 'figcaption', properties: {}, children: caption },
+          ...(collapsed !== null ? [view(collapsed, 'collapsed'), view(source, 'full')] : [node]),
         ],
       };
       return 'skip';
     });
   };
-}
-
-/**
- * Collapse the line ranges a figure asked for, once Shiki has split the code
- * into `span.line` elements. Runs after Shiki because the ranges are computed
- * from the raw source (before highlighting) but applied to the highlighted
- * output.
- */
-function rehypeCodeFolds() {
-  return (tree: HastRoot) => {
-    visit(tree, 'element', (figure: Element) => {
-      if (figure.tagName !== 'figure') return;
-      const spec = figure.properties?.['data-fold'] ?? figure.properties?.dataFold;
-      if (typeof spec !== 'string') return;
-      delete figure.properties['data-fold'];
-      delete figure.properties.dataFold;
-
-      // Shiki swaps the `pre` for a root fragment, so look through the subtree.
-      let code: Element | undefined;
-      visit(figure, 'element', (node: Element) => {
-        if (!code && node.tagName === 'code') code = node;
-      });
-      if (!code) return;
-
-      const folds = applyCodeFolds(code, deserializeRanges(spec));
-      if (folds === 0) return;
-      figure.properties['data-folds'] = String(folds);
-      figure.properties['data-view'] = 'collapsed';
-      addViewTabs(figure);
-    });
-  };
-}
-
-/**
- * Put the Collapsed / Full view tabs between the language label and the copy
- * button.
- *
- * Only figures that actually folded get them, which is why they are added
- * here rather than in the chrome pass: a `fold=` range can fall outside the
- * block and collapse to nothing. `CopyButtons` drives them; the server
- * renders the collapsed view selected.
- */
-function addViewTabs(figure: Element) {
-  const caption = figure.children.find(
-    (child): child is Element => child.type === 'element' && child.tagName === 'figcaption',
-  );
-  if (!caption) return;
-  const tab = (view: 'collapsed' | 'full', label: string): Element => ({
-    type: 'element',
-    tagName: 'button',
-    properties: {
-      type: 'button',
-      role: 'tab',
-      className: ['code-view-tab'],
-      'data-view-tab': view,
-      'aria-selected': view === 'collapsed' ? 'true' : 'false',
-    },
-    children: [{ type: 'text', value: label }],
-  });
-  const copyIndex = caption.children.findIndex(
-    (child) => child.type === 'element' && 'data-copy' in (child.properties ?? {}),
-  );
-  caption.children.splice(copyIndex === -1 ? caption.children.length : copyIndex, 0, {
-    type: 'element',
-    tagName: 'span',
-    properties: { className: ['code-view'], role: 'tablist', 'aria-label': 'Code view' },
-    children: [tab('collapsed', 'Collapsed'), tab('full', 'Full')],
-  });
 }
 
 /**
@@ -427,7 +402,6 @@ export async function renderDoc(source: string, options: RenderOptions): Promise
         },
       ],
     })
-    .use(rehypeCodeFolds)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(gitbookToDirectives(content));
 

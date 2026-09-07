@@ -1,25 +1,29 @@
 /**
- * Collapsible line ranges in code blocks.
+ * The collapsed view of a code block.
  *
- * Authors mark ranges on the fence (` ```json fold=12-40,55-80 `); long
- * `json`/`jsonc` blocks fold their boilerplate automatically unless `nofold`
- * is present. A folded figure has two views, switched by tabs in its caption:
- * `collapsed` hides every marked run behind a single quiet elision row, and
- * `full` shows the source untouched. The whole block switches at once, so the
- * listing never breaks into panels. The full source stays in the DOM and on
- * the copy attribute in both views.
+ * A long `json` block hides its boilerplate; a fence may mark line ranges with
+ * `fold=12-40,55-80`; `nofold` opts out. The result is a second, shorter
+ * source string rendered beside the full one and chosen by the Collapsed and
+ * Full tabs in the figure's caption. Nothing is spliced into the listing, so
+ * there are no markers where something was hidden.
+ *
+ * For JSON the collapsed view is pruned structurally, whole members at a time,
+ * and is verified to parse before it is used. A reader can copy it and send it
+ * as-is: it is a valid document with the same values, just fewer keys.
  */
-import type { Element, ElementContent } from 'hast';
 
 export type FoldRange = [number, number];
 
 export type FoldMeta = { ranges: FoldRange[] | undefined; nofold: boolean };
 
-const AUTO_FOLD_LANGS = new Set(['json', 'jsonc']);
-const AUTO_FOLD_MIN_LINES = 41;
-const AUTO_FOLD_MIN_RUN = 6;
-const AUTO_FOLD_EDGE = 2;
+const PRUNE_LANGS = new Set(['json', 'jsonc']);
+const PRUNE_MIN_LINES = 24;
 
+/**
+ * Keys whose value carries meaning even when it looks like boilerplate. An
+ * empty `uri` says the metadata is inline; an `approvalId` of `""` is a real
+ * choice a reader has to see.
+ */
 const PROTECTED_KEYS = new Set([
   'approvalId',
   'collectionId',
@@ -28,6 +32,8 @@ const PROTECTED_KEYS = new Set([
   'initiatedByListId',
   'amount',
   'uri',
+  'creator',
+  'manager',
 ]);
 
 /** Read `fold=` and `nofold` off a fence info string (the part after the language). */
@@ -44,43 +50,135 @@ export function parseFoldMeta(meta: string): FoldMeta {
   return { ranges, nofold };
 }
 
-/** Value-only patterns that carry no information a reader needs to see. */
-const BOILERPLATE_VALUE = /^(?:"([^"]*)"\s*:\s*)?(?:\[\]|\{\}|false|"0"|""|0)$/;
-const BARE_BRACKETS = /^[\[\]{}]+$/;
-const FULL_RANGE = /"18446744073709551615"/;
-const KEY = /^"([^"]*)"\s*:/;
+/** A value that tells a reader nothing: an empty container, a zero, a false, an empty string. */
+function isBoilerplateValue(value: unknown): boolean {
+  if (value === false || value === 0 || value === '' || value === '0') return true;
+  if (Array.isArray(value)) return value.length === 0;
+  if (value && typeof value === 'object') return Object.keys(value).length === 0;
+  return false;
+}
 
-function isBoilerplate(raw: string): boolean {
-  const line = raw.trim().replace(/,$/, '');
-  const key = KEY.exec(line)?.[1];
-  if (key && PROTECTED_KEYS.has(key)) return false;
-  return BOILERPLATE_VALUE.test(line) || BARE_BRACKETS.test(line) || FULL_RANGE.test(line);
+/** Depth-first list of the paths worth hiding, deepest first so nested prunes settle before their parents. */
+function boilerplatePaths(value: unknown, at: string[] = [], out: string[][] = []): string[][] {
+  if (!value || typeof value !== 'object') return out;
+  if (Array.isArray(value)) {
+    value.forEach((item, i) => boilerplatePaths(item, [...at, String(i)], out));
+    return out;
+  }
+  for (const [key, child] of Object.entries(value)) {
+    const path = [...at, key];
+    if (!PROTECTED_KEYS.has(key) && isBoilerplateValue(child)) out.push(path);
+    else boilerplatePaths(child, path, out);
+  }
+  return out;
+}
+
+/** The line range (0-based, inclusive) of one member inside the source, or null when it is written inline. */
+function memberLines(lines: string[], key: string, from: number, to: number): [number, number] | null {
+  const needle = `"${key}"`;
+  for (let i = from; i <= to; i++) {
+    const trimmed = lines[i].trim();
+    if (!trimmed.startsWith(needle)) continue;
+    // An inline member (`"a": 1, "b": 2` on one line) has no line of its own.
+    if (!/^"[^"]*"\s*:/.test(trimmed)) continue;
+    if (trimmed.replace(/,$/, '').includes('}') || trimmed.replace(/,$/, '').includes(']')) {
+      const opens = (trimmed.match(/[[{]/g) ?? []).length;
+      const closes = (trimmed.match(/[\]}]/g) ?? []).length;
+      if (opens === closes) return [i, i];
+    }
+    let depth = 0;
+    for (let j = i; j <= to; j++) {
+      for (const ch of lines[j]) {
+        if (ch === '{' || ch === '[') depth++;
+        else if (ch === '}' || ch === ']') depth--;
+      }
+      if (depth <= 0) return [i, j];
+    }
+    return [i, to];
+  }
+  return null;
+}
+
+/** Drop the trailing comma from the last member of any object or array it now ends. */
+function fixTrailingCommas(lines: string[]): string[] {
+  const out = [...lines];
+  for (let i = 0; i < out.length; i++) {
+    if (!out[i].trimEnd().endsWith(',')) continue;
+    const next = out.slice(i + 1).find((line) => line.trim().length > 0);
+    if (next && /^[}\]]/.test(next.trim())) out[i] = out[i].trimEnd().replace(/,$/, '');
+  }
+  return out;
 }
 
 /**
- * Ranges (1-based, inclusive) of boilerplate runs worth hiding in a long JSON
- * block. Blocks of 40 lines or fewer, runs shorter than 6 lines, the first
- * and last two lines, and lines keyed by an identifier a reader needs are all
- * left visible.
+ * The same JSON document with its boilerplate members removed.
+ *
+ * Members are cut whole, out of the original text, so every line that survives
+ * keeps its indentation and its inline style. The result is parsed before it
+ * is returned: anything that would not round-trip is discarded and the block
+ * simply has no collapsed view.
+ *
+ * Returns null when the source is not JSON, or when nothing was worth hiding.
+ *
+ * One pass is not enough: dropping every member of a nested object leaves the
+ * parent behind as an empty `{}`, which is exactly the noise this removes. So
+ * the pass repeats until nothing more falls away.
  */
-export function autoFoldRanges(lines: string[]): FoldRange[] {
-  if (lines.length < AUTO_FOLD_MIN_LINES) return [];
-  const ranges: FoldRange[] = [];
-  let runStart = -1;
-  const flush = (end: number) => {
-    if (runStart !== -1 && end - runStart + 1 >= AUTO_FOLD_MIN_RUN) ranges.push([runStart + 1, end + 1]);
-    runStart = -1;
-  };
-  for (let i = 0; i < lines.length; i++) {
-    const foldable = i >= AUTO_FOLD_EDGE && i < lines.length - AUTO_FOLD_EDGE && isBoilerplate(lines[i]);
-    if (foldable) {
-      if (runStart === -1) runStart = i;
-    } else {
-      flush(i - 1);
-    }
+export function pruneJson(source: string): string | null {
+  let current = source;
+  for (let i = 0; i < 8; i++) {
+    const next = pruneOnce(current);
+    if (next === null) break;
+    current = next;
   }
-  flush(lines.length - 1);
-  return ranges;
+  return current === source ? null : current;
+}
+
+function pruneOnce(source: string): string | null {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(source);
+  } catch {
+    return null;
+  }
+  if (!parsed || typeof parsed !== 'object') return null;
+
+  const paths = boilerplatePaths(parsed);
+  if (paths.length === 0) return null;
+
+  const lines = source.split('\n');
+  const drop = new Set<number>();
+
+  for (const path of paths) {
+    // Walk down to the object that holds the member, narrowing the line window.
+    let from = 0;
+    let to = lines.length - 1;
+    let ok = true;
+    for (const key of path.slice(0, -1)) {
+      if (/^\d+$/.test(key)) continue; // Array elements share their parent's window.
+      const range = memberLines(lines, key, from, to);
+      if (!range) {
+        ok = false;
+        break;
+      }
+      [from, to] = range;
+    }
+    if (!ok) continue;
+    const range = memberLines(lines, path[path.length - 1], from, to);
+    if (!range) continue;
+    for (let i = range[0]; i <= range[1]; i++) drop.add(i);
+  }
+
+  if (drop.size === 0) return null;
+  const kept = fixTrailingCommas(lines.filter((_, i) => !drop.has(i)));
+  const collapsed = kept.join('\n');
+  if (collapsed === source) return null;
+  try {
+    JSON.parse(collapsed);
+  } catch {
+    return null;
+  }
+  return collapsed;
 }
 
 /** Clamp to the block, drop empties, sort, and merge overlaps. */
@@ -98,77 +196,30 @@ function normalize(ranges: FoldRange[], lineCount: number): FoldRange[] {
   return out;
 }
 
-/** The ranges a block should fold, from its language, fence meta and source. */
-export function foldRangesFor(lang: string, meta: string, source: string): FoldRange[] {
-  const lines = source.split('\n');
-  const parsed = parseFoldMeta(meta);
-  if (parsed.ranges) return normalize(parsed.ranges, lines.length);
-  if (parsed.nofold || !AUTO_FOLD_LANGS.has(lang)) return [];
-  return normalize(autoFoldRanges(lines), lines.length);
-}
-
-export function serializeRanges(ranges: FoldRange[]): string {
-  return ranges.map(([s, e]) => `${s}-${e}`).join(',');
-}
-
-export function deserializeRanges(value: string): FoldRange[] {
-  return parseFoldMeta(`fold=${value}`).ranges ?? [];
-}
-
-/** Shiki writes `class`, hast-util-to-html expects `className`; accept both. */
-const isLine = (node: ElementContent): node is Element => {
-  if (node.type !== 'element' || node.tagName !== 'span') return false;
-  const classes = node.properties?.className ?? node.properties?.class;
-  return Array.isArray(classes) ? classes.includes('line') : String(classes ?? '').split(/\s+/).includes('line');
-};
-
 /**
- * Mark the given line ranges of a Shiki `<code>` element as folded.
+ * The collapsed source for one block, or null when it has no second view.
  *
- * Shiki emits one `span.line` per source line, separated by `\n` text nodes.
- * Each range becomes an empty `span.code-elision` (the stylesheet draws the
- * "··· N lines" row from its attributes, so the marker adds no text to the
- * block) followed by a `span.code-fold-lines` holding the lines and their
- * trailing newlines. Which of the two is visible depends on the figure's
- * `data-view`. Returns the number of folds made.
+ * JSON prunes itself; any other language uses the `fold=` ranges the author
+ * marked. `nofold` opts out of both.
  */
-export function applyCodeFolds(code: Element, ranges: FoldRange[]): number {
-  const units: ElementContent[][] = [];
-  for (const child of code.children) {
-    if (isLine(child)) units.push([child]);
-    else if (units.length) units[units.length - 1].push(child);
-    else units.push([child]);
+export function collapsedSourceFor(lang: string, meta: string, source: string): string | null {
+  const { ranges, nofold } = parseFoldMeta(meta);
+  if (nofold) return null;
+
+  if (PRUNE_LANGS.has(lang)) {
+    // An explicit `fold=` cannot be honored here: cutting arbitrary lines out
+    // of JSON leaves a document that does not parse, which is the whole point
+    // of pruning instead.
+    if (source.split('\n').length < PRUNE_MIN_LINES) return null;
+    return pruneJson(source);
   }
 
-  const next: ElementContent[] = [];
-  let folds = 0;
-  let cursor = 0;
-  for (const [start, end] of ranges) {
-    const from = start - 1;
-    const to = Math.min(end, units.length);
-    if (from >= to || from < cursor) continue;
-    next.push(...units.slice(cursor, from).flat());
-    const hidden = to - from;
-    next.push({
-      type: 'element',
-      tagName: 'span',
-      properties: { className: ['code-elision'], 'data-hidden': String(hidden), 'data-range': `${from + 1}-${to}` },
-      children: [],
-    });
-    next.push({
-      // The folded lines stay in the flow, clipped to zero height by the
-      // stylesheet while collapsed, so a mouse selection dragged across the
-      // block still picks them up. Hidden from assistive tech while
-      // collapsed; `CopyButtons` clears the attribute in the full view.
-      type: 'element',
-      tagName: 'span',
-      properties: { className: ['code-fold-lines'], ariaHidden: 'true' },
-      children: units.slice(from, to).flat(),
-    });
-    cursor = to;
-    folds++;
+  if (!ranges || ranges.length === 0) return null;
+  const lines = source.split('\n');
+  const drop = new Set<number>();
+  for (const [start, end] of normalize(ranges, lines.length)) {
+    for (let i = start; i <= end; i++) drop.add(i - 1);
   }
-  next.push(...units.slice(cursor).flat());
-  code.children = next;
-  return folds;
+  if (drop.size === 0 || drop.size >= lines.length) return null;
+  return lines.filter((_, i) => !drop.has(i)).join('\n');
 }

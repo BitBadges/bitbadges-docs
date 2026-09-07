@@ -13,7 +13,7 @@ export default function ChainApiReferencePage() {
   return (
     <ApiReference
       specUrl={`${docsConfig.basePath}${docsConfig.chainOpenapiUrl}`}
-      backTo={{ href: '/chain', label: 'Back to the Chain overview' }}
+      backTo={{ href: '/chain', label: 'Back' }}
     />
   );
 }

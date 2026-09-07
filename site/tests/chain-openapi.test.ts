@@ -296,15 +296,15 @@ describe('pruneNonRoutes', () => {
 
 describe('moduleForPath', () => {
   test('maps each module surface to its tag', () => {
-    expect(moduleForPath('/bitbadges/bitbadgeschain/tokenization/params')).toBe('Tokenization');
-    expect(moduleForPath('/tokenization.Msg/TransferTokens')).toBe('Tokenization');
-    expect(moduleForPath('/osmosis/gamm/v1beta1/pools')).toBe('GAMM');
-    expect(moduleForPath('/gamm.v1beta1.Msg/JoinPool')).toBe('GAMM');
-    expect(moduleForPath('/osmosis/poolmanager/v1beta1/num_pools')).toBe('Pool manager');
-    expect(moduleForPath('/bitbadges/bitbadgeschain/sendmanager/params')).toBe('Send manager');
-    expect(moduleForPath('/managersplitter.Msg/UpdateParams')).toBe('Manager splitter');
-    expect(moduleForPath('/ibcratelimit.Msg/UpdateRateLimit')).toBe('IBC rate limit');
-    expect(moduleForPath('/cosmos/evm/vm/v1/ethereum_tx')).toBe('EVM');
+    expect(moduleForPath('/bitbadges/bitbadgeschain/tokenization/params')).toBe('x/tokenization');
+    expect(moduleForPath('/tokenization.Msg/TransferTokens')).toBe('x/tokenization');
+    expect(moduleForPath('/osmosis/gamm/v1beta1/pools')).toBe('x/gamm');
+    expect(moduleForPath('/gamm.v1beta1.Msg/JoinPool')).toBe('x/gamm');
+    expect(moduleForPath('/osmosis/poolmanager/v1beta1/num_pools')).toBe('x/poolmanager');
+    expect(moduleForPath('/bitbadges/bitbadgeschain/sendmanager/params')).toBe('x/sendmanager');
+    expect(moduleForPath('/managersplitter.Msg/UpdateParams')).toBe('x/managersplitter');
+    expect(moduleForPath('/ibcratelimit.Msg/UpdateRateLimit')).toBe('x/ibc-rate-limit');
+    expect(moduleForPath('/cosmos/evm/vm/v1/ethereum_tx')).toBe('x/vm (EVM)');
     expect(moduleForPath('/cosmos/bank/v1beta1/balances/{address}')).toBe('Cosmos SDK');
     expect(moduleForPath('/ibc/core/channel/v1/channels')).toBe('IBC');
   });
@@ -320,15 +320,15 @@ describe('retagByModule', () => {
 
   test('replaces Query and Msg with the module tag', () => {
     expect(spec.paths['/bitbadges/bitbadgeschain/tokenization/get_collection/{collectionId}'].get.tags).toEqual([
-      'Tokenization',
+      'x/tokenization',
     ]);
-    expect(spec.paths['/osmosis/gamm/v1beta1/pools'].get.tags).toEqual(['GAMM']);
+    expect(spec.paths['/osmosis/gamm/v1beta1/pools'].get.tags).toEqual(['x/gamm']);
     expect(JSON.stringify(spec.paths)).not.toContain('"Query"');
     expect(JSON.stringify(spec.paths)).not.toContain('"Msg"');
   });
 
   test('declares only the tags in use, each with a description, in sidebar order', () => {
-    expect(spec.tags.map((t: { name: string }) => t.name)).toEqual(['Tokenization', 'GAMM']);
+    expect(spec.tags.map((t: { name: string }) => t.name)).toEqual(['x/tokenization', 'x/gamm']);
     expect(spec.tags.every((t: { description: string }) => t.description.length > 20)).toBe(true);
   });
 
@@ -341,8 +341,8 @@ describe('retagByModule', () => {
 
   test('counts every operation', () => {
     expect(report.counts).toEqual([
-      ['Tokenization', 1],
-      ['GAMM', 1],
+      ['x/tokenization', 1],
+      ['x/gamm', 1],
     ]);
   });
 
@@ -616,7 +616,7 @@ describe('committed chain spec', () => {
 
   test('BitBadges modules lead the tag order, and every tag holds operations', () => {
     const names = (corpus.tags as { name: string }[]).map((t) => t.name);
-    expect(names[0]).toBe('Tokenization');
+    expect(names[0]).toBe('x/tokenization');
     expect(names).toEqual([...names].sort((a, b) => TAG_ORDER.findIndex((t) => t.name === a) - TAG_ORDER.findIndex((t) => t.name === b)));
     const counts = new Map<string, number>();
     for (const [, , op] of operations) for (const tag of op.tags as string[]) counts.set(tag, (counts.get(tag) ?? 0) + 1);

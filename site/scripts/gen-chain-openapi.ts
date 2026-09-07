@@ -472,21 +472,21 @@ export type ModuleTag = { name: string; description: string };
 
 /** Path prefix -> tag. First match wins. */
 const MODULE_RULES: [RegExp, string][] = [
-  [/^\/bitbadges\/bitbadgeschain\/tokenization\//, 'Tokenization'],
-  [/^\/tokenization\./, 'Tokenization'],
-  [/^\/bitbadges\/bitbadgeschain\/managersplitter/, 'Manager splitter'],
-  [/^\/managersplitter\./, 'Manager splitter'],
-  [/^\/bitbadges\/bitbadgeschain\/sendmanager/, 'Send manager'],
-  [/^\/sendmanager\./, 'Send manager'],
-  [/^\/osmosis\/poolmanager\//, 'Pool manager'],
-  [/^\/poolmanager\./, 'Pool manager'],
-  [/^\/osmosis\/gamm\//, 'GAMM'],
-  [/^\/gamm\./, 'GAMM'],
-  [/^\/bitbadges\/bitbadgeschain\/ibcratelimit/, 'IBC rate limit'],
-  [/^\/ibcratelimit\./, 'IBC rate limit'],
-  [/^\/cosmos\/evm\//, 'EVM'],
-  [/^\/cosmos\.evm\./, 'EVM'],
-  [/^\/ethermint[./]/, 'EVM'],
+  [/^\/bitbadges\/bitbadgeschain\/tokenization\//, 'x/tokenization'],
+  [/^\/tokenization\./, 'x/tokenization'],
+  [/^\/bitbadges\/bitbadgeschain\/managersplitter/, 'x/managersplitter'],
+  [/^\/managersplitter\./, 'x/managersplitter'],
+  [/^\/bitbadges\/bitbadgeschain\/sendmanager/, 'x/sendmanager'],
+  [/^\/sendmanager\./, 'x/sendmanager'],
+  [/^\/osmosis\/poolmanager\//, 'x/poolmanager'],
+  [/^\/poolmanager\./, 'x/poolmanager'],
+  [/^\/osmosis\/gamm\//, 'x/gamm'],
+  [/^\/gamm\./, 'x/gamm'],
+  [/^\/bitbadges\/bitbadgeschain\/ibcratelimit/, 'x/ibc-rate-limit'],
+  [/^\/ibcratelimit\./, 'x/ibc-rate-limit'],
+  [/^\/cosmos\/evm\//, 'x/vm (EVM)'],
+  [/^\/cosmos\.evm\./, 'x/vm (EVM)'],
+  [/^\/ethermint[./]/, 'x/vm (EVM)'],
   [/^\/ibc[./]/, 'IBC'],
   [/^\/cosmos[./]/, 'Cosmos SDK'],
   [/^\/capability[./]/, 'Cosmos SDK'],
@@ -498,31 +498,31 @@ const MODULE_RULES: [RegExp, string][] = [
  */
 export const TAG_ORDER: ModuleTag[] = [
   {
-    name: 'Tokenization',
+    name: 'x/tokenization',
     description:
-      '`x/tokenization` — the BitBadges token standard: collections, balances, address lists, approval trackers and dynamic stores, read straight from node state.',
+      'The BitBadges token standard: collections, balances, address lists, approval trackers and dynamic stores, read straight from node state.',
   },
   {
-    name: 'GAMM',
-    description: '`x/gamm` — the AMM pools: pool state, spot prices, share math and swap estimates.',
+    name: 'x/gamm',
+    description: 'The AMM pools: pool state, spot prices, share math and swap estimates.',
   },
   {
-    name: 'Pool manager',
-    description: '`x/poolmanager` — routing across pools, taker fee agreements and multi-hop swap estimation.',
+    name: 'x/poolmanager',
+    description: 'Routing across pools, taker fee agreements and multi-hop swap estimation.',
   },
   {
-    name: 'Send manager',
-    description: '`x/sendmanager` — alias routing for sends, and the balances behind an alias denom.',
+    name: 'x/sendmanager',
+    description: 'Alias routing for sends, and the balances behind an alias denom.',
   },
   {
-    name: 'Manager splitter',
-    description: '`x/managersplitter` — splitting a collection manager across several addresses.',
+    name: 'x/managersplitter',
+    description: 'Splitting a collection manager across several addresses.',
   },
   {
-    name: 'IBC rate limit',
-    description: '`x/ibc-rate-limit` — the outbound and inbound IBC transfer rate limits and their parameters.',
+    name: 'x/ibc-rate-limit',
+    description: 'The outbound and inbound IBC transfer rate limits and their parameters.',
   },
-  { name: 'EVM', description: 'The Cosmos EVM module — VM parameters and state. Contract calls go to the EVM JSON-RPC, not here.' },
+  { name: 'x/vm (EVM)', description: 'The Cosmos EVM module: VM parameters and state. Contract calls go to the EVM JSON-RPC, not here.' },
   { name: 'Cosmos SDK', description: 'Standard Cosmos SDK module queries (auth, bank, staking, gov and friends), unchanged from upstream.' },
   { name: 'IBC', description: 'Standard IBC queries (clients, connections, channels, transfer), unchanged from upstream.' },
   { name: 'Other', description: 'Queries this document could not attribute to a module.' },
@@ -613,7 +613,7 @@ const SUMMARY_OVERRIDES: Record<string, string> = {
 };
 
 /** Words that must keep their casing when a method name is humanized. */
-const ACRONYMS = new Set(['ETH', 'EVM', 'IBC', 'ID', 'AMM', 'TWAP', 'ERC', 'LP', 'RPC', 'URI']);
+const ACRONYMS = new Set(['ETH', 'x/vm (EVM)', 'IBC', 'ID', 'AMM', 'TWAP', 'ERC', 'LP', 'RPC', 'URI']);
 
 /** Leading word -> verb, and whether the word itself is consumed. */
 const VERB_RULES: [RegExp, string, boolean][] = [
