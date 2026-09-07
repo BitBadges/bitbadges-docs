@@ -146,7 +146,13 @@ message DynamicStore {
 | `uri`, `customData` | Metadata, or inline JSON metadata |
 
 {% hint style="info" %}
-Ask your agent: "Create a dynamic store owned by alice that defaults to false, then add an approval to collection 1 so only addresses set to true in that store can initiate transfers." The MCP builder tools (`build_dynamic_store, add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Create a dynamic store owned by alice that defaults to false, then add an approval to collection 1 so only addresses set to true in that store can initiate transfers.
+```
+
+The MCP builder tools (`build_dynamic_store, add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

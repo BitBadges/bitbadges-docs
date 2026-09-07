@@ -33,7 +33,13 @@ console.log(account.accountNumber, account.sequence);
 ```
 
 {% hint style="info" %}
-Ask your agent. With the [MCP builder tools](../agents/setup.md) wired, the queries on this page are one prompt away: "Fetch collection 1 and the account bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d and summarize both." Building and signing still end in a review link you open yourself.
+Ask your agent. With the [MCP builder tools](../agents/setup.md) wired, the queries on this page are one prompt away:
+
+```text
+Fetch collection 1 and the account bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d and summarize both.
+```
+
+Building and signing still end in a review link you open yourself.
 {% endhint %}
 
 `BitBadgesAPI` wraps every REST route with typed request and response classes. If `apiKey` or `apiUrl` is omitted, the client reads `BITBADGES_API_KEY` and `BITBADGES_API_URL` from the environment. Every numeric field in a response is converted with `convertFunction` (`BigIntify`, `Numberify`, or `Stringify`). See [Types](types.md) for why.

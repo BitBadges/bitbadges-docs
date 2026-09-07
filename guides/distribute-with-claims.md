@@ -52,8 +52,13 @@ Design tips:
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Build a claim gated by 100 one-time codes, one use per address, and show me the claim JSON and the codes."
-- "Search the claim plugins for a way to gate by Discord server membership, then build the claim with it."
+```text
+Build a claim gated by 100 one-time codes, one use per address, and show me the claim JSON and the codes.
+```
+
+```text
+Search the claim plugins for a way to gate by Discord server membership, then build the claim with it.
+```
 {% endhint %}
 
 ## 2. Configure the Claim

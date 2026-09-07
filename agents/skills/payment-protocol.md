@@ -7,6 +7,16 @@ description: "Invoices, escrows, bounties, milestones, and multi-party agreement
 
 Instruction text for agents that use the Payment Protocol skill, loaded by `bb dev skills payment-protocol` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the payment-protocol skill and build me one: invoices, escrows, bounties, milestones, and multi-party agreements using coinTransfer-based approvals or IBC-backed smart token escrow. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills payment-protocol` prints the same instructions.
+
 ## Summary
 
 Build invoices, milestones, bounties, escrow agreements, or any payment flow.

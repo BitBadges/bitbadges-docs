@@ -73,7 +73,13 @@ A complete `MsgTransferTokens` in which carol moves one of token ID 1 from alice
 | `onlyCheckPrioritizedIncomingApprovals` | bool | Same for the recipient's incoming approvals |
 
 {% hint style="info" %}
-Ask your agent: "Build a transfer of token ID 1 in collection 1 from alice to bob that uses only the collection approval with ID abc123." The MCP builder tools (`build_transfer`) produce the objects on this page.
+Ask your agent:
+
+```text
+Build a transfer of token ID 1 in collection 1 from alice to bob that uses only the collection approval with ID abc123.
+```
+
+The MCP builder tools (`build_transfer`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

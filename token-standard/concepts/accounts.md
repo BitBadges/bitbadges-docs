@@ -27,7 +27,13 @@ isAddressValid('bb1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw'); // true
 | account number | A number the chain assigns the first time the address transacts or receives BADGE. |
 
 {% hint style="info" %}
-Ask your agent: "Convert 0x0bc63cfe31d5218eb414b142c799e20964a54a1a to its bb1 address and check that it is valid." The MCP builder tools (`convert_address, validate_address`) produce the objects on this page.
+Ask your agent:
+
+```text
+Convert 0x0bc63cfe31d5218eb414b142c799e20964a54a1a to its bb1 address and check that it is valid.
+```
+
+The MCP builder tools (`convert_address, validate_address`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

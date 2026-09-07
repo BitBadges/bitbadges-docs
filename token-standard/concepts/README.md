@@ -72,7 +72,13 @@ The building blocks:
 Circulating supply is not a stored number. It is the total that has left the Mint address. Mint approvals plus the permission to update them decide the supply.
 
 {% hint style="info" %}
-Ask your agent: "Transfer one of token ID 1 in collection 1 from alice to bob and show me the transaction JSON." The MCP builder tools (`build_transfer`) produce the objects on this page.
+Ask your agent:
+
+```text
+Transfer one of token ID 1 in collection 1 from alice to bob and show me the transaction JSON.
+```
+
+The MCP builder tools (`build_transfer`) produce the objects on this page.
 {% endhint %}
 
 ## Reading Order

@@ -7,6 +7,16 @@ description: "Non-fungible token collection with unique token IDs, metadata URIs
 
 Instruction text for agents that use the NFT Collection skill, loaded by `bb dev skills nft-collection` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the nft-collection skill and build me one: non-fungible token collection with unique token IDs, metadata URIs, and badge-based ownership. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills nft-collection` prints the same instructions.
+
 ## Summary
 
 Required standards: ["NFTs"]

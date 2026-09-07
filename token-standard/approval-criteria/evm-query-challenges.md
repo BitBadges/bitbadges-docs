@@ -145,7 +145,13 @@ interface EVMQueryChallenge {
 The same structure is used for post-transfer [Invariants](invariants.md) on the collection. This page covers the approval criterion.
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 1 that only lets addresses holding at least 100 units of the ERC-20 at 0x5fbdb2315678afecb367f032d93f642f64180aa3 send tokens." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 1 that only lets addresses holding at least 100 units of the ERC-20 at 0x5fbdb2315678afecb367f032d93f642f64180aa3 send tokens.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

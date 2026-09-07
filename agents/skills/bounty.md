@@ -7,6 +7,16 @@ description: "Escrow-based bounty with verifier arbitration. Submitter escrows c
 
 Instruction text for agents that use the Bounty skill, loaded by `bb dev skills bounty` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the bounty skill and build me one: escrow-based bounty with verifier arbitration. Submitter escrows coins, verifier accepts (pays recipient) or denies (refunds submitter). Expires if no decision. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills bounty` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Bounty"]

@@ -111,8 +111,13 @@ Subscription AND not banned:
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Check whether bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue owns token 1 of collection 1 right now."
-- "Using the bb-402 skill, build a soulbound receipt collection where minting costs 1 USDC, then give me the review link."
+```text
+Check whether bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue owns token 1 of collection 1 right now.
+```
+
+```text
+Using the bb-402 skill, build a soulbound receipt collection where minting costs 1 USDC, then give me the review link.
+```
 {% endhint %}
 
 ## 2. Check Ownership from the Server

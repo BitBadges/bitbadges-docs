@@ -22,7 +22,13 @@ Every message is signed by `sender`. Amounts are integer strings in the coin's b
 | [MsgStableSwapAdjustScalingFactors](#msgstableswapadjustscalingfactors) | Adjust a stableswap pool's scaling factors |
 
 {% hint style="info" %}
-Ask your agent: "Swap 1 BADGE for badgeslp:64:utoken through pool 1 with 1% slippage and show me the transaction before you sign it." The `bb swap estimate ubadge badgeslp:64:utoken 1000000 --slippage 1` command and the liquidity-pools skill produce the `MsgSwapExactAmountIn` on this page.
+Ask your agent:
+
+```text
+Swap 1 BADGE for badgeslp:64:utoken through pool 1 with 1% slippage and show me the transaction before you sign it.
+```
+
+The `bb swap estimate ubadge badgeslp:64:utoken 1000000 --slippage 1` command and the liquidity-pools skill produce the `MsgSwapExactAmountIn` on this page.
 {% endhint %}
 
 ## MsgCreateBalancerPool

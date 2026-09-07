@@ -4,6 +4,7 @@
 
 * [Overview](README.md)
 * [Quickstart](start/quickstart.md)
+* [Your First Collection](start/first-collection.md)
 * [Guides](guides/README.md)
   * [Create a Collection](guides/create-a-collection.md)
   * [Mint and Distribute](guides/mint-and-distribute.md)

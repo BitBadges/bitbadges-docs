@@ -214,7 +214,11 @@ console.log(result.txHash, result.success);
 The `set-incoming-approval` CLI command takes the `approval` object on its own, not the whole message.
 
 {% hint style="info" %}
-Ask your agent: "Place a bid of 20 USDC on token 5 of collection 1."
+Ask your agent:
+
+```text
+Place a bid of 20 USDC on token 5 of collection 1.
+```
 {% endhint %}
 
 ## Fields

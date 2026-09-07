@@ -7,6 +7,16 @@ description: "Simple fungible token with fixed or unlimited supply and configura
 
 Instruction text for agents that use the Fungible Token skill, loaded by `bb dev skills fungible-token` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the fungible-token skill and build me one: simple fungible token with fixed or unlimited supply and configurable mint/transfer approvals. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills fungible-token` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Fungible Tokens"]

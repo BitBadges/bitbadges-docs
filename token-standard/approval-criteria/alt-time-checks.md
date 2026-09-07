@@ -139,7 +139,13 @@ interface AltTimeChecks {
 All ranges are inclusive. Ranges in one array must not overlap, and `start` must be less than or equal to `end`.
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 1 that blocks transfers on weekends in US Eastern time." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 1 that blocks transfers on weekends in US Eastern time.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

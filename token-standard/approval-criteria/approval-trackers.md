@@ -148,7 +148,13 @@ interface ResetTimeIntervals<T> {
 `"0"` in any limit means unlimited, and that tally is not tracked.
 
 {% hint style="info" %}
-Ask your agent: "Add a mint approval to collection 1 capped at 1000 tokens overall and 10 per address, with a tracker that resets every 30 days." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a mint approval to collection 1 capped at 1000 tokens overall and 10 per address, with a tracker that resets every 30 days.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

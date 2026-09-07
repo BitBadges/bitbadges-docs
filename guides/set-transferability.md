@@ -33,8 +33,13 @@ Reserved list IDs are `All`, `Mint`, `!Mint`, `AllWithoutMint`, one address such
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Make collection 1 transferable and burnable after mint, run the review, and give me the review link."
-- "Add an admin override approval on collection 1 for bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d that can move any token, and flag anything risky in the review."
+```text
+Make collection 1 transferable and burnable after mint, run the review, and give me the review link.
+```
+
+```text
+Add an admin override approval on collection 1 for bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d that can move any token, and flag anything risky in the review.
+```
 {% endhint %}
 
 ## 2. Start from the Empty Criteria Template

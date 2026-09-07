@@ -15,7 +15,13 @@ curl https://lcd.bitbadges.io/osmosis/gamm/v1beta1/pools/1/total_pool_liquidity
 ```
 
 {% hint style="info" %}
-Ask your agent: "Show me pool 1 on mainnet: its assets, total shares, and the spot price of badgeslp:64:utoken in BADGE." The `bb pools show 1` and `bb price` commands read the queries on this page.
+Ask your agent:
+
+```text
+Show me pool 1 on mainnet: its assets, total shares, and the spot price of badgeslp:64:utoken in BADGE.
+```
+
+The `bb pools show 1` and `bb price` commands read the queries on this page.
 {% endhint %}
 
 ## All Queries

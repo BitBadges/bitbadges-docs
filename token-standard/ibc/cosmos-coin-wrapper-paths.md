@@ -274,7 +274,13 @@ A complete `MsgCreateCollection` with both paths open:
 | `address` | string | derived | The wrapper address, generated from `denom`. Not present on alias paths. |
 
 {% hint style="info" %}
-Ask your agent: "Add a wrapper path to collection 1 with denom utoken and symbol TOKEN, plus the wrap and unwrap approvals it needs." The MCP builder tools (`add_cosmos_wrapper_path, generate_wrapper_address, add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a wrapper path to collection 1 with denom utoken and symbol TOKEN, plus the wrap and unwrap approvals it needs.
+```
+
+The MCP builder tools (`add_cosmos_wrapper_path, generate_wrapper_address, add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## Wrapper Paths Versus Alias Paths

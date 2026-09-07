@@ -571,7 +571,11 @@ console.log(result.txHash, result.success);
 The example creates "Demo NFTs": 100 token IDs, alice as manager, one `mint` approval that only alice can initiate, and one `transferable` approval with empty criteria so holders can trade freely. Omit `invariants.cosmosCoinBackedPath` unless the collection is backed by a bank coin. See [Backed Minting](../ibc/backed-minting.md).
 
 {% hint style="info" %}
-Ask your agent: "Create an NFT collection called Demo NFTs with 100 tokens, mint them all to me, and make them transferable between anyone."
+Ask your agent:
+
+```text
+Create an NFT collection called Demo NFTs with 100 tokens, mint them all to me, and make them transferable between anyone.
+```
 {% endhint %}
 
 ## Fields

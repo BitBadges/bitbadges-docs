@@ -7,6 +7,16 @@ description: "Lock collection permissions to make properties permanently immutab
 
 Instruction text for agents that use the Transferability & Update Rules skill, loaded by `bb dev skills immutability` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the immutability skill and build me one: lock collection permissions to make properties permanently immutable or permanently permitted. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills immutability` prints the same instructions.
+
 ## Summary
 
 Controls whether collection properties can be changed after creation.

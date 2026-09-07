@@ -32,8 +32,13 @@ Rules that apply to every mint approval:
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Add a public mint to collection 1 that charges 5 BADGE per mint, one per address, capped at 1,000 mints, and give me the review link."
-- "Build a transfer that mints token 1 of collection 1 to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue through the manager-mint approval, validate it, and give me the review link."
+```text
+Add a public mint to collection 1 that charges 5 BADGE per mint, one per address, capped at 1,000 mints, and give me the review link.
+```
+
+```text
+Build a transfer that mints token 1 of collection 1 to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue through the manager-mint approval, validate it, and give me the review link.
+```
 {% endhint %}
 
 ### Creator-Only Mint

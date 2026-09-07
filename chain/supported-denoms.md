@@ -27,7 +27,13 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/params
 ```
 
 {% hint style="info" %}
-Ask your agent: "List every denom BitBadges accepts for payments and pools, with decimals, and tell me the current USDC price of BADGE." The `bb assets list` and `bb assets price` commands read the registry and the pool prices on this page.
+Ask your agent:
+
+```text
+List every denom BitBadges accepts for payments and pools, with decimals, and tell me the current USDC price of BADGE.
+```
+
+The `bb assets list` and `bb assets price` commands read the registry and the pool prices on this page.
 {% endhint %}
 
 ## Allowlist (Mainnet, 2026-09-06)

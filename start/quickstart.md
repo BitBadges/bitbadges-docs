@@ -26,7 +26,7 @@ The installer detects your OS and architecture and installs two things:
 Installer options:
 
 ```bash
-curl -fsSL https://install.bitbadges.io | sh -s -- --version v29              # a specific release
+curl -fsSL https://install.bitbadges.io | sh -s -- --version v35              # a specific release
 curl -fsSL https://install.bitbadges.io | sh -s -- --install-dir ~/.local/bin  # custom directory
 curl -fsSL https://install.bitbadges.io | sh -s -- --no-sudo                   # never use sudo
 ```
@@ -92,7 +92,7 @@ bb preview tx.json    # shareable bitbadges.io preview URL; add --open to jump t
 bb deploy tx.json --browser
 ```
 
-For a BitBadges token transfer instead of a bank send, use `bb build transfer --collection-id 1 --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --token-ids 1 --amount 1`. Builders exist for vaults, subscriptions, bounties, auctions, smart tokens, listings, and more. See [Build](../cli/build.md) and [Deploy](../cli/deploy.md).
+For a BitBadges token transfer instead of a bank send, use `bb build transfer --yes --collection-id 1 --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --token-ids 1 --amount 1`. Builders exist for vaults, subscriptions, bounties, auctions, smart tokens, listings, and more. See [Build](../cli/build.md) and [Deploy](../cli/deploy.md).
 
 ## TypeScript Path
 
@@ -198,8 +198,13 @@ The server reads `BITBADGES_API_KEY` from its environment. Add an `env` block wi
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Show me collection 1 and explain its mint approval."
-- "Build a transfer of token 1 in collection 1 from my address to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, validate it, and give me the review link."
+```text
+Show me collection 1 and explain its mint approval.
+```
+
+```text
+Build a transfer of token 1 in collection 1 from my address to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, validate it, and give me the review link.
+```
 {% endhint %}
 
 The agent builds the transaction. A person reviews and signs it in the browser through a handoff link. Get the link one of three ways:
@@ -221,7 +226,7 @@ See [Agents](../agents/README.md) for the paths table, the review-and-sign hando
 
 Testnet (`bitbadges-2`, EVM 50025) is offline. The SDK throws on `network: 'testnet'`. Mainnet runs as a chaosnet: gas fees can be zero while activity is low, so test there with low-value assets. See [Testnet](../chain/testnet.md) and [Network](../chain/README.md).
 
-Get BADGE for fees on Discord. Developers can ask for subsidized credits during chaosnet.
+The chain accepts zero-fee transactions today, so a first collection needs no BADGE at all with `--fee 0` (the default). Testnet is offline and mainnet has no faucet. If a fee is ever required, ask for BADGE in the [BitBadges Discord](https://discord.com/invite/TJMaEd9bar).
 
 ## Resources for AI-Assisted Development
 

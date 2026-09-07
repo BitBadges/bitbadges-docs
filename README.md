@@ -22,9 +22,17 @@ claude mcp add bitbadges-builder -e BITBADGES_API_KEY="$BITBADGES_API_KEY" -- np
 
 3. Tell it what to build:
 
-- "Create me a payment request for 10 USDC"
-- "Build a subscription token that renews monthly for 5 USDC"
-- "Make a 500-piece NFT collection where only I can mint"
+```text
+Create me a payment request for 10 USDC
+```
+
+```text
+Build a subscription token that renews monthly for 5 USDC
+```
+
+```text
+Make a 500-piece NFT collection where only I can mint
+```
 
 The agent assembles the transaction and returns a review link. Open it, check the summary, and sign with your wallet.
 

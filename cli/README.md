@@ -247,7 +247,11 @@ The first command, run against mainnet for an address that holds nothing, prints
 ```
 
 {% hint style="info" %}
-Ask your agent. With the [MCP builder tools](../agents/setup.md) wired, the build-and-preview line above is one prompt: "Build a USDC vault called Demo Vault and give me a link to review and sign."
+Ask your agent. With the [MCP builder tools](../agents/setup.md) wired, the build-and-preview line above is one prompt:
+
+```text
+Build a USDC vault called Demo Vault and give me a link to review and sign.
+```
 {% endhint %}
 
 `bb --help` ends with the Chaosnet warning and a link to the policies at bitbadges.io/policies. Transactions use real tokens.

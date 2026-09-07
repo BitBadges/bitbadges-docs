@@ -216,7 +216,13 @@ A complete `MsgCreateCollection`. The collection-level fields are open; the defa
 | `createdBy` | string | chain | | Creator address |
 
 {% hint style="info" %}
-Ask your agent: "Create an NFT collection named Demo NFTs with 100 tokens, managed by alice, with metadata at ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json." The MCP builder tools (`set_collection_metadata, set_token_metadata, set_valid_token_ids, set_standards`) produce the objects on this page.
+Ask your agent:
+
+```text
+Create an NFT collection named Demo NFTs with 100 tokens, managed by alice, with metadata at ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json.
+```
+
+The MCP builder tools (`set_collection_metadata, set_token_metadata, set_valid_token_ids, set_standards`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

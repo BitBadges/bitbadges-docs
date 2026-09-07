@@ -157,7 +157,13 @@ A complete `predeterminedBalances` with `incrementedBalances` open:
 Most options exclude each other. Transfer number 0 uses `startBalances` as-is; number N applies the increments N times.
 
 {% hint style="info" %}
-Ask your agent: "Add a mint approval to collection 1 that hands out token IDs 1 to 100 in order, one token per transfer." The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a mint approval to collection 1 that hands out token IDs 1 to 100 in order, one token per transfer.
+```
+
+The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

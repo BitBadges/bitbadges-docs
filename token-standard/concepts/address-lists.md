@@ -53,7 +53,13 @@ function checkAddress(address, list) {
 ```
 
 {% hint style="info" %}
-Ask your agent: "Add a mint approval to collection 1 that only alice and bob can initiate. Pass the two addresses as an inline list." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a mint approval to collection 1 that only alice and bob can initiate. Pass the two addresses as an inline list.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

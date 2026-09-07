@@ -25,7 +25,11 @@ bb auctions place-bid 42 --creator bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --a
 Action verbs accept the [network flags](README.md#network-flags), `--condensed`, `--output-file`, and the [deploy flags](deploy.md) (`--browser`, `--burner`, `--sign-only`, and the rest) to broadcast inline instead of emitting JSON. Amount flags take display units for symbol denoms and base units for raw denoms; `--base-units` forces base units. Addresses marked "strict" must be in `bb1` form; run `bb account convert` for `0x`.
 
 {% hint style="info" %}
-Ask your agent. The read verbs map onto `query_collection` and `analyze_collection`; the action verbs onto `build_transfer` and the approval builders. "Place a 50 USDC bid on auction 42 from bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue and give me the link to sign" covers the example above.
+Ask your agent. The read verbs map onto `query_collection` and `analyze_collection`; the action verbs onto `build_transfer` and the approval builders. This prompt covers the example above:
+
+```text
+Place a 50 USDC bid on auction 42 from bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue and give me the link to sign.
+```
 {% endhint %}
 
 | Group | Verbs |

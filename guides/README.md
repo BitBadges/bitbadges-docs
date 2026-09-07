@@ -15,8 +15,13 @@ Every guide assumes:
 {% hint style="info" %}
 **Ask your agent.** Every guide here has a matching prompt. With the MCP builder tools installed, paste one of these to skip the hand-written JSON:
 
-- "Create a 100-piece NFT collection called Demo NFTs where only I can mint, and give me the review link."
-- "Build a subscription token that renews monthly for 5 USDC."
+```text
+Create a 100-piece NFT collection called Demo NFTs where only I can mint, and give me the review link.
+```
+
+```text
+Build a subscription token that renews monthly for 5 USDC.
+```
 {% endhint %}
 
 ## Guides

@@ -7,6 +7,16 @@ description: "On-chain address list where membership = owning x1 of token ID 1. 
 
 Instruction text for agents that use the Address List skill, loaded by `bb dev skills address-list` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the address-list skill and build me one: on-chain address list where membership = owning x1 of token ID 1. Manager can add/remove addresses. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills address-list` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Address List"]

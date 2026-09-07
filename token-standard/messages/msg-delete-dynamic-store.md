@@ -29,7 +29,11 @@ console.log(result.txHash, result.success);
 ```
 
 {% hint style="info" %}
-Ask your agent: "Delete dynamic store 1."
+Ask your agent:
+
+```text
+Delete dynamic store 1.
+```
 {% endhint %}
 
 ## Fields

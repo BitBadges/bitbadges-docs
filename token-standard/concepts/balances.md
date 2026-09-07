@@ -39,7 +39,13 @@ export interface Balance<T extends NumberType> {
 A user's balance store holds an array of these. Approvals, trackers, and transfers all use the same structure.
 
 {% hint style="info" %}
-Ask your agent: "Show bob's balance of token ID 1 in collection 1 right now." The MCP builder tools (`query_balance`) produce the objects on this page.
+Ask your agent:
+
+```text
+Show bob's balance of token ID 1 in collection 1 right now.
+```
+
+The MCP builder tools (`query_balance`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

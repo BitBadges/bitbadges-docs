@@ -47,8 +47,13 @@ Endpoints:
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Read the Sign In with BitBadges docs and write me an Express callback handler that exchanges the code and starts a session."
-- "Check whether the signed-in address bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue has completed claim claim_demo_01."
+```text
+Read the Sign In with BitBadges docs and write me an Express callback handler that exchanges the code and starts a session.
+```
+
+```text
+Check whether the signed-in address bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue has completed claim claim_demo_01.
+```
 {% endhint %}
 
 ## 2. Build the Authorization URL

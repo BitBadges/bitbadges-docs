@@ -37,6 +37,14 @@ Pick exactly one.
 
 `--browser` and `--burner` emit the same envelope. `--with-keyring` prints the chain binary command, or runs it with `--exec`. `--gen-payload` prints the payload and exits.
 
+The chain accepts zero-fee transactions today, so a first collection needs no BADGE at all with `--fee 0` (the default). Testnet is offline and mainnet has no faucet. If a fee is ever required, ask for BADGE in the [BitBadges Discord](https://discord.com/invite/TJMaEd9bar).
+
+Ask your agent:
+
+```text
+I have collection.json. I want to sign with Keplr in my browser on mainnet. Give me the exact bb deploy command with the right flags, then tell me how to confirm the hash landed.
+```
+
 ## deploy
 
 ```bash

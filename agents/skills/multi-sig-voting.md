@@ -7,6 +7,16 @@ description: "Require weighted quorum voting from multiple parties before transf
 
 Instruction text for agents that use the Multi-Sig / Voting skill, loaded by `bb dev skills multi-sig-voting` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the multi-sig-voting skill and build me one: require weighted quorum voting from multiple parties before transfers can proceed (multi-sig, governance, etc.). Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills multi-sig-voting` prints the same instructions.
+
 ## Summary
 
 Enables multi-signature-like approval via votingChallenges[] in approvalCriteria.

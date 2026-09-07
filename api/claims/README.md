@@ -73,7 +73,13 @@ console.log(res.claimAttemptId); // 3b9d2f7a1c4e6b8d0f2a4c6e8b1d3f5a
 ```
 
 {% hint style="info" %}
-**Ask your agent.** With the MCP builder tools connected, a prompt like this works: "Create a claim for collection 1 that requires a Discord role and a password, 100 uses total, one per address." The agent calls `search_plugins` to look up the `discord` and `password` parameter schemas, then `build_claim` to produce the claim document. Review it, then create it through the API or the site.
+**Ask your agent.** With the MCP builder tools connected, a prompt like this works:
+
+```text
+Create a claim for collection 1 that requires a Discord role and a password, 100 uses total, one per address.
+```
+
+The agent calls `search_plugins` to look up the `discord` and `password` parameter schemas, then `build_claim` to produce the claim document. Review it, then create it through the API or the site.
 {% endhint %}
 
 ## What Is in This Section

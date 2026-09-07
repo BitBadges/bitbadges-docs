@@ -142,7 +142,13 @@ interface iCosmosCoin<T extends NumberType> {
 | `overrideToWithInitiator` | bool | `true`: send to the initiator instead of `to`. |
 
 {% hint style="info" %}
-Ask your agent: "Add a mint approval to collection 1 that charges 1000 BADGE per mint, paid to alice's address bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d." The MCP builder tools (`add_approval, set_mint_escrow_coins`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a mint approval to collection 1 that charges 1000 BADGE per mint, paid to alice's address bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d.
+```
+
+The MCP builder tools (`add_approval, set_mint_escrow_coins`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

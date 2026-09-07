@@ -7,7 +7,7 @@ description: "How an agent reads these docs. llms.txt, the full-text dump, bb de
 Agents can read this site four ways: two static files, one CLI command, and one MCP tool. Pick the one your harness already has.
 
 ```bash
-# Curated index (about 46 KB): start here, then fetch 1-3 pages
+# Curated index (about 47 KB): start here, then fetch 1-3 pages
 curl -sO https://docs.bitbadges.io/llms.txt
 
 # Full-text dump of every page (about 1.6 MB)
@@ -31,7 +31,7 @@ Two files, both regenerated with the docs. Every page of this site carries the s
 
 | Download | Size | What it is |
 | --- | --- | --- |
-| [llms.txt](https://docs.bitbadges.io/llms.txt) | about 46 KB | A curated index: every page in this site's navigation order, one line each, with its URL and one-sentence description. No page bodies |
+| [llms.txt](https://docs.bitbadges.io/llms.txt) | about 47 KB | A curated index: every page in this site's navigation order, one line each, with its URL and one-sentence description. No page bodies |
 | [for-llms.txt](https://docs.bitbadges.io/for-llms.txt) | about 1.6 MB | The whole corpus — 216 pages, roughly 43,000 lines — concatenated into one plain-text file |
 
 **Which one to feed your agent:**

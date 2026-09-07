@@ -24,7 +24,13 @@ badgeslp:COLLECTION_ID:denom
 | amount | `5` | Integer alias units, converted to `Balances[]` by the path's `conversion` |
 
 {% hint style="info" %}
-Ask your agent: "Add an alias path to collection 1 with symbol BASETOKEN and 6 decimals so token IDs 1 to 100 can be used as an sdk.Coin." The MCP builder tools (`add_alias_path, generate_alias_path`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add an alias path to collection 1 with symbol BASETOKEN and 6 decimals so token IDs 1 to 100 can be used as an sdk.Coin.
+```
+
+The MCP builder tools (`add_alias_path, generate_alias_path`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

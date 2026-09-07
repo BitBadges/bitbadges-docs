@@ -62,8 +62,13 @@ The BitBadges site's Create tab also has a Smart Token flow with the same option
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Build a smart token backed 1:1 by USDC called Wrapped USDC, transferable, with an alias path, and give me the review link."
-- "Build an AI agent vault backed by USDC with a 1,000 USDC daily withdraw limit and 2FA from collection 74, run the review, and flag anything risky."
+```text
+Build a smart token backed 1:1 by USDC called Wrapped USDC, transferable, with an alias path, and give me the review link.
+```
+
+```text
+Build an AI agent vault backed by USDC with a 1,000 USDC daily withdraw limit and 2FA from collection 74, run the review, and flag anything risky.
+```
 {% endhint %}
 
 ### Raw JSON

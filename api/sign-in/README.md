@@ -62,7 +62,13 @@ curl -X POST https://api.bitbadges.io/api/v0/siwbb/token \
 ```
 
 {% hint style="info" %}
-**Ask your agent.** With the MCP builder tools connected, a prompt like this works: "Check whether bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue owns at least one token from collection 1, then tell me which Sign In with BitBadges scopes my backend needs to complete claims on that user's behalf." The agent calls `verify_ownership` and `fetch_docs` and answers with the scope names to put in the authorization URL.
+**Ask your agent.** With the MCP builder tools connected, a prompt like this works:
+
+```text
+Check whether bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue owns at least one token from collection 1, then tell me which Sign In with BitBadges scopes my backend needs to complete claims on that user's behalf.
+```
+
+The agent calls `verify_ownership` and `fetch_docs` and answers with the scope names to put in the authorization URL.
 {% endhint %}
 
 ## OAuth Endpoints

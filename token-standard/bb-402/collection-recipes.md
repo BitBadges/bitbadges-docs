@@ -28,7 +28,13 @@ collectionApprovals: [
 ```
 
 {% hint style="info" %}
-Ask your agent: "Create a soulbound access-token collection where only alice can mint and revoke, and lock those approvals forever." The MCP builder tools (`add_approval, set_permissions`) produce the objects on this page.
+Ask your agent:
+
+```text
+Create a soulbound access-token collection where only alice can mint and revoke, and lock those approvals forever.
+```
+
+The MCP builder tools (`add_approval, set_permissions`) produce the objects on this page.
 {% endhint %}
 
 ## The Core Pattern

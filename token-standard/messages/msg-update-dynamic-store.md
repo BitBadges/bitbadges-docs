@@ -60,7 +60,11 @@ To change only the metadata, pass the current `defaultValue` and `globalEnabled`
 To clear the metadata, pass empty strings.
 
 {% hint style="info" %}
-Ask your agent: "Halt dynamic store 1 so every approval that checks it fails until I turn it back on."
+Ask your agent:
+
+```text
+Halt dynamic store 1 so every approval that checks it fails until I turn it back on.
+```
 {% endhint %}
 
 ## Fields

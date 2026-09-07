@@ -55,7 +55,11 @@ bb amount to-raw 1.5 --denom USDC                                     # 1500000
 All read verbs accept the [network flags](README.md#network-flags), `--condensed`, and `--output-file`.
 
 {% hint style="info" %}
-Ask your agent. `lookup_token_info` and `query_balance` cover the lookups here; swaps themselves stay in the wallet. "What is 1 BADGE worth in USDC right now, and which pool has the most BADGE liquidity?" runs `bb price` and `bb pools` for you.
+Ask your agent. `lookup_token_info` and `query_balance` cover the lookups here; swaps themselves stay in the wallet. This prompt runs `bb price` and `bb pools` for you:
+
+```text
+What is 1 BADGE worth in USDC right now, and which pool has the most BADGE liquidity?
+```
 {% endhint %}
 
 {% hint style="warning" %}

@@ -7,6 +7,16 @@ description: "Agent-initiated payment request with no escrow. The agent (or any 
 
 Instruction text for agents that use the PaymentRequest skill, loaded by `bb dev skills payment-request` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the payment-request skill and build me one: agent-initiated payment request with no escrow. The agent (or any address) creates a collection requesting payment from a targeted human payer. The payer approves and pays from their own wallet in a single action. Inverse of Bounty. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills payment-request` prints the same instructions.
+
 ## Summary
 
 Required standards: ["PaymentRequest"]

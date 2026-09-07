@@ -74,8 +74,13 @@ In TypeScript the same data is `api.getAllPools`, `getPoolInfoById`, `getPoolInf
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Using the liquidity-pools skill, create a balancer pool of BADGE and the wrapped token of collection 1 with a 0.3% swap fee, and give me the review link."
-- "Look up the current price of BADGE in USDC and the pools that hold both."
+```text
+Using the liquidity-pools skill, create a balancer pool of BADGE and the wrapped token of collection 1 with a 0.3% swap fee, and give me the review link.
+```
+
+```text
+Look up the current price of BADGE in USDC and the pools that hold both.
+```
 {% endhint %}
 
 ## 2. Check Balances

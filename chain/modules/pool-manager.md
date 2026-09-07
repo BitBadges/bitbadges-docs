@@ -67,7 +67,13 @@ All signed by `sender`. Type URLs are `/poolmanager.v1beta1.Msg<Name>`.
 Swaps that touch a native token still run through `MsgTransferTokens` and the collection's approvals, exactly as in x/gamm.
 
 {% hint style="info" %}
-Ask your agent: "Estimate how much badgeslp:64:utoken I get for 1 BADGE and split the route across pools 1 and 4 if that is cheaper." The `bb swap estimate ubadge badgeslp:64:utoken 1000000000` command uses the poolmanager estimate endpoints below.
+Ask your agent:
+
+```text
+Estimate how much badgeslp:64:utoken I get for 1 BADGE and split the route across pools 1 and 4 if that is cheaper.
+```
+
+The `bb swap estimate ubadge badgeslp:64:utoken 1000000000` command uses the poolmanager estimate endpoints below.
 {% endhint %}
 
 ## Queries

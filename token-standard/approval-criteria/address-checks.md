@@ -138,7 +138,13 @@ The checks attach to a party:
 An outgoing approval cannot check the sender and an incoming approval cannot check the recipient, because that party is the approval's owner.
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 1 where only EVM contracts can receive tokens, and never let tokens move into a liquidity pool." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 1 where only EVM contracts can receive tokens, and never let tokens move into a liquidity pool.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

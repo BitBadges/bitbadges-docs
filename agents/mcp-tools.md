@@ -149,7 +149,7 @@ Each tool sets one field on a session-scoped transaction. Calls in the same roun
 | `remove_transfer` | Remove a transfer message by index. `messages[0]` is the collection and cannot be removed | `index*` (>= 1) |
 | `set_is_archived` | Archive or unarchive. Archived collections stay on-chain but are hidden from browsing | `isArchived*` |
 | `get_transaction` | Return the assembled transaction JSON with `metadataPlaceholders`. Numbers become strings. Blank `image` fields are auto-filled with a deterministic SVG seeded by the collection name | none |
-| `get_review_url` | Final step: upload the transaction to the open preview endpoint and return a short bitbadges.io link the user opens to review and sign. Needs the API key to upload; the person opening the link needs none. Links expire after 1 hour. Lands with bitbadgesjs PR 288 | `transaction` (defaults to the session), `frontendUrl` |
+| `get_review_url` | Final step: upload the transaction to the open preview endpoint and return a short bitbadges.io link the user opens to review and sign. Needs the API key to upload; the person opening the link needs none. Links expire after 1 hour. | `transaction` (defaults to the session), `frontendUrl` |
 
 `generate_placeholder_art` (`seed*`, `style`, `monogram`) still exists in source but is not in the MCP catalog: `get_transaction` fills blank images for you.
 
@@ -227,6 +227,14 @@ Rendered skill pages: [Skills](skills/README.md).
 
 ### Session-Based Build
 
+Ask your agent:
+
+```text
+Build a fungible token called Demo Coin with a 1,000,000 supply cap and a public mint of up to 10 per address. Use the session tools, run validate, review, and simulate in parallel, fix any critical findings, then call get_review_url and give me the link.
+```
+
+The prompt above produces this chain:
+
 ```text
 set_standards + set_valid_token_ids + set_invariants + add_approval + set_permissions + set_default_balances + set_collection_metadata + set_token_metadata
   -> (optional) add_transfer (auto-mint at creation)
@@ -250,7 +258,7 @@ query_collection -> verify_ownership -> (act on the result)
 
 ### Auto-Mint at Creation
 
-`add_transfer` mints to specific addresses in the same transaction as the collection creation. The transaction then holds two messages: `MsgUniversalUpdateCollection` and `MsgTransferTokens`. Use it for "mint 100 tokens to myself", "distribute tokens to the team", or "auto-mint at creation".
+`add_transfer` mints to specific addresses in the same transaction as the collection creation. The transaction then holds two messages: `MsgCreateCollection` and `MsgTransferTokens`. (The session holds it as `MsgUniversalUpdateCollection`; `get_transaction` narrows it on the way out.) Use it for "mint 100 tokens to myself", "distribute tokens to the team", or "auto-mint at creation".
 
 1. Build the collection with a mint approval (`add_approval` with `fromListId: "Mint"` and `initiatedByListId: <creator address>`).
 2. Call `add_transfer` with the recipient addresses, balances, and `prioritizedApprovals` that reference the mint approval.
@@ -265,8 +273,6 @@ The builder never signs or broadcasts. Three exits:
 - `get_review_url` returns `reviewUrl`, where the user reviews and signs with a browser wallet. It is backed by a `prv_` code from `POST /api/v0/builder/preview`. Uploading the preview needs `BITBADGES_API_KEY`; opening the returned link needs none, because the unguessable code is the secret. The code expires in 1 hour. `BITBADGES_FRONTEND_URL` or the `frontendUrl` param points the link at testnet or a local site; a testnet `BITBADGES_API_URL` infers `https://testnet.bitbadges.io`.
 - Save `get_transaction` output to a file and run `bb preview tx.json --open`, or `bb deploy --browser` / `--burner` from the [CLI](../cli/deploy.md).
 - Sign with the [SDK signing client](../sdk/transactions/signing-client.md).
-
-If `get_review_url` is unavailable in your installed version, save the JSON to a file rather than printing it inline; terminal output wraps and truncates JSON.
 
 ## Resources
 
@@ -292,7 +298,7 @@ The same registry is reachable from `bb dev` as plain function calls, with no MC
 
 ```bash
 bb dev tools list                              # full schemas, as JSON
-bb dev tools list --names                      # tool names, one per line
+bb dev tools list --names                      # `{ ok, data: { names: [...] } }` envelope; pipe to jq -r '.data.names[]'
 bb dev tools call get_current_timestamp
 bb dev tools call get_skill_instructions --args '{"skillId":"smart-token"}'
 bb dev tools call set_collection_metadata --args-file ./metadata.json --session demo
