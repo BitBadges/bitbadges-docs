@@ -235,7 +235,7 @@ Both protocols depend on infrastructure, with different trust models. x402 intro
 | What is verified | Payment validity and fund transfer | Token ownership (read-only) |
 | Who verifies | Facilitator service | BitBadges API, another indexer, or your own node |
 | Settlement | Facilitator settles on-chain | None; ownership is pre-existing state |
-| Self-hostable | Yes (run a facilitator) | Yes (run a node or indexer) |
+| Self-hostable | Yes (run a facilitator) | Yes (run a node) |
 
 ## Related
 

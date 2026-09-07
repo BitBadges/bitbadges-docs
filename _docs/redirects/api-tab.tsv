@@ -6,7 +6,7 @@
 /for-developers/bitbadges-api/concepts/refresh-queue	/api
 /for-developers/bitbadges-api/concepts/managing-views	/api/pagination-and-views
 /for-developers/bitbadges-api/estimating-swaps	/api/swaps
-/for-developers/bitbadges-api/indexer	/api/self-hosting
+/for-developers/bitbadges-api/indexer	/api
 /for-developers/sign-in-with-bitbadges	/api/sign-in
 /for-developers/sign-in-with-bitbadges/overview	/api/sign-in
 /for-developers/sign-in-with-bitbadges/setting-up-an-app	/api/sign-in/setup
@@ -52,3 +52,4 @@
 /for-developers/bitbadges-api/tutorials/managing-claims	/api/claims/endpoints
 /for-developers/claim-builder/auto-complete-claims-w-bitbadges-api	/api/claims/endpoints
 /for-developers/claim-builder/universal-approach-claim-codes	/api/claims
+/api/self-hosting	/api

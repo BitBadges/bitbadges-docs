@@ -275,7 +275,13 @@ body {
   color: var(--fg);
   font-family: var(--font-mono);
   font-size: 0.855em;
-  white-space: nowrap;
+  /*
+   * `nowrap` made a long inline command (a full `bb build transfer ...` line)
+   * push past the content column and clip. Wrap instead, but keep `pre-wrap`
+   * so runs of spaces inside the snippet survive.
+   */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 /* Code blocks */
@@ -322,6 +328,30 @@ body {
   width: fit-content;
   min-width: 100%;
   font-family: inherit;
+}
+
+/*
+ * Shell blocks are long one-liners (flags, addresses) with no meaningful
+ * column alignment, so wrapping reads better than a horizontal scrollbar the
+ * reader has to find. Continuation lines are indented so a wrapped command
+ * still looks like one command. Structured languages (json, ts, solidity)
+ * keep scrolling, where alignment carries meaning.
+ */
+.doc pre[data-lang='bash'] code,
+.doc pre[data-lang='sh'] code,
+.doc pre[data-lang='shell'] code,
+.doc pre[data-lang='console'] code {
+  width: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.doc pre[data-lang='bash'] .line,
+.doc pre[data-lang='sh'] .line,
+.doc pre[data-lang='shell'] .line,
+.doc pre[data-lang='console'] .line {
+  display: inline-block;
+  padding-left: 2ch;
+  text-indent: -2ch;
 }
 
 /* Shiki dual theme: light values inline, dark swapped by variable. */

@@ -49,6 +49,31 @@ const slug = (label: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
+/**
+ * Keep only routes that are not already covered by an ancestor in the same tab.
+ *
+ * `activeTabIndex` matches by longest prefix, so `/sdk/reference/classes/x` is
+ * redundant once `/sdk/reference` is present, and tabs come from disjoint
+ * SUMMARY groups so no other tab can outrank the retained ancestor. Without
+ * this the SDK tab alone shipped 1639 reference routes to the client on every
+ * page in the site, in both layouts.
+ */
+export function minimalRoutes(routes: string[]): string[] {
+  const unique = [...new Set(routes)];
+  const sorted = [...unique].sort((a, b) => a.length - b.length);
+  const kept: string[] = [];
+  for (const route of sorted) {
+    if (route === '/') {
+      kept.push(route);
+      continue;
+    }
+    const covered = kept.some((k) => k !== '/' && (route === k || route.startsWith(`${k}/`)));
+    if (!covered) kept.push(route);
+  }
+  // Preserve the original nav order for the routes that survived.
+  return unique.filter((route) => kept.includes(route));
+}
+
 /** `/api-reference` from `/api-reference/x`, plus `/api` from the label `API`; root contributes nothing. */
 function prefixesFor(label: string, href: string): string[] {
   const out: string[] = [];
@@ -63,7 +88,7 @@ export function tabsFromNav(groups: NavGroup[]): NavTab[] {
   const tabs: NavTab[] = [];
 
   for (const group of groups) {
-    const routes = flattenNav([group]).map((n) => n.href);
+    const routes = minimalRoutes(flattenNav([group]).map((n) => n.href));
     if (routes.length === 0) continue;
     const label = group.title ? stripLeadingEmoji(group.title) : 'Docs';
     const href = routes[0];
