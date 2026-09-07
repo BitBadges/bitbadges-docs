@@ -13,6 +13,7 @@ import { docsConfig } from '../src/lib/docs/config';
 import { buildSearchRecords, MEDIA_EXTENSIONS } from '../src/lib/docs/content';
 import { API_FOLD, foldApiDocs, foldedPageFiles, sanitizeOpenApi } from '../src/lib/docs/openapi';
 import { loadRedirects } from '../src/lib/docs/redirects';
+import { generate as generateForLlms } from './gen-for-llms';
 
 const publicDir = path.resolve(process.cwd(), 'public');
 const assetsDir = path.join(publicDir, docsConfig.assetsPrefix.replace(/^\//, ''));
@@ -147,17 +148,19 @@ if (await fs.access(chainFrom).then(() => true).catch(() => false)) {
   console.log('chain openapi: no committed spec — /chain-api-reference will be empty');
 }
 
-// llms.txt and for-llms.txt are corpus-level agent entry points that the docs
-// advertise by absolute URL, so the built site has to serve them.
-for (const name of ['llms.txt', 'for-llms.txt']) {
-  const from = path.join(docsConfig.contentDir, name);
-  if (await fs.access(from).then(() => true).catch(() => false)) {
-    await fs.mkdir(publicDir, { recursive: true });
-    await copyIfStale(from, path.join(publicDir, name));
-  } else {
-    console.log(`llms: ${name} is missing from the content root`);
-  }
+// llms.txt is the curated nav-derived index (scripts/gen-llms.ts writes it
+// into the content root); for-llms.txt is the full corpus dump, built here so
+// nothing has to be committed. Both are served from public/.
+const llmsIndex = path.join(docsConfig.contentDir, 'llms.txt');
+if (await fs.access(llmsIndex).then(() => true).catch(() => false)) {
+  await fs.mkdir(publicDir, { recursive: true });
+  await copyIfStale(llmsIndex, path.join(publicDir, 'llms.txt'));
+} else {
+  console.log('llms: llms.txt is missing from the content root');
 }
+
+const corpus = await generateForLlms();
+console.log(`for-llms: ${corpus.pages} page(s), ${(corpus.bytes / 1024 / 1024).toFixed(2)} MB`);
 
 const spec = await syncOpenApi();
 console.log(spec ? `openapi: copied from ${path.relative(process.cwd(), spec)}` : 'openapi: no spec found — API reference will be empty');
