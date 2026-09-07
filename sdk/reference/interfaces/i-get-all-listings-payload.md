@@ -4,7 +4,7 @@ description: "Denom to filter listings by (e.g. ubadge)."
 
 # Interface: iGetAllListingsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4964](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4964)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4859](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4859)
 
 ## Properties
 
@@ -12,6 +12,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4964]
 
 > **denom**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4966](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4966)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4861](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4861)
 
 Denom to filter listings by (e.g. `ubadge`).

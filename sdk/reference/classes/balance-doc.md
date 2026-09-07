@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: BalanceDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:963](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L963)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:962](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L962)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:963](ht
 
 > **new BalanceDoc**\<`T`\>(`data`): `BalanceDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:978](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L978)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:977](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L977)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:978](ht
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:964](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L964)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:963](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L963)
 
 A unique stringified document ID
 
@@ -62,7 +62,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:965](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L965)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:964](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L964)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -76,7 +76,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **autoApproveAllIncomingTransfers**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:975](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L975)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:974](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L974)
 
 Whether the user's all incoming transfers are auto-approved. If not, they must be explicitly approved using the incoming approvals.
 
@@ -90,7 +90,7 @@ Whether the user's all incoming transfers are auto-approved. If not, they must b
 
 > **autoApproveSelfInitiatedIncomingTransfers**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:973](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L973)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:972](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L972)
 
 Whether the user's self-initiated incoming transfers are auto-approved. If not, they must be explicitly approved using the incoming approvals.
 
@@ -104,7 +104,7 @@ Whether the user's self-initiated incoming transfers are auto-approved. If not, 
 
 > **autoApproveSelfInitiatedOutgoingTransfers**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:974](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L974)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:973](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L973)
 
 Whether the user's self-initiated outgoing transfers are auto-approved. If not, they must be explicitly approved using the outgoing approvals.
 
@@ -118,7 +118,7 @@ Whether the user's self-initiated outgoing transfers are auto-approved. If not, 
 
 > **balances**: [`BalanceArray`](/sdk/reference/classes/balance-array)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:969](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L969)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:968](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L968)
 
 The user's balances.
 
@@ -132,7 +132,7 @@ The user's balances.
 
 > **bitbadgesAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:967](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L967)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:966](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L966)
 
 The BitBadges address of the user
 
@@ -146,7 +146,7 @@ The BitBadges address of the user
 
 > **collectionId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:966](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L966)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:965](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L965)
 
 The collection ID
 
@@ -160,7 +160,7 @@ The collection ID
 
 > **incomingApprovals**: [`UserIncomingApproval`](/sdk/reference/classes/user-incoming-approval)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:970](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L970)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:969](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L969)
 
 The user's incoming approvals.
 
@@ -174,7 +174,7 @@ The user's incoming approvals.
 
 > **outgoingApprovals**: [`UserOutgoingApproval`](/sdk/reference/classes/user-outgoing-approval)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:971](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L971)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:970](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L970)
 
 The user's outgoing approvals.
 
@@ -188,7 +188,7 @@ The user's outgoing approvals.
 
 > `optional` **tags?**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:976](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L976)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:975](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L975)
 
 Optional tags for this balance
 
@@ -202,7 +202,7 @@ Optional tags for this balance
 
 > **updateHistory**: [`UpdateHistory`](/sdk/reference/classes/update-history)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:968](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L968)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:967](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L967)
 
 The update history of this balance
 
@@ -216,7 +216,7 @@ The update history of this balance
 
 > **userPermissions**: [`UserPermissions`](/sdk/reference/classes/user-permissions)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:972](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L972)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:971](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L971)
 
 The user's permissions.
 
@@ -248,7 +248,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `BalanceDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:999](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L999)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:998](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L998)
 
 Converts the object to a different NumberType equivalent.
 
@@ -318,7 +318,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:995](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L995)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:994](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L994)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

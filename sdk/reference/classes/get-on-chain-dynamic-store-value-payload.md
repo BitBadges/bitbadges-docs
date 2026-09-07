@@ -4,7 +4,7 @@ description: "any"
 
 # Class: GetOnChainDynamicStoreValuePayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4156](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4156)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4155](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4155)
 
 ## Extends
 

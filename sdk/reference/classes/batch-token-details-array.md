@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/batch-utils.ts:90](https://github
 
 > **new BatchTokenDetailsArray**\<`T`\>(`arrayLength`): `BatchTokenDetailsArray`\<`T`\>
 
-Defined in: gauntlet/.worktrees/bitbadges-docs/feat-docs-rewrite/site/node\_modules/typescript/lib/lib.es5.d.ts:1513
+Defined in: site/node\_modules/typescript/lib/lib.es5.d.ts:1513
 
 #### Parameters
 
@@ -46,7 +46,7 @@ Defined in: gauntlet/.worktrees/bitbadges-docs/feat-docs-rewrite/site/node\_modu
 
 > **new BatchTokenDetailsArray**\<`T`\>(...`items`): `BatchTokenDetailsArray`\<`T`\>
 
-Defined in: gauntlet/.worktrees/bitbadges-docs/feat-docs-rewrite/site/node\_modules/typescript/lib/lib.es5.d.ts:1514
+Defined in: site/node\_modules/typescript/lib/lib.es5.d.ts:1514
 
 #### Parameters
 

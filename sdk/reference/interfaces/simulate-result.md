@@ -4,7 +4,7 @@ description: "Result from simulating a transaction."
 
 # Interface: SimulateResult
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:241](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L241)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:253](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L253)
 
 Result from simulating a transaction.
 
@@ -14,7 +14,7 @@ Result from simulating a transaction.
 
 > `optional` **events?**: [`SimulationEvent`](/sdk/reference/interfaces/simulation-event)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:249](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L249)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:261](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L261)
 
 Raw events from Cosmos simulation (present for Cosmos path, populated via separate Cosmos sim for EVM path)
 
@@ -24,7 +24,7 @@ Raw events from Cosmos simulation (present for Cosmos path, populated via separa
 
 > **fee**: [`SigningFee`](/sdk/reference/interfaces/signing-fee)
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:247](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L247)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:259](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L259)
 
 Calculated fee based on gas limit
 
@@ -34,7 +34,7 @@ Calculated fee based on gas limit
 
 > **gasLimit**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:245](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L245)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:257](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L257)
 
 Recommended gas limit (gasUsed * multiplier)
 
@@ -44,6 +44,6 @@ Recommended gas limit (gasUsed * multiplier)
 
 > **gasUsed**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:243](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L243)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:255](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L255)
 
 Estimated gas used

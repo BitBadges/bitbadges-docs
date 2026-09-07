@@ -4,7 +4,7 @@ description: "Denormalized, indexed record powering the server-side collection-i
 
 # Class: CollectionIndexDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:174](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L174)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:173](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L173)
 
 Denormalized, indexed record powering the server-side collection-index query
 (filter/sort/search/facets/paginate over Mongo). ONE doc per
@@ -35,7 +35,7 @@ same shape.
 
 > **new CollectionIndexDoc**\<`T`\>(`data`): `CollectionIndexDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:195](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L195)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:194](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L194)
 
 #### Parameters
 
@@ -57,7 +57,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:195](ht
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:175](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L175)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:174](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L174)
 
 A unique stringified document ID
 
@@ -71,7 +71,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:176](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L176)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:175](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L175)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -85,7 +85,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > `optional` **amountStr?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:185](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L185)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:184](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L184)
 
 Headline money amount (exact bigint string), denom paired below — for display.
 
@@ -99,7 +99,7 @@ Headline money amount (exact bigint string), denom paired below — for display.
 
 > **collectionId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:177](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L177)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:176](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L176)
 
 The collection ID (this row is one of the collection's indexed standards).
 
@@ -113,7 +113,7 @@ The collection ID (this row is one of the collection's indexed standards).
 
 > **createdBlock**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:191](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L191)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:190](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L190)
 
 Creation block (cursor sort key, mirrors createdTokens).
 
@@ -127,7 +127,7 @@ Creation block (cursor sort key, mirrors createdTokens).
 
 > **createdBy**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:178](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L178)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:177](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L177)
 
 Creator bech32 address — dashboards scope per-creator.
 
@@ -141,7 +141,7 @@ Creator bech32 address — dashboards scope per-creator.
 
 > **createdTimestamp**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:192](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L192)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:191](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L191)
 
 Creation timestamp (unix ms).
 
@@ -155,7 +155,7 @@ Creation timestamp (unix ms).
 
 > `optional` **denom?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:186](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L186)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:185](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L185)
 
 Headline denom (invoice/sub price/product 'from'/vault backing).
 
@@ -169,7 +169,7 @@ Headline denom (invoice/sub price/product 'from'/vault backing).
 
 > `optional` **endTime?**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:187](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L187)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:186](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L186)
 
 Deadline in unix ms (0/absent = none); used for the query-time expiry rule.
 
@@ -183,7 +183,7 @@ Deadline in unix ms (0/absent = none); used for the query-time expiry rule.
 
 > `optional` **extras?**: `unknown`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:190](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L190)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:189](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L189)
 
 The standard's full computed `standardsInfo` blob, carried for display.
 
@@ -197,7 +197,7 @@ The standard's full computed `standardsInfo` blob, carried for display.
 
 > **image**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:183](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L183)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:182](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L182)
 
 Collection image URI (for the dashboard avatar; '' until metadata lands).
 
@@ -211,7 +211,7 @@ Collection image URI (for the dashboard avatar; '' until metadata lands).
 
 > **lastSyncedBlock**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:193](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L193)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:192](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L192)
 
 Block this record was last rebuilt at (reorg/idempotency guard).
 
@@ -225,7 +225,7 @@ Block this record was last rebuilt at (reorg/idempotency guard).
 
 > **name**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:181](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L181)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:180](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L180)
 
 Collection display name (from metadata; '' until the async fetch lands).
 
@@ -239,7 +239,7 @@ Collection display name (from metadata; '' until the async fetch lands).
 
 > **nameLower**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:182](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L182)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:181](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L181)
 
 Lowercased name for case-insensitive search/sort.
 
@@ -253,7 +253,7 @@ Lowercased name for case-insensitive search/sort.
 
 > `optional` **payerAddress?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:188](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L188)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:187](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L187)
 
 Counterparty addresses (e.g. PaymentRequest payer/recipient) for role filtering.
 
@@ -267,7 +267,7 @@ Counterparty addresses (e.g. PaymentRequest payer/recipient) for role filtering.
 
 > `optional` **recipientAddress?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:189](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L189)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:188](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L188)
 
 #### Implementation of
 
@@ -279,7 +279,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:189](ht
 
 > **standard**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:179](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L179)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:178](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L178)
 
 THE standard this row represents (the row's primary filter key).
 
@@ -293,7 +293,7 @@ THE standard this row represents (the row's primary filter key).
 
 > **standards**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:180](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L180)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:179](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L179)
 
 ALL standards the collection declares (for "is also an X" cross-filtering).
 
@@ -307,7 +307,7 @@ ALL standards the collection declares (for "is also an X" cross-filtering).
 
 > `optional` **status?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:184](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L184)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:183](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L183)
 
 Durable, tx-derived status enum (per standard). Clock-only transitions
 (e.g. PaymentRequest `pending` → `expired` past its deadline) are NOT
@@ -342,7 +342,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `CollectionIndexDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:224](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L224)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:223](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L223)
 
 Converts the object to a different NumberType equivalent.
 
@@ -412,7 +412,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:220](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L220)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:219](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L219)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

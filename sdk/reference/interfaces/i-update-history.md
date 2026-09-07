@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iUpdateHistory\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1964](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1964)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1930](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1930)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1
 
 > **block**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1968](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1968)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1934](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1934)
 
 The block number of the on-chain transaction that updated this.
 
@@ -28,7 +28,7 @@ The block number of the on-chain transaction that updated this.
 
 > **blockTimestamp**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1970](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1970)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1936](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1936)
 
 The timestamp of the block of the on-chain transaction that updated this.
 
@@ -38,7 +38,7 @@ The timestamp of the block of the on-chain transaction that updated this.
 
 > **timestamp**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1972](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1972)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1938](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1938)
 
 The indexer's timestamp of the update. This is provided in some cases because the time of indexing may be inconsistent with the time of the block.
 
@@ -48,6 +48,6 @@ The indexer's timestamp of the update. This is provided in some cases because th
 
 > **txHash**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1966](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1966)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1932](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1932)
 
 The transaction hash of the on-chain transaction that updated this.

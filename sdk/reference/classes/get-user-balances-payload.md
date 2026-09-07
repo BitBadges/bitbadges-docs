@@ -4,7 +4,7 @@ description: "iGetUserBalancesPayload"
 
 # Class: GetUserBalancesPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4913](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4913)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4808](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4808)
 
 ## Implements
 
@@ -16,7 +16,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4913]
 
 > **new GetUserBalancesPayload**(`data`): `GetUserBalancesPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4917](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4917)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4812](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4812)
 
 #### Parameters
 
@@ -34,7 +34,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4917]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4914](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4914)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4809](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4809)
 
 Pagination bookmark from the previous response.
 
@@ -48,7 +48,7 @@ Pagination bookmark from the previous response.
 
 > `optional` **limit?**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4915](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4915)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4810](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4810)
 
 Page size. Indexer-enforced max applies.
 

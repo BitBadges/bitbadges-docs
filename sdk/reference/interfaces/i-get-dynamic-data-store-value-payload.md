@@ -4,7 +4,7 @@ description: "The data secret to fetch. Only needed if you are not signed in as 
 
 # Interface: iGetDynamicDataStoreValuePayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2951](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2951)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2950](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2950)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2951]
 
 > `optional` **dataSecret?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2955](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2955)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2954](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2954)
 
 The data secret to fetch. Only needed if you are not signed in as creator. Not applicable to public stores
 
@@ -22,7 +22,7 @@ The data secret to fetch. Only needed if you are not signed in as creator. Not a
 
 > **key**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2953](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2953)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2952](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2952)
 
 The key to fetch.
 
@@ -32,6 +32,6 @@ The key to fetch.
 
 > `optional` **lookupType?**: `"username"` \| `"id"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2957](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2957)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2956](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2956)
 
 The lookup type to fetch (if you need to specify).

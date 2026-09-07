@@ -4,7 +4,7 @@ description: "A map from Stargate message types as used in the messages's Any ty
 
 # Class: AminoTypesClass
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:164](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L164)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:165](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L165)
 
 A map from Stargate message types as used in the messages's `Any` type
 to Amino types.
@@ -15,7 +15,7 @@ to Amino types.
 
 > **new AminoTypesClass**(`types`): `AminoTypesClass`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:171](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L171)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:172](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L172)
 
 #### Parameters
 
@@ -33,7 +33,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:171](ht
 
 > **fromAmino**(`__namedParameters`): [`EncodeObject`](/sdk/reference/interfaces/encode-object)
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:221](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L221)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:222](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L222)
 
 #### Parameters
 
@@ -51,7 +51,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:221](ht
 
 > **toAmino**(`__namedParameters`): `AminoMsg`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:175](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L175)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:176](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L176)
 
 #### Parameters
 

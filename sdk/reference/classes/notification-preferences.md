@@ -4,7 +4,7 @@ description: "Details about the user's push notification preferences."
 
 # Class: NotificationPreferences\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:463](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L463)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:462](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L462)
 
 Details about the user's push notification preferences.
 
@@ -28,7 +28,7 @@ Details about the user's push notification preferences.
 
 > **new NotificationPreferences**\<`T`\>(`data`): `NotificationPreferences`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:477](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L477)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:476](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L476)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:477](ht
 
 > `optional` **discord?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:468](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L468)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:467](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L467)
 
 The Discord ID to receive push notifications.
 
@@ -80,7 +80,7 @@ The Discord ID to receive push notifications.
 
 > `optional` **email?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:467](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L467)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:466](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L466)
 
 The email to receive push notifications.
 
@@ -94,7 +94,7 @@ The email to receive push notifications.
 
 > `optional` **emailVerification?**: [`EmailVerificationStatus`](/sdk/reference/classes/email-verification-status)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:469](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L469)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:468](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L468)
 
 The verification status of the email.
 
@@ -108,7 +108,7 @@ The verification status of the email.
 
 > `optional` **preferences?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:470](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L470)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:469](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L469)
 
 The preferences for the notifications. What type of notifications does the user want to receive?
 
@@ -156,7 +156,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `NotificationPreferences`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:485](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L485)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:484](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L484)
 
 Converts the object to a different NumberType equivalent.
 

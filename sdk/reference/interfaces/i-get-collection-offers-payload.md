@@ -4,7 +4,7 @@ description: "Denom to filter offers by (e.g. ubadge)."
 
 # Interface: iGetCollectionOffersPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4998](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4998)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4893](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4893)
 
 ## Properties
 
@@ -12,6 +12,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4998]
 
 > **denom**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5000](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5000)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4895](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4895)
 
 Denom to filter offers by (e.g. `ubadge`).

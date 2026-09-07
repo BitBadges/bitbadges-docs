@@ -4,7 +4,7 @@ description: "iGetPluginsPayload"
 
 # Class: GetPluginsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2619](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2619)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2618](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2618)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2619]
 
 > **new GetPluginsPayload**(`payload`): `GetPluginsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2623](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2623)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2622](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2622)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2623]
 
 > **pluginIds**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2620](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2620)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2619](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2619)
 
 The plugin IDs to fetch.
 
@@ -56,7 +56,7 @@ The plugin IDs to fetch.
 
 > `optional` **returnSensitiveData?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2621](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2621)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2620](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2620)
 
 If true, include sensitive data (pluginSecret) for plugins you own. Requires authentication.
 

@@ -4,4 +4,4 @@ description: "Interface: iGetDeveloperAppPayload — BitBadges TypeScript SDK in
 
 # Interface: iGetDeveloperAppPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2215](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2215)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2214](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2214)

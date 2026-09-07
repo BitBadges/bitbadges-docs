@@ -4,7 +4,7 @@ description: "Interface: iGetPostActionStatusesSuccessResponse — BitBadges Typ
 
 # Interface: iGetPostActionStatusesSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3761](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3761)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3760](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3760)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3761]
 
 > **postActionStatuses**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3762](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3762)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3761](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3761)
 
 #### bitbadgesAddress
 

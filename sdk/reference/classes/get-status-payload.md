@@ -4,7 +4,7 @@ description: "iGetStatusPayload"
 
 # Class: GetStatusPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:173](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L173)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:172](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L172)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:173](
 
 > **new GetStatusPayload**(`payload`): `GetStatusPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:177](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L177)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:176](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L176)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:177](
 
 > `optional` **chain?**: `"Thorchain"` \| `"BitBadges"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:175](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L175)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:174](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L174)
 
 Chain to check? Defaults to BitBadges poller.
 
@@ -56,7 +56,7 @@ Chain to check? Defaults to BitBadges poller.
 
 > `optional` **withOutOfSyncCheck?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:174](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L174)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:173](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L173)
 
 If true, we will check if the indexer is out of sync with the blockchain.
 
@@ -233,7 +233,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `GetStatusPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:183](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L183)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:182](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L182)
 
 #### Parameters
 

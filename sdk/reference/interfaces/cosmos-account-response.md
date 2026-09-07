@@ -4,7 +4,7 @@ description: "Information returned by the REST API getAccount route."
 
 # Interface: CosmosAccountResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1756](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1756)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1755](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1755)
 
 Information returned by the REST API getAccount route.
 
@@ -16,7 +16,7 @@ Note this should be converted into AccountDoc or BitBadgesUserInfo before being 
 
 > **account\_number**: `string` \| `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1758](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1758)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1757](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1757)
 
 The node REST API serves this as a decimal string; post-v34 it can exceed 2^53 â€” never Number() it.
 
@@ -26,7 +26,7 @@ The node REST API serves this as a decimal string; post-v34 it can exceed 2^53 â
 
 > **address**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1764](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1764)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1763](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1763)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1764]
 
 > **pub\_key**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1761](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1761)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1760](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1760)
 
 #### key
 
@@ -46,6 +46,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1761]
 
 > **sequence**: `string` \| `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1760](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1760)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1759](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1759)
 
 The node REST API serves this as a decimal string; post-v34 unordered-tx nonces can exceed 2^53.

@@ -4,7 +4,7 @@ description: "Client ID for the SIWBB request."
 
 # Interface: iExchangeSIWBBAuthorizationCodePayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1995](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1995)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1994](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1994)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1995]
 
 > `optional` **client\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2004](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2004)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2003](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2003)
 
 Client ID for the SIWBB request.
 
@@ -22,7 +22,7 @@ Client ID for the SIWBB request.
 
 > `optional` **client\_secret?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2002](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2002)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2001](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2001)
 
 Client secret for the SIWBB request.
 
@@ -32,7 +32,7 @@ Client secret for the SIWBB request.
 
 > `optional` **code?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1997](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1997)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1996](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1996)
 
 The SIWBB request.
 
@@ -42,7 +42,7 @@ The SIWBB request.
 
 > `optional` **code\_verifier?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2013](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2013)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2012](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2012)
 
 The code verifier for the SIWBB request (if used with PKCE).
 
@@ -52,7 +52,7 @@ The code verifier for the SIWBB request (if used with PKCE).
 
 > `optional` **grant\_type?**: `"authorization_code"` \| `"refresh_token"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2008](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2008)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2007](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2007)
 
 The grant type for the SIWBB request.
 
@@ -62,7 +62,7 @@ The grant type for the SIWBB request.
 
 > `optional` **options?**: [`VerifySIWBBOptions`](/sdk/reference/interfaces/verify-siwbb-options)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1999](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1999)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1998](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1998)
 
 We attempt to verify the current status with each request. You can provide additional options for verification here.
 
@@ -72,7 +72,7 @@ We attempt to verify the current status with each request. You can provide addit
 
 > `optional` **redirect\_uri?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2006](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2006)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2005](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2005)
 
 The redirect URI for the SIWBB request. Only required if the code was created with a redirect URI.
 
@@ -82,6 +82,6 @@ The redirect URI for the SIWBB request. Only required if the code was created wi
 
 > `optional` **refresh\_token?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2010](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2010)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2009](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2009)
 
 The refresh token to use for the SIWBB request.

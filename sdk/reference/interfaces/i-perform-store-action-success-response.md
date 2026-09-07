@@ -4,4 +4,4 @@ description: "Interface: iPerformStoreActionSuccessResponse — BitBadges TypeSc
 
 # Interface: iPerformStoreActionSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3219](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3219)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3218](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3218)

@@ -4,7 +4,7 @@ description: "The pagination bookmark to start from"
 
 # Interface: iGetDynamicDataStoreValuesPaginatedPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2893](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2893)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2892](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2892)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2893]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2897](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2897)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2896](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2896)
 
 The pagination bookmark to start from
 
@@ -22,7 +22,7 @@ The pagination bookmark to start from
 
 > `optional` **dataSecret?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2895](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2895)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2894](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2894)
 
 The data secret to fetch. Only needed if you are not signed in as creator. Not applicable to public stores
 
@@ -32,6 +32,6 @@ The data secret to fetch. Only needed if you are not signed in as creator. Not a
 
 > `optional` **lookupType?**: `"username"` \| `"id"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2899](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2899)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2898](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2898)
 
 The lookup type to fetch (if you need to specify).

@@ -4,7 +4,7 @@ description: "iGetSkipBalancesSuccessResponse"
 
 # Class: GetSkipBalancesSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4443](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4443)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4338](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4338)
 
 ## Extends
 
@@ -24,7 +24,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4443]
 
 > **new GetSkipBalancesSuccessResponse**(`data`): `GetSkipBalancesSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4446](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4446)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4341](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4341)
 
 #### Parameters
 

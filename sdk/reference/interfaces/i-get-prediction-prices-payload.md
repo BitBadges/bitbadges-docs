@@ -4,7 +4,7 @@ description: "Price-history aggregation timeframe. Defaults to '1h' on the index
 
 # Interface: iGetPredictionPricesPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5514](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5514)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5409](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5409)
 
 ## Properties
 
@@ -12,6 +12,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5514]
 
 > `optional` **timeframe?**: `"10m"` \| `"1h"` \| `"1d"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5516](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5516)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5411](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5411)
 
 Price-history aggregation timeframe. Defaults to `'1h'` on the indexer.

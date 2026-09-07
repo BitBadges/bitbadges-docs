@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: CollectionStatsDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:143](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L143)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:142](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L142)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:143](ht
 
 > **new CollectionStatsDoc**\<`T`\>(`data`): `CollectionStatsDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:150](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L150)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:149](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L149)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:150](ht
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:103](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L103)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:102](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L102)
 
 A unique stringified document ID
 
@@ -66,7 +66,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:104](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L104)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:103](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L103)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -84,7 +84,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **collectionId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:144](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L144)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:143](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L143)
 
 The collection ID
 
@@ -98,7 +98,7 @@ The collection ID
 
 > **dailyVolume**: [`CosmosCoin`](/sdk/reference/classes/cosmos-coin)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:108](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L108)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:107](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L107)
 
 The daily volume of the collection
 
@@ -116,7 +116,7 @@ The daily volume of the collection
 
 > `optional` **floorPriceHistory?**: [`FloorPriceHistory`](/sdk/reference/classes/floor-price-history)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:147](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L147)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:146](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L146)
 
 Floor price history
 
@@ -130,7 +130,7 @@ Floor price history
 
 > `optional` **floorPrices?**: [`CosmosCoin`](/sdk/reference/classes/cosmos-coin)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:145](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L145)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:144](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L144)
 
 Floor price of the collection
 
@@ -144,7 +144,7 @@ Floor price of the collection
 
 > **lastUpdatedAt**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:116](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L116)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:115](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L115)
 
 Last set timestamp
 
@@ -162,7 +162,7 @@ Last set timestamp
 
 > **monthlyVolume**: [`CosmosCoin`](/sdk/reference/classes/cosmos-coin)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:112](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L112)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:111](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L111)
 
 The monthly volume of the collection
 
@@ -180,7 +180,7 @@ The monthly volume of the collection
 
 > **overallVolume**: [`CosmosCoin`](/sdk/reference/classes/cosmos-coin)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:106](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L106)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:105](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L105)
 
 The overall volume of the collection
 
@@ -198,7 +198,7 @@ The overall volume of the collection
 
 > `optional` **payoutRewards?**: [`CosmosCoin`](/sdk/reference/classes/cosmos-coin)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:148](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L148)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:147](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L147)
 
 The payout reward
 
@@ -212,7 +212,7 @@ The payout reward
 
 > **uniqueOwners**: [`BalanceArray`](/sdk/reference/classes/balance-array)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:146](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L146)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:145](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L145)
 
 Number of unique owners by time
 
@@ -226,7 +226,7 @@ Number of unique owners by time
 
 > **weeklyVolume**: [`CosmosCoin`](/sdk/reference/classes/cosmos-coin)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:110](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L110)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:109](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L109)
 
 The weekly volume of the collection
 
@@ -244,7 +244,7 @@ The weekly volume of the collection
 
 > **yearlyVolume**: [`CosmosCoin`](/sdk/reference/classes/cosmos-coin)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:114](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L114)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:113](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L113)
 
 The yearly volume of the collection
 
@@ -280,7 +280,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `CollectionStatsDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:165](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L165)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:164](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L164)
 
 Converts the object to a different NumberType equivalent.
 
@@ -350,7 +350,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:161](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L161)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:160](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L160)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

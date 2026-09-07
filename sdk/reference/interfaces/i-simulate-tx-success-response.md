@@ -4,7 +4,7 @@ description: "How much gas was used in the simulation."
 
 # Interface: iSimulateTxSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1661](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1661)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1660](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1660)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1661]
 
 > **gas\_info**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1665](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1665)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1664](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1664)
 
 How much gas was used in the simulation.
 
@@ -30,7 +30,7 @@ How much gas was used in the simulation.
 
 > **result**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1669](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1669)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1668](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1668)
 
 The result of the simulation.
 

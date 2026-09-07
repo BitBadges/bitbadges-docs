@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: QueueDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:598](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L598)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:597](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L597)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:598](ht
 
 > **new QueueDoc**\<`T`\>(`data`): `QueueDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:629](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L629)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:628](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L628)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:629](ht
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:599](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L599)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:598](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L598)
 
 A unique stringified document ID
 
@@ -62,7 +62,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:600](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L600)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:599](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L599)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -76,7 +76,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > `optional` **actionConfig?**: `any`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:626](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L626)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:625](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L625)
 
 For use for post-claim actions
 
@@ -90,7 +90,7 @@ For use for post-claim actions
 
 > `optional` **activityDocId?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:613](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L613)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:612](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L612)
 
 #### Implementation of
 
@@ -102,7 +102,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:613](ht
 
 > `optional` **claimInfo?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:615](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L615)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:614](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L614)
 
 For use for claim completion
 
@@ -140,7 +140,7 @@ For use for claim completion
 
 > **collectionId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:602](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L602)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:601](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L601)
 
 The collection ID of the metadata to be fetched
 
@@ -154,7 +154,7 @@ The collection ID of the metadata to be fetched
 
 > `optional` **deletedAt?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:609](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L609)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:608](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L608)
 
 The timestamp of when this document was deleted (milliseconds since epoch)
 
@@ -168,7 +168,7 @@ The timestamp of when this document was deleted (milliseconds since epoch)
 
 > `optional` **emailMessage?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:611](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L611)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:610](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L610)
 
 #### Implementation of
 
@@ -180,7 +180,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:611](ht
 
 > `optional` **error?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:608](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L608)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:607](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L607)
 
 The error message if this metadata failed to be fetched
 
@@ -194,7 +194,7 @@ The error message if this metadata failed to be fetched
 
 > `optional` **faucetInfo?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:625](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L625)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:624](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L624)
 
 For use for airdrops
 
@@ -224,7 +224,7 @@ For use for airdrops
 
 > `optional` **initiatedBy?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:627](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L627)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:626](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L626)
 
 The BitBadges address of the user who initiated this fetch
 
@@ -238,7 +238,7 @@ The BitBadges address of the user who initiated this fetch
 
 > `optional` **lastFetchedAt?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:607](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L607)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:606](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L606)
 
 The timestamp of when this metadata was last fetched (milliseconds since epoch)
 
@@ -252,7 +252,7 @@ The timestamp of when this metadata was last fetched (milliseconds since epoch)
 
 > **loadBalanceId**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:603](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L603)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:602](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L602)
 
 The load balance ID of the metadata to be fetched. Only the node with the same load balance ID will fetch this metadata
 
@@ -266,7 +266,7 @@ The load balance ID of the metadata to be fetched. Only the node with the same l
 
 > `optional` **nextFetchTime?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:610](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L610)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:609](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L609)
 
 The timestamp of when this document should be fetched next (milliseconds since epoch)
 
@@ -280,7 +280,7 @@ The timestamp of when this document should be fetched next (milliseconds since e
 
 > `optional` **notificationType?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:614](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L614)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:613](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L613)
 
 Type of the doc / purpose
 
@@ -294,7 +294,7 @@ Type of the doc / purpose
 
 > **numRetries**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:606](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L606)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:605](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L605)
 
 The number of times this metadata has been tried to be fetched but failed
 
@@ -308,7 +308,7 @@ The number of times this metadata has been tried to be fetched but failed
 
 > `optional` **pending?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:604](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L604)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:603](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L603)
 
 Whether this document is pending to be fetched or not
 
@@ -322,7 +322,7 @@ Whether this document is pending to be fetched or not
 
 > `optional` **recipientAddress?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:612](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L612)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:611](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L611)
 
 #### Implementation of
 
@@ -334,7 +334,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:612](ht
 
 > **refreshRequestTime**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:605](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L605)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:604](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L604)
 
 The timestamp of when this metadata was requested to be refreshed (milliseconds since epoch)
 
@@ -348,7 +348,7 @@ The timestamp of when this metadata was requested to be refreshed (milliseconds 
 
 > **uri**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:601](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L601)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:600](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L600)
 
 The URI of the metadata to be fetched. If {id} is present, it will be replaced with each individual ID in tokenIds
 
@@ -380,7 +380,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `QueueDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:657](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L657)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:656](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L656)
 
 Converts the object to a different NumberType equivalent.
 
@@ -450,7 +450,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:653](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L653)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:652](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L652)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

@@ -4,7 +4,7 @@ description: "iGetSearchSuccessResponse"
 
 # Class: GetSearchSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:319](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L319)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:318](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L318)
 
 ## Inherit Doc
 
@@ -30,7 +30,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:319](
 
 > **new GetSearchSuccessResponse**\<`T`\>(`data`): `GetSearchSuccessResponse`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:332](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L332)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:331](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L331)
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:332](
 
 > **accounts**: [`BitBadgesUserInfo`](/sdk/reference/classes/bit-badges-user-info)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:324](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L324)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:323](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L323)
 
 #### Implementation of
 
@@ -64,7 +64,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:324](
 
 > `optional` **claims?**: [`ClaimDetails`](/sdk/reference/classes/claim-details)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:329](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L329)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:328](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L328)
 
 #### Implementation of
 
@@ -76,7 +76,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:329](
 
 > **collections**: [`BitBadgesCollection`](/sdk/reference/classes/bit-badges-collection)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:323](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L323)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:322](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L322)
 
 #### Implementation of
 
@@ -88,7 +88,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:323](
 
 > **tokens**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:325](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L325)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:324](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L324)
 
 #### collection
 
@@ -108,7 +108,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:325](
 
 > `optional` **utilityPages?**: [`UtilityPageDoc`](/sdk/reference/classes/utility-page-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:330](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L330)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:329](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L329)
 
 #### Implementation of
 
@@ -138,7 +138,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `GetSearchSuccessResponse`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:346](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L346)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:345](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L345)
 
 Converts the object to a different NumberType equivalent.
 

@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iDepositBalanceDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1917](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1917)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1883](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1883)
 
 ## Extends
 
@@ -50,6 +50,6 @@ A unique document ID (Mongo DB ObjectID)
 
 > **bitbadgesAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1919](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1919)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1885](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1885)
 
 The BitBadges address of the user

@@ -4,7 +4,7 @@ description: "iGetSIWBBRequestsForDeveloperAppPayload"
 
 # Class: GetSIWBBRequestsForDeveloperAppPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1939](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1939)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1938](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1938)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1939]
 
 > **new GetSIWBBRequestsForDeveloperAppPayload**(`payload`): `GetSIWBBRequestsForDeveloperAppPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1946](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1946)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1945](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1945)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1946]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1943](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1943)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1942](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1942)
 
 The bookmark for pagination.
 
@@ -56,7 +56,7 @@ The bookmark for pagination.
 
 > **clientId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1944](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1944)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1943](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1943)
 
 The client ID to fetch for
 
@@ -233,7 +233,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `GetSIWBBRequestsForDeveloperAppPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1952](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1952)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1951](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1951)
 
 #### Parameters
 

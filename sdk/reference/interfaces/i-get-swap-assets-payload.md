@@ -4,7 +4,7 @@ description: "Get Swap Assets Route: GET /api/v0/swap/assets"
 
 # Interface: iGetSwapAssetsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4567](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4567)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4462](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4462)
 
 Get Swap Assets
 Route: GET /api/v0/swap/assets
@@ -19,7 +19,7 @@ other chains pass through unmodified.
 
 > `optional` **includeCw20?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4571](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4571)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4466](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4466)
 
 Include CW20 token assets. Defaults to false.
 
@@ -29,6 +29,6 @@ Include CW20 token assets. Defaults to false.
 
 > `optional` **includeSvm?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4569](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4569)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4464](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4464)
 
 Include Solana / SVM chain assets. Defaults to false.

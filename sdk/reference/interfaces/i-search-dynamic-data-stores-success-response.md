@@ -4,7 +4,7 @@ description: "Q extends DynamicDataHandlerType"
 
 # Interface: iSearchDynamicDataStoresSuccessResponse\<Q, T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3070](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3070)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3069](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3069)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3070]
 
 > **docs**: ([`iDynamicDataDoc`](/sdk/reference/interfaces/i-dynamic-data-doc)\<`Q`, `T`\> \| `undefined`)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3036](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3036)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3035](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3035)
 
 #### Inherited from
 
@@ -38,7 +38,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3036]
 
 > **pagination**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3037](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3037)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3036](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3036)
 
 #### bookmark
 

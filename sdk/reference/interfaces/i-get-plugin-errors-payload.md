@@ -4,7 +4,7 @@ description: "The pagination bookmark to start from"
 
 # Interface: iGetPluginErrorsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3799](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3799)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3798](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3798)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3799]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3803](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3803)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3802](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3802)
 
 The pagination bookmark to start from
 
@@ -22,6 +22,6 @@ The pagination bookmark to start from
 
 > **pluginId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3801](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3801)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3800](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3800)
 
 The plugin ID to get errors for

@@ -4,7 +4,7 @@ description: "Q extends DynamicDataHandlerType"
 
 # Class: GetDynamicDataStoreValuesPaginatedSuccessResponse\<Q, T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2922](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2922)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2921](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2921)
 
 ## Extends
 
@@ -30,7 +30,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2922]
 
 > **new GetDynamicDataStoreValuesPaginatedSuccessResponse**\<`Q`, `T`\>(`data`): `GetDynamicDataStoreValuesPaginatedSuccessResponse`\<`Q`, `T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2934](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2934)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2933](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2933)
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2934]
 
 > **lookupValues**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2926](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2926)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2925](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2925)
 
 The lookup values for the dynamic data store
 
@@ -78,7 +78,7 @@ The lookup values for the dynamic data store
 
 > **pagination**: [`PaginationInfo`](/sdk/reference/interfaces/pagination-info)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2932](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2932)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2931](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2931)
 
 #### Implementation of
 
@@ -108,7 +108,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `GetDynamicDataStoreValuesPaginatedSuccessResponse`\<`Q`, `U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2940](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2940)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2939](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2939)
 
 Converts the object to a different NumberType equivalent.
 

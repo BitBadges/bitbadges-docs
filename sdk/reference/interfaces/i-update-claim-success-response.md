@@ -4,4 +4,4 @@ description: "Interface: iUpdateClaimSuccessResponse — BitBadges TypeScript SD
 
 # Interface: iUpdateClaimSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2734](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2734)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2733](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2733)

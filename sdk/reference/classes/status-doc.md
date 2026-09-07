@@ -4,7 +4,7 @@ description: "// Create a new StatusDoc with transaction tracking const statusDo
 
 # Class: StatusDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:724](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L724)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:723](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L723)
 
 ## Example
 
@@ -60,7 +60,7 @@ console.log(`Removed ${removed} old transactions`);
 
 > **new StatusDoc**\<`T`\>(`data`): `StatusDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:732](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L732)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:731](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L731)
 
 #### Parameters
 
@@ -82,7 +82,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:732](ht
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:725](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L725)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:724](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L724)
 
 A unique stringified document ID
 
@@ -96,7 +96,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:726](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L726)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:725](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L725)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -110,7 +110,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **block**: [`LatestBlockStatus`](/sdk/reference/classes/latest-block-status)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:727](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L727)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:726](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L726)
 
 The latest synced block status (i.e. height, txIndex, timestamp)
 
@@ -124,7 +124,7 @@ The latest synced block status (i.e. height, txIndex, timestamp)
 
 > **gasPrice**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:729](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L729)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:728](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L728)
 
 The current gas price based on the average of recent transactions
 
@@ -138,7 +138,7 @@ The current gas price based on the average of recent transactions
 
 > `optional` **lastXTxs?**: [`TransactionEntry`](/sdk/reference/classes/transaction-entry)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:730](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L730)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:729](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L729)
 
 The last X transactions with timestamps for dynamic reset functionality
 
@@ -152,7 +152,7 @@ The last X transactions with timestamps for dynamic reset functionality
 
 > **nextCollectionId**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:728](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L728)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:727](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L727)
 
 The next collection ID to be used
 
@@ -166,7 +166,7 @@ The next collection ID to be used
 
 > **addTransaction**(`amount`, `limit`, `timestamp?`, `maxEntries?`): `void`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:757](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L757)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:756](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L756)
 
 Add a new transaction entry to the lastXTxs array
 
@@ -206,7 +206,7 @@ Maximum number of entries to keep (optional, defaults to 100)
 
 > **cleanupOldTransactions**(`maxAgeMs`, `currentTime?`): `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:832](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L832)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:831](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L831)
 
 Clean up old transactions beyond a certain age
 
@@ -254,7 +254,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `StatusDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:746](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L746)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:745](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L745)
 
 Converts the object to a different NumberType equivalent.
 
@@ -324,7 +324,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getAverageGasPriceInWindow**(`windowMs`, `currentTime?`): `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:812](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L812)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:811](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L811)
 
 Calculate average gas price from transactions in a time window
 
@@ -354,7 +354,7 @@ Average gas price or 0 if no transactions
 
 > **getLatestTransaction**(): [`TransactionEntry`](/sdk/reference/classes/transaction-entry)\<`T`\> \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:850](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L850)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:849](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L849)
 
 Get the most recent transaction
 
@@ -370,7 +370,7 @@ The most recent transaction entry or null if none exist
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:742](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L742)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:741](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L741)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 
@@ -388,7 +388,7 @@ Internal helper method to convert the number fields of the object to a different
 
 > **getTransactionsInWindow**(`windowMs`, `currentTime?`, `defaultMinimumTxs?`): [`TransactionEntry`](/sdk/reference/classes/transaction-entry)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:783](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L783)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:782](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L782)
 
 Get transactions within a time window
 
@@ -422,7 +422,7 @@ Array of transactions within the time window
 
 > **getTransactionStats**(`windowMs`, `currentTime?`): `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:864](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L864)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:863](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L863)
 
 Get transaction statistics in a time window
 

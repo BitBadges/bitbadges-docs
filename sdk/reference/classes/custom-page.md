@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: CustomPage\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:526](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L526)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:525](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L525)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:526](ht
 
 > **new CustomPage**\<`T`\>(`data`): `CustomPage`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:531](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L531)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:530](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L530)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:531](ht
 
 > **description**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:528](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L528)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:527](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L527)
 
 The description of the custom page
 
@@ -62,7 +62,7 @@ The description of the custom page
 
 > **items**: [`BatchTokenDetailsArray`](/sdk/reference/classes/batch-token-details-array)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:529](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L529)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:528](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L528)
 
 The token IDs to display on the custom page
 
@@ -76,7 +76,7 @@ The token IDs to display on the custom page
 
 > **title**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:527](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L527)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:526](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L526)
 
 The title of the custom page
 
@@ -108,7 +108,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `CustomPage`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:538](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L538)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:537](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L537)
 
 Converts the object to a different NumberType equivalent.
 

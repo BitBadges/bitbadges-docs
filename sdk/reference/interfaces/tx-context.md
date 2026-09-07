@@ -4,7 +4,7 @@ description: "LegacyTxContext is the transaction context for the transaction pay
 
 # Interface: TxContext
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:28](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L28)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:30](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L30)
 
 LegacyTxContext is the transaction context for the transaction payload.
 
@@ -14,9 +14,22 @@ LegacyTxContext is the transaction context for the transaction payload.
 
 > `optional` **chainIdOverride?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:32](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L32)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:34](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L34)
 
 Override the chain ID to a custom value. Uses BitBadges mainnet by default.
+
+***
+
+### eip155ChainIdOverride?
+
+> `optional` **eip155ChainIdOverride?**: `number`
+
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:78](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L78)
+
+Override the EIP-155 numeric chain id used when building the EIP-712
+typed-data payload. Default: derived from `testnet` (50024 mainnet,
+50025 testnet). Required for custom chains (e.g. 90123 for local
+devnet) since they don't match the default mapping.
 
 ***
 
@@ -24,7 +37,7 @@ Override the chain ID to a custom value. Uses BitBadges mainnet by default.
 
 > `optional` **evmAddress?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:69](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L69)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:71](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L71)
 
 Optional EVM address for precompile conversion. If provided, payload will include evmTx field.
 
@@ -39,7 +52,7 @@ Behavior:
 
 > **fee**: [`Fee`](/sdk/reference/interfaces/fee)
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:59](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L59)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:61](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L61)
 
 ***
 
@@ -47,7 +60,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:59](http
 
 > `optional` **memo?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:60](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L60)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:62](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L62)
 
 ***
 
@@ -55,7 +68,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:60](http
 
 > `optional` **sender?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:42](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L42)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:44](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L44)
 
 Details about the sender of this transaction. Address must be a BitBadges address (bb-prefixed).
 
@@ -94,6 +107,6 @@ unchanged; never convert it with Number().
 
 > `optional` **testnet?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:30](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L30)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:32](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L32)
 
 Use the BitBadges testnet? Usee mainnet by default.

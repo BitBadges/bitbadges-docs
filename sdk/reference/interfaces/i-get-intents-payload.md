@@ -4,7 +4,7 @@ description: "Get Intents (Approval Items of approvalType \"intent\") Route: GET
 
 # Interface: iGetIntentsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4795](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4795)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4690](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4690)
 
 Get Intents (Approval Items of approvalType "intent")
 Route: GET /api/v0/intents (browse all) or GET /api/v0/intents/:address (specific user)
@@ -20,7 +20,7 @@ can return everything when `includeAll=true`.
 
 > `optional` **collectionId?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4807](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4807)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4702](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4702)
 
 Filter to intents scoped to a specific collection.
 
@@ -30,7 +30,7 @@ Filter to intents scoped to a specific collection.
 
 > `optional` **includeAll?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4801](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4801)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4696](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4696)
 
 When fetching a specific user's intents, set to `true` to include
 used/expired/inactive/underfunded intents. Server returns 400 if
@@ -42,7 +42,7 @@ passed without a path-level address.
 
 > `optional` **payDenom?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4803](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4803)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4698](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4698)
 
 Filter by the denom the intent pays out.
 
@@ -52,6 +52,6 @@ Filter by the denom the intent pays out.
 
 > `optional` **receiveDenom?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4805](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4805)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4700](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4700)
 
 Filter by the denom the intent expects to receive.

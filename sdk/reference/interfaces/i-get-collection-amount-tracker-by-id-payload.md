@@ -4,4 +4,4 @@ description: "Interface: iGetCollectionAmountTrackerByIdPayload — BitBadges Ty
 
 # Interface: iGetCollectionAmountTrackerByIdPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3931](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3931)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3930](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3930)

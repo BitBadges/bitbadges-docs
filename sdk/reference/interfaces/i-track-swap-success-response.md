@@ -4,7 +4,7 @@ description: "Skip:Go track-tx response (echoes tx hash + chain id, plus trackin
 
 # Interface: iTrackSwapSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4727](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4727)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4622](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4622)
 
 ## Indexable
 

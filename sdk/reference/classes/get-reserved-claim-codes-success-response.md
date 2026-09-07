@@ -4,7 +4,7 @@ description: "iGetReservedClaimCodesSuccessResponse"
 
 # Class: GetReservedClaimCodesSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:809](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L809)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:808](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L808)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:809](
 
 > **new GetReservedClaimCodesSuccessResponse**(`data`): `GetReservedClaimCodesSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:816](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L816)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:815](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L815)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:816](
 
 > `optional` **leafSignatures?**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:814](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L814)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:813](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L813)
 
 The leaf signatures for the reserved claim codes to prove address \<-> leaf mapping.
 
@@ -56,7 +56,7 @@ The leaf signatures for the reserved claim codes to prove address \<-> leaf mapp
 
 > `optional` **reservedCodes?**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:813](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L813)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:812](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L812)
 
 The previously reserved claim codes for the user. These are
 what are used in the eventual on-chain merkle proof to complete

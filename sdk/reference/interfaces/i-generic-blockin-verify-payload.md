@@ -4,7 +4,7 @@ description: "Generic route to verify any SIWBB request. Does not sign you in wi
 
 # Interface: iGenericBlockinVerifyPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1820](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1820)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1819](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1819)
 
 Generic route to verify any SIWBB request. Does not sign you in with the API. Used for custom SIWBB implementations.
 
@@ -18,7 +18,7 @@ Generic route to verify any SIWBB request. Does not sign you in with the API. Us
 
 > **message**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1121](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1121)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1120](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1120)
 
 The original message that was signed.
 
@@ -32,7 +32,7 @@ The original message that was signed.
 
 > `optional` **options?**: [`VerifyChallengeOptions`](/sdk/reference/type-aliases/verify-challenge-options)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1824](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1824)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1823](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1823)
 
 Additional options for verifying the challenge.
 
@@ -42,7 +42,7 @@ Additional options for verifying the challenge.
 
 > `optional` **publicKey?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1131](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1131)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1130](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1130)
 
 Required for some chains (Cosmos) to verify signature. The public key of the signer.
 
@@ -56,7 +56,7 @@ Required for some chains (Cosmos) to verify signature. The public key of the sig
 
 > **signature**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1126](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1126)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1125](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1125)
 
 The signature of the message
 

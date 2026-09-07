@@ -4,7 +4,7 @@ description: "Payload for fetching all plugins created/managed by a specific add
 
 # Interface: iGetCreatorPluginsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2573](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2573)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2572](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2572)
 
 Payload for fetching all plugins created/managed by a specific address.
 
@@ -17,7 +17,7 @@ Without the flag, sensitive data is always stripped regardless of authentication
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2577](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2577)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2576](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2576)
 
 Bookmark for pagination.
 
@@ -27,7 +27,7 @@ Bookmark for pagination.
 
 > **creatorAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2575](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2575)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2574](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2574)
 
 The address of the plugin creator to query.
 
@@ -37,6 +37,6 @@ The address of the plugin creator to query.
 
 > `optional` **returnSensitiveData?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2579](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2579)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2578](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2578)
 
 If true, include sensitive data (pluginSecret) in the response. Requires authentication as the creator.

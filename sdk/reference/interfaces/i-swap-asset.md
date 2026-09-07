@@ -4,7 +4,7 @@ description: "A single asset entry in the consolidated /swap/assets response."
 
 # Interface: iSwapAsset
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4581](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4581)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4476](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4476)
 
 A single asset entry in the consolidated /swap/assets response.
 
@@ -17,7 +17,7 @@ logo_uri, decimals) and adds `source` + `isWrapped`.
 
 > **chain\_id**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4583](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4583)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4478](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4478)
 
 ***
 
@@ -25,7 +25,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4583]
 
 > `optional` **decimals?**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4589](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4589)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4484](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4484)
 
 ***
 
@@ -33,7 +33,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4589]
 
 > **denom**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4582](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4582)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4477](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4477)
 
 ***
 
@@ -41,7 +41,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4582]
 
 > `optional` **isWrapped?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4593](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4593)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4488](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4488)
 
 True iff this is a wrapped BitBadges denom (badgeslp:/badges:) sourced from a verified AssetInfoDoc.
 
@@ -51,7 +51,7 @@ True iff this is a wrapped BitBadges denom (badgeslp:/badges:) sourced from a ve
 
 > `optional` **logo\_uri?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4588](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4588)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4483](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4483)
 
 ***
 
@@ -59,7 +59,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4588]
 
 > `optional` **name?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4587](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4587)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4482](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4482)
 
 ***
 
@@ -67,7 +67,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4587]
 
 > `optional` **origin\_chain\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4585](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4585)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4480](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4480)
 
 ***
 
@@ -75,7 +75,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4585]
 
 > `optional` **origin\_denom?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4584](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4584)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4479](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4479)
 
 ***
 
@@ -83,7 +83,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4584]
 
 > **source**: [`SwapAssetSource`](/sdk/reference/type-aliases/swap-asset-source)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4591](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4591)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4486](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4486)
 
 Where this entry came from.
 
@@ -93,4 +93,4 @@ Where this entry came from.
 
 > `optional` **symbol?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4586](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4586)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4481](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4481)

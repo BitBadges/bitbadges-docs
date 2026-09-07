@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: GetGatedContentForClaimSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2814](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2814)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2813](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2813)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2814]
 
 > **new GetGatedContentForClaimSuccessResponse**\<`T`\>(`data`): `GetGatedContentForClaimSuccessResponse`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2820](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2820)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2819](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2819)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2820]
 
 > **rewards**: ([`ClaimReward`](/sdk/reference/classes/claim-reward)\<`T`\> \| `undefined`)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2818](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2818)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2817](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2817)
 
 #### Implementation of
 

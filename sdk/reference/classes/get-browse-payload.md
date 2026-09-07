@@ -4,7 +4,7 @@ description: "iGetBrowsePayload"
 
 # Class: GetBrowsePayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1460](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1460)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1459](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1459)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1460]
 
 > **new GetBrowsePayload**(`payload`): `GetBrowsePayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1478](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1478)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1477](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1477)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1478]
 
 > `optional` **category?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1472](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1472)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1471](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1471)
 
 #### Implementation of
 
@@ -54,7 +54,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1472]
 
 > `optional` **locale?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1476](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1476)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1475](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1475)
 
 #### Implementation of
 
@@ -66,7 +66,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1476]
 
 > `optional` **searchTerm?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1475](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1475)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1474](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1474)
 
 #### Implementation of
 
@@ -78,7 +78,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1475]
 
 > `optional` **sortBy?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1473](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1473)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1472](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1472)
 
 #### Implementation of
 
@@ -90,7 +90,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1473]
 
 > `optional` **timeFrame?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1474](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1474)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1473](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1473)
 
 #### Implementation of
 
@@ -102,7 +102,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1474]
 
 > **type**: `"tokens"` \| `"claims"` \| `"applications"` \| `"pointsActivity"` \| `"collections"` \| `"addressLists"` \| `"maps"` \| `"activity"` \| `"utilityPages"` \| `"claimActivity"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1461](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1461)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1460](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1460)
 
 #### Implementation of
 
@@ -277,7 +277,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `GetBrowsePayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1488](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1488)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1487](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1487)
 
 #### Parameters
 

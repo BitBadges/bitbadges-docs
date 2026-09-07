@@ -4,7 +4,7 @@ description: "iGetClaimAttemptsPayload"
 
 # Class: GetClaimAttemptsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:635](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L635)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:634](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L634)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:635](
 
 > **new GetClaimAttemptsPayload**(`payload`): `GetClaimAttemptsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:640](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L640)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:639](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L639)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:640](
 
 > `optional` **address?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:638](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L638)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:637](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L637)
 
 The specific address to fetch claims for. If blank, we fetch most recent claims.
 
@@ -56,7 +56,7 @@ The specific address to fetch claims for. If blank, we fetch most recent claims.
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:636](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L636)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:635](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L635)
 
 The bookmark to start from.
 
@@ -70,7 +70,7 @@ The bookmark to start from.
 
 > `optional` **includeErrors?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:637](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L637)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:636](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L636)
 
 Whether to include errors or not.
 
@@ -247,7 +247,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `GetClaimAttemptsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:647](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L647)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:646](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L646)
 
 #### Parameters
 

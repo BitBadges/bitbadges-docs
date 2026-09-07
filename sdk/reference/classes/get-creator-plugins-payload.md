@@ -4,7 +4,7 @@ description: "iGetCreatorPluginsPayload"
 
 # Class: GetCreatorPluginsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2585](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2585)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2584](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2584)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2585]
 
 > **new GetCreatorPluginsPayload**(`payload`): `GetCreatorPluginsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2590](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2590)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2589](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2589)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2590]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2587](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2587)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2586](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2586)
 
 Bookmark for pagination.
 
@@ -56,7 +56,7 @@ Bookmark for pagination.
 
 > **creatorAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2586](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2586)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2585](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2585)
 
 The address of the plugin creator to query.
 
@@ -70,7 +70,7 @@ The address of the plugin creator to query.
 
 > `optional` **returnSensitiveData?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2588](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2588)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2587](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2587)
 
 If true, include sensitive data (pluginSecret) in the response. Requires authentication as the creator.
 
@@ -247,7 +247,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `GetCreatorPluginsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2597](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2597)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2596](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2596)
 
 #### Parameters
 

@@ -4,7 +4,7 @@ description: "The bookmark for pagination."
 
 # Interface: iGetSIWBBRequestsForDeveloperAppPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1927](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1927)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1926](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1926)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1927]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1929](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1929)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1928](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1928)
 
 The bookmark for pagination.
 
@@ -22,6 +22,6 @@ The bookmark for pagination.
 
 > **clientId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1931](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1931)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1930](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1930)
 
 The client ID to fetch for

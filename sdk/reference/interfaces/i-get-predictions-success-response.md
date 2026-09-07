@@ -4,7 +4,7 @@ description: "Interface: iGetPredictionsSuccessResponse — BitBadges TypeScript
 
 # Interface: iGetPredictionsSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5463](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5463)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5358](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5358)
 
 ## Properties
 
@@ -12,4 +12,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5463]
 
 > **predictions**: [`iPredictionMarketApiData`](/sdk/reference/interfaces/i-prediction-market-api-data)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5464](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5464)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5359](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5359)

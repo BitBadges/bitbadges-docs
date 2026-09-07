@@ -4,7 +4,7 @@ description: "Q extends DynamicDataHandlerType"
 
 # Interface: iGetDynamicDataStoreSuccessResponse\<Q, T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2999](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2999)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2998](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2998)
 
 ## Type Parameters
 
@@ -22,4 +22,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2999]
 
 > **doc**: [`iDynamicDataDoc`](/sdk/reference/interfaces/i-dynamic-data-doc)\<`Q`, `T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3000](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3000)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2999](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2999)

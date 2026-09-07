@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: GetSearchPayload\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:259](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L259)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:258](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L258)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:259](
 
 > **new GetSearchPayload**\<`T`\>(`payload`): `GetSearchPayload`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:268](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L268)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:267](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L267)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:268](
 
 > `optional` **noAccounts?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:261](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L261)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:260](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L260)
 
 If true, we will skip all account queries.
 
@@ -62,7 +62,7 @@ If true, we will skip all account queries.
 
 > `optional` **noApplications?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:264](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L264)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:263](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L263)
 
 If true, we will skip all application queries.
 
@@ -76,7 +76,7 @@ If true, we will skip all application queries.
 
 > `optional` **noClaims?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:265](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L265)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:264](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L264)
 
 If true, we will skip all claim queries.
 
@@ -90,7 +90,7 @@ If true, we will skip all claim queries.
 
 > `optional` **noCollections?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:260](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L260)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:259](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L259)
 
 If true, we will skip all collection queries.
 
@@ -104,7 +104,7 @@ If true, we will skip all collection queries.
 
 > `optional` **noMaps?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:263](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L263)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:262](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L262)
 
 If true, we will skip all map queries.
 
@@ -118,7 +118,7 @@ If true, we will skip all map queries.
 
 > `optional` **noTokens?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:262](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L262)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:261](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L261)
 
 If true, we will skip all badge queries.
 
@@ -132,7 +132,7 @@ If true, we will skip all badge queries.
 
 > `optional` **specificCollectionId?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:266](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L266)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:265](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L265)
 
 If true, we will limit collection-based results to a single collection.
 
@@ -164,7 +164,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `GetSearchPayload`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:291](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L291)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:290](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L290)
 
 Converts the object to a different NumberType equivalent.
 
@@ -234,7 +234,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:295](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L295)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:294](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L294)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 
@@ -306,7 +306,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `GetSearchPayload`\<[`NumberType`](/sdk/reference/type-aliases/number-type)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:279](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L279)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:278](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L278)
 
 #### Parameters
 

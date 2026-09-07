@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: PluginVersionConfig\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2072](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2072)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2028](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2028)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2072](h
 
 > **new PluginVersionConfig**\<`T`\>(`data`): `PluginVersionConfig`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2096](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2096)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2052](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2052)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2096](h
 
 > **createdAt**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2092](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2092)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2048](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2048)
 
 The time the version was created
 
@@ -62,7 +62,7 @@ The time the version was created
 
 > `optional` **customDetailsDisplay?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2086](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2086)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2042](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2042)
 
 Custom details display for the plugin. Use {{publicParamKey}} to dynamically display the values of public parameters.
 
@@ -76,7 +76,7 @@ Custom details display for the plugin. Use {{publicParamKey}} to dynamically dis
 
 > **duplicatesAllowed**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2076](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2076)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2032](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2032)
 
 Whether it makes sense for multiple of this plugin to be allowed
 
@@ -90,7 +90,7 @@ Whether it makes sense for multiple of this plugin to be allowed
 
 > **finalized**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2074](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2074)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2030](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2030)
 
 True if the version is finalized
 
@@ -104,7 +104,7 @@ True if the version is finalized
 
 > `optional` **ignoreSimulations?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2082](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2082)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2038](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2038)
 
 Ignore simulations?
 
@@ -118,7 +118,7 @@ Ignore simulations?
 
 > **lastUpdated**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2093](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2093)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2049](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2049)
 
 The time the version was last updated
 
@@ -132,7 +132,7 @@ The time the version was last updated
 
 > **privateParamsSchema**: [`JsonBodyInputSchema`](/sdk/reference/type-aliases/json-body-input-schema)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2085](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2085)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2041](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2041)
 
 #### Implementation of
 
@@ -144,7 +144,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2085](h
 
 > **publicParamsSchema**: [`JsonBodyInputSchema`](/sdk/reference/type-aliases/json-body-input-schema)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2084](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2084)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2040](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2040)
 
 #### Implementation of
 
@@ -156,7 +156,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2084](h
 
 > **receiveStatusWebhook**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2081](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2081)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2037](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2037)
 
 Whether the plugin should receive status webhooks
 
@@ -170,7 +170,7 @@ Whether the plugin should receive status webhooks
 
 > `optional` **requireSignIn?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2094](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2094)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2050](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2050)
 
 Require BitBadges sign-in to use the plugin?
 
@@ -184,7 +184,7 @@ Require BitBadges sign-in to use the plugin?
 
 > **requiresSessions**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2077](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2077)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2033](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2033)
 
 This means that the plugin can be used w/o any session cookies or authentication.
 
@@ -198,7 +198,7 @@ This means that the plugin can be used w/o any session cookies or authentication
 
 > **requiresUserInputs**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2078](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2078)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2034](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2034)
 
 This is a flag for being compatible with auto-triggered claims, meaning no user interaction is needed.
 
@@ -212,7 +212,7 @@ This is a flag for being compatible with auto-triggered claims, meaning no user 
 
 > **reuseForNonIndexed**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2079](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2079)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2035](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2035)
 
 Reuse for nonindexed balances? Only applicable if is stateless, requires no user inputs, and requires no sessions.
 
@@ -226,7 +226,7 @@ Reuse for nonindexed balances? Only applicable if is stateless, requires no user
 
 > `optional` **skipProcessingWebhook?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2080](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2080)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2036](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2036)
 
 Whether the plugin should skip processing webhooks. We will just auto-treat it as successful.
 
@@ -240,7 +240,7 @@ Whether the plugin should skip processing webhooks. We will just auto-treat it a
 
 > **stateFunctionPreset**: [`PluginPresetType`](/sdk/reference/enumerations/plugin-preset-type)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2075](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2075)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2031](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2031)
 
 Preset type for how the plugin state is to be maintained.
 
@@ -254,7 +254,7 @@ Preset type for how the plugin state is to be maintained.
 
 > **userInputsSchema**: [`JsonBodyInputSchema`](/sdk/reference/type-aliases/json-body-input-schema)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2083](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2083)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2039](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2039)
 
 #### Implementation of
 
@@ -266,7 +266,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2083](h
 
 > `optional` **verificationCall?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2087](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2087)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2043](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2043)
 
 The verification URL config. This lets us know what should be passed to the plugin payload.
 
@@ -292,7 +292,7 @@ The verification URL config. This lets us know what should be passed to the plug
 
 > **version**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2073](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2073)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2029](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2029)
 
 Version of the plugin
 
@@ -306,7 +306,7 @@ Version of the plugin
 
 > **clone**(): `PluginVersionConfig`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2126](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2126)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2082](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2082)
 
 Deep copies the object and returns a new instance.
 
@@ -324,7 +324,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `PluginVersionConfig`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2122](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2122)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2078](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2078)
 
 Converts the object to a different NumberType equivalent.
 
@@ -394,7 +394,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2118](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2118)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2074](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2074)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

@@ -4,7 +4,7 @@ description: "Client ID for the SIWBB request."
 
 # Interface: iCreateSIWBBRequestPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1842](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1842)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1841](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1841)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1842]
 
 > **client\_id**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1856](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1856)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1855](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1855)
 
 Client ID for the SIWBB request.
 
@@ -22,7 +22,7 @@ Client ID for the SIWBB request.
 
 > `optional` **code\_challenge?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1865](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1865)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1864](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1864)
 
 The code challenge for the SIWBB request.
 
@@ -32,7 +32,7 @@ The code challenge for the SIWBB request.
 
 > `optional` **code\_challenge\_method?**: `"S256"` \| `"plain"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1867](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1867)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1866](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1866)
 
 The code challenge method for the SIWBB request.
 
@@ -42,7 +42,7 @@ The code challenge method for the SIWBB request.
 
 > `optional` **description?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1851](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1851)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1850](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1850)
 
 The description of the SIWBB request for display purposes.
 
@@ -52,7 +52,7 @@ The description of the SIWBB request for display purposes.
 
 > `optional` **image?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1853](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1853)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1852](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1852)
 
 The image of the SIWBB request for display purposes.
 
@@ -62,7 +62,7 @@ The image of the SIWBB request for display purposes.
 
 > `optional` **name?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1849](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1849)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1848](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1848)
 
 The name of the SIWBB request for display purposes.
 
@@ -72,7 +72,7 @@ The name of the SIWBB request for display purposes.
 
 > `optional` **redirect\_uri?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1859](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1859)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1858](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1858)
 
 Redirect URI if redirected after successful sign-in.
 
@@ -82,7 +82,7 @@ Redirect URI if redirected after successful sign-in.
 
 > **response\_type**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1844](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1844)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1843](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1843)
 
 The response type for the SIWBB request.
 
@@ -92,7 +92,7 @@ The response type for the SIWBB request.
 
 > **scopes**: [`OAuthScopeDetails`](/sdk/reference/interfaces/o-auth-scope-details)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1846](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1846)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1845](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1845)
 
 The scopes to request.
 
@@ -102,6 +102,6 @@ The scopes to request.
 
 > `optional` **state?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1862](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1862)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1861](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1861)
 
 State to be passed back to the redirect URI.

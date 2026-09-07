@@ -4,7 +4,7 @@ description: "Base interface for wallet adapters. Wallet adapters provide a unif
 
 # Interface: WalletAdapter
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:12](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L12)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:13](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L13)
 
 Base interface for wallet adapters.
 Wallet adapters provide a unified interface for different wallet types (Cosmos, EVM).
@@ -17,7 +17,7 @@ Implementations must support either Cosmos signing (signDirect) or EVM transacti
 
 > `readonly` **address**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:17](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L17)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:18](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L18)
 
 The address managed by this adapter (BitBadges bb-prefixed for Cosmos, 0x for EVM)
 
@@ -27,7 +27,7 @@ The address managed by this adapter (BitBadges bb-prefixed for Cosmos, 0x for EV
 
 > `readonly` **chainType**: `"evm"` \| `"cosmos"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:14](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L14)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:15](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L15)
 
 The chain type this adapter supports
 
@@ -37,7 +37,7 @@ The chain type this adapter supports
 
 > `optional` **estimateEvmGas**(`tx`): `Promise`\<`bigint`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:51](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L51)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:52](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L52)
 
 Estimate gas for an EVM transaction.
 Only implemented by EVM wallet adapters with a provider connection.
@@ -58,7 +58,7 @@ Only implemented by EVM wallet adapters with a provider connection.
 
 > **getPublicKey**(): `Promise`\<`string`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:24](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L24)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:25](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L25)
 
 Get the public key in base64 format.
 Required for Cosmos transactions (used to build the auth info).
@@ -74,7 +74,7 @@ Returns empty string for EVM-only adapters.
 
 > `optional` **sendEvmTransaction**(`tx`): `Promise`\<`string`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:45](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L45)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:46](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L46)
 
 Send an EVM transaction.
 Only implemented by EVM wallet adapters.
@@ -99,7 +99,7 @@ The transaction hash
 
 > `optional` **signDirect**(`payload`, `accountNumber`): `Promise`\<[`SigningResult`](/sdk/reference/interfaces/signing-result)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:36](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L36)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:37](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L37)
 
 Sign a transaction using Cosmos SignDirect format.
 Only implemented by Cosmos wallet adapters.
@@ -128,11 +128,36 @@ The signature and public key
 
 ***
 
+### signTypedData()?
+
+> `optional` **signTypedData**(`typed`): `Promise`\<`string`\>
+
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:62](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L62)
+
+Sign EIP-712 typed-data with the wallet.
+Only implemented by EVM wallet adapters; lets BitBadges Cosmos
+messages be signed via the standard EVM signing flow
+(`eth_signTypedData_v4` / `Signer.signTypedData`) so any EVM
+wallet can produce a valid Cosmos transaction signature.
+Returns a `0x...`-prefixed 65-byte hex signature (r || s || v).
+
+#### Parameters
+
+##### typed
+
+[`EIP712TypedData`](/sdk/reference/interfaces/eip712-typed-data)
+
+#### Returns
+
+`Promise`\<`string`\>
+
+***
+
 ### supportsEvmTransaction()
 
 > **supportsEvmTransaction**(): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:60](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L60)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:71](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L71)
 
 Check if the adapter supports EVM transactions
 
@@ -146,7 +171,7 @@ Check if the adapter supports EVM transactions
 
 > **supportsSignAmino**(): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:57](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L57)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:68](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L68)
 
 Check if the adapter supports Amino signing (legacy)
 
@@ -160,9 +185,23 @@ Check if the adapter supports Amino signing (legacy)
 
 > **supportsSignDirect**(): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:54](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L54)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:65](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L65)
 
 Check if the adapter supports SignDirect signing
+
+#### Returns
+
+`boolean`
+
+***
+
+### supportsSignTypedData()
+
+> **supportsSignTypedData**(): `boolean`
+
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:74](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L74)
+
+Check if the adapter supports EIP-712 typed-data signing
 
 #### Returns
 
