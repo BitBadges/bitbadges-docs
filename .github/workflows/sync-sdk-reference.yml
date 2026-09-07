@@ -183,7 +183,12 @@ jobs:
           base: master
           branch: sync/sdk-reference
           delete-branch: true
-          add-paths: sdk/reference/**
+          # gen-sdk-reference.ts also rewrites the sdk-nav block in SUMMARY.md, so a
+          # PR without it adds pages that have no sidebar entry and keeps entries
+          # pointing at pages it removed.
+          add-paths: |
+            sdk/reference/**
+            SUMMARY.md
           commit-message: 'chore(sdk): regenerate SDK reference from bitbadgesjs'
           title: 'chore(sdk): regenerate SDK reference from bitbadgesjs'
           body: |
