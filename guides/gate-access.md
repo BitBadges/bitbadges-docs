@@ -6,7 +6,7 @@ description: "Gate an API or resource behind token ownership with BB-402. Server
 
 At the end you have an HTTP endpoint that serves only callers who own the tokens you require, and a client that satisfies it. BB-402 is the protocol: the server answers `402 Payment Required` with the ownership requirements and a message to sign, the caller signs it, and the server verifies the signature and the on-chain balance. The spec, versioning, and x402 comparison live in [BB-402](../token-standard/bb-402/README.md).
 
-```
+```text
 Agent  -->  Server:   GET /api/data
 Server -->  Agent:    402 Payment Required
                       { version, ownershipRequirements, message }
@@ -36,7 +36,7 @@ Prerequisites:
 
 The `ownershipRequirements` value is an `AccessCondition`: a `TokenCheck`, or `$and` / `$or` groups of them, nested as deep as you need.
 
-```
+```text
 AccessCondition = { "$and": AccessCondition[] }
                 | { "$or":  AccessCondition[] }
                 | TokenCheck
@@ -144,7 +144,7 @@ console.log(res.balance); // e.g. 100n
 const at = await api.getBalanceByAddressSpecificToken('1', '1', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', undefined, { time: 1788739200000n });
 ```
 
-```
+```text
 GET /api/v0/collection/:collectionId/:tokenId/balance/:address
 GET /api/v0/collection/:collectionId/:tokenId/balance/:address?time=1700000000000
 ```

@@ -809,7 +809,7 @@ Backing approvals require the initiator to be the recipient on deposit and the s
 
 The agent holds vault tokens. To spend, it withdraws (unbacks) by sending tokens to the backing address; the protocol releases USDC to the agent's account.
 
-```
+```text
 Your AI agent (OpenClaw, LangChain, custom, ...)
     |
     +-- Wallet (Cosmos or EVM key pair)
