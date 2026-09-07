@@ -187,8 +187,13 @@ describe('foldApiDocs', () => {
   test('sanitising after the fold keeps the folded sections when no grouping is requested', () => {
     const { spec: folded } = foldApiDocs(spec(), pages);
     const { spec: out } = sanitizeOpenApi(folded);
-    expect((out.info.description as string).startsWith('# Overview')).toBe(true);
-    expect(out.info.description).toContain('\n# Swaps');
+    // Everything lives under one Overview H1 so Scalar nests it rather than
+    // showing Pagination, Swaps and Self-hosting beside Overview.
+    const description = out.info.description as string;
+    expect(description.startsWith('# Overview')).toBe(true);
+    expect(description.match(/^# /gm)).toHaveLength(1);
+    expect(description).toContain('\n## Swaps');
+    expect(description).toContain('\n## Self-hosting');
   });
 });
 

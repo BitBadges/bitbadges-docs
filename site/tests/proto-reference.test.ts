@@ -332,3 +332,16 @@ test.if(!generated)('generated proto tree is missing', () => {
   console.warn('chain/proto is not generated: run `bun run gen:proto` from site/ to enable the corpus assertions.');
   expect(generated).toBe(false);
 });
+
+describe('proto nav', () => {
+  test('every generated page has a SUMMARY.md entry', async () => {
+    const summary = await Bun.file(new URL('../../SUMMARY.md', import.meta.url)).text();
+    const dir = new URL('../../chain/proto/', import.meta.url).pathname;
+    const pages = (await Array.fromAsync(new Bun.Glob('**/*.md').scan({ cwd: dir })))
+      .map((rel) => `chain/proto/${rel}`)
+      .sort();
+    expect(pages.length).toBeGreaterThan(50);
+    const missing = pages.filter((page) => !summary.includes(`(${page})`));
+    expect(missing).toEqual([]);
+  });
+});

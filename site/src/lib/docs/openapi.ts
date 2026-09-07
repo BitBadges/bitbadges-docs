@@ -393,12 +393,12 @@ function requirePage(pages: Map<string, string>, file: string): string {
  * Replace `info.description` and the chosen tag descriptions with the API
  * tab's markdown.
  *
- * `info.description` starts with an `# Overview` section, followed by one `#`
- * section per remaining intro page. Scalar makes the lowest heading level the
- * sidebar sections and the next level their children, so the reader sees
- * Overview, Pagination and views, Swaps, Self-hosting — each expandable to
- * its `##` headings — above the tags. Tag descriptions are the lead page's
- * body followed by `## <title>` sections, headings demoted to fit underneath.
+ * `info.description` is a single `# Overview` section. The lead page's body
+ * follows it directly, then every other intro page becomes a `## <title>`
+ * subsection with its own headings demoted to fit underneath. One H1 means
+ * Scalar shows one Overview entry above the tags, with everything else nested
+ * inside it rather than sitting beside it. Tag descriptions work the same way:
+ * the lead page's body, then `## <title>` sections.
  *
  * Throws when a page or tag is missing: nothing may silently disappear.
  */
@@ -415,10 +415,12 @@ export function foldApiDocs<T extends Json>(
     prepareFoldedPage(page.file, requirePage(pages, page.file), page.title, basePath);
 
   spec.info ??= {};
-  spec.info.description = fold.intro
-    .map(prepare)
-    .map((page) => `# ${page.title}\n\n${page.body}`)
-    .join('\n\n');
+  const [introLead, ...introRest] = fold.intro.map(prepare);
+  spec.info.description = [
+    `# ${introLead.title}`,
+    introLead.body,
+    ...introRest.map((page) => `## ${page.title}\n\n${demoteHeadings(page.body)}`),
+  ].join('\n\n');
 
   const tags: Json[] = Array.isArray(spec.tags) ? spec.tags : [];
   const folded: string[] = [];

@@ -333,24 +333,24 @@ body {
 .doc details.code-fold {
   display: block;
 }
+/*
+ * A fold should read as one dimmed line of the listing, not as a panel. No
+ * background and no rules: the only marks are a faint chevron and muted text,
+ * so a collapsed run looks like code that is simply quieter.
+ */
 .doc details.code-fold > summary {
-  --fold-tint: color-mix(in oklab, var(--accent) 9%, transparent);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin: 0.2rem -1.1rem;
-  padding: 0.15rem 1.1rem;
-  border-top: 1px solid color-mix(in oklab, var(--accent) 18%, transparent);
-  border-bottom: 1px solid color-mix(in oklab, var(--accent) 18%, transparent);
-  background: var(--fold-tint);
-  color: var(--fg-muted);
-  font-size: 0.78rem;
-  letter-spacing: 0.01em;
+  gap: 0.45rem;
+  padding: 0 0 0 0.1rem;
+  color: color-mix(in oklab, var(--fg-faint) 85%, transparent);
+  font-size: 0.82em;
   list-style: none;
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
-  transition: color 0.15s ease, background-color 0.15s ease;
+  opacity: 0.75;
+  transition: color 0.15s ease, opacity 0.15s ease;
 }
 .doc details.code-fold > summary::-webkit-details-marker {
   display: none;
@@ -358,10 +358,10 @@ body {
 .doc details.code-fold > summary::before {
   content: '';
   flex: none;
-  width: 0.4rem;
-  height: 0.4rem;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
+  width: 0.32rem;
+  height: 0.32rem;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
   transform: translateY(-0.1rem) rotate(-45deg);
   transition: transform 0.15s ease;
 }
@@ -369,15 +369,15 @@ body {
   transform: translateY(-0.15rem) rotate(45deg);
 }
 .doc details.code-fold > summary:hover {
-  color: var(--fg);
-  background: color-mix(in oklab, var(--accent) 16%, transparent);
+  color: var(--fg-muted);
+  opacity: 1;
 }
 .doc details.code-fold > summary:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: -2px;
 }
 .doc details.code-fold[open] > summary {
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.1rem;
 }
 
 .copy-button {
