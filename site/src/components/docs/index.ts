@@ -1,3 +1,4 @@
+export { AgentFiles, AGENT_FILE_SPECS, AGENT_GUIDE_ROUTE, formatSize, readAgentFiles, type AgentFile } from './AgentFiles';
 export { ApiReference } from './ApiReference';
 export { CopyButtons } from './CopyButtons';
 export { Pagination } from './Pagination';

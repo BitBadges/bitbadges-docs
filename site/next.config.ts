@@ -32,11 +32,16 @@ const nextConfig: NextConfig = {
     // Next matches `source` with path-to-regexp, where `+ ( ) ? * :` are
     // operators. Old GitBook slugs contain literal `+`, so escape them.
     const escape = (route: string) => route.replace(/[+()?*:]/g, (c) => `\\${c}`);
-    return readRedirects().map(({ source, destination }) => ({
-      source: escape(source),
-      destination,
-      permanent: true,
-    }));
+    return [
+      // The Explorer tab has no landing page of its own — it opens on whichever
+      // explorer is the default. Not permanent: the default may change.
+      { source: '/explorer', destination: '/explorer/cosmos', permanent: false },
+      ...readRedirects().map(({ source, destination }) => ({
+        source: escape(source),
+        destination,
+        permanent: true,
+      })),
+    ];
   },
 };
 

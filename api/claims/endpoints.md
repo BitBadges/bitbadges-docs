@@ -4,9 +4,9 @@ description: "Claims API reference. Complete, simulate, and verify claims, fetch
 
 # Claims
 
-The claims routes let a backend or an agent complete claims for users, check who has claimed, and manage claims without the site. All claim routes require an API key. Concepts (indexed versus on-demand claims, success logic, claim numbers, the trust model) live in [Claims](README.md).
+The claims routes let a backend or an agent complete claims for users, check who has claimed, and manage claims without the site. All claim routes require an API key in the `x-api-key` header. Create one at [bitbadges.io/developer](https://bitbadges.io/developer). Concepts (indexed versus on-demand claims, success logic, claim numbers, the trust model) live in [Claims](README.md).
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 Addresses in paths accept any supported format. `0x` and `bb1` addresses both work and resolve to the same account. The examples complete `claim_demo_01` (a code-gated claim on collection 1 with the instance id `codes-gate`) for bob.
 

@@ -377,3 +377,59 @@ Exact commands, the directory-name mismatches (`enums` → `enumerations`,
    and confirm a PR appears here.
 5. Only then retire Stoplight ([5.1]).
 6. Only after `/sdk/reference` is live and verified, retire Pages ([5.2]).
+
+## [8] Auto-Deploy on Merge
+
+`docker-publish-docs.yml` builds the image on every push to `master` and then
+rolls the cluster in the same job, after the push, so the pull cannot race the
+tag. Rolling by hand before the build finished restarted onto the previous
+image twice during cutover; that is the failure this closes.
+
+The deploy step is a no-op with a warning when the secrets are absent, so a
+fork or a repo without cluster access still builds.
+
+### [8.1] One-Time Setup
+
+Apply the scoped identity (it can restart the docs Deployment and nothing else,
+see `site/k8s/deploy-rbac.yaml`):
+
+```bash
+ssh -i ~/.ssh/bitbadges-mainnet-rpc root@138.197.122.4 \
+  "kubectl apply -f -" < site/k8s/deploy-rbac.yaml
+```
+
+Read the token and CA back out:
+
+```bash
+ssh -i ~/.ssh/bitbadges-mainnet-rpc root@138.197.122.4 \
+  "kubectl -n default get secret docs-deployer-token -o jsonpath='{.data.token}' | base64 -d"
+
+ssh -i ~/.ssh/bitbadges-mainnet-rpc root@138.197.122.4 \
+  "kubectl -n default get secret docs-deployer-token -o jsonpath='{.data.ca\.crt}'"
+```
+
+Set three repository secrets on `BitBadges/bitbadges-docs`:
+
+| Secret | Value |
+| --- | --- |
+| `KUBE_SERVER` | `https://138.197.122.4:6443` |
+| `KUBE_TOKEN` | the decoded token from above |
+| `KUBE_CA` | the base64 `ca.crt`, pasted as-is |
+
+`KUBE_CA` is optional. Without it the step still deploys but skips TLS
+verification and says so in the log, which is worth avoiding on a public API
+server.
+
+### [8.2] Verifying and Revoking
+
+A successful run ends with `deployment "bitbadges-docs" successfully rolled
+out`. To revoke, delete the ServiceAccount and its token:
+
+```bash
+kubectl -n default delete sa docs-deployer
+kubectl -n default delete secret docs-deployer-token
+```
+
+The token is long-lived and does not rotate. Treat it as a credential: if the
+repo's secret is ever exposed, revoke as above and re-apply the manifest to
+mint a new one.

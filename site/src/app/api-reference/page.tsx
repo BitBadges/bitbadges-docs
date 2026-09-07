@@ -10,8 +10,9 @@ export const metadata: Metadata = {
 
 export default function ApiReferencePage() {
   return (
-    <div id="doc-content" className="api-shell">
-      <ApiReference specUrl={`${docsConfig.basePath}${docsConfig.openapiUrl}`} />
-    </div>
+    <ApiReference
+      specUrl={`${docsConfig.basePath}${docsConfig.openapiUrl}`}
+      backTo={{ href: '/api', label: 'Back to the API overview' }}
+    />
   );
 }

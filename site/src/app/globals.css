@@ -275,7 +275,13 @@ body {
   color: var(--fg);
   font-family: var(--font-mono);
   font-size: 0.855em;
-  white-space: nowrap;
+  /*
+   * `nowrap` made a long inline command (a full `bb build transfer ...` line)
+   * push past the content column and clip. Wrap instead, but keep `pre-wrap`
+   * so runs of spaces inside the snippet survive.
+   */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 /* Code blocks */
@@ -322,6 +328,30 @@ body {
   width: fit-content;
   min-width: 100%;
   font-family: inherit;
+}
+
+/*
+ * Shell blocks are long one-liners (flags, addresses) with no meaningful
+ * column alignment, so wrapping reads better than a horizontal scrollbar the
+ * reader has to find. Continuation lines are indented so a wrapped command
+ * still looks like one command. Structured languages (json, ts, solidity)
+ * keep scrolling, where alignment carries meaning.
+ */
+.doc pre[data-lang='bash'] code,
+.doc pre[data-lang='sh'] code,
+.doc pre[data-lang='shell'] code,
+.doc pre[data-lang='console'] code {
+  width: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.doc pre[data-lang='bash'] .line,
+.doc pre[data-lang='sh'] .line,
+.doc pre[data-lang='shell'] .line,
+.doc pre[data-lang='console'] .line {
+  display: inline-block;
+  padding-left: 2ch;
+  text-indent: -2ch;
 }
 
 /* Shiki dual theme: light values inline, dark swapped by variable. */
@@ -717,10 +747,56 @@ body {
    scrolls a container that never moves, so the title ends up above the fold).
    ========================================================================== */
 
-.api-shell {
+/* The page is the bar plus the embed; the embed takes what is left. */
+.api-page {
+  display: flex;
+  flex-direction: column;
   height: calc(100dvh - var(--shell-topbar));
+}
+
+.api-shell {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
+}
+
+/*
+ * The way back to the documentation.
+ *
+ * Scalar replaces the docs sidebar on these routes, and it owns its own
+ * top-left corner at every width (the sidebar search field on desktop, its
+ * collapsed nav bar below `md`), so this sits in a strip above the embed
+ * rather than floating over it.
+ */
+.api-backbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-subtle);
+}
+
+.api-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-raised);
+  color: var(--fg-muted);
+  font-size: 0.72rem;
+  font-weight: 550;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.api-back:hover {
+  color: var(--brand);
+  border-color: color-mix(in oklab, var(--brand) 45%, var(--border));
 }
 
 /*
@@ -775,4 +851,148 @@ body {
 .api-shell .scalar-mcp-layer,
 .api-shell .scalar-mcp-layer-link {
   display: none !important;
+}
+
+/* ==========================================================================
+   Explorer embeds
+
+   The block explorers are separate deployments, so the frame is drawn as an
+   inset panel with its own border and a caption naming the origin — it should
+   read as another site sitting inside the docs, not as a docs page. The shell
+   claims the viewport below the top bar and the frame scrolls internally, so
+   the document itself never gets a second scrollbar.
+   ========================================================================== */
+
+.explorer-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  height: calc(100dvh - var(--shell-topbar));
+  overflow: hidden;
+  padding: 0.85rem 1rem 1rem;
+}
+
+.explorer-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.explorer-caption {
+  margin: 0;
+  min-width: 0;
+  color: var(--fg-faint);
+  font-size: 0.8rem;
+}
+
+.explorer-caption-hint {
+  color: var(--fg-faint);
+}
+
+.explorer-origin {
+  color: var(--fg-muted);
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.78rem;
+}
+
+.explorer-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--bg-raised);
+  color: var(--fg);
+  font-size: 0.82rem;
+  font-weight: 550;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.14s ease, color 0.14s ease;
+}
+.explorer-open:hover {
+  border-color: color-mix(in oklab, var(--brand) 50%, var(--border-strong));
+  color: var(--brand);
+}
+
+.explorer-frame {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--bg-inset);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.explorer-frame iframe {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/*
+ * Behind the frame, not toggled by script: a frame the browser refuses to load
+ * paints nothing, so this shows through instead of a blank rectangle. A frame
+ * that does load paints its own background over it.
+ */
+.explorer-frame-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1.5rem;
+  color: var(--fg-muted);
+  text-align: center;
+}
+.explorer-frame-fallback p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+.explorer-frame-fallback .explorer-open {
+  margin-left: 0;
+  margin-top: 0.2rem;
+}
+
+/*
+ * Drawer section tabs. The header uses a compact segmented control, but the
+ * drawer has the width for full labels, so these are self-contained buttons
+ * in a grid rather than segments of one rail.
+ */
+.drawer-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg-raised);
+  color: var(--fg-muted);
+  font-size: 0.82rem;
+  font-weight: 550;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+.drawer-tab:hover {
+  color: var(--fg);
+  border-color: var(--border-strong, var(--border));
+}
+.drawer-tab[aria-current='page'] {
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--border));
+  background: color-mix(in oklab, var(--accent) 12%, var(--bg-raised));
+  color: var(--fg);
 }

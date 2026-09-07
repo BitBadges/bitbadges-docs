@@ -6,7 +6,7 @@ description: "Dynamic stores are BitBadges-hosted address lists you update by AP
 
 A dynamic store is an address list that BitBadges hosts for you. You add and remove addresses from anywhere that can send an HTTP request (a backend, a cron job, an agent, a Zapier zap), then attach the store to one or more claims. Eligibility management is decoupled from claim configuration.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 

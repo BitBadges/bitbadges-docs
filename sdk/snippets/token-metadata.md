@@ -11,7 +11,7 @@ description: "Read, update, and remove per-token metadata with the TokenMetadata
 ```ts
 import { TokenMetadataDetails, UintRangeArray, BitBadgesAPI, BigIntify } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const { collection } = await api.getCollection('1');
 const current: TokenMetadataDetails<bigint>[] = collection.tokenMetadata;
 

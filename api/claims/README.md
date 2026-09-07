@@ -6,7 +6,7 @@ description: "How claims work. Plugins, indexed versus on-demand, claim numbers,
 
 A claim is an off-chain criteria check hosted by BitBadges: meet the criteria, receive the reward. Claims run airdrops, whitelist mints, code redemptions, attendance rewards, and any flow where a user must qualify before receiving tokens or access. No contract or frontend code is required.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 
@@ -15,7 +15,7 @@ A claim with three plugin instances: `numUses` caps the claim at 100 successes, 
 ```ts
 import { BigIntify, BitBadgesAPI } from 'bitbadges';
 
-const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify });
+const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify }); // key from https://bitbadges.io/developer
 
 // Create it: POST /api/v0/claims (needs a session with the Manage Claims scope)
 await BitBadgesApi.createClaims({

@@ -13,7 +13,7 @@ import { getAllFiles, getAllRoutes, getDoc, getNav } from '../src/lib/docs/conte
 import { tabsFromNav } from '../src/lib/docs/tabs';
 
 /** Routes served by Next pages rather than markdown files. */
-const NEXT_ONLY_ROUTES = ['/api-reference', '/chain-api-reference'];
+const NEXT_ONLY_ROUTES = ['/api-reference', '/chain-api-reference', '/explorer/cosmos', '/explorer/evm'];
 import { flattenNav } from '../src/lib/docs/summary';
 
 // Corpus-size floors. They catch a walk that silently drops a directory, not

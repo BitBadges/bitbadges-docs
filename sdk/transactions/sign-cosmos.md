@@ -47,7 +47,7 @@ const signTxn = async (context: TxContext, payload: TransactionPayload, msgs: an
 // Usage
 import { BitBadgesAPI, BigIntify, MsgTransferTokens } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const ALICE = 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d';
 
 const msgs = [

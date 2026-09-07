@@ -19,7 +19,7 @@ import {
   appendSelfInitiatedIncomingApproval
 } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const { collection } = await api.getCollection('1');
 
 // Collection level: everything not covered by collectionApprovals

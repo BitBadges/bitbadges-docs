@@ -95,7 +95,7 @@ interface SigningClientOptions {
   gasMultiplier?: number; // default 1.3
   defaultGasLimit?: number; // default 400000, used when simulate is false
   evmPrecompileGasLimit?: number; // default 2000000
-  apiKey?: string; // BitBadges API key for account lookups and broadcast
+  apiKey?: string; // BitBadges API key for account lookups and broadcast; create one at https://bitbadges.io/developer
 }
 ```
 

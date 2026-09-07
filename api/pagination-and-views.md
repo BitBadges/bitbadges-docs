@@ -6,12 +6,12 @@ description: "Bookmark pagination and the views object in BitBadges API response
 
 Paginated routes return a `bookmark` and `hasMore`. Pass the bookmark back to get the next page. Some routes (accounts, collections) group several paginated lists into one `views` object.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 
 ```bash
-# First page: empty bookmark
+# First page: empty bookmark. Create an API key at https://bitbadges.io/developer
 curl -X POST https://api.bitbadges.io/api/v0/collections \
   -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
   -d '{ "collectionsToFetch": [ { "collectionId": "1",

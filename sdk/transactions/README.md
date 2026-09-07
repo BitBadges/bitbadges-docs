@@ -36,7 +36,7 @@ The same pipeline by hand, signed with Keplr:
 ```ts
 import { BitBadgesAPI, BigIntify, MsgTransferTokens, createTransactionPayload, createTxBroadcastBody, type TxContext } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const ALICE = 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d';
 const BOB = 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue';
 

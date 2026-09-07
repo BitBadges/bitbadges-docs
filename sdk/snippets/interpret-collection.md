@@ -15,7 +15,7 @@ bb explain 1
 ```ts
 import { BitBadgesAPI, BigIntify, interpretCollection } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const res = await api.getCollections({ collectionsToFetch: [{ collectionId: '1' }] });
 const collection = res.collections[0];
 if (!collection) throw new Error('Collection not found');

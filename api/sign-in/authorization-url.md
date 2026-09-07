@@ -6,7 +6,7 @@ description: "Build the Sign In with BitBadges authorization URL. Parameters, sc
 
 The user authenticates at `https://bitbadges.io/siwbb/authorize` with your parameters in the query string. On success they receive an authorization code, delivered to your redirect URI (digital flows) or shown as a QR code (in-person and delayed flows).
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 

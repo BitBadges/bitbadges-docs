@@ -15,10 +15,11 @@
  *
  * The input document is never mutated.
  *
- * The second half of the file folds the API tab's markdown pages into the
- * document (`foldApiDocs`), so the Scalar page reads as one place.
+ * The second half of the file generates the reference's introduction
+ * (`foldApiDocs`): a short orientation plus links back to the API tab's pages,
+ * which are served as ordinary documentation rather than copied in here.
  */
-import { resolveDocLink } from './paths';
+import { filePathToRoute, resolveDocLink } from './paths';
 
 type Json = Record<string, any>;
 
@@ -275,59 +276,54 @@ export function sanitizeOpenApi<T extends Json>(
 }
 
 /* ==========================================================================
-   Folding the API tab's markdown into the OpenAPI document
+   The Scalar reference's introduction
 
-   The API tab is the Scalar reference. The prose pages under `api/` stay on
-   disk (redirect targets, agent-readable source) but the reader meets them
-   inside Scalar: the top-level pages become sections of `info.description`,
-   the claims and sign-in groups become their tag's description.
+   The API tab is an ordinary documentation tab: its prose pages are listed in
+   SUMMARY.md and served as pages. The reference therefore carries no copies of
+   them — copies would double the corpus and drift the moment a page changed.
+   It carries a generated introduction instead: what the API is, its base URL,
+   where to get a key, and links back to the pages.
+
+   `API_FOLD` is that link map. Every `api/*.md` page must be reachable from it
+   or from SUMMARY.md; `tests/openapi-fold.test.ts` fails if one is orphaned
+   from both.
    ========================================================================== */
 
 export type FoldPage = { file: string; title?: string };
 
 export type ApiFold = {
-  /** First entry is the introduction; the rest become top-level sections. */
-  intro: FoldPage[];
-  /** Tag name -> pages; the first is the lead, the rest become `##` sections. */
-  tags: Record<string, FoldPage[]>;
+  /** Pages the introduction links to, in reading order. */
+  pages: FoldPage[];
+  /** OpenAPI tag -> the guide page its description points at. */
+  tags: Record<string, string>;
 };
 
 export const API_FOLD: ApiFold = {
-  // Scalar's sidebar has exactly two useful levels: `info.description`
-  // contributes the lowest heading level and one below it, and a tag
-  // contributes only its operations (tag descriptions never become sidebar
-  // entries). Each prose page therefore keeps its own `#` heading, so the
-  // page is a top-level entry and its `##` sections nest under it. Nesting
-  // the pages under one Overview heading instead would cost that second
-  // level, which is where the useful navigation lives.
-  intro: [
+  pages: [
     { file: 'api/README.md', title: 'Overview' },
     { file: 'api/pagination-and-views.md' },
     { file: 'api/swaps.md' },
-    { file: 'api/self-hosting.md' },
+    { file: 'api/claims/README.md' },
+    // Its H1 is "Claims" like the group's lead page; name it by its role.
+    { file: 'api/claims/endpoints.md', title: 'Endpoints' },
+    { file: 'api/claims/plugins.md' },
+    { file: 'api/claims/dynamic-stores.md' },
+    { file: 'api/sign-in/README.md' },
+    { file: 'api/sign-in/setup.md' },
+    { file: 'api/sign-in/authorization-url.md' },
+    { file: 'api/sign-in/callback.md' },
+    { file: 'api/sign-in/verification.md' },
+    { file: 'api/sign-in/frameworks.md' },
   ],
   tags: {
-    Claims: [
-      { file: 'api/claims/README.md' },
-      // Its H1 is "Claims" like the lead page; name the section by its role.
-      { file: 'api/claims/endpoints.md', title: 'Endpoints' },
-      { file: 'api/claims/plugins.md' },
-      { file: 'api/claims/dynamic-stores.md' },
-    ],
-    'Sign In with BitBadges': [
-      { file: 'api/sign-in/README.md' },
-      { file: 'api/sign-in/setup.md' },
-      { file: 'api/sign-in/authorization-url.md' },
-      { file: 'api/sign-in/callback.md' },
-      { file: 'api/sign-in/verification.md' },
-      { file: 'api/sign-in/frameworks.md' },
-    ],
+    Claims: 'api/claims/README.md',
+    'Sign In with BitBadges': 'api/sign-in/README.md',
   },
 };
 
-/** Every content-relative file the fold consumes. */
+/** Every content-relative file the introduction links to. */
 export function foldedPageFiles(fold: ApiFold): string[] {
-  return [...fold.intro, ...Object.values(fold.tags).flat()].map((p) => p.file);
+  return fold.pages.map((page) => page.file);
 }
 
 const FENCE = /^\s{0,3}(`{3,}|~{3,})/;
@@ -374,7 +370,7 @@ const LIQUID_TAG = /^\s*\{%\s*(\w+)[^%]*%\}\s*$/;
 /** GitBook hints become blockquotes; any other liquid tag line is dropped. */
 function liquidToMarkdown(markdown: string): string {
   let inHint = false;
-  const DROP = ' ';
+  const DROP = ' ';
   return mapProse(markdown, (line) => {
     const tag = LIQUID_TAG.exec(line);
     if (tag) {
@@ -395,6 +391,10 @@ export type FoldedPage = { title: string; body: string };
  * Turn one markdown page into a fold-ready section: front matter and the H1
  * gone, links absolute, hints as blockquotes, comments and the "also part of
  * the API reference" pointer removed. Headings keep their authored level.
+ *
+ * The introduction only needs `title` — reading it from the page (rather than
+ * hard-coding a label) is what keeps the reference's contents list honest when
+ * a page is renamed.
  */
 export function prepareFoldedPage(file: string, source: string, title?: string, basePath = ''): FoldedPage {
   let body = source.replace(/^---\n[\s\S]*?\n---\n/, '');
@@ -413,7 +413,7 @@ export function prepareFoldedPage(file: string, source: string, title?: string, 
 }
 
 export type FoldReport = {
-  /** Tags whose description now carries folded pages. */
+  /** Tags whose description now carries a link back to its guide page. */
   tags: string[];
 };
 
@@ -425,15 +425,52 @@ function requirePage(pages: Map<string, string>, file: string): string {
   return source;
 }
 
+/** The base URL and the developer console, stated once. */
+const API_BASE_URL = 'https://api.bitbadges.io';
+const DEVELOPER_URL = 'https://bitbadges.io/developer';
+
+type PageLink = { title: string; route: string; nested: boolean };
+
+function pageLink(page: FoldPage, pages: Map<string, string>, basePath: string): PageLink {
+  const { title } = prepareFoldedPage(page.file, requirePage(pages, page.file), page.title, basePath);
+  // A page inside a sub-directory that is not that directory's index is a child
+  // of it, so it is indented under its group — the same shape as SUMMARY.md.
+  const segments = page.file.split('/');
+  const nested = segments.length > 2 && !/^README\.md$/i.test(segments[segments.length - 1]);
+  return { title, route: `${basePath}${filePathToRoute(page.file)}`, nested };
+}
+
 /**
- * Replace `info.description` and the chosen tag descriptions with the API
- * tab's markdown.
+ * The reference's `info.description`.
  *
- * `info.description` is one `# <title>` section per intro page. Scalar turns
- * those into sidebar entries and nests each page's `##` headings beneath it,
- * so a reader can jump straight to, say, the Swaps payload. Tag descriptions
- * are the lead page's body followed by `## <title>` sections, headings
- * demoted to fit underneath.
+ * Deliberately short: it answers "what is this, where do I point it, how do I
+ * authenticate, and where is the prose" and then gets out of the way. Anything
+ * longer belongs on a page under `api/`, which is linked from here.
+ */
+export function buildApiIntroduction(fold: ApiFold, pages: Map<string, string>, basePath = ''): string {
+  const overviewRoute = `${basePath}/api`;
+  const contents = fold.pages
+    .map((page) => pageLink(page, pages, basePath))
+    .map(({ title, route, nested }) => `${nested ? '  ' : ''}- [${title}](${route})`)
+    .join('\n');
+
+  return [
+    '# BitBadges API',
+    'The BitBadges API is the hosted REST service that indexes the BitBadges chain and adds the off-chain features' +
+      ' around it: claims, Sign In with BitBadges, metadata, and search.',
+    `**Base URL** — \`${API_BASE_URL}\`. Every route below is served under \`/api/v0\`.`,
+    `**API keys** — create one at [${DEVELOPER_URL.replace(/^https?:\/\//, '')}](${DEVELOPER_URL}) under **API Keys**,` +
+      ' then send it in the `x-api-key` header on every request.' +
+      ` [How to get an API key](${overviewRoute}#api-keys) covers credits, rate limits, and the \`401\` and \`402\` responses.`,
+    '**Guides** — this reference lists the routes. The prose explaining how to use them lives in the API section of' +
+      ' the documentation:',
+    contents,
+  ].join('\n\n');
+}
+
+/**
+ * Replace `info.description` with the generated introduction and point each
+ * mapped tag at its guide page.
  *
  * Throws when a page or tag is missing: nothing may silently disappear.
  */
@@ -446,26 +483,24 @@ export function foldApiDocs<T extends Json>(
   const basePath = options.basePath ?? '';
   const spec = structuredClone(input) as Json;
 
-  const prepare = (page: FoldPage) =>
-    prepareFoldedPage(page.file, requirePage(pages, page.file), page.title, basePath);
-
   spec.info ??= {};
-  spec.info.description = fold.intro
-    .map(prepare)
-    .map((page) => `# ${page.title}\n\n${page.body}`)
-    .join('\n\n');
+  spec.info.description = buildApiIntroduction(fold, pages, basePath);
 
+  const byFile = new Map(fold.pages.map((page) => [page.file, page]));
   const tags: Json[] = Array.isArray(spec.tags) ? spec.tags : [];
-  const folded: string[] = [];
-  for (const [name, group] of Object.entries(fold.tags)) {
+  const pointed: string[] = [];
+  for (const [name, file] of Object.entries(fold.tags)) {
     const tag = tags.find((t) => t.name === name);
     if (!tag) throw new Error(`openapi fold: tag "${name}" is not in the OpenAPI document`);
-    const [lead, ...rest] = group.map(prepare);
-    tag.description = [lead.body, ...rest.map((page) => `## ${page.title}\n\n${demoteHeadings(page.body)}`)].join(
-      '\n\n',
-    );
-    folded.push(name);
+    const page = byFile.get(file);
+    if (!page) throw new Error(`openapi fold: tag "${name}" points at ${file}, which is not in the introduction`);
+    const { title, route } = pageLink(page, pages, basePath);
+    // Keep the upstream description; append one line so a reader who lands on
+    // the tag can reach the guide instead of only its operations.
+    const existing = typeof tag.description === 'string' ? tag.description.trim() : '';
+    tag.description = [existing, `Guide: [${title}](${route}).`].filter(Boolean).join('\n\n');
+    pointed.push(name);
   }
 
-  return { spec: spec as T, report: { tags: folded } };
+  return { spec: spec as T, report: { tags: pointed } };
 }

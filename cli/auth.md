@@ -26,7 +26,7 @@ bb api accounts update-account-info --body '{"username":"alice"}' --with-session
 bb auth whoami
 ```
 
-The API key is the app scope and is required on every call. The session cookie is the user scope and is required on Full Access routes (anything that mutates an account, manages keys, or publishes signed data).
+The API key is the app scope and is required on every call. Create one at [bitbadges.io/developer](https://bitbadges.io/developer) and store it with `bb settings set apiKey "$BITBADGES_API_KEY"`. The session cookie is the user scope and is required on Full Access routes (anything that mutates an account, manages keys, or publishes signed data).
 
 ## Subcommands
 

@@ -181,7 +181,6 @@ export default function Home() {
 }
 ```
 
-The [bitbadges-frontend](https://github.com/BitBadges/bitbadges-frontend) repo is a production Next.js app built on these primitives. Read it for wallet state in React context, network switching, and transaction UX (approve, reject, pending).
 
 ## Next Steps
 

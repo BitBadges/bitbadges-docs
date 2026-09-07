@@ -78,7 +78,7 @@ Add to `.cursor/mcp.json`:
 
 | Variable | Required | Description |
 | --- | --- | --- |
-| `BITBADGES_API_KEY` | For queries, simulation, and broadcast | Your BitBadges API key ([get one](https://bitbadges.io/developer)) |
+| `BITBADGES_API_KEY` | For queries, simulation, broadcast, and review links | Your BitBadges API key ([get one](https://bitbadges.io/developer)) |
 | `BITBADGES_MNEMONIC` | For signing | Mnemonic for server-side signing |
 | `BITBADGES_PRIVATE_KEY` | For signing | Alternative: hex private key |
 | `BITBADGES_API_URL` | No | Override the API base (default `https://api.bitbadges.io`) |
@@ -149,7 +149,7 @@ Each tool sets one field on a session-scoped transaction. Calls in the same roun
 | `remove_transfer` | Remove a transfer message by index. `messages[0]` is the collection and cannot be removed | `index*` (>= 1) |
 | `set_is_archived` | Archive or unarchive. Archived collections stay on-chain but are hidden from browsing | `isArchived*` |
 | `get_transaction` | Return the assembled transaction JSON with `metadataPlaceholders`. Numbers become strings. Blank `image` fields are auto-filled with a deterministic SVG seeded by the collection name | none |
-| `get_review_url` | Final step: upload the transaction to the open preview endpoint and return a short bitbadges.io link the user opens to review and sign. No API key. Links expire after 1 hour. Lands with bitbadgesjs PR 288 | `transaction` (defaults to the session), `frontendUrl` |
+| `get_review_url` | Final step: upload the transaction to the open preview endpoint and return a short bitbadges.io link the user opens to review and sign. Needs the API key to upload; the person opening the link needs none. Links expire after 1 hour. Lands with bitbadgesjs PR 288 | `transaction` (defaults to the session), `frontendUrl` |
 
 `generate_placeholder_art` (`seed*`, `style`, `monogram`) still exists in source but is not in the MCP catalog: `get_transaction` fills blank images for you.
 
@@ -262,7 +262,7 @@ Maximum 4 transfer messages per transaction.
 
 The builder never signs or broadcasts. Three exits:
 
-- `get_review_url` returns `reviewUrl`, where the user reviews and signs with a browser wallet. It is backed by a `prv_` code from `POST /api/v0/builder/preview`, an open endpoint with no API key. The code expires in 1 hour. `BITBADGES_FRONTEND_URL` or the `frontendUrl` param points the link at testnet or a local site; a testnet `BITBADGES_API_URL` infers `https://testnet.bitbadges.io`.
+- `get_review_url` returns `reviewUrl`, where the user reviews and signs with a browser wallet. It is backed by a `prv_` code from `POST /api/v0/builder/preview`. Uploading the preview needs `BITBADGES_API_KEY`; opening the returned link needs none, because the unguessable code is the secret. The code expires in 1 hour. `BITBADGES_FRONTEND_URL` or the `frontendUrl` param points the link at testnet or a local site; a testnet `BITBADGES_API_URL` infers `https://testnet.bitbadges.io`.
 - Save `get_transaction` output to a file and run `bb preview tx.json --open`, or `bb deploy --browser` / `--burner` from the [CLI](../cli/deploy.md).
 - Sign with the [SDK signing client](../sdk/transactions/signing-client.md).
 

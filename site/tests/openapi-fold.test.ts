@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import { docsConfig } from '../src/lib/docs/config';
+import { getNav } from '../src/lib/docs/content';
 import {
   API_FOLD,
   demoteHeadings,
@@ -13,6 +14,8 @@ import {
   sanitizeOpenApi,
   repointSdkLinks,
 } from '../src/lib/docs/openapi';
+import { filePathToRoute } from '../src/lib/docs/paths';
+import { flattenNav } from '../src/lib/docs/summary';
 
 describe('rewriteMarkdownLinks', () => {
   test('rewrites relative .md links to site routes, keeping anchors', () => {
@@ -102,7 +105,7 @@ describe('demoteHeadings', () => {
   });
 });
 
-describe('foldApiDocs', () => {
+describe('foldApiDocs — the generated introduction', () => {
   const spec = () => ({
     openapi: '3.1.0',
     info: { title: 'T', version: '1', description: '# Old intro\n\nreplaced' },
@@ -116,14 +119,13 @@ describe('foldApiDocs', () => {
   });
 
   const pages = new Map<string, string>([
-    ['api/README.md', '# BitBadges API\n\nIntro text.\n\n## API keys\n\nKeys.\n'],
-    ['api/pagination-and-views.md', '# Pagination and views\n\nPaging.\n\n## How it works\n\nSteps.\n'],
+    ['api/README.md', '# BitBadges API\n\nIntro text.\n\n## API Keys\n\nKeys.\n'],
+    ['api/pagination-and-views.md', '# Pagination and Views\n\nPaging.\n\n## How it works\n\nSteps.\n'],
     ['api/swaps.md', '# Swaps\n\nSwapping.\n'],
-    ['api/self-hosting.md', '# Self-hosting\n\nHosting.\n\n## Docker\n\nRun.\n'],
     ['api/claims/README.md', '# Claims\n\nClaims intro.\n\n## Trust model\n\nTrust.\n'],
     ['api/claims/endpoints.md', '# Claims\n\nRoutes. See [plugins](plugins.md).\n\n## Complete a claim\n\nPOST.\n'],
     ['api/claims/plugins.md', '# Plugins\n\nPlugin ids.\n'],
-    ['api/claims/dynamic-stores.md', '# Dynamic stores\n\nStores.\n'],
+    ['api/claims/dynamic-stores.md', '# Dynamic Stores\n\nStores.\n'],
     ['api/sign-in/README.md', '# Sign In with BitBadges\n\nSIWBB intro.\n'],
     ['api/sign-in/setup.md', '# Setup\n\nRegister.\n'],
     ['api/sign-in/authorization-url.md', '# Authorization URL\n\nBuild it.\n'],
@@ -132,49 +134,73 @@ describe('foldApiDocs', () => {
     ['api/sign-in/frameworks.md', '# Frameworks\n\nAuth0.\n'],
   ]);
 
-  test('info.description is one section per intro page, in order, each with its own H1', () => {
-    const { spec: out } = foldApiDocs(spec(), pages);
-    const description = out.info.description as string;
-    // Scalar shows the lowest heading level plus one below it. Keeping a `#`
-    // per page means the page is an entry and its `##` sections nest under it.
-    const order = ['# Overview', 'Intro text.', '## API keys', '# Pagination and views', '## How it works', '# Swaps', '# Self-hosting', '## Docker'];
-    const positions = order.map((s) => description.indexOf(s));
-    expect(positions.every((p) => p >= 0)).toBe(true);
-    expect([...positions].sort((a, b) => a - b)).toEqual(positions);
-    expect(description.startsWith('# Overview')).toBe(true);
+  test('states the base URL and where to get an API key, linking the overview page', () => {
+    const description = foldApiDocs(spec(), pages).spec.info.description as string;
+    expect(description.startsWith('# BitBadges API')).toBe(true);
+    expect(description).toContain('`https://api.bitbadges.io`');
+    expect(description).toContain('`/api/v0`');
+    expect(description).toContain('`x-api-key`');
+    expect(description).toContain('https://bitbadges.io/developer');
+    expect(description).toContain('[How to get an API key](/api#api-keys)');
     expect(description).not.toContain('Old intro');
-    expect(description).not.toContain('# BitBadges API');
   });
 
-  test('sets the Claims and Sign In tag descriptions from their page groups', () => {
+  test('links every page of the API tab, in order, titled from the page itself', () => {
+    const description = foldApiDocs(spec(), pages).spec.info.description as string;
+    const links = [...description.matchAll(/^\s*- \[([^\]]+)\]\(([^)]+)\)$/gm)].map((m) => [m[1], m[2]]);
+    expect(links).toEqual([
+      ['Overview', '/api'],
+      ['Pagination and Views', '/api/pagination-and-views'],
+      ['Swaps', '/api/swaps'],
+      ['Claims', '/api/claims'],
+      ['Endpoints', '/api/claims/endpoints'],
+      ['Plugins', '/api/claims/plugins'],
+      ['Dynamic Stores', '/api/claims/dynamic-stores'],
+      ['Sign In with BitBadges', '/api/sign-in'],
+      ['Setup', '/api/sign-in/setup'],
+      ['Authorization URL', '/api/sign-in/authorization-url'],
+      ['Callback', '/api/sign-in/callback'],
+      ['Verification', '/api/sign-in/verification'],
+      ['Frameworks', '/api/sign-in/frameworks'],
+    ]);
+    // Sub-pages sit under their group, the same shape as SUMMARY.md.
+    expect(description).toContain('  - [Plugins](/api/claims/plugins)');
+    expect(description).toContain('\n- [Swaps](/api/swaps)');
+  });
+
+  test('copies no page body into the document — the pages are served, not duplicated', () => {
     const { spec: out } = foldApiDocs(spec(), pages);
+    const serialized = JSON.stringify(out);
+    for (const body of ['Paging.', 'Swapping.', 'Claims intro.', 'SIWBB intro.', 'Plugin ids.', 'Complete a claim']) {
+      expect(serialized).not.toContain(body);
+    }
+    expect((out.info.description as string).split('\n').length).toBeLessThan(30);
+  });
+
+  test('mounts every internal link under the base path', () => {
+    const description = foldApiDocs(spec(), pages, { basePath: '/docs' }).spec.info.description as string;
+    expect(description).toContain('[Swaps](/docs/api/swaps)');
+    expect(description).toContain('[How to get an API key](/docs/api#api-keys)');
+    expect(description).toContain('(https://bitbadges.io/developer)');
+  });
+
+  test('appends a guide link to the mapped tags and leaves the upstream text and other tags alone', () => {
+    const { spec: out, report } = foldApiDocs(spec(), pages);
     const tags = Object.fromEntries(out.tags.map((t: { name: string; description: string }) => [t.name, t.description]));
 
-    expect(tags.Claims.startsWith('Claims intro.')).toBe(true);
-    for (const s of ['## Trust model', '## Endpoints', '### Complete a claim', '## Plugins', '## Dynamic stores']) {
-      expect(tags.Claims).toContain(s);
-    }
-    expect(tags.Claims.indexOf('## Endpoints')).toBeLessThan(tags.Claims.indexOf('## Plugins'));
-    expect(tags.Claims).toContain('[plugins](/api/claims/plugins)');
-
-    expect(tags['Sign In with BitBadges'].startsWith('SIWBB intro.')).toBe(true);
-    const signIn = ['## Setup', '## Authorization URL', '## Callback', '## Verification', '## Frameworks'];
-    const positions = signIn.map((s) => tags['Sign In with BitBadges'].indexOf(s));
-    expect(positions.every((p) => p >= 0)).toBe(true);
-    expect([...positions].sort((a, b) => a - b)).toEqual(positions);
-
+    expect(tags.Claims).toBe('Endpoints for managing claims\n\nGuide: [Claims](/api/claims).');
+    expect(tags['Sign In with BitBadges']).toBe(
+      'Auth\n\nGuide: [Sign In with BitBadges](/api/sign-in).',
+    );
     expect(tags.Tokens).toBe('Tokens');
+    expect(report.tags).toEqual(['Claims', 'Sign In with BitBadges']);
   });
 
-  test('reports which tags received folded text and fails loudly on a missing tag', () => {
-    const { report } = foldApiDocs(spec(), pages);
-    expect(report.tags).toEqual(['Claims', 'Sign In with BitBadges']);
+  test('fails loudly on a missing tag or a missing page', () => {
     const noClaims = spec();
     noClaims.tags = noClaims.tags.filter((t) => t.name !== 'Claims');
     expect(() => foldApiDocs(noClaims, pages)).toThrow(/Claims/);
-  });
 
-  test('fails loudly when a page listed in the fold is missing', () => {
     const partial = new Map(pages);
     partial.delete('api/swaps.md');
     expect(() => foldApiDocs(spec(), partial)).toThrow(/api\/swaps\.md/);
@@ -189,32 +215,53 @@ describe('foldApiDocs', () => {
     );
   });
 
-  test('sanitising after the fold keeps the folded sections when no grouping is requested', () => {
+  test('sanitising after the introduction leaves it intact when no grouping is requested', () => {
     const { spec: folded } = foldApiDocs(spec(), pages);
-    const { spec: out } = sanitizeOpenApi(folded);
-    const description = out.info.description as string;
-    expect(description.startsWith('# Overview')).toBe(true);
-    expect(description).toContain('\n# Swaps');
-    expect(description).toContain('\n# Self-hosting');
+    const description = sanitizeOpenApi(folded).spec.info.description as string;
+    expect(description.startsWith('# BitBadges API')).toBe(true);
+    expect(description).toContain('- [Swaps](/api/swaps)');
   });
 });
 
-describe('fold guard — every api/*.md page on disk is folded', () => {
-  test('no page under api/ is missing from API_FOLD', async () => {
-    const root = path.join(docsConfig.contentDir, 'api');
-    const onDisk: string[] = [];
-    const walk = async (dir: string) => {
-      for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
-        const full = path.join(dir, entry.name);
-        if (entry.isDirectory()) await walk(full);
-        else if (entry.name.endsWith('.md')) onDisk.push(path.relative(docsConfig.contentDir, full));
-      }
-    };
-    await walk(root);
-    expect(onDisk.sort()).toEqual(foldedPageFiles(API_FOLD).sort());
+/** Every markdown page under `api/`, content-relative and sorted. */
+const onDisk = await (async () => {
+  const root = path.join(docsConfig.contentDir, 'api');
+  const found: string[] = [];
+  const walk = async (dir: string) => {
+    for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) await walk(full);
+      else if (entry.name.endsWith('.md')) found.push(path.relative(docsConfig.contentDir, full));
+    }
+  };
+  await walk(root);
+  return found.sort();
+})();
+
+describe('orphan guard — no api/*.md page disappears', () => {
+
+  test('every page on disk is reachable from SUMMARY.md or from the introduction', async () => {
+    const navRoutes = new Set(flattenNav(await getNav()).map((n) => n.href));
+    const linked = new Set(foldedPageFiles(API_FOLD));
+    const orphans = onDisk.filter((file) => !linked.has(file) && !navRoutes.has(filePathToRoute(file)));
+    expect(orphans).toEqual([]);
   });
 
-  test('the real corpus folds without error and lands on real tags', async () => {
+  test('the API tab of SUMMARY.md lists every page under api/, plus the reference', async () => {
+    const api = (await getNav()).find((group) => group.title === 'API');
+    expect(api).toBeDefined();
+    const hrefs = flattenNav([api!]).map((n) => n.href);
+    expect([...hrefs].sort()).toEqual([...onDisk.map(filePathToRoute), '/api-reference'].sort());
+    // The Scalar reference is the tab's last entry, after the prose.
+    expect(hrefs.at(-1)).toBe('/api-reference');
+    expect(hrefs[0]).toBe('/api');
+  });
+
+  test('the introduction links only to pages that exist on disk', () => {
+    expect(foldedPageFiles(API_FOLD).sort()).toEqual(onDisk);
+  });
+
+  test('the real corpus and the real spec produce the introduction and the tag pointers', async () => {
     const pages = new Map<string, string>();
     for (const file of foldedPageFiles(API_FOLD)) {
       pages.set(file, await fs.readFile(path.join(docsConfig.contentDir, file), 'utf8'));
@@ -222,13 +269,15 @@ describe('fold guard — every api/*.md page on disk is folded', () => {
     const source = JSON.parse(await fs.readFile(path.resolve(process.cwd(), 'openapi/openapi.json'), 'utf8'));
     const { spec, report } = foldApiDocs(source, pages);
     expect(report.tags).toEqual(['Claims', 'Sign In with BitBadges']);
-    expect(spec.info.description).toContain('# Pagination and Views');
-    expect(spec.info.description).not.toContain('](README.md)');
-    expect(spec.info.description).not.toContain('also part of the');
-    expect(spec.info.description).not.toContain('{%');
+
+    const description = spec.info.description as string;
+    expect(description).toContain('- [Pagination and Views](/api/pagination-and-views)');
+    expect(description).toContain('[How to get an API key](/api#api-keys)');
+    expect(description).not.toMatch(/\]\([^)]*\.md[)#]/);
+    expect(description).not.toContain('{%');
+
     const claims = spec.tags.find((t: { name: string }) => t.name === 'Claims').description as string;
-    expect(claims).toContain('## Endpoints');
-    expect(claims).not.toMatch(/\]\([^)]*\.md[)#]/);
+    expect(claims.endsWith('Guide: [Claims](/api/claims).')).toBe(true);
   });
 });
 

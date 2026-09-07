@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import { parseSummary } from '../src/lib/docs/summary';
-import { activeTabIndex, tabsFromNav } from '../src/lib/docs/tabs';
+import { activeTabIndex, tabsFromNav, minimalRoutes } from '../src/lib/docs/tabs';
 
 const NEW_SUMMARY = `# Table of contents
 
@@ -71,8 +71,10 @@ describe('tabsFromNav — restructured SUMMARY', () => {
     expect(tabs[0].routes).not.toContain('/api-reference');
   });
 
-  test('routes cover every internal page in the tab', () => {
-    expect(tabs[0].routes).toEqual(['/', '/start/quickstart', '/guides', '/guides/create-a-collection']);
+  test('routes are the minimal covering set for the tab', () => {
+    // Descendants are dropped: `activeTabIndex` matches by longest prefix, so
+    // `/guides` already claims `/guides/create-a-collection`.
+    expect(tabs[0].routes).toEqual(['/', '/start/quickstart', '/guides']);
   });
 });
 
@@ -167,5 +169,25 @@ describe('tabs — API tab owns its URL prefix', () => {
   test('legacy nav: the appended API Reference tab owns /api-reference only', () => {
     const legacy = tabsFromNav(parseSummary(OLD_SUMMARY));
     expect(legacy.at(-1)!.prefixes).toEqual(['/api-reference']);
+  });
+});
+
+describe('minimalRoutes', () => {
+  test('drops routes an ancestor in the same tab already covers', () => {
+    expect(
+      minimalRoutes(['/sdk', '/sdk/reference', '/sdk/reference/classes/a', '/sdk/reference/classes/b', '/cli']),
+    ).toEqual(['/sdk', '/cli']);
+  });
+
+  test('keeps siblings that share only a prefix string, not a path segment', () => {
+    expect(minimalRoutes(['/api', '/api-reference'])).toEqual(['/api', '/api-reference']);
+  });
+
+  test('root never swallows the rest of the tab', () => {
+    expect(minimalRoutes(['/', '/guides', '/about'])).toEqual(['/', '/guides', '/about']);
+  });
+
+  test('preserves nav order and dedupes', () => {
+    expect(minimalRoutes(['/b', '/a', '/b'])).toEqual(['/b', '/a']);
   });
 });

@@ -6,7 +6,7 @@ description: "Handle the Sign In with BitBadges redirect callback. Read code and
 
 With a `redirect_uri` in the authorization URL, BitBadges sends the user back to your app with `code` and `state` as query parameters as soon as authentication finishes. The user never sees the code.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 
@@ -17,7 +17,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { BigIntify, BitBadgesAPI } from 'bitbadges';
 import { getSession } from '../../lib/session'; // your own session helper
 
-const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify });
+const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify }); // key from https://bitbadges.io/developer
 
 export default async function callbackHandler(req: NextApiRequest, res: NextApiResponse) {
   const code = req.query.code as string;

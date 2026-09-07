@@ -209,7 +209,7 @@ State follows one rule: your plugin passing does not mean the claim succeeded. A
 
 ```ts
 // After some delay, check if the claim actually succeeded
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const status = await api.getClaimAttemptStatus(claimAttemptId);
 if (status.success) {
   // Now safe to update your external state
