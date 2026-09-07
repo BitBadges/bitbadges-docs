@@ -165,6 +165,14 @@ jobs:
       - name: Drop upstream checkout before the PR is built
         run: rm -rf .bitbadgeschain
 
+      # A regeneration that breaks the corpus must not open a green PR.
+      - name: Verify the corpus still builds
+        working-directory: site
+        run: |
+          bun run sync
+          DOCS_REDIRECTS_STRICT=1 bun test
+          bun run typecheck
+
       - name: Open PR
         id: pr
         uses: peter-evans/create-pull-request@v8
@@ -173,7 +181,11 @@ jobs:
           base: master
           branch: sync/proto-reference
           delete-branch: true
-          add-paths: chain/proto/**
+          # gen-proto-reference.ts also rewrites the proto-nav block in SUMMARY.md,
+          # so a PR without it would add pages that have no sidebar entry.
+          add-paths: |
+            chain/proto/**
+            SUMMARY.md
           commit-message: 'chore(chain): regenerate proto reference from bitbadgeschain'
           title: 'chore(chain): regenerate proto reference from bitbadgeschain'
           body: |

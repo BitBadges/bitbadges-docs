@@ -111,6 +111,14 @@ jobs:
       - name: Drop upstream checkout before the PR is built
         run: rm -rf .bitbadgesjs
 
+      # A regeneration that breaks the corpus must not open a green PR.
+      - name: Verify the corpus still builds
+        working-directory: site
+        run: |
+          bun run sync
+          DOCS_REDIRECTS_STRICT=1 bun test
+          bun run typecheck
+
       - name: Open PR
         id: pr
         uses: peter-evans/create-pull-request@v8

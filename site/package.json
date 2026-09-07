@@ -8,6 +8,7 @@
     "gen:sdk": "bun scripts/gen-sdk-reference.ts",
     "gen:proto": "bun scripts/gen-proto-reference.ts",
     "gen:chain-openapi": "bun scripts/gen-chain-openapi.ts",
+    "gen:llms": "bun scripts/gen-llms.ts",
     "predev": "bun run sync",
     "dev": "next dev",
     "prebuild": "bun run sync",

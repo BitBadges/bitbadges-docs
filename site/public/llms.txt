@@ -1,0 +1,241 @@
+# BitBadges
+
+> BitBadges is a Cosmos SDK L1 with a native token standard (x/tokenization): collections, time-based balances, three-level transfer approvals with on-chain criteria, manager permissions, IBC wrapping, and EVM precompiles. Off-chain: a REST API, a TypeScript SDK, a CLI (`bb`), claims with plugins, Sign In with BitBadges, and MCP builder tools for AI agents.
+
+Full corpus as one file: https://docs.bitbadges.io/for-llms.txt. OpenAPI: https://docs.bitbadges.io/openapi.json. API reference: https://docs.bitbadges.io/api-reference.
+
+URL patterns: /token-standard/messages/msg-<kebab>, /token-standard/queries/<kebab>, /token-standard/approval-criteria/<kebab>, /cli/<group>, /api/..., /agents/skills/<skill-id>.
+
+## Docs
+
+- [BitBadges](https://docs.bitbadges.io/)
+- [Quickstart](https://docs.bitbadges.io/start/quickstart): Install BitBadges, run a first query, and broadcast a first transaction in the CLI, TypeScript, the no-code site, or an AI agent.
+- [Guides](https://docs.bitbadges.io/guides): Task guides for BitBadges. Each one gets you to a working result with the bb CLI first, then the TypeScript SDK and raw JSON.
+  - [Create a collection](https://docs.bitbadges.io/guides/create-a-collection): Create an NFT or fungible token collection on BitBadges with the bb CLI, the TypeScript SDK, or raw MsgCreateCollection JSON.
+  - [Mint and distribute](https://docs.bitbadges.io/guides/mint-and-distribute): Mint BitBadges tokens to yourself or to the public, charge for mints, pay out from escrow, and control circulating supply.
+  - [Set transferability](https://docs.bitbadges.io/guides/set-transferability): Decide who can transfer, burn, trade, or force-move BitBadges tokens with collection approvals and user-level approvals.
+  - [Lock permissions](https://docs.bitbadges.io/guides/lock-permissions): Freeze supply, approvals, token IDs, metadata, or a whole BitBadges collection with collection permissions, and lock user permissions for escrow accounts.
+  - [Distribute with claims](https://docs.bitbadges.io/guides/distribute-with-claims): Configure a claim with plugins, simulate and complete it from your backend, verify success, and gate an on-chain mint with it.
+  - [Build a claim plugin](https://docs.bitbadges.io/guides/build-a-claim-plugin): Write an HTTP endpoint that BitBadges calls during claims, register it in the developer portal, handle simulations and state safely, test it, and version it.
+  - [Gate access](https://docs.bitbadges.io/guides/gate-access): Gate an API or resource behind token ownership with BB-402. Server that returns 402, verifies a signed proof, and checks balances; client that answers it.
+  - [Sign in users](https://docs.bitbadges.io/guides/sign-in-users): Add Sign In with BitBadges to your app. Register an OAuth app, build the authorize URL, handle the callback, exchange the code, and check your own criteria.
+  - [Wrap to an IBC denom](https://docs.bitbadges.io/guides/wrap-to-an-ibc-denom): Add a cosmos coin wrapper path so BitBadges tokens convert 1:1 into an x/bank coin that moves over IBC, with the wrapper and unwrapper approvals it needs.
+  - [Trade on the DEX](https://docs.bitbadges.io/guides/trade-on-the-dex): Find pools and prices, check balances, estimate and execute a swap, and add or remove liquidity on the BitBadges DEX from the bb CLI, TypeScript, or raw messages.
+  - [Subscriptions and time-based tokens](https://docs.bitbadges.io/guides/subscriptions-and-time-based-tokens): Sell recurring subscriptions, prepaid credit tokens, and expiring tokens on BitBadges with bb build subscription, bb build credit-token, and ownership times.
+  - [Smart tokens and vaults](https://docs.bitbadges.io/guides/smart-tokens-and-vaults): Issue a BitBadges smart token backed 1:1 by an IBC coin, add withdraw limits and 2FA, and give an AI agent a USDC vault it can deposit to and withdraw from.
+- [About](https://docs.bitbadges.io/about): Why BitBadges exists, the three theses behind it, the design decisions, and what the x/tokenization standard provides.
+  - [Use cases](https://docs.bitbadges.io/about/use-cases): What people build with the BitBadges token standard, grouped by domain, with the feature each use case relies on.
+  - [Comparisons](https://docs.bitbadges.io/about/comparisons): How the BitBadges L1 and token standard compare to other chains and to ERC-3643, and how ERC-3643 works as an interface on BitBadges.
+  - [BADGE token](https://docs.bitbadges.io/about/badge-token): BADGE, the native coin of the BitBadges chain. Its purposes, supply and distribution, and the validator rewards and proof-of-authority model.
+  - [Links and brand](https://docs.bitbadges.io/about/links): Official BitBadges links: app, explorer, install, packages, API reference, socials, integrations, brand assets, and how to contribute.
+  - [FAQ](https://docs.bitbadges.io/about/faq): Short answers on smart contracts, compliance enforcement, L1 versus L2, ERC compatibility, EVM extension, and the protocol fee schedule.
+
+## Token Standard
+
+- [Overview](https://docs.bitbadges.io/token-standard): What the x/tokenization module is, how its pieces fit together, and the order to read this tab in.
+- [Concepts](https://docs.bitbadges.io/token-standard/concepts): The mental model behind every BitBadges token on one page, plus the order to read the concept pages in.
+  - [Accounts and addresses](https://docs.bitbadges.io/token-standard/concepts/accounts): How Ethereum and Cosmos addresses map to one BitBadges account, and which form to show users.
+  - [Uint ranges](https://docs.bitbadges.io/token-standard/concepts/uint-ranges): The inclusive { start, end } range type that represents token IDs, times, and amounts everywhere in the module.
+  - [Balances](https://docs.bitbadges.io/token-standard/concepts/balances): How a Balance combines an amount, token ID ranges, and ownership time ranges, and the rules for expanding, subtracting, and merging them.
+  - [Collections](https://docs.bitbadges.io/token-standard/concepts/collections): Every field on a TokenCollection: metadata, inline customData metadata, standards, validTokenIds, defaultBalances, isArchived, and the pointer to invariants.
+  - [Minting and supply](https://docs.bitbadges.io/token-standard/concepts/minting-and-supply): The reserved Mint address, how circulating supply is defined, and how to cap or leave open the supply of a collection.
+  - [Address lists](https://docs.bitbadges.io/token-standard/concepts/address-lists): Reserved, inline, and stored address lists, the ! inversion syntax, and how Mint is handled in each.
+  - [Transferability](https://docs.bitbadges.io/token-standard/concepts/transferability): The three approval levels (collection, outgoing, incoming), the fields of an approval, auto-approval flags, overrides, and how a transfer is validated.
+  - [Prioritized approvals](https://docs.bitbadges.io/token-standard/concepts/prioritized-approvals): Auto-scan vs prioritized approval matching, approval versions, the onlyCheckPrioritized flags, and the mustPrioritize criterion.
+  - [Permissions](https://docs.bitbadges.io/token-standard/concepts/permissions): The manager role, the three permission states, first-match evaluation, and the action, token ID, and approval permission types for collections and users.
+  - [Compliance zones](https://docs.bitbadges.io/token-standard/concepts/compliance-zones): Why BitBadges enforces compliance at the boundary of x/tokenization instead of in every module, and how the open zone and compliance zone connect.
+- [Approval criteria](https://docs.bitbadges.io/token-standard/approval-criteria): The full approvalCriteria interface, which fields exist on which approval level, one line per criterion with a link, and the require* address flags.
+  - [Address checks](https://docs.bitbadges.io/token-standard/approval-criteria/address-checks): senderChecks, recipientChecks, and initiatorChecks: require or forbid EVM contracts and liquidity pools for each party of a transfer.
+  - [Alt time checks](https://docs.bitbadges.io/token-standard/approval-criteria/alt-time-checks): altTimeChecks: deny transfers by hour, weekday, month, day of month, or ISO week, in UTC or with a timezone offset.
+  - [Approval trackers](https://docs.bitbadges.io/token-standard/approval-criteria/approval-trackers): approvalAmounts and maxNumTransfers: increment-only trackers that cap amounts and transfer counts, overall or per address, with periodic resets.
+  - [Auto-deletion](https://docs.bitbadges.io/token-standard/approval-criteria/auto-deletion): autoDeletionOptions: delete an approval after one use or after its transfer cap, and let counterparties or anyone purge it.
+  - [Coin transfers](https://docs.bitbadges.io/token-standard/approval-criteria/coin-transfers): coinTransfers: move x/bank coins (BADGE, IBC coins, alias denoms) every time an approval is used, plus the mint escrow address that pays on behalf of Mint.
+  - [Dynamic store challenges](https://docs.bitbadges.io/token-standard/approval-criteria/dynamic-store-challenges): dynamicStoreChallenges: require the initiator, sender, recipient, or a fixed address to be true in an address-to-bool store with a global kill switch.
+  - [ETH signature challenges](https://docs.bitbadges.io/token-standard/approval-criteria/eth-signature-challenges): ethSignatureChallenges: require a one-time Ethereum signature from a named signer over a message bound to the transfer context.
+  - [EVM query challenges](https://docs.bitbadges.io/token-standard/approval-criteria/evm-query-challenges): evmQueryChallenges: gate an approval on a read-only EVM staticcall whose result must compare as expected, with placeholders for the transfer parties.
+  - [Invariants](https://docs.bitbadges.io/token-standard/approval-criteria/invariants): Creation-only collection rules: ownership times, supply caps, backed paths, forceful transfers, pool creation, and post-transfer EVM checks.
+  - [Merkle challenges](https://docs.bitbadges.io/token-standard/approval-criteria/merkle-challenges): merkleChallenges: gate an approval on a SHA256 Merkle proof for whitelists or claim codes, with per-leaf use limits and leaf signatures against front-running.
+  - [Overrides](https://docs.bitbadges.io/token-standard/approval-criteria/overrides): overridesFromOutgoingApprovals and overridesToIncomingApprovals: bypass user-level approvals, the Mint requirement, and reserved-address protection.
+  - [Predetermined balances](https://docs.bitbadges.io/token-standard/approval-criteria/predetermined-balances): predeterminedBalances: force each use of an approval to move exact balances in order, by manual list or increments, with precalculation and scaling.
+  - [Special address flags](https://docs.bitbadges.io/token-standard/approval-criteria/special-address-flags): allowBackedMinting and allowSpecialWrapping: opt a collection approval into backed-path and wrapper-path transfers, and the rules enforced.
+  - [Token ownership](https://docs.bitbadges.io/token-standard/approval-criteria/token-ownership): mustOwnTokens: require the initiator, sender, recipient, or a fixed address to hold tokens from some collection before the transfer is approved.
+  - [User approval settings](https://docs.bitbadges.io/token-standard/approval-criteria/user-approval-settings): userApprovalSettings: let a collection approval restrict the denoms in user-level coin transfers, disable them, and take a royalty on every coin payment.
+  - [Voting challenges](https://docs.bitbadges.io/token-standard/approval-criteria/voting-challenges): votingChallenges: require a weighted quorum of on-chain votes from named voters, with partial votes, reset after execution, and a timelock.
+- [Messages](https://docs.bitbadges.io/token-standard/messages): Every x/tokenization message, who signs it, and what it does. One page per message.
+  - [MsgCreateCollection](https://docs.bitbadges.io/token-standard/messages/msg-create-collection): MsgCreateCollection creates a new collection. The only message that can set defaultBalances and invariants.
+  - [MsgUpdateCollection](https://docs.bitbadges.io/token-standard/messages/msg-update-collection): MsgUpdateCollection updates an existing collection's fields with update flags. Manager only, permissions enforced.
+  - [MsgUniversalUpdateCollection](https://docs.bitbadges.io/token-standard/messages/msg-universal-update-collection): MsgUniversalUpdateCollection creates or updates a collection in one legacy interface. All other collection messages route through it.
+  - [MsgDeleteCollection](https://docs.bitbadges.io/token-standard/messages/msg-delete-collection): MsgDeleteCollection deletes a collection and purges its balances and trackers. Manager only, needs canDeleteCollection.
+  - [MsgTransferTokens](https://docs.bitbadges.io/token-standard/messages/msg-transfer-tokens): MsgTransferTokens moves tokens between addresses. Each transfer must pass collection, outgoing, and incoming approvals.
+  - [MsgUpdateUserApprovals](https://docs.bitbadges.io/token-standard/messages/msg-update-user-approvals): MsgUpdateUserApprovals replaces a user's outgoing and incoming approvals, auto-approve flags, and user permissions in one collection.
+  - [MsgSetIncomingApproval](https://docs.bitbadges.io/token-standard/messages/msg-set-incoming-approval): MsgSetIncomingApproval creates or replaces one incoming approval by ID without rebuilding the full approval list.
+  - [MsgDeleteIncomingApproval](https://docs.bitbadges.io/token-standard/messages/msg-delete-incoming-approval): MsgDeleteIncomingApproval deletes one incoming approval by ID without rebuilding the full approval list.
+  - [MsgSetOutgoingApproval](https://docs.bitbadges.io/token-standard/messages/msg-set-outgoing-approval): MsgSetOutgoingApproval creates or replaces one outgoing approval by ID without rebuilding the full approval list.
+  - [MsgDeleteOutgoingApproval](https://docs.bitbadges.io/token-standard/messages/msg-delete-outgoing-approval): MsgDeleteOutgoingApproval deletes one outgoing approval by ID without rebuilding the full approval list.
+  - [MsgPurgeApprovals](https://docs.bitbadges.io/token-standard/messages/msg-purge-approvals): MsgPurgeApprovals removes expired user approvals, your own or another user's when their auto-deletion options allow it.
+  - [MsgSetCollectionApprovals](https://docs.bitbadges.io/token-standard/messages/msg-set-collection-approvals): MsgSetCollectionApprovals replaces a collection's approvals and sets the canUpdateCollectionApprovals permission in one message.
+  - [MsgSetValidTokenIds](https://docs.bitbadges.io/token-standard/messages/msg-set-valid-token-ids): MsgSetValidTokenIds sets a collection's validTokenIds and the canUpdateValidTokenIds permission in one message.
+  - [MsgSetManager](https://docs.bitbadges.io/token-standard/messages/msg-set-manager): MsgSetManager transfers a collection's manager role and sets the canUpdateManager permission in one message.
+  - [MsgSetCollectionMetadata](https://docs.bitbadges.io/token-standard/messages/msg-set-collection-metadata): MsgSetCollectionMetadata sets a collection's metadata URI or inline customData and the canUpdateCollectionMetadata permission.
+  - [MsgSetTokenMetadata](https://docs.bitbadges.io/token-standard/messages/msg-set-token-metadata): MsgSetTokenMetadata sets per-token metadata entries and the canUpdateTokenMetadata permission in one message.
+  - [MsgSetCustomData](https://docs.bitbadges.io/token-standard/messages/msg-set-custom-data): MsgSetCustomData sets a collection's customData string and the canUpdateCustomData permission in one message.
+  - [MsgSetStandards](https://docs.bitbadges.io/token-standard/messages/msg-set-standards): MsgSetStandards sets a collection's standards list and the canUpdateStandards permission in one message.
+  - [MsgSetIsArchived](https://docs.bitbadges.io/token-standard/messages/msg-set-is-archived): MsgSetIsArchived archives or unarchives a collection and sets the canArchiveCollection permission in one message.
+  - [MsgCreateAddressLists](https://docs.bitbadges.io/token-standard/messages/msg-create-address-lists): MsgCreateAddressLists creates immutable, reusable address lists that approvals and permissions reference by ID.
+  - [MsgCreateDynamicStore](https://docs.bitbadges.io/token-standard/messages/msg-create-dynamic-store): MsgCreateDynamicStore creates an on-chain boolean store keyed by address, for use in dynamic store challenges.
+  - [MsgUpdateDynamicStore](https://docs.bitbadges.io/token-standard/messages/msg-update-dynamic-store): MsgUpdateDynamicStore replaces a dynamic store's default value, global kill switch, and metadata. Creator only.
+  - [MsgDeleteDynamicStore](https://docs.bitbadges.io/token-standard/messages/msg-delete-dynamic-store): MsgDeleteDynamicStore deletes a dynamic store. Creator only.
+  - [MsgSetDynamicStoreValue](https://docs.bitbadges.io/token-standard/messages/msg-set-dynamic-store-value): MsgSetDynamicStoreValue sets the boolean for one address in a dynamic store. Creator only.
+  - [MsgCastVote](https://docs.bitbadges.io/token-standard/messages/msg-cast-vote): MsgCastVote casts or updates a weighted yes/no vote on a voting challenge inside an approval's criteria.
+  - [MsgSetReservedProtocolAddress](https://docs.bitbadges.io/token-standard/messages/msg-set-reserved-protocol-address): MsgSetReservedProtocolAddress marks or unmarks an address as a reserved protocol address. Governance only.
+  - [MsgUpdateParams](https://docs.bitbadges.io/token-standard/messages/msg-update-params): MsgUpdateParams replaces the x/tokenization module parameters (allowed denoms and affiliate percentage). Governance only.
+- [Queries](https://docs.bitbadges.io/token-standard/queries): Every x/tokenization gRPC query with its LCD REST path and bb CLI command. One page per query.
+  - [GetCollection](https://docs.bitbadges.io/token-standard/queries/get-collection): GetCollection returns the full on-chain record of a collection by ID.
+  - [GetCollectionStats](https://docs.bitbadges.io/token-standard/queries/get-collection-stats): GetCollectionStats returns a collection's unique holder count and circulating supply.
+  - [GetBalance](https://docs.bitbadges.io/token-standard/queries/get-balance): GetBalance returns an address's balances, approvals, auto-approve flags, and permissions in a collection.
+  - [GetBalanceForToken](https://docs.bitbadges.io/token-standard/queries/get-balance-for-token): GetBalanceForToken returns the amount of one token ID an address owns at one point in time.
+  - [GetWrappableBalances](https://docs.bitbadges.io/token-standard/queries/get-wrappable-balances): GetWrappableBalances returns the maximum amount of a wrapper or alias denom an address can mint from its token balances.
+  - [GetAddressList](https://docs.bitbadges.io/token-standard/queries/get-address-list): GetAddressList returns an address list by ID, including reserved IDs such as All, Mint, and inverted lists.
+  - [GetApprovalTracker](https://docs.bitbadges.io/token-standard/queries/get-approval-tracker): GetApprovalTracker returns the cumulative transfer count and amounts recorded for an approval's tracker.
+  - [GetChallengeTracker](https://docs.bitbadges.io/token-standard/queries/get-challenge-tracker): GetChallengeTracker returns how many times a Merkle leaf has been used for a Merkle challenge.
+  - [GetETHSignatureTracker](https://docs.bitbadges.io/token-standard/queries/get-eth-signature-tracker): GetETHSignatureTracker returns how many times an Ethereum signature has been used for an ETH signature challenge.
+  - [GetDynamicStore](https://docs.bitbadges.io/token-standard/queries/get-dynamic-store): GetDynamicStore returns a dynamic store's creator, default value, global kill switch, and metadata.
+  - [GetDynamicStoreValue](https://docs.bitbadges.io/token-standard/queries/get-dynamic-store-value): GetDynamicStoreValue returns the boolean stored for one address in a dynamic store.
+  - [GetVote](https://docs.bitbadges.io/token-standard/queries/get-vote): GetVote returns one voter's current vote on a voting challenge.
+  - [GetVotes](https://docs.bitbadges.io/token-standard/queries/get-votes): GetVotes returns every stored vote on a voting challenge proposal.
+  - [IsAddressReservedProtocol](https://docs.bitbadges.io/token-standard/queries/is-address-reserved-protocol): IsAddressReservedProtocol returns whether an address is a reserved protocol address.
+  - [GetAllReservedProtocolAddresses](https://docs.bitbadges.io/token-standard/queries/get-all-reserved-protocol-addresses): GetAllReservedProtocolAddresses returns every address flagged as a reserved protocol address.
+  - [Params](https://docs.bitbadges.io/token-standard/queries/params): Params returns the x/tokenization module parameters (allowed denoms and affiliate percentage).
+- [IBC and wrapping](https://docs.bitbadges.io/token-standard/ibc): How x/tokenization tokens reach x/bank, IBC, and other chains. Map of the four mechanisms and when to use each.
+  - [Alias denoms](https://docs.bitbadges.io/token-standard/ibc/alias-denoms): The badgeslp:COLLECTION_ID:denom alias format that lets Cosmos SDK interfaces treat x/tokenization balances as sdk.Coin without wrapping.
+  - [Cosmos coin wrapper paths](https://docs.bitbadges.io/token-standard/ibc/cosmos-coin-wrapper-paths): Wrapper paths burn native tokens into a generated badges:COLLECTION_ID:denom x/bank coin and back. Fields, conversion rates, {id} denoms, approvals.
+  - [Backed minting](https://docs.bitbadges.io/token-standard/ibc/backed-minting): Backed paths back every token 1:1 with an existing IBC coin through a protocol-controlled special address. Invariant setup, conversion, Mint rules, approvals.
+  - [Transfer tokens hook](https://docs.bitbadges.io/token-standard/ibc/transfer-tokens-hook): The x/custom-hooks IBC middleware: transfer_tokens (run MsgTransferTokens on an inbound transfer) and swap_and_action (swap, then transfer or forward).
+  - [Rate limits](https://docs.bitbadges.io/token-standard/ibc/rate-limits): The x/ibc-rate-limit middleware: per channel and denom caps on supply shift, unique senders, and per-address transfers, plus the governance messages.
+  - [Cross-chain queries](https://docs.bitbadges.io/token-standard/ibc/cross-chain-queries): Interchain queries let another Cosmos chain verify x/tokenization ownership over IBC without moving tokens. Packet types, channel setup, Go examples.
+- [Modules](https://docs.bitbadges.io/token-standard/modules): The other Cosmos SDK modules on the BitBadges chain besides x/tokenization: gamm, poolmanager, sendmanager, managersplitter, and the IBC middleware.
+  - [x/gamm](https://docs.bitbadges.io/token-standard/modules/gamm): The x/gamm AMM module, forked from Osmosis. How pools hold native tokens through badgeslp alias denoms and why pool trades still obey collection approvals.
+    - [Messages](https://docs.bitbadges.io/token-standard/modules/gamm/messages): All 12 x/gamm messages with fields and a JSON example each: pool creation, join, exit, swaps, single-asset joins and exits, stableswap, IBC swap.
+    - [Queries](https://docs.bitbadges.io/token-standard/modules/gamm/queries): All 16 x/gamm queries with LCD paths and live mainnet examples: pools, liquidity, shares, spot price, join and exit calculators, estimates, params.
+  - [x/managersplitter](https://docs.bitbadges.io/token-standard/modules/manager-splitter): x/managersplitter: a module-derived proxy address that acts as collection manager while each permission is delegated to approved addresses.
+    - [Messages and queries](https://docs.bitbadges.io/token-standard/modules/manager-splitter/messages): x/managersplitter messages (create, update, delete, execute, update params) and the three queries, with fields, permission checks, and JSON examples.
+  - [x/sendmanager](https://docs.bitbadges.io/token-standard/modules/send-manager): x/sendmanager routes sdk.Coins by denom prefix to x/bank or x/tokenization. MsgSendWithAliasRouting, balance query, keeper API, send precompile.
+  - [x/poolmanager](https://docs.bitbadges.io/token-standard/modules/pool-manager): x/poolmanager: pool ID registry, cross-pool swap routing, split routes, taker fees, and the estimate endpoints that replace the deprecated gamm ones.
+- [EVM](https://docs.bitbadges.io/token-standard/evm): How the BitBadges EVM works: three custom precompiles that expose the tokenization, gamm, and send manager modules to Solidity contracts.
+  - [Solidity quickstart](https://docs.bitbadges.io/token-standard/evm/solidity-quickstart): Get from zero to a working Solidity contract on BitBadges precompiles in five minutes: constants, addresses, JSON helpers, common patterns, errors.
+  - [Setup](https://docs.bitbadges.io/token-standard/evm/setup): Chain IDs, RPC ports, starting a local node with JSON-RPC, MetaMask config, a minimal contract, deploy script, frontend hook, and troubleshooting.
+  - [Developer guide](https://docs.bitbadges.io/token-standard/evm/developer-guide): Rules for the BitBadges EVM: which keys sign which transactions, address conversion, msg.sender inside a precompile, and 9 vs 18 decimals.
+  - [Architecture](https://docs.bitbadges.io/token-standard/evm/architecture): The call path from a Solidity contract through a Go precompile to a Cosmos SDK keeper, the package layout, and how to add methods or precompiles.
+  - [Tokenization precompile](https://docs.bitbadges.io/token-standard/evm/tokenization-precompile): The tokenization precompile at 0x...1001: the token standard from Solidity through JSON messages, with helpers, patterns, and executeMultiple.
+    - [API](https://docs.bitbadges.io/token-standard/evm/tokenization-precompile/api): Every function on the tokenization precompile from abi.json: 25 transactions, executeMultiple, 17 queries, 7 utilities, with signatures and JSON.
+    - [Gas](https://docs.bitbadges.io/token-standard/evm/tokenization-precompile/gas): Tokenization precompile gas: per-method base costs, the fixed buffers RequiredGas adds, executeMultiple and input-size costs, per-element constants.
+    - [Errors](https://docs.bitbadges.io/token-standard/evm/tokenization-precompile/errors): Tokenization precompile errors: the nine codes from errors.go, the uint64 range trap, common failures with fixes, Solidity handling, debugging.
+    - [Security](https://docs.bitbadges.io/token-standard/evm/tokenization-precompile/security): The tokenization precompile security model from security.go: caller checks, overflow, validation, DoS limits, error sanitization, threat model.
+  - [Gamm precompile](https://docs.bitbadges.io/token-standard/evm/gamm-precompile): The GAMM precompile at 0x...1002: join and exit liquidity pools, swap, swap with an IBC transfer, create a pool, and query pools from Solidity.
+    - [API](https://docs.bitbadges.io/token-standard/evm/gamm-precompile/api): GAMM precompile reference: the 14-function Solidity interface, the snake_case JSON for each message and query, gas constants, and error codes.
+    - [Gotchas](https://docs.bitbadges.io/token-standard/evm/gamm-precompile/gotchas): Mistakes that break GAMM precompile calls: string pool IDs, integer amounts, snake_case keys, tuple and bytes returns, slippage, multi-hop routes.
+  - [Send manager precompile](https://docs.bitbadges.io/token-standard/evm/send-manager-precompile): The send manager precompile at 0x...1003: one send method that moves native coins and alias denoms from a contract with all accounting in x/bank.
+  - [Cosmos precompiles](https://docs.bitbadges.io/token-standard/evm/cosmos-precompiles): The upstream cosmos/evm precompiles on BitBadges (P256, bech32, staking, distribution, IBC, bank, governance, slashing, ICS02) with addresses and methods.
+  - [RPC endpoints](https://docs.bitbadges.io/token-standard/evm/rpc-endpoints): Public EVM JSON-RPC endpoints for BitBadges, supported methods, ethers.js, Hardhat and Foundry config, and running your own JSON-RPC node.
+- [Integrate the module](https://docs.bitbadges.io/token-standard/integrate): For Cosmos SDK chain developers who embed x/tokenization in their own app. What the module needs from app.go and where each integration pattern lives.
+  - [Multiple standards](https://docs.bitbadges.io/token-standard/integrate/multiple-standards): A send manager with alias denom routing lets one BankKeeper-shaped call move x/bank coins and native tokens. Prefix matching, auto-scan, routing.
+  - [Extension hooks](https://docs.bitbadges.io/token-standard/integrate/extension-hooks): Three app.go registration points for chain-wide invariants: approval criteria checkers, global transfer checkers, and collection verifiers.
+  - [Ante handler token gates](https://docs.bitbadges.io/token-standard/integrate/ante-handler-token-gates): Gate any Cosmos SDK message type on token ownership with one ante decorator: circuit breakers, KYC sends, compliant staking, governance gates.
+  - [Proof-of-token voting power](https://docs.bitbadges.io/token-standard/integrate/proof-of-token-voting-power): A design proposal for gating validator voting power on a credential token. No x/pot module ships; this is app-level design guidance for chain teams.
+- [BB-402](https://docs.bitbadges.io/token-standard/bb-402): Gate any HTTP API behind on-chain token ownership with the 402 status code. Flow, 402 body, X-BB-Proof header, AccessCondition, response codes.
+  - [Specification](https://docs.bitbadges.io/token-standard/bb-402/spec): BB-402 protocol specification v1 (draft, 2026-03-05): flow, message formats, AccessCondition grammar, verification, security, versioning, x402 comparison.
+  - [Collection recipes](https://docs.bitbadges.io/token-standard/bb-402/collection-recipes): Collection approval configurations for BB-402 auth patterns: basic soulbound access token, revocable token, short-lived 2FA token, ban list, and tiered access.
+- [Network](https://docs.bitbadges.io/token-standard/network): BitBadges chain facts: chain IDs, the BADGE denom and EVM decimals, public endpoints (RPC, LCD, EVM RPC, explorer, chain registry), IBC channels.
+  - [Supported denoms](https://docs.bitbadges.io/token-standard/network/supported-denoms): The x/tokenization allowed_denoms list on mainnet, the SDK coin registry, and the canonical USDC (via Injective) versus legacy USDC.n (via Noble) policy.
+  - [Run a node](https://docs.bitbadges.io/token-standard/network/run-a-node): Start a BitBadges mainnet full node or validator: init, genesis, peers, timeout_commit, EVM chain ID, sync check, snapshots, Cosmovisor, JSON-RPC settings.
+  - [Testnet](https://docs.bitbadges.io/token-standard/network/testnet): Testnet status (offline since 2026-04-25), how to test on mainnet as a chaosnet instead, and the testnet endpoints and faucet API kept for when it returns.
+  - [WebSocket events](https://docs.bitbadges.io/token-standard/network/websocket-events): Subscribe to chain events over the CometBFT WebSocket: endpoint, subscribe and unsubscribe, queries by message type and sender, a Node.js listener.
+- [Source code](https://github.com/BitBadges/bitbadgeschain/tree/master/x/tokenization)
+- [Proto definitions](https://github.com/BitBadges/bitbadgeschain/tree/master/proto/tokenization)
+
+## API
+
+- [BitBadges API](https://docs.bitbadges.io/api): The BitBadges API in one page. Base URL, API keys, credits and pricing, rate limits, number types, errors, and the refresh queue.
+- [Pagination and views](https://docs.bitbadges.io/api/pagination-and-views): Bookmark pagination and the views object in BitBadges API responses, with the SDK helpers that page through them.
+- [Swaps](https://docs.bitbadges.io/api/swaps): Estimate a token swap through the BitBadges API. Payload, response, Skip Go compatibility, and how to execute the returned messages.
+- [Claims](https://docs.bitbadges.io/api/claims): How claims work. Plugins, indexed versus on-demand, claim numbers, success logic, sign-in modes, gating an on-chain approval, and the trust model.
+  - [Endpoints](https://docs.bitbadges.io/api/claims/endpoints): Claims API reference. Complete, simulate, and verify claims, fetch and search them, create and delete them, and build the merkle proof for on-chain claims.
+  - [Plugins](https://docs.bitbadges.io/api/claims/plugins): Every claim plugin id with its parameters, state, and where it runs, plus the request and response contract for custom plugin endpoints.
+  - [Dynamic stores](https://docs.bitbadges.io/api/claims/dynamic-stores): Dynamic stores are BitBadges-hosted address lists you update by API, UI, or Zapier and attach to claims through the whitelist plugin.
+- [Sign In with BitBadges](https://docs.bitbadges.io/api/sign-in): Sign In with BitBadges (SIWBB) is an OAuth 2.0 flow that proves address ownership and grants your app BitBadges API scopes.
+  - [Set up an app](https://docs.bitbadges.io/api/sign-in/setup): Register an OAuth app in the BitBadges developer portal and get the client ID, client secret, and redirect URIs that Sign In with BitBadges needs.
+  - [Authorization URL](https://docs.bitbadges.io/api/sign-in/authorization-url): Build the Sign In with BitBadges authorization URL. Parameters, scopes, attaching a claim, and the SDK helper that generates it.
+  - [Callback](https://docs.bitbadges.io/api/sign-in/callback): Handle the Sign In with BitBadges redirect callback. Read code and state from the query string, then exchange the code.
+  - [Verification](https://docs.bitbadges.io/api/sign-in/verification): Exchange a Sign In with BitBadges code for the address and tokens, manage access and refresh tokens, and know what is verified natively and what is not.
+  - [Frameworks](https://docs.bitbadges.io/api/sign-in/frameworks): Use Sign In with BitBadges through Auth0, WordPress, Supabase, Discourse, Passport.js, and other frameworks that already speak OAuth 2.0.
+- [Self-hosting the indexer](https://docs.bitbadges.io/api/self-hosting): Run your own BitBadges indexer and API. Architecture, MongoDB and Redis requirements, environment variables, bun scripts, and Docker.
+- [API reference](https://docs.bitbadges.io/api-reference)
+
+## SDK & CLI
+
+- [SDK](https://docs.bitbadges.io/sdk): Install the bitbadges TypeScript SDK, create a BitBadgesAPI client, sign and broadcast transactions, and find the helper you need.
+  - [React quickstart](https://docs.bitbadges.io/sdk/react-quickstart): Wire BitBadges into a React or Next.js app in four steps, install, connect a wallet, query a collection, sign and broadcast.
+  - [Types](https://docs.bitbadges.io/sdk/types): How SDK types are exported (classes, interfaces, typed arrays, proto), the NumberType generic, and the BigIntify, Numberify, and Stringify converters.
+  - [Snippets](https://docs.bitbadges.io/sdk/snippets): Verified TypeScript examples for the bitbadges SDK helpers, balances, uint ranges, transfers, address lists, metadata, approvals, and interpreters.
+    - [Address conversions](https://docs.bitbadges.io/sdk/snippets/address-conversions): Convert between 0x Ethereum addresses and bb1 BitBadges addresses, and validate addresses, with the bitbadges SDK.
+    - [Uint ranges](https://docs.bitbadges.io/sdk/snippets/uint-ranges): UintRange and UintRangeArray helpers in the bitbadges SDK, sort and merge, search, invert, remove, and overlap checks.
+    - [Balances](https://docs.bitbadges.io/sdk/snippets/balances): Create, add, subtract, and look up balances with BalanceArray and the balance helper functions in the bitbadges SDK.
+    - [Balance lookups](https://docs.bitbadges.io/sdk/snippets/balance-lookups): Fetch a user's balance for a collection or a single token from the BitBadges API, the chain, or the bb CLI, full balance array or one amount.
+    - [Transfers](https://docs.bitbadges.io/sdk/snippets/transfers): Use TransferWithIncrements in the bitbadges SDK to describe batch transfers with incrementing token IDs or ownership times, and compute the resulting balances.
+    - [Address lists](https://docs.bitbadges.io/sdk/snippets/address-lists): Build and query AddressList objects in the bitbadges SDK, membership checks, inversion, removal, and the reserved Mint and All lists.
+    - [Token metadata](https://docs.bitbadges.io/sdk/snippets/token-metadata): Read, update, and remove per-token metadata with the TokenMetadataDetails helpers in the bitbadges SDK.
+    - [Approvals](https://docs.bitbadges.io/sdk/snippets/approvals): Find the unhandled (disapproved) transfer combinations in a set of approvals and append the default self-initiated user approvals with the bitbadges SDK.
+    - [Interpret a collection](https://docs.bitbadges.io/sdk/snippets/interpret-collection): Generate a plain-language markdown report of any on-chain collection with interpretCollection in the bitbadges SDK.
+    - [Interpret a transaction](https://docs.bitbadges.io/sdk/snippets/interpret-transaction): Explain an unsigned MsgUniversalUpdateCollection transaction body in plain language with interpretTransaction in the bitbadges SDK.
+    - [Simulation balance diffs](https://docs.bitbadges.io/sdk/snippets/simulation-balance-diffs): Turn chain simulation events into per-address coin and token balance changes with simulateAndReview, parseSimulationEvents, and calculateNetChanges.
+  - [Transactions](https://docs.bitbadges.io/sdk/transactions): The BitBadges transaction pipeline in TypeScript, build messages, create a transaction context, produce the payload, sign with a Cosmos or EVM wallet, and broadcast.
+    - [Signing client](https://docs.bitbadges.io/sdk/transactions/signing-client): BitBadgesSigningClient reference, wallet adapters for Keplr, Leap, MetaMask, mnemonics and private keys, network presets, gas, sequence retry, and results.
+    - [Sign with Cosmos wallets](https://docs.bitbadges.io/sdk/transactions/sign-cosmos): Sign a BitBadges transaction payload by hand with Keplr or another Cosmos wallet using signDirect, then build the broadcast body.
+    - [Sign with Ethereum wallets](https://docs.bitbadges.io/sdk/transactions/sign-ethereum): Sign a BitBadges transaction by hand with MetaMask, Privy, or ethers.js by sending the payload's EVM precompile call.
+    - [Broadcast](https://docs.bitbadges.io/sdk/transactions/broadcast): Simulate a signed BitBadges transaction, broadcast it through the API or a node, and poll for the receipt; plus the bitbadges.io developer broadcast page.
+- [CLI](https://docs.bitbadges.io/cli): Install the bb CLI, learn its command groups, configure settings and API keys, and run doctor and completion.
+  - [build](https://docs.bitbadges.io/cli/build): Reference for every bb build subcommand, the shared flags, metadata modes, JSON input, and the walkthrough transfer builder.
+  - [check, explain, simulate, preview](https://docs.bitbadges.io/cli/analyze): Inspect a built transaction before signing with bb check, bb explain, bb simulate, and bb preview.
+  - [deploy and tx](https://docs.bitbadges.io/cli/deploy): Sign and broadcast with bb deploy (browser wallet, keyring, burner, or a generated payload), confirm with bb tx status and tx wait, and use the browser sign bridge.
+  - [standards](https://docs.bitbadges.io/cli/standards): End-user verbs for every BitBadges standard: list, show, status, and the action that emits a ready-to-sign message.
+  - [api](https://docs.bitbadges.io/cli/api): Call any BitBadges API route from the terminal with bb api, search routes, print schemas, and attach a session.
+  - [auth](https://docs.bitbadges.io/cli/auth): Create and manage BitBadges API user sessions from the CLI with bb auth, using a browser wallet or any external signer.
+  - [account and url](https://docs.bitbadges.io/cli/account): Read an address's profile, tokens, balances, activity, and approvals; convert and validate addresses; derive alias addresses; resolve bitbadges.io URLs; derive a public key.
+  - [swap, pools, and amounts](https://docs.bitbadges.io/cli/swap): DEX and swap commands: estimate and execute swaps, browse pools and asset pairs, read prices and balances, and do coin amount math.
+  - [dev](https://docs.bitbadges.io/cli/dev): The agent-facing bb dev surface: call MCP builder tools directly, read resources, browse docs and skills, and send feedback.
+  - [chain commands](https://docs.bitbadges.io/cli/chain): Chain-native bb commands from bitbadgeschaind: keys, tx, query, sign-arbitrary, genesis, and node operation.
+
+## Agents
+
+- [AI agents](https://docs.bitbadges.io/agents): Install paths, quickstart, and the review-and-sign handoff for AI agents and bots that build on BitBadges.
+- [Set up your AI](https://docs.bitbadges.io/agents/setup): Set up your AI harness for BitBadges. The one MCP server command, then the exact config for Claude Code, Claude Desktop, Cursor, Windsurf, Codex CLI, VS Code, Zed, and LLMs without tools.
+- [MCP builder tools](https://docs.bitbadges.io/agents/mcp-tools): Reference for the MCP builder tools. Install, client configs, every tool with its key params, workflows, resources, and the CLI access path.
+- [Claude Code plugin](https://docs.bitbadges.io/agents/claude-code-plugin): Install and use the BitBadges Claude Code plugin. It wires the MCP builder tools and adds 8 workflow skills, two slash commands, and a builder subagent.
+- [Programmatic agent](https://docs.bitbadges.io/agents/programmatic-agent): Build collections from natural-language prompts in Node with BitBadgesBuilderAgent and your own Anthropic or OpenAI key. Config, hooks, sessions, result shape, review handoff.
+- [Spending authorization](https://docs.bitbadges.io/agents/spending-authorization): Give an AI agent a delegate wallet with on-chain spending limits. Daily caps, time windows, recipient and token allowlists, and one-transaction revocation, all enforced by the chain.
+- [Bot examples](https://docs.bitbadges.io/agents/bot-examples): Copy-paste bot patterns on mainnet. Mint a fungible token, conditional transfer, ownership gating, event subscription, and the builder tool workflow.
+- [Reading the docs](https://docs.bitbadges.io/agents/reading-the-docs): How an agent reads these docs. llms.txt, the full-text dump, bb dev docs, the fetch_docs MCP tool, and the URL patterns of this site.
+- [Skills](https://docs.bitbadges.io/agents/skills): The builder skills: the instruction text AI agents load to build a specific token type or feature on BitBadges.
+  - [Smart token](https://docs.bitbadges.io/agents/skills/smart-token): IBC-backed smart token with 1:1 backing and two required approvals (backing + unbacking)
+  - [Minting](https://docs.bitbadges.io/agents/skills/minting): Mint approval patterns including public mint, whitelist mint, creator-only mint, payment-gated mint, and escrow payouts
+  - [Liquidity pools](https://docs.bitbadges.io/agents/skills/liquidity-pools): Liquidity pool standard with the "Liquidity Pools" protocol standard tag, used for tradable assets that can be swapped on a DEX
+  - [Fungible token](https://docs.bitbadges.io/agents/skills/fungible-token): Simple fungible token with fixed or unlimited supply and configurable mint/transfer approvals
+  - [NFT collection](https://docs.bitbadges.io/agents/skills/nft-collection): Non-fungible token collection with unique token IDs, metadata URIs, and badge-based ownership
+  - [Subscription](https://docs.bitbadges.io/agents/skills/subscription): Time-based subscription token with recurring payment approvals and auto-deletion on expiry
+  - [Transferability and update rules](https://docs.bitbadges.io/agents/skills/immutability): Lock collection permissions to make properties permanently immutable or permanently permitted
+  - [Custom 2FA](https://docs.bitbadges.io/agents/skills/custom-2fa): Two-factor authentication for transfers using a secondary approval address
+  - [Address list](https://docs.bitbadges.io/agents/skills/address-list): On-chain address list where membership = owning x1 of token ID 1. Manager can add/remove addresses.
+  - [BB-402 token-gated access](https://docs.bitbadges.io/agents/skills/bb-402): Token-gated access protocol where ownership of specific badges grants API/resource access
+  - [Burnable](https://docs.bitbadges.io/agents/skills/burnable): Allow token holders to burn tokens by sending them to the burn address, permanently removing them from circulation
+  - [Multi-sig and voting](https://docs.bitbadges.io/agents/skills/multi-sig-voting): Require weighted quorum voting from multiple parties before transfers can proceed (multi-sig, governance, etc.)
+  - [Payment protocol](https://docs.bitbadges.io/agents/skills/payment-protocol): Invoices, escrows, bounties, milestones, and multi-party agreements using coinTransfer-based approvals or IBC-backed smart token escrow
+  - [Tradable NFTs](https://docs.bitbadges.io/agents/skills/tradable): NFT marketplace standard enabling peer-to-peer transfers with the "NFTMarketplace" standard tag and NFTPricingDenom
+  - [Credit token](https://docs.bitbadges.io/agents/skills/credit-token): Increment-only, non-transferable credit token purchased with any ICS20 denom. Users pay X of a denom and receive Y tokens as credits/proof of payment. For a 1:1 backed token with on-chain transferability, use the Smart Token standard instead.
+  - [Auto-mint](https://docs.bitbadges.io/agents/skills/auto-mint): Mint and distribute tokens to recipients at collection creation time using MsgTransferTokens
+  - [Quest](https://docs.bitbadges.io/agents/skills/quest): Quest/reward collection: users complete criteria and claim a badge + coin payout
+  - [Prediction market](https://docs.bitbadges.io/agents/skills/prediction-market): Binary prediction market with YES/NO outcome tokens, liquidity pool trading, and vote-based settlement
+  - [Bounty](https://docs.bitbadges.io/agents/skills/bounty): Escrow-based bounty with verifier arbitration. Submitter escrows coins, verifier accepts (pays recipient) or denies (refunds submitter). Expires if no decision.
+  - [Payment request](https://docs.bitbadges.io/agents/skills/payment-request): Agent-initiated payment request with no escrow. The agent (or any address) creates a collection requesting payment from a targeted human payer. The payer approves and pays from their own wallet in a single action. Inverse of Bounty.
+  - [Crowdfund](https://docs.bitbadges.io/agents/skills/crowdfund): On-chain crowdfunding with goal tracking via mustOwnTokens. Contributors deposit funds, receive refund tokens. Crowdfunder withdraws if goal met, contributors refund if not.
+  - [Auction](https://docs.bitbadges.io/agents/skills/auction): Single-item auction with intent-based bidding. Seller mints NFT directly to the winning bidder during the accept window.
+  - [Products](https://docs.bitbadges.io/agents/skills/product-catalog): Multi-product storefront with per-product pricing, supply limits, and optional burn-on-purchase. Each product is a separate token ID.

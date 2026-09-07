@@ -32,6 +32,12 @@ export type SanitizeOptions = {
    * expandable section.
    */
   groupDescriptionUnder?: string;
+  /**
+   * Returns true when a `/sdk/reference/...` route has a page. Supplied by the
+   * sync step, which knows the generated tree; without it every TypeDoc link is
+   * rewritten unchecked.
+   */
+  sdkRouteExists?: (route: string) => boolean;
 };
 
 export type SanitizeReport = {
@@ -43,6 +49,8 @@ export type SanitizeReport = {
   stubbedRefs: string[];
   /** Count of GitHub Pages TypeDoc links repointed at the in-site SDK reference. */
   repointedSdkLinks: number;
+  /** Count left as plain text because the SDK no longer exports that symbol. */
+  unlinkedSdkLinks: number;
 };
 
 const HTTP_METHODS = new Set(['get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace']);
@@ -155,13 +163,29 @@ const kebab = (symbol: string): string =>
     .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
     .toLowerCase();
 
-export function repointSdkLinks<T>(node: T): { value: T; count: number } {
+/**
+ * TypeDoc emits type aliases under `type-aliases/`, but the upstream spec
+ * links them as `types/`. Map the group name rather than guessing.
+ */
+const SDK_GROUP_ALIASES: Record<string, string> = { types: 'type-aliases' };
+
+export function repointSdkLinks<T>(node: T, exists?: (route: string) => boolean): { value: T; count: number; unlinked: number } {
   let count = 0;
+  let unlinked = 0;
   const walk = (value: unknown): unknown => {
     if (typeof value === 'string') {
-      return value.replace(GH_PAGES_TYPEDOC, (_match, group: string, symbol: string, hash = '') => {
+      return value.replace(GH_PAGES_TYPEDOC, (match, rawGroup: string, symbol: string, hash = '') => {
+        const group = SDK_GROUP_ALIASES[rawGroup] ?? rawGroup;
+        const route = `/sdk/reference/${group}/${kebab(symbol)}`;
+        // Some symbols in the upstream spec are no longer exported by the SDK,
+        // so they have no page. Leave the bare name rather than shipping a link
+        // that 404s, the same way the reference generator handles its own tree.
+        if (exists && !exists(route)) {
+          unlinked += 1;
+          return symbol;
+        }
         count += 1;
-        return `/sdk/reference/${group}/${kebab(symbol)}${hash}`;
+        return `${route}${hash}`;
       });
     }
     if (Array.isArray(value)) return value.map(walk);
@@ -170,7 +194,7 @@ export function repointSdkLinks<T>(node: T): { value: T; count: number } {
     }
     return value;
   };
-  return { value: walk(node) as T, count };
+  return { value: walk(node) as T, count, unlinked };
 }
 
 export function sanitizeOpenApi<T extends Json>(
@@ -192,7 +216,11 @@ export function sanitizeOpenApi<T extends Json>(
   }
 
   const pruned = pruneInternal(input) as T;
-  const { value: spec, count: repointedSdkLinks } = repointSdkLinks(pruned);
+  const {
+    value: spec,
+    count: repointedSdkLinks,
+    unlinked: unlinkedSdkLinks,
+  } = repointSdkLinks(pruned, options.sdkRouteExists);
 
   // A path item with every operation hidden would render as an empty entry.
   if (spec.paths) {
@@ -241,6 +269,7 @@ export function sanitizeOpenApi<T extends Json>(
       cutSelfRefs: cutSelfRefs.sort(),
       stubbedRefs: stubbedRefs.sort(),
       repointedSdkLinks,
+      unlinkedSdkLinks,
     },
   };
 }

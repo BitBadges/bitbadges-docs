@@ -66,7 +66,31 @@ async function loadApiPages(): Promise<Map<string, string>> {
  * `groupDescriptionUnder` (which wraps and demotes everything) is not applied
  * on top — that would push every folded section out of Scalar's sidebar.
  */
+/** Routes that exist in the generated SDK reference, for checking TypeDoc links. */
+async function sdkReferenceRoutes(): Promise<Set<string>> {
+  const routes = new Set<string>();
+  const walk = async (dir: string): Promise<void> => {
+    const entries = await fs.readdir(dir, { withFileTypes: true }).catch(() => []);
+    for (const entry of entries) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        await walk(full);
+        continue;
+      }
+      if (!entry.name.endsWith('.md')) continue;
+      const rel = path
+        .relative(docsConfig.contentDir, full)
+        .replace(/\.md$/, '')
+        .replace(/\/README$/, '');
+      routes.add(`/${rel}`);
+    }
+  };
+  await walk(path.join(docsConfig.contentDir, 'sdk', 'reference'));
+  return routes;
+}
+
 async function syncOpenApi(): Promise<string> {
+  const sdkRoutes = await sdkReferenceRoutes();
   const candidates = [
     process.env.DOCS_OPENAPI_SOURCE,
     path.resolve(process.cwd(), 'openapi/openapi.json'),
@@ -78,7 +102,9 @@ async function syncOpenApi(): Promise<string> {
       const source = JSON.parse(await fs.readFile(candidate, 'utf8'));
       const pages = await loadApiPages();
       const { spec: folded, report: fold } = foldApiDocs(source, pages, { basePath: docsConfig.basePath });
-      const { spec, report } = sanitizeOpenApi(folded);
+      const { spec, report } = sanitizeOpenApi(folded, {
+        sdkRouteExists: (route) => sdkRoutes.has(route),
+      });
       console.log(`openapi: folded ${pages.size} api/ page(s) into info.description and tag(s) ${fold.tags.join(', ')}`);
 
       await fs.mkdir(publicDir, { recursive: true });
@@ -93,8 +119,11 @@ async function syncOpenApi(): Promise<string> {
       if (report.stubbedRefs.length) {
         console.log(`openapi: stubbed undefined schema(s) ${report.stubbedRefs.join(', ')}`);
       }
-      if (report.repointedSdkLinks) {
-        console.log(`openapi: repointed ${report.repointedSdkLinks} TypeDoc link(s) at /sdk/reference`);
+      if (report.repointedSdkLinks || report.unlinkedSdkLinks) {
+        console.log(
+          `openapi: repointed ${report.repointedSdkLinks} TypeDoc link(s) at /sdk/reference` +
+            (report.unlinkedSdkLinks ? `, unlinked ${report.unlinkedSdkLinks} with no page` : ''),
+        );
       }
       return candidate;
     }
@@ -116,6 +145,18 @@ if (await fs.access(chainFrom).then(() => true).catch(() => false)) {
   console.log(`chain openapi: ${copied ? 'copied' : 'already current'} -> ${path.relative(process.cwd(), chainTo)}`);
 } else {
   console.log('chain openapi: no committed spec — /chain-api-reference will be empty');
+}
+
+// llms.txt and for-llms.txt are corpus-level agent entry points that the docs
+// advertise by absolute URL, so the built site has to serve them.
+for (const name of ['llms.txt', 'for-llms.txt']) {
+  const from = path.join(docsConfig.contentDir, name);
+  if (await fs.access(from).then(() => true).catch(() => false)) {
+    await fs.mkdir(publicDir, { recursive: true });
+    await copyIfStale(from, path.join(publicDir, name));
+  } else {
+    console.log(`llms: ${name} is missing from the content root`);
+  }
 }
 
 const spec = await syncOpenApi();
