@@ -109,7 +109,7 @@ Exit code 2, and the one critical finding is the one you chose:
 
 | Finding | What it means | Recommendation |
 | --- | --- | --- |
-| Mint approvals can be modified , UNLIMITED SUPPLY RISK | The manager can edit the faucet later, including its price, and could also re-point it to mint for free. | Lock canUpdateCollectionApprovals for mint-related approvals (fromListId: "Mint"). Use scoped approval permissions to lock mint while allowing transfer approval updates if needed. |
+| Mint approvals can be modified (unlimited supply risk) | The manager can edit the faucet later, including its price, and could also re-point it to mint for free. | Lock canUpdateCollectionApprovals for mint-related approvals (fromListId: "Mint"). Use scoped approval permissions to lock mint while allowing transfer approval updates if needed. |
 
 That is not a bug. The reviewer does not know your intent, so it flags anything a manager could abuse and leaves the decision to you. `bb check` fails so the choice is visible to whoever signs. If you mean it, preview and sign anyway; the site shows the same finding.
 
@@ -192,7 +192,7 @@ With the MCP server wired, paste this into Claude Code, Codex, or Cursor:
 Build me a subscription token called Pro Plan: members pay 10 USDC a month and keep access while it is live. I am the manager. Load the subscription skill, use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
 ```
 
-The agent calls `get_skill_instructions`, then the `set_*` and `add_approval` tools in one round, then the three verify tools, then `get_review_url`. You see the same two review findings, phrased in plain English, and the agent asks you whether the price should be lockable. Answer, and it hands back:
+The agent calls `get_skill_instructions`, then the `set_*` and `add_approval` tools in one round, then the three verify tools, then `get_review_url`. The review comes back with no critical findings. Tell the agent you need to change the price later and it rebuilds with the mint left editable, then shows you the one critical finding that choice creates, in plain English, before handing back:
 
 ```json
 {
