@@ -113,7 +113,7 @@ The CLI is the recommended interface for AI agents and automation. It provides:
 - **Structured JSON output** for every data-emitting command — easy to parse programmatically
 - **Uniform output envelope** on stdout for every data-emitting command: `{ok, data, warnings, hint?, meta?, error}` — same shape across the surface, with hints populated on common failure modes. The envelope is the only output mode; `--format` / `--json` / `--human` flags are gone. Universal flags: `--condensed` (single-line) and `--output-file <path>`. `bb build` extends the envelope with a `meta` sidecar carrying validation, review, simulate, and resolved-metadata reports alongside the msg in `data`.
 - **`--help-json`** flag that outputs the full command tree as structured JSON for LLM tool discovery
-- **`--dry-run`** on both `simulate` and `deploy` for safe preview before broadcasting
+- **`--dry-run`** on `deploy` and `api` for a safe preview before broadcasting (`simulate` is itself the dry run)
 - **`--quiet`** (or `BB_QUIET=1`) silences stderr commentary across every command — pipe-friendly by default; this is also the toggle that suppresses the deprecation banner during the migration window
 - **`api --search` / `--schema`** for route discovery without grepping help text
 - **`tx status` / `tx wait`** to confirm a tx landed on chain (Cosmos LCD + EVM RPC fall-through)
@@ -131,7 +131,7 @@ For building token collections with AI assistants (Claude, Cursor, etc.), see th
 - [Build Commands](build-commands.md) — flag-based generators for vault, subscription, bounty, auction, and 14 other token types
 - [Standards Commands](standards-commands.md) — consumer-side `list / show / status / <action>` for every standard (auctions, crowdfunds, payment-requests, intents, swap, ...)
 - [Analysis Commands](analysis-commands.md) — `check`, `explain`, `simulate`, `preview`
-- [Deploy Commands](deploy-commands.md) — ship a create-collection tx without bringing your own wallet (also covers `--wait-for-indexer` + `--with-keyring`)
+- [Deploy Commands](deploy-commands.md) — ship a create-collection tx without bringing your own wallet (also covers `--wait-for-indexer`, `--with-keyring`, and the browser/burner paths)
 - [Tx Commands](tx-commands.md) — confirm a broadcast tx committed (Cosmos + EVM hash support)
 - [Tool Commands](tool-commands.md) — fine-grained MCP tools (`bb dev tools list` / `bb dev tools call`), persisted sessions, static resources
 - [Utility Commands](utility-commands.md) — `bb dev docs`, `bb dev skills`, `bb account convert`, `bb account alias`, `bb account lookup`, `bb account gen-list-id`, `bb doctor`

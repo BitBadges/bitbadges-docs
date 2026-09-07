@@ -1,6 +1,8 @@
-# AI Agents & Bots
+# Build with AI Agents
 
-This section is for developers building AI agents, bots, and automated systems that interact with the BitBadges blockchain. Whether you're building an autonomous minting agent, a gating bot, or an AI-powered claim system, you'll find everything you need here.
+BitBadges is built to be driven by AI. You bring your own AI — Claude Code, Cursor, Claude Desktop, or any LLM — and it builds the transaction; bitbadges.io reviews it and your wallet signs it. There is no AI to configure on the website, and no BitBadges-managed model key: your agent, your model, your keys.
+
+This page is the spine: **install → set up your AI client → build → review → sign.** The rest of the section covers bots, claims, WebSocket events, and spending limits.
 
 ## Install
 
@@ -10,7 +12,112 @@ curl -fsSL https://install.bitbadges.io | sh
 
 This installs the chain binary and SDK CLI. For CLI-based agent workflows (query, review, transact — no TypeScript needed), see [CLI for AI Agents](../cli/for-ai-agents.md).
 
-## 5-Minute Quickstart (TypeScript)
+## Set up your AI client
+
+Pick one. All of them wrap the same MCP builder (53 tools) and the same `bb` CLI.
+
+### Claude Code
+
+```bash
+# The plugin auto-wires the MCP server plus 8 workflow skills.
+/plugin marketplace add BitBadges/bitbadges-plugin
+/plugin install bitbadges
+```
+
+Manual alternative, no plugin:
+
+```bash
+claude mcp add bitbadges-builder -- npx -y -p bitbadges bitbadges-builder
+```
+
+### Cursor
+
+Add to `.cursor/mcp.json` in your project (or `~/.cursor/mcp.json` for every project):
+
+```json
+{
+  "mcpServers": {
+    "bitbadges-builder": {
+      "command": "npx",
+      "args": ["-y", "-p", "bitbadges", "bitbadges-builder"],
+      "env": { "BITBADGES_API_KEY": "your-api-key" }
+    }
+  }
+}
+```
+
+### Claude Desktop
+
+Add the same block to `claude_desktop_config.json` and restart the app. Full paths and options: [Builder Tools Reference](builder-tools.md#installation).
+
+### No MCP client?
+
+The `bb` CLI does everything the tools do, from any shell or any language. See [CLI for AI Agents](../cli/for-ai-agents.md).
+
+## Build your first token
+
+Describe what you want. Your agent calls the builder tools, validates, and simulates before you ever see a transaction.
+
+> Build me a subscription token: $10/mo in USDC, cancellable any time, and I'm the manager.
+
+The agent chains `set_standards` → `add_approval` → `set_permissions` → `validate_transaction` → `simulate_transaction` → `get_transaction`. You do not need to know those names; ask for the token you want.
+
+Prefer a shell? The CLI has deterministic builders for the same shapes, no LLM involved:
+
+```bash
+bb build subscription \
+  --name "Pro Plan" --price 10 --denom USDC \
+  --manager bb1your...address \
+  --review > tx.json
+```
+
+`bb build --help` lists every template (vault, nft, subscription, bounty, crowdfund, auction, prediction-market, credit-token, …). Full reference: [Build Commands](../cli/build-commands.md).
+
+## Review it
+
+Never sign a transaction you have not read. Three checks, all offline or read-only:
+
+| Check | MCP tool | CLI |
+|---|---|---|
+| Audit, standards, and UX findings | `review_collection` | `bb check tx.json` |
+| Plain-language explanation | — | `bb explain tx.json` |
+| Dry run against the chain | `simulate_transaction` | `bb simulate tx.json` |
+
+`review_collection` returns findings with a `verdict` of `pass`, `warn`, or `fail`. Fix anything critical before you sign. See [Analysis Commands](../cli/analysis-commands.md).
+
+## Sign it
+
+Agents build; people sign. Your agent never holds your keys. Every path ends in a bitbadges.io link that opens the transaction in the review-and-sign flow — Preview, Review Items, Transferability, Permissions — with the wallet signature as the last step:
+
+| From | Get the link |
+|------|--------------|
+| MCP / Claude Code | call `get_review_url` → open `reviewUrl` |
+| CLI | `bb preview tx.json --open` (or `bb build … \| bb preview - --open`) |
+| SDK agent | `result.reviewUrl` |
+| Any LLM, no tools | paste the JSON into `bitbadges.io/mint/local-builder` |
+
+See the full [Builder Tools Reference](builder-tools.md) for all 53 tools, client configuration, and workflow guides.
+
+The links carry the transaction either in the URL fragment (nothing uploaded) or behind a short `prv_` code that expires after an hour. Update transactions open against the existing collection so the site can diff them against on-chain state.
+
+Signing without a browser wallet? `bb deploy --burner` (throwaway funded wallet, create-only) and `bb deploy --with-keyring --exec` (your local chain keyring) both broadcast from the terminal. See [Deploy Commands](../cli/deploy-commands.md) and the [Sign Bridge](../cli/sign-bridge.md).
+
+## Integration Paths
+
+Everything above uses the MCP builder or the CLI. These are the other ways in, once you are past your first token.
+
+| Path | Best For | Install |
+|------|----------|---------|
+| **CLI & Chain Binary** | Terminal agents, shell scripts, any language | `curl -fsSL https://install.bitbadges.io \| sh` — [guide](../cli/for-ai-agents.md) |
+| **BitBadges Builder Tools (MCP)** | Cursor, Claude Desktop, other MCP clients | `npm i -g bitbadges` — [guide](builder-tools.md) |
+| **Claude Code Plugin** | Claude Code users — auto-wired MCP + 8 workflow skills (built on top of the CLI) | `/plugin marketplace add BitBadges/bitbadges-plugin` then `/plugin install bitbadges` — [guide](claude-code-plugin.md) |
+| **SDK Signing Client** | Full-featured TypeScript bots | `npm i bitbadges` |
+| **Direct HTTP** | Lightweight scripts, any language | REST calls to `api.bitbadges.io` |
+| **Agent Spending Authorization** | Set daily caps, time windows, and revocation | [guide](agent-spending-authorization.md) |
+
+## Writing a bot instead?
+
+The signing client is for unattended TypeScript services that hold their own key — the opposite of the review-and-sign flow above. Scope what it can spend with [Agent Spending Authorization](agent-spending-authorization.md).
 
 ```bash
 npm install bitbadges
@@ -58,47 +165,6 @@ The CLI builders and templates accept `--name`, `--image`, and `--description` (
 >
 > **Want zero hosting AND an image?** The SDK ships a deterministic SVG placeholder-art generator (`import { generatePlaceholderArt } from 'bitbadges'`) that produces 1-8 KB `data:image/svg+xml;base64,...` URIs you can drop into `--image`. Same seed always produces the same art. Trade-off: the SVG bytes still live on-chain — a 1-8 KB SVG costs an extra ~10-80k gas per write versus a hosted-URL image. Cheap convenience for placeholder-y looks; not the right call for image-heavy or high-frequency-update collections. See [Optional: deterministic SVG placeholder art](../../token-standard/learn/collection-setup-fields.md#optional-deterministic-svg-placeholder-art-zero-hosting-image).
 
-## Integration Paths
-
-The chain binary + CLI install is the canonical entrypoint for everything below — install it first, then layer whichever harness-specific convenience you want on top.
-
-| Path | Best For | Install |
-|------|----------|---------|
-| **CLI & Chain Binary** *(start here)* | Terminal agents, shell scripts, any language | `curl -fsSL https://install.bitbadges.io \| sh` — [guide](../cli/for-ai-agents.md) |
-| **BitBadges Builder Tools (MCP)** | Cursor, Claude Desktop, other MCP clients | `npm i -g bitbadges` — [guide](builder-tools.md) |
-| **Claude Code Plugin** | Claude Code users — auto-wired MCP + 8 workflow skills (built on top of the CLI) | `/plugin marketplace add BitBadges/bitbadges-plugin` then `/plugin install bitbadges` — [guide](claude-code-plugin.md) |
-| **SDK Signing Client** | Full-featured TypeScript bots | `npm i bitbadges` |
-| **Direct HTTP** | Lightweight scripts, any language | REST calls to `api.bitbadges.io` |
-| **Agent Spending Authorization** | Set daily caps, time windows, and revocation | [guide](agent-spending-authorization.md) |
-
-### Quick Setup
-
-```bash
-# Step 1 — install the chain binary + CLI (always)
-curl -fsSL https://install.bitbadges.io | sh
-bb settings set apiKey YOUR_KEY
-
-# Step 2 — optionally layer a harness convenience
-# Claude Code:
-#   /plugin marketplace add BitBadges/bitbadges-plugin
-#   /plugin install bitbadges
-# Cursor / Claude Desktop / other MCP clients:
-#   claude mcp add bitbadges-builder -- npx -y -p bitbadges bitbadges-builder
-```
-
-### Hand off to the browser to sign
-
-Agents build; people sign. Every path ends in a bitbadges.io link that opens the transaction in the review-and-sign flow (nothing is signed by the agent):
-
-| From | Get the link |
-|------|--------------|
-| MCP / Claude Code | call `get_review_url` → open `reviewUrl` |
-| CLI | `bb preview tx.json --open` (or `bb build … \| bb preview - --open`) |
-| SDK agent | `result.reviewUrl` |
-| Any LLM, no tools | paste the JSON into `bitbadges.io/mint/local-builder` |
-
-See the full [Builder Tools Reference](builder-tools.md) for all 50+ tools (including session-based per-field builders), configuration for Claude Desktop / Cursor, and workflow guides.
-
 ## Network Configuration
 
 | Network | API URL | Node LCD | Cosmos Chain ID | EVM Chain ID | EVM RPC |
@@ -116,8 +182,11 @@ Additional endpoints (testnet):
 
 | Page | Description |
 |------|-------------|
+| [Builder Tools Reference](builder-tools.md) | Every MCP tool, client setup, and the build workflow |
+| [Claude Code Plugin](claude-code-plugin.md) | Auto-wired MCP + workflow skills for Claude Code |
+| [Programmatic Agent](programmatic-agent.md) | Run the builder from your own Node code with your own model key |
+| [CLI for AI Agents](../cli/for-ai-agents.md) | The same capabilities from any shell, no MCP client |
 | [Testnet Faucet API](testnet-faucet.md) | Get free testnet BADGE tokens for your bot |
-| [Builder Tools Reference](builder-tools.md) | All 50+ builder tools for AI assistants |
 | [WebSocket Events](websocket-events.md) | Subscribe to real-time blockchain events |
 | [Bot Examples](bot-examples.md) | Copy-paste examples for common bot patterns |
 | [E2E: AI Agent with USDC Vault](openclaw-vault-tutorial.md) | Full tutorial: wallet setup, vault rules, withdraw/deposit |

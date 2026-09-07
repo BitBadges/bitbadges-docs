@@ -1,11 +1,8 @@
 # Smart Token-Type Detection
 
-The AI Builder can auto-pick a single token-type skill from the user's prompt — so callers don't have to classify the 15 marketplace token types by hand. It's on by default, runs only when no token type is already selected, and gracefully returns *no pick* (freestyle build) when the match isn't confident.
+The builder can auto-pick a single token-type skill from the user's prompt — so callers don't have to classify the 15 marketplace token types by hand. It's on by default, runs only when no token type is already selected, and gracefully returns *no pick* (freestyle build) when the match isn't confident.
 
-Available in three surfaces:
-- **`bitbadges.io/create` (no-code UI)** — the **Smart Detect** toggle next to "Add Plugin".
-- **`POST /api/v0/builder/ai-build` (indexer HTTP)** — optional `autoInferTokenType` on the request body; `inferredTokenType` on the response.
-- **`BitBadgesBuilderAgent` (programmatic SDK)** — `autoInferTokenType` option on the constructor and per-build.
+Available in the **`BitBadgesBuilderAgent` (programmatic SDK)** — `autoInferTokenType` option on the constructor and per-build.
 
 ## When it runs
 
@@ -104,31 +101,6 @@ Result shape:
 | `inferredTokenTypeSource: undefined` | No pick (freestyle or skipped). |
 | `inferredTokenTypeReasoning` | One-sentence rationale, suitable for display in a UI badge. |
 
-## Indexer HTTP surface
-
-`POST /api/v0/builder/ai-build`:
-
-```json
-{
-  "prompt": "monthly subscription for $10",
-  "selectedSkills": [],
-  "autoInferTokenType": true
-}
-```
-
-Response (additive, all three fields optional):
-
-```json
-{
-  "success": true,
-  "transaction": { "...": "..." },
-  "inferredTokenType": "subscription",
-  "inferredTokenTypeSource": "llm",
-  "inferredTokenTypeReasoning": "Recurring monthly payment pattern"
-}
-```
-
-`autoInferTokenType: false` suppresses inference even when `selectedSkills` is empty. Omit the field to accept the SDK default (on).
 
 ## Cost
 

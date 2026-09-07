@@ -51,7 +51,7 @@ Each skill is a guide that routes Claude to the right CLI command, MCP tool, or 
 | `query` | The 104+ API routes — discovery first via `--help-json`, then call. |
 | `address` | All six address operations (cosmos↔EVM, IBC backing, wrapper, mint-escrow, alias). |
 | `claim` | Build or audit a claim (whitelist / password / codes / open / token-gated). |
-| `broadcast` | Sign + broadcast. Hard rails — dry-run by default, explicit confirmation for live. |
+| `broadcast` | Sign + broadcast. Hard rails — dry-run by default. The usual path is `get_review_url`: hand the user a link and let them sign in their own wallet, explicit confirmation for live. |
 
 For deeper instructions on any specific token type, the plugin sends Claude to the SDK / CLI / docs rather than redefining them locally.
 

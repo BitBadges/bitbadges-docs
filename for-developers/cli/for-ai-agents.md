@@ -104,7 +104,19 @@ bb dev skills
 bb dev skills smart-token
 ```
 
-### Step 5: Sign and broadcast (with chain binary)
+### Step 5: Hand the transaction to a human to review and sign
+
+The usual case: your agent built it, a person signs it. `--open` launches the review-and-sign page; drop the flag to just print the links.
+
+```bash
+bb preview tx.json --open
+# reviewUrl -> bitbadges.io/mint/local-builder?code=prv_xxxxxxxx  (review + sign)
+# url       -> bitbadges.io/builder/preview?code=prv_xxxxxxxx     (read-only, shareable)
+```
+
+`bb deploy --browser` is the tighter loop for a tx you have already reviewed: it opens `/sign` and returns the tx hash to your terminal. Both links expire after an hour.
+
+### Step 6: Sign and broadcast without a browser (chain binary)
 
 ```bash
 # Create a key for the agent
@@ -120,7 +132,7 @@ bb tx tokenization create-collection ./collection.json \
 bb api tx broadcast-tx --body @signed-tx.json
 ```
 
-### Step 6: Authenticate for `Full Access` API routes
+### Step 7: Authenticate for `Full Access` API routes
 
 Most read-only API routes work with just the API key, but anything that mutates an account or publishes signed data needs a session cookie. The CLI ships a wallet-agnostic three-step flow that pairs cleanly with the chain binary's offline signer:
 

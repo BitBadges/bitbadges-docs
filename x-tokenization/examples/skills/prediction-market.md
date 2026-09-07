@@ -420,7 +420,7 @@ After creating the collection and minting initial pairs:
 - Create pool: MsgCreateBalancerPool with badgeslp:collectionId:uyes and badgeslp:collectionId:uno, equal weights
 - Market price discovery: YES_price = NO_reserve / (YES_reserve + NO_reserve)
 
-### Steps for AI Builder
+### Steps for the builder tools
 
 1. Use per-field tools to initialize the collection (set_standards, set_valid_token_ids, etc.)
 2. `set_token_metadata` for YES (token 1) and NO (token 2)

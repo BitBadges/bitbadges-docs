@@ -4,7 +4,7 @@ The `bb deploy` command broadcasts a transaction. Pick exactly one signing path:
 
 - **`--burner`** — generate a throwaway signer locally, fund it from the faucet, sign one create-collection tx, discard. Zero wallet setup. CREATE-only.
 - **`--browser`** — hand the tx off to your real wallet (Keplr, MetaMask, etc.) via the [Sign Bridge](sign-bridge.md). The CLI opens `/sign`, you confirm in the wallet, the tx hash comes back to your terminal.
-- **`--with-keyring --from <name>`** — sign locally using a key already imported into the chain binary's keyring (`bb keys add ...`). The CLI prints the equivalent `bb tx ...` command and executes it. Best for headless scripts where the same long-lived key signs many txs.
+- **`--with-keyring --from <name>`** — sign locally using a key already imported into the chain binary's keyring (`bb keys add ...`). The CLI prints the equivalent `bitbadgeschaind tx ...` command; add `--exec` to actually run it. With `--exec`, multi-message transactions are broadcast **sequentially, not atomically**. Best for headless scripts where the same long-lived key signs many txs.
 - **`--gen-payload`** — emit a fully-populated SignDoc/EVM payload for a programmatic signer (ethers/viem, custodial, HSM). Same surface that used to live as the standalone `gen-tx-payload` command.
 - **`--message <text>`** with `--browser` — hand an arbitrary message to the browser wallet and print the signature as JSON (formerly the standalone `sign-with-browser` command). Use this when you need a personal signature for something other than `/auth/verify`.
 
@@ -111,7 +111,7 @@ Broadcasting tx (fee=0ubadge, gas=400000)...
 | `--manager <bb1…>` | **required** | Address that will own the created collection. Refuses to run without it — orphaning a collection on the throwaway signer would lose it forever. |
 | `--fund <faucet\|manual>` | `faucet` | How to get dust into the burner. `faucet` hits the indexer's faucet endpoint. `manual` prints the address and waits for you to fund it yourself (useful on mainnet where the faucet won't hand out enough for real fees). |
 | `--fee <amount>` | `0` | Fee amount in base units. Defaults to zero — the chain currently accepts zero-fee txs. Bump if you want to prioritize your tx. |
-| `--fee-denom <denom>` | `ubadge` | Fee denom. |
+| `--fee-denom <symbol\|denom>` | `ubadge` | Fee denom. Accepts a symbol (`BADGE`, `USDC`) or a canonical denom. |
 | `--gas <number>` | `400000` | Gas limit. |
 | `--new` | — | Always create a fresh burner; skip the picker. |
 | `--reuse <selector>` | — | Reuse a saved burner by address or recovery file path. |
@@ -120,6 +120,18 @@ Broadcasting tx (fee=0ubadge, gas=400000)...
 | `--network <name>` | `mainnet` | `mainnet`, `testnet`, or `local`. Sets the chain + indexer endpoints + bech32 prefix. |
 | `--local` / `--testnet` | — | Shortcuts for `--network local` / `--network testnet`. |
 | `--url <url>` | — | Custom indexer URL (overrides network). |
+
+### `--with-keyring` and `--gen-payload` flags
+
+| Flag | Default | Description |
+|---|---|---|
+| `--exec` | off | Actually run the generated `bitbadgeschaind tx` command. Without it the command is printed only. Multi-message txs run sequentially, not atomically. |
+| `--binary <name>` | `bitbadgeschaind` | Chain binary to invoke. |
+| `--keyring-backend <backend>` | chain default | Keyring backend (`os`, `file`, `test`, …). |
+| `--gas-adjustment <n>` | `1.3` | Multiplier applied to the estimated gas. |
+| `--chain-id <id>` | fetched | `--gen-payload`: override the chain id instead of fetching it. |
+| `--memo <text>` | — | `--gen-payload`: memo to embed in the SignDoc. |
+| `--api-key <key>` | `BITBADGES_API_KEY` | Indexer API key, if you would rather not use the env var. |
 
 The `--fund faucet` mode requires `BITBADGES_API_KEY` to be set for `--network mainnet` and `--network testnet`. On `--local`, no key is needed.
 

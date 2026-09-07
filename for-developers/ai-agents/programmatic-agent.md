@@ -4,11 +4,11 @@ Build BitBadges collections from natural-language prompts in Node/TypeScript —
 
 This is the scriptable counterpart to the [MCP Builder Tools](builder-tools.md) path. Pick whichever fits:
 
-| | No-code UI | MCP Builder | **Programmatic Agent** |
+| | CLI (`bb build`) | MCP Builder | **Programmatic Agent** |
 |---|---|---|---|
-| Where it runs | `bitbadges.io/create` | Claude Desktop / Cursor / Claude Code | Your Node process |
-| LLM key | BitBadges-managed (billed credits) | Your Claude subscription | **Your Anthropic or OpenAI key** |
-| Good for | End users, one-off builds | Power users, exploratory work | Dapps, bots, games, CI, fine-tuning |
+| Where it runs | Any shell | Claude Desktop / Cursor / Claude Code | Your Node process |
+| LLM key | None — deterministic builders | Your Claude subscription | **Your Anthropic or OpenAI key** |
+| Good for | Scripts, CI, exact shapes | Power users, exploratory work | Dapps, bots, games, CI, fine-tuning |
 
 ## Install
 

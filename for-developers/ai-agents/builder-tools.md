@@ -106,6 +106,9 @@ The recommended way to build collections. Each tool sets one field on a session-
 | `set_mint_escrow_coins` | Fund the mint escrow address at creation (for quest rewards, payment overrides) |
 | `add_transfer` | Append a MsgTransferTokens to the transaction (for auto-minting at creation) |
 | `remove_transfer` | Remove a transfer message from the transaction |
+| `add_preset_approval` | Apply a named approval preset (locked-approvals, etc.) |
+| `list_presets` | List the available approval presets |
+| `flag_review_item` | Flag something for the human to check on the review screen |
 | `get_transaction` | Return the current session transaction as JSON |
 | `get_review_url` | Upload the transaction and return a short bitbadges.io link where the user reviews and signs it (final step; no API key; 1-hour expiry) |
 
@@ -116,7 +119,6 @@ Standalone tools for building specific non-collection resources.
 | Tool | Description |
 |------|-------------|
 | `build_claim` | Build claim JSON for the API (code-gated, password-gated, whitelist-gated, open) |
-| `build_address_list` | Build an on-chain address list collection |
 | `build_transfer` | Build a MsgTransferTokens by auto-querying the collection and constructing the correct transaction |
 | `build_dynamic_store` | Build transaction JSON for dynamic store operations (create, update, delete, set values) |
 

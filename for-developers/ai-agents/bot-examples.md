@@ -227,7 +227,7 @@ search({ query: "my collection name" })
   → verify_ownership({ address: "bb1...", collectionId: "123", tokenId: "1" })
 ```
 
-> **Note:** The builder builds and validates transactions but does not sign or broadcast. Use the BitBadges SDK signing client or the BitBadges frontend to sign and submit.
+> **Note:** The builder builds and validates transactions but never signs or broadcasts. Hand the user a link — `get_review_url` (MCP) or `bb preview tx.json --open` (CLI) — and they review and sign with their wallet. For unattended bots, sign with the SDK signing client or `bb deploy --burner`.
 
 ## Tips for AI Agents
 
