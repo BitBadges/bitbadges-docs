@@ -183,7 +183,7 @@ bb keys add agent-wallet
 bb tx tokenization create-collection ./collection.json \
   --from agent-wallet --chain-id bitbadges-1 \
   --node https://rpc.bitbadges.io:443 \
-  --gas auto --gas-adjustment 1.5 --fees 10000ubadge
+  --gas auto --gas-adjustment 1.5 --gas-prices 10ubadge
 
 # Or broadcast a signed tx through the API
 bb api tx broadcast-tx --body @signed-tx.json
@@ -275,7 +275,7 @@ if [ "$AMOUNT" -lt "$THRESHOLD" ]; then
   bb tx tokenization transfer-tokens ./mint-tx.json \
     --from agent-wallet --chain-id bitbadges-1 \
     --node https://rpc.bitbadges.io:443 \
-    --gas auto --fees 10000ubadge
+    --gas auto --gas-prices 10ubadge
 fi
 ```
 

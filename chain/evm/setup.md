@@ -542,7 +542,7 @@ Each example uses dynamic stores for compliance registries, time-bound ownership
 
 - Fund the account with BADGE:
   ```bash
-  bb tx bank send $(bb keys show alice -a --keyring-backend test) bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue 1000000000ubadge --chain-id bitbadges-1 --keyring-backend test --yes
+  bb tx bank send $(bb keys show alice -a --keyring-backend test) bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue 1000000000ubadge --chain-id bitbadges-1 --keyring-backend test --gas auto --gas-adjustment 1.3 --gas-prices 10ubadge --yes
   ```
 - Check gas prices (adjust in MetaMask if needed)
 - Confirm approvals are set for token transfers

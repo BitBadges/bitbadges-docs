@@ -12,7 +12,7 @@ description: "Chain-native bb commands from bitbadgeschaind: keys, tx, query, si
 bb keys add alice
 bb tx tokenization create-collection ./create-collection.json \
   --from alice --chain-id bitbadges-1 --node https://rpc.bitbadges.io:443 \
-  --gas auto --gas-adjustment 1.5 --fees 10000ubadge
+  --gas auto --gas-adjustment 1.5 --gas-prices 10ubadge
 bb query tokenization collection 2 --node https://rpc.bitbadges.io:443 --output json
 bb sign-arbitrary alice "auth challenge text"
 ```
@@ -74,7 +74,7 @@ bb keys delete alice
 
 ```bash
 bb tx tokenization transfer-tokens ./transfer.json --from alice --chain-id bitbadges-1 \
-  --node https://rpc.bitbadges.io:443 --gas auto --gas-adjustment 1.5 --fees 10000ubadge
+  --node https://rpc.bitbadges.io:443 --gas auto --gas-adjustment 1.5 --gas-prices 10ubadge
 ```
 
 | Flag | Default | Description |
@@ -84,7 +84,7 @@ bb tx tokenization transfer-tokens ./transfer.json --from alice --chain-id bitba
 | `--node` | `tcp://localhost:26657` | Node RPC endpoint (`https://rpc.bitbadges.io:443` on mainnet) |
 | `--gas` | `200000` | Gas limit, or `auto` to simulate |
 | `--gas-adjustment` | `1.0` | Multiplier with `--gas auto` |
-| `--fees` | | For example `10000ubadge` |
+| `--gas-prices` | | Use `10ubadge` or higher; fees are calculated from the gas limit. |
 | `--keyring-backend` | `test` | `os`, `file`, `test` |
 | `--broadcast-mode` | `sync` | `sync`, `async`, `block` |
 | `--dry-run` | `false` | Simulate without broadcasting |
@@ -94,10 +94,10 @@ Generic subcommands under `bb tx`: `sign`, `sign-batch`, `multi-sign`, `multisig
 
 ### tokenization
 
-Most commands take a JSON argument, inline or as a file path. Field names match the protobuf messages in [Messages](../token-standard/messages/README.md). Every line below also takes the flags from the `tx` table; `FLAGS` stands for `--from alice --chain-id bitbadges-1 --node https://rpc.bitbadges.io:443 --gas auto --gas-adjustment 1.5 --fees 10000ubadge`.
+Most commands take a JSON argument, inline or as a file path. Field names match the protobuf messages in [Messages](../token-standard/messages/README.md). Every line below also takes the flags from the `tx` table; `FLAGS` stands for `--from alice --chain-id bitbadges-1 --node https://rpc.bitbadges.io:443 --gas auto --gas-adjustment 1.5 --gas-prices 10ubadge`.
 
 ```bash
-FLAGS="--from alice --chain-id bitbadges-1 --node https://rpc.bitbadges.io:443 --gas auto --gas-adjustment 1.5 --fees 10000ubadge"
+FLAGS="--from alice --chain-id bitbadges-1 --node https://rpc.bitbadges.io:443 --gas auto --gas-adjustment 1.5 --gas-prices 10ubadge"
 
 # collections
 bb tx tokenization create-collection ./create-collection.json $FLAGS

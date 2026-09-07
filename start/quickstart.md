@@ -226,7 +226,7 @@ See [Agents](../agents/README.md) for the paths table, the review-and-sign hando
 
 Testnet (`bitbadges-2`, EVM 50025) is offline. The SDK throws on `network: 'testnet'`. Mainnet runs as a chaosnet: gas fees can be zero while activity is low, so test there with low-value assets. See [Testnet](../chain/testnet.md) and [Network](../chain/README.md).
 
-The chain accepts zero-fee transactions today, so a first collection needs no BADGE at all with `--fee 0` (the default). Testnet is offline and mainnet has no faucet. If a fee is ever required, ask for BADGE in the [BitBadges Discord](https://discord.com/invite/TJMaEd9bar).
+Starting with v35, transactions require fees of at least `10ubadge` per unit of gas. Fund the signing account with BADGE before broadcasting. With the updated CLI, burner `--fee 0` means automatic fee estimation; it does not produce a zero-fee transaction. If you need BADGE, use the faucet when available or ask in the [BitBadges Discord](https://discord.com/invite/TJMaEd9bar).
 
 ## Resources for AI-Assisted Development
 
