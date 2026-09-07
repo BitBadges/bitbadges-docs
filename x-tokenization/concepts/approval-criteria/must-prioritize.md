@@ -26,7 +26,7 @@ When set to `true`, the approval **must** be explicitly specified in the `priori
 
 When set to `false` or not specified, the approval can be used in **auto-scan mode** if other auto-scan criteria are met:
 
--   The approval has [Empty Approval Criteria](../examples/empty-approval-criteria.md) (no side effects)
+-   The approval has [Empty Approval Criteria](../../examples/empty-approval-criteria.md) (no side effects)
 -   No custom logic or side effects are present
 -   The transfer doesn't require explicit version control
 
@@ -47,7 +47,7 @@ Use `mustPrioritize: false` (or omit) when:
 
 -   **Simple Transfers**: No side effects or custom logic
 -   **User Convenience**: Allow automatic approval selection
--   **Empty Criteria**: Using [Empty Approval Criteria](../examples/empty-approval-criteria.md)
+-   **Empty Criteria**: Using [Empty Approval Criteria](../../examples/empty-approval-criteria.md)
 
 ## Examples
 
@@ -120,7 +120,7 @@ The `mustPrioritize` field works in conjunction with the auto-scan system:
 
 -   **Default behavior**: System automatically scans approvals
 -   **Works with**: Approvals where `mustPrioritize: false` or `undefined`
--   **Requires**: [Empty Approval Criteria](../examples/empty-approval-criteria.md) (no side effects)
+-   **Requires**: [Empty Approval Criteria](../../examples/empty-approval-criteria.md) (no side effects)
 -   **No versioning**: System handles approval selection automatically
 
 ### Prioritized Mode

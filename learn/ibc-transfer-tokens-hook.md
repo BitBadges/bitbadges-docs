@@ -62,7 +62,7 @@ The hook data is specified in the IBC transfer memo as JSON:
 
 ### Transfer Object
 
-The `transfers` array uses the same structure as [MsgTransferTokens](../x-tokenization/messages/msg-transfer-tokens.md) transfers, but with snake_case JSON keys:
+The `transfers` array uses the same structure as [MsgTransferTokens](../../x-tokenization/messages/msg-transfer-tokens.md) transfers, but with snake_case JSON keys:
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -165,6 +165,6 @@ All operations execute atomically using a cached context:
 
 ## See Also
 
-- [MsgTransferTokens](../x-tokenization/messages/msg-transfer-tokens.md) — Transfer message reference
-- [Swap and Action Hook](../x-custom-ibc-hooks/overview.md) — The other IBC hook type
+- [MsgTransferTokens](../../x-tokenization/messages/msg-transfer-tokens.md) — Transfer message reference
+- [Swap and Action Hook](../x-custom-ibc-hooks/) — The other IBC hook type
 - [IBC Backed Minting](ibc-backed-minting.md) — Minting tokens backed by IBC assets

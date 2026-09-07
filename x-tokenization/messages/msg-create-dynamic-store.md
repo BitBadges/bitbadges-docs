@@ -23,7 +23,7 @@ message MsgCreateDynamicStoreResponse {
 The response includes:
 
 -   **`storeId`**: The ID of the newly created dynamic store
--   **`reviewItems`**: Advisory strings about the transaction (see [Review Items](../concepts/approval-change-events.md#review-items))
+-   **`reviewItems`**: Advisory strings about the transaction (see Review Items)
 
 ## Usage Example
 

@@ -68,7 +68,7 @@ bitbadgeschaind tx tokenization purge-approvals 1 true "" false '[{"approvalId":
 The response includes:
 
 -   **`purgedApprovalIds`**: The IDs of the approvals that were successfully purged
--   **`reviewItems`**: Advisory strings about the transaction (see [Review Items](../concepts/approval-change-events.md#review-items))
+-   **`reviewItems`**: Advisory strings about the transaction (see Review Items)
 
 ## Related Messages
 

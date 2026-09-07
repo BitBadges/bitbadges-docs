@@ -23,7 +23,7 @@ message MsgSetDynamicStoreValueResponse {
 The response includes:
 
 -   **`previousValue`**: The boolean value that was stored before this update
--   **`reviewItems`**: Advisory strings about the transaction (see [Review Items](../concepts/approval-change-events.md#review-items))
+-   **`reviewItems`**: Advisory strings about the transaction (see Review Items)
 
 ## Usage Example
 

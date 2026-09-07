@@ -22,7 +22,7 @@ These are invertible meaning we can create a list that includes all addresses EX
 
 ### **Storage**
 
-**On-Chain:** AddressLists are **permanent and not updatable** once created, if stored on-chain. These can be created using [MsgCreateAddressLists](../create-and-broadcast-txs/cosmos-sdk-msgs/).
+**On-Chain:** AddressLists are **permanent and not updatable** once created, if stored on-chain. These can be created using [MsgCreateAddressLists](../../x-tokenization/messages/).
 
 They can be used to define transferability on-chain. For example, list "xyz" can only transfer to list "abc" initiated by the reserved "Manager" list.
 

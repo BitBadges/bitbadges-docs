@@ -54,9 +54,9 @@ The response includes:
 
 -   **`incomingChanges`**: A list of `ApprovalChange` entries for incoming approvals that were created, edited, or deleted
 -   **`outgoingChanges`**: A list of `ApprovalChange` entries for outgoing approvals that were created, edited, or deleted
--   **`reviewItems`**: Advisory strings about the transaction (see [Review Items](../concepts/approval-change-events.md#review-items))
+-   **`reviewItems`**: Advisory strings about the transaction (see Review Items)
 
-For more on approval changes, see [Approval Change Events](../concepts/approval-change-events.md).
+For more on approval changes, see Approval Change Events.
 
 ## Usage Example
 

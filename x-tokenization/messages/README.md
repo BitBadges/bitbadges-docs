@@ -16,7 +16,7 @@ This directory contains detailed documentation for all message types supported b
 -   [MsgSetValidTokenIds](msg-set-valid-token-ids.md) - Update valid token IDs and permissions
 -   [MsgSetManager](msg-set-manager.md) - Update manager and permissions
 -   [MsgSetCollectionMetadata](msg-set-collection-metadata.md) - Update collection metadata and permissions
--   [MsgSetTokenMetadata](msg-set-badge-metadata.md) - Update token metadata and permissions
+-   [MsgSetTokenMetadata](msg-set-token-metadata.md) - Update token metadata and permissions
 -   [MsgSetCustomData](msg-set-custom-data.md) - Update custom data and permissions
 -   [MsgSetStandards](msg-set-standards.md) - Update standards and permissions
 -   [MsgSetCollectionApprovals](msg-set-collection-approvals.md) - Update collection approvals and permissions

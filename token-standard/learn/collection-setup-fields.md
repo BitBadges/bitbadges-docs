@@ -246,7 +246,7 @@ const defaultBalances: UserBalanceStore<bigint> = {
 
 **Important Limitations:**
 
--   **No complex approval criteria**: Cannot include any approvals not compatible with auto-scan mode. See [Auto-Scan and Prioritized Approvals](../../x-tokenization/learn/auto-scan-and-prioritized-approvals.md) for more information.
+-   **No complex approval criteria**: Cannot include any approvals not compatible with auto-scan mode. See [Auto-Scan and Prioritized Approvals](../../../learn/auto-scan-and-prioritized-approvals.md) for more information.
 
 **Key points:**
 

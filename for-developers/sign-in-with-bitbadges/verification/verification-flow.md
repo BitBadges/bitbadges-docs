@@ -66,7 +66,7 @@ async function myHandler(req: NextApiRequest, res: NextApiResponse) {
 Note this is not the only way of implementing sessions. You may implement custom approaches on your own like checking IDs, stamping hands, using claim numbers, etc.
 
 {% content-ref url="api-access-tokens.md" %}
-[api-access-tokens.md](api-access-tokens.md)
+[api-access-tokens.md](access-tokens.md)
 {% endcontent-ref %}
 
 **Verifying Other "Attached" Criteria**
