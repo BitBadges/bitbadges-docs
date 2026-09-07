@@ -50,4 +50,4 @@ The response is empty.
 ## Related
 
 - [MsgUpdateDynamicStore](msg-update-dynamic-store.md)
-- [Dynamic store challenges](../approval-criteria/dynamic-store-challenges.md)
+- [Dynamic Store Challenges](../approval-criteria/dynamic-store-challenges.md)

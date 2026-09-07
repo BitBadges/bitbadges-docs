@@ -14,15 +14,15 @@ if err := VerifyCaller(caller); err != nil {
 }
 ```
 
-## What the precompile enforces
+## What the Precompile Enforces
 
-### Caller verification
+### Caller Verification
 
 - `contract.Caller()` is the address that made the call. The EVM sets it; a contract cannot forge it.
 - The caller becomes the `creator` (or `from`) on every message. Any `creator` in the JSON is overwritten.
 - A zero-address caller is rejected by `VerifyCaller` with error code 8.
 
-The caller is the immediate caller, not the transaction origin. See [Developer guide](../developer-guide.md#precompile-caller).
+The caller is the immediate caller, not the transaction origin. See [Developer Guide](../developer-guide.md#precompile-caller).
 
 ### Reentrancy
 
@@ -52,7 +52,7 @@ func CheckOverflow(value *big.Int, fieldName string) error {
 }
 ```
 
-### Input validation
+### Input Validation
 
 - Zero addresses are rejected (`ValidateAddress`).
 - Empty arrays are rejected where the field is required (`ValidateArraySize`).
@@ -61,7 +61,7 @@ func CheckOverflow(value *big.Int, fieldName string) error {
 - Required strings must be non-empty (`ValidateString`).
 - Every message runs its `ValidateBasic` before the keeper call.
 
-### DoS limits
+### DoS Limits
 
 Array sizes are capped so a single call cannot exhaust the node.
 
@@ -86,18 +86,18 @@ Array sizes are capped so a single call cannot exhaust the node.
 
 Input size also adds gas (`GasPerInputChunk`) on `executeMultiple`, `searchInRanges`, and `getBalanceForIdAndTime`, so large JSON cannot be under-priced. See [Gas](gas.md).
 
-### Error handling
+### Error Handling
 
 - Errors are structured `PrecompileError` values with a code, message, and details.
 - Details are sanitized: file paths, Go internals, module paths, and IP addresses are redacted; messages longer than 500 characters are truncated.
 - Codes let a contract branch without parsing text. See [Errors](errors.md).
 
-### State consistency
+### State Consistency
 
 - All writes go through the module keeper.
 - A transaction either applies every change or none. A failing `executeMultiple` message reverts the whole batch.
 
-## Threat model
+## Threat Model
 
 | Threat | Protection |
 | --- | --- |
@@ -109,14 +109,14 @@ Input size also adds gas (`GasPerInputChunk`) on `executeMultiple`, `searchInRan
 | State corruption | Atomic transactions, keeper validation |
 | Caller spoofing | `contract.Caller()`, creator overwritten on the Go side |
 
-## Known limitations
+## Known Limitations
 
 - No rate limiting at the precompile level. Add it at the chain or contract level if you need it.
 - Gas price manipulation is handled by the EVM module, not the precompile.
 - Access control (who may transfer, who may update a collection) is the tokenization module's approval and permission system. The precompile does not add its own authorization layer.
 - Full protobuf decoding of query responses is not available in Solidity. See [Return values](README.md#return-values).
 
-## What your contract must still do
+## What Your Contract Must Still Do
 
 1. Validate inputs before building JSON. The precompile rejects bad input, but a revert after JSON construction wastes gas.
 2. Check return values. Transaction methods return `bool success` or an ID.
@@ -129,5 +129,5 @@ Input size also adds gas (`GasPerInputChunk`) on `executeMultiple`, `searchInRan
 
 - [Errors](errors.md)
 - [Gas](gas.md)
-- [Developer guide](../developer-guide.md)
+- [Developer Guide](../developer-guide.md)
 - [Security source](https://github.com/BitBadges/bitbadgeschain/blob/master/x/tokenization/precompile/security.go)

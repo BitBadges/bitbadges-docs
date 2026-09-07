@@ -2,7 +2,7 @@
 description: "The upstream cosmos/evm precompiles on BitBadges (P256, bech32, staking, distribution, IBC, bank, governance, slashing, ICS02) with addresses and methods."
 ---
 
-# Cosmos SDK precompiles
+# Cosmos SDK Precompiles
 
 These precompiles come from the upstream [cosmos/evm](https://github.com/cosmos/evm) module and give Solidity contracts direct access to standard Cosmos SDK modules. Unlike the BitBadges precompiles, which take JSON, these use ordinary ABI-encoded parameters.
 
@@ -145,7 +145,7 @@ Query methods:
 | `delegatorWithdrawAddress(address delegator)` | Get withdraw address |
 | `communityPool()` | Get community pool balance |
 
-## ICS20 (IBC transfer)
+## ICS20 (IBC Transfer)
 
 Address `0x0000000000000000000000000000000000000802`.
 
@@ -194,7 +194,7 @@ interface IBank {
 
 Gas: `balances` 2,851; `totalSupply` 2,477; `supplyOf` 2,477.
 
-To send native coins from a contract, use the [send manager precompile](send-manager-precompile.md).
+To send native coins from a contract, use the [Send Manager Precompile](send-manager-precompile.md).
 
 ## Governance
 
@@ -243,7 +243,7 @@ Query methods:
 | `getSigningInfos(PageRequest pagination)` | Get all signing infos |
 | `getParams()` | Get slashing params |
 
-## ICS02 (IBC light clients)
+## ICS02 (IBC Light Clients)
 
 Address `0x0000000000000000000000000000000000000807`. The ICS-02 client router.
 
@@ -288,7 +288,7 @@ Query methods:
 | --- | --- |
 | `getClientState(string clientId)` | Get the client state (returns raw bytes) |
 
-## Common types
+## Common Types
 
 ```solidity
 struct Coin {
@@ -326,6 +326,6 @@ enum VoteOption {
 ## Related
 
 - [EVM overview](README.md)
-- [Send manager precompile](send-manager-precompile.md)
+- [Send Manager Precompile](send-manager-precompile.md)
 - [Cosmos EVM documentation](https://docs.cosmos.network/evm/)
 - [Cosmos EVM precompiles source](https://github.com/cosmos/evm/tree/v0.7.2/precompiles)

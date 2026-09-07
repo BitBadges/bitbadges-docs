@@ -46,4 +46,4 @@ No parameters.
 ## Related
 
 - [MsgUpdateParams](../messages/msg-update-params.md)
-- [Coin transfers](../approval-criteria/coin-transfers.md)
+- [Coin Transfers](../approval-criteria/coin-transfers.md)

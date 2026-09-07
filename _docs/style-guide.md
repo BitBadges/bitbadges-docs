@@ -4,12 +4,35 @@ These rules apply to every page. They exist so the corpus reads as one voice, st
 
 ## Page shape
 
-- One `# H1`. Sentence case. No emoji in headings.
+- One `# H1`. Title Case (see "Capitalization"). No emoji in headings.
 - Line 2: a single sentence that says what the page is for and who needs it. Not "In this section you will find". Say the thing.
-- Frontmatter with one `description:` line (under 160 characters). It feeds search and page previews.
-- Headings are `##` and `###` only. Sentence case. Stable, descriptive, no numbering.
+- Frontmatter with one `description:` line (under 160 characters), written as a sentence in sentence case. It feeds search and page previews.
+- Headings are `##` and `###` only. Title Case. Stable, descriptive, no numbering.
 - A folder `README.md` is a real page: a short intro plus a table of what is inside and when to read it. Never a page that is only a list of links with no context.
 - End with a "Related" list of at most 4 links only when the reader needs a next step. No "Conclusion" sections.
+
+## Capitalization
+
+Title Case for the `# H1`, for every `##` and `###` heading, and for the link text of a nav entry in `SUMMARY.md`. Sentence case for everything else: the frontmatter `description:`, body prose, table cells, list items, callouts, and figure captions.
+
+Title Case means:
+
+- Capitalize the first word, the last word, and every noun, pronoun, verb, adjective, adverb, and subordinating conjunction.
+- Keep these lowercase when they fall in the middle: the articles `a`, `an`, `the`; the coordinating conjunctions `and`, `but`, `or`, `nor`, `for`, `yet`, `so`; and prepositions of four letters or fewer, such as `at`, `by`, `for`, `from`, `in`, `into`, `of`, `on`, `onto`, `out`, `over`, `per`, `to`, `up`, `via`, `vs`, `with`.
+- Capitalize prepositions of five letters or more: Between, Through, Against, Without, Versus, Instead.
+- Capitalize the particle of a phrasal verb: "Sign In Users", "Set Up Your AI", "Hand Off to the Browser".
+- Capitalize the word after a colon: "Example: Automated Balance Check and Mint".
+- Hyphenated compounds capitalize both parts when both carry meaning (Cross-Chain, Time-Based, No-Code, On-Demand, Proof-of-Authority). A true prefix keeps a lowercase second part: Pre-flight, Pre-warm, Re-entrancy.
+
+Never re-case these, in a heading or anywhere else:
+
+- Anything in backticks, and any code identifier: `approvalCriteria`, `ownershipTimes`, `customData`, `snake_case`, `uint64`.
+- Message and type names: MsgTransferTokens, ApprovalCriteria, UintRange.
+- CLI commands, subcommands, and flags: `bb build`, `tx status`, `--burner`.
+- Module names (`x/tokenization`, `x/gamm`), denominations (`ubadge`, `badges:1:utoken`), file names, and URLs.
+- Protocol and product names as they are already written: BB-402, x402, IBC, EVM, LCD, RPC, MCP, SDK, API, CLI, JSON, TypeScript, Solidity, Cosmos, Ethereum, BitBadges, Claude Code, Cursor, Scalar.
+
+A heading that is only a code identifier stays exactly as it is: `## approvalCriteria`, `## MsgSetManager`, `## bb build`, `## x/gamm`.
 
 ## Sentences
 
@@ -40,14 +63,14 @@ These rules apply to every page. They exist so the corpus reads as one voice, st
 - `bb` for the CLI in every example. Mention `bitbadgeschaind` once on the install page only.
 - "BitBadges API" for the indexer REST API. "chain" or "node" for Cosmos RPC/LCD. Never "indexer API".
 - "MCP builder tools" for the MCP server. "Claude Code plugin" for the plugin.
-- Mainnet and testnet, lowercase.
+- Mainnet and testnet, lowercase in prose. In a heading they follow Title Case like any other noun ("Test on Mainnet Instead").
 
 ## Formatting
 
 - Tables for options, fields, flags, and comparisons. Columns: name, type, required, description (drop columns that are empty everywhere).
 - Bullet lists for parallel items only. Max 7 items. Nested bullets max one level.
 - Callouts: use the site's supported hint syntax `{% hint style="warning" %}...{% endhint %}` sparingly (info, warning, danger). At most two per page.
-- Relative links between pages. Link text is the target page title, not "here" or "this page".
+- Relative links between pages. Link text is the target page title, so it carries the target's Title Case. Never "here" or "this page".
 - Images only when they carry information a sentence cannot. Every image has alt text.
 - No horizontal rules.
 - No "Table of contents" sections. The site renders one.
@@ -97,7 +120,7 @@ Short bullets or paragraphs: validation rules, permissions checked, side effects
 description: One line.
 ---
 
-# Concept name
+# Concept Name
 
 One or two sentences: what it is and why it exists.
 
@@ -105,7 +128,7 @@ One or two sentences: what it is and why it exists.
 
 The data structure with a JSON example and a field table.
 
-## How it works
+## How It Works
 
 The rules. Short paragraphs. Worked example where helpful.
 
@@ -119,7 +142,7 @@ The rules. Short paragraphs. Worked example where helpful.
 description: One line.
 ---
 
-# Verb the thing
+# Verb the Thing
 
 One sentence: what you will have at the end. Prerequisites as a short list only if non-obvious.
 
@@ -127,5 +150,5 @@ One sentence: what you will have at the end. Prerequisites as a short list only 
 code
 ## 2. Step
 code
-## Next steps
+## Next Steps
 ```

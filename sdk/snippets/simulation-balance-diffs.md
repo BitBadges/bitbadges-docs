@@ -2,7 +2,7 @@
 description: "Turn chain simulation events into per-address coin and token balance changes with simulateAndReview, parseSimulationEvents, and calculateNetChanges."
 ---
 
-# Simulation balance diffs
+# Simulation Balance Diffs
 
 Simulate a transaction and see what moves, per address and per denom or collection, before you sign. The signing client wraps it in one call; the parsers are exported for raw events.
 
@@ -108,6 +108,6 @@ For an EVM adapter, `simulateAndReview` runs a Cosmos simulation of the same mes
 
 ## Related
 
-- [Signing client](../transactions/signing-client.md)
+- [Signing Client](../transactions/signing-client.md)
 - [Broadcast](../transactions/broadcast.md)
-- [Interpret a transaction](interpret-transaction.md)
+- [Interpret a Transaction](interpret-transaction.md)

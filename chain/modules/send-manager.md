@@ -4,7 +4,7 @@ description: "x/sendmanager routes sdk.Coins by denom prefix to x/bank or x/toke
 
 # x/sendmanager
 
-`x/sendmanager` is a bank-shaped send layer that understands [alias denoms](../../token-standard/ibc/alias-denoms.md). It inspects each coin's denom prefix: `badgeslp:` routes to `x/tokenization`, anything else routes to `x/bank`. One message or keeper call can therefore carry a native token and a standard coin side by side. The [send manager precompile](../evm/send-manager-precompile.md) at `0x0000000000000000000000000000000000001003` (`0x...1003`) exposes the same message to Solidity.
+`x/sendmanager` is a bank-shaped send layer that understands [Alias Denoms](../../token-standard/ibc/alias-denoms.md). It inspects each coin's denom prefix: `badgeslp:` routes to `x/tokenization`, anything else routes to `x/bank`. One message or keeper call can therefore carry a native token and a standard coin side by side. The [Send Manager Precompile](../evm/send-manager-precompile.md) at `0x0000000000000000000000000000000000001003` (`0x...1003`) exposes the same message to Solidity.
 
 ```json
 {
@@ -102,7 +102,7 @@ On mainnet the `params` route currently returns `Not Implemented` (gRPC code 12)
 
 ## Keeper API
 
-Chain developers use the keeper as a drop-in replacement for `BankKeeper` sends. Full details and the routing internals are on [Support multiple standards](../../token-standard/integrate/multiple-standards.md).
+Chain developers use the keeper as a drop-in replacement for `BankKeeper` sends. Full details and the routing internals are on [Support Multiple Standards](../../token-standard/integrate/multiple-standards.md).
 
 ```go
 type SendManagerKeeper interface {
@@ -120,11 +120,11 @@ The keeper also exposes `IsICS20Compatible(ctx, denom)` and `StandardName(ctx, d
 
 ## Precompile
 
-From Solidity, call `send(string msgJson) returns (bool success)` on `0x0000000000000000000000000000000000001003` with the JSON above as `msgJson`. The precompile signs as the calling EVM account's bech32 address, so `from_address` must equal that address. See [Send manager precompile](../evm/send-manager-precompile.md).
+From Solidity, call `send(string msgJson) returns (bool success)` on `0x0000000000000000000000000000000000001003` with the JSON above as `msgJson`. The precompile signs as the calling EVM account's bech32 address, so `from_address` must equal that address. See [Send Manager Precompile](../evm/send-manager-precompile.md).
 
 ## Related
 
-- [Alias denoms](../../token-standard/ibc/alias-denoms.md)
-- [Support multiple standards](../../token-standard/integrate/multiple-standards.md)
-- [Send manager precompile](../evm/send-manager-precompile.md)
+- [Alias Denoms](../../token-standard/ibc/alias-denoms.md)
+- [Support Multiple Standards](../../token-standard/integrate/multiple-standards.md)
+- [Send Manager Precompile](../evm/send-manager-precompile.md)
 - [MsgTransferTokens](../../token-standard/messages/msg-transfer-tokens.md)

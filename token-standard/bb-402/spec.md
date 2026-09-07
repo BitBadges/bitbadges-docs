@@ -2,7 +2,7 @@
 description: "BB-402 protocol specification v1 (draft, 2026-03-05): flow, message formats, AccessCondition grammar, verification, security, versioning, x402 comparison."
 ---
 
-# BB-402 specification
+# BB-402 Specification
 
 Version 1. Status: draft. Date: 2026-03-05. This is the normative text; [BB-402](README.md) is the overview and [Gate access](../../guides/gate-access.md) has the code.
 
@@ -10,7 +10,7 @@ Version 1. Status: draft. Date: 2026-03-05. This is the normative text; [BB-402]
 
 BB-402 is an HTTP-based protocol for gating API access behind on-chain token ownership requirements. A server returns a `402 Payment Required` response containing an `AccessCondition` describing what the caller must own. The caller proves identity by signing a server-provided message, and the server verifies the signature, checks on-chain ownership, and serves the response if the requirements are met.
 
-## Protocol flow
+## Protocol Flow
 
 ```text
 1. Agent sends a normal HTTP request.
@@ -48,7 +48,7 @@ BB-402 is an HTTP-based protocol for gating API access behind on-chain token own
    (or 403 if ownership check fails)
 ```
 
-### 402 response body
+### 402 Response Body
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -56,7 +56,7 @@ BB-402 is an HTTP-based protocol for gating API access behind on-chain token own
 | `ownershipRequirements` | `AccessCondition` | yes | Token ownership the caller must satisfy |
 | `message` | `string` | yes | Opaque string the agent must sign. Server-defined format (nonce, SIWE, JWT). The server generates it, validates it, and decides its validity duration. |
 
-### Proof header (`X-BB-Proof`)
+### Proof Header (`X-BB-Proof`)
 
 Base64-encoded JSON:
 
@@ -67,7 +67,7 @@ Base64-encoded JSON:
 | `message` | `string` | yes | Exact message from the 402 response |
 | `signature` | `string` | yes | Signature over `message` by `address` |
 
-### Server verification
+### Server Verification
 
 1. Decode the proof header and parse the JSON.
 2. Validate the message: confirm the server issued it (nonce check, expiry).
@@ -78,7 +78,7 @@ Base64-encoded JSON:
 
 The 402 versus 403 distinction matters for agents: 403 means "identity confirmed, go acquire tokens", 402 means "start the auth flow over".
 
-## Ownership requirements (`AccessCondition`)
+## Ownership Requirements (`AccessCondition`)
 
 A recursive type: a boolean combinator or a leaf `TokenCheck`.
 
@@ -118,7 +118,7 @@ AccessCondition = { "$and": AccessCondition[] }
 | `ownershipTimes` | `Range[]` | no | Time ranges (Unix ms) during which ownership must hold. BitBadges-specific: the chain tracks ownership across time, so a server can ask "did this address own token X during March 2026?". Not supported on Ethereum, Polygon, or Solana; omit it there. When omitted or empty, the check is "owns at time of request", which works on every chain. Most use cases leave it empty. |
 | `mustOwnAmounts` | `Range` | yes | Quantity range, inclusive. `{1, 1}` is exactly one. `{0, 0}` is must not own. |
 
-### Example: compound condition
+### Example: Compound Condition
 
 Has an active subscription and does not hold a ban token:
 
@@ -146,9 +146,9 @@ Has an active subscription and does not hold a ban token:
 }
 ```
 
-## Security considerations
+## Security Considerations
 
-### Replay attacks
+### Replay Attacks
 
 A signed proof can be replayed if it is not scoped. The server controls the `message` and SHOULD include entropy or expiry:
 
@@ -158,7 +158,7 @@ A signed proof can be replayed if it is not scoped. The server controls the `mes
 
 Agents SHOULD treat signed proofs as sensitive credentials and never log or share them.
 
-### Ownership state changes
+### Ownership State Changes
 
 On-chain state is not static. Tokens can be transferred, time-bounded ownership can expire, and balances can decrease between verification and response delivery. This is inherent to any on-chain verification system, including x402.
 
@@ -167,11 +167,11 @@ On-chain state is not static. Tokens can be transferred, time-bounded ownership 
 - For high-value operations, servers SHOULD re-verify at the point of execution.
 - Servers that cache verification results should document the cache TTL. 30 seconds is reasonable for general API access; 0 seconds for sensitive operations.
 
-### Transport security
+### Transport Security
 
 BB-402 MUST only be used over HTTPS. Proof headers intercepted over plaintext HTTP can be replayed by a man-in-the-middle within the message's validity window.
 
-### 402 endpoint abuse
+### 402 Endpoint Abuse
 
 The 402 response is unauthenticated. Servers SHOULD rate limit it to prevent nonce exhaustion. Servers using self-contained messages (HMAC-signed timestamps) avoid nonce-tracking state. Ownership requirements in 402 responses should be assumed public.
 
@@ -181,7 +181,7 @@ The `version` field enables protocol evolution. Agents SHOULD check the version 
 
 Future versions may introduce multi-address proofs, delegated proofs, session tokens, bidirectional authentication, and batch requests.
 
-## Implementation notes
+## Implementation Notes
 
 Servers: verify signatures per chain scheme, convert addresses to canonical format, evaluate the `AccessCondition` tree recursively (`$and` = all pass, `$or` = any passes, `TokenCheck` = verify balances). Middleware (Express, Hono) that wraps route handlers fits well; see [Gate access](../../guides/gate-access.md).
 
@@ -191,11 +191,11 @@ Agents: detect 402 responses, parse the requirements, optionally check whether t
 
 x402 (Coinbase, 2025) pioneered HTTP 402 for AI agent payments. BB-402 uses the same HTTP pattern and replaces x402's single-dimensional payment model with a general ownership verification system.
 
-### x402 is one-dimensional
+### x402 Is One-Dimensional
 
 x402 is designed around one operation: transfer a token payment to an address (mostly USDC on Base, though the spec allows other tokens and chains). Every request is a standalone payment with no memory, state, or conditions beyond "did the money arrive". Subscriptions, tiered access, reputation requirements, and multi-condition invoicing need custom server logic on top.
 
-### BB-402 is multi-dimensional
+### BB-402 Is Multi-Dimensional
 
 BB-402 replaces "did they pay?" with "do they own the right tokens?". Token ownership can represent anything, including payment itself. In its simplest form BB-402 replicates x402: a soulbound (non-transferable) token that costs X USDC to mint is a verifiable on-chain receipt. The agent pays to mint it, and ownership proves payment permanently, verifiably, and without the server tracking payment state. The receipt can be checked on any future request without paying again, composed with other conditions, and verified by any third party.
 
@@ -214,7 +214,7 @@ BB-402 replaces "did they pay?" with "do they own the right tokens?". Token owne
 | Single payment type (ERC-20 transfer) | Custom token rules: non-transferable, revocable, frozen, approval-gated, supply-capped, time-bounded |
 | Fixed EIP-712 payment signature | Server-defined auth: message format is opaque (nonce, SIWE, JWT, anything) |
 
-### Custom token rules
+### Custom Token Rules
 
 With x402, transferred USDC is gone: no refunds, revocation, or restrictions. BB-402 tokens inherit the rules of their collection:
 
@@ -226,7 +226,7 @@ With x402, transferred USDC is gone: no refunds, revocation, or restrictions. BB
 
 Tradeoff: agents must understand the collection's rules. A non-transferable token cannot be resold; a revocable token means the issuer can pull access. The collection creator chooses the tradeoffs, and agents can inspect the on-chain configuration before acquiring tokens.
 
-### Infrastructure comparison
+### Infrastructure Comparison
 
 Both protocols depend on infrastructure, with different trust models. x402 introduces a facilitator (for example Coinbase) that verifies payment signatures, checks funds, and settles on-chain; the server trusts the facilitator to confirm payments before serving. Anyone can run a facilitator in theory; Coinbase operates the reference one. BB-402 has no settlement step; it performs read-only ownership checks against the BitBadges API (or another chain's indexer), and a server that wants to minimize trust runs its own node.
 

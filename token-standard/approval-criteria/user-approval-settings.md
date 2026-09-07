@@ -2,7 +2,7 @@
 description: "userApprovalSettings: let a collection approval restrict the denoms in user-level coin transfers, disable them, and take a royalty on every coin payment."
 ---
 
-# User approval settings
+# User Approval Settings
 
 `userApprovalSettings` is how the issuer constrains what users can do in their own outgoing and incoming approvals for transfers that match a collection approval. It carries the allowed payment denoms, a switch to disable user coin transfers, and the royalty.
 
@@ -142,7 +142,7 @@ Collection approvals only.
 Ask your agent: "Add a transfer approval to collection 1 with a 5% royalty to alice on every payment, and only allow payments in BADGE." The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 The chain matches the collection approval first, then checks the user-level approvals for the same balance slice. It passes this collection approval's `userApprovalSettings` down into that user-level check:
 
@@ -235,6 +235,6 @@ Use one of `allowedDenoms` or `disableUserCoinTransfers`; setting both is contra
 
 ## Related
 
-- [Coin transfers](coin-transfers.md)
+- [Coin Transfers](coin-transfers.md)
 - [Transferability](../concepts/transferability.md)
 - [Params](../queries/params.md)

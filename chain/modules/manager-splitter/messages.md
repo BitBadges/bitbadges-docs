@@ -2,7 +2,7 @@
 description: "x/managersplitter messages (create, update, delete, execute, update params) and the three queries, with fields, permission checks, and JSON examples."
 ---
 
-# x/managersplitter messages and queries
+# x/managersplitter Messages and Queries
 
 Four messages are signed by the splitter's admin or an approved executor; `MsgUpdateParams` is signed by the governance authority. Type URLs use the `managersplitter` proto package, for example `/managersplitter.MsgCreateManagerSplitter`.
 

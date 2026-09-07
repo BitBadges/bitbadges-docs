@@ -2,7 +2,7 @@
 description: "predeterminedBalances: force each use of an approval to move exact balances in order, by manual list or increments, with precalculation and scaling."
 ---
 
-# Predetermined balances
+# Predetermined Balances
 
 Predetermined balances replace "up to N" with "exactly these". Each use of the approval must move precisely the balances the approval computes for that transfer number, which is how sequential minting, subscriptions, and pay-per-unit flows are enforced on-chain.
 
@@ -33,7 +33,7 @@ export interface PredeterminedOrderCalculationMethod {
 
 Balances are never approximate. If the transfer's balances differ from the computed set, the approval does not match.
 
-### Manual balances
+### Manual Balances
 
 A complete `predeterminedBalances` with `manualBalances` open:
 
@@ -97,7 +97,7 @@ A complete `predeterminedBalances` with `manualBalances` open:
 
 Transfer number 0 moves `manualBalances[0]`, number 1 moves `manualBalances[1]`, and so on. A number past the end matches nothing. `incrementedBalances` stays at its zero values when `manualBalances` is used.
 
-### Incremented balances
+### Incremented Balances
 
 A complete `predeterminedBalances` with `incrementedBalances` open:
 
@@ -160,9 +160,9 @@ Most options exclude each other. Transfer number 0 uses `startBalances` as-is; n
 Ask your agent: "Add a mint approval to collection 1 that hands out token IDs 1 to 100 in order, one token per transfer." The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
-### Order calculation
+### Order Calculation
 
 The transfer number comes from one counter:
 
@@ -235,7 +235,7 @@ Options whose flag is off are ignored without error.
 }
 ```
 
-### Duration from timestamp
+### Duration from Timestamp
 
 `durationFromTimestamp` overwrites every ownership time in `startBalances` with `[base, base + duration - 1]`, where `base` is the block time or, when allowed, `overrideTimestamp`. Common durations in milliseconds:
 
@@ -278,7 +278,7 @@ Options whose flag is off are ignored without error.
 }
 ```
 
-### Recurring ownership times
+### Recurring Ownership Times
 
 ```json fold=3-17,23-25
 {
@@ -312,7 +312,7 @@ Options whose flag is off are ignored without error.
 
 Intervals of `intervalLength` begin at `startTime`. A transfer is accepted only inside the charge window, the `chargePeriodLength` milliseconds before the next interval starts, and it grants ownership for that whole next interval. Outside the window the approval fails with `outside charge period`. `chargePeriodLength` must be above 0 and at most `intervalLength`. The example is a monthly subscription from Aug 13, 2023 that can be paid up to 7 days in advance.
 
-### Amount scaling
+### Amount Scaling
 
 With `allowAmountScaling`, `startBalances` is the 1x unit and a transfer may move any integer multiple of it. `coinTransfers` on the same approval scale by the same multiplier.
 
@@ -380,7 +380,7 @@ Approvals with predetermined balances are not auto-scannable. Transfers must [pr
 
 ## Related
 
-- [Approval trackers](approval-trackers.md)
-- [Merkle challenges](merkle-challenges.md)
-- [Coin transfers](coin-transfers.md)
+- [Approval Trackers](approval-trackers.md)
+- [Merkle Challenges](merkle-challenges.md)
+- [Coin Transfers](coin-transfers.md)
 - [MsgTransferTokens](../messages/msg-transfer-tokens.md)

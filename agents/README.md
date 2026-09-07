@@ -15,9 +15,9 @@ bb settings set apiKey "$BITBADGES_API_KEY"
 bb doctor
 ```
 
-This installs the chain binary and the SDK CLI as `bb`. Every path below starts from this install. Get an API key at [bitbadges.io/developer](https://bitbadges.io/developer); the example key above is fake. Per-harness MCP configs (Claude Desktop, Cursor, Windsurf, Codex, VS Code, Zed, no-tools LLMs): [Set up your AI](setup.md).
+This installs the chain binary and the SDK CLI as `bb`. Every path below starts from this install. Get an API key at [bitbadges.io/developer](https://bitbadges.io/developer); the example key above is fake. Per-harness MCP configs (Claude Desktop, Cursor, Windsurf, Codex, VS Code, Zed, no-tools LLMs): [Set Up Your AI](setup.md).
 
-## What to say
+## What to Say
 
 Once a harness is wired, these prompts map onto the MCP builder tools and the skills. Copy one and change the names.
 
@@ -54,12 +54,12 @@ Every build ends the same way: the agent calls `get_review_url` (or runs `bb pre
 | Path | Best for | Install | Reference |
 | --- | --- | --- | --- |
 | CLI and chain binary (start here) | Terminal agents, shell scripts, any language | `curl -fsSL https://install.bitbadges.io \| sh` | [CLI](../cli/README.md) |
-| MCP builder tools | Cursor, Claude Desktop, Codex, any MCP client | `npm i -g bitbadges` | [MCP builder tools](mcp-tools.md) |
-| Claude Code plugin | Claude Code users: auto-wired MCP plus 8 workflow skills | `/plugin marketplace add BitBadges/bitbadges-plugin` then `/plugin install bitbadges` | [Claude Code plugin](claude-code-plugin.md) |
-| Programmatic agent | Node processes that build from a prompt with your own Anthropic or OpenAI key | `npm i bitbadges @anthropic-ai/sdk` | [Programmatic agent](programmatic-agent.md) |
-| SDK signing client | Full TypeScript bots that sign and broadcast | `npm i bitbadges` | [Signing client](../sdk/transactions/signing-client.md) |
+| MCP builder tools | Cursor, Claude Desktop, Codex, any MCP client | `npm i -g bitbadges` | [MCP Builder Tools](mcp-tools.md) |
+| Claude Code plugin | Claude Code users: auto-wired MCP plus 8 workflow skills | `/plugin marketplace add BitBadges/bitbadges-plugin` then `/plugin install bitbadges` | [Claude Code Plugin](claude-code-plugin.md) |
+| Programmatic agent | Node processes that build from a prompt with your own Anthropic or OpenAI key | `npm i bitbadges @anthropic-ai/sdk` | [Programmatic Agent](programmatic-agent.md) |
+| SDK signing client | Full TypeScript bots that sign and broadcast | `npm i bitbadges` | [Signing Client](../sdk/transactions/signing-client.md) |
 | Direct HTTP | Lightweight scripts in any language | REST calls to `api.bitbadges.io` | [API](../api/README.md) |
-| Spending authorization | Daily caps, time windows, and revocation for a delegate wallet | on-chain approval | [Spending authorization](spending-authorization.md) |
+| Spending authorization | Daily caps, time windows, and revocation for a delegate wallet | on-chain approval | [Spending Authorization](spending-authorization.md) |
 
 Bring your own AI is the default. The MCP server, the CLI, and the plugin are model-agnostic; the harness you already run provides the model. The hosted builder at `bitbadges.io/create` is the fallback for people without a harness.
 
@@ -122,7 +122,7 @@ console.log('TX Hash:', result.txHash, 'success:', result.success);
 
 Examples target mainnet because testnet is offline. The faucet API shape and the testnet status live on [Testnet](../chain/testnet.md).
 
-## Agent workflow with the CLI
+## Agent Workflow with the CLI
 
 The CLI returns JSON on every command, accepts stdin (`-`), file paths (`@file.json`), and inline JSON, and needs no build step.
 
@@ -187,7 +187,7 @@ bb api tx broadcast-tx --body @signed-tx.json
 
 `--dry-run` simulates any API call without side effects.
 
-### Which surface does what
+### Which Surface Does What
 
 | Task | Surface |
 | --- | --- |
@@ -196,7 +196,7 @@ bb api tx broadcast-tx --body @signed-tx.json
 | Sign and broadcast | Chain binary (`bb tx`) or SDK signing client |
 | Key management | Chain binary (`bb keys`) |
 
-### API key versus session
+### API Key Versus Session
 
 The API key is required on every BitBadges API call and carries the app scope. Anything that mutates an account, manages keys, or publishes signed data also needs a user scope: a session cookie from `bb auth login`. The CLI is wallet-agnostic. Pair it with `bb sign-arbitrary` for headless Cosmos signing, or paste in a signature from any external wallet.
 
@@ -220,11 +220,11 @@ bb api accounts get-account --body '{"address":"bb18cad7xxsk3drvwdxeasc3wqn2plft
 
 Sessions are multi-account and multi-network. Full reference: [Auth](../cli/auth.md).
 
-### Deprecation banner
+### Deprecation Banner
 
 Legacy forms (`bb cli <subcmd>`, `bitbadges-cli sign-with-browser`, `bitbadges-cli gen-tx-payload`, and the per-utility top-level names that moved under `bb account`, `bb dev`, and `bb settings`) print a one-line deprecation banner to stderr during the migration window. Stdout (the JSON envelope) is unchanged. Set `BB_QUIET=1` in the agent's environment if banner noise breaks line-based stderr parsers; the same flag suppresses every command's auto-review commentary. The release after the migration window hard-fails the old forms, so update prompts and scripts ahead of the cutover.
 
-### Example: automated balance check and mint
+### Example: Automated Balance Check and Mint
 
 ```bash
 #!/bin/bash
@@ -251,20 +251,20 @@ if [ "$AMOUNT" -lt "$THRESHOLD" ]; then
 fi
 ```
 
-## Hand off to the browser to sign
+## Hand Off to the Browser to Sign
 
 Agents build; people sign. Every path ends in a bitbadges.io link that opens the transaction in the review-and-sign flow (Preview, Review Items, Transferability, Permissions, then wallet signature). The agent never signs.
 
 | From | Get the link |
 | --- | --- |
-| MCP or Claude Code | call `get_review_url` and open `reviewUrl` (see [MCP builder tools](mcp-tools.md#hand-off-to-the-browser)) |
+| MCP or Claude Code | call `get_review_url` and open `reviewUrl` (see [MCP Builder Tools](mcp-tools.md#hand-off-to-the-browser)) |
 | CLI | `bb preview tx.json --open` (or `bb build vault --backing-coin USDC --name "Demo Vault" \| bb preview - --open`) |
 | Programmatic agent | `result.reviewUrl` |
 | Any LLM, no tools | paste the JSON into `bitbadges.io/mint/local-builder` |
 
 Two carriers exist. `bb preview` and `get_review_url` upload the transaction to the open preview endpoint and return a short `?code=prv_...` link that expires in 1 hour. The programmatic agent returns a `#tx=<base64url JSON>` link that carries the whole transaction in the URL hash, so nothing is uploaded. Update transactions (a non-zero `collectionId`) route to `/update/local-builder/:id` so the site diffs against on-chain state. Details: [Analyze](../cli/analyze.md) and [Deploy](../cli/deploy.md).
 
-## Metadata without hosting
+## Metadata Without Hosting
 
 The CLI builders and templates accept `--name`, `--image`, and `--description` (or `--name` plus `--description` for approvals, which have no image) and serialize them into the on-chain `customData` field. The BitBadges API, the SDK, and the site parse `customData` on read and surface it as the resolved metadata, so an agent can ship a working collection without an IPFS pin or a Pinata account. Pass `--uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json` (a file you host) instead to host the JSON yourself. The URI takes priority when both are set. On-chain shape: [Collections](../token-standard/concepts/collections.md).
 
@@ -274,7 +274,7 @@ The CLI builders and templates accept `--name`, `--image`, and `--description` (
 
 For zero hosting and an image, the SDK ships a deterministic SVG placeholder-art generator (`import { generatePlaceholderArt } from 'bitbadges'`). It produces 1-8 KB `data:image/svg+xml;base64,...` URIs you can pass to `--image`. The same seed always produces the same art. The SVG bytes still live on-chain, so a 1-8 KB SVG costs about 10-80k extra gas per write versus a hosted URL. Use it for placeholder looks, not for image-heavy or high-frequency-update collections.
 
-## Network configuration
+## Network Configuration
 
 | Network | API URL | Node LCD | Cosmos chain ID | EVM chain ID | EVM RPC |
 | --- | --- | --- | --- | --- | --- |
@@ -284,7 +284,7 @@ For zero hosting and an image, the SDK ships a deterministic SVG placeholder-art
 
 Testnet endpoints when it returns: RPC `https://rpc-testnet.bitbadges.io`, WebSocket `wss://rpc-testnet.bitbadges.io/websocket`. Status: [Testnet](../chain/testnet.md). Full endpoint table: [Network](../chain/README.md).
 
-## Token-gated API access (BB-402)
+## Token-Gated API Access (BB-402)
 
 BB-402 lets any server gate API access behind on-chain token ownership with the standard HTTP 402 status code. x402 (Coinbase) only supports per-request USDC payments. BB-402 uses token ownership as the primitive: a soulbound token that costs X USDC is a verifiable on-chain receipt (equivalent to x402), and the same protocol handles subscriptions, tiered access, reputation, blocklists, and compound conditions with `$and` / `$or` logic.
 
@@ -297,22 +297,22 @@ Server --> Agent:  200 OK (or 403)
 
 Guide: [Gate access](../guides/gate-access.md). Spec: [BB-402](../token-standard/bb-402/README.md).
 
-## In this tab
+## In This Tab
 
 | Page | Read it when |
 | --- | --- |
-| [Set up your AI](setup.md) | You want the exact MCP config for your harness |
-| [MCP builder tools](mcp-tools.md) | You run an MCP client and want the full tool list, client configs, and workflows |
-| [Claude Code plugin](claude-code-plugin.md) | You use Claude Code and want the auto-wired MCP plus workflow skills |
-| [Programmatic agent](programmatic-agent.md) | You build from prompts in Node with your own Anthropic or OpenAI key |
-| [Spending authorization](spending-authorization.md) | You give an agent a delegate wallet with on-chain caps and revocation |
-| [Bot examples](bot-examples.md) | You want copy-paste patterns: mint, gate, react to events |
-| [Reading the docs](reading-the-docs.md) | Your agent needs to fetch documentation by URL, tool, or CLI |
+| [Set Up Your AI](setup.md) | You want the exact MCP config for your harness |
+| [MCP Builder Tools](mcp-tools.md) | You run an MCP client and want the full tool list, client configs, and workflows |
+| [Claude Code Plugin](claude-code-plugin.md) | You use Claude Code and want the auto-wired MCP plus workflow skills |
+| [Programmatic Agent](programmatic-agent.md) | You build from prompts in Node with your own Anthropic or OpenAI key |
+| [Spending Authorization](spending-authorization.md) | You give an agent a delegate wallet with on-chain caps and revocation |
+| [Bot Examples](bot-examples.md) | You want copy-paste patterns: mint, gate, react to events |
+| [Reading the Docs](reading-the-docs.md) | Your agent needs to fetch documentation by URL, tool, or CLI |
 | [Skills](skills/README.md) | You want the per-token-type build instructions the builder ships with |
 
 ## Related
 
 - [Claims API](../api/claims/endpoints.md) for automated minting through claims
-- [WebSocket events](../chain/websocket-events.md)
+- [WebSocket Events](../chain/websocket-events.md)
 - [BitBadges AI Quickstarter](https://github.com/BitBadges/bitbadges-quickstarter-ai) (GitHub template repo)
 - [SDK AI agent guide](https://github.com/BitBadges/bitbadgesjs/blob/main/packages/bitbadgesjs-sdk/AI_AGENT_GUIDE.md)

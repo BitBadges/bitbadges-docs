@@ -2,7 +2,7 @@
 description: "Set up your AI harness for BitBadges. The one MCP server command, then the exact config for Claude Code, Claude Desktop, Cursor, Windsurf, Codex CLI, VS Code, Zed, and LLMs without tools."
 ---
 
-# Set up your AI
+# Set Up Your AI
 
 Every harness below runs the same MCP server. Install the chain binary and CLI first, then add the client-specific wrapper for your harness.
 
@@ -17,7 +17,7 @@ The server command is the `bitbadges-builder` bin from the `bitbadges` npm packa
 npx -y -p bitbadges bitbadges-builder
 ```
 
-The key in every config below is a fake example; paste your own from [bitbadges.io/developer](https://bitbadges.io/developer). `npx` resolves the package the install put on your machine. Without that install it fetches from npm on first call, which is slower. Optional environment variables: `BITBADGES_API_KEY` (queries, simulation, review links on testnet), `BITBADGES_MNEMONIC` or `BITBADGES_PRIVATE_KEY` (server-side signing; leave unset for review-and-sign in the browser). Full list: [MCP builder tools](mcp-tools.md#environment-variables).
+The key in every config below is a fake example; paste your own from [bitbadges.io/developer](https://bitbadges.io/developer). `npx` resolves the package the install put on your machine. Without that install it fetches from npm on first call, which is slower. Optional environment variables: `BITBADGES_API_KEY` (queries, simulation, review links on testnet), `BITBADGES_MNEMONIC` or `BITBADGES_PRIVATE_KEY` (server-side signing; leave unset for review-and-sign in the browser). Full list: [MCP Builder Tools](mcp-tools.md#environment-variables).
 
 ## Claude Code
 
@@ -35,7 +35,7 @@ Plain MCP, no plugin:
 claude mcp add bitbadges-builder -e BITBADGES_API_KEY="$BITBADGES_API_KEY" -- npx -y -p bitbadges bitbadges-builder
 ```
 
-Do not run both; `/bitbadges:setup` detects a duplicate user-scope entry and offers cleanup. Details: [Claude Code plugin](claude-code-plugin.md).
+Do not run both; `/bitbadges:setup` detects a duplicate user-scope entry and offers cleanup. Details: [Claude Code Plugin](claude-code-plugin.md).
 
 ## Claude Desktop
 
@@ -130,11 +130,11 @@ env = { BITBADGES_API_KEY = "0123456789abcdef0123456789abcdef0123456789abcdef012
 }
 ```
 
-## Any LLM without tools
+## Any LLM Without Tools
 
 Claude.ai, ChatGPT, Gemini, or any chat model with no MCP access can still build. Ask it for the transaction JSON and take that JSON to the site to review and sign.
 
-1. Give the model context: paste the relevant [skill page](skills/README.md), or the prompt from `agent.exportPrompt()` on the [Programmatic agent](programmatic-agent.md#export-as-a-single-prompt-for-no-tools-llms).
+1. Give the model context: paste the relevant [skill page](skills/README.md), or the prompt from `agent.exportPrompt()` on the [Programmatic Agent](programmatic-agent.md#export-as-a-single-prompt-for-no-tools-llms).
 2. Ask for a `{ "messages": [{ "typeUrl": "/tokenization.MsgCreateCollection", "value": { "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d" } }] }` object (with the rest of `value` filled in) and nothing else.
 3. Paste it into `https://bitbadges.io/mint/local-builder` ("Bring your transaction"). Or, if you have the CLI, `bb preview tx.json --open` gives you a short review link, and a `#tx=<base64url JSON>` link opens the same page with the transaction in the URL hash.
 
@@ -174,6 +174,6 @@ In the client, ask for `get_current_timestamp`; a reply proves the server is wir
 
 ## Related
 
-- [MCP builder tools](mcp-tools.md)
-- [Claude Code plugin](claude-code-plugin.md)
+- [MCP Builder Tools](mcp-tools.md)
+- [Claude Code Plugin](claude-code-plugin.md)
 - [Agents](README.md)

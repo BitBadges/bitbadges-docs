@@ -2,13 +2,13 @@
 description: "Add a cosmos coin wrapper path so BitBadges tokens convert 1:1 into an x/bank coin that moves over IBC, with the wrapper and unwrapper approvals it needs."
 ---
 
-# Wrap to an IBC denom
+# Wrap to an IBC Denom
 
 At the end your collection has a wrapper path, a wrapper address, and the two approvals that let anyone wrap tokens into a native Cosmos SDK coin and unwrap them back.
 
-A cosmos coin wrapper path creates a new custom denom (not an existing IBC denom) and a keyless wrapper address. Sending tokens to that address burns them and mints x/bank coins; sending the coins back burns the coins and mints tokens. See [Cosmos coin wrapper paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md). To back a token with an existing IBC coin instead, see [Smart tokens and vaults](smart-tokens-and-vaults.md).
+A cosmos coin wrapper path creates a new custom denom (not an existing IBC denom) and a keyless wrapper address. Sending tokens to that address burns them and mints x/bank coins; sending the coins back burns the coins and mints tokens. See [Cosmos Coin Wrapper Paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md). To back a token with an existing IBC coin instead, see [Smart Tokens and Vaults](smart-tokens-and-vaults.md).
 
-## 1. Define the wrapper path
+## 1. Define the Wrapper Path
 
 Add one entry per denom to `cosmosCoinWrapperPathsToAdd` when you create the collection. `conversion.sideA` is the coin side; `conversion.sideB` is the token side.
 
@@ -49,7 +49,7 @@ const collection = {
 };
 ```
 
-`BaseCollectionDetails` is from [Create a collection](create-a-collection.md). The `denom`, `conversion`, `denomUnits`, `allowOverrideWithAnyValidToken`, `{id}` placeholder, and metadata rules are on [Cosmos coin wrapper paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md). Paths can be added after creation only while the `canAddMoreCosmosCoinWrapperPaths` permission is not frozen; see [Lock permissions](lock-permissions.md).
+`BaseCollectionDetails` is from [Create a Collection](create-a-collection.md). The `denom`, `conversion`, `denomUnits`, `allowOverrideWithAnyValidToken`, `{id}` placeholder, and metadata rules are on [Cosmos Coin Wrapper Paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md). Paths can be added after creation only while the `canAddMoreCosmosCoinWrapperPaths` permission is not frozen; see [Lock Permissions](lock-permissions.md).
 
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
@@ -58,7 +58,7 @@ const collection = {
 - "Generate the wrapper address for denom utoken."
 {% endhint %}
 
-## 2. Derive the wrapper address
+## 2. Derive the Wrapper Address
 
 The chain generates one address per wrapper path from the denom. The BitBadges site shows it on the collection page, and the SDK derives it locally.
 
@@ -72,9 +72,9 @@ console.log('Wrapper Address:', wrapperAddress); // bb1epzsfvc4snsrnefpcvuvp60l2
 
 When the denom contains an `{id}` placeholder, the placeholder stays in the hash preimage. There is one address per wrapper path regardless of token ID.
 
-## 3. Add the wrapper and unwrapper approvals
+## 3. Add the Wrapper and Unwrapper Approvals
 
-Wrapping and unwrapping are ordinary transfers, so they must match approvals. The wrapper address has no key and cannot set its own user-level approvals, so the collection approvals override on its side. Both approvals need `allowSpecialWrapping: true` and `mustPrioritize: true`; the chain rejects special-wrapping approvals without them. See [Special address flags](../token-standard/approval-criteria/special-address-flags.md).
+Wrapping and unwrapping are ordinary transfers, so they must match approvals. The wrapper address has no key and cannot set its own user-level approvals, so the collection approvals override on its side. Both approvals need `allowSpecialWrapping: true` and `mustPrioritize: true`; the chain rejects special-wrapping approvals without them. See [Special Address Flags](../token-standard/approval-criteria/special-address-flags.md).
 
 Wrapper approval (users send tokens to the wrapper address):
 
@@ -165,9 +165,9 @@ const collection = {
 };
 ```
 
-`EmptyApprovalCriteria` and `transferableApproval` are from [Set transferability](set-transferability.md); `mintApproval` is from [Mint and distribute](mint-and-distribute.md). Customize the criteria as you like (limits, allowlists, time windows); the two flags above are the only hard requirement.
+`EmptyApprovalCriteria` and `transferableApproval` are from [Set Transferability](set-transferability.md); `mintApproval` is from [Mint and Distribute](mint-and-distribute.md). Customize the criteria as you like (limits, allowlists, time windows); the two flags above are the only hard requirement.
 
-## 4. Deploy and check the conversion
+## 4. Deploy and Check the Conversion
 
 ```bash
 bb check ./collection.json
@@ -186,7 +186,7 @@ bb amount unwrap-preview 1 --token-amount 5
 
 Both accept `--path-index <n>` (default `0`) and `--path-kind cosmos-coin | alias` (default `cosmos-coin`). Smart tokens populate alias paths, not wrapper paths, so pass `--path-kind alias` for those.
 
-## 5. Wrap and unwrap
+## 5. Wrap and Unwrap
 
 Wrap: transfer tokens to the wrapper address, prioritizing the wrapper approval. The chain burns the tokens and credits the x/bank coin to the sender.
 
@@ -194,7 +194,7 @@ Wrap: transfer tokens to the wrapper address, prioritizing the wrapper approval.
 bb build transfer --collection-id 1 --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1epzsfvc4snsrnefpcvuvp60l2q8ke92ax05m55xtszpt6flxkg7qc38zch --amount 5 | bb deploy --browser
 ```
 
-Pick the wrapper approval in the walkthrough. `mustPrioritize: true` means the approval is never auto-scanned; the transfer must list it in `prioritizedApprovals`. See [Prioritized approvals](../token-standard/concepts/prioritized-approvals.md).
+Pick the wrapper approval in the walkthrough. `mustPrioritize: true` means the approval is never auto-scanned; the transfer must list it in `prioritizedApprovals`. See [Prioritized Approvals](../token-standard/concepts/prioritized-approvals.md).
 
 Unwrap: send the coin back to the wrapper address with a bank send. The chain burns the coin and mints tokens to the sender under the unwrapper approval.
 
@@ -206,9 +206,9 @@ bb build send --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1epzsfvc4s
 
 The coin is now a regular x/bank balance: send it with a bank transfer, trade it in a pool (see [Trade on the DEX](trade-on-the-dex.md)), or move it over IBC. For rate limits on outbound IBC transfers, see [Rate limits](../chain/modules/ibc-rate-limit.md).
 
-## Next steps
+## Next Steps
 
-- [Cosmos coin wrapper paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md)
-- [Alias denoms](../token-standard/ibc/alias-denoms.md)
+- [Cosmos Coin Wrapper Paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md)
+- [Alias Denoms](../token-standard/ibc/alias-denoms.md)
 - [IBC overview](../token-standard/ibc/README.md)
-- [Smart tokens and vaults](smart-tokens-and-vaults.md)
+- [Smart Tokens and Vaults](smart-tokens-and-vaults.md)

@@ -2,7 +2,7 @@
 description: "coinTransfers: move x/bank coins (BADGE, IBC coins, alias denoms) every time an approval is used, plus the mint escrow address that pays on behalf of Mint."
 ---
 
-# Coin transfers
+# Coin Transfers
 
 `coinTransfers` executes `x/bank` sends every time the approval is used. It is how payments, payouts, and swaps ride on a token transfer.
 
@@ -145,19 +145,19 @@ interface iCosmosCoin<T extends NumberType> {
 Ask your agent: "Add a mint approval to collection 1 that charges 1000 BADGE per mint, paid to alice's address bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d." The MCP builder tools (`add_approval, set_mint_escrow_coins`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 For each entry, the chain sends `coins` from the payer to the recipient inside the transfer's transaction. If any send fails (for example insufficient balance), the whole transfer reverts.
 
 Rules:
 
 - The approval is no longer auto-scannable. Transfers must [prioritize](../concepts/prioritized-approvals.md) it.
-- Denoms must be in the module's allowed denom list ([Params](../queries/params.md)). `badgeslp:` [alias denoms](../ibc/alias-denoms.md) are always allowed.
+- Denoms must be in the module's allowed denom list ([Params](../queries/params.md)). `badgeslp:` [Alias Denoms](../ibc/alias-denoms.md) are always allowed.
 - An alias denom that points at the same collection as the approval is rejected. Route through another denom (for example USDC).
 - With [amount scaling](predetermined-balances.md), every coin amount is multiplied by the transfer's multiplier.
 - [Royalties](user-approval-settings.md) set by the collection are deducted from each coin before the remainder reaches `to`.
 
-### Mint escrow address
+### Mint Escrow Address
 
 `"Mint"` cannot hold coins. Each collection has a `mintEscrowAddress`, derived from the collection ID, that holds coins on its behalf. No one holds its key. Coins leave it only through collection approvals with `overrideFromWithApproverAddress: true`.
 
@@ -405,7 +405,7 @@ Pay 1 USDC from the collection escrow to whoever redeems (a payout). `to` is ign
 
 ## Related
 
-- [User approval settings](user-approval-settings.md)
-- [Predetermined balances](predetermined-balances.md)
-- [Minting and supply](../concepts/minting-and-supply.md)
-- [Alias denoms](../ibc/alias-denoms.md)
+- [User Approval Settings](user-approval-settings.md)
+- [Predetermined Balances](predetermined-balances.md)
+- [Minting and Supply](../concepts/minting-and-supply.md)
+- [Alias Denoms](../ibc/alias-denoms.md)

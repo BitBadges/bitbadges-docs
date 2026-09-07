@@ -10,7 +10,7 @@ This page is also part of the [API reference](/api-reference).
 
 Addresses in paths accept any supported format. `0x` and `bb1` addresses both work and resolve to the same account. The examples complete `claim_demo_01` (a code-gated claim on collection 1 with the instance id `codes-gate`) for bob.
 
-## Complete a claim
+## Complete a Claim
 
 ```bash
 curl -X POST https://api.bitbadges.io/api/v0/claims/complete/claim_demo_01/bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue \
@@ -57,7 +57,7 @@ console.log(status.success); // true once the queue has processed it
 - If sign in is not required, gate the claim another way, for example a password that only your backend knows.
 - On the site, the **API Code** tab of a claim shows snippets customized to that claim.
 
-## Simulate a claim
+## Simulate a Claim
 
 ```ts
 const res = await BitBadgesApi.simulateClaim('claim_demo_01', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', {
@@ -79,7 +79,7 @@ curl -X POST https://api.bitbadges.io/api/v0/claims/simulate/claim_demo_01/bb1py
 
 Simulation is instant, is not queued, and consumes no use. The body is the same as `completeClaim`. Use `_specificInstanceIds` to test only some plugins. The returned `claimAttemptId` is a zeroed placeholder for compatibility.
 
-## Check an attempt
+## Check an Attempt
 
 ```bash
 curl https://api.bitbadges.io/api/v0/claims/status/3b9d2f7a1c4e6b8d0f2a4c6e8b1d3f5a -H "x-api-key: $BITBADGES_API_KEY"
@@ -132,7 +132,7 @@ const success = await pollStatus(res.claimAttemptId);
 
 Typical processing time is 1 to 5 seconds. Claims for the same collection process sequentially. Different collections process in parallel.
 
-## Check success by address
+## Check Success by Address
 
 ```bash
 curl https://api.bitbadges.io/api/v0/claims/success/claim_demo_01/bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue -H "x-api-key: $BITBADGES_API_KEY"
@@ -153,7 +153,7 @@ if (res.successCount >= 1) {
 
 Verifying a claim is two-fold. First authenticate the user (with [Sign In with BitBadges](../sign-in/README.md) or your own method). Then look up the attempt or the address as above. Never trust a client that says it claimed.
 
-## Fetch claim attempts
+## Fetch Claim Attempts
 
 ```ts
 const res = await BitBadgesApi.getClaimAttempts('claim_demo_01', {
@@ -194,9 +194,9 @@ curl "https://api.bitbadges.io/api/v0/claims/claim_demo_01/attempts?address=bb1p
 }
 ```
 
-Route: `GET /api/v0/claims/{claimId}/attempts` with `address`, `includeErrors`, and `bookmark` as query parameters. Paginated with a bookmark. See [Pagination and views](../pagination-and-views.md).
+Route: `GET /api/v0/claims/{claimId}/attempts` with `address`, `includeErrors`, and `bookmark` as query parameters. Paginated with a bookmark. See [Pagination and Views](../pagination-and-views.md).
 
-## Fetch a claim
+## Fetch a Claim
 
 ```bash
 curl "https://api.bitbadges.io/api/v0/claim/claim_demo_01?fetchAllClaimedUsers=true" -H "x-api-key: $BITBADGES_API_KEY"
@@ -283,7 +283,7 @@ The claim document after one success (synthesized from the SDK types; private pa
 
 The **JSON** tab of a claim on the site shows the same document. `fetchPrivateParams: true` requires the `Read Private Claim Data` scope for that claim's creator or manager.
 
-## Search claims
+## Search Claims
 
 ```ts
 const res = await BitBadgesApi.searchClaims({
@@ -299,7 +299,7 @@ curl "https://api.bitbadges.io/api/v0/claims/search?searchValue=demo%20nft" -H "
 
 Route: `GET /api/v0/claims/search` with `searchValue` and `bookmark` as query parameters. The response is `{ claims, bookmark }` with the same claim documents as above. Only claims with `showInSearchResults: true` appear.
 
-## Create claims
+## Create Claims
 
 ```ts
 import crypto from 'crypto';
@@ -349,7 +349,7 @@ Route: `POST /api/v0/claims`. Requires a session with the `Manage Claims` scope.
 
 Update with `PUT /api/v0/claims` (`{ claims: UpdateClaimRequest[] }`).
 
-## Delete claims
+## Delete Claims
 
 ```ts
 await BitBadgesApi.deleteClaims({ claimIds: ['claim_demo_02'] });
@@ -361,11 +361,11 @@ await BitBadgesApi.deleteClaims({ claimIds: ['claim_demo_02'] });
 
 Route: `DELETE /api/v0/claims`. Deletion is a soft delete. The claim gets `deletedAt` and drops out of queries. Attempt records stay for history.
 
-## Reserved codes and the merkle proof
+## Reserved Codes and the Merkle Proof
 
 An on-chain gated claim reserves a merkle code for the user when the claim succeeds. The user then proves that code in `MsgTransferTokens`. The flow is: create claim, complete claim, get the reserved code, get the proof path, submit the transfer.
 
-### 1. Get reserved codes and leaf signatures
+### 1. Get Reserved Codes and Leaf Signatures
 
 ```ts
 const reserved = await BitBadgesApi.getReservedClaimCodes('claim_demo_01', 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', {
@@ -384,7 +384,7 @@ const reserved = await BitBadgesApi.getReservedClaimCodes('claim_demo_01', 'bb1p
 
 Route: `POST /api/v0/claims/reserved/{claimId}/{address}`. `leafSignatures[i]` proves the mapping between `reservedCodes[i]` and the address.
 
-### 2. Get the merkle path
+### 2. Get the Merkle Path
 
 The proof route is HTTP only (no SDK wrapper). Leaves are `sha256(code)`, or `sha256(bitbadgesAddress)` when the challenge uses `useCreatorAddressAsLeaf`. The leaf below is `sha256` of the reserved code above.
 
@@ -431,7 +431,7 @@ curl -X POST https://api.bitbadges.io/api/v0/merkleProofInfo \
 | `claimCodes` | string[] | code claims | The reserved codes, in the same order as `leaves`. |
 | `bitbadgesAddress` | string | address claims | The claiming address. Required when `useCreatorAddressAsLeaf` is set. |
 
-### 3. Submit the transfer
+### 3. Submit the Transfer
 
 ```ts
 const proof = proofInfo.allProofDetails[0];
@@ -471,12 +471,12 @@ const result = await client.signAndBroadcast([
 ]);
 ```
 
-`client` is the signing client for the claiming address (bob), so `client.address` is `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue`. `prioritizedApprovals` tells the chain which approval to check. The `approvalId` must match the approval that references the claim's merkle challenge. Always pass `prioritizedApprovals`, even when empty. See [Prioritized approvals](../../token-standard/concepts/prioritized-approvals.md) and [MsgTransferTokens](../../token-standard/messages/msg-transfer-tokens.md).
+`client` is the signing client for the claiming address (bob), so `client.address` is `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue`. `prioritizedApprovals` tells the chain which approval to check. The `approvalId` must match the approval that references the claim's merkle challenge. Always pass `prioritizedApprovals`, even when empty. See [Prioritized Approvals](../../token-standard/concepts/prioritized-approvals.md) and [MsgTransferTokens](../../token-standard/messages/msg-transfer-tokens.md).
 
-## Patterns for agents and backends
+## Patterns for Agents and Backends
 
 - **Bot distributes codes.** Create a code-gated claim, hand out codes through your app or bot, and let users complete on the site or complete on their behalf.
-- **Backend auto-completion.** Create a password-gated claim where only your backend knows the password. Complete claims for users when they meet your own criteria. This is incompatible with in-site plugins that need user interaction; a custom plugin is usually the better option. See [Build a claim plugin](../../guides/build-a-claim-plugin.md).
+- **Backend auto-completion.** Create a password-gated claim where only your backend knows the password. Complete claims for users when they meet your own criteria. This is incompatible with in-site plugins that need user interaction; a custom plugin is usually the better option. See [Build a Claim Plugin](../../guides/build-a-claim-plugin.md).
 - **Ownership-gated minting.** Use the `must-own-badges` plugin so holders of token X can mint token Y.
 - **Time-windowed drops.** Add `transferTimes` to bound when claims can complete.
 - **Standalone claims.** Criteria check, then an off-chain reward (points, a list spot, gated content). No transaction needed.
@@ -493,5 +493,5 @@ Tips:
 
 - [Claims](README.md)
 - [Plugins](plugins.md)
-- [Distribute with claims](../../guides/distribute-with-claims.md)
+- [Distribute with Claims](../../guides/distribute-with-claims.md)
 - [API reference](/api-reference)

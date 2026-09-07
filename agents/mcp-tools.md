@@ -2,7 +2,7 @@
 description: "Reference for the MCP builder tools. Install, client configs, every tool with its key params, workflows, resources, and the CLI access path."
 ---
 
-# MCP builder tools
+# MCP Builder Tools
 
 The MCP builder tools let an AI assistant build, review, simulate, and query BitBadges transactions. They work with Claude Desktop, Claude Code, Cursor, Codex, and any MCP client. The tool list on this page is generated from the registry in [`bitbadgesjs-sdk/src/builder/tools/`](https://github.com/bitbadges/bitbadgesjs/tree/main/packages/bitbadgesjs-sdk/src/builder/tools).
 
@@ -14,9 +14,9 @@ npm install -g bitbadges
 npx -p bitbadges bitbadges-builder
 ```
 
-To build from your own Node code with the same tools and no MCP client, use the [Programmatic agent](programmatic-agent.md). For terminal workflows without an MCP client, use the [CLI](../cli/README.md).
+To build from your own Node code with the same tools and no MCP client, use the [Programmatic Agent](programmatic-agent.md). For terminal workflows without an MCP client, use the [CLI](../cli/README.md).
 
-## Client configuration
+## Client Configuration
 
 ### Claude Desktop
 
@@ -47,7 +47,7 @@ After the chain and CLI install (`curl -fsSL https://install.bitbadges.io | sh`)
 claude mcp add bitbadges-builder -- npx -y -p bitbadges bitbadges-builder
 ```
 
-Or install the [Claude Code plugin](claude-code-plugin.md), which wires the same server and adds 8 workflow skills plus `/bitbadges:setup` and `/bitbadges:status`:
+Or install the [Claude Code Plugin](claude-code-plugin.md), which wires the same server and adds 8 workflow skills plus `/bitbadges:setup` and `/bitbadges:status`:
 
 ```text
 /plugin marketplace add BitBadges/bitbadges-plugin
@@ -74,7 +74,7 @@ Add to `.cursor/mcp.json`:
 }
 ```
 
-### Environment variables
+### Environment Variables
 
 | Variable | Required | Description |
 | --- | --- | --- |
@@ -120,7 +120,7 @@ A complete call, as the client sends it and as `bb dev tools call add_approval -
 
 The tool answers with the approval as stored in the session plus any validation notes.
 
-### Session builders (recommended for collections)
+### Session Builders (Recommended for Collections)
 
 Each tool sets one field on a session-scoped transaction. Calls in the same round can run in parallel. Tools that need the API key say so.
 
@@ -153,7 +153,7 @@ Each tool sets one field on a session-scoped transaction. Calls in the same roun
 
 `generate_placeholder_art` (`seed*`, `style`, `monogram`) still exists in source but is not in the MCP catalog: `get_transaction` fills blank images for you.
 
-### Helper builders
+### Helper Builders
 
 | Tool | What it does | Key params |
 | --- | --- | --- |
@@ -161,7 +161,7 @@ Each tool sets one field on a session-scoped transaction. Calls in the same roun
 | `build_transfer` | Build a `MsgTransferTokens` by querying the collection and constructing the right `prioritizedApprovals` and `coinTransfers`. Supports mint, transfer, deposit (IBC to token), withdraw (token to IBC). Needs the API key | `collectionId*`, `fromAddress*` (`Mint` to mint), `toAddress*`, `tokenIds`, `amount` (default `"1"`), `intent` (`mint`, `transfer`, `deposit`, `withdraw`) |
 | `build_dynamic_store` | Build transaction JSON for dynamic stores: create, update, delete, set values. Dynamic stores are on-chain allowlists usable in `dynamicStoreChallenges` | `action*` (`create`, `update`, `delete`, `set_value`, `batch_set_values`), `creator*`, `storeId`, `defaultValue`, `globalEnabled`, `uri`, `customData`, `address`, `value`, `entries` |
 
-### Review and analysis
+### Review and Analysis
 
 | Tool | What it does | Key params |
 | --- | --- | --- |
@@ -170,7 +170,7 @@ Each tool sets one field on a session-scoped transaction. Calls in the same roun
 | `explain_collection` | Human-readable explanation with optional Q&A. Covers what it is, how to get tokens, what the manager can change, trust signals, and risk. No API key | `collection*`, `question`, `audience` (`user` default, `developer`, `auditor`) |
 | `analyze_collection` | Structured analysis of transferability, approvals, permissions, and how to obtain or transfer tokens. Feeds `MsgTransferTokens` construction. Needs the API key | `collectionId*` |
 
-### Simulation and validation
+### Simulation and Validation
 
 | Tool | What it does | Key params |
 | --- | --- | --- |
@@ -191,7 +191,7 @@ All query tools need `BITBADGES_API_KEY`.
 | `search_plugins` | Find off-chain claim plugins by text, fetch by id, or list a creator's public plugins. Any plugin is fetchable by id without auth | `searchValue`, `pluginIds`, `creatorAddress`, `bookmark` |
 | `lookup_token_info` | Symbol, IBC denom, decimals, and pre-generated backing address for a token | `query*` (symbol like `USDC` or an `ibc/...` denom) |
 
-### Component generators
+### Component Generators
 
 Stateless helpers that return one piece of a collection.
 
@@ -214,7 +214,7 @@ Stateless helpers that return one piece of a collection.
 | `diagnose_error` | Map a transaction error to a diagnosis and fix | `error*`, `context` |
 | `search_knowledge_base` | Ranked snippets across embedded docs, learnings, recipes, error patterns, and critical rules | `query*`, `category` (`all`, `docs`, `learnings`, `recipes`, `errors`, `rules`) |
 
-### Instructions and docs
+### Instructions and Docs
 
 | Tool | What it does | Key params |
 | --- | --- | --- |
@@ -225,7 +225,7 @@ Rendered skill pages: [Skills](skills/README.md).
 
 ## Workflows
 
-### Session-based build
+### Session-Based Build
 
 ```text
 set_standards + set_valid_token_ids + set_invariants + add_approval + set_permissions + set_default_balances + set_collection_metadata + set_token_metadata
@@ -242,13 +242,13 @@ set_standards + set_valid_token_ids + set_invariants + add_approval + set_permis
 4. Export. Call `get_transaction` for the final JSON.
 5. Hand off. Call `get_review_url` and give the user `reviewUrl`. Prefer the link over pasting JSON: it is short and cannot be corrupted in transit. `previewUrl` is the read-only variant for a reviewer.
 
-### Query and verification (no signing)
+### Query and Verification (No Signing)
 
 ```text
 query_collection -> verify_ownership -> (act on the result)
 ```
 
-### Auto-mint at creation
+### Auto-Mint at Creation
 
 `add_transfer` mints to specific addresses in the same transaction as the collection creation. The transaction then holds two messages: `MsgUniversalUpdateCollection` and `MsgTransferTokens`. Use it for "mint 100 tokens to myself", "distribute tokens to the team", or "auto-mint at creation".
 
@@ -258,7 +258,7 @@ query_collection -> verify_ownership -> (act on the result)
 
 Maximum 4 transfer messages per transaction.
 
-## Hand off to the browser
+## Hand Off to the Browser
 
 The builder never signs or broadcasts. Three exits:
 
@@ -286,7 +286,7 @@ The server also exposes embedded documents as MCP resources. Read them with your
 | `bitbadges://workflows/all` | Workflow chains | Step-by-step tool chains for multi-step operations |
 | `bitbadges://schema/token-builder` | Token builder schema | Annotated schema for the session builders: design axes, field reference, approval patterns, validation checklist |
 
-## Call tools from the CLI
+## Call Tools from the CLI
 
 The same registry is reachable from `bb dev` as plain function calls, with no MCP round-trip.
 
@@ -332,7 +332,7 @@ Flag-based template builders (`bb build <template>`) are faster than composing t
 
 ## Related
 
-- [Programmatic agent](programmatic-agent.md)
-- [Claude Code plugin](claude-code-plugin.md)
+- [Programmatic Agent](programmatic-agent.md)
+- [Claude Code Plugin](claude-code-plugin.md)
 - [Skills](skills/README.md)
 - [Dev commands](../cli/dev.md)

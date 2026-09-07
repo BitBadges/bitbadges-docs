@@ -52,7 +52,7 @@ export default async function callbackHandler(req: NextApiRequest, res: NextApiR
 }
 ```
 
-## How it works
+## How It Works
 
 1. The user opens your authorization URL.
 2. BitBadges walks them through authentication. On completion it redirects to your `redirect_uri` with `code` and `state`.

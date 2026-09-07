@@ -41,7 +41,7 @@ Every permission is an array. Each element has criteria (none, token IDs, or tra
 
 A time cannot be in both arrays of the same element.
 
-### Collection permissions
+### Collection Permissions
 
 | Permission | Type | Controls |
 | --- | --- | --- |
@@ -57,7 +57,7 @@ A time cannot be in both arrays of the same element.
 | `canUpdateTokenMetadata` | token ID action | `tokenMetadata` per token ID |
 | `canUpdateCollectionApprovals` | approval | `collectionApprovals` per transfer tuple |
 
-### User permissions
+### User Permissions
 
 | Permission | Type | Controls |
 | --- | --- | --- |
@@ -73,9 +73,9 @@ User permissions are rarely needed. Leave them as empty arrays unless you must l
 Ask your agent: "Lock collection 1 so its approvals and metadata can never change, but leave the manager updatable." The MCP builder tools (`set_permissions`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
-### The manager
+### The Manager
 
 The manager is the address that runs the collection. It can update metadata, token metadata, approvals, valid token IDs, standards, custom data, archive status, and the manager address itself, each subject to the matching permission. It cannot change user balances except through the approval system, and it cannot touch users' keys or private data.
 
@@ -285,7 +285,7 @@ A complete `MsgUniversalUpdateCollection` that names alice as manager and permit
 
 Set `manager: ''` for no manager. Permission values are then irrelevant because no one can execute them. Off-chain permission schemes (for example a multisig or a splitter in front of the manager address) are the application's business; the chain sees one address.
 
-### Three states
+### Three States
 
 | State | Meaning | Can change later |
 | --- | --- | --- |
@@ -336,7 +336,7 @@ const soft: CollectionPermissions<bigint> = {
 
 Once a time is permitted or forbidden, an update that tries to change it is rejected.
 
-### First match
+### First Match
 
 The chain walks the array and applies the first element whose criteria match. Later elements are ignored for that combination, even if they say the opposite.
 
@@ -379,7 +379,7 @@ const collectionPermissions: CollectionPermissions<bigint> = {
 
 This element covers token IDs 1-10 only. Token ID 11 is unhandled and therefore allowed by default.
 
-### Brute force to lock
+### Brute Force to Lock
 
 To forbid a specific slice, name it and set every other criterion to its full range so nothing slips past.
 
@@ -420,7 +420,7 @@ const collectionPermissions: CollectionPermissions<bigint> = {
 };
 ```
 
-### Action permissions
+### Action Permissions
 
 Time only.
 
@@ -485,7 +485,7 @@ const c: CollectionPermissions<bigint> = {
 };
 ```
 
-### Token ID action permissions
+### Token ID Action Permissions
 
 Criteria: `tokenIds`. Used by `canUpdateValidTokenIds` and `canUpdateTokenMetadata`.
 
@@ -624,7 +624,7 @@ const e: CollectionPermissions<bigint> = {
 
 `canUpdateValidTokenIds` is checked only for IDs that are new to the collection.
 
-### Approval permissions
+### Approval Permissions
 
 Criteria: the approval tuple `(fromListId, toListId, initiatedByListId, transferTimes, tokenIds, ownershipTimes, approvalId)`. Used by `canUpdateCollectionApprovals`, `canUpdateOutgoingApprovals` (no `fromListId`), and `canUpdateIncomingApprovals` (no `toListId`). An approval update matches an element when every part of the tuple overlaps.
 
@@ -746,6 +746,6 @@ Three locking strategies: lock one approval by ID, lock a token range and every 
 ## Related
 
 - [Transferability](transferability.md)
-- [Minting and supply](minting-and-supply.md)
+- [Minting and Supply](minting-and-supply.md)
 - [Collections](collections.md)
 - [MsgSetManager](../messages/msg-set-manager.md)

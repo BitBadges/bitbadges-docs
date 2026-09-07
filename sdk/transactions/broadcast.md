@@ -133,6 +133,6 @@ For development, https://bitbadges.io/dev/broadcast signs and broadcasts for you
 ## Related
 
 - [Transactions](README.md)
-- [Signing client](signing-client.md)
+- [Signing Client](signing-client.md)
 - [CLI deploy](../../cli/deploy.md)
-- [Websocket events](../../chain/websocket-events.md)
+- [WebSocket Events](../../chain/websocket-events.md)

@@ -6,7 +6,7 @@ description: "The mental model behind every BitBadges token on one page, plus th
 
 This page gives the model that every other page assumes. Read it before the reference tabs.
 
-## The model
+## The Model
 
 A transfer moves an amount of token IDs, for a set of ownership times, from one address to one or more recipients. The chain executes it only if all of the following hold:
 
@@ -75,7 +75,7 @@ Circulating supply is not a stored number. It is the total that has left the Min
 Ask your agent: "Transfer one of token ID 1 in collection 1 from alice to bob and show me the transaction JSON." The MCP builder tools (`build_transfer`) produce the objects on this page.
 {% endhint %}
 
-## Reading order
+## Reading Order
 
 The pages below depend on each other in this order.
 
@@ -84,23 +84,23 @@ The pages below depend on each other in this order.
 | [Accounts](accounts.md) | How Ethereum and Cosmos addresses map to one `bb1` account |
 | [UintRanges](uint-ranges.md) | The `{ start, end }` range type used for IDs, times, and amounts |
 | [Balances](balances.md) | How amounts, token IDs, and ownership times combine |
-| [Minting and supply](minting-and-supply.md) | The Mint address and how supply is controlled |
-| [Address lists](address-lists.md) | Reserved IDs, inline lists, stored lists, inversion |
+| [Minting and Supply](minting-and-supply.md) | The Mint address and how supply is controlled |
+| [Address Lists](address-lists.md) | Reserved IDs, inline lists, stored lists, inversion |
 | [Transferability](transferability.md) | The three approval levels and the fields of an approval |
-| [Approval criteria](../approval-criteria/README.md) | Every criterion, on its own pages |
-| [Prioritized approvals](prioritized-approvals.md) | Auto-scan vs prioritized matching, versions, `mustPrioritize` |
+| [Approval Criteria](../approval-criteria/README.md) | Every criterion, on its own pages |
+| [Prioritized Approvals](prioritized-approvals.md) | Auto-scan vs prioritized matching, versions, `mustPrioritize` |
 | [Permissions](permissions.md) | The manager, permission states, first-match evaluation |
 | [Collections](collections.md) | Collection fields, metadata, standards, `validTokenIds`, `isArchived` |
 | [Invariants](../approval-criteria/invariants.md) | Creation-only rules such as supply caps and no forceful transfers |
-| [Compliance zones](compliance-zones.md) | Where compliance is enforced and why |
+| [Compliance Zones](compliance-zones.md) | Where compliance is enforced and why |
 
-After these, the IBC pages ([alias denoms](../ibc/alias-denoms.md), [wrapper paths](../ibc/cosmos-coin-wrapper-paths.md), [backed minting](../ibc/backed-minting.md)) build on [special address flags](../approval-criteria/special-address-flags.md).
+After these, the IBC pages ([Alias Denoms](../ibc/alias-denoms.md), [wrapper paths](../ibc/cosmos-coin-wrapper-paths.md), [Backed Minting](../ibc/backed-minting.md)) build on [Special Address Flags](../approval-criteria/special-address-flags.md).
 
-## Explore first
+## Explore First
 
 The fastest way to see the structures is to use the BitBadges site. Complete the collection creation flow, then open "Show Tx" at the end to see the transaction JSON the site built.
 
 ## Related
 
-- [Token standard](../README.md)
+- [Token Standard](../README.md)
 - [Messages](../messages/README.md)

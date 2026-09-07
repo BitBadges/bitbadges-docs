@@ -101,7 +101,7 @@ The purge runs through the target user's [MsgUpdateUserApprovals](msg-update-use
 
 ## Related
 
-- [Auto-deletion](../approval-criteria/auto-deletion.md)
+- [Auto-Deletion](../approval-criteria/auto-deletion.md)
 - [MsgUpdateUserApprovals](msg-update-user-approvals.md)
 - [MsgDeleteIncomingApproval](msg-delete-incoming-approval.md)
 - [MsgDeleteOutgoingApproval](msg-delete-outgoing-approval.md)

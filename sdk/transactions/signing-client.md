@@ -2,7 +2,7 @@
 description: "BitBadgesSigningClient reference, wallet adapters for Keplr, Leap, MetaMask, mnemonics and private keys, network presets, gas, sequence retry, and results."
 ---
 
-# Signing client
+# Signing Client
 
 `BitBadgesSigningClient` signs and broadcasts with any wallet adapter in one call. It fetches and caches account info, simulates for gas, signs through Cosmos `signDirect` or an EVM precompile call, broadcasts, and retries on sequence mismatch.
 
@@ -118,7 +118,7 @@ interface BroadcastResult {
 }
 ```
 
-## Network presets
+## Network Presets
 
 ```ts
 import { NETWORK_CONFIGS } from 'bitbadges';
@@ -145,7 +145,7 @@ const custom = new BitBadgesSigningClient({ adapter, network: 'mainnet', apiUrl:
 
 The testnet preset is marked `disabled` and the client throws when you select it. Set `BITBADGES_TESTNET_OFFLINE=false` in the environment to bypass the guard for a private chain that reuses the testnet chain ID. See [Testnet](../../chain/testnet.md).
 
-## Wallet adapters
+## Wallet Adapters
 
 ```ts
 // Cosmos: browser
@@ -176,7 +176,7 @@ const adapter = await GenericEvmAdapter.fromSigner(signer, { expectedChainId: NE
 
 Every adapter implements `WalletAdapter`: `chainType`, `address`, `getPublicKey()`, and either `signDirect()` (Cosmos) or `sendEvmTransaction()` plus `estimateEvmGas()` (EVM). The client picks the path from `chainType`. EVM adapters cannot sign Cosmos `signDirect` payloads. Implement the interface yourself to plug in a custom signer.
 
-## Gas and fees
+## Gas and Fees
 
 ```ts
 await client.signAndBroadcast(messages); // simulate, then gasLimit = gasUsed * gasMultiplier
@@ -184,9 +184,9 @@ await client.signAndBroadcast(messages, { simulate: false }); // use defaultGasL
 await client.signAndBroadcast(messages, { fee: { amount: '10000000', denom: 'ubadge', gas: '500000' } });
 ```
 
-`simulate(messages, { memo? })` returns `{ gasUsed, gasLimit, fee, events? }` without signing. `simulateAndReview` adds parsed events and per-address net changes; see [Simulation balance diffs](../snippets/simulation-balance-diffs.md).
+`simulate(messages, { memo? })` returns `{ gasUsed, gasLimit, fee, events? }` without signing. `simulateAndReview` adds parsed events and per-address net changes; see [Simulation Balance Diffs](../snippets/simulation-balance-diffs.md).
 
-## Sequence and account cache
+## Sequence and Account Cache
 
 ```ts
 const info = await client.getAccountInfo(); // cached: { address, accountNumber, sequence, publicKey }
@@ -196,7 +196,7 @@ client.clearCache();
 
 After a successful broadcast the cached sequence increments. On a sequence mismatch error the client clears the cache, refetches, and retries up to `maxSequenceRetries` times when `sequenceRetryEnabled` is true. `accountNumber` and `sequence` are bigints at runtime.
 
-## Multiple messages
+## Multiple Messages
 
 ```ts
 import { MsgTransferTokens, MsgSetTokenMetadata, MsgSetCollectionMetadata } from 'bitbadges';
@@ -253,6 +253,6 @@ try {
 ## Related
 
 - [Transactions](README.md)
-- [Sign with a Cosmos wallet](sign-cosmos.md)
-- [Sign with an Ethereum wallet](sign-ethereum.md)
+- [Sign with a Cosmos Wallet](sign-cosmos.md)
+- [Sign with an Ethereum Wallet](sign-ethereum.md)
 - [Broadcast](broadcast.md)

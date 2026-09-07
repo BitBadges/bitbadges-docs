@@ -2,7 +2,7 @@
 description: "The tokenization precompile at 0x...1001: the token standard from Solidity through JSON messages, with helpers, patterns, and executeMultiple."
 ---
 
-# Tokenization precompile
+# Tokenization Precompile
 
 The tokenization precompile exposes the whole `x/tokenization` module to Solidity contracts: transfers, collections, approvals, dynamic stores, address lists, votes, and every query. Address: `0x0000000000000000000000000000000000001001`.
 
@@ -62,7 +62,7 @@ contract MyTokenContract {
 }
 ```
 
-## How it works
+## How It Works
 
 Every method takes one `string calldata msgJson`. The JSON is the protobuf JSON of the matching `x/tokenization` message or query request, the same shape the CLI and SDK use. See [Messages](../../../token-standard/messages/README.md) and [Queries](../../../token-standard/queries/README.md) for the field references.
 
@@ -80,7 +80,7 @@ TOKENIZATION.transferTokens(collectionId, recipients, amount, tokenIds, ownershi
 On the Go side the precompile:
 
 1. Unmarshals the JSON into the Msg with the module codec (proto JSON, camelCase keys, integers as strings).
-2. Overwrites `creator` with the caller's bech32 address. A contract calling the precompile is the creator; see [Developer guide](../developer-guide.md#precompile-caller).
+2. Overwrites `creator` with the caller's bech32 address. A contract calling the precompile is the creator; see [Developer Guide](../developer-guide.md#precompile-caller).
 3. Converts `0x` addresses in address fields (`toAddresses`, `manager`, approval criteria, address lists) to bech32.
 4. Runs `ValidateBasic`, then the module msg server.
 
@@ -136,7 +136,7 @@ Query methods return `uint256` for `getBalanceAmount`, `getTotalSupply`, `getCha
 
 ## Patterns
 
-### Simple token transfer
+### Simple Token Transfer
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -175,7 +175,7 @@ contract SimpleTransfer {
 }
 ```
 
-### Time-bound transfer
+### Time-Bound Transfer
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -220,7 +220,7 @@ contract TimeBoundTransfer {
 
 Concept: [Balances](../../../token-standard/concepts/balances.md) (ownership times).
 
-### KYC registry with a dynamic store
+### KYC Registry with a Dynamic Store
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -270,7 +270,7 @@ contract KycRegistry {
 
 To enforce the registry on transfers without a contract in the loop, add a [dynamic store challenge](../../../token-standard/approval-criteria/dynamic-store-challenges.md) to the collection approvals.
 
-### Create a collection
+### Create a Collection
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -324,7 +324,7 @@ contract CollectionFactory {
 
 Invariants and cosmos coin wrapper paths can be set at creation through `createCollectionWithInvariantsJSON` or by writing the `invariants` and `cosmosCoinWrapperPathsToAdd` fields yourself. See [MsgCreateCollection](../../../token-standard/messages/msg-create-collection.md).
 
-### Create a collection and transfer in one transaction
+### Create a Collection and Transfer in One Transaction
 
 `executeMultiple` runs several messages atomically in one call.
 
@@ -416,7 +416,7 @@ Rules for `executeMultiple`:
 - Results come back as `bytes[]`. Decode each with `abi.decode(results[i], (bool))` or `(uint256)` according to the method's return type.
 - `collectionId: "0"` in a later message refers to the collection created earlier in the same batch (the module's auto-prev rule).
 
-## Helper library
+## Helper Library
 
 `TokenizationJSONHelpers` has a builder for every method:
 
@@ -449,7 +449,7 @@ uint256 amount = TOKENIZATION.getBalanceForIdAndTime(balancesJson, tokenId, time
 string memory listId = TOKENIZATION.getReservedListId(user);  // returns the bech32 form, e.g. bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
 ```
 
-## Return values
+## Return Values
 
 `uint256` directly:
 
@@ -474,7 +474,7 @@ Full protobuf decoding in Solidity is not implemented; the `decodeCollection`, `
 3. Array sizes are capped (100 recipients, 100 ranges, and so on). See [Security](security.md).
 4. Cache JSON strings you reuse; construction costs gas.
 
-## Best practices
+## Best Practices
 
 Use the helpers:
 

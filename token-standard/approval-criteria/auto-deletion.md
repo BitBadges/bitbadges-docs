@@ -2,7 +2,7 @@
 description: "autoDeletionOptions: delete an approval after one use or after its transfer cap, and let counterparties or anyone purge it."
 ---
 
-# Auto-deletion
+# Auto-Deletion
 
 `autoDeletionOptions` removes an approval from state once it has served its purpose, and controls who besides the owner may purge it.
 
@@ -131,7 +131,7 @@ interface AutoDeletionOptions {
 Ask your agent: "Add a transfer approval to collection 1 that deletes itself after ten uses." The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 Deletion happens in the same transaction as the qualifying transfer, after the transfer succeeds. An approval used under a forceful override that never matches its own deletion condition stays in state.
 
@@ -201,5 +201,5 @@ Let anyone clean up expired approvals:
 
 ## Related
 
-- [Approval trackers](approval-trackers.md)
+- [Approval Trackers](approval-trackers.md)
 - [MsgPurgeApprovals](../messages/msg-purge-approvals.md)

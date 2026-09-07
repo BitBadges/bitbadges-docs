@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import { autoFoldRanges, parseFoldMeta } from '../src/lib/docs/fold';
+import { codeSourceFor } from '../src/components/docs/CopyButtons';
 import { renderDoc } from '../src/lib/docs/markdown';
 
 const opts = { filePath: 'for-developers/getting-started.md', assetsPrefix: '/docs-assets', basePath: '' };
@@ -163,7 +164,9 @@ describe('renderDoc — explicit code folds', () => {
     expect(doc.html).toContain('<summary>··· 3 lines hidden (3-5)</summary>');
     expect(doc.html).toContain('<summary>··· 2 lines hidden (8-9)</summary>');
     // The folded lines live inside the details; the rest are untouched siblings.
-    expect(doc.html).toMatch(/<summary>··· 3 lines hidden \(3-5\)<\/summary><span class="line">[^]*?line 3[^]*?line 5[^]*?<\/details>/);
+    expect(doc.html).toMatch(
+      /<summary>··· 3 lines hidden \(3-5\)<\/summary><span class="code-fold-lines" aria-hidden="true"><span class="line">[^]*?line 3[^]*?line 5[^]*?<\/span><\/details>/,
+    );
     expect(doc.html).toMatch(/line 2<\/span><\/span>\n<details/);
     expect(doc.html).toMatch(/<\/details><span class="line">[^]*?line 6/);
   });
@@ -225,5 +228,100 @@ describe('renderDoc — automatic json folds', () => {
   test('does not auto-fold other languages', async () => {
     const doc = await renderDoc(fence('ts', boilerplateJson), opts);
     expect(doc.html).not.toContain('data-folds');
+  });
+});
+
+/** Text of the rendered `<code>` element minus the fold summaries — the code itself. */
+function codeText(html: string): string {
+  let text = '';
+  let inSummary = false;
+  new HTMLRewriter()
+    .on('figure[data-code] summary', {
+      element(el) {
+        inSummary = true;
+        el.onEndTag(() => void (inSummary = false));
+      },
+    })
+    .on('figure[data-code] code', {
+      text: (t) => void (inSummary ? null : (text += t.text)),
+    })
+    .transform(html);
+  return text;
+}
+
+/** The `data-code-source` attribute of the first code figure, entity-decoded. */
+function copySource(html: string): string | null {
+  const found: (string | null)[] = [];
+  new HTMLRewriter()
+    .on('figure[data-code]', { element: (e) => void found.push(e.getAttribute('data-code-source')) })
+    .transform(html);
+  const raw = found[0];
+  return raw === undefined || raw === null
+    ? null
+    : raw
+        .replace(/&#x([0-9a-f]+);/gi, (_: string, n: string) => String.fromCharCode(parseInt(n, 16)))
+        .replace(/&#(\d+);/g, (_: string, n: string) => String.fromCharCode(Number(n)))
+        .replace(/&quot;/g, '"')
+        .replace(/&#x27;|&apos;/g, "'")
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&');
+}
+
+describe('copying a folded block', () => {
+  test('data-code-source carries every line, folded ones included', async () => {
+    const doc = await renderDoc(fence('json', boilerplateJson), opts);
+    expect(doc.html).toContain('data-folds="2"');
+    expect(copySource(doc.html)).toBe(boilerplateJson.join('\n'));
+  });
+
+  test('the copy button resolves its text from the figure attribute, not the visible code', () => {
+    const figure = {
+      getAttribute: (name: string) => (name === 'data-code-source' ? 'line 1\nline 2\nline 3' : null),
+    };
+    const button = { closest: (selector: string) => (selector === 'figure' ? figure : null) };
+    expect(codeSourceFor(button as unknown as Element)).toBe('line 1\nline 2\nline 3');
+    expect(codeSourceFor({ closest: () => null } as unknown as Element)).toBeNull();
+  });
+
+  test('a mouse selection over the closed block still spans the folded lines', async () => {
+    // The folded lines stay in the flow (clipped to zero height) rather than
+    // being display:none, so the rendered text is byte-identical to the source.
+    const doc = await renderDoc(fence('json', boilerplateJson), opts);
+    expect(codeText(doc.html)).toBe(boilerplateJson.join('\n'));
+    // Specifically: the folded run is inside the clipped container, not dropped.
+    expect(codeText(doc.html)).toContain('"canUpdateStandards": []');
+  });
+
+  test('the clipped lines are hidden from assistive tech while the fold is closed', async () => {
+    const doc = await renderDoc(fence('text fold=3-5', numbered(12)), opts);
+    expect(doc.html.match(/<span class="code-fold-lines" aria-hidden="true">/g)).toHaveLength(1);
+  });
+});
+
+describe('the expand-all control', () => {
+  test('sits immediately left of the copy button on a folded figure', async () => {
+    const doc = await renderDoc(fence('text fold=3-5', numbered(12)), opts);
+    expect(doc.html).toMatch(
+      /<button type="button" class="copy-button" data-expand-all="" aria-expanded="false">Expand all<\/button><button type="button" class="copy-button" data-copy="">Copy<\/button>/,
+    );
+  });
+
+  test('is absent from a figure with no folds', async () => {
+    const doc = await renderDoc('# T\n\n```bash\necho hi\n```', opts);
+    expect(doc.html).toContain('data-copy=""');
+    expect(doc.html).not.toContain('data-expand-all');
+  });
+
+  test('is absent when a fold= range collapses to nothing', async () => {
+    const doc = await renderDoc(fence('text fold=99-120', numbered(5)), opts);
+    expect(doc.html).not.toContain('data-folds');
+    expect(doc.html).not.toContain('data-expand-all');
+  });
+
+  test('appears once per folded figure regardless of the number of folds', async () => {
+    const doc = await renderDoc(fence('json', boilerplateJson), opts);
+    expect(doc.html).toContain('data-folds="2"');
+    expect(doc.html.match(/data-expand-all/g)).toHaveLength(1);
   });
 });

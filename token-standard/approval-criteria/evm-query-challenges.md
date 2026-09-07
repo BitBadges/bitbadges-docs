@@ -2,7 +2,7 @@
 description: "evmQueryChallenges: gate an approval on a read-only EVM staticcall whose result must compare as expected, with placeholders for the transfer parties."
 ---
 
-# EVM query challenges
+# EVM Query Challenges
 
 An EVM query challenge calls a contract with `staticcall` before the transfer and compares the return value against an expected one. It lets an approval depend on any EVM state: an ERC-20 balance, an NFT owner, a screening contract, a custom compliance oracle.
 
@@ -142,13 +142,13 @@ interface EVMQueryChallenge {
 | `gasLimit` | Uint | no | Gas for the call. `0` means the default 250000. Maximum 500000. |
 | `uri`, `customData` | string | no | Metadata. Use `uri` to document what the check verifies. |
 
-The same structure is used for post-transfer [invariants](invariants.md) on the collection. This page covers the approval criterion.
+The same structure is used for post-transfer [Invariants](invariants.md) on the collection. This page covers the approval criterion.
 
 {% hint style="info" %}
 Ask your agent: "Add a transfer approval to collection 1 that only lets addresses holding at least 100 units of the ERC-20 at 0x5fbdb2315678afecb367f032d93f642f64180aa3 send tokens." The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 1. Replace placeholders in `calldata` with values from the transfer.
 2. Execute a `staticcall` to `contractAddress` with the calldata under `gasLimit`.
@@ -170,7 +170,7 @@ Approval checks run once per (sender, recipient) pair, so one recipient is in sc
 
 Placeholders are also accepted in `expectedResult`, which is how you check that a call returns a party's address.
 
-### Comparison operators
+### Comparison Operators
 
 | Operator | Meaning |
 | --- | --- |
@@ -193,7 +193,7 @@ Only `eq` and `ne` are reliable for non-numeric return types.
 
 A query that runs out of gas fails the challenge. Contracts that call precompiles need more headroom than plain storage reads. Rough guide: about 30000 for a storage read, 50000 for an ERC-20 balance, more for logic that touches a precompile.
 
-### Building calldata
+### Building Calldata
 
 1. Selector: first 4 bytes of `keccak256(signature)`. `balanceOf(address)` is `70a08231`.
 2. ABI-encode each argument to 32 bytes. An address is left-padded with 24 zero bytes.
@@ -238,7 +238,7 @@ Initiator must own NFT #1 of the ERC-721 at the same address (`ownerOf(uint256)`
 }
 ```
 
-### Failure conditions
+### Failure Conditions
 
 - Contract address is invalid or has no code
 - Calldata is malformed or empty
@@ -257,5 +257,5 @@ Initiator must own NFT #1 of the ERC-721 at the same address (`ownerOf(uint256)`
 ## Related
 
 - [Invariants](invariants.md)
-- [Tokenization precompile](../../chain/evm/tokenization-precompile/README.md)
+- [Tokenization Precompile](../../chain/evm/tokenization-precompile/README.md)
 - [EVM](../../chain/evm/README.md)

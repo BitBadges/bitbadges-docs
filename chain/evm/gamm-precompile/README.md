@@ -2,7 +2,7 @@
 description: "The GAMM precompile at 0x0000000000000000000000000000000000001002: join and exit liquidity pools, swap, swap with an IBC transfer, create a pool, and query pools from Solidity."
 ---
 
-# GAMM precompile
+# GAMM Precompile
 
 The GAMM precompile gives Solidity contracts access to the `x/gamm` liquidity pools: join, exit, swap (single and multi-hop), swap with an IBC transfer, create a pool, and read pool state. Address: `0x0000000000000000000000000000000000001002`.
 
@@ -53,7 +53,7 @@ contract MyPoolContract {
 }
 ```
 
-## How it works
+## How It Works
 
 Every method takes one `string calldata msgJson`. The JSON is the protobuf JSON of the matching `x/gamm` message or query. The precompile sets `sender` from `msg.sender`, converts any `0x` affiliate addresses to bech32, runs `ValidateBasic`, and calls the keeper.
 
@@ -117,7 +117,7 @@ Signatures and JSON shapes: [API reference](api.md).
 
 ## Patterns
 
-### Join a pool
+### Join a Pool
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -155,7 +155,7 @@ contract JoinPoolExample {
 }
 ```
 
-### Exit a pool
+### Exit a Pool
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -193,7 +193,7 @@ contract ExitPoolExample {
 }
 ```
 
-### Single-hop swap
+### Single-Hop Swap
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -229,7 +229,7 @@ contract SingleHopSwapExample {
 }
 ```
 
-### Multi-hop swap
+### Multi-Hop Swap
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -267,7 +267,7 @@ contract MultiHopSwapExample {
 }
 ```
 
-## Helper library
+## Helper Library
 
 `GammJSONHelpers` builds JSON for every method:
 
@@ -279,7 +279,7 @@ contract MultiHopSwapExample {
 
 `GammHelpers`, `GammBuilders`, `GammWrappers`, `GammDecoders`, and `GammErrors` in the same folder add struct builders, typed wrappers, and validation.
 
-## Return values
+## Return Values
 
 `uint256` directly:
 
@@ -302,7 +302,7 @@ Protobuf bytes from `getPool`, `getPools`, and `getPoolParams`. Decode off-chain
 - Set minimum and maximum amounts on every call. See [Gotchas](gotchas.md#slippage-protection).
 - Use the helper functions so the JSON matches the schema.
 
-## Best practices
+## Best Practices
 
 Use the helpers:
 
@@ -356,7 +356,7 @@ string memory exitJson = GammJSONHelpers.exitPoolJSON(
 
 ## Related
 
-- [GAMM precompile API](api.md)
+- [GAMM Precompile API](api.md)
 - [Gotchas](gotchas.md)
 - [GAMM module](../../modules/gamm/README.md)
 - [Example contracts](https://github.com/BitBadges/bitbadgeschain/tree/master/contracts/examples)

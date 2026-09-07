@@ -34,7 +34,7 @@ jobs:
                   # Find all markdown files
                   find . -type f -name "*.md" | sort | while read -r file; do
                     # Skip hidden directories and node_modules
-                    if [[ "$file" != *"/.git/"* && "$file" != */node_modules/* && "$file" != */build/* && "$file" != */dist/* && "$file" != ./site/* && "$file" != ./_docs/* && "$file" != ./.gstack/* ]]; then
+                    if [[ "$file" != *"/.git/"* && "$file" != */node_modules/* && "$file" != */build/* && "$file" != */dist/* && "$file" != ./site/* && "$file" != ./_docs/* && "$file" != ./.gstack/* && "$file" != ./sdk/reference/* && "$file" != ./chain/proto/* ]]; then
                       echo "Processing $file"
                       
                       # Add file path as header
@@ -45,9 +45,12 @@ jobs:
                     fi
                   done
 
-                  # Also find and process any other text-based documentation files
+                  # Also find and process any other text-based documentation files.
+                  # site/, _docs/ and .github/ are excluded: the first carries the
+                  # OpenAPI specs and lockfiles (megabytes of generated JSON), the
+                  # others are internal notes and CI, none of which are documentation.
                   find . -type f -name "*.txt" -o -name "*.yaml" -o -name "*.yml" -o -name "*.json" | sort | while read -r file; do
-                    if [[ "$file" != *"/.git/"* && "$file" != */node_modules/* && "$file" != */build/* && "$file" != */dist/* && "$file" != *"for-llms.txt"* ]]; then
+                    if [[ "$file" != *"/.git/"* && "$file" != */node_modules/* && "$file" != */build/* && "$file" != */dist/* && "$file" != *"for-llms.txt"* && "$file" != ./site/* && "$file" != ./_docs/* && "$file" != ./.gstack/* && "$file" != ./.github/* ]]; then
                       echo "Processing $file"
                       
                       # Add file path as header

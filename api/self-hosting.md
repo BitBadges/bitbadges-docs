@@ -2,7 +2,7 @@
 description: "Run your own BitBadges indexer and API. Architecture, MongoDB and Redis requirements, environment variables, bun scripts, and Docker."
 ---
 
-# Self-hosting
+# Self-Hosting
 
 The indexer and API are open source at [https://github.com/bitbadges/bitbadges-indexer](https://github.com/bitbadges/bitbadges-indexer). Run them yourself when you want your own copy of the indexed data or your own API without credits and rate limits.
 
@@ -42,9 +42,9 @@ curl -X POST http://localhost:3001/api/v0/collections \
 
 Storage is MongoDB. Redis backs rate limiting, the credit ledger, and caches. Both are required.
 
-Point the poller at your own node. Public nodes are not built for an indexer that can send more than 100 requests per second. See [Run a node](../chain/run-a-node.md).
+Point the poller at your own node. Public nodes are not built for an indexer that can send more than 100 requests per second. See [Run a Node](../chain/run-a-node.md).
 
-## Environment variables
+## Environment Variables
 
 Required:
 
@@ -100,7 +100,7 @@ docker run -p 3001:3001 -p 8080:8080 --env-file .env bitbadges-indexer
 
 The image builds with `oven/bun`, runs `bun run indexer` as a non-root user, and bakes in the MongoDB `crypt_shared` library for in-process field-level encryption (`CRYPT_SHARED_LIB_PATH`). A full multi-service setup (chain node plus services) is at [https://github.com/bitbadges/bitbadges-docker](https://github.com/bitbadges/bitbadges-docker).
 
-## Rate limit tiers
+## Rate Limit Tiers
 
 Your instance applies the same limiters as the hosted API: 150 requests per minute per IP for frontend traffic, 10 per 10 seconds per IP with no key, and `ACCOUNT_RATE_LIMIT_PER_MIN` per account with a key. Adjust with the environment variable.
 
@@ -111,4 +111,4 @@ MongoDB connection failed: check that `DB_URL` is correct and reachable, that th
 ## Related
 
 - [BitBadges API](README.md)
-- [Run a node](../chain/run-a-node.md)
+- [Run a Node](../chain/run-a-node.md)

@@ -2,7 +2,7 @@
 description: "Subscribe to chain events over the CometBFT WebSocket: endpoint, subscribe and unsubscribe, queries by message type and sender, a Node.js listener."
 ---
 
-# WebSocket events
+# WebSocket Events
 
 The chain exposes the standard CometBFT JSON-RPC WebSocket for real-time events. Bots use it to react to transfers, mints, and collection updates as they land.
 
@@ -58,7 +58,7 @@ Combined:
 tm.event='Tx' AND message.action='/tokenization.MsgCreateCollection' AND message.sender='bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d'
 ```
 
-## Message type URLs
+## Message Type URLs
 
 The `message.action` attribute is the message type URL, `/<proto package>.<Msg>`. The tokenization package is `tokenization`.
 
@@ -75,7 +75,7 @@ The `message.action` attribute is the message type URL, `/<proto package>.<Msg>`
 
 The full message list is in [Messages](../token-standard/messages/README.md).
 
-## Node.js listener
+## Node.js Listener
 
 ```ts
 import WebSocket from 'ws';
@@ -174,5 +174,5 @@ All queries:
 ## Related
 
 - [Network](README.md)
-- [Bot examples](../agents/bot-examples.md)
+- [Bot Examples](../agents/bot-examples.md)
 - [Messages](../token-standard/messages/README.md)

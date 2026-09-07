@@ -2,7 +2,7 @@
 description: "Fetch a user's balance for a collection or a single token from the BitBadges API, the chain, or the bb CLI, full balance array or one amount."
 ---
 
-# Balance lookups
+# Balance Lookups
 
 Balances are stored as a list of `{ amount, tokenIds, ownershipTimes }`. Most apps only need "how much of token X does this address hold now". Both shapes are available from every surface.
 

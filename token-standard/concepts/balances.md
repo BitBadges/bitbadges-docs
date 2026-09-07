@@ -42,7 +42,7 @@ A user's balance store holds an array of these. Approvals, trackers, and transfe
 Ask your agent: "Show bob's balance of token ID 1 in collection 1 right now." The MCP builder tools (`query_balance`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 ### Expansion
 
@@ -87,7 +87,7 @@ Subtracting a slice can split one `Balance` into several. Removing "1x of IDs 1-
 ]
 ```
 
-### Duplicates add
+### Duplicates Add
 
 Overlapping ranges inside one `Balance` are summed, not deduplicated:
 
@@ -112,7 +112,7 @@ is the same as:
 }
 ```
 
-### Ownership times in practice
+### Ownership Times in Practice
 
 Most collections do not need time-bound ownership. Use the full range `[{ "start": "1", "end": "18446744073709551615" }]` and set the `noCustomOwnershipTimes` invariant to lock that in. Transfers, approvals, and trackers all carry ownership times, so a transfer can move "IDs 1-10 for 2026 only" and leave the rest with the sender.
 
@@ -125,6 +125,6 @@ Most collections do not need time-bound ownership. Use the full range `[{ "start
 ## Related
 
 - [UintRanges](uint-ranges.md)
-- [Minting and supply](minting-and-supply.md)
+- [Minting and Supply](minting-and-supply.md)
 - [Balance snippets](../../sdk/snippets/balances.md)
 - [GetBalance](../queries/get-balance.md)

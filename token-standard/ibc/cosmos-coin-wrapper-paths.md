@@ -2,9 +2,9 @@
 description: "Wrapper paths burn native tokens into a generated badges:COLLECTION_ID:denom x/bank coin and back. Fields, conversion rates, {id} denoms, approvals."
 ---
 
-# Cosmos coin wrapper paths
+# Cosmos Coin Wrapper Paths
 
-A wrapper path gives a collection a generated x/bank denom, `badges:<collectionId>:<denom>`, that is IBC-compatible. Sending tokens to the path's wrapper address burns them and mints the coin. Sending the coin back burns the coin and mints the tokens. The denom is new and generated; it is not an existing IBC denom (for that, see [Backed minting](backed-minting.md)).
+A wrapper path gives a collection a generated x/bank denom, `badges:<collectionId>:<denom>`, that is IBC-compatible. Sending tokens to the path's wrapper address burns them and mints the coin. Sending the coin back burns the coin and mints the tokens. The denom is new and generated; it is not an existing IBC denom (for that, see [Backed Minting](backed-minting.md)).
 
 Use cases:
 
@@ -12,7 +12,7 @@ Use cases:
 - Reach chains and services that only understand x/bank coins (Osmosis, Juno, and others).
 
 {% hint style="warning" %}
-Wrapper addresses have no private key. Collection approvals must override the wrapper address's user-level approvals where needed, and every approval used for a wrap or unwrap must set `allowSpecialWrapping: true` in `approvalCriteria`. See [Special address flags](../approval-criteria/special-address-flags.md).
+Wrapper addresses have no private key. Collection approvals must override the wrapper address's user-level approvals where needed, and every approval used for a wrap or unwrap must set `allowSpecialWrapping: true` in `approvalCriteria`. See [Special Address Flags](../approval-criteria/special-address-flags.md).
 {% endhint %}
 
 ## Shape
@@ -277,7 +277,7 @@ A complete `MsgCreateCollection` with both paths open:
 Ask your agent: "Add a wrapper path to collection 1 with denom utoken and symbol TOKEN, plus the wrap and unwrap approvals it needs." The MCP builder tools (`add_cosmos_wrapper_path, generate_wrapper_address, add_approval`) produce the objects on this page.
 {% endhint %}
 
-## Wrapper paths versus alias paths
+## Wrapper Paths Versus Alias Paths
 
 The chain keeps two separate path types.
 
@@ -358,9 +358,9 @@ Alias paths do no wrapping:
 }
 ```
 
-See [Alias denoms](alias-denoms.md) for the alias side.
+See [Alias Denoms](alias-denoms.md) for the alias side.
 
-## Wrapper address generation
+## Wrapper Address Generation
 
 The wrapper address derives from the base denom only, not from the full `badges:collectionId:denom` string.
 
@@ -372,7 +372,7 @@ const wrapperAddress = generateAliasAddressForDenom(denom);
 console.log('Wrapper Address:', wrapperAddress);
 ```
 
-## Conversion structure
+## Conversion Structure
 
 Wrapper paths and alias paths both use `ConversionWithoutDenom`. The denom is stored at the path level, which is why the type carries "WithoutDenom".
 
@@ -413,7 +413,7 @@ Wrapper paths and alias paths both use `ConversionWithoutDenom`. The denom is st
 
 With `sideA.amount = "1"` and `sideB = [{ amount: 1n, ... }]`, one wrapped coin equals one token (1:1). With `sideA.amount = "100"` and the same `sideB`, 100 wrapped coins equal one token (100:1).
 
-## Configuration fields
+## Configuration Fields
 
 ### Denom
 
@@ -485,7 +485,7 @@ The full Cosmos denom is `badges:collectionId:denom`. `badges:` is the wrapper p
 
 Rate: `conversion.sideA.amount` wrapped coin = `conversion.sideB[]` tokens.
 
-### Denom units
+### Denom Units
 
 Several display units can describe the same base unit.
 
@@ -532,7 +532,7 @@ Several display units can describe the same base unit.
 
 Each `DenomUnit` carries an optional `metadata` field of type `PathMetadata`.
 
-### Allow override with any valid token
+### Allow Override with Any Valid Token
 
 When `true`, the wrapper accepts any single token ID inside the collection's `validTokenIds`.
 
@@ -572,7 +572,7 @@ When `true`, the wrapper accepts any single token ID inside the collection's `va
 3. The chain replaces `conversion.sideB[].tokenIds` with `[{ start: 5n, end: 5n }]` for this transfer and ignores the stored values.
 4. The conversion proceeds with token ID 5.
 
-### `{id}` placeholder
+### `{id}` Placeholder
 
 `{id}` in `denom` or `symbol` is replaced by the actual token ID.
 
@@ -647,7 +647,7 @@ Transferring token ID 5 produces the denom `utoken5`.
 
 The hosted JSON is usually `{ name, image, description }`; the image is the main use. The on-chain `symbol` identifies the path, not the metadata name. Metadata is optional on the path and on each `DenomUnit`.
 
-## Transferability requirements
+## Transferability Requirements
 
 A wrapper address follows the same approval rules as any other address. You can gate by user, rate-limit, or apply any criteria.
 
@@ -695,9 +695,9 @@ const collectionApprovals = [
 ];
 ```
 
-## Conversion process
+## Conversion Process
 
-### Token to coin (wrapping)
+### Token to Coin (Wrapping)
 
 1. The user transfers tokens to the wrapper address.
 2. The chain processes the denom (replaces `{id}`, validates the override if enabled).
@@ -739,7 +739,7 @@ const wrapTokens: MsgTransferTokens = {
 // 10 tokens are burned (based on conversion.sideB balances)
 ```
 
-### Coin to token (unwrapping)
+### Coin to Token (Unwrapping)
 
 Unwrapping also uses `MsgTransferTokens`. The user initiates a transfer on behalf of the wrapper address.
 
@@ -784,9 +784,9 @@ const unwrapCoins: MsgTransferTokens = {
 // 10 badges:1:utoken coins are burned from wrapper address (based on conversion.sideA.amount = 1)
 ```
 
-## Use cases
+## Use Cases
 
-### IBC transfers
+### IBC Transfers
 
 Wrap, then send the x/bank coin over ICS-20.
 
@@ -834,7 +834,7 @@ const ibcTransfer = {
 };
 ```
 
-### DeFi integration
+### DeFi Integration
 
 ```ts
 // Add wrapped tokens to liquidity pool
@@ -854,7 +854,7 @@ const addLiquidity = {
 };
 ```
 
-## Permission control
+## Permission Control
 
 The `canAddMoreCosmosCoinWrapperPaths` collection permission controls when the manager may add wrapper paths. It is an `ActionPermission` with time-based controls.
 
@@ -957,7 +957,7 @@ const collectionPermissions: CollectionPermissions<bigint> = {
 
 When `MsgUniversalUpdateCollection` carries `cosmosCoinWrapperPathsToAdd`, the chain checks `canAddMoreCosmosCoinWrapperPaths` before it processes the paths. A failed check rejects the transaction. The check happens before the paths are added, but the permission itself can still be updated at the end of the same transaction when `updateCollectionPermissions` is `true`. Paths can be added but never edited.
 
-## Differences from backed paths
+## Differences from Backed Paths
 
 | Feature | Wrapper path | Backed path |
 | --- | --- | --- |
@@ -968,7 +968,7 @@ When `MsgUniversalUpdateCollection` carries `cosmosCoinWrapperPathsToAdd`, the c
 
 ## Related
 
-- [Wrap to an IBC denom](../../guides/wrap-to-an-ibc-denom.md)
-- [Backed minting](backed-minting.md)
-- [Special address flags](../approval-criteria/special-address-flags.md)
+- [Wrap to an IBC Denom](../../guides/wrap-to-an-ibc-denom.md)
+- [Backed Minting](backed-minting.md)
+- [Special Address Flags](../approval-criteria/special-address-flags.md)
 - [MsgTransferTokens](../messages/msg-transfer-tokens.md)

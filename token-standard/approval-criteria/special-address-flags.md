@@ -2,7 +2,7 @@
 description: "allowBackedMinting and allowSpecialWrapping: opt a collection approval into backed-path and wrapper-path transfers, and the rules enforced."
 ---
 
-# Special address flags
+# Special Address Flags
 
 Backed paths and cosmos coin wrapper paths transfer tokens to and from generated path addresses. An approval matches those transfers only if it opts in with these flags, so an approval that says `toListId: "All"` does not accidentally allow wrapping or backing.
 
@@ -17,7 +17,7 @@ interface ApprovalCriteria<T extends NumberType> {
 
 | Field | Default | Opts the approval into |
 | --- | --- | --- |
-| `allowBackedMinting` | `false` | Transfers to or from the `cosmosCoinBackedPath` address ([backed minting](../ibc/backed-minting.md)) |
+| `allowBackedMinting` | `false` | Transfers to or from the `cosmosCoinBackedPath` address ([Backed Minting](../ibc/backed-minting.md)) |
 | `allowSpecialWrapping` | `false` | Transfers to or from a `cosmosCoinWrapperPaths` address ([wrapper paths](../ibc/cosmos-coin-wrapper-paths.md)) |
 
 Collection approvals only.
@@ -26,7 +26,7 @@ Collection approvals only.
 Ask your agent: "Add a wrapper path to collection 1 so token ID 1 can be wrapped into an IBC denom, with the wrap and unwrap approvals it needs." The MCP builder tools (`add_cosmos_wrapper_path, add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 The check is bidirectional: whether the path address is the sender or the recipient, the approval must carry the flag. Path addresses have no keys and no user-level approvals, so these approvals also need the matching [override](overrides.md).
 
@@ -35,7 +35,7 @@ When a flag is `true` the chain validates the approval:
 - `mustPrioritize` must be `true`. Transfers through paths always prioritize.
 - Exactly one of `fromListId` or `toListId` must resolve to a whitelist of exactly one address, and that address must be the path address for this collection.
 
-### Backed minting approval
+### Backed Minting Approval
 
 ```ts
 const backingApproval: CollectionApproval<bigint> = {
@@ -55,7 +55,7 @@ const backingApproval: CollectionApproval<bigint> = {
 };
 ```
 
-### Wrapper approval
+### Wrapper Approval
 
 ```ts
 const wrapperApproval: CollectionApproval<bigint> = {
@@ -79,7 +79,7 @@ Path addresses are registered as reserved protocol addresses, so forceful transf
 
 ## Related
 
-- [Backed minting](../ibc/backed-minting.md)
-- [Cosmos coin wrapper paths](../ibc/cosmos-coin-wrapper-paths.md)
-- [Prioritized approvals](../concepts/prioritized-approvals.md)
+- [Backed Minting](../ibc/backed-minting.md)
+- [Cosmos Coin Wrapper Paths](../ibc/cosmos-coin-wrapper-paths.md)
+- [Prioritized Approvals](../concepts/prioritized-approvals.md)
 - [Overrides](overrides.md)

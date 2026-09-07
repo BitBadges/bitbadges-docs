@@ -2,15 +2,15 @@
 description: "Copy-paste bot patterns on mainnet. Mint a fungible token, conditional transfer, ownership gating, event subscription, and the builder tool workflow."
 ---
 
-# Bot examples
+# Bot Examples
 
 Copy-paste patterns for bots and agents that act on mainnet. Each example is a complete script; the addresses are the docs fixtures (alice `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d` runs the bot, bob `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue` is the user), so swap in your own.
 
 Testnet is offline, so every example targets mainnet. Test on a low-value collection first. Testnet status and the faucet API shape: [Testnet](../chain/testnet.md).
 
-## 1. Mint a fungible token
+## 1. Mint a Fungible Token
 
-Create a fungible token collection with server-side signing. The collection message comes from `bb build`, the MCP builder tools (`get_transaction`), or the [Create a collection](../guides/create-a-collection.md) guide, saved as `collection.json`.
+Create a fungible token collection with server-side signing. The collection message comes from `bb build`, the MCP builder tools (`get_transaction`), or the [Create a Collection](../guides/create-a-collection.md) guide, saved as `collection.json`.
 
 ```ts
 import { readFileSync } from 'node:fs';
@@ -38,7 +38,7 @@ if (result.success) {
 
 Load the `fungible-token` skill for the message shape: `bb dev skills fungible-token` or `get_skill_instructions({ skillId: "fungible-token" })`.
 
-## 2. Check a balance and transfer on a condition
+## 2. Check a Balance and Transfer on a Condition
 
 Top up bob's Demo Coin (collection 2, token ID 1) when he holds fewer than 10 units.
 
@@ -89,7 +89,7 @@ if (held < 10n) {
 }
 ```
 
-## 3. Gate access (verify ownership)
+## 3. Gate Access (Verify Ownership)
 
 Check that a user owns a token before granting access.
 
@@ -120,7 +120,7 @@ console.log(allowed ? 'grant access' : 'deny access');
 
 For an HTTP-native version of this check (the server answers 402 and the agent proves ownership with a signature), use [Gate access](../guides/gate-access.md).
 
-## 4. Subscribe to events and react
+## 4. Subscribe to Events and React
 
 Listen for transfers on a collection and act on each one.
 
@@ -170,11 +170,11 @@ async function handleTransfer(txHash: string) {
 connect();
 ```
 
-Query syntax and event types: [WebSocket events](../chain/websocket-events.md).
+Query syntax and event types: [WebSocket Events](../chain/websocket-events.md).
 
-## 5. Builder tool workflow
+## 5. Builder Tool Workflow
 
-With the [MCP builder tools](mcp-tools.md) (Claude Desktop, Claude Code, Cursor), build a collection with the session tools and verify before handing off. Every call below is the JSON the client sends; the same files work with `bb dev tools call <name> --args-file`.
+With the [MCP Builder Tools](mcp-tools.md) (Claude Desktop, Claude Code, Cursor), build a collection with the session tools and verify before handing off. Every call below is the JSON the client sends; the same files work with `bb dev tools call <name> --args-file`.
 
 ```text
 # 1. Load the skill
@@ -250,7 +250,7 @@ get_transaction({})
 get_review_url({})   # give the user reviewUrl to review and sign
 ```
 
-### CLI template build
+### CLI Template Build
 
 ```bash
 # Vault token (prints transaction JSON)
@@ -268,7 +268,7 @@ bb build vault --backing-coin USDC --name "Demo Vault" --description "USDC vault
 
 Every template builder: [Build](../cli/build.md).
 
-### Query sequence (no signing)
+### Query Sequence (No Signing)
 
 ```text
 search({ "query": "Demo Coin" })
@@ -279,17 +279,17 @@ search({ "query": "Demo Coin" })
 
 The builder builds and validates but never signs or broadcasts. Sign with the SDK signing client, the chain binary, or the review-and-sign link.
 
-## Tips for agents
+## Tips for Agents
 
 - Simulate before broadcasting. Use `simulate_transaction`, `bb simulate`, or the signing client's `simulate: true` option to catch errors before spending gas.
 - Test on a low-value collection first. Testnet is offline; see [Testnet](../chain/testnet.md) for status and the faucet shape.
 - Check `result.success` and `result.error` after every broadcast.
 - The signing client handles nonce and sequence with retries.
 - Keep credentials in environment variables (`MNEMONIC`, `BITBADGES_API_KEY`). Never hardcode them.
-- Bound what an agent can spend with an on-chain [Spending authorization](spending-authorization.md).
+- Bound what an agent can spend with an on-chain [Spending Authorization](spending-authorization.md).
 
 ## Related
 
-- [Signing client](../sdk/transactions/signing-client.md)
+- [Signing Client](../sdk/transactions/signing-client.md)
 - [Claims API](../api/claims/endpoints.md) for automated minting through claims
 - [Agents](README.md)

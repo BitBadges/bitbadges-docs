@@ -2,7 +2,7 @@
 description: "The reserved Mint address, how circulating supply is defined, and how to cap or leave open the supply of a collection."
 ---
 
-# Minting and supply
+# Minting and Supply
 
 Every mint is a transfer from the reserved `"Mint"` address. Circulating supply is whatever has left that address, so mint approvals and the permission to change them are the supply policy.
 
@@ -186,13 +186,13 @@ A complete mint approval. `fromListId` and the required override are open:
 Ask your agent: "Create a collection with a mint approval capped at 1000 mints, mint the first 10 to alice at creation, then lock the mint approval forever." The MCP builder tools (`add_approval, add_transfer, set_permissions`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
-### The Mint address
+### The Mint Address
 
 `"Mint"` has no key pair and no user-level approvals. Any transfer from it creates tokens. Because it cannot set its own outgoing approvals, every mint approval must set `overridesFromOutgoingApprovals: true`, or no transfer from it can match.
 
-### The manager controls the flow
+### The Manager Controls the Flow
 
 The manager controls minting through two things:
 
@@ -420,13 +420,13 @@ A complete `MsgUniversalUpdateCollection` that keeps one mint approval and forbi
 
 To lock minting, forbid updates to every Mint approval forever. The current approvals then freeze.
 
-### Two supply strategies
+### Two Supply Strategies
 
 **Mint at genesis, then lock.** Create the collection with a mint approval, mint everything you will ever need to yourself with `MsgTransferTokens`, then forbid mint approval updates. Result: fixed supply. Distribution is then governed by post-mint approvals.
 
 **Keep Mint as an escrow.** Create the collection with mint approvals and keep the permission to edit them. Result: elastic supply. Current approvals bound what can be minted now; the manager can widen them later.
 
-### Supply caps live in approvals
+### Supply Caps Live in Approvals
 
 Approval criteria on a mint approval decide who can mint, when, and how much:
 
@@ -551,7 +551,7 @@ Approval criteria on a mint approval decide who can mint, when, and how much:
 
 The `maxSupplyPerId` [invariant](../approval-criteria/invariants.md) adds a hard per-ID cap as a sanity check. It does not replace approval design.
 
-### The supply cap bypass
+### The Supply Cap Bypass
 
 A cap in the current approvals is not a cap if the manager can still edit approvals.
 
@@ -942,9 +942,9 @@ Rules:
 - Never `"All"` as a `fromListId`.
 - Never mix `"Mint"` with other addresses in one list.
 
-### Mint escrow address
+### Mint Escrow Address
 
-`"Mint"` cannot hold `x/bank` coins. Each collection has a generated `mintEscrowAddress` that holds coins on its behalf, used for payouts and escrows in [coin transfers](../approval-criteria/coin-transfers.md).
+`"Mint"` cannot hold `x/bank` coins. Each collection has a generated `mintEscrowAddress` that holds coins on its behalf, used for payouts and escrows in [Coin Transfers](../approval-criteria/coin-transfers.md).
 
 ```ts
 const mintEscrowAddress = generateAlias(
@@ -957,5 +957,5 @@ const mintEscrowAddress = generateAlias(
 
 - [Transferability](transferability.md)
 - [Permissions](permissions.md)
-- [Coin transfers](../approval-criteria/coin-transfers.md)
+- [Coin Transfers](../approval-criteria/coin-transfers.md)
 - [MsgTransferTokens](../messages/msg-transfer-tokens.md)

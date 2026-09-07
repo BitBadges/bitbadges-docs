@@ -2,11 +2,11 @@
 description: "Mint BitBadges tokens to yourself or to the public, charge for mints, pay out from escrow, and control circulating supply."
 ---
 
-# Mint and distribute
+# Mint and Distribute
 
 At the end your collection has the mint approvals it needs, tokens are in wallets, and the supply is as fixed or as open as you decided.
 
-Minting is a transfer from the reserved `Mint` address, allowed by a collection approval; see [Minting and supply](../token-standard/concepts/minting-and-supply.md). For code-, allowlist-, or social-gated distribution, use [Distribute with claims](distribute-with-claims.md) instead.
+Minting is a transfer from the reserved `Mint` address, allowed by a collection approval; see [Minting and Supply](../token-standard/concepts/minting-and-supply.md). For code-, allowlist-, or social-gated distribution, use [Distribute with Claims](distribute-with-claims.md) instead.
 
 Rules that apply to every mint approval:
 
@@ -18,7 +18,7 @@ Rules that apply to every mint approval:
 - `amountTrackerId` is required when `maxNumTransfers` or `approvalAmounts` is set.
 - All numbers are strings.
 
-## 1. Choose a mint pattern
+## 1. Choose a Mint Pattern
 
 | Pattern | `initiatedByListId` | Distinctive criteria |
 | --- | --- | --- |
@@ -36,7 +36,7 @@ Rules that apply to every mint approval:
 - "Build a transfer that mints token 1 of collection 1 to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue through the manager-mint approval, validate it, and give me the review link."
 {% endhint %}
 
-### Creator-only mint
+### Creator-Only Mint
 
 ```ts
 import { UintRangeArray } from 'bitbadges';
@@ -65,9 +65,9 @@ const collection = {
 };
 ```
 
-`EmptyApprovalCriteria` and `transferableApproval` are the no-restrictions template and the post-mint approval in [Set transferability](set-transferability.md). `BaseCollectionDetails` is from [Create a collection](create-a-collection.md).
+`EmptyApprovalCriteria` and `transferableApproval` are the no-restrictions template and the post-mint approval in [Set Transferability](set-transferability.md). `BaseCollectionDetails` is from [Create a Collection](create-a-collection.md).
 
-### Paid mint
+### Paid Mint
 
 ```json
 {
@@ -82,9 +82,9 @@ const collection = {
 }
 ```
 
-Both override flags are `false` for a standard payment: the initiator pays, and `to` (the creator or approver) receives. See [Coin transfers](../token-standard/approval-criteria/coin-transfers.md).
+Both override flags are `false` for a standard payment: the initiator pays, and `to` (the creator or approver) receives. See [Coin Transfers](../token-standard/approval-criteria/coin-transfers.md).
 
-### Sequential token IDs
+### Sequential Token IDs
 
 ```json
 {
@@ -119,9 +119,9 @@ Both override flags are `false` for a standard payment: the initiator pays, and 
 }
 ```
 
-For one-time or fixed-use approvals, prefer `incrementedBalances` with zero increments (`incrementTokenIdsBy: "0"`, `incrementOwnershipTimesBy: "0"`) over `maxNumTransfers` alone. The BitBadges site detects `predeterminedBalances` and shows users the exact tokens they will receive. Avoid `manualBalances`. See [Predetermined balances](../token-standard/approval-criteria/predetermined-balances.md).
+For one-time or fixed-use approvals, prefer `incrementedBalances` with zero increments (`incrementTokenIdsBy: "0"`, `incrementOwnershipTimesBy: "0"`) over `maxNumTransfers` alone. The BitBadges site detects `predeterminedBalances` and shows users the exact tokens they will receive. Avoid `manualBalances`. See [Predetermined Balances](../token-standard/approval-criteria/predetermined-balances.md).
 
-### Transfer limits
+### Transfer Limits
 
 ```json
 {
@@ -138,9 +138,9 @@ For one-time or fixed-use approvals, prefer `incrementedBalances` with zero incr
 }
 ```
 
-`"0"` means unlimited. See [Approval trackers](../token-standard/approval-criteria/approval-trackers.md).
+`"0"` means unlimited. See [Approval Trackers](../token-standard/approval-criteria/approval-trackers.md).
 
-### Auto-deletion
+### Auto-Deletion
 
 ```json
 {
@@ -155,9 +155,9 @@ For one-time or fixed-use approvals, prefer `incrementedBalances` with zero incr
 }
 ```
 
-See [Auto-deletion](../token-standard/approval-criteria/auto-deletion.md).
+See [Auto-Deletion](../token-standard/approval-criteria/auto-deletion.md).
 
-### Free mint with a payout from escrow
+### Free Mint with a Payout from Escrow
 
 The mint escrow address is a reserved address derived from the collection ID. It holds native coins and has no private key; only collection approvals can move funds out of it. Fund it at creation with `mintEscrowCoinsToTransfer` (the address depends on the collection ID, so genesis is the convenient moment) or top it up later. This complete `MsgCreateCollection` funds the escrow with 10,000 BADGE, pays each minter 1 BADGE, and caps the mint at one token per address and ten in total:
 
@@ -346,7 +346,7 @@ The mint escrow address is a reserved address derived from the collection ID. It
 - `overrideFromWithApproverAddress: true` makes the mint escrow the payer.
 - `overrideToWithInitiator: true` pays whoever initiated the mint, ignoring `to`.
 
-### Complete example: public paid mint with sequential IDs and caps
+### Complete Example: Public Paid Mint with Sequential IDs and Caps
 
 One complete `CollectionApproval` for `collectionApprovals`:
 
@@ -472,9 +472,9 @@ One complete `CollectionApproval` for `collectionApprovals`:
 }
 ```
 
-To add a mint approval after creation, the collection's `canUpdateCollectionApprovals` permission must not be frozen for `Mint`, and you send the approval in a separate `MsgUniversalUpdateCollection`. See [Lock permissions](lock-permissions.md).
+To add a mint approval after creation, the collection's `canUpdateCollectionApprovals` permission must not be frozen for `Mint`, and you send the approval in a separate `MsgUniversalUpdateCollection`. See [Lock Permissions](lock-permissions.md).
 
-## 2. Mint at creation time
+## 2. Mint at Creation Time
 
 One transaction can carry the `MsgUniversalUpdateCollection` that creates the collection plus one or more `MsgTransferTokens`. Every transfer uses `collectionId: "0"`, which refers to the collection created by the first message in the same transaction.
 
@@ -543,7 +543,7 @@ For expiring tokens, set `ownershipTimes` on the balance to a window in millisec
 
 MCP builder tool sessions edit these messages with patch operations: `add_transfer` (`{ op: "add_transfer", transfer: { transfers: [...] } }`) appends a `MsgTransferTokens`, `remove_transfer` (`{ op: "remove_transfer", index: 0 }`) removes one by 0-based index among the transfer messages, and `update_transfer` (`{ op: "update_transfer", index: 0, changes: {...} }`) deep-merges changes. See [MCP tools](../agents/mcp-tools.md).
 
-## 3. Mint after creation
+## 3. Mint After Creation
 
 ### bb CLI
 
@@ -579,7 +579,7 @@ The walkthrough lists approvals grouped by level (collection, outgoing, incoming
 
 If a picked approval requires a coin payment or prerequisite token ownership, the walkthrough prints a "Heads up" line before emitting. The output flows through the same pipeline as the collection builders, so `--simulate`, `--explain`, and `--browser` behave identically. `--burner` is create-only and refuses transfers.
 
-### Raw JSON: explicit balances
+### Raw JSON: Explicit Balances
 
 Mint token ID 1 of collection 1 to the creator, naming the collection approval to use. `onlyCheckPrioritizedCollectionApprovals: true` skips auto-scanning of other collection approvals; the user-level approvals still auto-scan.
 
@@ -624,7 +624,7 @@ Mint token ID 1 of collection 1 to the creator, naming the collection approval t
 }
 ```
 
-### Raw JSON: precalculated balances
+### Raw JSON: Precalculated Balances
 
 When the approval has `predeterminedBalances`, leave `balances` empty and let the chain compute them from the approval. Only the named approval is checked; no other approval is scanned. This is how approvals with side effects (Merkle challenges, ETH signature challenges, payments) are used deliberately, and it shows the approval version being pinned.
 
@@ -673,7 +673,7 @@ When the approval has `predeterminedBalances`, leave `balances` empty and let th
 | Approval scanning | auto-scan for unlisted levels | only the named approval |
 | Fits | fixed amounts you control | approvals whose criteria decide amounts and IDs |
 
-See [Prioritized approvals](../token-standard/concepts/prioritized-approvals.md) and [MsgTransferTokens](../token-standard/messages/msg-transfer-tokens.md).
+See [Prioritized Approvals](../token-standard/concepts/prioritized-approvals.md) and [MsgTransferTokens](../token-standard/messages/msg-transfer-tokens.md).
 
 ### TypeScript SDK
 
@@ -710,7 +710,7 @@ const result = await client.signAndBroadcast([msg]);
 console.log(result.success ? result.txHash : result.error);
 ```
 
-## 4. Define and lock circulating supply
+## 4. Define and Lock Circulating Supply
 
 Supply on BitBadges is not a fixed number. It is whatever the current mint approvals allow, plus whatever new mint approvals the manager can still create. If the manager can add or edit a `Mint` approval, they can raise supply by whatever that approval allows. The `canUpdateCollectionApprovals` permission is what makes supply final.
 
@@ -723,7 +723,7 @@ const FullTimeRanges = [
 ];
 ```
 
-Each block below is the `canUpdateCollectionApprovals` value to set inside `collectionPermissions`; the other ten permission arrays stay as in [Create a collection](create-a-collection.md).
+Each block below is the `canUpdateCollectionApprovals` value to set inside `collectionPermissions`; the other ten permission arrays stay as in [Create a Collection](create-a-collection.md).
 
 Lock supply forever (fixed cap). Every existing Mint approval stays as it is and no new one can be added:
 
@@ -790,9 +790,9 @@ const canUpdateCollectionApprovals = [
 ];
 ```
 
-More locking patterns are in [Lock permissions](lock-permissions.md).
+More locking patterns are in [Lock Permissions](lock-permissions.md).
 
-## Common mistakes
+## Common Mistakes
 
 - Numbers instead of strings (`"1000"`, not `1000`).
 - Missing `overridesFromOutgoingApprovals: true` on a Mint approval.
@@ -802,9 +802,9 @@ More locking patterns are in [Lock permissions](lock-permissions.md).
 - More than one `true` in `orderCalculationMethod`.
 - Coin transfer override flags set `true` for a standard payment (they are for escrow payouts only).
 
-## Next steps
+## Next Steps
 
-- [Set transferability](set-transferability.md)
-- [Lock permissions](lock-permissions.md)
-- [Distribute with claims](distribute-with-claims.md)
+- [Set Transferability](set-transferability.md)
+- [Lock Permissions](lock-permissions.md)
+- [Distribute with Claims](distribute-with-claims.md)
 - [MsgTransferTokens](../token-standard/messages/msg-transfer-tokens.md)

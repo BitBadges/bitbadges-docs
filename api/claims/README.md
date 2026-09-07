@@ -76,17 +76,17 @@ console.log(res.claimAttemptId); // 3b9d2f7a1c4e6b8d0f2a4c6e8b1d3f5a
 **Ask your agent.** With the MCP builder tools connected, a prompt like this works: "Create a claim for collection 1 that requires a Discord role and a password, 100 uses total, one per address." The agent calls `search_plugins` to look up the `discord` and `password` parameter schemas, then `build_claim` to produce the claim document. Review it, then create it through the API or the site.
 {% endhint %}
 
-## What is in this section
+## What Is in This Section
 
 | Page | Read it when |
 | --- | --- |
 | [Endpoints](endpoints.md) | You complete, simulate, verify, fetch, create, or delete claims through the API, or build the merkle proof for an on-chain claim. |
 | [Plugins](plugins.md) | You need a plugin's parameters or the request contract for a custom plugin endpoint. |
-| [Dynamic stores](dynamic-stores.md) | You want a BitBadges-hosted address list you update from your own systems. |
+| [Dynamic Stores](dynamic-stores.md) | You want a BitBadges-hosted address list you update from your own systems. |
 
-Guides: [Distribute with claims](../../guides/distribute-with-claims.md) walks through designing and shipping a claim. [Build a claim plugin](../../guides/build-a-claim-plugin.md) walks through writing an endpoint.
+Guides: [Distribute with Claims](../../guides/distribute-with-claims.md) walks through designing and shipping a claim. [Build a Claim Plugin](../../guides/build-a-claim-plugin.md) walks through writing an endpoint.
 
-## How a claim works
+## How a Claim Works
 
 1. A claim is created with a set of plugin instances (core, BitBadges-hosted, or custom).
 2. A user attempts the claim on the site, through the API, or programmatically.
@@ -96,19 +96,19 @@ Guides: [Distribute with claims](../../guides/distribute-with-claims.md) walks t
 
 A claim checks criteria. You decide what success means and how you verify it later (a direct lookup by address, an NFT the user now holds, and so on).
 
-### Plugin id versus instance id
+### Plugin ID Versus Instance ID
 
 A plugin id names the plugin (`codes`, `whitelist`, `must-own-badges`). An instance id names one use of that plugin inside a claim. One claim can hold several instances of the same plugin with different configuration when the plugin's version config sets `duplicatesAllowed`. Instance ids appear in `satisfyMethod.conditions`, as the keys of the `completeClaim` body, in per-instance plugin state, and in `_specificInstanceIds`.
 
-### Parallel execution
+### Parallel Execution
 
 Plugins never see each other's state changes inside one attempt. Each plugin reads state as it was before the attempt started. Passing plugins return state updates that commit together, and only if the whole claim succeeds. A plugin that needs to coordinate with another must use your own external state. Custom plugin endpoints have 10 seconds to respond.
 
-### Asynchronous processing
+### Asynchronous Processing
 
 `completeClaim` simulates first. If the simulation fails, the call returns the error and nothing is queued. If it passes, the attempt joins a queue and you get a `claimAttemptId` right away. Attempts resolve in about 1 to 5 seconds. Poll `getClaimAttemptStatus`. Attempts for the same collection process one at a time; different collections process in parallel.
 
-## Indexed versus on-demand claims
+## Indexed Versus On-Demand Claims
 
 | | Indexed (standard) | On-demand (non-indexed) |
 | --- | --- | --- |
@@ -120,7 +120,7 @@ Plugins never see each other's state changes inside one attempt. Each plugin rea
 
 Most claims are indexed. A plugin must set `reuseForNonIndexed` to work in an on-demand claim.
 
-### Cache policy (on-demand claims)
+### Cache Policy (On-Demand Claims)
 
 ```ts
 interface iClaimCachePolicy<T extends NumberType> {
@@ -139,11 +139,11 @@ interface iClaimCachePolicy<T extends NumberType> {
 
 Use short TTLs for criteria that change (token ownership can transfer). Use permanent caching for one-time checks.
 
-## Claim numbers
+## Claim Numbers
 
 Indexed claims number successes from 0 upward. By default `numUses` assigns the next number. A plugin with the `ClaimNumbers` response preset can assign numbers instead (`codes` assigns the code index, `whitelist` the list index). Only one plugin per claim can assign claim numbers.
 
-## Success logic
+## Success Logic
 
 By default every plugin must pass. Override with `satisfyMethod`:
 
@@ -167,7 +167,7 @@ interface iSatisfyMethod {
 - Users can pass `_specificInstanceIds` to choose which instances to attempt.
 - State updates only apply to plugins on the success path.
 
-## Signed-in versus select address
+## Signed-In Versus Select Address
 
 The `initiatedBy` plugin decides whether the claiming address is verified.
 
@@ -195,7 +195,7 @@ interface iClaimReward<T extends NumberType> {
 
 Configure rewards in the claim builder or through the `rewards` field of the claim document. Gated content is only visible to users who have succeeded.
 
-## Metadata and discoverability
+## Metadata and Discoverability
 
 | Field | Purpose |
 | --- | --- |
@@ -205,7 +205,7 @@ Configure rewards in the claim builder or through the `rewards` field of the cla
 | `estimatedCost`, `estimatedTime` | Display-only strings such as `"$10"` and `"5 minutes"`. Not enforced. |
 | `testOnly` | Excluded from public queries and production distribution. |
 
-## Gating an on-chain approval
+## Gating an On-Chain Approval
 
 Claims can gate on-chain token operations such as minting. The claim controls the right to initiate a transfer, not the transfer itself.
 
@@ -215,7 +215,7 @@ Claims can gate on-chain token operations such as minting. The claim controls th
 
 On-chain, the chain verifies the leaf signature matches the sender, verifies the path from leaf to root, checks the root against `approvalCriteria.merkleChallenges`, marks the leaf used in the challenge tracker (no replay), and then applies every other approval criterion before executing the transfer. On the site all of this is hidden; the user completes the claim, then signs. Through the API you fetch the reserved code and the proof yourself, see [Endpoints](endpoints.md).
 
-### On-chain types
+### On-Chain Types
 
 ```ts
 interface iMerkleChallenge<T extends NumberType> {
@@ -243,9 +243,9 @@ interface iMerkleChallengeTrackerDoc<T extends NumberType> {
 }
 ```
 
-`merkleChallenges` lives on collection-level, outgoing, and incoming approval criteria. See [Merkle challenges](../../token-standard/approval-criteria/merkle-challenges.md).
+`merkleChallenges` lives on collection-level, outgoing, and incoming approval criteria. See [Merkle Challenges](../../token-standard/approval-criteria/merkle-challenges.md).
 
-### How the claim links to the approval
+### How the Claim Links to the Approval
 
 ```ts
 interface iChallengeTrackerIdDetails<T extends NumberType> {
@@ -267,7 +267,7 @@ interface iChallengeTrackerIdDetails<T extends NumberType> {
 
 The claim builder sets these for you. When creating claims through the API, make `trackerDetails` match the approval.
 
-### Keep both sides aligned
+### Keep Both Sides Aligned
 
 | Misalignment | Result |
 | --- | --- |
@@ -278,7 +278,7 @@ The claim builder sets these for you. When creating claims through the API, make
 
 Use the claim builder, which generates the tree and the claim together. Update both sides together. Make `numUses.maxUses` equal the leaf count and the approval's maximum transfers, and keep the claim's `transferTimes` inside the approval's window.
 
-### Who can manage a linked claim
+### Who Can Manage a Linked Claim
 
 | Approval level | Who manages linked claims |
 | --- | --- |
@@ -288,7 +288,7 @@ Use the claim builder, which generates the tree and the claim together. Update b
 
 Transferring the manager role transfers control of every claim linked to collection approvals. The new manager can update, reconfigure, or disable them; the old manager loses access. With a manager splitter or multisig, all signers share that authority.
 
-## Trust model
+## Trust Model
 
 Claims are an off-chain system run by BitBadges. Know what you trust.
 
@@ -300,7 +300,7 @@ Claims are an off-chain system run by BitBadges. Know what you trust.
 
 For high-stakes flows: prefer on-chain criteria (token ownership, on-chain dynamic store challenges), treat claims as a convenience layer over approval criteria that enforce the limits on their own, plan for rollback, audit each plugin and its owner, and monitor attempts through the API.
 
-## Do you need a claim
+## Do You Need a Claim
 
 Claims are a convenience, not a requirement. The on-chain merkle challenge is fully decentralized: generate your own tree, hand out leaves, and let users submit proofs without BitBadges claims.
 
@@ -317,5 +317,5 @@ Claims earn their place when you want the hosted in-site experience, composable 
 
 - [Endpoints](endpoints.md)
 - [Plugins](plugins.md)
-- [Distribute with claims](../../guides/distribute-with-claims.md)
-- [Merkle challenges](../../token-standard/approval-criteria/merkle-challenges.md)
+- [Distribute with Claims](../../guides/distribute-with-claims.md)
+- [Merkle Challenges](../../token-standard/approval-criteria/merkle-challenges.md)

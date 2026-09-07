@@ -56,7 +56,7 @@ message ManagerSplitterPermissions {
 
 The permission set mirrors the collection's `CollectionPermissions` (see [Permissions](../../../token-standard/concepts/permissions.md)). Each entry maps a permission to the addresses allowed to exercise it. A permission with no criteria is denied to everyone except the admin. The only supported criteria type today is an approved-address list.
 
-## How it works
+## How It Works
 
 1. The admin creates a splitter and receives its address.
 2. The admin (or the current manager) sets that address as the collection manager with `MsgSetManager` or `MsgUniversalUpdateCollection`.

@@ -2,7 +2,7 @@
 description: "The badgeslp:COLLECTION_ID:denom alias format that lets Cosmos SDK interfaces treat x/tokenization balances as sdk.Coin without wrapping."
 ---
 
-# Alias denoms
+# Alias Denoms
 
 An alias denom is an `sdk.Coin` view of a native token balance. It exists so that liquidity pools, the send manager, and other code that expects `(denom, amount)` can hold and move `x/tokenization` tokens. Nothing is minted or burned. The environment must support aliases for this to work.
 
@@ -27,7 +27,7 @@ badgeslp:COLLECTION_ID:denom
 Ask your agent: "Add an alias path to collection 1 with symbol BASETOKEN and 6 decimals so token IDs 1 to 100 can be used as an sdk.Coin." The MCP builder tools (`add_alias_path, generate_alias_path`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 1. Parse the alias into collection ID and denom.
 2. Look up the `AliasPath` in the collection's `aliasPaths` array by denom.
@@ -38,7 +38,7 @@ Rules that follow from this:
 
 - There is no wrapping. The alias names the full `Balances[]` field; it does not create a new coin.
 - The conversion rate lives only in `aliasPaths[].conversion.sideA.amount` and `conversion.sideB[]`.
-- Code that supports aliases almost always runs in auto-scan mode, with no prioritized approvals. See [Prioritized approvals](../concepts/prioritized-approvals.md).
+- Code that supports aliases almost always runs in auto-scan mode, with no prioritized approvals. See [Prioritized Approvals](../concepts/prioritized-approvals.md).
 
 ## Configuration
 
@@ -263,7 +263,7 @@ In this example `1 badgeslp:COLLECTION_ID:utoken` converts to one token from IDs
 
 `metadata.uri` (for example `ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/path.json`) points at hosted JSON of the form `{ name, image, description }`. The image is the main use. The on-chain `symbol` identifies the path; the metadata name does not.
 
-## Use cases
+## Use Cases
 
 Adding liquidity to a pool with an alias and a standard coin side by side:
 
@@ -301,7 +301,7 @@ const transfer = {
 
 On the BitBadges chain, [Send manager](../../chain/modules/send-manager.md) is the module that accepts mixed `sdk.Coins` like these and routes each denom to x/bank or `x/tokenization` by prefix. [x/gamm](../../chain/modules/gamm/README.md) pools hold alias denoms as pool assets.
 
-## Permission control
+## Permission Control
 
 The `canAddMoreAliasPaths` collection permission controls when the manager may add alias paths. It is an `ActionPermission` with time-based controls.
 
@@ -413,7 +413,7 @@ When `MsgUniversalUpdateCollection` carries `aliasPathsToAdd`, the chain checks 
 
 ## Related
 
-- [Cosmos coin wrapper paths](cosmos-coin-wrapper-paths.md)
+- [Cosmos Coin Wrapper Paths](cosmos-coin-wrapper-paths.md)
 - [Send manager](../../chain/modules/send-manager.md)
 - [Permissions](../concepts/permissions.md)
 - [MsgUniversalUpdateCollection](../messages/msg-universal-update-collection.md)

@@ -72,10 +72,32 @@ crashes should not quietly land a PR that deletes most of the reference. On a
 first run, when the tree does not exist yet, the guard is skipped (there is no
 baseline to shrink from) — it still fails if generation produced zero files.
 
+The generator also owns the tree's landing page. `sdk/reference/README.md` is
+**not** a copy of the SDK package README any more: `rootIndex()` in the
+generator writes a landing page whose page counts come from the emitted tree
+and whose "Start here" table is the `START_HERE` list in the same file. Those
+fifteen symbols are mirrored one level deep under **SDK Reference** in
+`SUMMARY.md` by hand. Generation **fails** when a `START_HERE` symbol is no
+longer exported — when that happens, fix `START_HERE` and the matching
+`SUMMARY.md` entries together.
+
+Known gap: the workflow does not install dependencies inside the `bitbadgesjs`
+checkout before running TypeDoc. Generation is not verified against a
+dependency-free upstream checkout; the shrink guard is what stands between a
+degraded run and a merged PR.
+
 ### [1.3] `sync-proto-reference.yml` — the proto markdown
 
 Same shape, with `bun run gen:proto`, `BITBADGESCHAIN_DIR`, target
 `chain/proto/`, and the same preflight and 30 percent shrink guard.
+`chain/proto/README.md` is generated too, module counts and the "Start here"
+table included; the generator throws when a `START_HERE` proto file disappears.
+
+**Defect — `add-paths` is incomplete.** The generator writes `chain/proto/**`
+*and* rewrites the `proto-nav` block in `SUMMARY.md`, but the PR step lists only
+`add-paths: chain/proto/**`. A run that adds or removes a proto file produces
+pages with no sidebar entry, and the SUMMARY change is silently dropped from
+the PR. `add-paths` needs `SUMMARY.md` as a second entry.
 
 This workflow produces **human-readable markdown only**. It does not convert
 any spec. The chain's machine-readable document is a separate concern — see
@@ -89,6 +111,14 @@ in this repo's CI.
 
 Source: `docs/openapi/openapi.json` in `BitBadges/bitbadgeschain`.
 Destination: `site/openapi/chain-openapi.json`.
+
+**This workflow fails on every run today.** `bitbadgeschain@master` has no
+`docs/openapi/openapi.json` and no `openapi.yml` workflow — its
+`.github/workflows/` holds only `build.yml` and `release.yml`. Until that lands
+upstream, the committed `site/openapi/chain-openapi.json` is produced locally by
+`bun run gen:chain-openapi`, which converts `docs/static/openapi.yml`
+(Swagger 2.0, 282 paths). Treat the local generator as the live path and this
+workflow as staged for the upstream change, not as working automation.
 
 **The source path is not `docs/static/`, and that is on purpose.** In
 `bitbadgeschain`, `docs/docs.go` declares:
@@ -277,6 +307,12 @@ repository with no activity for 60 days, and re-enabling them is manual.
 
 ## [5] Retirement: Stoplight and GitHub Pages
 
+> **Full contract moved.** Evidence, sequencing, redirects, verification, and
+> rollback for Stoplight, GitHub Pages, **and GitBook** now live in
+> [`retire-hosted-docs.md`](./retire-hosted-docs.md) (`RB-RETIRE-HOSTED`).
+> This section is the short sync-CI-side view. Where the two differ, the
+> retirement runbook wins.
+
 Both of these are being retired as this repo becomes the single place API and
 SDK documentation is published. **Each needs its own separate PR in
 `BitBadges/bitbadgesjs` — neither is part of the docs-repo change.**
@@ -314,16 +350,20 @@ and the stale one is the one people find in search results.
 To retire it, in a **separate** PR against `bitbadgesjs` (separate from the
 Stoplight one, so a rollback of either does not drag the other back):
 
-1. Delete `.github/workflows/docs.yml`.
-2. Turn off Pages in that repo: Settings → Pages → Source → None.
-3. Delete the `gh-pages` branch.
-4. Add redirects from the old Pages URLs to the corresponding
-   `/sdk/reference` pages, so existing links and search results still land
-   somewhere useful. This repo's redirect table lives in
-   `_docs/redirects/*.tsv`.
+1. Archive the current `gh-pages` tip as a tag — this is the whole rollback.
+2. Delete `.github/workflows/docs.yml`, so the next SDK push cannot redeploy
+   TypeDoc over the shim.
+3. Replace the `gh-pages` branch content with a redirect shim
+   (`index.html` + `404.html`) that sends old Pages URLs to `/sdk/reference`.
 
-Do step 4 **before** steps 2 and 3. Deleting the Pages site first turns every
-existing inbound link into a 404 with nothing to catch it.
+**Keep the branch and leave Pages switched on.** An earlier draft of this
+section said to delete the branch and add rows to `_docs/redirects/*.tsv`;
+both were wrong. That table drives `next.config.ts` on `docs.bitbadges.io`
+and cannot catch a request to `bitbadges.github.io` — a different origin. The
+only place a redirect for those URLs can live is the `gh-pages` branch itself.
+Exact commands, the directory-name mismatches (`enums` → `enumerations`,
+`types` → `type-aliases`, `variables`/`modules` with no equivalent), and the
+404-status caveat are in [RB-RETIRE-HOSTED#3].
 
 ### [5.3] Order of operations
 

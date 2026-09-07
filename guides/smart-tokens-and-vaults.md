@@ -2,11 +2,11 @@
 description: "Issue a BitBadges smart token backed 1:1 by an IBC coin, add withdraw limits and 2FA, and give an AI agent a USDC vault it can deposit to and withdraw from."
 ---
 
-# Smart tokens and vaults
+# Smart Tokens and Vaults
 
 At the end you have a smart token backed 1:1 by USDC (or another IBC coin), rules on withdrawals, and, if you want one, an AI agent that deposits and withdraws from its vault with the SDK.
 
-A smart token uses the `cosmosCoinBackedPath` invariant: a keyless backing address holds the IBC coin, and tokens are created and destroyed only by moving through that address. See [Backed minting](../token-standard/ibc/backed-minting.md). A vault is a smart token with no transferable approval, so tokens never move between users.
+A smart token uses the `cosmosCoinBackedPath` invariant: a keyless backing address holds the IBC coin, and tokens are created and destroyed only by moving through that address. See [Backed Minting](../token-standard/ibc/backed-minting.md). A vault is a smart token with no transferable approval, so tokens never move between users.
 
 Think in three phases, each mapped to its own approval:
 
@@ -14,7 +14,7 @@ Think in three phases, each mapped to its own approval:
 2. Transferability while backed: may holders transfer peer-to-peer? Yes for wrapped assets, no for vaults and escrows.
 3. Withdrawals (unbacking): users send tokens to the backing address and receive the coins 1:1. Rate limits, 2FA, and other controls go here.
 
-## 1. Build the collection
+## 1. Build the Collection
 
 ### bb CLI
 
@@ -55,7 +55,7 @@ bb build vault --backing-coin USDC \
 | `--require-2fa <collectionId>` | No | 2FA collection whose token the withdrawer must hold |
 | `--emergency-recovery <address>` | No | Recovery address for emergency migration |
 
-Both accept `--uri` or `--name` + `--image` + `--description` for metadata, plus the shared `--creator`, `--manager`, `--explain`, `--simulate`, `--json`, `--browser`, and `--burner` flags. See [Build](../cli/build.md). The 2FA collection itself comes from `bb build custom-2fa`; see [Standards commands](../cli/standards.md).
+Both accept `--uri` or `--name` + `--image` + `--description` for metadata, plus the shared `--creator`, `--manager`, `--explain`, `--simulate`, `--json`, `--browser`, and `--burner` flags. See [Build](../cli/build.md). The 2FA collection itself comes from `bb build custom-2fa`; see [Standards Commands](../cli/standards.md).
 
 The BitBadges site's Create tab also has a Smart Token flow with the same options, including an "AI Agent Vault" checkbox that adds an AI Prompt tab to the token page.
 
@@ -493,7 +493,7 @@ Alias path. `symbol` on the path is the base unit; `denomUnits` lists display un
 
 Every metadata field on the chain (collection, token, alias path, denom unit) is `{ uri, customData }` and nothing else. The examples above use hosted URIs. The AI builder uses placeholder URIs (`ipfs://METADATA_COLLECTION`, `ipfs://METADATA_TOKEN_<id>`, `ipfs://METADATA_ALIAS_<denom>`, `ipfs://METADATA_ALIAS_<denom>_UNIT`) and registers the real name, description, and image in a `metadataPlaceholders` sidecar keyed by those URIs; after deploy the auto-apply flow uploads the JSON and substitutes real URIs. Write real user-facing descriptions for each approval, not labels like "Backing Approval".
 
-To wrap a native Cosmos SDK coin (not an IBC coin) alongside, add `cosmosCoinWrapperPathsToAdd` with `allowSpecialWrapping: true` on its approvals; see [Wrap to an IBC denom](wrap-to-an-ibc-denom.md).
+To wrap a native Cosmos SDK coin (not an IBC coin) alongside, add `cosmosCoinWrapperPathsToAdd` with `allowSpecialWrapping: true` on its approvals; see [Wrap to an IBC Denom](wrap-to-an-ibc-denom.md).
 
 ```json
 {
@@ -532,7 +532,7 @@ To wrap a native Cosmos SDK coin (not an IBC coin) alongside, add `cosmosCoinWra
 }
 ```
 
-## 2. Add withdrawal rules
+## 2. Add Withdrawal Rules
 
 Rules live in the unbacking approval's criteria. The chain enforces them; an agent cannot bypass them whatever code it runs.
 
@@ -776,9 +776,9 @@ Daily limit of 1 USDC (1,000,000 base units) per sender, resetting every 24 hour
 }
 ```
 
-See [Approval trackers](../token-standard/approval-criteria/approval-trackers.md) and [Token ownership](../token-standard/approval-criteria/token-ownership.md).
+See [Approval Trackers](../token-standard/approval-criteria/approval-trackers.md) and [Token Ownership](../token-standard/approval-criteria/token-ownership.md).
 
-## 3. Deposit and withdraw
+## 3. Deposit and Withdraw
 
 ### bb CLI
 
@@ -793,14 +793,14 @@ bb smart-tokens withdraw 4 --creator bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue -
 
 `--amount` is in display units (10 USDC becomes 10 token units backed by 10 USDC); `--base-units` passes raw base units. The caller must hold the backing coin to deposit and the token units to withdraw; the chain routes the coin into and out of the backing alias as the approval fires. Both commands accept `--browser` inline.
 
-### Depositing or withdrawing for someone else
+### Depositing or Withdrawing for Someone Else
 
 Backing approvals require the initiator to be the recipient on deposit and the sender on withdrawal. To act for another address, batch two messages in one transaction:
 
 - Deposit to another address: `MsgTransferTokens` from the backing address to yourself, then `MsgTransferTokens` from yourself to the target through the transferable approval.
 - Withdraw for another address: `MsgTransferTokens` from yourself to the backing address, then a bank `MsgSend` of the released coins to the target (`bb build send`).
 
-## 4. Give an AI agent a vault
+## 4. Give an AI Agent a Vault
 
 The agent holds vault tokens. To spend, it withdraws (unbacks) by sending tokens to the backing address; the protocol releases USDC to the agent's account.
 
@@ -815,11 +815,11 @@ Your AI agent (OpenClaw, LangChain, custom, ...)
          +-- Withdraw via MsgTransferTokens
 ```
 
-### Create the vault
+### Create the Vault
 
 Use `bb build vault` from step 1, or the site's Create tab with the AI Agent Vault option. Note the collection ID. `bb smart-tokens show 4` prints the backing address and the deposit and withdraw approval IDs; the token page's AI Prompt tab prints the same values as a ready-made prompt (collection ID, token name, backing address, denom, approval IDs and versions, step-by-step deposit and withdraw instructions). Give that prompt to the agent as system context.
 
-### Set up the agent wallet
+### Set Up the Agent Wallet
 
 EVM wallet from a mnemonic (recommended server-side):
 
@@ -877,7 +877,7 @@ The agent needs a small amount of `BADGE` for gas, separate from its USDC. Send 
 
 Then deposit USDC into the vault for the agent with `bb smart-tokens deposit` (step 3), or with the deposit message below.
 
-### Read the rules
+### Read the Rules
 
 ```ts
 import { BigIntify, BitBadgesAPI } from 'bitbadges';
@@ -898,7 +898,7 @@ for (const approval of approvals) {
 }
 ```
 
-### Withdraw (spend)
+### Withdraw (Spend)
 
 ```ts
 import { MsgTransferTokens } from 'bitbadges';
@@ -953,7 +953,7 @@ if (result.success) {
 
 Approval IDs vary by how the vault was built (`smart-token-backing` / `smart-token-unbacking` from the skill; older vaults use `smart-account-backing` / `smart-account-unbacking`). Read them from the collection rather than assuming.
 
-### Deposit (back)
+### Deposit (Back)
 
 Reverse the direction: from the backing address to the agent.
 
@@ -990,7 +990,7 @@ const depositMsg = new MsgTransferTokens({
 const result = await client.signAndBroadcast([depositMsg]);
 ```
 
-### Expose the operations as agent tools
+### Expose the Operations as Agent Tools
 
 ```ts
 const agentTools = {
@@ -1037,7 +1037,7 @@ const agentTools = {
 };
 ```
 
-If the agent speaks MCP, the same operations are available as [MCP tools](../agents/mcp-tools.md). More patterns: [Agent patterns](../agents/bot-examples.md) and [Spending authorization](../agents/spending-authorization.md).
+If the agent speaks MCP, the same operations are available as [MCP tools](../agents/mcp-tools.md). More patterns: [Agent patterns](../agents/bot-examples.md) and [Spending Authorization](../agents/spending-authorization.md).
 
 | Concept | Details |
 | --- | --- |
@@ -1058,7 +1058,7 @@ If the agent speaks MCP, the same operations are available as [MCP tools](../age
 | Sequence mismatch | Nonce out of sync | The client retries automatically, up to 3 times |
 | Insufficient gas | Not enough `BADGE` | Fund the agent address with `BADGE` |
 
-## 5. How the AI builder detects a token type
+## 5. How the AI Builder Detects a Token Type
 
 The AI builder (`bitbadges.io/create` with the Smart Detect toggle, `POST /api/v0/builder/ai-build`, and the programmatic `BitBadgesBuilderAgent`) picks one token-type skill from a prompt when the caller has not chosen one, so smart tokens, vaults, subscriptions, and the rest do not need to be classified by hand. It runs only when `selectedSkills` contains no token-type skill and `autoInferTokenType` is `true` (the default). An explicit pick always wins.
 
@@ -1085,9 +1085,9 @@ Two signals, in order. When an existing collection is available (the session tra
 
 Source of truth: `STANDARD_TO_TOKEN_TYPE` exported from `bitbadges/builder/agent`.
 
-Otherwise one Claude Haiku call classifies the prompt against the 15 token-type skills and returns `{ id, confidence, reasoning }`. Only `confidence: "high"` is acted on; low confidence, malformed JSON, an unknown id, a timeout, or a network error all fall back to a freestyle build with no token-type skill. In `refine` and `update` modes the classifier also sees the original build intent, the last 3 refinement turns, and any existing standards. The call is bounded to 200 output tokens, the catalog (~1.5k input tokens) is prompt-cached, and usage is reported through `onTokenUsage` with `round: 0`. The result carries `inferredTokenType` (a skill id, `null` for no confident match, `undefined` when skipped), `inferredTokenTypeSource` (`'standards'` or `'llm'`), and `inferredTokenTypeReasoning`. Disable with `autoInferTokenType: false`; restrict candidates with the `skills` allowlist. Full usage is on [Programmatic agent](../agents/programmatic-agent.md).
+Otherwise one Claude Haiku call classifies the prompt against the 15 token-type skills and returns `{ id, confidence, reasoning }`. Only `confidence: "high"` is acted on; low confidence, malformed JSON, an unknown id, a timeout, or a network error all fall back to a freestyle build with no token-type skill. In `refine` and `update` modes the classifier also sees the original build intent, the last 3 refinement turns, and any existing standards. The call is bounded to 200 output tokens, the catalog (~1.5k input tokens) is prompt-cached, and usage is reported through `onTokenUsage` with `round: 0`. The result carries `inferredTokenType` (a skill id, `null` for no confident match, `undefined` when skipped), `inferredTokenTypeSource` (`'standards'` or `'llm'`), and `inferredTokenTypeReasoning`. Disable with `autoInferTokenType: false`; restrict candidates with the `skills` allowlist. Full usage is on [Programmatic Agent](../agents/programmatic-agent.md).
 
-## Common mistakes
+## Common Mistakes
 
 - `fromListId: "Mint"` on a smart token. Use the backing address.
 - Missing `mustPrioritize: true` on backing or unbacking approvals.
@@ -1097,9 +1097,9 @@ Otherwise one Claude Haiku call classifies the prompt against the 15 token-type 
 - No alias path, or alias decimals that do not match the IBC denom.
 - `image`, `name`, or `description` inside a `metadata` field. Only `uri` and `customData` exist there.
 
-## Next steps
+## Next Steps
 
-- [Backed minting](../token-standard/ibc/backed-minting.md)
+- [Backed Minting](../token-standard/ibc/backed-minting.md)
 - [Smart token skill](../agents/skills/smart-token.md)
 - [Agents](../agents/README.md)
 - [Trade on the DEX](trade-on-the-dex.md)

@@ -2,7 +2,7 @@
 description: "Collection approval configurations for BB-402 auth patterns: basic soulbound access token, revocable token, short-lived 2FA token, ban list, and tiered access."
 ---
 
-# BB-402 collection recipes
+# BB-402 Collection Recipes
 
 These are the collection approval setups that back common BB-402 gates. Every recipe is a variation of one pattern: the provider mints, tokens are soulbound, and revocation is optional.
 
@@ -31,7 +31,7 @@ collectionApprovals: [
 Ask your agent: "Create a soulbound access-token collection where only alice can mint and revoke, and lock those approvals forever." The MCP builder tools (`add_approval, set_permissions`) produce the objects on this page.
 {% endhint %}
 
-## The core pattern
+## The Core Pattern
 
 1. The provider has free mint power: it can mint to anyone, for all time or for a window.
 2. Soulbound: no post-mint transfer approval exists, so tokens cannot move.
@@ -39,13 +39,13 @@ Ask your agent: "Create a soulbound access-token collection where only alice can
 
 You control access by minting and revoking. Everything else is a variation.
 
-## Basic access token
+## Basic Access Token
 
 Provider-minted, soulbound, no transfers. The approvals above are the whole configuration.
 
 BB-402 check: `mustOwnAmounts: { start: '1', end: '1' }` on this collection.
 
-## Revocable access token
+## Revocable Access Token
 
 The basic pattern plus a second approval that lets the provider move any token back to `Mint` (burn).
 
@@ -84,7 +84,7 @@ collectionApprovals: [
 ]
 ```
 
-## Short-lived 2FA token
+## Short-Lived 2FA Token
 
 For sensitive operations, mint a token that is valid for a brief window (for example 60 seconds). The user completes a 2FA challenge on your frontend, you mint the short-lived token, and the gated endpoint checks for it alongside the main access token.
 
@@ -131,7 +131,7 @@ BB-402 check: `$and` of the main access token and the 2FA token.
 
 The 2FA token expires on its own. No revocation, no cleanup.
 
-## Ban list
+## Ban List
 
 A separate collection where owning a token means the address is banned. Use the provider-mint plus soulbound pattern; to ban, mint to the user; to unban, revoke with the revocable pattern.
 
@@ -154,7 +154,7 @@ BB-402 check with `mustOwnAmounts: { start: '0', end: '0' }` (must not own):
 }
 ```
 
-## Tiered access
+## Tiered Access
 
 Use token IDs within one collection as tiers:
 
@@ -164,10 +164,10 @@ Use token IDs within one collection as tiers:
 
 Mint the matching token ID to each user. Check with `$or` for "any tier", or with a specific token ID for a tier-specific endpoint.
 
-## How to create the collection
+## How to Create the Collection
 
-- On the BitBadges site, the recommended path for most providers. An AI agent with the [MCP builder tools](../../agents/mcp-tools.md) can also assemble the configuration.
-- With the CLI: `bb build` then `bb deploy`; see [Create a collection](../../guides/create-a-collection.md).
+- On the BitBadges site, the recommended path for most providers. An AI agent with the [MCP Builder Tools](../../agents/mcp-tools.md) can also assemble the configuration.
+- With the CLI: `bb build` then `bb deploy`; see [Create a Collection](../../guides/create-a-collection.md).
 - With the SDK: [MsgUniversalUpdateCollection](../messages/msg-universal-update-collection.md).
 
 Most providers create the collection once and then mint and revoke programmatically through the SDK or API.
@@ -176,5 +176,5 @@ Most providers create the collection once and then mint and revoke programmatica
 
 - [BB-402](README.md)
 - [Gate access](../../guides/gate-access.md)
-- [Set transferability](../../guides/set-transferability.md)
-- [Mint and distribute](../../guides/mint-and-distribute.md)
+- [Set Transferability](../../guides/set-transferability.md)
+- [Mint and Distribute](../../guides/mint-and-distribute.md)

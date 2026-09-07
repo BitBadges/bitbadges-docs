@@ -74,5 +74,5 @@ The response is empty.
 ## Related
 
 - [Params](../queries/params.md)
-- [Coin transfers](../approval-criteria/coin-transfers.md)
+- [Coin Transfers](../approval-criteria/coin-transfers.md)
 - [MsgSetReservedProtocolAddress](msg-set-reserved-protocol-address.md)

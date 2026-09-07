@@ -23,20 +23,20 @@ Every guide assumes:
 
 | Task | Surfaces | Guide |
 | --- | --- | --- |
-| Create an NFT or fungible collection | `bb` CLI, SDK, JSON | [Create a collection](create-a-collection.md) |
-| Mint tokens and hand them out (creator mint, public mint, paid mint, escrow payouts) | `bb` CLI, SDK, JSON | [Mint and distribute](mint-and-distribute.md) |
-| Decide who can transfer, burn, or force-move tokens | SDK, JSON | [Set transferability](set-transferability.md) |
-| Freeze supply, approvals, metadata, or the whole collection | JSON, SDK | [Lock permissions](lock-permissions.md) |
-| Distribute with codes, allowlists, socials, and other claim plugins | BitBadges site, BitBadges API | [Distribute with claims](distribute-with-claims.md) |
-| Write your own claim plugin | BitBadges API | [Build a claim plugin](build-a-claim-plugin.md) |
+| Create an NFT or fungible collection | `bb` CLI, SDK, JSON | [Create a Collection](create-a-collection.md) |
+| Mint tokens and hand them out (creator mint, public mint, paid mint, escrow payouts) | `bb` CLI, SDK, JSON | [Mint and Distribute](mint-and-distribute.md) |
+| Decide who can transfer, burn, or force-move tokens | SDK, JSON | [Set Transferability](set-transferability.md) |
+| Freeze supply, approvals, metadata, or the whole collection | JSON, SDK | [Lock Permissions](lock-permissions.md) |
+| Distribute with codes, allowlists, socials, and other claim plugins | BitBadges site, BitBadges API | [Distribute with Claims](distribute-with-claims.md) |
+| Write your own claim plugin | BitBadges API | [Build a Claim Plugin](build-a-claim-plugin.md) |
 | Gate an API route or page by token ownership (BB-402) | BitBadges API, SDK | [Gate access](gate-access.md) |
-| Add "Sign in with BitBadges" to an app | BitBadges API | [Sign in users](sign-in-users.md) |
-| Make tokens spendable as an x/bank coin and over IBC | `bb` CLI, SDK, JSON | [Wrap to an IBC denom](wrap-to-an-ibc-denom.md) |
+| Add "Sign in with BitBadges" to an app | BitBadges API | [Sign In Users](sign-in-users.md) |
+| Make tokens spendable as an x/bank coin and over IBC | `bb` CLI, SDK, JSON | [Wrap to an IBC Denom](wrap-to-an-ibc-denom.md) |
 | Create pools, swap, and add liquidity | `bb` CLI, BitBadges API | [Trade on the DEX](trade-on-the-dex.md) |
-| Sell recurring subscriptions, prepaid credits, and expiring tokens | `bb` CLI, JSON | [Subscriptions and time-based tokens](subscriptions-and-time-based-tokens.md) |
-| Issue a 1:1 backed token or an AI agent vault | `bb` CLI, SDK, JSON | [Smart tokens and vaults](smart-tokens-and-vaults.md) |
+| Sell recurring subscriptions, prepaid credits, and expiring tokens | `bb` CLI, JSON | [Subscriptions and Time-Based Tokens](subscriptions-and-time-based-tokens.md) |
+| Issue a 1:1 backed token or an AI agent vault | `bb` CLI, SDK, JSON | [Smart Tokens and Vaults](smart-tokens-and-vaults.md) |
 
-## Reading order
+## Reading Order
 
 For a new token, read the first four guides in order. They build one collection: create it, add mint approvals, set post-mint transferability, then lock what must never change. The remaining guides stand alone.
 

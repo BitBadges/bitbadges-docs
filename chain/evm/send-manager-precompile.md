@@ -2,7 +2,7 @@
 description: "The send manager precompile at 0x0000000000000000000000000000000000001003: one send method that moves native coins and alias denoms from a contract with all accounting in x/bank."
 ---
 
-# Send manager precompile
+# Send Manager Precompile
 
 The send manager precompile lets a Solidity contract send native Cosmos coins, including alias denoms such as `badgeslp:...`, without ERC20 wrapping. Address: `0x0000000000000000000000000000000000001003`. All accounting stays in `x/bank`.
 
@@ -83,7 +83,7 @@ interface ISendManagerPrecompile {
 }
 ```
 
-## JSON format
+## JSON Format
 
 The JSON is a `MsgSendWithAliasRouting` from `x/sendmanager`. The Go side decodes it with `encoding/json`, so use the snake_case field names.
 
@@ -107,9 +107,9 @@ The JSON is a `MsgSendWithAliasRouting` from `x/sendmanager`. The Go side decode
 
 - `from_address` is set from `msg.sender` after unmarshal, so a contract can only spend its own balance.
 - `ValidateBasic` runs before the send. Empty or invalid coins and addresses fail with code 1.
-- Alias denoms route through the tokenization module; standard denoms go through `x/bank`. See [Send manager module](../modules/send-manager.md) and [Alias denoms](../../token-standard/ibc/alias-denoms.md).
+- Alias denoms route through the tokenization module; standard denoms go through `x/bank`. See [Send manager module](../modules/send-manager.md) and [Alias Denoms](../../token-standard/ibc/alias-denoms.md).
 - A successful send emits a `precompile_send` event with `from`, `to_address`, and `amount` attributes.
-- Amounts are in Cosmos precision (9 decimals for `BADGE`), not the EVM's 18. See [Developer guide](developer-guide.md#decimals-9-on-the-cosmos-side-18-on-the-evm-side).
+- Amounts are in Cosmos precision (9 decimals for `BADGE`), not the EVM's 18. See [Developer Guide](developer-guide.md#decimals-9-on-the-cosmos-side-18-on-the-evm-side).
 
 ## Gas
 
@@ -122,7 +122,7 @@ The JSON is a `MsgSendWithAliasRouting` from `x/sendmanager`. The Go side decode
 
 The base is deducted before the precompile runs; the bank transfer itself uses the remaining gas of the call.
 
-## Error codes
+## Error Codes
 
 | Code | Name | Description |
 | --- | --- | --- |
@@ -137,5 +137,5 @@ Errors revert with the text `precompile error [code=N]: message: details`.
 ## Related
 
 - [Send manager module](../modules/send-manager.md)
-- [Cosmos SDK precompiles](cosmos-precompiles.md) (bank queries)
-- [GAMM precompile](gamm-precompile/README.md)
+- [Cosmos SDK Precompiles](cosmos-precompiles.md) (bank queries)
+- [GAMM Precompile](gamm-precompile/README.md)

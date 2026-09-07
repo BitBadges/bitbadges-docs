@@ -2,11 +2,11 @@
 description: "Mistakes that break GAMM precompile calls: string pool IDs, integer amounts, snake_case keys, tuple and bytes returns, slippage, multi-hop routes."
 ---
 
-# GAMM precompile gotchas
+# GAMM Precompile Gotchas
 
 This page lists the errors developers hit most on the GAMM precompile and the fix for each. Read it after the [API reference](api.md).
 
-## Pool IDs are strings in JSON
+## Pool IDs Are Strings in JSON
 
 Pool IDs are `uint64` in Go, but the JSON must carry them as strings.
 
@@ -39,11 +39,11 @@ string memory json = GammJSONHelpers.joinPoolJSON(
 
 Why: protobuf JSON encodes 64-bit numbers as strings so large values keep their precision, and the same format is used everywhere on the Cosmos side.
 
-## Field names are snake_case
+## Field Names Are snake_case
 
 The GAMM precompile decodes JSON with Go's `encoding/json` against the protobuf struct tags, which are snake_case (`pool_id`, `share_out_amount`, `token_in_maxs`, `token_out_mins`, `token_in`, `token_out_min_amount`, `ibc_transfer_info`). A camelCase key does not match its snake_case tag, so the field silently stays at its zero value and validation then fails (for example `poolId cannot be zero`). See the full field list on the [API page](api.md#json-formats).
 
-## Amounts are integer strings
+## Amounts Are Integer Strings
 
 Cosmos SDK computes with `sdk.Dec` (18 decimal places of fixed-point precision), but JSON amounts are strings of integers in the smallest unit. No decimal point.
 
@@ -118,9 +118,9 @@ uint256 amount = 1;  // This is 0.000000001 tokens with 9 decimals!
 uint256 amount = 1 * 10**9;  // 1 token with 9 decimals
 ```
 
-Native `BADGE` is 9 decimals on the Cosmos side (`ubadge`). Alias denoms for collection tokens use the decimals declared in the collection's denom units. See [Developer guide](../developer-guide.md#decimals-9-on-the-cosmos-side-18-on-the-evm-side).
+Native `BADGE` is 9 decimals on the Cosmos side (`ubadge`). Alias denoms for collection tokens use the decimals declared in the collection's denom units. See [Developer Guide](../developer-guide.md#decimals-9-on-the-cosmos-side-18-on-the-evm-side).
 
-### Every amount field is a string
+### Every Amount Field Is a String
 
 ```json
 {
@@ -159,7 +159,7 @@ string memory json = GammJSONHelpers.joinPoolJSON(
 );
 ```
 
-## Return values differ by method
+## Return Values Differ by Method
 
 Tuple returns:
 
@@ -195,7 +195,7 @@ bytes memory poolBytes = GAMM.getPool(json);
 // Decode off-chain using TypeScript SDK or protobuf library
 ```
 
-## Slippage protection
+## Slippage Protection
 
 Always set a limit. Without one, a price move between simulation and execution changes what you pay or receive.
 
@@ -259,7 +259,7 @@ string memory json = GammJSONHelpers.swapExactAmountInJSON(
 
 Use `calcJoinPoolShares`, `calcJoinPoolNoSwapShares`, and `calcExitPoolCoinsFromShares` to simulate first, then derive the limit from the result.
 
-## Multi-hop swaps
+## Multi-Hop Swaps
 
 Slippage compounds across hops. Two hops at 1% each need about 2% total tolerance.
 
@@ -303,7 +303,7 @@ Route format:
 
 Each route names the pool and the denom that comes out of it. The input denom of hop N+1 is the output denom of hop N.
 
-## Common error messages
+## Common Error Messages
 
 ### `poolId cannot be zero`
 
@@ -398,7 +398,7 @@ console.log("Expected shares:", shares);
 
 ## Related
 
-- [GAMM precompile](README.md)
-- [GAMM precompile API](api.md)
+- [GAMM Precompile](README.md)
+- [GAMM Precompile API](api.md)
 - [GAMM module](../../modules/gamm/README.md)
-- [Developer guide](../developer-guide.md)
+- [Developer Guide](../developer-guide.md)

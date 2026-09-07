@@ -292,9 +292,40 @@ function rehypeCodeFolds() {
       if (!code) return;
 
       const folds = applyCodeFolds(code, deserializeRanges(spec));
-      if (folds > 0) figure.properties['data-folds'] = String(folds);
+      if (folds === 0) return;
+      figure.properties['data-folds'] = String(folds);
+      addExpandAllButton(figure);
     });
   };
+}
+
+/**
+ * Put an "Expand all" toggle immediately left of the copy button.
+ *
+ * Only figures that actually folded get one, which is why it is added here
+ * rather than in the chrome pass: a `fold=` range can fall outside the block
+ * and collapse to nothing. `CopyButtons` drives it; without script the folds
+ * still open one at a time.
+ */
+function addExpandAllButton(figure: Element) {
+  const caption = figure.children.find(
+    (child): child is Element => child.type === 'element' && child.tagName === 'figcaption',
+  );
+  if (!caption) return;
+  const copyIndex = caption.children.findIndex(
+    (child) => child.type === 'element' && 'data-copy' in (child.properties ?? {}),
+  );
+  caption.children.splice(copyIndex === -1 ? caption.children.length : copyIndex, 0, {
+    type: 'element',
+    tagName: 'button',
+    properties: {
+      type: 'button',
+      className: ['copy-button'],
+      'data-expand-all': '',
+      'aria-expanded': 'false',
+    },
+    children: [{ type: 'text', value: 'Expand all' }],
+  });
 }
 
 /**

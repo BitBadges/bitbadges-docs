@@ -4,11 +4,11 @@ description: "Every claim plugin id with its parameters, state, and where it run
 
 # Plugins
 
-A claim is a list of plugin instances. Each plugin checks one criterion and reports pass or fail. This page is the reference for the built-in plugin ids and for the HTTP contract that custom plugins implement. The tutorial for writing one is [Build a claim plugin](../../guides/build-a-claim-plugin.md).
+A claim is a list of plugin instances. Each plugin checks one criterion and reports pass or fail. This page is the reference for the built-in plugin ids and for the HTTP contract that custom plugins implement. The tutorial for writing one is [Build a Claim Plugin](../../guides/build-a-claim-plugin.md).
 
 This page is also part of the [API reference](/api-reference).
 
-## Look up any plugin
+## Look Up Any Plugin
 
 ```bash
 curl https://api.bitbadges.io/api/v0/plugins/must-own-badges -H "x-api-key: $BITBADGES_API_KEY"
@@ -108,7 +108,7 @@ The eight core plugins below are not plugin documents, so `getPlugin` does not r
 
 Plugin ids are localized. The English document is the bare id (`min-badge`); other locales append a suffix (`min-badge-es`).
 
-## Core plugins
+## Core Plugins
 
 Core plugins run in memory inside the API. No HTTP call is made.
 
@@ -197,7 +197,7 @@ Gates on an address list. The list can be public (in `publicParams`), private (i
 { addresses: { [address: string]: number } }  // claims per address
 ```
 
-A `whitelist: false` list acts as a denylist. When this plugin is the claim number assigner, the claim number is the address's index in the list. A public dynamic store (`publicUseInClaims`) needs no `dataSecret` for reads; other stores do. See [Dynamic stores](dynamic-stores.md). Errors: `User not in whitelist`, `User in denylist`, `User already exceeded max uses`, `Dynamic data doc not found`, `Invalid data secret`.
+A `whitelist: false` list acts as a denylist. When this plugin is the claim number assigner, the claim number is the address's index in the list. A public dynamic store (`publicUseInClaims`) needs no `dataSecret` for reads; other stores do. See [Dynamic Stores](dynamic-stores.md). Errors: `User not in whitelist`, `User in denylist`, `User already exceeded max uses`, `Dynamic data doc not found`, `Invalid data secret`.
 
 ### `halt`
 
@@ -207,7 +207,7 @@ No params. Every attempt fails with `Claim halted` while the plugin is present. 
 
 No params. Requires the claiming address to be the null address `bb1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqs7gvmv`. Error: `BitBadges address must be anonymous.`
 
-## BitBadges-hosted plugins
+## BitBadges-Hosted Plugins
 
 These are plugin documents created by BitBadges. Their `verificationCall.uri` points at `https://api.bitbadges.io/api/v0/integrations/query/<id>`, and the API handles them in-process rather than over the network. All are `Stateless`, finalized, and allow duplicates.
 
@@ -245,7 +245,7 @@ These are plugin documents created by BitBadges. Their `verificationCall.uri` po
 
 Nested `satisfies-claim` checks on on-demand claims have a depth limit of 5. Circular references are rejected. Results for `min-badge` are cached briefly (60 seconds on success, 10 seconds on failure) so a simulation and the real attempt share one check.
 
-## Social account plugins
+## Social Account Plugins
 
 | Plugin id | Checks |
 | --- | --- |
@@ -273,7 +273,7 @@ Nested `satisfies-claim` checks on on-demand claims have a depth limit of 5. Cir
 
 These six run inside the BitBadges service with the user's OAuth session. Their handlers are not part of the open-source indexer repository, so this page documents only the parameter shapes found in source. Use `getPlugin` for the authoritative schema.
 
-## Custom plugin contract
+## Custom Plugin Contract
 
 A custom plugin is an HTTPS endpoint you register in the developer portal (**Plugins** tab). BitBadges calls it during simulation and execution, and optionally after the claim resolves. The endpoint answers `200` to pass or any other status to fail.
 
@@ -334,7 +334,7 @@ Constraints on the endpoint:
 - Respond within 10 seconds.
 - Handle CORS and method yourself. The caller is a server, not a browser.
 
-### Identifying the user
+### Identifying the User
 
 The address is only trustworthy when `isAddressSignedIn` is `true`, which requires the claim (or your plugin's `requireSignIn`) to demand sign in. If you identify users your own way, or do not want to trust BitBadges, issue a one-time code from your service while the user is authenticated with you, collect it as a user input, and verify it in the handler.
 
@@ -369,22 +369,22 @@ BitBadges simulates before execution. Detect a dry run with `_isSimulation === t
 
 For a custom plugin, the execution step trusts the simulation result and replays it through the state handler. Your endpoint is called once per attempt, not twice.
 
-### Status webhook
+### Status Webhook
 
 With `receiveStatusWebhook: true`, BitBadges POSTs the same payload to your endpoint after the claim resolves with `_attemptStatus: 'success'` or `'failure'`. Retries use exponential backoff: base delay 1 hour, `2^retries * base`, maximum 7 days (1h, 2h, 4h, 8h, 16h, and so on). Make the handler idempotent and deduplicate on `claimAttemptId`.
 
-### State rules
+### State Rules
 
 - All plugins in a claim run in parallel against the state as it was before the attempt. A plugin cannot depend on another plugin's state change in the same attempt.
 - Attempts process through a queue. Live claim totals may be stale by the time your handler runs. Your own params and the context fields are safe to depend on.
 - Prefer BitBadges-managed state (`Stateless`, `ClaimToken`, `ClaimNumbers`). Updates commit only when your plugin returned `200` and the whole claim succeeded.
 - For self-managed state, verify the outcome first with `getClaimAttemptStatus(claimAttemptId)` or the status webhook, and use idempotency keys because attempts run concurrently.
 
-### On-demand compatibility
+### On-Demand Compatibility
 
 To work with on-demand (non-indexed) claims, set `reuseForNonIndexed: true`. The plugin must be stateless, take no user inputs, and work from the address and hardcoded params alone.
 
-## Plugin version config
+## Plugin Version Config
 
 ```ts
 interface PluginVersionConfig {
@@ -431,7 +431,7 @@ interface PluginVersionConfig {
 | `verificationCall.passAddress` | Include `bitbadgesAddress`, `ethAddress`, and `isAddressSignedIn` in the payload. |
 | `customDetailsDisplay` | Template shown to users in the claim UI. `{{key}}` references public param keys. |
 
-### Schema fields
+### Schema Fields
 
 Each entry in a schema array describes one input:
 
@@ -471,7 +471,7 @@ BitBadges-created plugins also use the type `ownershipRequirements`. Custom plug
 
 Versioning: a new version starts unfinalized. Finalize it to make it immutable and usable by others. A claim keeps the version it was created with, even after you publish newer ones. Your handler receives `version` and `createdAt` in every request to branch on if needed. Private plugins (default) can be added only by you; published plugins appear in the directory for everyone.
 
-## Internal plugin interface
+## Internal Plugin Interface
 
 Core plugins implement the same shape internally. Custom plugins get the same atomicity: `toSet` updates apply only if the whole claim succeeds.
 
@@ -529,7 +529,7 @@ interface ContextInfo {
 
 ## Related
 
-- [Build a claim plugin](../../guides/build-a-claim-plugin.md)
+- [Build a Claim Plugin](../../guides/build-a-claim-plugin.md)
 - [Claims](README.md)
 - [Endpoints](endpoints.md)
-- [Dynamic stores](dynamic-stores.md)
+- [Dynamic Stores](dynamic-stores.md)

@@ -2,7 +2,7 @@
 description: "UintRange and UintRangeArray helpers in the bitbadges SDK, sort and merge, search, invert, remove, and overlap checks."
 ---
 
-# Uint ranges
+# Uint Ranges
 
 `UintRange` is an inclusive `{ start, end }` span of unsigned 64-bit integers. Token IDs and times are always expressed as arrays of these ranges.
 

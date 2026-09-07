@@ -67,5 +67,5 @@ Ask your agent: "Allowlist bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue in dynamic 
 ## Related
 
 - [GetDynamicStoreValue](../queries/get-dynamic-store-value.md)
-- [Dynamic store challenges](../approval-criteria/dynamic-store-challenges.md)
+- [Dynamic Store Challenges](../approval-criteria/dynamic-store-challenges.md)
 - [MsgCreateDynamicStore](msg-create-dynamic-store.md)

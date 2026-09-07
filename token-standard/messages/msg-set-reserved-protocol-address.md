@@ -59,7 +59,7 @@ The response is empty.
 - Fails with `ErrInvalidSigner` if `authority` is not the module authority, and with `ErrInvalidRequest` for an invalid address.
 - Writes the flag to the reserved-protocol-address store. Query it with [IsAddressReservedProtocol](../queries/is-address-reserved-protocol.md) or [GetAllReservedProtocolAddresses](../queries/get-all-reserved-protocol-addresses.md).
 - The chain marks its own derived addresses automatically: cosmos coin wrapper path addresses and backed path addresses become reserved when a collection adds them. This message is for addresses the protocol reserves by governance decision.
-- Approval criteria address checks can match or exclude reserved protocol addresses. See [Special address flags](../approval-criteria/special-address-flags.md).
+- Approval criteria address checks can match or exclude reserved protocol addresses. See [Special Address Flags](../approval-criteria/special-address-flags.md).
 
 ## Related
 

@@ -2,7 +2,7 @@
 description: "Build collections from natural-language prompts in Node with BitBadgesBuilderAgent and your own Anthropic or OpenAI key. Config, hooks, sessions, result shape, review handoff."
 ---
 
-# Programmatic agent
+# Programmatic Agent
 
 `BitBadgesBuilderAgent` builds BitBadges collections from natural-language prompts inside your Node process, with your own Anthropic or OpenAI key. BitBadges never sees the key and never proxies the requests.
 
@@ -20,7 +20,7 @@ console.log(result.transaction);
 console.log(result.reviewUrl); // open in a browser to review and sign
 ```
 
-This is the scriptable counterpart to the [MCP builder tools](mcp-tools.md).
+This is the scriptable counterpart to the [MCP Builder Tools](mcp-tools.md).
 
 | | No-code site | MCP builder | Programmatic agent |
 | --- | --- | --- | --- |
@@ -51,11 +51,11 @@ export OPENAI_API_KEY=sk-proj-0123456789abcdef0123456789abcdef
 export BITBADGES_API_KEY=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 ```
 
-Anthropic and OpenAI keys are required only for `BitBadgesBuilderAgent`, the Node-side build loop on this page. The MCP server (`bitbadges-builder`, used by Cursor, Claude Desktop, Claude Code, Cline, OpenAI Codex, and Gemini Code Assist) is model-agnostic and does not read these variables. If you only want the MCP server, go to [MCP builder tools](mcp-tools.md).
+Anthropic and OpenAI keys are required only for `BitBadgesBuilderAgent`, the Node-side build loop on this page. The MCP server (`bitbadges-builder`, used by Cursor, Claude Desktop, Claude Code, Cline, OpenAI Codex, and Gemini Code Assist) is model-agnostic and does not read these variables. If you only want the MCP server, go to [MCP Builder Tools](mcp-tools.md).
 
-## Zero-config
+## Zero-Config
 
-### Anthropic (default)
+### Anthropic (Default)
 
 ```ts
 import { BitBadgesBuilderAgent } from 'bitbadges/builder/agent';
@@ -83,7 +83,7 @@ Both providers run the same loop: same tools, same validation, same review pass,
 
 Token-type inference has parity across providers. Both run a fast classifier (Anthropic Haiku or OpenAI `gpt-4o-mini`) before each build to pick the token-type skill. OpenAI uses native structured outputs (`response_format: json_schema, strict: true`), so the JSON contract is server-enforced.
 
-## Auth modes
+## Auth Modes
 
 ### Anthropic
 
@@ -158,14 +158,14 @@ const agent = new BitBadgesBuilderAgent({
 });
 ```
 
-### Hook contract
+### Hook Contract
 
 - `onTokenUsage` is load-bearing. It is awaited, and rejections propagate out of `build()`. Throw from it to enforce per-build quotas (the BitBadges API does this with its token ledger).
 - `onCompletion` fires exactly once per `build()`, on success and on error, so cleanup runs either way.
 - `onToolCall`, `onStatusUpdate`, and `onLog` are fire-and-forget observability hooks. Rejections are swallowed so a broken logger cannot hang a build.
 - `onLog` receives `{ type: 'info' | 'ai_text' | 'validation' | 'error', label, data }` entries: round boundaries, the LLM's text responses, and validation-gate pass or fail. Useful for live dev consoles and audit log persistence.
 
-### Validation modes
+### Validation Modes
 
 - `'strict'` (default) throws `ValidationFailedError` if hard errors remain after the fix loop.
 - `'lenient'` always returns. `result.valid` is false and hard errors are in `result.errors`.
@@ -213,7 +213,7 @@ result.inferredTokenTypeSource;      // 'standards' (existing-collection fast pa
 result.inferredTokenTypeReasoning;   // one-sentence rationale
 ```
 
-Inference is skipped when `selectedSkills` already contains a token-type entry; explicit picks win. Non-token-type skills (community, additional-context) do not block inference. The type table lives in [Smart tokens and vaults](../guides/smart-tokens-and-vaults.md).
+Inference is skipped when `selectedSkills` already contains a token-type entry; explicit picks win. Non-token-type skills (community, additional-context) do not block inference. The type table lives in [Smart Tokens and Vaults](../guides/smart-tokens-and-vaults.md).
 
 #### Community skills (power users)
 
@@ -238,11 +238,11 @@ The fetcher calls `GET /api/v0/builder/community-skills?ids=...` and returns an 
 
 Local development: when `bitbadgesApiUrl` points at `localhost`, `127.0.0.1`, or `*.localhost`, the fetcher skips the API-key requirement. This mirrors the BitBadges API's relaxed auth for local development.
 
-### Prompt-injection guard on the system-prompt slots
+### Prompt-Injection Guard on the System-Prompt Slots
 
 `systemPromptAppend` (additive) and `systemPrompt` (full replace) both pass through an injection-pattern check at construction. If either contains an obvious "ignore all previous instructions" or "you are now a..." payload, the constructor throws a `BitBadgesBuilderAgentError` with code `INVALID_SYSTEM_PROMPT_APPEND` or `INVALID_SYSTEM_PROMPT`. Hosted deployments that accept end-user input into these slots should still run their own `containsInjection` check at the trust boundary. The SDK check is defense in depth, not a replacement.
 
-### Custom tools
+### Custom Tools
 
 Add tools on top of the built-ins, or filter built-ins out:
 
@@ -263,7 +263,7 @@ new BitBadgesBuilderAgent({
 });
 ```
 
-## Session stores
+## Session Stores
 
 Conversation messages and token counters persist so refinement works across HTTP requests.
 
@@ -304,7 +304,7 @@ new BitBadgesBuilderAgent({ anthropicKey, sessionStore: new RedisStore() });
 
 Pass the same `sessionId` across `.build()` calls to continue a session, for example for refinement.
 
-## Result shape
+## Result Shape
 
 ```ts
 interface BuildResult {
@@ -340,7 +340,7 @@ import {
 } from 'bitbadges/builder/agent';
 ```
 
-## Review and sign in the browser
+## Review and Sign in the Browser
 
 The SDK never signs for the user. `result.reviewUrl` is a bitbadges.io link that opens the transaction in the review-and-sign flow (Preview, Review Items, Transferability, Permissions, then wallet signature). The whole transaction rides in the URL hash (`#tx=<base64url JSON>`), so nothing is uploaded and the link works offline. Set `BITBADGES_FRONTEND_URL` to point at testnet or a local site.
 
@@ -369,11 +369,11 @@ console.log(buildReviewUrlFromCode('https://bitbadges.io', code, result.transact
 
 Update transactions (a non-zero `collectionId`) route to `/update/local-builder/:id` so the site diffs against on-chain state. The helpers `buildHandoffUrl`, `buildReviewUrlFromCode`, `buildPreviewUrlFromCode`, `detectExistingCollectionId`, and `encodeTxForHash` are exported from `bitbadges/builder/agent`.
 
-## Image placeholders
+## Image Placeholders
 
 Two image-handling modes. Pick the one that fits your pipeline.
 
-### 1. Real URLs in the prompt
+### 1. Real URLs in the Prompt
 
 If you already host the images, put the URLs in the prompt. The LLM emits them verbatim into `metadataPlaceholders` entries.
 
@@ -386,7 +386,7 @@ await agent.build(
 
 No post-processing. The LLM has to copy the URLs faithfully, so keep them short and well-formed.
 
-### 2. Placeholders plus post-build substitution
+### 2. Placeholders Plus Post-Build Substitution
 
 When the user is still choosing or uploading images at build time, use symbolic placeholders and swap them in after the build:
 
@@ -403,11 +403,11 @@ const finalTx = agent.substituteImages(result.transaction, {
 
 The LLM wires `IMAGE_N` tokens into the metadata; you resolve them at the end. This matches the hosted site's flow.
 
-### Detecting stragglers
+### Detecting Stragglers
 
 `agent.collectImageReferences(tx)` returns every `IMAGE_N` token still in the transaction. Use it as a pre-broadcast check: anything it returns is a placeholder that never got a real value and would land on-chain as-is.
 
-## Health check
+## Health Check
 
 ```ts
 const report = await agent.healthCheck();
@@ -415,7 +415,7 @@ const report = await agent.healthCheck();
 //   bitbadgesApi: { ok: true, configured: true } }
 ```
 
-## Validate without building
+## Validate Without Building
 
 ```ts
 import { readFileSync } from 'node:fs';
@@ -424,7 +424,7 @@ const existing = JSON.parse(readFileSync('./tx.json', 'utf8'));
 const { valid, errors, simulation } = await agent.validate(existing);
 ```
 
-## Export as a single prompt for no-tools LLMs
+## Export as a Single Prompt for No-Tools LLMs
 
 To hand the build to Claude.ai, ChatGPT, or Gemini (no tools there), `agent.exportPrompt()` assembles the no-tools variant of the system prompt concatenated with the user message. The LLM emits the final transaction JSON directly.
 
@@ -451,18 +451,18 @@ setTimeout(() => controller.abort(), 30_000);
 // or: agent.abort()
 ```
 
-## Cancellation and streaming
+## Cancellation and Streaming
 
 - Cancellation: supported with `abortSignal` or `agent.abort()`.
 - Streaming: not in v1. The agent returns when the build completes or throws. Use the `onTokenUsage` and `onToolCall` hooks for live progress.
 
-## Prompt caching (automatic)
+## Prompt Caching (Automatic)
 
 The agent uses Anthropic prompt caching on the stable prefix (system prompt, tool schemas, and inlined skill instructions). Builds inside a 5-minute window read those tokens from cache at about 10% of the regular input-token cost. Cache-creation tokens cost about 1.25x regular input on the miss. One hit pays the miss back; every hit after that is a saving.
 
 Caching is on by default with nothing to configure. Skill ordering is canonicalized (alphabetical), so `['nft', 'subscription']` and `['subscription', 'nft']` hit the same cache key.
 
-### When caching pays off
+### When Caching Pays Off
 
 The stable prefix is typically 10-15% of the per-build token count. The rest is dynamic user context and tool-calling round trips.
 
@@ -493,7 +493,7 @@ new BitBadgesBuilderAgent({
 
 `result.trace.cacheReadTokens` and `result.trace.cacheCreationTokens` carry cumulative counts for the whole build. A healthy steady state has `cacheReadTokens >> inputTokens`.
 
-### What invalidates the cache
+### What Invalidates the Cache
 
 - 5-minute TTL since the last hit.
 - Any change to the system prompt (for example a `systemPromptAppend` edit).
@@ -502,7 +502,7 @@ new BitBadgesBuilderAgent({
 
 The per-request tail (request header, metadata, prompt text, refinement history) is never cached; it is expected to vary.
 
-## Internals (unstable primitives)
+## Internals (Unstable Primitives)
 
 To run your own loop (a different LLM, a custom strategy, fine-tuning data collection):
 
@@ -533,6 +533,6 @@ Runnable scripts at [bitbadgesjs/packages/bitbadgesjs-sdk/examples/builder-agent
 
 ## Related
 
-- [MCP builder tools](mcp-tools.md) (same tools, different runtime)
+- [MCP Builder Tools](mcp-tools.md) (same tools, different runtime)
 - [Agents](README.md) (terminal-first workflow)
 - [SDK](../sdk/README.md)

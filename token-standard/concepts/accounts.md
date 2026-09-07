@@ -30,7 +30,7 @@ isAddressValid('bb1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw'); // true
 Ask your agent: "Convert 0x0bc63cfe31d5218eb414b142c799e20964a54a1a to its bb1 address and check that it is valid." The MCP builder tools (`convert_address, validate_address`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 The 20-byte public key hash behind an Ethereum address is the same bytes behind a bech32 `bb1` address. Conversion is a re-encoding, not a lookup. The Ethereum zero address `0x0000000000000000000000000000000000000000` maps to `bb1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqnrql8a`.
 
@@ -40,6 +40,6 @@ Display the native address to users. Use the `bb1` form when you build messages 
 
 ## Related
 
-- [Address lists](address-lists.md)
-- [Address conversions](../../sdk/snippets/address-conversions.md)
+- [Address Lists](address-lists.md)
+- [Address Conversions](../../sdk/snippets/address-conversions.md)
 - [Network](../../chain/README.md)

@@ -67,7 +67,7 @@ getTransfersFromTransfersWithIncrements([batchTransfer], blockTime); // 100 plai
 - `getAllTokenIdsToBeTransferred(transfers)` ignores `durationFromTimestamp` because it only returns IDs.
 - `getAllBalancesToBeTransferred(transfers, blockTime)`, `getBalancesAfterTransfers(startBalance, transfers, blockTime, allowUnderflow?)`, and `getTransfersFromTransfersWithIncrements(transfers, blockTime)` need `blockTime` to resolve `durationFromTimestamp`.
 - `getBalancesAfterTransfers` throws on underflow unless `allowUnderflow` is true.
-- The chain applies the same increment rules through `predeterminedBalances` in an approval. See [Predetermined balances](../../token-standard/approval-criteria/predetermined-balances.md).
+- The chain applies the same increment rules through `predeterminedBalances` in an approval. See [Predetermined Balances](../../token-standard/approval-criteria/predetermined-balances.md).
 
 ## Related
 

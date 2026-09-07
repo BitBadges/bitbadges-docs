@@ -2,11 +2,11 @@
 description: "Get from zero to a working Solidity contract on BitBadges precompiles in five minutes: constants, addresses, JSON helpers, common patterns, errors."
 ---
 
-# Solidity quickstart
+# Solidity Quickstart
 
 This page gets a Solidity developer to a working contract on the tokenization precompile in a few minutes. Read it before the full [API reference](tokenization-precompile/api.md).
 
-## The essentials
+## The Essentials
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -62,7 +62,7 @@ TokenizationJSONHelpers.uintRangeToJson(1, TokenizationJSONHelpers.FOREVER);
 
 All four numeric constants equal `type(uint64).max` except `MIN_ID`. They are defined in both `TokenizationJSONHelpers` and `TokenizationHelpers`.
 
-## Precompile addresses
+## Precompile Addresses
 
 | Precompile | Address | Purpose |
 | --- | --- | --- |
@@ -86,7 +86,7 @@ token.transfer(to, amount);  // BitBadges does not use this pattern
 
 The JSON maps directly to the Cosmos SDK protobuf messages, so the same shape works from the EVM, the CLI, and the SDK, and new fields do not break the interface. The helper libraries build the JSON for you; hand-written JSON is rare.
 
-## Import the libraries
+## Import the Libraries
 
 ```solidity
 // Interface for calling the precompile
@@ -107,9 +107,9 @@ import "./libraries/TokenizationErrors.sol";
 
 The files live under [`contracts/`](https://github.com/BitBadges/bitbadgeschain/tree/master/contracts) in the chain repo.
 
-## Common patterns
+## Common Patterns
 
-### Transfer tokens
+### Transfer Tokens
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -145,7 +145,7 @@ contract TransferExample {
 }
 ```
 
-### Check a balance
+### Check a Balance
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -173,7 +173,7 @@ contract BalanceExample {
 
 `ownershipTime` is a single point in time. Pass the same unit your collection uses for ownership times (the chain convention is milliseconds, so `block.timestamp * 1000` for wall-clock times).
 
-### Create a collection
+### Create a Collection
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -218,7 +218,7 @@ contract CreateCollectionExample {
 }
 ```
 
-### KYC registry (dynamic store)
+### KYC Registry (Dynamic Store)
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -250,7 +250,7 @@ contract KycRegistryExample {
 }
 ```
 
-## Error handling
+## Error Handling
 
 ```solidity
 import "./interfaces/ITokenizationPrecompile.sol";
@@ -309,7 +309,7 @@ TokenizationJSONHelpers.uintRangeArrayToJson(starts, ends);
 
 Concept page: [UintRanges](../../token-standard/concepts/uint-ranges.md).
 
-## Address formats
+## Address Formats
 
 ```solidity
 // In Solidity, use EVM addresses (0x hex)
@@ -326,7 +326,7 @@ address evm = PRECOMPILE.convertBech32ToEvmAddress("bb1p0rrel3365scadq5k9pv0x0zp
 
 Both forms name the same account. Precompiles accept either form in JSON address fields and convert to bech32 internally.
 
-## Utility methods
+## Utility Methods
 
 ```solidity
 // Address conversion
@@ -347,7 +347,7 @@ uint256 amount = PRECOMPILE.getBalanceForIdAndTime(balancesJson, tokenId, timest
 string memory listId = PRECOMPILE.getReservedListId(userAddress);
 ```
 
-## Quick reference
+## Quick Reference
 
 | Library | Purpose |
 | --- | --- |
@@ -365,7 +365,7 @@ string memory listId = PRECOMPILE.getReservedListId(userAddress);
 
 ## Related
 
-- [Tokenization precompile API](tokenization-precompile/api.md)
+- [Tokenization Precompile API](tokenization-precompile/api.md)
 - [Errors](tokenization-precompile/errors.md)
 - [Example contracts](https://github.com/BitBadges/bitbadgeschain/tree/master/contracts/examples)
-- [GAMM precompile](gamm-precompile/README.md)
+- [GAMM Precompile](gamm-precompile/README.md)

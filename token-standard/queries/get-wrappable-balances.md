@@ -55,7 +55,7 @@ Uses: pre-wrap validation in a UI, sizing batch wraps, verifying a path configur
 
 ## Related
 
-- [Cosmos coin wrapper paths](../ibc/cosmos-coin-wrapper-paths.md)
-- [Alias denoms](../ibc/alias-denoms.md)
+- [Cosmos Coin Wrapper Paths](../ibc/cosmos-coin-wrapper-paths.md)
+- [Alias Denoms](../ibc/alias-denoms.md)
 - [GetBalance](get-balance.md)
-- [Wrap to an IBC denom](../../guides/wrap-to-an-ibc-denom.md)
+- [Wrap to an IBC Denom](../../guides/wrap-to-an-ibc-denom.md)

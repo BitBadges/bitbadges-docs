@@ -74,4 +74,4 @@ The response contains `collectionId`.
 
 - [MsgUpdateCollection](msg-update-collection.md)
 - [Collections](../concepts/collections.md)
-- [Minting and supply](../concepts/minting-and-supply.md)
+- [Minting and Supply](../concepts/minting-and-supply.md)

@@ -2,7 +2,7 @@
 description: "mustOwnTokens: require the initiator, sender, recipient, or a fixed address to hold tokens from some collection before the transfer is approved."
 ---
 
-# Token ownership
+# Token Ownership
 
 `mustOwnTokens` gates a transfer on the balance of another (or the same) collection. It is how one collection depends on another: KYC passports, memberships, tiers, and holding periods.
 
@@ -151,13 +151,13 @@ interface MustOwnTokens<T extends NumberType> {
 Ask your agent: "Add a transfer approval to collection 2 that only lets holders of token ID 1 in collection 1 receive tokens." The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 For each entry the chain loads the party's balances in `collectionId` and expands them over `tokenIds` and `ownershipTimes` (or the current block time). Each combination's amount is compared with `amountRange`. With `mustSatisfyForAllAssets: true`, all combinations must be inside the range; with `false`, one is enough. Every entry in the array must pass.
 
 The check is read-only and auto-scannable. It works for balances the party holds by default from `defaultBalances` as well as minted ones.
 
-### Party examples
+### Party Examples
 
 Initiator (default):
 
@@ -257,5 +257,5 @@ A fixed address, whoever is transferring (a multisig or contract that must hold 
 ## Related
 
 - [Balances](../concepts/balances.md)
-- [Dynamic store challenges](dynamic-store-challenges.md)
-- [Compliance zones](../concepts/compliance-zones.md)
+- [Dynamic Store Challenges](dynamic-store-challenges.md)
+- [Compliance Zones](../concepts/compliance-zones.md)

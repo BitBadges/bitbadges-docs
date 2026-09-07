@@ -2,7 +2,7 @@
 description: "The x/tokenization allowed_denoms list on mainnet, the SDK coin registry, and the canonical USDC (via Injective) versus legacy USDC.n (via Noble) policy."
 ---
 
-# Supported denoms
+# Supported Denoms
 
 `x/tokenization` keeps an allowlist of denoms that approval criteria (`coinTransfers`, backed paths, pricing) may reference. Governance updates it through `MsgUpdateParams`. The live list is the source of truth; the SDK's `MAINNET_COINS_REGISTRY` mirrors it with symbols and decimals.
 
@@ -30,7 +30,7 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/params
 Ask your agent: "List every denom BitBadges accepts for payments and pools, with decimals, and tell me the current USDC price of BADGE." The `bb assets list` and `bb assets price` commands read the registry and the pool prices on this page.
 {% endhint %}
 
-## Allowlist (mainnet, 2026-09-06)
+## Allowlist (Mainnet, 2026-09-06)
 
 | Symbol | Denom | Decimals | Route | Status |
 | --- | --- | --- | --- | --- |
@@ -43,7 +43,7 @@ Ask your agent: "List every denom BitBadges accepts for payments and pools, with
 
 Any other `ibc/` denom that arrives (for example Osmosis's alloyed `allUSDC` or a bridged voucher of it) is unregistered: it is not allowlisted, carries no rate limits, and cannot back a collection.
 
-## The two USDC routes
+## The Two USDC Routes
 
 An IBC denom is the hash of the token's full transfer path, so the same asset arriving by two routes has two denoms. Treat them as separate balances; they never aggregate.
 
@@ -60,7 +60,7 @@ The canonical route is proven and its allowlisting shipped with governance propo
 - The 16 collections with backed paths on it keep working. A backed path's escrow address derives from the denom string, so those collections cannot be repointed. That is also why a new backed collection on `USDC.n` is harmful: it would be stuck there. New backed collections use canonical `USDC`.
 - Do not use it for anything new.
 
-## SDK registry
+## SDK Registry
 
 `MAINNET_COINS_REGISTRY` in `bitbadges` (`src/common/constants.ts`) carries the same six entries with `label`, `symbol`, `decimals`, `baseDenom`, `image`, `skipGoSupported`, and, from `0.43.0`, `deprecated` and `deprecationNote` on `USDC.n`.
 
@@ -83,6 +83,6 @@ const legacy = MAINNET_COINS_REGISTRY['ibc/F082B65C88E4B6D5EF1DB243CDA1D331D0027
 ## Related
 
 - [Network](README.md)
-- [Backed minting](../token-standard/ibc/backed-minting.md)
-- [Coin transfers](../token-standard/approval-criteria/coin-transfers.md)
-- [IBC rate limits](modules/ibc-rate-limit.md)
+- [Backed Minting](../token-standard/ibc/backed-minting.md)
+- [Coin Transfers](../token-standard/approval-criteria/coin-transfers.md)
+- [IBC Rate Limits](modules/ibc-rate-limit.md)

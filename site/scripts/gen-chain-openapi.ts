@@ -7,6 +7,15 @@
  * tell `x/tokenization` from `x/gamm`. This script converts the document to
  * OpenAPI 3.1 and retags every operation by the module its path belongs to.
  *
+ * It also drops the paths that are not routes. buf writes every gRPC method
+ * that carries no `google.api.http` annotation as a pseudo-path built from its
+ * gRPC selector — `/tokenization.Msg/CreateCollection`,
+ * `/gamm.v1beta1.Query/CalcJoinPoolNoSwapShares`. The LCD answers those with
+ * `501 Not Implemented` (verified against `lcd.bitbadges.io`), so publishing
+ * them gives the reader a playground button that cannot work. Transactions are
+ * signed and broadcast, never POSTed to the LCD; the surface this document
+ * describes is read-only.
+ *
  * PORTABILITY CONTRACT: this file is self-contained on purpose. It imports
  * nothing but `node:` builtins — no docs-site config, no `src/lib`, no npm
  * dependency — so the whole file can be copied into the chain repo as
@@ -376,17 +385,93 @@ export function swaggerToOpenApi31(input: Json, options: ConvertOptions = {}): {
 }
 
 /* ==========================================================================
-   2. Retag by module
+   2. Prune everything that is not an LCD route
+   ========================================================================== */
+
+/**
+ * A gRPC selector standing in for an HTTP route: one leading segment of the
+ * form `<package>.<Service>` followed by `/<Method>`, e.g.
+ * `/tokenization.Msg/CreateCollection` or
+ * `/gamm.v1beta1.Query/CalcJoinPoolNoSwapShares`. Real gateway routes are
+ * multi-segment and lowercase (`/osmosis/gamm/v1beta1/pools`), so nothing
+ * genuine matches this shape.
+ */
+export const PSEUDO_PATH = /^\/[a-z][a-z0-9_]*(?:\.[a-z0-9_]+)*\.[A-Z][A-Za-z0-9]*\/[A-Za-z0-9_]+$/;
+
+export function isPseudoPath(route: string): boolean {
+  return PSEUDO_PATH.test(route);
+}
+
+export type PruneReport = {
+  /** Paths removed because they are gRPC selectors, not routes. */
+  pseudoPaths: string[];
+  /** `"<method> <path>"` for each non-GET operation removed. */
+  writeOperations: string[];
+  /** Schemas left unreachable once the pseudo-paths were gone. */
+  orphanSchemas: number;
+};
+
+/**
+ * Remove the paths the LCD does not serve.
+ *
+ * Two kinds: gRPC selector pseudo-paths (see `PSEUDO_PATH`), and any non-GET
+ * operation. The gateway implements queries only — a `POST` to it returns
+ * `501`, whether it is a selector path or an annotated one like
+ * `/cosmos/evm/vm/v1/ethereum_tx`. Messages are documented as payload shapes at
+ * `/token-standard/messages`, not as callable endpoints here.
+ */
+export function pruneNonRoutes(input: Json): { spec: Json; report: PruneReport } {
+  const spec = structuredClone(input);
+  const pseudoPaths: string[] = [];
+  const writeOperations: string[] = [];
+
+  for (const [route, item] of Object.entries((spec.paths ?? {}) as Json)) {
+    if (isPseudoPath(route)) {
+      delete spec.paths[route];
+      pseudoPaths.push(route);
+      continue;
+    }
+    for (const method of Object.keys(item as Json)) {
+      if (!HTTP_METHODS.has(method) || method === 'get') continue;
+      delete (item as Json)[method];
+      writeOperations.push(`${method} ${route}`);
+    }
+    if (!Object.keys(item as Json).some((key) => HTTP_METHODS.has(key))) delete spec.paths[route];
+  }
+
+  // The dropped paths carried most of the document's schemas with them (every
+  // `Msg*` request and response). Leaving them behind would keep a ~1 MB
+  // payload and fill Scalar's model list with types no operation uses.
+  const schemas: Json = spec.components?.schemas ?? {};
+  const reachable = new Set<string>();
+  const queue = [...collectRefs(spec.paths ?? {}, new Set())];
+  while (queue.length) {
+    const name = queue.pop()!;
+    if (reachable.has(name) || !(name in schemas)) continue;
+    reachable.add(name);
+    queue.push(...collectRefs(schemas[name], new Set()));
+  }
+  let orphanSchemas = 0;
+  for (const name of Object.keys(schemas)) {
+    if (reachable.has(name)) continue;
+    delete schemas[name];
+    orphanSchemas += 1;
+  }
+
+  return {
+    spec,
+    report: { pseudoPaths: pseudoPaths.sort(), writeOperations: writeOperations.sort(), orphanSchemas },
+  };
+}
+
+/* ==========================================================================
+   3. Retag by module
    ========================================================================== */
 
 export type ModuleTag = { name: string; description: string };
 
-/**
- * Path prefix -> tag. First match wins, so the versioned `tokenization.vNN`
- * rule must precede the plain `tokenization` one.
- */
+/** Path prefix -> tag. First match wins. */
 const MODULE_RULES: [RegExp, string][] = [
-  [/^\/tokenization\.v\d+\./, 'Legacy tokenization versions'],
   [/^\/bitbadges\/bitbadgeschain\/tokenization\//, 'Tokenization'],
   [/^\/tokenization\./, 'Tokenization'],
   [/^\/bitbadges\/bitbadgeschain\/managersplitter/, 'Manager splitter'],
@@ -409,28 +494,25 @@ const MODULE_RULES: [RegExp, string][] = [
 
 /**
  * Sidebar order. BitBadges modules first, then the standard Cosmos/IBC/EVM
- * surface, then the deprecated versioned Msg routes — kept, never deleted, but
- * pushed past everything a reader actually wants.
+ * surface, then anything unattributable.
  */
 export const TAG_ORDER: ModuleTag[] = [
   {
     name: 'Tokenization',
     description:
-      '`x/tokenization` — the BitBadges token standard. The `GET` routes are live node queries; the `POST` routes are the module\'s message definitions (payload shapes for signed transactions), not callable REST endpoints.',
+      '`x/tokenization` — the BitBadges token standard: collections, balances, address lists, approval trackers and dynamic stores, read straight from node state.',
   },
   {
     name: 'GAMM',
-    description:
-      '`x/gamm` — the AMM pools. `GET` routes query pools, prices and swap estimates; the `POST` routes are message definitions for pool joins, exits and swaps.',
+    description: '`x/gamm` — the AMM pools: pool state, spot prices, share math and swap estimates.',
   },
   {
     name: 'Pool manager',
-    description:
-      '`x/poolmanager` — routing across pools, taker fees and multi-hop swap estimation. `GET` routes are live queries; `POST` routes are message definitions.',
+    description: '`x/poolmanager` — routing across pools, taker fee agreements and multi-hop swap estimation.',
   },
   {
     name: 'Send manager',
-    description: '`x/sendmanager` — alias routing for sends, and the balances behind an alias path.',
+    description: '`x/sendmanager` — alias routing for sends, and the balances behind an alias denom.',
   },
   {
     name: 'Manager splitter',
@@ -440,22 +522,15 @@ export const TAG_ORDER: ModuleTag[] = [
     name: 'IBC rate limit',
     description: '`x/ibc-rate-limit` — the outbound and inbound IBC transfer rate limits and their parameters.',
   },
-  { name: 'EVM', description: 'The Cosmos EVM module — `MsgEthereumTx` and the VM parameters. Contract calls go to the EVM JSON-RPC, not here.' },
-  { name: 'Cosmos SDK', description: 'Standard Cosmos SDK module routes (auth, bank, staking, gov and friends), unchanged from upstream.' },
-  { name: 'IBC', description: 'Standard IBC routes (clients, connections, channels, transfer), unchanged from upstream.' },
-  {
-    name: 'Legacy tokenization versions',
-    description:
-      'Message definitions for superseded `x/tokenization` proto versions (`tokenization.v27` through the current-1). They stay published so historical transactions remain decodable. Build against the unversioned **Tokenization** routes instead.',
-  },
-  { name: 'Other', description: 'Routes this document could not attribute to a module.' },
+  { name: 'EVM', description: 'The Cosmos EVM module — VM parameters and state. Contract calls go to the EVM JSON-RPC, not here.' },
+  { name: 'Cosmos SDK', description: 'Standard Cosmos SDK module queries (auth, bank, staking, gov and friends), unchanged from upstream.' },
+  { name: 'IBC', description: 'Standard IBC queries (clients, connections, channels, transfer), unchanged from upstream.' },
+  { name: 'Other', description: 'Queries this document could not attribute to a module.' },
 ];
 
 export type RetagReport = {
   /** Tag name -> operation count, in sidebar order. */
   counts: [string, number][];
-  /** Operations whose summary was derived from the path. */
-  synthesizedSummaries: number;
 };
 
 /** The module a path belongs to. */
@@ -464,15 +539,10 @@ export function moduleForPath(route: string): string {
   return 'Other';
 }
 
-/**
- * Replace the source document's `Query`/`Msg` tags with one module tag per
- * operation, and give the gRPC `Msg` routes a readable summary (they ship with
- * none, so the sidebar would otherwise show the raw path).
- */
+/** Replace the source document's `Query`/`Msg` tags with one module tag per operation. */
 export function retagByModule(input: Json): { spec: Json; report: RetagReport } {
   const spec = structuredClone(input);
   const counts = new Map<string, number>();
-  let synthesizedSummaries = 0;
 
   for (const [route, item] of Object.entries((spec.paths ?? {}) as Json)) {
     const tag = moduleForPath(route);
@@ -481,14 +551,6 @@ export function retagByModule(input: Json): { spec: Json; report: RetagReport } 
       const op = operation as Json;
       op.tags = [tag];
       counts.set(tag, (counts.get(tag) ?? 0) + 1);
-
-      if (!op.summary) {
-        const last = route.split('/').filter(Boolean).pop() ?? route;
-        if (/^[A-Za-z][A-Za-z0-9]*$/.test(last)) {
-          op.summary = last;
-          synthesizedSummaries += 1;
-        }
-      }
     }
   }
 
@@ -505,14 +567,152 @@ export function retagByModule(input: Json): { spec: Json; report: RetagReport } 
   });
   spec.paths = Object.fromEntries(routes.map((route) => [route, spec.paths[route]]));
 
-  return {
-    spec,
-    report: { counts: used.map((tag) => [tag.name, counts.get(tag.name) ?? 0]), synthesizedSummaries },
-  };
+  return { spec, report: { counts: used.map((tag) => [tag.name, counts.get(tag.name) ?? 0]) } };
 }
 
 /* ==========================================================================
-   3. Sanitize — the defects that blank a strict renderer
+   4. Short summaries
+
+   Scalar labels each sidebar entry with the operation's `summary`, falling back
+   to the raw path. The proto comments the generator lifts into `summary` are
+   sentences and sometimes paragraphs — "SpotPrice defines a gRPC query handler
+   that returns the spot price given a base denomination and a quote
+   denomination." — which turns the sidebar into a wall of prose. Every
+   operation gets a short imperative label here; the proto comment moves to
+   `description`, where a reference renderer expects it.
+   ========================================================================== */
+
+/** Longest acceptable sidebar label. */
+export const SUMMARY_MAX = 40;
+
+/** Method names whose mechanical humanization reads badly or runs long. */
+const SUMMARY_OVERRIDES: Record<string, string> = {
+  AllRegisteredAlloyedPools: 'List alloyed pools',
+  AllTakerFeeShareAccumulators: 'List taker fee accumulators',
+  AllTakerFeeShareAgreements: 'List taker fee agreements',
+  CalcExitPoolCoinsFromShares: 'Calculate exit pool coins',
+  CalcJoinPoolShares: 'Calculate join pool shares',
+  EstimateSinglePoolSwapExactAmountIn: 'Estimate a single-pool swap in',
+  EstimateSinglePoolSwapExactAmountOut: 'Estimate a single-pool swap out',
+  EstimateSwapExactAmountIn: 'Estimate a swap in',
+  EstimateSwapExactAmountInWithPrimitiveTypes: 'Estimate a swap in (primitives)',
+  EstimateSwapExactAmountOut: 'Estimate a swap out',
+  EstimateSwapExactAmountOutWithPrimitiveTypes: 'Estimate a swap out (primitives)',
+  EstimateTradeBasedOnPriceImpact: 'Estimate a trade',
+  GetAllReservedProtocolAddresses: 'List reserved addresses',
+  GetBalanceForToken: 'Get a token balance',
+  IsAddressReservedProtocol: 'Check a reserved address',
+  Params: 'Get module params',
+  Parameters: 'Get module params',
+  PoolsWithFilter: 'Filter pools',
+  RegisteredAlloyedPoolFromDenom: 'Get an alloyed pool by denom',
+  RegisteredAlloyedPoolFromPoolId: 'Get an alloyed pool by ID',
+  TakerFeeShareAgreementFromDenom: 'Get a taker fee agreement',
+  TakerFeeShareDenomsToAccruedValue: 'Get accrued taker fee value',
+  TotalVolumeForPool: 'Get total pool volume',
+};
+
+/** Words that must keep their casing when a method name is humanized. */
+const ACRONYMS = new Set(['ETH', 'EVM', 'IBC', 'ID', 'AMM', 'TWAP', 'ERC', 'LP', 'RPC', 'URI']);
+
+/** Leading word -> verb, and whether the word itself is consumed. */
+const VERB_RULES: [RegExp, string, boolean][] = [
+  [/^Get$/, 'Get', true],
+  [/^All$/, 'List', true],
+  [/^List$/, 'List', true],
+  [/^Num$/, 'Count', true],
+  [/^Calc$/, 'Calculate', true],
+  [/^Estimate$/, 'Estimate', true],
+];
+
+/** Split a Go/proto method name into words, keeping acronym runs together. */
+export function splitWords(name: string): string[] {
+  return name.match(/[A-Z]+(?![a-z])|[A-Z][a-z0-9]*|[a-z0-9]+/g) ?? [];
+}
+
+const isPlural = (word: string) => /s$/i.test(word) && !/(ss|us|is)$/i.test(word);
+
+/** Leading nouns that read as mass quantities — "total liquidity", not "a total liquidity". */
+const MASS_NOUNS = new Set(['total', 'module', 'max', 'min', 'average']);
+
+/** The bare method name behind a gateway operationId. */
+export function methodName(operationId: string | undefined, route: string): string {
+  const raw = (operationId ?? '').split('_').pop() ?? '';
+  const stripped = raw.replace(/Mixin\d+$/, '');
+  if (stripped) return stripped;
+  const last = route.split('/').filter(Boolean).pop() ?? route;
+  return last.replace(/[{}]/g, '');
+}
+
+/**
+ * A short imperative label for one operation — "Get a collection", "List
+ * pools". Derived from the method name, disambiguated by the route's API
+ * version when the chain publishes two of the same query.
+ */
+export function shortSummary(operationId: string | undefined, route: string): string {
+  const name = methodName(operationId, route);
+  const suffix = /\/v(\d+)\//.test(route) && !/^v\d+$/.test(name) ? ` (v${route.match(/\/v(\d+)\//)![1]})` : '';
+
+  const override = SUMMARY_OVERRIDES[name.replace(/V\d+$/, '')];
+  if (override) return `${override}${suffix}`;
+
+  const words = splitWords(name.replace(/V\d+$/, ''));
+  if (!words.length) return `Get ${route}`.slice(0, SUMMARY_MAX);
+
+  let verb = 'Get';
+  const rule = VERB_RULES.find(([pattern]) => pattern.test(words[0]));
+  if (rule) {
+    verb = rule[1];
+    if (rule[2]) words.shift();
+  }
+  // A bare plural noun ("Pools") is a listing; a compound one ("TotalShares")
+  // is a single value that happens to be plural.
+  if (!rule && words.length === 1 && isPlural(words[0])) verb = 'List';
+  if (!words.length) return `${verb} module params${suffix}`;
+
+  const noun = words.map((word) => (ACRONYMS.has(word.toUpperCase()) && word.length <= 4 && word === word.toUpperCase() ? word : word.toLowerCase())).join(' ');
+  const takesArticle =
+    verb === 'Get' && !isPlural(words[words.length - 1]) && !MASS_NOUNS.has(words[0].toLowerCase());
+  const article = takesArticle ? (/^[aeiou]/i.test(noun) ? 'an ' : 'a ') : '';
+  return `${verb} ${article}${noun}${suffix}`;
+}
+
+export type SummaryReport = {
+  /** `"<label>  <-  <path>"` for every label longer than `SUMMARY_MAX`. */
+  overlong: string[];
+  /** Operations whose original prose summary was moved to `description`. */
+  movedToDescription: number;
+};
+
+/** Give every operation a short label, demoting its proto prose to `description`. */
+export function summarizeOperations(input: Json): { spec: Json; report: SummaryReport } {
+  const spec = structuredClone(input);
+  const overlong: string[] = [];
+  let movedToDescription = 0;
+
+  for (const [route, item] of Object.entries((spec.paths ?? {}) as Json)) {
+    for (const [method, operation] of Object.entries(item as Json)) {
+      if (!HTTP_METHODS.has(method)) continue;
+      const op = operation as Json;
+      const prose = typeof op.summary === 'string' ? op.summary.replace(/\s+/g, ' ').trim() : '';
+
+      // The proto comment is the real explanation; keep it, just not in the
+      // sidebar. Single-word leftovers ("pools", "params") explain nothing.
+      if (!op.description && prose.split(' ').length >= 3) {
+        op.description = prose;
+        movedToDescription += 1;
+      }
+
+      op.summary = shortSummary(op.operationId, route);
+      if (op.summary.length > SUMMARY_MAX) overlong.push(`${op.summary}  <-  ${route}`);
+    }
+  }
+
+  return { spec, report: { overlong: overlong.sort(), movedToDescription } };
+}
+
+/* ==========================================================================
+   5. Sanitize — the defects that blank a strict renderer
 
    Scalar dereferences the whole document up front. A `$ref` that points at
    nothing, or a schema cycle, takes the page down with it rather than
@@ -624,7 +824,7 @@ export function sanitizeChainSpec(input: Json): { spec: Json; report: SanitizeRe
 }
 
 /* ==========================================================================
-   4. The document the reader sees
+   6. The document the reader sees
    ========================================================================== */
 
 export const CHAIN_SERVER = 'https://lcd.bitbadges.io';
@@ -633,7 +833,11 @@ export const CHAIN_TITLE = 'BitBadges Chain API';
 
 const CHAIN_DESCRIPTION = `The **chain LCD** — the REST surface a BitBadges node serves through the Cosmos gRPC-gateway, live at \`${CHAIN_SERVER}\`. It reads consensus state directly from a node: no indexing, no API key, no account.
 
-It is read-mostly. Every \`GET\` route here is a node query you can run from this page against mainnet. The \`POST\` routes named \`<module>.Msg/<Method>\` are the chain's **message definitions**, published so you can see the exact payload each transaction type carries. They are not REST endpoints — a message is signed and broadcast as a transaction (see the SDK), never posted to the LCD.
+## The LCD is read-only
+
+Every route here is a \`GET\` you can run from this page against mainnet. There are no write endpoints: the gateway serves queries and answers anything else with \`501 Not Implemented\`.
+
+Transactions never touch the LCD. A message is signed and then broadcast through the chain's RPC endpoint, or — far more simply — through the SDK. The message payloads themselves are documented at [Token Standard → Messages](/token-standard/messages); signing and broadcasting are covered in [SDK → Transactions](/sdk/transactions).
 
 ## How this differs from the BitBadges API
 
@@ -648,9 +852,7 @@ Use the chain API when you need the value the chain itself would return. Use the
 
 ## Documented queries
 
-The routes here are generated from the chain's proto definitions, so they carry only the summaries the protos carry. The hand-written explanation of each query — arguments, response shape, worked examples — lives at [Token Standard → Queries](/token-standard/queries).
-
-Messages are documented at [Token Standard → Messages](/token-standard/messages), and the modules around the standard at [Chain → Modules](/chain/modules).`;
+The routes here are generated from the chain's proto definitions, so each one carries only the explanation its proto comment carries. The hand-written explanation of each query — arguments, response shape, worked examples — lives at [Token Standard → Queries](/token-standard/queries), and the modules around the standard at [Chain → Modules](/chain/modules).`;
 
 export type BuildOptions = {
   server?: string;
@@ -660,19 +862,23 @@ export type BuildOptions = {
 
 export type BuildReport = {
   convert: ConvertReport;
+  prune: PruneReport;
   retag: RetagReport;
+  summary: SummaryReport;
   sanitize: SanitizeReport;
   paths: number;
   operations: number;
   schemas: number;
 };
 
-/** Convert, retag, sanitize, and stamp the reader-facing metadata. */
+/** Convert, prune, retag, summarize, sanitize, and stamp the reader-facing metadata. */
 export function buildChainOpenApi(source: Json, options: BuildOptions = {}): { spec: Json; report: BuildReport } {
   const server = options.server ?? CHAIN_SERVER;
   const converted = swaggerToOpenApi31(source, { fallbackServer: server });
-  const retagged = retagByModule(converted.spec);
-  const sanitized = sanitizeChainSpec(retagged.spec);
+  const pruned = pruneNonRoutes(converted.spec);
+  const retagged = retagByModule(pruned.spec);
+  const summarized = summarizeOperations(retagged.spec);
+  const sanitized = sanitizeChainSpec(summarized.spec);
   const spec = sanitized.spec;
 
   const version = source.info?.version;
@@ -692,7 +898,9 @@ export function buildChainOpenApi(source: Json, options: BuildOptions = {}): { s
     spec,
     report: {
       convert: converted.report,
+      prune: pruned.report,
       retag: retagged.report,
+      summary: summarized.report,
       sanitize: sanitized.report,
       paths: Object.keys(spec.paths ?? {}).length,
       operations,
@@ -702,7 +910,7 @@ export function buildChainOpenApi(source: Json, options: BuildOptions = {}): { s
 }
 
 /* ==========================================================================
-   5. CLI
+   7. CLI
    ========================================================================== */
 
 /** Parse `--in <path>` and repeated `--out <path>` flags. */
@@ -781,8 +989,10 @@ async function main(): Promise<void> {
     `chain-openapi: ${input}${usePrebuilt ? ' (prebuilt)' : ' (swagger 2.0)'} -> ${where}\n` +
       `chain-openapi: ${report.paths} paths, ${report.operations} operations, ${report.schemas} schemas, ${report.retag.counts.length} tags\n` +
       `chain-openapi: tags — ${tags}\n` +
-      `chain-openapi: converted ${report.convert.requestBodies.length} body parameter(s) to requestBody, rewrote ${report.convert.rewrittenRefs} $ref(s), moved ${report.convert.movedSchemas} definition(s) to components.schemas, named ${report.retag.synthesizedSummaries} unsummarized operation(s)\n` +
+      `chain-openapi: dropped ${report.prune.pseudoPaths.length} gRPC pseudo-path(s) and ${report.prune.writeOperations.length} non-GET operation(s) — the LCD answers both with 501; plus ${report.prune.orphanSchemas} schema(s) left unreachable\n` +
+      `chain-openapi: converted ${report.convert.requestBodies.length} body parameter(s) to requestBody, rewrote ${report.convert.rewrittenRefs} $ref(s), moved ${report.convert.movedSchemas} definition(s) to components.schemas, demoted ${report.summary.movedToDescription} prose summary(ies) to description\n` +
       `chain-openapi: fixed — ${report.sanitize.cutCycles.length} schema cycle(s), ${report.sanitize.stubbedRefs.length} dangling $ref(s), ${report.sanitize.droppedPaths.length} empty path item(s)` +
+      (report.summary.overlong.length ? `\nchain-openapi: OVERLONG SUMMARIES — ${report.summary.overlong.join('; ')}` : '') +
       (report.convert.unhandled.length ? `\nchain-openapi: UNHANDLED — ${report.convert.unhandled.join('; ')}` : ''),
   );
 }

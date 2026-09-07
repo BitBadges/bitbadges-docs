@@ -13,7 +13,7 @@ Prerequisites:
 
 Amounts are raw base units everywhere: `1000000` is 1 BADGE at 6 decimals.
 
-## 1. Find pools and prices
+## 1. Find Pools and Prices
 
 ```bash
 # Every pool, sorted by liquidity (also: volume, dailyVolume, weeklyVolume,
@@ -78,7 +78,7 @@ In TypeScript the same data is `api.getAllPools`, `getPoolInfoById`, `getPoolInf
 - "Look up the current price of BADGE in USDC and the pools that hold both."
 {% endhint %}
 
-## 2. Check balances
+## 2. Check Balances
 
 Three asset-scoped views:
 
@@ -106,7 +106,7 @@ bb swap balances '{"bitbadges-1": ["bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"],
 bb swap balances @chains.json
 ```
 
-## 3. Convert amounts and set slippage
+## 3. Convert Amounts and Set Slippage
 
 Decimals come from the BitBadges coins registry when you pass `--denom`; pass `--decimals` to override.
 
@@ -124,9 +124,9 @@ bb amount min-amount --expected 5000000 --slippage-bps 50
 bb amount slippage --expected 5000000 --actual 4975000
 ```
 
-`bb amount max-wrappable`, `wrap-preview`, and `unwrap-preview` convert through a collection's wrapper path; see [Wrap to an IBC denom](wrap-to-an-ibc-denom.md).
+`bb amount max-wrappable`, `wrap-preview`, and `unwrap-preview` convert through a collection's wrapper path; see [Wrap to an IBC Denom](wrap-to-an-ibc-denom.md).
 
-## 4. Estimate the swap
+## 4. Estimate the Swap
 
 ```bash
 # 1 BADGE -> USDC on the BitBadges chain, 1% slippage (default)
@@ -176,7 +176,7 @@ Read these fields before you execute:
 
 Skip:Go compatibility is partial. `skipGoMsgs` follow the Skip API message format, but Skip's own API, engines, explorers, and client may not support BitBadges routing; only Cosmos swaps are recommended (no ETH or SOL routes yet).
 
-## 5. Execute the swap
+## 5. Execute the Swap
 
 A BitBadges-only route (one native swap, no Skip:Go rerouting, no EVM transaction, no IBC-transfer leg, no WETH redirect) signs and broadcasts from the CLI:
 
@@ -219,9 +219,9 @@ bb deploy '{
 }' --browser
 ```
 
-Proto and JSON field names for every gamm message are in [x/gamm messages](../chain/modules/gamm/messages.md). Signing options (keyring, browser, external signer via `bb gen-tx-payload`) are in [Deploy commands](../cli/deploy.md).
+Proto and JSON field names for every gamm message are in [x/gamm Messages](../chain/modules/gamm/messages.md). Signing options (keyring, browser, external signer via `bb gen-tx-payload`) are in [Deploy commands](../cli/deploy.md).
 
-## 6. Provide liquidity
+## 6. Provide Liquidity
 
 Join a pool with tokens in the pool's current proportions. You receive LP shares, and `token_in_maxs` caps what can be taken from you:
 
@@ -275,8 +275,8 @@ bb deploy '{
 
 Check the position afterwards with `bb pools show <pool-id>` and `bb balances ics20 <address>` (LP shares are a bank denom).
 
-## Next steps
+## Next Steps
 
 - [Swaps](../api/swaps.md) for the estimate payload and response reference.
 - [Swap commands](../cli/swap.md) for every `bb swap`, `pools`, `pairs`, `price`, `assets`, `balances`, and `amount` flag.
-- [Wrap to an IBC denom](wrap-to-an-ibc-denom.md) to make a collection's tokens tradable in a pool.
+- [Wrap to an IBC Denom](wrap-to-an-ibc-denom.md) to make a collection's tokens tradable in a pool.

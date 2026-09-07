@@ -6,25 +6,25 @@ description: "How the BitBadges L1 and token standard compare to other chains an
 
 BitBadges is its own Cosmos SDK Layer 1 with a token standard that works like an API: the logic is implemented once in the module, and each collection customizes it through messages. This page compares that design to other protocols and to ERC-3643 (T-REX), the leading standard for regulated securities.
 
-## BitBadges L1 versus other protocols
+## BitBadges L1 Versus Other Protocols
 
-### Chain architecture
+### Chain Architecture
 
 BitBadges is a Layer 1, not a Layer 2 or a sidechain. It is built with the Cosmos SDK, which gives it the IBC ecosystem and every other Cosmos feature. The token standard is not EVM, ERC-20, or Bitcoin Ordinals compatible. It is a separate standard built on Cosmos foundations.
 
-### Security model
+### Security Model
 
 BitBadges is less decentralized today than the largest protocols, and decentralization grows over time. The intended role is one part of an application stack rather than the whole of it. An application can use BitBadges for authentication and gating while accepting payments in its native currency.
 
-### Cross-chain interoperability
+### Cross-Chain Interoperability
 
 IBC connects BitBadges to other chains, so the token standard is usable from any Cosmos chain and tokens wrap to IBC denoms. See [IBC](../token-standard/ibc/README.md).
 
-### Token standard
+### Token Standard
 
 Protocols such as Ethereum rely on ERC-20 and ERC-721, which need a smart contract deployment per token. That approach grows complex, adds a new attack surface per contract, and does not model the structure most use cases need. On BitBadges, everything is implemented natively and a collection customizes the requests, which is why the BitBadges site is no-code by default.
 
-### Smart contract support
+### Smart Contract Support
 
 Ethereum and Solana have broad smart contract support. BitBadges does not run ERC-20 contracts natively, but it does support EVM contracts, which can extend the module and build dApps through precompiles. The goal remains a standard where custom contracts are never needed. See [EVM](../chain/evm/README.md).
 
@@ -38,7 +38,7 @@ ERC-3643 (T-REX, Token for Regulated EXchanges) is an Ethereum standard for comp
 
 BitBadges enforces compliance rules, transfer restrictions, and approval logic in the chain itself. No contract deployment is needed. For EVM developers, precompiles expose the native standard through Solidity interfaces such as ERC-3643.
 
-### Feature comparison
+### Feature Comparison
 
 | Feature | BitBadges protocol standard | ERC-3643 interface (through precompiles on BitBadges, or natively on Ethereum) |
 | --- | --- | --- |
@@ -53,14 +53,14 @@ BitBadges enforces compliance rules, transfer restrictions, and approval logic i
 | Forced transfers | Admin override approvals | Recovery and forced transfer functions |
 | Supply control | Configurable mint and burn rules with lockable permissions | Mint and burn controlled by token agents |
 
-### ERC-3643 strengths
+### ERC-3643 Strengths
 
 - Institutional adoption: a ratified Ethereum standard with more than $32B in tokenized assets and major financial institutions behind it.
 - Regulatory track record: purpose-built for securities compliance with established legal frameworks.
 - Ecosystem maturity: identity providers, compliance modules, and institutional tooling.
 - ONCHAINID: a mature decentralized identity framework for KYC and AML.
 
-### BitBadges strengths
+### BitBadges Strengths
 
 - No smart contract development: a compliant token is configured through transaction parameters or the no-code site.
 - Protocol-level guarantees: transfer rules cannot be bypassed by a contract bug or an upgradeable proxy exploit.
@@ -69,9 +69,9 @@ BitBadges enforces compliance rules, transfer restrictions, and approval logic i
 - Cosmos ecosystem: native IBC to more than 50 chains without bridges.
 - Lower barrier: no Solidity, gas optimization, or contract auditing.
 
-### How they work together
+### How They Work Together
 
-Through EVM precompiles, a Solidity contract calls the native token standard with the ERC-3643 function signatures developers already know. The precompile bridges the call; the chain enforces the transfer rules, identity checks, and compliance logic, not the contract. The ERC-3643 interface is optional: the no-code site, the CLI builders, and the MCP builder tools talk to the protocol standard directly. See [Tokenization precompile](../chain/evm/tokenization-precompile/README.md) and the [ERC-3643 specification](https://erc3643.info/).
+Through EVM precompiles, a Solidity contract calls the native token standard with the ERC-3643 function signatures developers already know. The precompile bridges the call; the chain enforces the transfer rules, identity checks, and compliance logic, not the contract. The ERC-3643 interface is optional: the no-code site, the CLI builders, and the MCP builder tools talk to the protocol standard directly. See [Tokenization Precompile](../chain/evm/tokenization-precompile/README.md) and the [ERC-3643 specification](https://erc3643.info/).
 
 ## Related
 

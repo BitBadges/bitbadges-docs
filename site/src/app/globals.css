@@ -293,7 +293,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 0.5rem 0.75rem 0.5rem 0.9rem;
   border-bottom: 1px solid var(--border);
   background: color-mix(in oklab, var(--bg-inset) 55%, transparent);
@@ -302,6 +302,10 @@ body {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--fg-faint);
+}
+/* The language label holds the left; the button pair sits together on the right. */
+.doc figure[data-code] > figcaption > span:first-child {
+  margin-right: auto;
 }
 
 .doc pre {
@@ -332,6 +336,27 @@ body {
 /* Collapsible line ranges: a native <details> wrapping Shiki line spans. */
 .doc details.code-fold {
   display: block;
+}
+/*
+ * Keep the folded lines rendered when the fold is closed, clipped to zero
+ * height, instead of letting the browser drop them out of the box tree. A
+ * mouse selection dragged over the block then still picks up every line, so
+ * ⌘C matches what the copy button puts on the clipboard. Engines without
+ * ::details-content fall back to the native hiding — the copy button is still
+ * exact there, only the drag-select is short.
+ */
+.doc details.code-fold::details-content {
+  content-visibility: visible;
+  block-size: auto;
+}
+/* Open, the wrapper leaves no box at all: the lines lay out as before. */
+.doc .code-fold-lines {
+  display: contents;
+}
+.doc details.code-fold:not([open]) > .code-fold-lines {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
 }
 /*
  * A fold should read as one dimmed line of the listing, not as a panel. No

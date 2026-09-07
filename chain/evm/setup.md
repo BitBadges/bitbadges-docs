@@ -32,7 +32,7 @@ EVMChainIDLocalDev = "90123" // Default for local development/testing
 
 The chain ID in your genesis file (`app_state.evm.params.chain_config.chain_id`) must match this value.
 
-## RPC interfaces
+## RPC Interfaces
 
 A node exposes two RPC interfaces:
 
@@ -41,9 +41,9 @@ A node exposes two RPC interfaces:
 | Tendermint RPC | 26657 | `http://localhost:26657` | Cosmos SDK queries and transactions |
 | EVM JSON-RPC | 8545 | `http://localhost:8545` | Standard Ethereum JSON-RPC. Required for MetaMask, ethers.js, web3.js |
 
-Public endpoints are listed on [EVM RPC endpoints](rpc-endpoints.md).
+Public endpoints are listed on [EVM RPC Endpoints](rpc-endpoints.md).
 
-## Start a local node with EVM
+## Start a Local Node with EVM
 
 The EVM module is always enabled in the chain binary. You only need to enable the JSON-RPC server to reach it with Ethereum tooling.
 
@@ -75,7 +75,7 @@ For testnet the values are `BitBadges Testnet`, `https://evm-rpc-testnet.bitbadg
 
 Use port 8545 (EVM JSON-RPC), not 26657 (Tendermint RPC).
 
-### Fund a local account
+### Fund a Local Account
 
 After starting your local chain, fund your MetaMask account:
 
@@ -98,7 +98,7 @@ A genesis account for the same address also works: add it with `bb genesis add-g
 
 ## Minimal dApp
 
-### Project structure
+### Project Structure
 
 ```text
 my-dapp/
@@ -113,7 +113,7 @@ my-dapp/
 └── package.json
 ```
 
-### Contract template
+### Contract Template
 
 A minimal contract that uses the tokenization precompile through the JSON helper library:
 
@@ -166,7 +166,7 @@ contract MyTokenContract {
 
 The `TokenizationTypes.UintRange` struct form of this contract still exists in `TokenizationHelpers.sol` for building structs, but every precompile method takes JSON. Never pass `type(uint256).max` as a range end; use `FOREVER`.
 
-### Deploy script (ethers.js)
+### Deploy Script (ethers.js)
 
 ```typescript
 import { ethers } from "ethers";
@@ -216,7 +216,7 @@ async function deploy() {
 deploy().catch(console.error);
 ```
 
-### Frontend hook (React + ethers.js)
+### Frontend Hook (React + ethers.js)
 
 ```typescript
 import { ethers } from "ethers";
@@ -248,7 +248,7 @@ export function useContract() {
 }
 ```
 
-## Helper library
+## Helper Library
 
 `contracts/libraries/TokenizationHelpers.sol` builds Solidity structs and validates them:
 
@@ -288,9 +288,9 @@ contract MyContract {
 
 See [TokenizationHelpers.sol](https://github.com/BitBadges/bitbadgeschain/blob/master/contracts/libraries/TokenizationHelpers.sol) for every helper. Convert structs to JSON with `TokenizationJSONHelpers` before calling the precompile.
 
-## Contract patterns
+## Contract Patterns
 
-### Simple transfer
+### Simple Transfer
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -326,7 +326,7 @@ contract SimpleTransfer {
 }
 ```
 
-### Batch transfer
+### Batch Transfer
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -371,7 +371,7 @@ contract BatchTransfer {
 
 For one atomic call instead of a loop, use `executeMultiple` (see [API](tokenization-precompile/api.md#executemultiple)).
 
-### Time-limited transfer
+### Time-Limited Transfer
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -408,7 +408,7 @@ contract TimeLimitedTransfer {
 }
 ```
 
-### Struct helpers with JSON
+### Struct Helpers with JSON
 
 ```solidity
 import "./libraries/TokenizationHelpers.sol";
@@ -445,7 +445,7 @@ contract HelperExample {
 }
 ```
 
-### Dynamic store for compliance
+### Dynamic Store for Compliance
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -511,7 +511,7 @@ contract ComplianceToken {
 
 A cheaper alternative for gating is a [dynamic store challenge](../../token-standard/approval-criteria/dynamic-store-challenges.md) in the collection approvals, which the chain checks on every transfer without a contract call.
 
-## Complete examples
+## Complete Examples
 
 - [counter-dapp](https://github.com/BitBadges/bitbadgeschain/tree/master/counter-dapp): a Solidity contract (`Counter.sol`), a TypeScript deploy script, a Next.js frontend with MetaMask, and setup instructions.
 - [contracts/examples](https://github.com/BitBadges/bitbadgeschain/tree/master/contracts/examples): ERC-3643 style example contracts:
@@ -524,14 +524,14 @@ Each example uses dynamic stores for compliance registries, time-bound ownership
 
 ## Troubleshooting
 
-### Cannot connect to RPC
+### Cannot Connect to RPC
 
 - Confirm the chain is running: `bb start --json-rpc.enable --json-rpc.address 0.0.0.0:8545`
 - Check that JSON-RPC is enabled in `app.toml`
 - Try both ports: `http://localhost:8545` (EVM) and `http://localhost:26657` (Tendermint)
 - Confirm the chain is fully synced
 
-### MetaMask cannot connect
+### MetaMask Cannot Connect
 
 - Use the correct chain ID: `90123` local, `50025` testnet, `50024` mainnet
 - Use the EVM JSON-RPC port (`http://localhost:8545`), not 26657
@@ -548,7 +548,7 @@ Each example uses dynamic stores for compliance registries, time-bound ownership
 - Confirm approvals are set for token transfers
 - Read the contract logs for the precompile error message
 
-### Contract deployment fails
+### Contract Deployment Fails
 
 - Confirm the deployer has enough balance for deployment gas
 - Confirm the EVM JSON-RPC is enabled
@@ -557,7 +557,7 @@ Each example uses dynamic stores for compliance registries, time-bound ownership
 
 ## Related
 
-- [Developer guide](developer-guide.md)
-- [Tokenization precompile API](tokenization-precompile/api.md)
-- [EVM RPC endpoints](rpc-endpoints.md)
-- [Run a node](../run-a-node.md)
+- [Developer Guide](developer-guide.md)
+- [Tokenization Precompile API](tokenization-precompile/api.md)
+- [EVM RPC Endpoints](rpc-endpoints.md)
+- [Run a Node](../run-a-node.md)

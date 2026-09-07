@@ -293,5 +293,5 @@ bb amount unwrap-preview 88 --token-amount 10
 
 - [Trade on the DEX](../guides/trade-on-the-dex.md)
 - [Swaps](../api/swaps.md)
-- [Cosmos coin wrapper paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md)
+- [Cosmos Coin Wrapper Paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md)
 - [Account](account.md)

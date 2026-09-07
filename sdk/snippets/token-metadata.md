@@ -2,7 +2,7 @@
 description: "Read, update, and remove per-token metadata with the TokenMetadataDetails helpers in the bitbadges SDK."
 ---
 
-# Token metadata
+# Token Metadata
 
 `TokenMetadataDetails` pairs a range of token IDs with a `uri`, `customData`, and the fetched `metadata`. It is the element type of `tokenMetadata` on a `BitBadgesCollection` returned by the API. The static helpers below edit an array of them.
 

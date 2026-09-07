@@ -2,7 +2,7 @@
 description: "merkleChallenges: gate an approval on a SHA256 Merkle proof for whitelists or claim codes, with per-leaf use limits and leaf signatures against front-running."
 ---
 
-# Merkle challenges
+# Merkle Challenges
 
 A Merkle challenge stores one root on-chain and lets each user prove membership with a proof. It moves the cost of a large whitelist or a batch of claim codes from the creator to the users who claim.
 
@@ -159,9 +159,9 @@ interface MerkleProof {
 Ask your agent: "Gate minting of collection 1 behind a whitelist of these 200 addresses, one mint each." The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
-### Two tree types
+### Two Tree Types
 
 | | Whitelist | Claim codes |
 | --- | --- | --- |
@@ -184,7 +184,7 @@ For each challenge, the chain tries the transfer's proofs until one passes:
 
 On success the leaf's use count increments. All challenges on the approval must pass.
 
-### Tracking by leaf index
+### Tracking by Leaf Index
 
 Uses are tracked per leaf index, not per leaf value, with index 0 at the far left of the bottom layer:
 
@@ -207,11 +207,11 @@ Uses are tracked per leaf index, not per leaf value, with index 0 at the far lef
 
 Trackers are increment-only and scoped to the approval. A new `challengeTrackerId` starts fresh counts. Read one with [GetChallengeTracker](../queries/get-challenge-tracker.md).
 
-### Proof length
+### Proof Length
 
 All leaves must sit at the same depth so every proof has the same length. This is what makes `expectedProofLength` a security check: a proof of the wrong length is rejected before hashing, which blocks preimage and second-preimage attacks on intermediate nodes.
 
-### Front-running and leaf signatures
+### Front-Running and Leaf Signatures
 
 {% hint style="danger" %}
 A claim code proof in the mempool is public. Without leaf signatures, anyone who sees it can submit it first and take the token. Set `leafSigner` for every claim code tree.
@@ -225,7 +225,7 @@ leafSigner: '0x3e3adf18d0b45a3639a6cf6188b813507e958440'; // Ethereum addresses 
 
 Together with `maxUsesPerLeaf: 1`, this is the standard claim code setup.
 
-### Building a tree
+### Building a Tree
 
 ```ts
 import { SHA256 } from 'crypto-js';
@@ -254,7 +254,7 @@ const expectedProofLength = tree.getLayerCount() - 1;
 
 Keep `fillDefaultHash` so the tree pads to a full layer and every proof has the same length. Test every leaf's proof before publishing the root.
 
-### Submitting a proof
+### Submitting a Proof
 
 ```ts
 const passwordCodeToSubmit = 'secretCode123';
@@ -311,19 +311,19 @@ const txCosmosMsg: MsgTransferTokens<bigint> = {
 };
 ```
 
-Approvals with Merkle challenges are not auto-scannable. Transfers must [prioritize](../concepts/prioritized-approvals.md) them. Leaf indices can also drive [predetermined balances](predetermined-balances.md) to reserve specific token IDs per leaf.
+Approvals with Merkle challenges are not auto-scannable. Transfers must [prioritize](../concepts/prioritized-approvals.md) them. Leaf indices can also drive [Predetermined Balances](predetermined-balances.md) to reserve specific token IDs per leaf.
 
-### When to use
+### When to Use
 
 - Whitelists over about 100 addresses. Smaller lists are cheaper as a stored [address list](../concepts/address-lists.md).
 - Claim codes and invitations.
 - Any distribution where users should pay their own verification gas.
 
-[ETH signature challenges](eth-signature-challenges.md) cover the same ground when a live signer can approve each transfer instead of committing to a tree up front.
+[ETH Signature Challenges](eth-signature-challenges.md) cover the same ground when a live signer can approve each transfer instead of committing to a tree up front.
 
 ## Related
 
-- [ETH signature challenges](eth-signature-challenges.md)
-- [Predetermined balances](predetermined-balances.md)
+- [ETH Signature Challenges](eth-signature-challenges.md)
+- [Predetermined Balances](predetermined-balances.md)
 - [GetChallengeTracker](../queries/get-challenge-tracker.md)
 - [MsgTransferTokens](../messages/msg-transfer-tokens.md)

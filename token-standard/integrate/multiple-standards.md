@@ -2,7 +2,7 @@
 description: "A send manager with alias denom routing lets one BankKeeper-shaped call move x/bank coins and native tokens. Prefix matching, auto-scan, routing."
 ---
 
-# Support multiple standards
+# Support Multiple Standards
 
 To support more than one token standard on a chain, put a send manager with alias denom routing in front of `x/bank`. It reads each coin's denom prefix and routes the send to the module that owns it. The BitBadges chain ships this as [x/sendmanager](../../chain/modules/send-manager.md); copy or import that implementation when the chain only combines `x/tokenization` and `x/bank`.
 
@@ -30,9 +30,9 @@ err := sendManagerKeeper.SendCoinsWithAliasRouting(ctx, from, to, coins)
 balance, err := sendManagerKeeper.GetBalanceWithAliasRouting(ctx, address, denom)
 ```
 
-## How it works
+## How It Works
 
-### Prefix matching
+### Prefix Matching
 
 The send manager checks each registered prefix against the denom and routes to the first match.
 
@@ -57,11 +57,11 @@ func (k Keeper) getRouterForDenom(denom string) (types.AliasDenomRouter, bool) {
 
 A module joins the router by implementing `types.AliasDenomRouter` (`CheckIsAliasDenom`, `SendNativeTokensViaAliasDenom`, `FundCommunityPoolViaAliasDenom`, `SpendFromCommunityPoolViaAliasDenom`, `SendFromModuleToAccountViaAliasDenom`, `SendFromAccountToModuleViaAliasDenom`, `GetBalanceWithAliasRouting`) and registering its prefix.
 
-### Alias denoms
+### Alias Denoms
 
-The BitBadges format is `badgeslp:COLLECTION_ID:denom`, for example `badgeslp:1:utoken`. The integer amount converts to `Balances[]` through the collection's alias path, where the conversion rate is defined. No wrapping happens; the alias is a name for the full `Balances[]` field so that other environments can use it. See [Alias denoms](../ibc/alias-denoms.md).
+The BitBadges format is `badgeslp:COLLECTION_ID:denom`, for example `badgeslp:1:utoken`. The integer amount converts to `Balances[]` through the collection's alias path, where the conversion rate is defined. No wrapping happens; the alias is a name for the full `Balances[]` field so that other environments can use it. See [Alias Denoms](../ibc/alias-denoms.md).
 
-### Auto-scan mode
+### Auto-Scan Mode
 
 Every send through the send manager runs in auto-scan mode with no prioritized approvals. The underlying transfer is a `MsgTransferTokens`:
 
@@ -82,7 +82,7 @@ msg := &badgestypes.MsgTransferTokens{
 badgesMsgServer.TransferTokens(ctx, msg)
 ```
 
-### User-level approvals
+### User-Level Approvals
 
 The send manager does not manage user-level approvals. Every `x/tokenization` transfer must satisfy approvals at the collection, sender, and recipient level where applicable. Set them elsewhere, before or after the send, when a transfer needs them. Module addresses and other non-user addresses matter most here: they inherit the collection defaults.
 
@@ -154,7 +154,7 @@ func (k Keeper) SetAllAutoApprovalFlagsForAddress(
 }
 ```
 
-### Routing flow
+### Routing Flow
 
 ```go
 func (k Keeper) SendCoinsWithAliasRouting(ctx sdk.Context, from, to sdk.AccAddress, coins sdk.Coins) error {
@@ -174,6 +174,6 @@ func (k Keeper) SendCoinsWithAliasRouting(ctx sdk.Context, from, to sdk.AccAddre
 ## Related
 
 - [x/sendmanager](../../chain/modules/send-manager.md)
-- [Alias denoms](../ibc/alias-denoms.md)
-- [Prioritized approvals](../concepts/prioritized-approvals.md)
+- [Alias Denoms](../ibc/alias-denoms.md)
+- [Prioritized Approvals](../concepts/prioritized-approvals.md)
 - [MsgUpdateUserApprovals](../messages/msg-update-user-approvals.md)

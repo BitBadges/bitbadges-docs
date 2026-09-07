@@ -57,4 +57,4 @@ curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_vote/1/
 
 - [GetVotes](get-votes.md)
 - [MsgCastVote](../messages/msg-cast-vote.md)
-- [Voting challenges](../approval-criteria/voting-challenges.md)
+- [Voting Challenges](../approval-criteria/voting-challenges.md)

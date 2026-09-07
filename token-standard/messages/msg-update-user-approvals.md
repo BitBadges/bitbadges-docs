@@ -287,5 +287,5 @@ When an `update*` flag is `false` the paired value is ignored, so placeholder da
 
 - [MsgSetIncomingApproval](msg-set-incoming-approval.md)
 - [MsgSetOutgoingApproval](msg-set-outgoing-approval.md)
-- [User approval settings](../approval-criteria/user-approval-settings.md)
-- [Set transferability](../../guides/set-transferability.md)
+- [User Approval Settings](../approval-criteria/user-approval-settings.md)
+- [Set Transferability](../../guides/set-transferability.md)

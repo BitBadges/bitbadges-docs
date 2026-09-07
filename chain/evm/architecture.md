@@ -6,7 +6,7 @@ description: "The call path from a Solidity contract through a Go precompile to 
 
 This page explains how a precompile call travels from Solidity to chain state. Read it if you maintain contracts that depend on precompile behavior or want to extend the chain.
 
-## Call path
+## Call Path
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
@@ -60,9 +60,9 @@ func (app *App) registerCustomPrecompiles() {
 
 A precompile must be both registered and enabled. Registration happens at app start. Enabling happens in genesis (the `active_static_precompiles` list of the EVM params) or in an upgrade handler. `app/precompile_helpers.go` provides `GetAllCustomPrecompileAddresses`, `ValidateNoAddressCollisions` (panics at startup on a duplicate), and a test helper that registers and enables everything.
 
-The EVM keeper is built on the `precisebank` keeper, not raw `x/bank`, because the chain's native coin has 9 decimals and the EVM expects 18. See [Developer guide](developer-guide.md#decimals-9-on-the-cosmos-side-18-on-the-evm-side).
+The EVM keeper is built on the `precisebank` keeper, not raw `x/bank`, because the chain's native coin has 9 decimals and the EVM expects 18. See [Developer Guide](developer-guide.md#decimals-9-on-the-cosmos-side-18-on-the-evm-side).
 
-## Package layout
+## Package Layout
 
 Each precompile is a Go package under its module: `x/tokenization/precompile/`, `x/gamm/precompile/`, `x/sendmanager/precompile/`.
 
@@ -81,10 +81,10 @@ Each precompile is a Go package under its module: `x/tokenization/precompile/`, 
 
 The Solidity side lives in the chain repo under `contracts/`: `interfaces/` (`ITokenizationPrecompile.sol`, `IGammPrecompile.sol`, `ISendManagerPrecompile.sol`), `libraries/` (JSON helpers, struct helpers, errors, decoders, wrappers), `types/` (`TokenizationTypes.sol` mirrors the proto types), `examples/`, `templates/`, and `test/`.
 
-## Transaction flow
+## Transaction Flow
 
 1. The contract calls a precompile method with an ABI-encoded `string msgJson`.
-2. `RequiredGas` reads the method ID and charges the base cost plus a fixed buffer ([gas](tokenization-precompile/gas.md)).
+2. `RequiredGas` reads the method ID and charges the base cost plus a fixed buffer ([Gas](tokenization-precompile/gas.md)).
 3. `Run` opens an SDK context from the EVM state DB and dispatches by method name.
 4. `unmarshalMsgFromJSON` picks the Msg type, unmarshals the JSON, overrides `creator` (or `sender`) with the caller's bech32 address, converts any `0x` addresses in the message to bech32, and runs `ValidateBasic`.
 5. The handler calls the module's msg server. The keeper applies the business rules and writes state.
@@ -93,7 +93,7 @@ The Solidity side lives in the chain repo under `contracts/`: `interfaces/` (`IT
 
 An error at any step returns a `PrecompileError` and reverts the EVM call. State written by the keeper is rolled back with the transaction.
 
-## Query flow
+## Query Flow
 
 1. The contract calls a `view` method with `msgJson`.
 2. `unmarshalQueryFromJSON` picks the query request type, unmarshals, and converts addresses (the `userAddress` alias is accepted for `getBalance` and `getDynamicStoreValue`).
@@ -103,7 +103,7 @@ An error at any step returns a `PrecompileError` and reverts the EVM call. State
 
 Decode `bytes` off-chain with the TypeScript SDK, or extract single fields on-chain with `TokenizationDecoders` (for example `parseHolderCountFromStats`).
 
-## Address conversion
+## Address Conversion
 
 ```go
 // EVM address -> Cosmos address
@@ -147,7 +147,7 @@ return nil, ErrInvalidInput("invalid collectionId")
 
 Details on [Security](tokenization-precompile/security.md).
 
-## Performance notes
+## Performance Notes
 
 - Gas is computed from the method and input size, so simple calls stay cheap.
 - The ABI is parsed once at init. Method lookup is a map lookup.
@@ -173,7 +173,7 @@ Add a new precompile:
 
 ## Related
 
-- [Tokenization precompile](tokenization-precompile/README.md)
-- [Developer guide](developer-guide.md)
-- [Token standard](../../token-standard/README.md)
+- [Tokenization Precompile](tokenization-precompile/README.md)
+- [Developer Guide](developer-guide.md)
+- [Token Standard](../../token-standard/README.md)
 - [Cosmos EVM documentation](https://docs.cosmos.network/evm/v0.5.0/documentation/overview)

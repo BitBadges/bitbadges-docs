@@ -2,7 +2,7 @@
 description: "Gate an API or resource behind token ownership with BB-402. Server that returns 402, verifies a signed proof, and checks balances; client that answers it."
 ---
 
-# Gate access with BB-402
+# Gate Access with BB-402
 
 At the end you have an HTTP endpoint that serves only callers who own the tokens you require, and a client that satisfies it. BB-402 is the protocol: the server answers `402 Payment Required` with the ownership requirements and a message to sign, the caller signs it, and the server verifies the signature and the on-chain balance. The spec, versioning, and x402 comparison live in [BB-402](../token-standard/bb-402/README.md).
 
@@ -29,10 +29,10 @@ Server -->  Agent:    200 OK  (or 403 if ownership fails)
 
 Prerequisites:
 
-- A collection whose tokens represent the access you sell. See [Create a collection](create-a-collection.md). Token rules (non-transferable, revocable, time-bounded, supply-capped, approval-gated) are set at the collection level and enforced by the chain.
+- A collection whose tokens represent the access you sell. See [Create a Collection](create-a-collection.md). Token rules (non-transferable, revocable, time-bounded, supply-capped, approval-gated) are set at the collection level and enforced by the chain.
 - A BitBadges API key for the ownership check.
 
-## 1. Write the ownership requirements
+## 1. Write the Ownership Requirements
 
 The `ownershipRequirements` value is an `AccessCondition`: a `TokenCheck`, or `$and` / `$or` groups of them, nested as deep as you need.
 
@@ -115,7 +115,7 @@ Subscription AND not banned:
 - "Using the bb-402 skill, build a soulbound receipt collection where minting costs 1 USDC, then give me the review link."
 {% endhint %}
 
-## 2. Check ownership from the server
+## 2. Check Ownership from the Server
 
 Confirm the check works before wiring the protocol. Pick the surface you have.
 
@@ -144,7 +144,7 @@ GET /api/v0/collection/:collectionId/:tokenId/balance/:address
 GET /api/v0/collection/:collectionId/:tokenId/balance/:address?time=1700000000000
 ```
 
-Returns `{ "balance": "100" }`. `time` defaults to now. The MCP builder tools expose the same lookup as `query_balance({ collectionId, address, tokenId })`. The full 3D balance array and the helpers `getBalanceForIdNow` / `getBalanceForIdAndTime` are in [Balance lookups](../sdk/snippets/balance-lookups.md).
+Returns `{ "balance": "100" }`. `time` defaults to now. The MCP builder tools expose the same lookup as `query_balance({ collectionId, address, tokenId })`. The full 3D balance array and the helpers `getBalanceForIdNow` / `getBalanceForIdAndTime` are in [Balance Lookups](../sdk/snippets/balance-lookups.md).
 
 Compound conditions in one call. The API takes the SDK condition shape (`assets` and `assetIds` instead of `tokens` and `tokenIds`) and returns `success` with HTTP 200 whether or not the address qualifies, so check the field:
 
@@ -181,7 +181,7 @@ async function checkOwnership(address: string, requirements: object, apiKey: str
 
 Session-based apps can skip the proof header and use [Sign in with BitBadges](sign-in-users.md) instead; the ownership check is the same.
 
-## 3. Build the server
+## 3. Build the Server
 
 Install the signature libraries:
 
@@ -368,7 +368,7 @@ The `message` format is yours. A plain nonce works. A JSON string binds the chal
 }
 ```
 
-## 4. Build the client
+## 4. Build the Client
 
 A generic client that accepts any signer:
 
@@ -432,15 +432,15 @@ async function fetchWithBB402(url: string) {
 const data = await fetchWithBB402('https://example.com/api/data');
 ```
 
-## 5. Harden it
+## 5. Harden It
 
 - HTTPS only. Proof headers replay over plaintext HTTP.
 - Replay protection is the server's job through `message`: nonces, timestamps, or endpoint binding.
 - Ownership can change between verification and response, and every check is point-in-time. Use short windows, cache deliberately, and re-verify before critical operations.
 - Rate-limit 402 responses. The endpoint is unauthenticated. HMAC-signed timestamps give stateless nonce generation.
 
-## Next steps
+## Next Steps
 
 - [BB-402](../token-standard/bb-402/README.md) for the full specification and collection recipes.
-- [Sign in users](sign-in-users.md) for session-based gating instead of per-request proofs.
-- [Subscriptions and time-based tokens](subscriptions-and-time-based-tokens.md) for the collection behind a subscription gate.
+- [Sign In Users](sign-in-users.md) for session-based gating instead of per-request proofs.
+- [Subscriptions and Time-Based Tokens](subscriptions-and-time-based-tokens.md) for the collection behind a subscription gate.

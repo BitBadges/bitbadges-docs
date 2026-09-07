@@ -2,7 +2,7 @@
 description: "GAMM precompile reference: the 14-function Solidity interface, the snake_case JSON for each message and query, gas constants, and error codes."
 ---
 
-# GAMM precompile API
+# GAMM Precompile API
 
 Reference for every function on the GAMM precompile at `0x0000000000000000000000000000000000001002`: 5 transactions and 9 queries, regenerated from `x/gamm/precompile/abi.json`.
 
@@ -35,7 +35,7 @@ struct Coin {
 }
 ```
 
-## JSON formats
+## JSON Formats
 
 The precompile decodes `msgJson` with Go's `encoding/json` into the `x/gamm` protobuf structs, so keys are the snake_case protobuf field names. All integers are strings. `sender` is always overwritten with the caller.
 
@@ -161,7 +161,7 @@ Returns the new pool ID. See [GAMM messages](../../modules/gamm/messages.md) for
 
 Per-element constants for dynamic estimates (`CalculateDynamicGas`): 5,000 per route, 2,000 per coin, 3,000 per affiliate, 10 per memo byte. Swaps typically use 150k to 300k gas in total depending on pool complexity; the buffer exists so `eth_estimateGas` converges.
 
-## Error codes
+## Error Codes
 
 Errors revert with `precompile error [code=N]: message: details`.
 
@@ -183,7 +183,7 @@ Successful transactions emit `precompile_join_pool`, `precompile_exit_pool`, and
 
 ## Related
 
-- [GAMM precompile](README.md)
+- [GAMM Precompile](README.md)
 - [Gotchas](gotchas.md)
 - [GAMM module messages](../../modules/gamm/messages.md)
 - [GAMM module queries](../../modules/gamm/queries.md)

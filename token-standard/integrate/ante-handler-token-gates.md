@@ -2,7 +2,7 @@
 description: "Gate any Cosmos SDK message type on token ownership with one ante decorator: circuit breakers, KYC sends, compliant staking, governance gates."
 ---
 
-# Ante handler token gates
+# Ante Handler Token Gates
 
 Any chain that embeds `x/tokenization` can gate any message type on token ownership with a single stateless ante decorator. The decorator checks whether the transaction sender (or a configured address) holds a given token before the message proceeds. All policy state is token ownership: no new store, no migration, no custom module. Credentials, accreditation, circuit-breaker signals, and governance eligibility become balances checked in the ante handler.
 
@@ -21,7 +21,7 @@ requirements := map[string][]TokenRequirement{
 }
 ```
 
-## The decorator
+## The Decorator
 
 `ComplianceAnteDecorator` is generic. You supply a map from message type URL to token requirements, and it enforces them. Every use case on this page is a different configuration of this one decorator.
 
@@ -178,7 +178,7 @@ if err != nil {
 app.SetAnteHandler(anteHandler)
 ```
 
-## Circuit breaker (replacing x/circuit)
+## Circuit Breaker (Replacing x/circuit)
 
 The Cosmos SDK `x/circuit` module is deprecated. Replace it with a "halt token" collection where each token ID maps to a message type. When the authority address holds the halt token, that message type is rejected. Burn the token, or let it expire, to re-enable. This uses `MustHold: false`: the message is blocked while the token is held.
 
@@ -208,7 +208,7 @@ The Cosmos SDK `x/circuit` module is deprecated. Replace it with a "halt token" 
 
 Mint a halt token to the authority to disable a message type. Burn it to re-enable.
 
-## KYC-gated transfers
+## KYC-Gated Transfers
 
 Require the sender to hold a KYC credential before sending funds. In the KYC collection, token ID 1 is basic KYC and token ID 2 is enhanced KYC. Issue tokens after identity verification.
 
@@ -239,7 +239,7 @@ Require the sender to hold a KYC credential before sending funds. In the KYC col
 
 Tiers are token IDs. Basic KYC for standard transfers, enhanced for large or batch operations. The issuer decides who gets which tier by minting the matching token.
 
-## Compliant staking
+## Compliant Staking
 
 Restrict delegation to accredited investors by requiring an accreditation credential.
 
@@ -268,7 +268,7 @@ Restrict delegation to accredited investors by requiring an accreditation creden
 },
 ```
 
-## IBC transfer compliance
+## IBC Transfer Compliance
 
 Gate cross-chain sends on a credential so unverified users cannot move assets to chains where your controls do not apply.
 
@@ -286,7 +286,7 @@ Gate cross-chain sends on a credential so unverified users cannot move assets to
 },
 ```
 
-## Governance participation gates
+## Governance Participation Gates
 
 Require a credential to vote, so only compliant holders take part in security token governance.
 
@@ -315,7 +315,7 @@ Require a credential to vote, so only compliant holders take part in security to
 },
 ```
 
-## Custom chain policies
+## Custom Chain Policies
 
 The decorator gates any message type on any token requirement. Other ideas:
 
@@ -346,7 +346,7 @@ Requirements stack. One `MsgSend` can require a KYC token and also not be circui
 },
 ```
 
-## What the token standard adds for free
+## What the Token Standard Adds for Free
 
 Because every credential and signal is an ordinary `x/tokenization` token, these come without extra ante handler code:
 
@@ -360,7 +360,7 @@ Because every credential and signal is an ordinary `x/tokenization` token, these
 
 ## Related
 
-- [Proof-of-token voting power](proof-of-token-voting-power.md)
-- [Extension hooks](extension-hooks.md)
-- [Voting challenges](../approval-criteria/voting-challenges.md)
+- [Proof-of-Token Voting Power](proof-of-token-voting-power.md)
+- [Extension Hooks](extension-hooks.md)
+- [Voting Challenges](../approval-criteria/voting-challenges.md)
 - [Balances](../concepts/balances.md)

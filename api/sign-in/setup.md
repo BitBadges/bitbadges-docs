@@ -8,7 +8,7 @@ Register an OAuth app before building an authorization URL. Registration gives y
 
 This page is also part of the [API reference](/api-reference).
 
-## Register the app
+## Register the App
 
 1. Open [https://bitbadges.io/developer](https://bitbadges.io/developer) and choose **OAuth Apps**.
 2. Create an app and add your redirect URIs.

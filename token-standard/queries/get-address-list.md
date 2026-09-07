@@ -53,5 +53,5 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_address_
 
 ## Related
 
-- [Address lists](../concepts/address-lists.md)
+- [Address Lists](../concepts/address-lists.md)
 - [MsgCreateAddressLists](../messages/msg-create-address-lists.md)

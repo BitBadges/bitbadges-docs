@@ -2,7 +2,7 @@
 description: "Three app.go registration points for chain-wide invariants: approval criteria checkers, global transfer checkers, and collection verifiers."
 ---
 
-# Extension hooks
+# Extension Hooks
 
 A chain that embeds `x/tokenization` can register Go callbacks that run at fixed points for every collection. Use them for small global invariants that the built-in approval criteria cannot express. Each callback receives `ctx` and may read state; if any callback returns an error, the transaction's state changes roll back.
 
@@ -19,7 +19,7 @@ app.BadgesKeeper.RegisterCustomCollectionVerifier(NewRequireSpecificManagerVerif
 | Global transfer checker | Before `HandleTransfer()` | `from`, `to`, `initiatedBy`, collection, transfer balances, memo | Chain-wide transfer policy that can inspect balances |
 | Collection verifier | Before a collection is stored | The full `TokenCollection` | Collection-level invariants such as a required manager |
 
-## Custom approval criteria checkers
+## Custom Approval Criteria Checkers
 
 The factory receives each `CollectionApproval` and returns zero or more checkers for it. Checkers run together with the native approval criteria.
 
@@ -67,7 +67,7 @@ func (c *RequireSpecificAddressChecker) Check(
 
 `Check` returns two values: a deterministic error message that is safe to surface to users and an error that fails the check.
 
-## Custom global transfer checkers
+## Custom Global Transfer Checkers
 
 The factory receives the transfer context and returns checkers that run before `HandleTransfer()`. This is the hook that can see the balances being moved.
 
@@ -116,7 +116,7 @@ func (c *RequireSpecificMemoChecker) Check(
 }
 ```
 
-## Custom collection verifiers
+## Custom Collection Verifiers
 
 Verifiers run before a collection is written to the store, on creation and on every update.
 
@@ -149,6 +149,6 @@ func (v *RequireSpecificManagerVerifier) VerifyCollection(ctx sdk.Context, colle
 
 ## Related
 
-- [Approval criteria](../approval-criteria/README.md)
-- [Ante handler token gates](ante-handler-token-gates.md)
+- [Approval Criteria](../approval-criteria/README.md)
+- [Ante Handler Token Gates](ante-handler-token-gates.md)
 - [Transferability](../concepts/transferability.md)

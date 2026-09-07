@@ -2,7 +2,7 @@
 description: "Public EVM JSON-RPC endpoints for BitBadges, supported methods, ethers.js, Hardhat and Foundry config, and running your own JSON-RPC node."
 ---
 
-# EVM RPC endpoints
+# EVM RPC Endpoints
 
 BitBadges exposes Ethereum-compatible JSON-RPC endpoints, so MetaMask, ethers.js, web3.js, Hardhat, and Foundry work unchanged. This page lists the URLs and the node settings behind them.
 
@@ -58,7 +58,7 @@ Settings > Networks > Add Network:
 | Currency symbol | `BADGE` | `BADGE` |
 | Block explorer URL | `https://explorer.bitbadges.io` (optional) | none |
 
-## Supported JSON-RPC methods
+## Supported JSON-RPC Methods
 
 The endpoints serve the standard `eth`, `net`, and `web3` namespaces, including:
 
@@ -73,7 +73,7 @@ The endpoints serve the standard `eth`, `net`, and `web3` namespaces, including:
 | Network | `eth_chainId`, `net_version`, `net_listening` |
 | Web3 | `web3_clientVersion`, `web3_sha3` |
 
-## Deploy a contract
+## Deploy a Contract
 
 ```typescript
 import { ethers } from "ethers";
@@ -114,7 +114,7 @@ async function deploy() {
 }
 ```
 
-## Interact with a contract
+## Interact with a Contract
 
 ```typescript
 import { ethers } from "ethers";
@@ -178,15 +178,15 @@ bitbadgesTestnet = "https://evm-rpc-testnet.bitbadges.io"
 rpc_endpoints = ["bitbadges", "bitbadgesTestnet"]
 ```
 
-## Rate limits
+## Rate Limits
 
 The public endpoints may rate-limit to keep usage fair. For production traffic, run your own node, use a dedicated RPC provider, or cache and batch requests.
 
-## Run your own JSON-RPC node
+## Run Your Own JSON-RPC Node
 
-Follow [Run a node](../run-a-node.md) for the full node setup. The EVM-specific settings are in `app.toml`.
+Follow [Run a Node](../run-a-node.md) for the full node setup. The EVM-specific settings are in `app.toml`.
 
-### Set the EVM chain ID
+### Set the EVM Chain ID
 
 {% hint style="warning" %}
 The default `evm-chain-id` (`90123`) is the local-dev value. On mainnet or testnet it makes every MetaMask transaction fail. Set it before starting the node.
@@ -214,7 +214,7 @@ api = ["eth", "net", "web3"]
 enable-indexer = true
 ```
 
-### Configuration reference
+### Configuration Reference
 
 | Option | Default | Description |
 | --- | --- | --- |
@@ -240,6 +240,6 @@ enable-indexer = true
 ## Related
 
 - [Setup](setup.md)
-- [Developer guide](developer-guide.md)
+- [Developer Guide](developer-guide.md)
 - [Network](../README.md)
-- [Run a node](../run-a-node.md)
+- [Run a Node](../run-a-node.md)

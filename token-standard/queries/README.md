@@ -8,7 +8,7 @@ The `x/tokenization` module exposes 16 read-only queries. Each is reachable thre
 
 For indexed, paginated, or historical data (activity, metadata, claims, search) use the [BitBadges API](../../api/README.md). Chain queries return current state only.
 
-## Collections and balances
+## Collections and Balances
 
 | Query | CLI | What it returns |
 | --- | --- | --- |
@@ -18,7 +18,7 @@ For indexed, paginated, or historical data (activity, metadata, claims, search) 
 | [GetBalanceForToken](get-balance-for-token.md) | `balance-for-token [id] [address] [token-id] [time]` | The amount of one token ID owned at one time. |
 | [GetWrappableBalances](get-wrappable-balances.md) | `wrappable-balances [denom] [address]` | Maximum amount an address can wrap into a denom. |
 
-## Address lists and dynamic stores
+## Address Lists and Dynamic Stores
 
 | Query | CLI | What it returns |
 | --- | --- | --- |
@@ -26,7 +26,7 @@ For indexed, paginated, or historical data (activity, metadata, claims, search) 
 | [GetDynamicStore](get-dynamic-store.md) | `dynamic-store [store-id]` | Store config: default, kill switch, metadata. |
 | [GetDynamicStoreValue](get-dynamic-store-value.md) | `dynamic-store-value [store-id] [address]` | The boolean stored for one address. |
 
-## Approval trackers and challenges
+## Approval Trackers and Challenges
 
 | Query | CLI | What it returns |
 | --- | --- | --- |

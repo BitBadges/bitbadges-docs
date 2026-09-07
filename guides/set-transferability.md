@@ -2,17 +2,17 @@
 description: "Decide who can transfer, burn, trade, or force-move BitBadges tokens with collection approvals and user-level approvals."
 ---
 
-# Set transferability
+# Set Transferability
 
 At the end your collection has post-mint approvals (transferable, burnable, admin override, or none) and you know how users set their own incoming and outgoing approvals.
 
-Transferability is the set of approvals a transfer must match at the collection, outgoing, and incoming levels; see [Transferability](../token-standard/concepts/transferability.md). The criteria you can attach to any approval are on [Approval criteria](../token-standard/approval-criteria/README.md).
+Transferability is the set of approvals a transfer must match at the collection, outgoing, and incoming levels; see [Transferability](../token-standard/concepts/transferability.md). The criteria you can attach to any approval are on [Approval Criteria](../token-standard/approval-criteria/README.md).
 
-## 1. Split approvals into mint and post-mint
+## 1. Split Approvals into Mint and Post-Mint
 
 Keep two groups in `collectionApprovals`:
 
-- Mint approvals: `fromListId: 'Mint'`. They create balances. See [Mint and distribute](mint-and-distribute.md).
+- Mint approvals: `fromListId: 'Mint'`. They create balances. See [Mint and Distribute](mint-and-distribute.md).
 - Post-mint approvals: `fromListId: '!Mint'`. They move existing balances.
 
 Two rules:
@@ -28,7 +28,7 @@ const postMintApprovals = [transferableApproval, burnableApproval]; // fromListI
 const collectionApprovals = [...mintApprovals, ...postMintApprovals];
 ```
 
-Reserved list IDs are `All`, `Mint`, `!Mint`, `AllWithoutMint`, one address such as `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d`, `!bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d` (everyone except that address), and colon-separated addresses such as `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d:bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue`. See [Address lists](../token-standard/concepts/address-lists.md).
+Reserved list IDs are `All`, `Mint`, `!Mint`, `AllWithoutMint`, one address such as `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d`, `!bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d` (everyone except that address), and colon-separated addresses such as `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d:bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue`. See [Address Lists](../token-standard/concepts/address-lists.md).
 
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
@@ -37,7 +37,7 @@ Reserved list IDs are `All`, `Mint`, `!Mint`, `AllWithoutMint`, one address such
 - "Add an admin override approval on collection 1 for bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d that can move any token, and flag anything risky in the review."
 {% endhint %}
 
-## 2. Start from the empty criteria template
+## 2. Start from the Empty Criteria Template
 
 Every approval carries `approvalCriteria`. This template means "no additional restrictions"; the other examples spread it and override a field or two. Amounts and counts of `'0'` mean unlimited; `amountTrackerId` is only needed when a limit is set.
 
@@ -141,7 +141,7 @@ const EmptyApprovalCriteria = {
 
 In the SDK, `approvalCriteria: undefined` on a `CollectionApproval` has the same meaning.
 
-## 3. Add the post-mint approvals you want
+## 3. Add the Post-Mint Approvals You Want
 
 ### Transferable
 
@@ -408,7 +408,7 @@ const burnableApproval = new CollectionApproval({
 
 The burnable approval is additive and sits alongside mint and transferable approvals. Do not add it to credit tokens (increment-only by design), soulbound tokens, or subscription tokens (managed by the issuer).
 
-### Admin override
+### Admin Override
 
 One address can move any token from any address to any address, ignoring both user-level approval sets.
 
@@ -442,9 +442,9 @@ For the `!Mint` variant (move existing tokens only), change `fromListId` to `'!M
 
 ### Non-transferable
 
-Add no post-mint approvals. Tokens stay where they were minted. Lock `canUpdateCollectionApprovals` so the manager cannot add one later; see [Lock permissions](lock-permissions.md).
+Add no post-mint approvals. Tokens stay where they were minted. Lock `canUpdateCollectionApprovals` so the manager cannot add one later; see [Lock Permissions](lock-permissions.md).
 
-## 4. Make NFTs tradable on the marketplace
+## 4. Make NFTs Tradable on the Marketplace
 
 The orderbook needs three standards together plus the transferable approval from step 3 with `approvalId: "transferable-approval"`. `MsgSetStandards` replaces the list on an existing collection; at creation, or in `MsgUniversalUpdateCollection` with `updateStandards: true`, set the same `standards` array.
 
@@ -457,12 +457,12 @@ The orderbook needs three standards together plus the transferable approval from
 }
 ```
 
-- `NFTPricingDenom:<denom>` sets the denom the orderbook displays prices in. Replace `ubadge` with your pricing denom; new collections should use canonical USDC (see [Create a collection](create-a-collection.md)).
+- `NFTPricingDenom:<denom>` sets the denom the orderbook displays prices in. Replace `ubadge` with your pricing denom; new collections should use canonical USDC (see [Create a Collection](create-a-collection.md)).
 - The legacy names `Tradable` and `DefaultDisplayCurrency` still work for existing collections.
 
 Listings and bids are user-level approvals that `bb build listing`, `bb build bid`, `bb nfts list`, and `bb nfts bid` emit for you; see [Trade on the DEX](trade-on-the-dex.md) and [Build](../cli/build.md).
 
-## 5. Set user-level approvals
+## 5. Set User-Level Approvals
 
 Users control their own transfers through outgoing and incoming approvals. They use the same shape and criteria as collection approvals with three differences:
 
@@ -470,7 +470,7 @@ Users control their own transfers through outgoing and incoming approvals. They 
 - No overrides. User approvals cannot override other levels.
 - Only the user can update their own approvals (subject to their user permissions).
 
-Most users never write these. The three `defaultBalances` flags (`autoApproveSelfInitiatedOutgoingTransfers`, `autoApproveSelfInitiatedIncomingTransfers`, `autoApproveAllIncomingTransfers`) cover the common case. See [Transferability](../token-standard/concepts/transferability.md) and [User approval settings](../token-standard/approval-criteria/user-approval-settings.md).
+Most users never write these. The three `defaultBalances` flags (`autoApproveSelfInitiatedOutgoingTransfers`, `autoApproveSelfInitiatedIncomingTransfers`, `autoApproveAllIncomingTransfers`) cover the common case. See [Transferability](../token-standard/concepts/transferability.md) and [User Approval Settings](../token-standard/approval-criteria/user-approval-settings.md).
 
 ```ts
 const userIncomingApproval = {
@@ -642,7 +642,7 @@ Outgoing approvals have no `senderChecks` and no `overrides*` fields, since the 
 
 Broadcast with `bb deploy --msg-file ./update-approvals.json --browser`. The single-approval variants `MsgSetOutgoingApproval`, `MsgSetIncomingApproval`, `MsgDeleteOutgoingApproval`, and `MsgDeleteIncomingApproval` edit one approval without resending the whole set; see [Messages](../token-standard/messages/README.md).
 
-## 6. Deploy the change
+## 6. Deploy the Change
 
 Collection approvals go in `collectionApprovals` at creation, or later through `MsgUniversalUpdateCollection` with `updateCollectionApprovals: true` (allowed only where `canUpdateCollectionApprovals` is not frozen).
 
@@ -651,11 +651,11 @@ bb check ./update.json
 bb deploy --msg-file ./update.json --browser
 ```
 
-Other criteria worth attaching to post-mint approvals: [Address checks](../token-standard/approval-criteria/address-checks.md) for contract and pool restrictions, [EVM query challenges](../token-standard/approval-criteria/evm-query-challenges.md) for token gating by contract state, and [Token ownership](../token-standard/approval-criteria/token-ownership.md) for holder-only transfers.
+Other criteria worth attaching to post-mint approvals: [Address Checks](../token-standard/approval-criteria/address-checks.md) for contract and pool restrictions, [EVM Query Challenges](../token-standard/approval-criteria/evm-query-challenges.md) for token gating by contract state, and [Token Ownership](../token-standard/approval-criteria/token-ownership.md) for holder-only transfers.
 
-## Next steps
+## Next Steps
 
-- [Lock permissions](lock-permissions.md)
-- [Prioritized approvals](../token-standard/concepts/prioritized-approvals.md)
+- [Lock Permissions](lock-permissions.md)
+- [Prioritized Approvals](../token-standard/concepts/prioritized-approvals.md)
 - [MsgUpdateUserApprovals](../token-standard/messages/msg-update-user-approvals.md)
 - [Trade on the DEX](trade-on-the-dex.md)

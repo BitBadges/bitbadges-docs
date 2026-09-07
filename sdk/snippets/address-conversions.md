@@ -2,7 +2,7 @@
 description: "Convert between 0x Ethereum addresses and bb1 BitBadges addresses, and validate addresses, with the bitbadges SDK."
 ---
 
-# Address conversions
+# Address Conversions
 
 Every account has one `bb1` (bech32) address and one `0x` (hex) address that encode the same bytes. The SDK converts between them and validates either form.
 
@@ -44,7 +44,7 @@ console.log(isAddressValid('bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d')); // tru
 - `convertToEthAddress` accepts either form and returns the checksummed `0x` form.
 - `isAddressValid(address, chain?)` returns a boolean. Pass a `SupportedChain` to require one format.
 - The chain, the API, and the SDK message classes expect `bb1` addresses in `creator`, `from`, and `toAddresses` fields. Convert before you build a message.
-- Which address a wallet controls depends on the key derivation path, not on the format. See [Signing client](../transactions/signing-client.md) for the Cosmos vs EVM adapter difference.
+- Which address a wallet controls depends on the key derivation path, not on the format. See [Signing Client](../transactions/signing-client.md) for the Cosmos vs EVM adapter difference.
 
 ## Related
 

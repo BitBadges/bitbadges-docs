@@ -46,5 +46,5 @@ The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{approv
 
 ## Related
 
-- [ETH signature challenges](../approval-criteria/eth-signature-challenges.md)
+- [ETH Signature Challenges](../approval-criteria/eth-signature-challenges.md)
 - [GetChallengeTracker](get-challenge-tracker.md)

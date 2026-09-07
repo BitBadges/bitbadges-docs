@@ -2,7 +2,7 @@
 description: "All 16 x/gamm queries with LCD paths and live mainnet examples: pools, liquidity, shares, spot price, join and exit calculators, estimates, params."
 ---
 
-# x/gamm queries
+# x/gamm Queries
 
 The gamm query service exposes 16 methods. Most are reachable on the LCD under `/osmosis/gamm/v1beta1/` (the paths keep the Osmosis prefix). Several are marked deprecated in favor of [x/poolmanager](../pool-manager.md) equivalents but still work. Examples below run against mainnet.
 
@@ -18,7 +18,7 @@ curl https://lcd.bitbadges.io/osmosis/gamm/v1beta1/pools/1/total_pool_liquidity
 Ask your agent: "Show me pool 1 on mainnet: its assets, total shares, and the spot price of badgeslp:64:utoken in BADGE." The `bb pools show 1` and `bb price` commands read the queries on this page.
 {% endhint %}
 
-## All queries
+## All Queries
 
 | Query | LCD path | Status | Returns |
 | --- | --- | --- | --- |
@@ -239,7 +239,7 @@ curl https://lcd.bitbadges.io/osmosis/gamm/v1beta1/params
 
 ## Related
 
-- [x/gamm messages](messages.md)
+- [x/gamm Messages](messages.md)
 - [x/poolmanager](../pool-manager.md)
 - [Swaps in the API](../../../api/swaps.md)
 - [Trade on the DEX](../../../guides/trade-on-the-dex.md)

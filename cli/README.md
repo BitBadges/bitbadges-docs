@@ -38,7 +38,7 @@ curl -fsSL https://install.bitbadges.io | sh -s -- --testnet             # testn
 | macOS | Intel, Apple Silicon |
 | Windows | x86_64 via Git Bash, MSYS2, or WSL (no `bb` symlink; call `bitbadgeschaind.exe`) |
 
-### SDK CLI only
+### SDK CLI Only
 
 If you do not need the chain node binary:
 
@@ -47,9 +47,9 @@ bun install -g bitbadges     # or: npm install -g bitbadges
 bitbadges-cli --help
 ```
 
-The npm package `bitbadges` ships three bins: `bitbadges` and `bitbadges-cli` (the CLI, same file) and `bitbadges-builder` (the MCP builder tools server, see [Set up your AI](../agents/setup.md)). Every `bb <verb>` example on these pages runs as `bitbadges-cli <verb>` with this install.
+The npm package `bitbadges` ships three bins: `bitbadges` and `bitbadges-cli` (the CLI, same file) and `bitbadges-builder` (the MCP builder tools server, see [Set Up Your AI](../agents/setup.md)). Every `bb <verb>` example on these pages runs as `bitbadges-cli <verb>` with this install.
 
-### Chain binary from source
+### Chain Binary from Source
 
 ```bash
 git clone https://github.com/BitBadges/bitbadgeschain.git
@@ -59,11 +59,11 @@ make build-mainnet-darwin/arm64   # or build-mainnet-linux/amd64, build-mainnet-
 
 Requires the Go version in `go.mod` (1.26 at time of writing). Pre-built binaries are on the [releases page](https://github.com/BitBadges/bitbadgeschain/releases). Use the binary version that matches the current chain height; the chain upgrades periodically.
 
-### Claude Code plugin
+### Claude Code Plugin
 
-Claude Code users can add the [Claude Code plugin](../agents/claude-code-plugin.md) on top of this install. It wires the MCP server and adds workflow skills. It does not replace the CLI.
+Claude Code users can add the [Claude Code Plugin](../agents/claude-code-plugin.md) on top of this install. It wires the MCP server and adds workflow skills. It does not replace the CLI.
 
-## Command groups
+## Command Groups
 
 `bb --help` prints the commands in groups so you can tell which binary owns a verb.
 
@@ -74,7 +74,7 @@ bb --help-json | jq '.commands[] | .name'   # full SDK command tree as JSON
 
 | Group | Commands | Reference |
 | --- | --- | --- |
-| Chain node (Cosmos SDK) | `start`, `init`, `status`, `version`, `tx`, `query` (`q`), `keys`, `sign-arbitrary`, `genesis`, `config`, `debug`, `prune`, `snapshots`, `comet`, `export`, `rollback`, `index-eth-tx`, `pre-upgrade` | [Chain commands](chain.md) |
+| Chain node (Cosmos SDK) | `start`, `init`, `status`, `version`, `tx`, `query` (`q`), `keys`, `sign-arbitrary`, `genesis`, `config`, `debug`, `prune`, `snapshots`, `comet`, `export`, `rollback`, `index-eth-tx`, `pre-upgrade` | [Chain Commands](chain.md) |
 | Build and ship a transaction | `build`, `check`, `explain`, `simulate`, `preview`, `deploy`, `tx status`, `tx wait` | [Build](build.md), [Analyze](analyze.md), [Deploy](deploy.md) |
 | Standards (end-user actions) | `pay-requests`, `bounties`, `subscriptions`, `intents`, `credit-tokens`, `products`, `crowdfunds`, `auctions`, `prediction-markets`, `smart-tokens`, `nfts`, `custom-2fa`, `dynamic-stores` | [Standards](standards.md) |
 | Indexer access | `api`, `auth` | [API](api.md), [Auth](auth.md) |
@@ -89,7 +89,7 @@ bb --help-json | jq '.commands[] | .name'   # full SDK command tree as JSON
 The chain binary forwards SDK verbs by name. Chain releases before the fix in bitbadgeschain PR `fix/bb-forward-missing-sdk-verbs` do not forward `tx status`, `tx wait`, `amount`, `balances`, `assets`, `url`, or `custom-2fa`. On those releases run them as `bitbadges-cli <verb>`; `bb --help` shows which verbs your binary forwards.
 {% endhint %}
 
-### Deprecated forms
+### Deprecated Forms
 
 Old forms still resolve for one release and print a one-line `[bb] DEPRECATED:` banner on stderr that names the new form. The release after the window removes them.
 
@@ -108,7 +108,7 @@ Old forms still resolve for one release and print a one-line `[bb] DEPRECATED:` 
 
 `BB_QUIET=1` or `--quiet` suppresses the banner. Do not write new scripts or agent prompts against the old forms.
 
-## Output envelope
+## Output Envelope
 
 Every data-emitting SDK verb prints one JSON envelope on stdout and human commentary on stderr.
 
@@ -156,7 +156,7 @@ Config lives at `~/.bitbadges/config.json` (or `$BITBADGES_CONFIG_DIR/config.jso
 | `network` | `mainnet`, `testnet`, `local` |
 | `url` | Custom API base URL |
 
-### Environment variables
+### Environment Variables
 
 | Variable | Description |
 | --- | --- |
@@ -168,7 +168,7 @@ Config lives at `~/.bitbadges/config.json` (or `$BITBADGES_CONFIG_DIR/config.jso
 | `BB_QUIET` | `1` silences stderr commentary |
 | `BITBADGES_TESTNET_OFFLINE` | `false` bypasses the testnet-offline guard for a private chain that uses the testnet chain ID |
 
-### Network flags
+### Network Flags
 
 Every SDK verb that reaches the network accepts the same flags.
 
@@ -224,7 +224,7 @@ bb completion zsh >> ~/.zshrc
 
 The emitted script supports both shells through `bashcompinit`. Pass `bash` or `zsh` as a hint; any other value exits 2.
 
-## Quick examples
+## Quick Examples
 
 ```bash
 bb query bank balances bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --output json   # chain native

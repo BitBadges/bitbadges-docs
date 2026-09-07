@@ -232,17 +232,17 @@ The response for the Demo NFTs collection (synthesized from the SDK types; numbe
 
 Every route is documented in the [API reference](/api-reference). The reference groups routes by tag (Accounts, Tokens, Claims, Sign In with BitBadges, Transactions, Applications, Plugins, Dynamic Stores, On-Chain Dynamic Stores, Utility Pages, Miscellaneous, Assets).
 
-## What is on this tab
+## What Is on This Tab
 
 | Page | Read it when |
 | --- | --- |
-| [Pagination and views](pagination-and-views.md) | A response returns `bookmark` and `hasMore`, or you fetch a `views` object. |
+| [Pagination and Views](pagination-and-views.md) | A response returns `bookmark` and `hasMore`, or you fetch a `views` object. |
 | [Swaps](swaps.md) | You want a swap estimate and the messages to execute it. |
-| [Claims](claims/README.md) | You gate a mint or an app on off-chain criteria. Concepts, then [endpoints](claims/endpoints.md), [plugins](claims/plugins.md), and [dynamic stores](claims/dynamic-stores.md). |
+| [Claims](claims/README.md) | You gate a mint or an app on off-chain criteria. Concepts, then [endpoints](claims/endpoints.md), [Plugins](claims/plugins.md), and [Dynamic Stores](claims/dynamic-stores.md). |
 | [Sign In with BitBadges](sign-in/README.md) | You want users to prove address ownership or grant your app API scopes. |
-| [Self-hosting](self-hosting.md) | You want to run the indexer and API yourself. |
+| [Self-Hosting](self-hosting.md) | You want to run the indexer and API yourself. |
 
-## API keys
+## API Keys
 
 1. Sign in at [https://bitbadges.io/developer](https://bitbadges.io/developer) and open the **API Keys** tab.
 2. Create a key. Send it in the `x-api-key` header on every request.
@@ -252,7 +252,7 @@ Select read-only routes are public without a key and are rate limited per IP. Ev
 
 The SDK also reads `BITBADGES_API_KEY` from the environment when `apiKey` is not passed. The CLI reads the same variable (see [CLI api](../cli/api.md)).
 
-## Credits and pricing
+## Credits and Pricing
 
 API credits (on-chain symbol `APITOKEN`) meter API calls. Every request debits one credit from the account that owns the key.
 
@@ -287,7 +287,7 @@ curl https://api.bitbadges.io/api/v0/credits/balance \
 
 The balance route needs a signed-in session with the `Full Access` scope. It is served with website-only CORS, so call it from a server, not a browser on another origin. `onChainTotal`, `used`, and `remaining` are display `APITOKEN` (1 credit = 1 request). `decimals` is the on-chain base-unit scale (`base = display * 10^decimals`). The off-chain `used` counter is only exposed to the account owner. The `402` response below is the simplest way to read it without a session.
 
-### Out of credits (402)
+### Out of Credits (402)
 
 When the balance is zero, every request answers `402 Payment Required`:
 
@@ -305,7 +305,7 @@ When the balance is zero, every request answers `402 Payment Required`:
 
 The key stays valid. Catch the `402`, prompt the account owner to top up, and retry once the balance confirms on-chain.
 
-## Rate limits and size limits
+## Rate Limits and Size Limits
 
 | Limit | Value |
 | --- | --- |
@@ -322,11 +322,11 @@ The key stays valid. Catch the `402`, prompt the account owner to top up, and re
 
 The per-account limit exists to stop runaway loops. Contact BitBadges if you need a higher ceiling. Limits can change.
 
-## Number types
+## Number Types
 
 Responses stringify numbers to avoid precision loss. Convert them yourself (bigint is the safe choice) or let the SDK do it through `convertFunction`. See [SDK types](../sdk/types.md).
 
-## Route naming
+## Route Naming
 
 This documentation often shows the SDK call. The raw HTTP route is the same name under `/api/v0`:
 
@@ -350,11 +350,11 @@ Errors return a JSON body with `errorMessage`:
 
 Common codes: `400` invalid payload, `401` missing or invalid key or session, `402` no credits, `404` not found, `429` rate limited, `500` server error. The SDK throws on any non-2xx response.
 
-## Authorization and scopes
+## Authorization and Scopes
 
 Most apps only read public data and need no user authorization. To act on behalf of a user (complete claims, read private claim data, manage claims), use [Sign In with BitBadges](sign-in/README.md). It is a standard OAuth 2.0 flow. Request scopes in the authorization URL and send the access token as `Authorization: Bearer <token>`. The [API reference](/api-reference) lists the scope each route needs.
 
-## Refresh queue
+## Refresh Queue
 
 The API fetches anything behind a source URI (metadata, off-chain balances) through a load-balanced queue, then caches the result until the next refresh. New metadata can take a moment to populate.
 

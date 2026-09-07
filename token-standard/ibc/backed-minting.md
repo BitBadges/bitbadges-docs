@@ -2,7 +2,7 @@
 description: "Backed paths back every token 1:1 with an existing IBC coin through a protocol-controlled special address. Invariant setup, conversion, Mint rules, approvals."
 ---
 
-# Backed minting
+# Backed Minting
 
 A backed path lets a collection issue tokens against an existing IBC coin (a standard Cosmos SDK coin). A special address escrows the IBC coins and converts in both directions. This is how you reverse-wrap an ICS-20 asset such as USDC or ATOM with added compliance.
 
@@ -164,7 +164,7 @@ The complete `invariants` object in raw JSON:
 Ask your agent: "Create a smart token backed 1:1 by USDC (ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8) where each address can unback at most 10 times per day." The MCP builder tools (`generate_backing_address, set_invariants, add_approval`) produce the objects on this page.
 {% endhint %}
 
-## Special address
+## Special Address
 
 Each backed path has one special address derived from `conversion.sideA.denom`.
 
@@ -185,7 +185,7 @@ Properties:
 
 The special address technically has unlimited token balances, but it only allows transfers when adequate IBC coins are present and sent or received. Think of it as an external contract that updates its own approvals. Conversions are initiated by the user and approved by the address itself.
 
-## Conversion mechanism
+## Conversion Mechanism
 
 The conversion is `Conversion` (with denom), because the denom is part of the conversion, unlike wrapper paths. The rate is:
 
@@ -219,7 +219,7 @@ const backedPath = {
 
 You cannot fractionalize a conversion. Make the units as small as needed to get the granularity you want.
 
-## Configuration rules
+## Configuration Rules
 
 Backed paths are collection invariants:
 
@@ -315,9 +315,9 @@ A fuller creation example with 100 token IDs:
 }
 ```
 
-The escrow address derives from the denom string. A backed collection cannot be repointed to another denom later. Pick the canonical denom at creation. See [Supported denoms](../../chain/supported-denoms.md).
+The escrow address derives from the denom string. A backed collection cannot be repointed to another denom later. Pick the canonical denom at creation. See [Supported Denoms](../../chain/supported-denoms.md).
 
-## Mint address restrictions
+## Mint Address Restrictions
 
 When a backed path is set:
 
@@ -360,9 +360,9 @@ const validApproval: CollectionApproval<bigint> = {
 };
 ```
 
-## Transferability requirements
+## Transferability Requirements
 
-The special address follows the same approval rules as any other address. You can gate by user, rate-limit, require KYC on the way out (for example a $2500 per day withdrawal limit), or apply any other criteria. Every approval used for a backed operation must set `allowBackedMinting: true` in `approvalCriteria`. See [Special address flags](../approval-criteria/special-address-flags.md).
+The special address follows the same approval rules as any other address. You can gate by user, rate-limit, require KYC on the way out (for example a $2500 per day withdrawal limit), or apply any other criteria. Every approval used for a backed operation must set `allowBackedMinting: true` in `approvalCriteria`. See [Special Address Flags](../approval-criteria/special-address-flags.md).
 
 ```ts
 // Example: Rate-limited backing
@@ -393,7 +393,7 @@ const collectionApprovals = [
 ];
 ```
 
-## How the chain detects a conversion
+## How the Chain Detects a Conversion
 
 `MsgTransferTokens` is the entry point. The chain checks:
 
@@ -410,7 +410,7 @@ State:
 
 Every conversion is atomic. It succeeds completely or fails completely, with no partial state.
 
-## Example: backing tokens
+## Example: Backing Tokens
 
 ```ts
 // User sends tokens to special address
@@ -446,7 +446,7 @@ const backTokens: MsgTransferTokens = {
 // Result: User receives corresponding IBC coins automatically based on the conversion rate
 ```
 
-## Example: unbacking tokens
+## Example: Unbacking Tokens
 
 The chain handles the special address's approvals. The user only needs enough IBC coins to unback.
 
@@ -485,7 +485,7 @@ const unbackTokens: MsgTransferTokens = {
 // Corresponding IBC coins are deducted from special address
 ```
 
-## Differences from wrapper paths
+## Differences from Wrapper Paths
 
 The main difference is which denom is used for minting.
 
@@ -498,7 +498,7 @@ The main difference is which denom is used for minting.
 
 ## Related
 
-- [Cosmos coin wrapper paths](cosmos-coin-wrapper-paths.md)
-- [Special address flags](../approval-criteria/special-address-flags.md)
+- [Cosmos Coin Wrapper Paths](cosmos-coin-wrapper-paths.md)
+- [Special Address Flags](../approval-criteria/special-address-flags.md)
 - [Invariants](../approval-criteria/invariants.md)
-- [Smart tokens and vaults](../../guides/smart-tokens-and-vaults.md)
+- [Smart Tokens and Vaults](../../guides/smart-tokens-and-vaults.md)

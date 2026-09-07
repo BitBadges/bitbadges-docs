@@ -309,5 +309,5 @@ The `mint` approval is not in the list, so this message deletes it: minting stop
 
 - [MsgUpdateCollection](msg-update-collection.md)
 - [Transferability](../concepts/transferability.md)
-- [Approval criteria](../approval-criteria/README.md)
-- [Set transferability](../../guides/set-transferability.md)
+- [Approval Criteria](../approval-criteria/README.md)
+- [Set Transferability](../../guides/set-transferability.md)

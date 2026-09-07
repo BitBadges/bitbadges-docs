@@ -35,7 +35,7 @@ export interface UintRange<T extends NumberType> {
 Ask your agent: "Set the valid token IDs of the collection I am building to 1 through 100 and 200 through 250." The MCP builder tools (`set_valid_token_ids`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 Where ranges appear:
 
@@ -53,9 +53,9 @@ Validation rules:
 - Unless a field says otherwise, values run from 1 to `18446744073709551615` (Go `math.MaxUint64`). Zero is not allowed.
 - Balance amounts cannot be zero.
 
-Fields that document their own bounds (for example the 0-based hours and weekdays in [alt time checks](../approval-criteria/alt-time-checks.md)) allow zero.
+Fields that document their own bounds (for example the 0-based hours and weekdays in [Alt Time Checks](../approval-criteria/alt-time-checks.md)) allow zero.
 
-### Full range
+### Full Range
 
 `[{ "start": "1", "end": "18446744073709551615" }]` means "all values". It is the usual value for `transferTimes` and `ownershipTimes` when there is no time restriction.
 
@@ -63,7 +63,7 @@ Fields that document their own bounds (for example the 0-based hours and weekday
 { "transferTimes": [{ "start": "1", "end": "18446744073709551615" }] }
 ```
 
-### Single value
+### Single Value
 
 Use the same value for both ends: `{ "start": "5", "end": "5" }` is token ID 5.
 
@@ -93,5 +93,5 @@ Transferring `[{ start: 1, end: 10 }, { start: 20, end: 50 }]` moves IDs 1 to 10
 ## Related
 
 - [Balances](balances.md)
-- [Address lists](address-lists.md)
+- [Address Lists](address-lists.md)
 - [UintRange snippets](../../sdk/snippets/uint-ranges.md)

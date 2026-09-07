@@ -8,7 +8,7 @@ The `x/tokenization` module accepts 27 messages. Most are signed by the collecti
 
 Every message page follows the same shape: one working example in the `bb` CLI, the TypeScript SDK, and raw JSON, then the field table from the proto, then behavior (validation, permissions, side effects, errors).
 
-## Collection lifecycle
+## Collection Lifecycle
 
 | Message | Signer | What it does |
 | --- | --- | --- |
@@ -17,7 +17,7 @@ Every message page follows the same shape: one working example in the `bb` CLI, 
 | [MsgUniversalUpdateCollection](msg-universal-update-collection.md) | anyone (create) or manager (update) | Legacy create-or-update interface. `collectionId: "0"` creates. |
 | [MsgDeleteCollection](msg-delete-collection.md) | manager | Delete a collection and purge its state. Needs `canDeleteCollection`. |
 
-## Single-field collection updates
+## Single-Field Collection Updates
 
 Each of these sets one field plus the permission that guards it. They wrap `MsgUniversalUpdateCollection`.
 
@@ -38,7 +38,7 @@ Each of these sets one field plus the permission that guards it. They wrap `MsgU
 | --- | --- | --- |
 | [MsgTransferTokens](msg-transfer-tokens.md) | initiator | Move tokens between addresses. Every transfer must match collection, outgoing, and incoming approvals. |
 
-## User approvals
+## User Approvals
 
 | Message | Signer | What it does |
 | --- | --- | --- |
@@ -50,13 +50,13 @@ Each of these sets one field plus the permission that guards it. They wrap `MsgU
 | [MsgPurgeApprovals](msg-purge-approvals.md) | the user or a counterparty | Remove expired user approvals, your own or someone else's when their auto-deletion options allow it. |
 | [MsgCastVote](msg-cast-vote.md) | a listed voter | Cast or change a weighted vote on a voting challenge. |
 
-## Address lists
+## Address Lists
 
 | Message | Signer | What it does |
 | --- | --- | --- |
 | [MsgCreateAddressLists](msg-create-address-lists.md) | anyone | Create immutable, reusable address lists by ID. |
 
-## Dynamic stores
+## Dynamic Stores
 
 | Message | Signer | What it does |
 | --- | --- | --- |
@@ -72,7 +72,7 @@ Each of these sets one field plus the permission that guards it. They wrap `MsgU
 | [MsgSetReservedProtocolAddress](msg-set-reserved-protocol-address.md) | x/gov authority | Mark or unmark an address as a reserved protocol address. |
 | [MsgUpdateParams](msg-update-params.md) | x/gov authority | Replace the module parameters. |
 
-## Shared response types
+## Shared Response Types
 
 Several responses share these types.
 

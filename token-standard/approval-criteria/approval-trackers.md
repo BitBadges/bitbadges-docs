@@ -2,7 +2,7 @@
 description: "approvalAmounts and maxNumTransfers: increment-only trackers that cap amounts and transfer counts, overall or per address, with periodic resets."
 ---
 
-# Approval trackers
+# Approval Trackers
 
 Trackers are increment-only tallies stored per approval. `approvalAmounts` caps the amount transferred and `maxNumTransfers` caps the number of transfers, each overall or per sender, recipient, or initiator.
 
@@ -151,9 +151,9 @@ interface ResetTimeIntervals<T> {
 Ask your agent: "Add a mint approval to collection 1 capped at 1000 tokens overall and 10 per address, with a tracker that resets every 30 days." The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
-### Tally with threshold
+### Tally with Threshold
 
 1. Setup: approved for 10 of token IDs 1-10 with tracker ID `xyz`.
 2. Transfer 5: tracker `xyz` goes from 0/10 to 5/10.
@@ -176,7 +176,7 @@ Amounts are tracked as balances, so a tally records which token IDs and ownershi
 }
 ```
 
-### Tracker keys
+### Tracker Keys
 
 Every tally has its own key:
 
@@ -205,7 +205,7 @@ interface ApprovalTrackerIdDetails<T extends NumberType> {
 
 Read a tracker with [GetApprovalTracker](../queries/get-approval-tracker.md).
 
-### Worked example
+### Worked Example
 
 With the `approvalAmounts` above (overall 1000, per initiator 10), carol initiates a transfer of 10 from alice:
 
@@ -219,7 +219,7 @@ With the `maxNumTransfers` above (per initiator 1), carol can initiate one trans
 { "numTransfers": "1", "amounts": [], "lastUpdatedAt": "1691978400000" }
 ```
 
-### Increment-only and never reset by edits
+### Increment-Only and Never Reset by Edits
 
 Trackers live outside the approval. Updating or deleting the approval does not touch them. To start a fresh tally, change `amountTrackerId` (or anything else in the key). Changing `uniqueID` to `uniqueID2` moves every tally to new keys that start at zero:
 
@@ -235,13 +235,13 @@ Changing back to `uniqueID` resumes the old tally: carol is at 10/10 again, not 
 Never reuse a tracker ID that has history unless you want to continue from where it stopped.
 {% endhint %}
 
-### As-needed increments
+### As-Needed Increments
 
 The chain increments a tally only when something reads it. With no amount limit, amounts are not recorded; with no count limit, counts are not recorded.
 
-One exception: [predetermined balances](predetermined-balances.md) that order transfers by `use*NumTransfers` read the transfer count from this same tracker. In that case the count is incremented even when the matching `maxNumTransfers` value is `0`. Account for this when you reuse tracker IDs.
+One exception: [Predetermined Balances](predetermined-balances.md) that order transfers by `use*NumTransfers` read the transfer count from this same tracker. In that case the count is incremented even when the matching `maxNumTransfers` value is `0`. Account for this when you reuse tracker IDs.
 
-### Periodic resets
+### Periodic Resets
 
 `resetTimeIntervals` zeroes a tally at the start of each interval. On the first update inside a new interval, all progress under that tracker resets before the increment.
 
@@ -262,6 +262,6 @@ This allows 100 per 30-day period starting Aug 13, 2023. If `startTime` is in th
 
 ## Related
 
-- [Predetermined balances](predetermined-balances.md)
-- [Auto-deletion](auto-deletion.md)
+- [Predetermined Balances](predetermined-balances.md)
+- [Auto-Deletion](auto-deletion.md)
 - [GetApprovalTracker](../queries/get-approval-tracker.md)

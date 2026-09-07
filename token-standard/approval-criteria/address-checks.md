@@ -2,7 +2,7 @@
 description: "senderChecks, recipientChecks, and initiatorChecks: require or forbid EVM contracts and liquidity pools for each party of a transfer."
 ---
 
-# Address checks
+# Address Checks
 
 Address checks constrain the type of address on each side of a transfer. They are how a collection keeps tokens out of pools, or requires that only contracts initiate a flow.
 
@@ -141,7 +141,7 @@ An outgoing approval cannot check the sender and an incoming approval cannot che
 Ask your agent: "Add a transfer approval to collection 1 where only EVM contracts can receive tokens, and never let tokens move into a liquidity pool." The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 The chain converts the `bb1` address to its 20-byte EVM form and asks the EVM module whether code exists there. For pools it looks the address up in the pool address cache that `x/gamm` fills at pool creation. If the EVM or gamm module is not wired in, the corresponding check answers `false`.
 
@@ -206,5 +206,5 @@ Uses: contract-only integrations, keeping a token out of liquidity pools, requir
 ## Related
 
 - [Overrides](overrides.md)
-- [Approval criteria](README.md)
+- [Approval Criteria](README.md)
 - [gamm](../../chain/modules/gamm/README.md)

@@ -148,7 +148,7 @@ bb dev docs approvals                       # partial match: first section conta
 bb dev docs --refresh
 ```
 
-Fetched from GitHub on first use and cached for 24 hours at `~/.bitbadges/docs-cache.json`. Slugs come from the tree view; nest with slashes. Other ways agents read the docs: [Reading the docs](../agents/reading-the-docs.md).
+Fetched from GitHub on first use and cached for 24 hours at `~/.bitbadges/docs-cache.json`. Slugs come from the tree view; nest with slashes. Other ways agents read the docs: [Reading the Docs](../agents/reading-the-docs.md).
 
 ## skills
 
@@ -174,13 +174,13 @@ bb dev feedback --type feature-idea --category cli "add tab completion for colle
 
 Submissions appear next to the in-app feedback widget.
 
-## MCP server
+## MCP Server
 
-The same registry runs as an MCP server for Claude Code, Claude Desktop, Cursor, and other clients. The bin is `bitbadges-builder` from the `bitbadges` npm package (`npx -y -p bitbadges bitbadges-builder`). Setup per client: [Set up your AI](../agents/setup.md).
+The same registry runs as an MCP server for Claude Code, Claude Desktop, Cursor, and other clients. The bin is `bitbadges-builder` from the `bitbadges` npm package (`npx -y -p bitbadges bitbadges-builder`). Setup per client: [Set Up Your AI](../agents/setup.md).
 
 ## Related
 
-- [Set up your AI](../agents/setup.md)
+- [Set Up Your AI](../agents/setup.md)
 - [MCP tools](../agents/mcp-tools.md)
 - [Build](build.md)
 - [Analyze](analyze.md)

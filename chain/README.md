@@ -11,11 +11,11 @@ BitBadges is an L1 delegated proof-of-stake chain built with the Cosmos SDK and 
 | [Chain API reference](/chain-api-reference) | Every LCD (REST) route the chain serves, with a live playground against `https://lcd.bitbadges.io` | You want to call a node query directly, or see a message's exact payload |
 | [Modules](modules/README.md) | `x/tokenization` (the token standard), `x/gamm`, `x/poolmanager`, `x/sendmanager`, `x/managersplitter`, IBC hooks, rate limits | You use the DEX, shared management, or IBC middleware |
 | [EVM](evm/README.md) | Precompiles at `0x0000000000000000000000000000000000001001` through `0x...1003`, Solidity quickstart, JSON-RPC | You write contracts against tokens or connect an Ethereum wallet |
-| [Cross-chain queries](cross-chain-queries.md) | Interchain queries that verify ownership from another chain | Another chain gates on BitBadges balances |
-| [Supported denoms](supported-denoms.md) | The IBC coins the chain accepts for payments and pools | You attach a payment or seed a pool |
-| [Run a node](run-a-node.md) | Full node and validator setup, cosmovisor, upgrades | You operate infrastructure |
+| [Cross-Chain Queries](cross-chain-queries.md) | Interchain queries that verify ownership from another chain | Another chain gates on BitBadges balances |
+| [Supported Denoms](supported-denoms.md) | The IBC coins the chain accepts for payments and pools | You attach a payment or seed a pool |
+| [Run a Node](run-a-node.md) | Full node and validator setup, cosmovisor, upgrades | You operate infrastructure |
 | [Testnet](testnet.md) | Status and the faucet API shape | You need a sandbox |
-| [WebSocket events](websocket-events.md) | CometBFT event subscriptions | A bot reacts to transfers in real time |
+| [WebSocket Events](websocket-events.md) | CometBFT event subscriptions | A bot reacts to transfers in real time |
 
 The rest of this page holds the constants every integration needs.
 
@@ -38,7 +38,7 @@ curl -s -X POST -H 'Content-Type: application/json' \
 
 Both EVM chain IDs are claimed in the ethereum-lists/chains registry.
 
-## Native coin
+## Native Coin
 
 | Property | Value |
 | --- | --- |
@@ -55,9 +55,9 @@ In Cosmos messages, use 9-decimal precision (`1000000000ubadge` is one BADGE). I
 | Surface | mainnet | Notes |
 | --- | --- | --- |
 | CometBFT RPC | `https://rpc.bitbadges.io` | Tx broadcast, block and tx queries |
-| WebSocket | `wss://rpc.bitbadges.io/websocket` | Event subscriptions, see [WebSocket events](websocket-events.md) |
+| WebSocket | `wss://rpc.bitbadges.io/websocket` | Event subscriptions, see [WebSocket Events](websocket-events.md) |
 | LCD (REST) | `https://lcd.bitbadges.io` | gRPC-gateway for every module; `/bitbadges/bitbadgeschain/tokenization/...`, `/osmosis/gamm/...`, `/cosmos/...` |
-| EVM JSON-RPC | `https://evm-rpc.bitbadges.io` | `eth_`, `net_`, `web3_` namespaces, see [EVM RPC endpoints](evm/rpc-endpoints.md) |
+| EVM JSON-RPC | `https://evm-rpc.bitbadges.io` | `eth_`, `net_`, `web3_` namespaces, see [EVM RPC Endpoints](evm/rpc-endpoints.md) |
 | Explorer | `https://explorer.bitbadges.io` | Blocks, validators, staking |
 | BitBadges API | `https://api.bitbadges.io` | Indexed data, needs an API key, see [API](../api/README.md) |
 | Source | `https://github.com/bitbadges/bitbadgeschain` | Chain source and proto definitions |
@@ -65,7 +65,7 @@ In Cosmos messages, use 9-decimal precision (`1000000000ubadge` is one BADGE). I
 
 Testnet endpoints are listed on [Testnet](testnet.md) and are down.
 
-## IBC connections
+## IBC Connections
 
 BitBadges (`bitbadges-1`) keeps these ICS-20 transfer channels, all registered in the chain registry `_IBC` directory and all active:
 
@@ -76,19 +76,19 @@ BitBadges (`bitbadges-1`) keeps these ICS-20 transfer channels, all registered i
 | Cosmos Hub | `channel-3` | `channel-1420` | `connection-8` | ATOM |
 | Injective | `channel-40` | `channel-464` | `connection-89` | Canonical `USDC`: Circle's native `USDC.inj` (`erc20:0xa00C59fF5a080D2b954d0c75e46E22a0c371235a`), arriving as `ibc/E1116484...` |
 
-The Injective connection (`_IBC/bitbadges-injective.json`) carries the canonical USDC denom, one IBC hop from Injective's native USDC. See [Supported denoms](supported-denoms.md) for the full table and the canonical-versus-legacy USDC policy.
+The Injective connection (`_IBC/bitbadges-injective.json`) carries the canonical USDC denom, one IBC hop from Injective's native USDC. See [Supported Denoms](supported-denoms.md) for the full table and the canonical-versus-legacy USDC policy.
 
-## Pages in this section
+## Pages in This Section
 
 | Page | Read when |
 | --- | --- |
-| [Supported denoms](supported-denoms.md) | You price, pay, or back a collection in a coin other than BADGE |
-| [Run a node](run-a-node.md) | You operate a full node or validator |
+| [Supported Denoms](supported-denoms.md) | You price, pay, or back a collection in a coin other than BADGE |
+| [Run a Node](run-a-node.md) | You operate a full node or validator |
 | [Testnet](testnet.md) | You are looking for the testnet or faucet |
-| [WebSocket events](websocket-events.md) | Your bot reacts to on-chain events in real time |
+| [WebSocket Events](websocket-events.md) | Your bot reacts to on-chain events in real time |
 
 ## Related
 
 - [Accounts](../token-standard/concepts/accounts.md)
 - [EVM](evm/README.md)
-- [IBC and x/bank compatibility](../token-standard/ibc/README.md)
+- [IBC and x/bank Compatibility](../token-standard/ibc/README.md)

@@ -82,6 +82,6 @@ Ownership times are unix milliseconds. A balance with `ownershipTimes` of `1` to
 
 ## Related
 
-- [Balance lookups](balance-lookups.md)
+- [Balance Lookups](balance-lookups.md)
 - [Transfers](transfers.md)
-- [Uint ranges](uint-ranges.md)
+- [Uint Ranges](uint-ranges.md)

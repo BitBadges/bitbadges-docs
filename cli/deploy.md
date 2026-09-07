@@ -24,7 +24,7 @@ bb deploy col.json --browser --dry-run --manager bb1p0rrel3365scadq5k9pv0x0zp9j2
 bb tx wait 903D4A6E205AD77D334933E3C9BB455012D8A334AA2D98DFD301C3F7E8AB92C6 --timeout 120
 ```
 
-## Signing paths
+## Signing Paths
 
 Pick exactly one.
 
@@ -259,7 +259,7 @@ Both hit the chain directly: the Cosmos LCD `/cosmos/tx/v1beta1/txs/{hash}` firs
 Chain releases before the forwarder fix do not expose `bb tx status` or `bb tx wait`. If they print unknown command, run `bitbadges-cli tx status 903D4A6E205AD77D334933E3C9BB455012D8A334AA2D98DFD301C3F7E8AB92C6`.
 {% endhint %}
 
-## Sign bridge
+## Sign Bridge
 
 `--browser` on `deploy` and `bb auth login --browser` share one mechanism, modeled on `gh auth login --web`:
 
@@ -293,5 +293,5 @@ Or run the CLI on the laptop and point it at the remote services with `--fronten
 
 - [Build](build.md)
 - [Auth](auth.md)
-- [Chain commands](chain.md)
+- [Chain Commands](chain.md)
 - [Broadcast](../sdk/transactions/broadcast.md)

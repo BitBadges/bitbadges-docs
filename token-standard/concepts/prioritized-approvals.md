@@ -2,7 +2,7 @@
 description: "Auto-scan vs prioritized approval matching, approval versions, the onlyCheckPrioritized flags, and the mustPrioritize criterion."
 ---
 
-# Prioritized approvals
+# Prioritized Approvals
 
 A transfer either lets the chain scan for a matching approval (auto-scan) or names the approvals it wants to use (prioritized). Approvals with side effects are excluded from the scan, so transfers that use them must prioritize.
 
@@ -76,9 +76,9 @@ A complete `MsgTransferTokens` in which carol moves one of token ID 1 from alice
 Ask your agent: "Build a transfer of token ID 1 in collection 1 from alice to bob that uses only the collection approval with ID abc123." The MCP builder tools (`build_transfer`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
-### Auto-scan mode
+### Auto-Scan Mode
 
 With no `prioritizedApprovals`, the chain walks the approvals on each level in stored order and uses the first ones that match. Only auto-scannable approvals are considered.
 
@@ -126,7 +126,7 @@ With no `prioritizedApprovals`, the chain walks the approvals on each level in s
 }
 ```
 
-### What is auto-scannable
+### What Is Auto-Scannable
 
 An approval is auto-scannable when all of these hold:
 
@@ -136,7 +136,7 @@ An approval is auto-scannable when all of these hold:
 4. `merkleChallenges` is empty
 5. `ethSignatureChallenges` is empty
 
-Backed minting and cosmos coin wrapping approvals also require prioritization through the [special address flags](../approval-criteria/special-address-flags.md).
+Backed minting and cosmos coin wrapping approvals also require prioritization through the [Special Address Flags](../approval-criteria/special-address-flags.md).
 
 ```go
 func CollectionApprovalIsAutoScannable(approvalCriteria *ApprovalCriteria) bool {
@@ -213,7 +213,7 @@ const approvalWithSideEffects: CollectionApproval<bigint> = {
 
 Liquidity pools and other automated environments transfer in auto-scan mode. A collection whose post-mint approval carries `coinTransfers` cannot be traded in a pool.
 
-### Prioritized mode
+### Prioritized Mode
 
 List the approvals in `prioritizedApprovals`. The chain tries them first, in order. With the matching `onlyCheckPrioritized*` flag set, it stops there and fails if none match. Without the flag, it continues into auto-scan for the remainder.
 
@@ -436,7 +436,7 @@ A transfer that uses this approval must include it in `prioritizedApprovals` wit
 
 The chain normalizes the stored value: when an approval is not auto-scannable for any other reason, it stores `mustPrioritize: true`. When the approval is auto-scannable, the value you set is kept. The default is `false`.
 
-### Multiple prioritized approvals
+### Multiple Prioritized Approvals
 
 ```ts
 const msg: MsgTransferTokens = {
@@ -472,13 +472,13 @@ const msg: MsgTransferTokens = {
 };
 ```
 
-### Default balances
+### Default Balances
 
 `defaultBalances` on a collection cannot contain approvals that are not auto-scannable, because new users inherit them without ever prioritizing. See [Collections](collections.md).
 
 ## Related
 
 - [Transferability](transferability.md)
-- [Approval criteria](../approval-criteria/README.md)
-- [Predetermined balances](../approval-criteria/predetermined-balances.md)
+- [Approval Criteria](../approval-criteria/README.md)
+- [Predetermined Balances](../approval-criteria/predetermined-balances.md)
 - [MsgTransferTokens](../messages/msg-transfer-tokens.md)

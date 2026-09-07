@@ -2,7 +2,7 @@
 description: "Write an HTTP endpoint that BitBadges calls during claims, register it in the developer portal, handle simulations and state safely, test it, and version it."
 ---
 
-# Build a claim plugin
+# Build a Claim Plugin
 
 At the end you have a custom plugin: an HTTP endpoint that BitBadges POSTs to during claim processing, and whose response decides whether the plugin passes. Any logic you can write as an HTTP handler (auth checks, API calls, database lookups, AI evaluation, webhook triggers) can become a plugin. The request and response contract, the context fields, and the version config table live in [Plugins](../api/claims/plugins.md).
 
@@ -12,7 +12,7 @@ Three parties are involved. The plugin creator (you) builds and maintains the en
 User claims -> BitBadges sends POST to your endpoint -> You return 200 OK or an error
 ```
 
-## 1. Register the plugin
+## 1. Register the Plugin
 
 1. Go to [bitbadges.io/developer](https://bitbadges.io/developer), Plugins tab, and create a plugin.
 2. Copy the plugin secret. BitBadges sends it in every request; your handler uses it to confirm BitBadges is the caller. Store it server-side only.
@@ -64,7 +64,7 @@ Each field's meaning is tabled in [Plugins](../api/claims/plugins.md). The choic
 - "Write a Next.js API route for a Stateless claim plugin that verifies pluginSecret, returns 200 on simulation, and rejects users whose answer does not match a private param."
 {% endhint %}
 
-## 2. Define parameters and user inputs
+## 2. Define Parameters and User Inputs
 
 Three parameter sets exist. All are merged flat into the request body with the context fields:
 
@@ -116,7 +116,7 @@ On-demand claims and API auto-completion do not allow user inputs, because no us
 
 BitBadges does not handle your authentication or hold your sensitive values. Treat it as a middleman. If you need authenticated requests on the user's behalf beyond identification, run auth end-to-end yourself: store the data, map it to a token or code, give that code to the user or creator, and look it up in your handler. This mirrors an OAuth authorization code with a custom claim code, so apply the same practices (expiring tokens, PKCE against code interception). Claim creators can store their own secrets in private params.
 
-## 3. Implement the handler
+## 3. Implement the Handler
 
 ```ts
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -196,7 +196,7 @@ The body of a 200 depends on the preset:
 
 A 200 is a hypothetical state transition. It applies only if the claim eventually succeeds.
 
-## 4. Handle simulations and state
+## 4. Handle Simulations and State
 
 BitBadges runs plugins as processing hooks during claim execution, and `_attemptStatus` is `'executing'` while that happens. Before a real attempt the site always simulates once, but do not depend on every attempt having a prior simulation.
 
@@ -263,7 +263,7 @@ In the developer portal:
 
 To see exactly what BitBadges sends, point the endpoint at a request bin such as [webhook.site](https://webhook.site), trigger a test, and inspect the payload.
 
-## 6. Finalize and version
+## 6. Finalize and Version
 
 Finalize version 0 in the portal. A finalized version is immutable (schemas, endpoint URL, all settings) and becomes usable by other users. Unfinalized versions are usable only by you, in the Claim Tester.
 
@@ -276,7 +276,7 @@ Create v1 (unfinalized) -> Test -> Finalize v1 -> New claims use v1, existing cl
 
 New claims take the latest finalized version. Existing claims stay on the version they were created with, so a release cannot break them. Keeping claims compatible is your responsibility. For a breaking change, either branch on `version`, `createdAt`, or `lastUpdated` inside one handler, or create a new plugin.
 
-## 7. Use and publish
+## 7. Use and Publish
 
 Add the plugin to a claim by its plugin ID in the claim builder or through the [Claims API](../api/claims/endpoints.md). Plugins are private by default: only you can add them to claims, which suits internal tools and integrations tied to your backend.
 
@@ -291,7 +291,7 @@ const results = await api.searchPlugins({
 });
 ```
 
-## Next steps
+## Next Steps
 
 - [Plugins](../api/claims/plugins.md) for the full request and response contract and the built-in plugin list.
-- [Distribute with claims](distribute-with-claims.md) to put the plugin in a claim.
+- [Distribute with Claims](distribute-with-claims.md) to put the plugin in a claim.

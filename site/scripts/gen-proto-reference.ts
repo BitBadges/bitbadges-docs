@@ -695,6 +695,43 @@ function renderModulePage(moduleKey: string, files: ProtoFile[]): string {
   return `${lines.join('\n')}`;
 }
 
+/**
+ * The `x/tokenization` files a reader wants first, in the order they need them.
+ *
+ * The module table above is complete but flat: eight modules, 59 files, no
+ * signal about which four matter. This names them. Counts come from the parse,
+ * and a file that disappears upstream fails the generation rather than
+ * shipping a dead row.
+ */
+const START_HERE: { path: string; blurb: string }[] = [
+  { path: 'tokenization/tx.proto', blurb: 'Every message you can broadcast — create, update, transfer, set approvals.' },
+  { path: 'tokenization/query.proto', blurb: 'Every gRPC query and its REST binding.' },
+  { path: 'tokenization/collections.proto', blurb: 'The collection itself: timelines, manager, balance type, standards.' },
+  { path: 'tokenization/approvals.proto', blurb: 'Collection-level and user-level approvals — the transferability rules.' },
+  { path: 'tokenization/balances.proto', blurb: 'Balances, token ids and ownership times.' },
+];
+
+function renderStartHere(byModule: Map<string, ProtoFile[]>): string[] {
+  const byPath = new Map([...byModule.values()].flat().map((file) => [file.path, file]));
+  const missing = START_HERE.filter(({ path: p }) => !byPath.has(p)).map(({ path: p }) => p);
+  if (missing.length) {
+    throw new Error(
+      `gen-proto-reference: START_HERE names proto file(s) that no longer exist: ${missing.join(', ')}. ` +
+        'Update START_HERE in this script.',
+    );
+  }
+
+  const lines = ['## Start here', '', 'Most readers want `x/tokenization`. These five files carry it.', ''];
+  lines.push('| File | Messages | Services | What it defines |');
+  lines.push('| --- | --- | --- | --- |');
+  for (const { path: protoPath, blurb } of START_HERE) {
+    const file = byPath.get(protoPath)!;
+    lines.push(`| [${protoPath}](${pageFor(protoPath)}) | ${file.messages.length} | ${file.services.length} | ${blurb} |`);
+  }
+  lines.push('');
+  return lines;
+}
+
 function renderIndex(byModule: Map<string, ProtoFile[]>, total: { messages: number; services: number; enums: number }): string {
   const lines: string[] = [];
   lines.push('---');
@@ -722,6 +759,7 @@ function renderIndex(byModule: Map<string, ProtoFile[]>, total: { messages: numb
     lines.push(`| [${label}](${key}/README.md) | ${files.length} | ${messages} | ${services} |`);
   }
   lines.push('');
+  lines.push(...renderStartHere(byModule));
   lines.push('## Read the prose first');
   lines.push('');
   lines.push(

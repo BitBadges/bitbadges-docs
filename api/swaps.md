@@ -148,7 +148,7 @@ interface SkipGoMessage {
 | `autoRedirectedToWETH` | The route was redirected to WETH. BitBadges only supports single-transaction operations, bridges return WETH, and the extra unwrap transaction is not handled. |
 | `rerouted` | Internal flag: the result differs from the standard estimate. |
 
-## Skip Go compatibility
+## Skip Go Compatibility
 
 The API mirrors Skip Go where it can. Full integration is planned, but there are differences:
 

@@ -2,13 +2,13 @@
 description: "Sell recurring subscriptions, prepaid credit tokens, and expiring tokens on BitBadges with bb build subscription, bb build credit-token, and ownership times."
 ---
 
-# Subscriptions and time-based tokens
+# Subscriptions and Time-Based Tokens
 
 At the end you have a subscription collection that charges each interval, a credit token that users top up with USDC, and you know how to mint tokens that expire.
 
 All three rely on time-based ownership: a balance is owned for `ownershipTimes` ranges, in milliseconds since the epoch, and stops existing when the range ends. See [Balances](../token-standard/concepts/balances.md).
 
-## 1. Build a subscription
+## 1. Build a Subscription
 
 ### bb CLI
 
@@ -172,7 +172,7 @@ Rules the chain and the validator enforce:
 - `orderCalculationMethod` has exactly one method `true` (default `useOverallNumTransfers`).
 - Only one of `durationFromTimestamp`, `incrementOwnershipTimesBy`, and `recurringOwnershipTimes` may be non-zero. Keep `recurringOwnershipTimes` as all zeros: `{ "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" }`.
 
-See [Predetermined balances](../token-standard/approval-criteria/predetermined-balances.md) for how `durationFromTimestamp` and `recurringOwnershipTimes` compute balances.
+See [Predetermined Balances](../token-standard/approval-criteria/predetermined-balances.md) for how `durationFromTimestamp` and `recurringOwnershipTimes` compute balances.
 
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
@@ -181,7 +181,7 @@ See [Predetermined balances](../token-standard/approval-criteria/predetermined-b
 - "Build a credit token where 1 USDC buys 100,000 API credits, non-transferable, with an alias path, and run the review."
 {% endhint %}
 
-## 2. Subscribe, renew, and charge
+## 2. Subscribe, Renew, and Charge
 
 A subscriber's recurring approval must be derived from the live collection, not built offline, so there is no `bb build recurring-payment`. The `bb subscriptions` group reads the faucet approval and emits the right messages.
 
@@ -206,11 +206,11 @@ bb subscriptions cancel 3 --creator bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue | 
 bb subscriptions charge-due 3
 ```
 
-`--tier <approvalId>` is required on multi-tier collections. `--tip <ubadge>` adds a per-interval tip in base denom units. `--approval-id <id>` overrides the generated recurring-approval ID. Renewal works because the subscriber's recurring outgoing approval lets the faucet's coin transfer run each interval. See [Standards commands](../cli/standards.md).
+`--tier <approvalId>` is required on multi-tier collections. `--tip <ubadge>` adds a per-interval tip in base denom units. `--approval-id <id>` overrides the generated recurring-approval ID. Renewal works because the subscriber's recurring outgoing approval lets the faucet's coin transfer run each interval. See [Standards Commands](../cli/standards.md).
 
-## 3. Build a credit token
+## 3. Build a Credit Token
 
-A credit token is increment-only and non-transferable. Users pay X of an ICS20 denom (USDC, ATOM, BADGE) and receive Y tokens as proof of payment. Tokens are never redeemed, burned, or transferred; the payout address gets the coin immediately, with no escrow. For a 1:1 backed token that users can transfer and redeem, use [Smart tokens and vaults](smart-tokens-and-vaults.md).
+A credit token is increment-only and non-transferable. Users pay X of an ICS20 denom (USDC, ATOM, BADGE) and receive Y tokens as proof of payment. Tokens are never redeemed, burned, or transferred; the payout address gets the coin immediately, with no escrow. For a 1:1 backed token that users can transfer and redeem, use [Smart Tokens and Vaults](smart-tokens-and-vaults.md).
 
 ### bb CLI
 
@@ -448,10 +448,10 @@ Permissions, all frozen:
 ```
 
 {% hint style="info" %}
-Empty arrays here are the credit token skill's convention for "locked". On the chain, `[]` is the neutral, soft-enabled state; to make a permission irreversible you set `permanentlyForbiddenTimes`. See [Lock permissions](lock-permissions.md) and check the emitted transaction with `bb check`.
+Empty arrays here are the credit token skill's convention for "locked". On the chain, `[]` is the neutral, soft-enabled state; to make a permission irreversible you set `permanentlyForbiddenTimes`. See [Lock Permissions](lock-permissions.md) and check the emitted transaction with `bb check`.
 {% endhint %}
 
-### Track usage off-chain
+### Track Usage Off-Chain
 
 The on-chain balance is `totalCreditsPaidFor`, the total ever purchased. Your backend tracks `totalUsed`. Remaining budget is `balance - totalUsed`. Both numbers only go up.
 
@@ -466,7 +466,7 @@ The site's credit token page shows the balance through the alias path, a purchas
 
 Credit token versus smart token: increment-only versus deposit and withdraw; non-transferable versus transferable; no `cosmosCoinBackedPath`; multiple tiers; credits never expire (full ownership range).
 
-## 4. Mint tokens that expire
+## 4. Mint Tokens That Expire
 
 Any transfer can carry a bounded `ownershipTimes` window. This balance lasts five minutes from `1788739200000` (2026-09-06T00:00:00Z): the current timestamp in milliseconds plus `5 * 60 * 1000`:
 
@@ -478,9 +478,9 @@ Any transfer can carry a bounded `ownershipTimes` window. This balance lasts fiv
 }
 ```
 
-The balance exists only inside the window; queries and approval checks outside it see nothing. Use this for passes, trials, and short-lived 2FA tokens (`bb custom-2fa mint 74 --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --expiration 10m` encodes the lifetime at mint time; see [Standards commands](../cli/standards.md)). To forbid custom windows on a collection, set the `noCustomOwnershipTimes` invariant; see [Invariants](../token-standard/approval-criteria/invariants.md).
+The balance exists only inside the window; queries and approval checks outside it see nothing. Use this for passes, trials, and short-lived 2FA tokens (`bb custom-2fa mint 74 --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --expiration 10m` encodes the lifetime at mint time; see [Standards Commands](../cli/standards.md)). To forbid custom windows on a collection, set the `noCustomOwnershipTimes` invariant; see [Invariants](../token-standard/approval-criteria/invariants.md).
 
-## Common mistakes
+## Common Mistakes
 
 - Non-zero `recurringOwnershipTimes` next to `durationFromTimestamp`. They are mutually exclusive.
 - `durationFromTimestamp: "0"` or `allowOverrideTimestamp: false` on a subscription faucet.
@@ -491,9 +491,9 @@ The balance exists only inside the window; queries and approval checks outside i
 - A credit token without an alias path. Balances will not display properly.
 - Numbers instead of strings.
 
-## Next steps
+## Next Steps
 
 - [Balances](../token-standard/concepts/balances.md)
-- [Coin transfers](../token-standard/approval-criteria/coin-transfers.md)
-- [Smart tokens and vaults](smart-tokens-and-vaults.md)
+- [Coin Transfers](../token-standard/approval-criteria/coin-transfers.md)
+- [Smart Tokens and Vaults](smart-tokens-and-vaults.md)
 - [Subscription skill](../agents/skills/subscription.md)

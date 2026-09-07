@@ -2,7 +2,7 @@
 description: "Freeze supply, approvals, token IDs, metadata, or a whole BitBadges collection with collection permissions, and lock user permissions for escrow accounts."
 ---
 
-# Lock permissions
+# Lock Permissions
 
 At the end you know which manager actions are frozen forever, which stay editable, and how to target the freeze at one approval, one token range, or everything.
 
@@ -45,9 +45,9 @@ const {
 } = permission;
 ```
 
-## 1. Choose a baseline
+## 1. Choose a Baseline
 
-### No manager
+### No Manager
 
 Set `manager` to an empty string. Permission values then never matter, because nobody can execute them.
 
@@ -55,7 +55,7 @@ Set `manager` to an empty string. Permission values then never matter, because n
 const manager = '';
 ```
 
-### Complete control, soft-enabled
+### Complete Control, Soft-Enabled
 
 Every permission enabled, none frozen. The manager can do anything now and can freeze any of them later.
 
@@ -92,14 +92,14 @@ For editable fields, use neutral `[]` rather than `permanentlyPermittedTimes`. N
 - "Explain which permissions on collection 1 are frozen and which the manager can still change."
 {% endhint %}
 
-## 2. Decide the two permissions that matter most
+## 2. Decide the Two Permissions That Matter Most
 
 1. Can the set of token IDs grow? Frozen at genesis? Handle with `canUpdateValidTokenIds`.
 2. Can transferability change? Handle with `canUpdateCollectionApprovals`. Frozen at genesis? Frozen for some token IDs, some approvals, Mint only, post-mint only?
 
 The second one is a supply question. If the manager can add or edit approvals from `Mint`, they can mint any amount. Default to frozen for `Mint` unless the collection must stay open.
 
-## 3. Freeze mint approvals (fixed supply)
+## 3. Freeze Mint Approvals (Fixed Supply)
 
 A `canUpdateCollectionApprovals` entry applies to every approval that matches all of its criteria. `approvalId: 'All'` matches any approval. The JSON blocks on this page are complete `collectionPermissions` objects.
 
@@ -201,7 +201,7 @@ To freeze all transfer rules, mint and post-mint alike, change `fromListId` to `
 
 List IDs inside permissions must be reserved IDs or direct addresses: `"All"`, `"Mint"`, `"!Mint"`, `"bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"`, `"!bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"` (everyone except that address), or colon-separated `"bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d:bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"`. Custom list IDs are not allowed here.
 
-## 4. Freeze one approval, or all but one
+## 4. Freeze One Approval, or All but One
 
 Target a specific `approvalId`. Prefix with `!` to target every approval except that one.
 
@@ -298,7 +298,7 @@ const createCollection = {
 }
 ```
 
-## 5. Freeze approvals for a token range
+## 5. Freeze Approvals for a Token Range
 
 The entry applies only to approvals that overlap the listed `tokenIds`. Approvals entirely outside the range stay updatable. Use this to lock founder tokens or a limited edition (IDs 1 to 100) while later tiers keep evolving.
 
@@ -381,7 +381,7 @@ const createCollection = {
 };
 ```
 
-## 6. Freeze the valid token IDs
+## 6. Freeze the Valid Token IDs
 
 `canUpdateValidTokenIds` controls whether `validTokenIds` can change. Lock all IDs forever:
 
@@ -455,7 +455,7 @@ const createCollection = {
 - Locked IDs cannot be removed; only expansion of ranges that are not locked is possible.
 - `canUpdateTokenMetadata` uses the same `tokenIds` scope.
 
-## 7. Lock user permissions (escrow accounts)
+## 7. Lock User Permissions (Escrow Accounts)
 
 User permissions control whether a user can change their own approvals and auto-approve flags. Leave them soft-enabled (empty arrays) in almost every collection. Lock them only for escrow-style accounts that must not be able to change their own rules.
 
@@ -528,7 +528,7 @@ const updateUserApprovals = {
 };
 ```
 
-The manager can also set defaults for every new holder through `defaultBalances.userPermissions` at creation; see [Create a collection](create-a-collection.md).
+The manager can also set defaults for every new holder through `defaultBalances.userPermissions` at creation; see [Create a Collection](create-a-collection.md).
 
 ## 8. Deploy
 
@@ -539,9 +539,9 @@ bb check ./collection.json     # structural validation plus a design review
 bb deploy --msg-file ./collection.json --browser
 ```
 
-Mint escrow, alias paths, and wrapper paths have their own switches: `canAddMoreAliasPaths` and `canAddMoreCosmosCoinWrapperPaths` (see [Wrap to an IBC denom](wrap-to-an-ibc-denom.md)).
+Mint escrow, alias paths, and wrapper paths have their own switches: `canAddMoreAliasPaths` and `canAddMoreCosmosCoinWrapperPaths` (see [Wrap to an IBC Denom](wrap-to-an-ibc-denom.md)).
 
-## Common mistakes
+## Common Mistakes
 
 - An entry with both `permanentlyPermittedTimes: []` and `permanentlyForbiddenTimes: []` is redundant. Replace the whole entry with `[]`. This applies to action permissions (`canDeleteCollection`, `canArchiveCollection`, ...), token ID action permissions (`canUpdateTokenMetadata`, `canUpdateValidTokenIds`), and `canUpdateCollectionApprovals`.
 - Reading `[]` as frozen. Empty means still updatable.
@@ -549,8 +549,8 @@ Mint escrow, alias paths, and wrapper paths have their own switches: `canAddMore
 - Custom list IDs in permission entries.
 - Using `permanentlyPermittedTimes` for an editable field. It removes the option to freeze later.
 
-## Next steps
+## Next Steps
 
 - [Permissions](../token-standard/concepts/permissions.md)
-- [Minting and supply](../token-standard/concepts/minting-and-supply.md)
+- [Minting and Supply](../token-standard/concepts/minting-and-supply.md)
 - [MsgUniversalUpdateCollection](../token-standard/messages/msg-universal-update-collection.md)

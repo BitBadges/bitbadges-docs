@@ -2,11 +2,11 @@
 description: "What BitBadges is, how the chain, the hosted services, and the tools fit together, what one collection looks like, and where to start."
 ---
 
-# BitBadges documentation
+# BitBadges Documentation
 
 BitBadges is a Cosmos SDK Layer 1 whose core module, `x/tokenization`, is a complete token standard: every collection, balance, approval, and permission is chain state that the module enforces on every transfer. This page explains the system end to end, shows what a token collection looks like, and sends you to the right tab.
 
-## Build in three steps
+## Build in Three Steps
 
 1. Install the CLI:
 
@@ -14,7 +14,7 @@ BitBadges is a Cosmos SDK Layer 1 whose core module, `x/tokenization`, is a comp
 curl -fsSL https://install.bitbadges.io | sh
 ```
 
-2. Add the MCP builder tools to your editor. Claude Code is shown; Cursor, Codex, Claude Desktop, and others are in [Set up your AI](agents/setup.md):
+2. Add the MCP builder tools to your editor. Claude Code is shown; Cursor, Codex, Claude Desktop, and others are in [Set Up Your AI](agents/setup.md):
 
 ```bash
 claude mcp add bitbadges-builder -e BITBADGES_API_KEY="$BITBADGES_API_KEY" -- npx -y -p bitbadges bitbadges-builder
@@ -28,7 +28,7 @@ claude mcp add bitbadges-builder -e BITBADGES_API_KEY="$BITBADGES_API_KEY" -- np
 
 The agent assembles the transaction and returns a review link. Open it, check the summary, and sign with your wallet.
 
-## What you get
+## What You Get
 
 | Layer | Pieces | What it does |
 | --- | --- | --- |
@@ -38,7 +38,7 @@ The agent assembles the transaction and returns a review link. Open it, check th
 
 The chain enforces the rules. The hosted services make them easy to read and to gate. The tools generate valid transactions so you rarely hand-write the structures below.
 
-## One collection, annotated
+## One Collection, Annotated
 
 A collection is created with one message. This one is a 100-token NFT collection where only the creator can mint, one token per mint, up to 100 mints, with the supply locked forever:
 
@@ -230,47 +230,47 @@ Rows at their defaults are folded. Click a hidden row to expand it. The field re
 | `validTokenIds` | Which token IDs exist. IDs are numbers; fungible or non-fungible depends only on how many units you mint per ID. | [Collections](token-standard/concepts/collections.md) |
 | `collectionMetadata`, `tokenMetadata` | Where the name, image, and description live. `{id}` expands per token. Inline JSON in `customData` needs no hosting. | [Collections](token-standard/concepts/collections.md) |
 | `collectionApprovals` | Who can move which tokens from whom to whom, when, and under which conditions. `fromListId: "Mint"` makes this a mint rule. | [Transferability](token-standard/concepts/transferability.md) |
-| `approvalCriteria` | The conditions: caps via trackers, a fixed mint order via predetermined balances, payments, Merkle proofs, votes, ownership checks, EVM queries, time windows. | [Approval criteria](token-standard/approval-criteria/README.md) |
+| `approvalCriteria` | The conditions: caps via trackers, a fixed mint order via predetermined balances, payments, Merkle proofs, votes, ownership checks, EVM queries, time windows. | [Approval Criteria](token-standard/approval-criteria/README.md) |
 | `ownershipTimes` | Balances carry a time range. A subscription is a balance that expires; a vesting schedule is a balance that starts later. No follow-up transaction. | [Balances](token-standard/concepts/balances.md) |
 | `collectionPermissions` | What the manager may still change, per time range, and whether that answer is frozen. This one locks the supply forever. | [Permissions](token-standard/concepts/permissions.md) |
 | `standards` | Labels that tell apps how to interpret the collection. | [Collections](token-standard/concepts/collections.md) |
 
 Every transfer, including swaps on the DEX and IBC transfers of wrapped tokens, passes three approval layers: the collection's, the sender's outgoing, and the recipient's incoming. [Concepts](token-standard/concepts/README.md) walks the model in dependency order.
 
-## What changes versus ERC-20 and ERC-721
+## What Changes Versus ERC-20 and ERC-721
 
 | Need | Contract standards | BitBadges |
 | --- | --- | --- |
 | Fungible and non-fungible | Two standards, two contracts | One collection. `amount` per token ID. |
 | Expiring or scheduled ownership | Custom contract, a cron job, or a burn later | `ownershipTimes` on the balance. The chain reports the balance as absent outside the range. |
 | Transfer rules | `require` statements in Solidity, per contract, audited each time | Approvals with criteria, checked by the module on every transfer, swap, and IBC hop. |
-| Allowlists and blocklists | Mappings in the contract | Reusable [address lists](token-standard/concepts/address-lists.md): `"All"`, `"Mint"`, `"!bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"`, or stored lists. |
-| Mint gating | A merkle-drop contract | [Merkle challenges](token-standard/approval-criteria/merkle-challenges.md) on-chain, or [claims](api/claims/README.md) with plugins off-chain that produce the proof. |
-| Royalties and payments | EIP-2981 hints that marketplaces may ignore | [Coin transfers](token-standard/approval-criteria/coin-transfers.md) and [user royalties](token-standard/approval-criteria/user-approval-settings.md) enforced inside the transfer. |
+| Allowlists and blocklists | Mappings in the contract | Reusable [Address Lists](token-standard/concepts/address-lists.md): `"All"`, `"Mint"`, `"!bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"`, or stored lists. |
+| Mint gating | A merkle-drop contract | [Merkle Challenges](token-standard/approval-criteria/merkle-challenges.md) on-chain, or [Claims](api/claims/README.md) with plugins off-chain that produce the proof. |
+| Royalties and payments | EIP-2981 hints that marketplaces may ignore | [Coin Transfers](token-standard/approval-criteria/coin-transfers.md) and [user royalties](token-standard/approval-criteria/user-approval-settings.md) enforced inside the transfer. |
 | Upgradability | Proxy patterns | [Permissions](token-standard/concepts/permissions.md) with permitted and forbidden time ranges, freezable per field. |
-| Compliance checks | Off-chain, or a per-token contract | KYC via [dynamic stores](token-standard/approval-criteria/dynamic-store-challenges.md), business hours via [alt time checks](token-standard/approval-criteria/alt-time-checks.md), on-chain EVM reads via [EVM query challenges](token-standard/approval-criteria/evm-query-challenges.md). See [Compliance zones](token-standard/concepts/compliance-zones.md). |
+| Compliance checks | Off-chain, or a per-token contract | KYC via [dynamic stores](token-standard/approval-criteria/dynamic-store-challenges.md), business hours via [Alt Time Checks](token-standard/approval-criteria/alt-time-checks.md), on-chain EVM reads via [EVM Query Challenges](token-standard/approval-criteria/evm-query-challenges.md). See [Compliance Zones](token-standard/concepts/compliance-zones.md). |
 | Cross-chain | Bridges | [Wrapper paths](token-standard/ibc/cosmos-coin-wrapper-paths.md) turn tokens into `x/bank` denoms that move over IBC and trade on the DEX, with the same approvals applied. |
 | Contracts | Everything | Optional. Solidity reads and writes the module through [precompiles](chain/evm/README.md). |
 
 The longer argument is in [Why BitBadges](about/README.md) and [Comparisons](about/comparisons.md).
 
-## What people build
+## What People Build
 
 | Build | Mechanism | Start |
 | --- | --- | --- |
-| NFT or fungible collection | `validTokenIds` plus a mint approval | [Create a collection](guides/create-a-collection.md) |
-| Subscription, membership, expiring credential | `ownershipTimes` and recurring predetermined balances | [Subscriptions and time-based tokens](guides/subscriptions-and-time-based-tokens.md) |
-| Tradable, burnable, soulbound, or admin-revocable tokens | Post-mint approvals and overrides | [Set transferability](guides/set-transferability.md) |
-| Airdrop, allowlist, quest, social-gated mint | Claims with plugins that emit a Merkle proof | [Distribute with claims](guides/distribute-with-claims.md) |
+| NFT or fungible collection | `validTokenIds` plus a mint approval | [Create a Collection](guides/create-a-collection.md) |
+| Subscription, membership, expiring credential | `ownershipTimes` and recurring predetermined balances | [Subscriptions and Time-Based Tokens](guides/subscriptions-and-time-based-tokens.md) |
+| Tradable, burnable, soulbound, or admin-revocable tokens | Post-mint approvals and overrides | [Set Transferability](guides/set-transferability.md) |
+| Airdrop, allowlist, quest, social-gated mint | Claims with plugins that emit a Merkle proof | [Distribute with Claims](guides/distribute-with-claims.md) |
 | Token-gated API or content | BB-402: a 402 response, a signed proof, a balance check | [Gate access](guides/gate-access.md) |
-| Login with a wallet | Sign In with BitBadges (OAuth flow) | [Sign in users](guides/sign-in-users.md) |
-| Compliant asset with KYC and transfer limits | Dynamic stores, trackers, alt time checks, compliance zones | [Compliance zones](token-standard/concepts/compliance-zones.md) |
-| Stablecoin-backed or IBC-backed token | Backed minting against an existing denom | [Smart tokens and vaults](guides/smart-tokens-and-vaults.md) |
+| Login with a wallet | Sign In with BitBadges (OAuth flow) | [Sign In Users](guides/sign-in-users.md) |
+| Compliant asset with KYC and transfer limits | Dynamic stores, trackers, alt time checks, compliance zones | [Compliance Zones](token-standard/concepts/compliance-zones.md) |
+| Stablecoin-backed or IBC-backed token | Backed minting against an existing denom | [Smart Tokens and Vaults](guides/smart-tokens-and-vaults.md) |
 | Liquidity pool or swap | Wrap, then `x/gamm` | [Trade on the DEX](guides/trade-on-the-dex.md) |
 | Auction, bounty, crowdfund, prediction market, payment request, product catalog | Standards with `bb` verbs and agent skills | [Standards](cli/standards.md), [Skills](agents/skills/README.md) |
-| Agent-controlled vault with spend limits | Outgoing approvals with daily-reset trackers | [Spending authorization](agents/spending-authorization.md) |
+| Agent-controlled vault with spend limits | Outgoing approvals with daily-reset trackers | [Spending Authorization](agents/spending-authorization.md) |
 
-## Pick a path
+## Pick a Path
 
 Every path produces the same transaction JSON and ends with a signed broadcast. Mainnet is the live network; testnet is offline.
 
@@ -321,7 +321,7 @@ console.log(result.success ? result.txHash : result.error);
 
 [SDK reference](sdk/README.md), [Transactions](sdk/transactions/README.md)
 
-### AI agent
+### AI Agent
 
 The same npm package ships the `bitbadges-builder` MCP server and a Claude Code plugin. The agent assembles the transaction with tools such as `add_approval`, `set_permissions`, and `review_collection`, then hands you a review link; you sign in the browser. Works with Claude Code, Claude Desktop, Cursor, Windsurf, Codex, VS Code, Zed, or any model that can output JSON.
 
@@ -329,9 +329,9 @@ The same npm package ships the `bitbadges-builder` MCP server and a Claude Code 
 claude mcp add bitbadges-builder -e BITBADGES_API_KEY="$BITBADGES_API_KEY" -- npx -y -p bitbadges bitbadges-builder
 ```
 
-[Set up your AI](agents/setup.md), [MCP builder tools](agents/mcp-tools.md)
+[Set Up Your AI](agents/setup.md), [MCP Builder Tools](agents/mcp-tools.md)
 
-### No code
+### No Code
 
 The [Create tab](https://bitbadges.io/create) and the [developer portal](https://bitbadges.io/developer) create collections, claims, address lists, and API keys without an integration. Paste any transaction JSON at `bitbadges.io/mint/local-builder` to review and sign it.
 
@@ -344,7 +344,7 @@ The [Create tab](https://bitbadges.io/create) and the [developer portal](https:/
 
 Full table, denoms, and node setup: [Network](chain/README.md).
 
-## The tabs
+## The Tabs
 
 | Tab | Read it when you want to | Start at |
 | --- | --- | --- |
@@ -355,4 +355,4 @@ Full table, denoms, and node setup: [Network](chain/README.md).
 | SDK & CLI | Use `bitbadges` from TypeScript or drive everything from `bb` | [SDK](sdk/README.md), [CLI](cli/README.md) |
 | Agents | Wire Claude, Cursor, Codex, or any MCP client to build tokens | [Agents](agents/README.md) |
 
-For agents reading this site: [Reading the docs](agents/reading-the-docs.md) lists `llms.txt`, the single-file corpus, and the URL patterns.
+For agents reading this site: [Reading the Docs](agents/reading-the-docs.md) lists `llms.txt`, the single-file corpus, and the URL patterns.

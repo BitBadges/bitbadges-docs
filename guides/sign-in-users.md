@@ -2,9 +2,9 @@
 description: "Add Sign In with BitBadges to your app. Register an OAuth app, build the authorize URL, handle the callback, exchange the code, and check your own criteria."
 ---
 
-# Sign in users
+# Sign In Users
 
-At the end your app authenticates a user's BitBadges address through an OAuth2 flow, then checks claims, token ownership, or API scopes on top. Sign In with BitBadges (SIWBB) replaces a "Sign In with X" button and handles address authentication, token ownership verification, integration with 7000+ apps and plugins, and BitBadges API scope authorization in one flow. The endpoint reference is in [Sign in with BitBadges](../api/sign-in/README.md).
+At the end your app authenticates a user's BitBadges address through an OAuth2 flow, then checks claims, token ownership, or API scopes on top. Sign In with BitBadges (SIWBB) replaces a "Sign In with X" button and handles address authentication, token ownership verification, integration with 7000+ apps and plugins, and BitBadges API scope authorization in one flow. The endpoint reference is in [Sign In with BitBadges](../api/sign-in/README.md).
 
 SIWBB exists mainly for OAuth authorization of the BitBadges API. If you only need wallet authentication, a Web3 auth service such as WalletConnect or Magic works too; you can then check criteria with the API directly:
 
@@ -32,7 +32,7 @@ Endpoints:
 
 [Demo](https://bitbadges.io/siwbb/authorize?client_id=example-client-id&redirect_uri=https://example.com&)
 
-## 1. Register an app
+## 1. Register an App
 
 1. Go to [bitbadges.io/developer](https://bitbadges.io/developer), OAuth Apps, and register an app.
 2. Record the client ID and client secret.
@@ -51,7 +51,7 @@ Endpoints:
 - "Check whether the signed-in address bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue has completed claim claim_demo_01."
 {% endhint %}
 
-## 2. Build the authorization URL
+## 2. Build the Authorization URL
 
 The base URL is `https://bitbadges.io/siwbb/authorize`. Parameters follow `CodeGenQueryParams`:
 
@@ -113,7 +113,7 @@ What the parameters do:
 - `scope`: only for authorized BitBadges API access. With no scopes you still verify address ownership. All scopes are listed at [bitbadges.io/auth/linkgen](https://bitbadges.io/auth/linkgen).
 - `claimId`: shows a claim on the authorize screen. This is display only; verify the claim server-side in step 5. `hideIfAlreadyClaimed` hides it once `successCount >= 1`. `expectVerifySuccess` blocks sign-in until the claim verifies, but users can edit URL parameters, so it does not replace your own check.
 
-## 3. Handle the callback
+## 3. Handle the Callback
 
 With a `redirect_uri`, the user never sees the code. BitBadges redirects to your URI with `code` and `state` as query parameters, following standard OAuth2:
 
@@ -129,7 +129,7 @@ const callbackHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 Validate `state` according to your requirements, and serve the callback over HTTPS. For QR code flows, the code is the QR content and you exchange it the same way; see [Callback](../api/sign-in/callback.md).
 
-## 4. Exchange the code
+## 4. Exchange the Code
 
 One exchange per code; BitBadges enforces this. `issuedAtTimeWindowMs` rejects codes older than the window (default 10 minutes, `0` disables). In-person flows usually need a longer window or `0`.
 
@@ -169,7 +169,7 @@ async function myHandler(req: NextApiRequest, res: NextApiResponse) {
 
 The same call is available as `bb api auth exchange-siwbb-authorization-code --body '{...}'`; see [API commands](../cli/api.md).
 
-## 5. Check your own criteria
+## 5. Check Your Own Criteria
 
 The exchange proves address ownership. It does not prove anything you attached to the URL. Check claims, ownership requirements, and attestations yourself, now that you know the user owns `address`:
 
@@ -221,7 +221,7 @@ Your checklist for the handler:
 
 The ownership requirement shape is in [Gate access](gate-access.md).
 
-## 6. Manage the session
+## 6. Manage the Session
 
 Access tokens expire in 1 day and refresh tokens in 60 days by default; both become invalid when the user revokes access. Send the access token as `Authorization: Bearer <token>`, or let the SDK set it:
 
@@ -262,8 +262,8 @@ await api.revokeOauthAuthorization({ token: access_token });
 
 Sessions do not have to use these tokens. Checking IDs, stamping hands, or claim numbers are valid alternatives for in-person flows. Full token semantics and the security notes are in [Verification](../api/sign-in/verification.md).
 
-## Next steps
+## Next Steps
 
-- [Sign in with BitBadges](../api/sign-in/README.md) for the endpoint reference, callback details, and framework templates (Auth0, WordPress, Supabase, Discourse).
-- [Distribute with claims](distribute-with-claims.md) to define what a signed-in user must satisfy.
+- [Sign In with BitBadges](../api/sign-in/README.md) for the endpoint reference, callback details, and framework templates (Auth0, WordPress, Supabase, Discourse).
+- [Distribute with Claims](distribute-with-claims.md) to define what a signed-in user must satisfy.
 - [Auth commands](../cli/auth.md) for the CLI's own SIWBB session (`bb auth login --browser`).

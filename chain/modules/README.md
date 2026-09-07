@@ -2,7 +2,7 @@
 description: "Every BitBadges-specific Cosmos SDK module: x/tokenization (the token standard), gamm, poolmanager, sendmanager, managersplitter, and the IBC middleware."
 ---
 
-# Chain modules
+# Chain Modules
 
 `x/tokenization` is the token standard and has its own tab. The modules below surround it on the BitBadges chain and are what a DEX integrator, a delegated manager, or a chain developer touches next.
 
@@ -28,6 +28,6 @@ The chain also ships standard Cosmos SDK modules (bank, staking, gov, authz, fee
 
 ## Related
 
-- [Token standard](../../token-standard/README.md)
-- [IBC and x/bank compatibility](../../token-standard/ibc/README.md)
-- [Integrate the module](../../token-standard/integrate/README.md)
+- [Token Standard](../../token-standard/README.md)
+- [IBC and x/bank Compatibility](../../token-standard/ibc/README.md)
+- [Integrate the Module](../../token-standard/integrate/README.md)

@@ -42,7 +42,7 @@ In its simplest form BB-402 replicates x402. A soulbound token that costs X USDC
 
 Token rules (non-transferable, revocable, time-bounded, supply-capped, approval-gated) are set on the collection and enforced by the chain.
 
-## The 402 response
+## The 402 Response
 
 ```json
 {
@@ -65,11 +65,11 @@ Token rules (non-transferable, revocable, time-bounded, supply-capped, approval-
 | `ownershipRequirements` | An `AccessCondition` describing what the caller must own |
 | `message` | Opaque string the agent signs. The format is server-defined: nonce, SIWE, JWT, anything. |
 
-## The proof header
+## The Proof Header
 
 `X-BB-Proof` is base64-encoded JSON with `address`, `chain` (the signing scheme), `message` (echoed back), and `signature`.
 
-## Response codes
+## Response Codes
 
 | Code | Meaning | Agent action |
 | --- | --- | --- |
@@ -79,7 +79,7 @@ Token rules (non-transferable, revocable, time-bounded, supply-capped, approval-
 
 The 402 versus 403 split tells an agent whether to restart the auth flow or go acquire tokens.
 
-## Ownership requirements
+## Ownership Requirements
 
 `AccessCondition` is recursive: a boolean combinator or a leaf `TokenCheck`.
 
@@ -143,7 +143,7 @@ Subscription and not banned:
 Ask your agent: "Check whether bob (bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue) owns token ID 1 of collection 42 right now." The MCP builder tools (`verify_ownership`) produce the objects on this page.
 {% endhint %}
 
-## Security notes
+## Security Notes
 
 - HTTPS only. Proof headers are replayable over plaintext HTTP.
 - Replay protection is the server's job through the `message`: nonces, timestamps, or endpoint binding.
@@ -155,4 +155,4 @@ Ask your agent: "Check whether bob (bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue) o
 - [Gate access](../../guides/gate-access.md)
 - [Specification](spec.md)
 - [Collection recipes](collection-recipes.md)
-- [Sign in with BitBadges](../../api/sign-in/README.md)
+- [Sign In with BitBadges](../../api/sign-in/README.md)

@@ -2,9 +2,9 @@
 description: "Sign a BitBadges transaction by hand with MetaMask, Privy, or ethers.js by sending the payload's EVM precompile call."
 ---
 
-# Sign with an Ethereum wallet
+# Sign with an Ethereum Wallet
 
-With `evmAddress` in the `TxContext`, `createTransactionPayload` converts the messages into a call to a BitBadges EVM precompile. An Ethereum wallet signs and sends that call like any contract transaction. Use [Signing client](signing-client.md) unless you need this level of control.
+With `evmAddress` in the `TxContext`, `createTransactionPayload` converts the messages into a call to a BitBadges EVM precompile. An Ethereum wallet signs and sends that call like any contract transaction. Use [Signing Client](signing-client.md) unless you need this level of control.
 
 ## Example
 
@@ -124,5 +124,5 @@ function useEthereumSigning() {
 ## Related
 
 - [Transactions](README.md)
-- [Tokenization precompile](../../chain/evm/tokenization-precompile/README.md)
+- [Tokenization Precompile](../../chain/evm/tokenization-precompile/README.md)
 - [EVM developer guide](../../chain/evm/developer-guide.md)

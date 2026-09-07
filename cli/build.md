@@ -66,7 +66,7 @@ The first command prints the message inside the envelope (485 lines for a vault;
 }
 ```
 
-The walkthrough that explains the output is in [Create a collection](../guides/create-a-collection.md). This page is the flag reference.
+The walkthrough that explains the output is in [Create a Collection](../guides/create-a-collection.md). This page is the flag reference.
 
 {% hint style="info" %}
 Ask your agent. Every template here has a skill (`get_skill_instructions`) and the session tools behind it: "Build a USDC vault called Demo Vault with symbol vUSDC and a 1000 daily withdraw limit, then give me the review link."
@@ -100,7 +100,7 @@ The subcommand list comes from `bitbadgesjs-sdk/src/cli/commands/build.ts`. Coll
 
 Ten standards groups expose the same builder as `bb <standard> build` (for example `bb auctions build` is `bb build auction`). Same flags, same output. `nfts` and `dynamic-stores` have no build alias.
 
-## Shared flags
+## Shared Flags
 
 Every subcommand accepts these. `--help` renders them under `Metadata`, `Output`, `Network`, `Builder`, and `Deploy` headings after the per-command flags.
 
@@ -121,7 +121,7 @@ Every subcommand accepts these. `--help` renders them under `Metadata`, `Output`
 
 `--json-only` still works as a deprecated alias for `--quiet`.
 
-### Metadata modes
+### Metadata Modes
 
 Every metadata-bearing builder accepts exactly one of two modes per entity:
 
@@ -130,13 +130,13 @@ Every metadata-bearing builder accepts exactly one of two modes per entity:
 
 Approvals are text-only: `--name` + `--description`, no image. The CLI errors if neither mode is complete; there are no placeholder defaults. On-chain shape: [Collections](../token-standard/concepts/collections.md).
 
-### Denoms and amounts
+### Denoms and Amounts
 
-`--denom` style flags accept a symbol (`BADGE`, `USDC`, `ATOM`, `OSMO`) or a canonical denom (`ubadge`, `ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8`). Amounts are display units when the denom is a symbol and base units when it is a raw denom. `--base-units` forces base units. `USDC` resolves to the canonical Injective-routed denom; `USDC.n` is the legacy denom. See [Supported denoms](../chain/supported-denoms.md).
+`--denom` style flags accept a symbol (`BADGE`, `USDC`, `ATOM`, `OSMO`) or a canonical denom (`ubadge`, `ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8`). Amounts are display units when the denom is a symbol and base units when it is a raw denom. `--base-units` forces base units. `USDC` resolves to the canonical Injective-routed denom; `USDC.n` is the legacy denom. See [Supported Denoms](../chain/supported-denoms.md).
 
 Durations accept `daily`, `monthly`, `annually`, shorthand such as `30d`, `24h`, `5m`, or ms-since-epoch.
 
-### JSON input
+### JSON Input
 
 ```bash
 bb build vault --json '{"backingCoin":"USDC","uri":"ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json"}'
@@ -146,7 +146,7 @@ echo '{"backingCoin":"USDC","uri":"ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efu
 
 Keys are the camelCase form of the flags.
 
-## Collection builders
+## Collection Builders
 
 ### vault
 
@@ -330,7 +330,7 @@ bb build address-list --name "Allowlist" --description "Approved addresses" \
 
 Emits `MsgCreateAddressLists`. Takes the shared metadata flags only.
 
-## Approval builders
+## Approval Builders
 
 ### intent
 
@@ -401,7 +401,7 @@ bb build pm-buy-intent  --address bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --co
 | `--price <n>`, `--denom <symbol\|denom>` | yes | Total payment in display units |
 | `--expiration <when>` | no | Default `24h` |
 
-## Coin and token transfers
+## Coin and Token Transfers
 
 ### send
 
@@ -451,11 +451,11 @@ The output flows through the same pipeline as the collection builders, so `--sim
 
 - Output is one envelope on stdout with the message in `data` and validation, review, simulate, and resolved-metadata reports in `meta`. The human-readable auto-review prints on stderr; `--quiet` silences it.
 - `bb deploy` and `bb preview` unwrap the envelope when reading stdin or a file.
-- Sign and broadcast with [Deploy](deploy.md), the [signing client](../sdk/transactions/signing-client.md), or the site's review flow through `bb preview --open`.
+- Sign and broadcast with [Deploy](deploy.md), the [Signing Client](../sdk/transactions/signing-client.md), or the site's review flow through `bb preview --open`.
 
 ## Related
 
-- [Create a collection](../guides/create-a-collection.md)
+- [Create a Collection](../guides/create-a-collection.md)
 - [Analyze](analyze.md)
 - [Deploy](deploy.md)
 - [Standards](standards.md)

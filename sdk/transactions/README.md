@@ -97,7 +97,7 @@ console.log(sim.gas_info.gas_used, res.tx_response.txhash);
 Ask your agent. The MCP builder tools run steps 1 and 3 for you (`build_transfer`, `validate_transaction`, `simulate_transaction`) and stop at `get_review_url`: "Build a transfer of one unit of token 1 in collection 1 from me to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, simulate it, and give me the link to sign." Signing stays with your wallet.
 {% endhint %}
 
-## Choose a path
+## Choose a Path
 
 | | `bb` CLI | `BitBadgesSigningClient` | Manual functions |
 | --- | --- | --- | --- |
@@ -110,7 +110,7 @@ Ask your agent. The MCP builder tools run steps 1 and 3 for you (`build_transfer
 
 The CLI path is on [Deploy](../../cli/deploy.md) and [Chain](../../cli/chain.md). The rest of this section is TypeScript.
 
-## 1. Build messages
+## 1. Build Messages
 
 ```ts
 import { MsgCreateCollection, MsgTransferTokens, proto } from 'bitbadges';
@@ -136,7 +136,7 @@ Both forms are accepted by `signAndBroadcast`, `createTransactionPayload`, and `
 
 Messages execute in array order inside one transaction. When a later message depends on an earlier one (for example `MsgCreateAddressLists` followed by a `MsgCreateCollection` that references the new list ID), put the dependency first.
 
-## 2. Transaction context
+## 2. Transaction Context
 
 ```ts
 import { BitBadgesAPI, BigIntify, type TxContext } from 'bitbadges';
@@ -198,7 +198,7 @@ const baseGasPrice = 0.025;
 const feeInUbadge = BigIntify(Math.round(Number(gasUsed) * baseGasPrice));
 ```
 
-## 3. Create the payload
+## 3. Create the Payload
 
 ```ts
 import { createTransactionPayload } from 'bitbadges';
@@ -223,9 +223,9 @@ interface TransactionPayload {
 
 ## 4. Sign
 
-- [Sign with a Cosmos wallet](sign-cosmos.md): `signDirect` with Keplr, then `createTxBroadcastBody`.
-- [Sign with an Ethereum wallet](sign-ethereum.md): send `payload.evmTx` as an EVM transaction with ethers or Privy.
-- [Signing client](signing-client.md): both, without the steps.
+- [Sign with a Cosmos Wallet](sign-cosmos.md): `signDirect` with Keplr, then `createTxBroadcastBody`.
+- [Sign with an Ethereum Wallet](sign-ethereum.md): send `payload.evmTx` as an EVM transaction with ethers or Privy.
+- [Signing Client](signing-client.md): both, without the steps.
 
 ## 5. Broadcast
 
@@ -233,6 +233,6 @@ interface TransactionPayload {
 
 ## Related
 
-- [Signing client](signing-client.md)
+- [Signing Client](signing-client.md)
 - [Messages](../../token-standard/messages/README.md)
 - [Accounts](../../token-standard/concepts/accounts.md)

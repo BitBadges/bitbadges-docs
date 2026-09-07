@@ -2,13 +2,13 @@
 description: "Create an NFT or fungible token collection on BitBadges with the bb CLI, the TypeScript SDK, or raw MsgCreateCollection JSON."
 ---
 
-# Create a collection
+# Create a Collection
 
-At the end you have a live collection with token IDs, metadata, a manager, and a mint approval, ready for [Mint and distribute](mint-and-distribute.md).
+At the end you have a live collection with token IDs, metadata, a manager, and a mint approval, ready for [Mint and Distribute](mint-and-distribute.md).
 
 A collection is one on-chain record that holds every field below; see [Collections](../token-standard/concepts/collections.md). Every numeric value in transaction JSON is a string (`"100"`, not `100`).
 
-## 1. Pick the token shape
+## 1. Pick the Token Shape
 
 | | NFT collection | Fungible token |
 | --- | --- | --- |
@@ -30,7 +30,7 @@ The `{id}` placeholder works only inside the metadata URI string, never inside t
 - "Create a fungible token called Demo Coin with a 1,000,000 supply cap and a public mint of up to 1,000 per address."
 {% endhint %}
 
-## 2. Write the base fields
+## 2. Write the Base Fields
 
 Most collections share this base. It excludes `collectionPermissions` and `collectionApprovals`, which the next two guides cover.
 
@@ -109,11 +109,11 @@ const BaseCollectionDetails = {
 };
 ```
 
-Field reference: `validTokenIds`, `collectionMetadata`, `tokenMetadata`, `customData`, `standards`, `isArchived`, and `defaultBalances` are on [Collections](../token-standard/concepts/collections.md). `manager` is on [Permissions](../token-standard/concepts/permissions.md). `mintEscrowCoinsToTransfer` is on [Coin transfers](../token-standard/approval-criteria/coin-transfers.md). `cosmosCoinWrapperPathsToAdd` is on [Cosmos coin wrapper paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md).
+Field reference: `validTokenIds`, `collectionMetadata`, `tokenMetadata`, `customData`, `standards`, `isArchived`, and `defaultBalances` are on [Collections](../token-standard/concepts/collections.md). `manager` is on [Permissions](../token-standard/concepts/permissions.md). `mintEscrowCoinsToTransfer` is on [Coin Transfers](../token-standard/approval-criteria/coin-transfers.md). `cosmosCoinWrapperPathsToAdd` is on [Cosmos Coin Wrapper Paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md).
 
 `autoApproveAllIncomingTransfers: true` matters for any collection with a public mint. Without it, recipients cannot receive minted tokens.
 
-## 3. Add a mint approval
+## 3. Add a Mint Approval
 
 Every approval with `fromListId: "Mint"` creates balances. Two rules apply to all of them:
 
@@ -237,7 +237,7 @@ NFT pattern with sequential IDs. This is one complete `CollectionApproval`; put 
 }
 ```
 
-`incrementTokenIdsBy: "1"` gives each mint the next token ID. `maxNumTransfers` caps total mints and per-user mints. `orderCalculationMethod` must have exactly one method set to `true`. See [Predetermined balances](../token-standard/approval-criteria/predetermined-balances.md).
+`incrementTokenIdsBy: "1"` gives each mint the next token ID. `maxNumTransfers` caps total mints and per-user mints. `orderCalculationMethod` must have exactly one method set to `true`. See [Predetermined Balances](../token-standard/approval-criteria/predetermined-balances.md).
 
 Fungible pattern with a supply cap:
 
@@ -350,11 +350,11 @@ Fungible pattern with a supply cap:
 }
 ```
 
-`overallApprovalAmount` is the total supply cap and `perInitiatedByAddressApprovalAmount` the per-user cap; `"0"` means unlimited. `amountTrackerId` is required whenever `approvalAmounts` or `maxNumTransfers` is set. See [Approval trackers](../token-standard/approval-criteria/approval-trackers.md).
+`overallApprovalAmount` is the total supply cap and `perInitiatedByAddressApprovalAmount` the per-user cap; `"0"` means unlimited. `amountTrackerId` is required whenever `approvalAmounts` or `maxNumTransfers` is set. See [Approval Trackers](../token-standard/approval-criteria/approval-trackers.md).
 
-List IDs in approvals use reserved IDs only: `"All"`, `"Mint"`, `"!Mint"`, `"AllWithoutMint"`, or one full `bb1` address. See [Address lists](../token-standard/concepts/address-lists.md).
+List IDs in approvals use reserved IDs only: `"All"`, `"Mint"`, `"!Mint"`, `"AllWithoutMint"`, or one full `bb1` address. See [Address Lists](../token-standard/concepts/address-lists.md).
 
-## 4. Build the transaction
+## 4. Build the Transaction
 
 ### bb CLI
 
@@ -703,10 +703,10 @@ A complete `MsgCreateCollection` for a tradable NFT collection (100 NFTs, creato
 ```
 
 {% hint style="warning" %}
-Price new collections in canonical USDC, the Injective-routed denom `ibc/E1116484...`. Its token-standard allowlisting ships with governance proposal 45 and early supply is small, so early traders may need to bridge via Injective themselves. Do not use the legacy `USDC.n` (`ibc/F082B65C...`): backed-path escrows derive from the denom string, so a collection created on it is stuck there permanently. See [Supported denoms](../chain/supported-denoms.md).
+Price new collections in canonical USDC, the Injective-routed denom `ibc/E1116484...`. Its token-standard allowlisting ships with governance proposal 45 and early supply is small, so early traders may need to bridge via Injective themselves. Do not use the legacy `USDC.n` (`ibc/F082B65C...`): backed-path escrows derive from the denom string, so a collection created on it is stuck there permanently. See [Supported Denoms](../chain/supported-denoms.md).
 {% endhint %}
 
-### Variant: a claim-gated quest token
+### Variant: A Claim-Gated Quest Token
 
 The same message shape serves a single-token quest collection (`standards: ["Quests"]`, `validTokenIds: [{ "start": "1", "end": "1" }]`). Only the mint approval and the escrow funding change. The approval is public (`initiatedByListId: "All"`), requires a Merkle proof issued by a BitBadges claim, mints exactly one token per claim, and pays the claimant 5000000000 `ubadge` from the mint escrow:
 
@@ -843,9 +843,9 @@ The same message shape serves a single-token quest collection (`standards: ["Que
 }
 ```
 
-The collection-level fields that differ: `"standards": ["Quests"]`, `"tokenMetadata"` uses one entry `ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/quest.json` for `1` to `18446744073709551615`, and `"mintEscrowCoinsToTransfer": [{ "denom": "ubadge", "amount": "5000000000" }]` funds the escrow that pays the reward. The Merkle root, leaf signer (`0xa612B14Ff99DAe9FBC9613bF4553781086c5F887`), and challenge URI come from the claim you create in [Distribute with claims](distribute-with-claims.md). The escrow override flags are explained in [Mint and distribute](mint-and-distribute.md).
+The collection-level fields that differ: `"standards": ["Quests"]`, `"tokenMetadata"` uses one entry `ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/quest.json` for `1` to `18446744073709551615`, and `"mintEscrowCoinsToTransfer": [{ "denom": "ubadge", "amount": "5000000000" }]` funds the escrow that pays the reward. The Merkle root, leaf signer (`0xa612B14Ff99DAe9FBC9613bF4553781086c5F887`), and challenge URI come from the claim you create in [Distribute with Claims](distribute-with-claims.md). The escrow override flags are explained in [Mint and Distribute](mint-and-distribute.md).
 
-## 5. Sign and broadcast
+## 5. Sign and Broadcast
 
 ```bash
 # Sign with the wallet in your browser (Keplr, MetaMask, ...)
@@ -860,7 +860,7 @@ bb deploy --msg-file ./collection.json --dry-run
 
 `--burner` is create-only. It generates an ephemeral key, needs a little `BADGE` for gas (`--fund faucet` requires an API key on non-local networks; `--fund manual` lets you send the dust yourself), broadcasts, and transfers management to `--manager`. `--browser` hands the transaction to your connected wallet through the `/sign` page and returns the hash; add `--sign-only` to get signed bytes back for your own submitter. Every `bb build` preset accepts the same `--browser` and `--burner` flags inline, so a preset can build and broadcast in one command. See [Deploy](../cli/deploy.md).
 
-## Common mistakes
+## Common Mistakes
 
 - Reusing token IDs across editions. Each token ID is one distinct NFT unless you understand ownership times.
 - Omitting `tokenIds` in a `canUpdateTokenMetadata` permission entry. The permission must say which ID ranges it covers.
@@ -869,9 +869,9 @@ bb deploy --msg-file ./collection.json --dry-run
 - Using numbers instead of strings for amounts and IDs.
 - Using more than one token ID for a fungible token.
 
-## Next steps
+## Next Steps
 
-- [Mint and distribute](mint-and-distribute.md)
-- [Set transferability](set-transferability.md)
-- [Lock permissions](lock-permissions.md)
+- [Mint and Distribute](mint-and-distribute.md)
+- [Set Transferability](set-transferability.md)
+- [Lock Permissions](lock-permissions.md)
 - [MsgCreateCollection](../token-standard/messages/msg-create-collection.md)

@@ -54,5 +54,5 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_dynamic_
 ## Related
 
 - [GetDynamicStoreValue](get-dynamic-store-value.md)
-- [Dynamic store challenges](../approval-criteria/dynamic-store-challenges.md)
+- [Dynamic Store Challenges](../approval-criteria/dynamic-store-challenges.md)
 - [MsgCreateDynamicStore](../messages/msg-create-dynamic-store.md)

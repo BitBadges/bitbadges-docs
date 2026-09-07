@@ -65,10 +65,28 @@ blocks longer than 40 lines fold automatically: every run of six or more
 full-range `18446744073709551615` time objects) collapses, except the first and
 last two lines and lines keyed `approvalId`, `collectionId`, `fromListId`,
 `toListId`, `initiatedByListId`, `amount`, or `uri`. `nofold` turns that off for
-a block; an explicit `fold=` replaces it. Folds are native `<details>` elements
-(no script), the copy button always copies the full source, and the figure
-carries `data-folds="n"`. The heuristic is `autoFoldRanges` in
+a block; an explicit `fold=` replaces it. The heuristic is `autoFoldRanges` in
 `src/lib/docs/fold.ts`.
+
+Folds are native `<details>` elements, so they open one at a time with no
+script. A figure that folded anything carries `data-folds="n"` and gets a
+second chrome button, **Expand all**, immediately left of Copy: it opens every
+fold in that block and relabels itself **Collapse all** (`aria-expanded`
+tracks the state, and individual toggles keep the label honest). It is a
+progressive enhancement — `CopyButtons` wires it up, and without JavaScript
+the page still renders and the folds still toggle.
+
+**Copying always yields the whole block.** The copy button reads the figure's
+`data-code-source`, which is the complete pre-highlight source, folded lines
+included. A mouse selection plus ⌘C gives the same text: a closed fold keeps
+its lines in the DOM inside `span.code-fold-lines`, clipped to zero height
+(`max-height: 0; overflow: hidden`) with `::details-content` overriding the
+browser's own hiding, rather than being dropped from the box tree — content
+the browser omits from a selection. The clipped span is `aria-hidden` while
+closed so screen readers hear the "n lines hidden" summary instead of the
+lines twice. On an engine without `::details-content` the native hiding still
+applies, so there the drag-select is short and the copy button is the exact
+path.
 
 ## Tabs
 

@@ -2,7 +2,7 @@
 description: "The x/custom-hooks IBC middleware: transfer_tokens (run MsgTransferTokens on an inbound transfer) and swap_and_action (swap, then transfer or forward)."
 ---
 
-# IBC hooks: transfer tokens and swap and action
+# IBC Hooks: Transfer Tokens and Swap and Action
 
 `x/custom-hooks` is IBC middleware that reads a JSON memo on an inbound ICS-20 transfer and runs an action after the coins land. Two hook types exist. `transfer_tokens` runs a `MsgTransferTokens` (mint, distribute, sell) in the same atomic transaction. `swap_and_action` swaps the received coins and then transfers or forwards the output, similar to Skip:Go and other IBC aggregators.
 
@@ -42,7 +42,7 @@ description: "The x/custom-hooks IBC middleware: transfer_tokens (run MsgTransfe
 }
 ```
 
-## How the middleware runs
+## How the Middleware Runs
 
 1. Intercept the inbound IBC transfer packet.
 2. Parse the hook data from the memo. The memo is limited to 64 KB.
@@ -62,7 +62,7 @@ type HookData struct {
 }
 ```
 
-### Intermediate sender
+### Intermediate Sender
 
 The module derives a deterministic address from the IBC channel and the original sender. That address receives the IBC coins, is the `creator` of any executed `MsgTransferTokens`, and executes any swap. It is granted the auto-approval flags on the collection automatically, but your collection approvals must still authorize it (for example, a mint approval whose `initiatedByList` includes it or uses a wildcard list).
 
@@ -108,7 +108,7 @@ Transfer object (snake_case keys, converted to camelCase internally for protobuf
 | `only_check_prioritized_incoming_approvals` | bool | Only check incoming approvals |
 | `only_check_prioritized_outgoing_approvals` | bool | Only check outgoing approvals |
 
-### Error handling
+### Error Handling
 
 `fail_on_error: true` (default): a failed token transfer rolls back the IBC transfer. The sender gets the coins back on the source chain through the standard error acknowledgement.
 
@@ -150,7 +150,7 @@ Transfer object (snake_case keys, converted to camelCase internally for protobuf
 }
 ```
 
-### Minimal-value triggers
+### Minimal-Value Triggers
 
 The hook rides on standard ICS-20 rails. There is no restriction on which denom or amount carries the memo. A negligible amount of any ICS-20 asset works as a pure trigger:
 
@@ -168,7 +168,7 @@ The transferred coin does not need to relate to the token transfer:
 
 The business logic lives in the `transfers` array and the collection's approvals. If the transfer is only a trigger, pick the cheapest denom on the source chain. The coins end up with the intermediate sender (or `recover_address` on failure).
 
-### Use cases and limits
+### Use Cases and Limits
 
 Cross-chain minting, cross-chain purchases (pay with IBC coins, receive tokens atomically), cross-chain airdrops, and bridge-and-transfer in one step.
 
@@ -325,7 +325,7 @@ The reasoning: on a swap failure, the user expects funds to be recoverable on th
 
 If step 4 fails, the default leaves asset B recoverable on Osmosis. With the recovery address, asset B stays recoverable on BitBadges. It is not a catch-all, but it avoids a trip to another chain in many cases.
 
-### Validation rules
+### Validation Rules
 
 1. `post_swap_action` is required.
 2. Exactly one of `ibc_transfer` or `transfer` must be set.
@@ -336,7 +336,7 @@ If step 4 fails, the default leaves asset B recoverable on Osmosis. With the rec
 7. All addresses must be valid Bech32 addresses.
 8. Channel capabilities must exist for IBC transfers.
 
-### Post-swap actions
+### Post-Swap Actions
 
 Local transfer:
 
@@ -487,6 +487,6 @@ Swap with affiliates (alice takes 0.5%, bob takes 0.25%):
 ## Related
 
 - [MsgTransferTokens](../messages/msg-transfer-tokens.md)
-- [Backed minting](backed-minting.md)
+- [Backed Minting](backed-minting.md)
 - [x/gamm](../../chain/modules/gamm/README.md)
 - [Rate limits](../../chain/modules/ibc-rate-limit.md)

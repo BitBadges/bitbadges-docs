@@ -2,7 +2,7 @@
 description: "votingChallenges: require a weighted quorum of on-chain votes from named voters, with partial votes, reset after execution, and a timelock."
 ---
 
-# Voting challenges
+# Voting Challenges
 
 A voting challenge requires named voters to approve the transfer on-chain, each with a weight. It is the standard's multisig: N-of-M signers, weighted governance, or a timelocked vault.
 
@@ -172,7 +172,7 @@ Votes are cast with [MsgCastVote](../messages/msg-cast-vote.md):
 Ask your agent: "Add a transfer approval to collection 1 that needs 2 of 3 votes from alice, bob, and carol before any transfer executes." The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 1. A voter casts a vote. The chain stores it under `collectionId-approverAddress-approvalLevel-approvalId-proposalId-voterAddress`. Casting again overwrites.
 2. On a transfer, the chain sums every voter's yes contribution: `weight * yesWeight / 100`. A voter with no vote contributes 0.
@@ -181,7 +181,7 @@ Ask your agent: "Add a transfer approval to collection 1 that needs 2 of 3 votes
 
 Read votes with [GetVote](../queries/get-vote.md) and [GetVotes](../queries/get-votes.md).
 
-### Partial votes
+### Partial Votes
 
 | `yesWeight` | Yes | No |
 | --- | --- | --- |
@@ -190,7 +190,7 @@ Read votes with [GetVote](../queries/get-vote.md) and [GetVotes](../queries/get-
 | `50` | 50% | 50% |
 | `0` | 0% | 100% |
 
-### Worked example
+### Worked Example
 
 Voters alice (100), bob (200), carol (50). Total possible weight 350. Threshold 50%.
 
@@ -201,11 +201,11 @@ Voters alice (100), bob (200), carol (50). Total possible weight 350. Threshold 
 
 Abstaining voters count as no. Set thresholds with expected participation in mind.
 
-### Reset after execution
+### Reset After Execution
 
 With `resetAfterExecution: true`, a successful transfer clears every vote on the challenge. The next transfer needs a fresh round of approval under the same `proposalId`. Use it for vaults where every withdrawal must be approved, or any recurring multisig. Without it, votes persist and every later matching transfer passes until someone changes their vote.
 
-### Delay after quorum
+### Delay After Quorum
 
 When `delayAfterQuorum` is above 0, the chain records the time quorum is first reached (on the vote that crosses the threshold) and rejects transfers until that time plus the delay. If votes drop below quorum the timestamp clears and the clock restarts on the next crossing. Use it for timelocks: 86400000 (24 hours) gives stakeholders time to review or revoke before a large transfer executes.
 
@@ -304,7 +304,7 @@ Any one of three:
 }
 ```
 
-### Failure conditions
+### Failure Conditions
 
 - The voter is not in `voters`
 - `yesWeight` is above 100
@@ -324,4 +324,4 @@ Any one of three:
 
 - [MsgCastVote](../messages/msg-cast-vote.md)
 - [GetVotes](../queries/get-votes.md)
-- [Compliance zones](../concepts/compliance-zones.md)
+- [Compliance Zones](../concepts/compliance-zones.md)

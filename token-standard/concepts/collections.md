@@ -210,20 +210,20 @@ A complete `MsgCreateCollection`. The collection-level fields are open; the defa
 | `isArchived` | bool | creation, update | `canArchiveCollection` | Pause switch |
 | `defaultBalances` | UserBalanceStore | creation only | | Store new users start with |
 | `invariants` | CollectionInvariants | creation only | | See [Invariants](../approval-criteria/invariants.md) |
-| `mintEscrowAddress` | string | chain | | Coin escrow for Mint. See [Coin transfers](../approval-criteria/coin-transfers.md). |
-| `cosmosCoinWrapperPaths` | CosmosCoinWrapperPath[] | creation, append | `canAddMoreCosmosCoinWrapperPaths` | See [Cosmos coin wrapper paths](../ibc/cosmos-coin-wrapper-paths.md) |
-| `aliasPaths` | AliasPath[] | creation, append | `canAddMoreAliasPaths` | See [Alias denoms](../ibc/alias-denoms.md) |
+| `mintEscrowAddress` | string | chain | | Coin escrow for Mint. See [Coin Transfers](../approval-criteria/coin-transfers.md). |
+| `cosmosCoinWrapperPaths` | CosmosCoinWrapperPath[] | creation, append | `canAddMoreCosmosCoinWrapperPaths` | See [Cosmos Coin Wrapper Paths](../ibc/cosmos-coin-wrapper-paths.md) |
+| `aliasPaths` | AliasPath[] | creation, append | `canAddMoreAliasPaths` | See [Alias Denoms](../ibc/alias-denoms.md) |
 | `createdBy` | string | chain | | Creator address |
 
 {% hint style="info" %}
 Ask your agent: "Create an NFT collection named Demo NFTs with 100 tokens, managed by alice, with metadata at ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json." The MCP builder tools (`set_collection_metadata, set_token_metadata, set_valid_token_ids, set_standards`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
-### Valid token IDs
+### Valid Token IDs
 
-`validTokenIds` lists the token IDs that exist. It must be one range starting at 1; the chain rejects gaps or a start other than 1. It is mostly informational but some features check it, for example `allowOverrideWithAnyValidToken` in [predetermined balances](../approval-criteria/predetermined-balances.md).
+`validTokenIds` lists the token IDs that exist. It must be one range starting at 1; the chain rejects gaps or a start other than 1. It is mostly informational but some features check it, for example `allowOverrideWithAnyValidToken` in [Predetermined Balances](../approval-criteria/predetermined-balances.md).
 
 ```ts
 const validTokenIds: UintRange<bigint>[] = [{ start: 1n, end: 100n }];
@@ -258,7 +258,7 @@ Standards the BitBadges site recognizes:
 
 Mix standards as long as they are compatible. See [Multiple standards](../integrate/multiple-standards.md).
 
-### Collection metadata
+### Collection Metadata
 
 ```ts
 const collectionMetadata: CollectionMetadata = {
@@ -277,7 +277,7 @@ interface Metadata {
 }
 ```
 
-### Token metadata
+### Token Metadata
 
 ```ts
 const tokenMetadata: TokenMetadata[] = [
@@ -292,7 +292,7 @@ const tokenMetadata: TokenMetadata[] = [
 - `{id}` in the URI is replaced with the token ID.
 - Entries are scanned in order. The first entry whose `tokenIds` contains the ID wins; later entries are ignored for that ID.
 
-### Custom data
+### Custom Data
 
 `customData` is a string the chain stores and never interprets. It exists on the collection, on token metadata entries, on approvals, on address lists, on dynamic stores, and on paths.
 
@@ -300,7 +300,7 @@ const tokenMetadata: TokenMetadata[] = [
 const customData: string = 'Any string value you want to store';
 ```
 
-### Inline metadata via customData
+### Inline Metadata via customData
 
 Wherever an entity has a `(uri, customData)` pair, `customData` can hold the metadata document itself instead of a link to it:
 
@@ -358,7 +358,7 @@ const customData = JSON.stringify({
 
 The same seed always yields the same art (six presets, 24 palettes, hash-picked). Pin a look with `style` or `paletteName`. Pick this mode when zero hosting setup is worth the extra gas. For high-frequency mints or art-first collections, host the image.
 
-### Default balances
+### Default Balances
 
 `defaultBalances` is the balance store a user gets the first time they interact with the collection. It is creation-only.
 
@@ -380,7 +380,7 @@ The same seed always yields the same art (six presets, 24 palettes, hash-picked)
 }
 ```
 
-Uses: block incoming transfers by default (opt-in only), give every user a starting balance, or set default approvals. Default approvals must be auto-scannable; see [Prioritized approvals](prioritized-approvals.md). Users can change their own store afterwards, subject to their `userPermissions`.
+Uses: block incoming transfers by default (opt-in only), give every user a starting balance, or set default approvals. Default approvals must be auto-scannable; see [Prioritized Approvals](prioritized-approvals.md). Users can change their own store afterwards, subject to their `userPermissions`.
 
 ### isArchived
 
@@ -390,7 +390,7 @@ Uses: block incoming transfers by default (opt-in only), give every user a start
 const isArchived: boolean = false;
 ```
 
-`canArchiveCollection` controls whether `isArchived` can change, not its current value. Forbid updates forever to freeze it in either state. Alternatives for halting: the chain-level `x/circuit` breaker, or [dynamic store](../approval-criteria/dynamic-store-challenges.md) and [token ownership](../approval-criteria/token-ownership.md) criteria that another party controls.
+`canArchiveCollection` controls whether `isArchived` can change, not its current value. Forbid updates forever to freeze it in either state. Alternatives for halting: the chain-level `x/circuit` breaker, or [dynamic store](../approval-criteria/dynamic-store-challenges.md) and [Token Ownership](../approval-criteria/token-ownership.md) criteria that another party controls.
 
 ### Invariants
 

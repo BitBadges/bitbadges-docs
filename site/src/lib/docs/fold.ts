@@ -156,7 +156,17 @@ export function applyCodeFolds(code: Element, ranges: FoldRange[]): number {
           properties: {},
           children: [{ type: 'text', value: `··· ${hidden} line${hidden === 1 ? '' : 's'} hidden (${from + 1}-${to})` }],
         },
-        ...units.slice(from, to).flat(),
+        {
+          // The folded lines stay in the flow, clipped to zero height by the
+          // stylesheet, so a mouse selection dragged across a closed fold
+          // still picks them up — the browser's own hiding of details content
+          // would leave them out of the selection. Hidden from assistive tech
+          // while closed; `CopyButtons` clears the attribute when it opens.
+          type: 'element',
+          tagName: 'span',
+          properties: { className: ['code-fold-lines'], ariaHidden: 'true' },
+          children: units.slice(from, to).flat(),
+        },
       ],
     });
     cursor = to;

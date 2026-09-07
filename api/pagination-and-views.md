@@ -2,7 +2,7 @@
 description: "Bookmark pagination and the views object in BitBadges API responses, with the SDK helpers that page through them."
 ---
 
-# Pagination and views
+# Pagination and Views
 
 Paginated routes return a `bookmark` and `hasMore`. Pass the bookmark back to get the next page. Some routes (accounts, collections) group several paginated lists into one `views` object.
 
@@ -36,7 +36,7 @@ await collection.fetchNextForView(BitBadgesApi, 'owners', 'owners');
 const page2 = collection.getOwnersView('owners');
 ```
 
-## How bookmark pagination works
+## How Bookmark Pagination Works
 
 1. First request: send an empty bookmark (`""`).
 2. Each response includes the data, a `bookmark` for the next page, and a `hasMore` boolean.
@@ -111,7 +111,7 @@ The `views` and `owners` parts of the collection response above, for a page with
 
 Routes that take a `bookmark` directly (search, claim attempts, plugin errors) use the same rule without the `views` wrapper. Check the [API reference](/api-reference) for each route.
 
-## The views object
+## The Views Object
 
 {% hint style="info" %}
 The `views` object is planned for deprecation in favor of dedicated per-view routes. Prefer those routes when one exists.
@@ -147,14 +147,14 @@ getActivityView(viewId: string) {
 }
 ```
 
-### View types
+### View Types
 
 | Interface | `viewType` values (`CollectionViewKey` / `AccountViewKey`) |
 | --- | --- |
 | Collection | `transferActivity`, `owners`, `amountTrackers`, `challengeTrackers`, `listings`, `tokenFloorPrices` |
 | Account | `siwbbRequests`, `transferActivity`, `tokensCollected`, `createdTokens`, `managingTokens`, `publicClaimActivity`, `allClaimActivity`, `pointsActivity` |
 
-## SDK helpers
+## SDK Helpers
 
 `BitBadgesCollection` and `BitBadgesUserInfo` wrap the bookkeeping:
 
@@ -172,7 +172,7 @@ collection.getChallengeTrackersView('challengeTrackers');
 
 `fetchNextForView` accepts optional `oldestFirst` and `address` arguments for views that support them.
 
-## Rules of thumb
+## Rules of Thumb
 
 - Keep `viewId` stable while paging one dataset.
 - Check for an undefined view before reading it.

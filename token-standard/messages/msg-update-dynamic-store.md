@@ -85,6 +85,6 @@ The response is empty.
 
 ## Related
 
-- [Dynamic store challenges](../approval-criteria/dynamic-store-challenges.md)
+- [Dynamic Store Challenges](../approval-criteria/dynamic-store-challenges.md)
 - [MsgCreateDynamicStore](msg-create-dynamic-store.md)
 - [MsgDeleteDynamicStore](msg-delete-dynamic-store.md)

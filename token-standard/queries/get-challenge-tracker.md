@@ -46,5 +46,5 @@ The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{challe
 
 ## Related
 
-- [Merkle challenges](../approval-criteria/merkle-challenges.md)
+- [Merkle Challenges](../approval-criteria/merkle-challenges.md)
 - [GetETHSignatureTracker](get-eth-signature-tracker.md)

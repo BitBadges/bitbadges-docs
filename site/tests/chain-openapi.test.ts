@@ -1,15 +1,16 @@
 /**
  * Two layers.
  *
- * Unit tests drive the conversion and retagging over a hand-written Swagger 2.0
- * fixture small enough to reason about — a body parameter, a definitions `$ref`,
- * a `Query`-tagged operation that must be retagged, and host/basePath/schemes
+ * Unit tests drive the conversion, pruning, retagging and labelling over a
+ * hand-written Swagger 2.0 fixture small enough to reason about — a body
+ * parameter, a definitions `$ref`, a gRPC pseudo-path that must be dropped, a
+ * `Query`-tagged operation that must be retagged, and host/basePath/schemes
  * that must become `servers`.
  *
  * Corpus tests run over the committed `openapi/chain-openapi.json`. They are the
- * ones that catch a regenerated chain spec breaking the page: 280+ real paths,
- * every `$ref` resolving, nothing still filed under the source document's
- * useless `Query`/`Msg` tags.
+ * ones that catch a regenerated chain spec breaking the page: only real LCD
+ * routes survive, every `$ref` resolves, every operation carries a short
+ * sidebar label, and no tag is left declared but unused.
  */
 import { describe, expect, test } from 'bun:test';
 import fs from 'node:fs/promises';
@@ -21,11 +22,17 @@ import {
   CHAIN_TITLE,
   convertParameters,
   HTTP_METHODS,
+  isPseudoPath,
+  methodName,
   moduleForPath,
   parseArgs,
+  pruneNonRoutes,
   retagByModule,
   sanitizeChainSpec,
   serversFromSwagger,
+  shortSummary,
+  summarizeOperations,
+  SUMMARY_MAX,
   swaggerToOpenApi31,
   TAG_ORDER,
 } from '../scripts/gen-chain-openapi';
@@ -73,6 +80,18 @@ const FIXTURE = {
     },
     '/tokenization.v27.Msg/TransferTokens': {
       post: { tags: ['Msg'], operationId: 'Msg_TransferTokensV27', responses: { 200: { description: 'ok' } } },
+    },
+    '/gamm.v1beta1.Query/CalcJoinPoolNoSwapShares': {
+      post: { tags: ['Query'], operationId: 'Query_CalcJoinPoolNoSwapShares', responses: { 200: { description: 'ok' } } },
+    },
+    // An annotated route the gateway still refuses: a message, not a query.
+    '/cosmos/evm/vm/v1/ethereum_tx': {
+      post: {
+        tags: ['Msg'],
+        operationId: 'Erc20Msg_EthereumTx',
+        summary: 'EthereumTx defines a method submitting Ethereum transactions.',
+        responses: { 200: { description: 'ok' } },
+      },
     },
     '/osmosis/gamm/v1beta1/pools': {
       get: { tags: ['Query'], summary: 'Pools.', responses: { 200: { description: 'ok' } } },
@@ -217,6 +236,62 @@ describe('swaggerToOpenApi31', () => {
   });
 });
 
+/* -------------------------------------------------------------------- prune */
+
+describe('isPseudoPath', () => {
+  test('recognizes a gRPC service selector standing in for a route', () => {
+    expect(isPseudoPath('/tokenization.Msg/CreateCollection')).toBe(true);
+    expect(isPseudoPath('/gamm.v1beta1.Query/CalcJoinPoolNoSwapShares')).toBe(true);
+    expect(isPseudoPath('/tokenization.v27.Msg/TransferTokens')).toBe(true);
+    expect(isPseudoPath('/cosmos.evm.vm.v1.Msg/EthereumTx')).toBe(true);
+  });
+
+  test('leaves a real gateway route alone', () => {
+    expect(isPseudoPath('/osmosis/gamm/v1beta1/pools')).toBe(false);
+    expect(isPseudoPath('/bitbadges/bitbadgeschain/tokenization/get_collection/{collectionId}')).toBe(false);
+    expect(isPseudoPath('/cosmos/evm/vm/v1/ethereum_tx')).toBe(false);
+    // A path parameter holding a dot must not be mistaken for a selector.
+    expect(isPseudoPath('/osmosis/poolmanager/v1beta1/{denom}/taker_fee_share_agreement_from_denom')).toBe(false);
+  });
+});
+
+describe('pruneNonRoutes', () => {
+  const { spec, report } = pruneNonRoutes(swaggerToOpenApi31(clone()).spec);
+
+  test('drops every gRPC selector path, whatever service it names', () => {
+    expect(report.pseudoPaths).toEqual([
+      '/gamm.v1beta1.Query/CalcJoinPoolNoSwapShares',
+      '/tokenization.Msg/TransferTokens',
+      '/tokenization.v27.Msg/TransferTokens',
+    ]);
+    expect(Object.keys(spec.paths).some(isPseudoPath)).toBe(false);
+  });
+
+  test('drops an annotated write route too — the LCD serves queries only', () => {
+    expect(report.writeOperations).toEqual(['post /cosmos/evm/vm/v1/ethereum_tx']);
+    expect(spec.paths['/cosmos/evm/vm/v1/ethereum_tx']).toBeUndefined();
+  });
+
+  test('keeps every real GET route', () => {
+    expect(Object.keys(spec.paths)).toEqual([
+      '/bitbadges/bitbadgeschain/tokenization/get_collection/{collectionId}',
+      '/osmosis/gamm/v1beta1/pools',
+    ]);
+  });
+
+  test('drops the schemas the removed paths were the only users of', () => {
+    expect(Object.keys(spec.components.schemas)).toEqual(['tokenization.Collection']);
+    expect(report.orphanSchemas).toBe(1);
+  });
+
+  test('the input document is never mutated', () => {
+    const input = swaggerToOpenApi31(clone()).spec;
+    const before = JSON.stringify(input);
+    pruneNonRoutes(input);
+    expect(JSON.stringify(input)).toBe(before);
+  });
+});
+
 /* -------------------------------------------------------------------- retag */
 
 describe('moduleForPath', () => {
@@ -234,64 +309,112 @@ describe('moduleForPath', () => {
     expect(moduleForPath('/ibc/core/channel/v1/channels')).toBe('IBC');
   });
 
-  test('versioned tokenization routes are separated from the live ones', () => {
-    expect(moduleForPath('/tokenization.v27.Msg/TransferTokens')).toBe('Legacy tokenization versions');
-    expect(moduleForPath('/tokenization.v32.Msg/UpdateParams')).toBe('Legacy tokenization versions');
-  });
-
   test('an unattributable path is grouped, never dropped', () => {
     expect(moduleForPath('/something/else')).toBe('Other');
   });
 });
 
 describe('retagByModule', () => {
-  const converted = swaggerToOpenApi31(clone()).spec;
-  const { spec, report } = retagByModule(converted);
+  const pruned = pruneNonRoutes(swaggerToOpenApi31(clone()).spec).spec;
+  const { spec, report } = retagByModule(pruned);
 
   test('replaces Query and Msg with the module tag', () => {
     expect(spec.paths['/bitbadges/bitbadgeschain/tokenization/get_collection/{collectionId}'].get.tags).toEqual([
       'Tokenization',
     ]);
-    expect(spec.paths['/tokenization.Msg/TransferTokens'].post.tags).toEqual(['Tokenization']);
     expect(spec.paths['/osmosis/gamm/v1beta1/pools'].get.tags).toEqual(['GAMM']);
     expect(JSON.stringify(spec.paths)).not.toContain('"Query"');
     expect(JSON.stringify(spec.paths)).not.toContain('"Msg"');
   });
 
   test('declares only the tags in use, each with a description, in sidebar order', () => {
-    expect(spec.tags.map((t: { name: string }) => t.name)).toEqual([
-      'Tokenization',
-      'GAMM',
-      'Legacy tokenization versions',
-    ]);
+    expect(spec.tags.map((t: { name: string }) => t.name)).toEqual(['Tokenization', 'GAMM']);
     expect(spec.tags.every((t: { description: string }) => t.description.length > 20)).toBe(true);
   });
 
-  test('legacy version routes sort last', () => {
-    expect(Object.keys(spec.paths).at(-1)).toBe('/tokenization.v27.Msg/TransferTokens');
-  });
-
-  test('an operation with no summary is named from its path', () => {
-    expect(spec.paths['/tokenization.Msg/TransferTokens'].post.summary).toBe('TransferTokens');
-    expect(report.synthesizedSummaries).toBe(2);
-  });
-
-  test('an authored summary is kept', () => {
-    expect(spec.paths['/bitbadges/bitbadgeschain/tokenization/get_collection/{collectionId}'].get.summary).toBe(
-      'GetCollection queries a collection by id.',
-    );
+  test('paths are reordered to follow the tag order', () => {
+    expect(Object.keys(spec.paths)).toEqual([
+      '/bitbadges/bitbadgeschain/tokenization/get_collection/{collectionId}',
+      '/osmosis/gamm/v1beta1/pools',
+    ]);
   });
 
   test('counts every operation', () => {
     expect(report.counts).toEqual([
-      ['Tokenization', 2],
+      ['Tokenization', 1],
       ['GAMM', 1],
-      ['Legacy tokenization versions', 1],
     ]);
   });
 
   test('every declared tag order entry carries a description', () => {
     expect(TAG_ORDER.every((t) => t.name && t.description)).toBe(true);
+  });
+});
+
+/* ---------------------------------------------------------------- summaries */
+
+describe('methodName', () => {
+  test('takes the method off a gateway operationId and drops the mixin suffix', () => {
+    expect(methodName('GithubCombitbadgesbitbadgeschainQuery_ParamsMixin53', '/x')).toBe('Params');
+    expect(methodName('Query_GetCollection', '/x')).toBe('GetCollection');
+  });
+
+  test('falls back to the last path segment when there is no operationId', () => {
+    expect(methodName(undefined, '/osmosis/gamm/v1beta1/pools')).toBe('pools');
+  });
+});
+
+describe('shortSummary', () => {
+  const cases: [string, string, string][] = [
+    ['Query_GetCollection', '/x', 'Get a collection'],
+    ['Query_GetAddressList', '/x', 'Get an address list'],
+    ['Query_GetETHSignatureTracker', '/x', 'Get an ETH signature tracker'],
+    ['Query_Pools', '/osmosis/gamm/v1beta1/pools', 'List pools'],
+    ['Query_AllPools', '/x', 'List pools'],
+    ['Query_NumPools', '/x', 'Count pools'],
+    ['Query_ParamsMixin53', '/x', 'Get module params'],
+    ['Query_PoolParams', '/x', 'Get pool params'],
+    ['Query_TotalLiquidity', '/x', 'Get total liquidity'],
+    ['Query_GetVotes', '/x', 'Get votes'],
+    ['Query_ListPoolsByDenom', '/x', 'List pools by denom'],
+  ];
+  for (const [operationId, route, expected] of cases) {
+    test(`${operationId} -> ${expected}`, () => expect(shortSummary(operationId, route)).toBe(expected));
+  }
+
+  test('the API version disambiguates two spellings of the same query', () => {
+    expect(shortSummary('Query_SpotPrice', '/osmosis/gamm/v1beta1/pools/{pool_id}/prices')).toBe('Get a spot price');
+    expect(shortSummary('Query_SpotPriceV2', '/osmosis/gamm/v2/pools/{pool_id}/prices')).toBe('Get a spot price (v2)');
+  });
+
+  test('never produces a sentence, and never a long one', () => {
+    for (const [operationId, route] of cases) {
+      const label = shortSummary(operationId, route);
+      expect(label.length).toBeLessThanOrEqual(SUMMARY_MAX);
+      expect(label.endsWith('.')).toBe(false);
+    }
+  });
+});
+
+describe('summarizeOperations', () => {
+  const retagged = retagByModule(pruneNonRoutes(swaggerToOpenApi31(clone()).spec).spec).spec;
+  const { spec, report } = summarizeOperations(retagged);
+  const collection = spec.paths['/bitbadges/bitbadgeschain/tokenization/get_collection/{collectionId}'].get;
+
+  test('the sidebar label becomes a short imperative phrase', () => {
+    expect(collection.summary).toBe('Get a collection');
+    expect(report.overlong).toEqual([]);
+  });
+
+  test('the proto prose it displaced is kept as the description', () => {
+    expect(collection.description).toBe('GetCollection queries a collection by id.');
+    expect(report.movedToDescription).toBe(1);
+  });
+
+  test('a one-word leftover summary explains nothing and is not promoted', () => {
+    const pools = spec.paths['/osmosis/gamm/v1beta1/pools'].get;
+    expect(pools.summary).toBe('List pools');
+    expect(pools.description).toBeUndefined();
   });
 });
 
@@ -359,9 +482,15 @@ describe('buildChainOpenApi', () => {
 
   test('the description explains the surface and points at the other references', () => {
     expect(spec.info.description).toContain('lcd.bitbadges.io');
-    expect(spec.info.description).toContain('read-mostly');
     expect(spec.info.description).toContain('(/api-reference)');
     expect(spec.info.description).toContain('(/token-standard/queries)');
+  });
+
+  test('the description says the LCD is read-only and sends transactions elsewhere', () => {
+    expect(spec.info.description).toContain('read-only');
+    expect(spec.info.description).toContain('501 Not Implemented');
+    expect(spec.info.description).toContain('(/token-standard/messages)');
+    expect(spec.info.description).toContain('(/sdk/transactions)');
   });
 });
 
@@ -397,9 +526,65 @@ describe('committed chain spec', () => {
     expect(corpus.definitions).toBeUndefined();
   });
 
-  test('carries the whole chain surface', () => {
-    expect(Object.keys(corpus.paths).length).toBeGreaterThan(200);
-    expect(operations.length).toBeGreaterThan(200);
+  test('carries the LCD query surface, and nothing beyond it', () => {
+    // The gateway serves ~60 annotated query routes. A count far outside that
+    // band means either the prune ate real routes or the chain grew a module
+    // nobody noticed; both deserve a look.
+    expect(Object.keys(corpus.paths).length).toBeGreaterThanOrEqual(40);
+    expect(Object.keys(corpus.paths).length).toBeLessThanOrEqual(120);
+    expect(operations.length).toBe(Object.keys(corpus.paths).length);
+  });
+
+  test('not one gRPC pseudo-path survives', () => {
+    expect(Object.keys(corpus.paths).filter(isPseudoPath)).toEqual([]);
+    expect(JSON.stringify(Object.keys(corpus.paths))).not.toContain('.Msg/');
+    expect(JSON.stringify(Object.keys(corpus.paths))).not.toContain('.Query/');
+  });
+
+  test('every operation is a GET — the LCD answers writes with 501', () => {
+    expect(operations.filter(([, method]) => method !== 'get')).toEqual([]);
+  });
+
+  test('every operation carries a short imperative label, not a sentence', () => {
+    const bad = operations
+      .filter(([, , op]) => {
+        const summary: unknown = op.summary;
+        return (
+          typeof summary !== 'string' ||
+          !summary.trim() ||
+          summary.length > SUMMARY_MAX ||
+          summary.endsWith('.') ||
+          summary.includes('\n')
+        );
+      })
+      .map(([route, method, op]) => `${method} ${route}: ${JSON.stringify(op.summary)}`);
+    expect(bad).toEqual([]);
+  });
+
+  test('the proto prose lives in description, where the sidebar does not show it', () => {
+    const described = operations.filter(([, , op]) => typeof op.description === 'string' && op.description.length > 30);
+    expect(described.length).toBeGreaterThan(20);
+  });
+
+  test('no schema is left behind with no operation reaching it', () => {
+    const reachable = new Set<string>();
+    const queue: string[] = [];
+    const walk = (node: unknown) => {
+      if (Array.isArray(node)) return node.forEach(walk);
+      if (typeof node !== 'object' || node === null) return;
+      for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
+        if (key === '$ref' && typeof value === 'string') queue.push(value.slice('#/components/schemas/'.length));
+        else walk(value);
+      }
+    };
+    walk(corpus.paths);
+    while (queue.length) {
+      const name = queue.pop()!;
+      if (reachable.has(name) || !(name in corpus.components.schemas)) continue;
+      reachable.add(name);
+      walk(corpus.components.schemas[name]);
+    }
+    expect(Object.keys(corpus.components.schemas).filter((name) => !reachable.has(name))).toEqual([]);
   });
 
   test('has the reader-facing identity', () => {
@@ -429,17 +614,13 @@ describe('committed chain spec', () => {
     expect(bare).toEqual([]);
   });
 
-  test('BitBadges module tags come before the standard and legacy ones', () => {
+  test('BitBadges modules lead the tag order, and every tag holds operations', () => {
     const names = (corpus.tags as { name: string }[]).map((t) => t.name);
     expect(names[0]).toBe('Tokenization');
-    expect(names.at(-1)).toBe('Legacy tokenization versions');
-    expect(names.indexOf('Tokenization')).toBeLessThan(names.indexOf('Legacy tokenization versions'));
-  });
-
-  test('the legacy versioned routes are kept, not silently deleted', () => {
-    const legacy = Object.keys(corpus.paths).filter((route) => /^\/tokenization\.v\d+\./.test(route));
-    expect(legacy.length).toBeGreaterThan(100);
-    expect(operations.filter(([route]) => /^\/tokenization\.v\d+\./.test(route)).every(([, , op]) => op.tags[0] === 'Legacy tokenization versions')).toBe(true);
+    expect(names).toEqual([...names].sort((a, b) => TAG_ORDER.findIndex((t) => t.name === a) - TAG_ORDER.findIndex((t) => t.name === b)));
+    const counts = new Map<string, number>();
+    for (const [, , op] of operations) for (const tag of op.tags as string[]) counts.set(tag, (counts.get(tag) ?? 0) + 1);
+    expect(names.filter((name) => !counts.get(name))).toEqual([]);
   });
 
   test('every $ref resolves to a defined schema', () => {

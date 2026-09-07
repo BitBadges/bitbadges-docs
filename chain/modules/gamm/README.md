@@ -66,7 +66,7 @@ Token: badgeslp:21:utoken
 
 The conversion happens before and after each swap and on every join or exit that touches a native asset, so existing pool code works unchanged.
 
-## Transferability and compliance
+## Transferability and Compliance
 
 A pool operation that moves a native token is a `MsgTransferTokens` under the hood. It must satisfy the collection's approvals at every level (collection, outgoing, incoming). The transfer is treated as initiated by the user and approved by the pool address.
 
@@ -79,18 +79,18 @@ That means the approval system gates the DEX:
 - Time windows: allow pool operations only at certain times.
 - Any other criteria the approval system can express.
 
-See [Approval criteria](../../../token-standard/approval-criteria/README.md) and [Compliance zones](../../../token-standard/concepts/compliance-zones.md).
+See [Approval Criteria](../../../token-standard/approval-criteria/README.md) and [Compliance Zones](../../../token-standard/concepts/compliance-zones.md).
 
 ## Reference
 
 - [Messages](messages.md): all 12 `Msg` types with fields and examples.
 - [Queries](queries.md): all 16 gRPC and LCD queries.
-- [gamm precompile](../../evm/gamm-precompile/README.md): the same operations from Solidity at `0x0000000000000000000000000000000000001002` (`0x...1002`).
+- [GAMM Precompile](../../evm/gamm-precompile/README.md): the same operations from Solidity at `0x0000000000000000000000000000000000001002` (`0x...1002`).
 - Proto definitions: `proto/gamm/` in [bitbadgeschain](https://github.com/bitbadges/bitbadgeschain/tree/master/proto/gamm).
 
 ## Related
 
 - [Trade on the DEX](../../../guides/trade-on-the-dex.md)
-- [Alias denoms](../../../token-standard/ibc/alias-denoms.md)
+- [Alias Denoms](../../../token-standard/ibc/alias-denoms.md)
 - [x/poolmanager](../pool-manager.md)
 - [Swaps in the API](../../../api/swaps.md)

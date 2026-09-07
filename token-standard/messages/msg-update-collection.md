@@ -158,4 +158,4 @@ There is no `invariants` field. Invariants are creation-only; set them with [Msg
 
 - [MsgUniversalUpdateCollection](msg-universal-update-collection.md)
 - [Permissions](../concepts/permissions.md)
-- [Lock permissions](../../guides/lock-permissions.md)
+- [Lock Permissions](../../guides/lock-permissions.md)

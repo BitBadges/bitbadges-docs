@@ -2,7 +2,7 @@
 description: "The x/ibc-rate-limit middleware: per channel and denom caps on supply shift, unique senders, and per-address transfers, plus the governance messages."
 ---
 
-# IBC rate limits
+# IBC Rate Limits
 
 `x/ibc-rate-limit` is IBC middleware that caps token flow over IBC channels so that a burst of inflows or outflows cannot destabilize supply. Governance sets the limits per channel and denom. Node operators and integrators need this page to understand why a transfer was rejected and how limits are shaped.
 
@@ -22,7 +22,7 @@ description: "The x/ibc-rate-limit middleware: per channel and denom caps on sup
 }
 ```
 
-## How it works
+## How It Works
 
 The module wraps the transfer application. Its hooks:
 
@@ -149,6 +149,6 @@ The module has no query service. Read the live configuration from the module's g
 
 ## Related
 
-- [IBC and x/bank compatibility](../../token-standard/ibc/README.md)
-- [Supported denoms](../supported-denoms.md)
-- [Cosmos coin wrapper paths](../../token-standard/ibc/cosmos-coin-wrapper-paths.md)
+- [IBC and x/bank Compatibility](../../token-standard/ibc/README.md)
+- [Supported Denoms](../supported-denoms.md)
+- [Cosmos Coin Wrapper Paths](../../token-standard/ibc/cosmos-coin-wrapper-paths.md)

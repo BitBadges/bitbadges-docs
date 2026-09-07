@@ -62,5 +62,5 @@ The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{amount
 
 ## Related
 
-- [Approval trackers](../approval-criteria/approval-trackers.md)
+- [Approval Trackers](../approval-criteria/approval-trackers.md)
 - [GetChallengeTracker](get-challenge-tracker.md)

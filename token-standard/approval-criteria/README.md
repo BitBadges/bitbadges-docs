@@ -2,7 +2,7 @@
 description: "The full approvalCriteria interface, which fields exist on which approval level, one line per criterion with a link, and the require* address flags."
 ---
 
-# Approval criteria
+# Approval Criteria
 
 `approvalCriteria` holds every extra condition an approval can impose beyond who, when, and what. All criteria on an approval must pass for that approval to match.
 
@@ -89,7 +89,7 @@ Royalties are inside `userApprovalSettings.userRoyalties`. There is no top-level
 
 Post-transfer EVM checks that live on the collection rather than an approval are on [Invariants](invariants.md).
 
-### Which level has which fields
+### Which Level Has Which Fields
 
 The proto defines three criteria types. Fields missing from a level cannot be set there.
 
@@ -104,7 +104,7 @@ The proto defines three criteria types. Fields missing from a level cannot be se
 Ask your agent: "Add a collection approval to collection 1 that lets anyone mint one token each, and show me the full approvalCriteria it generates." The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 ### require flags
 
@@ -133,12 +133,12 @@ Trackers (amount, transfer count, Merkle leaf use, ETH signature use, votes) are
 - Trackers are increment-only and never deleted. Changing an approval does not reset its trackers.
 - To start from zero, use an ID with no history (change `amountTrackerId`, `challengeTrackerId`, or `proposalId`). Reusing an old ID resumes the old tally.
 
-### Evaluation order
+### Evaluation Order
 
 The chain evaluates criteria in a fixed pipeline for each approval that matches the core fields. Any failure rejects that approval for this transfer; the scan then moves to the next candidate. Side effects (coin transfers, tracker increments, auto-deletion) run only after every check on the chosen approval passes.
 
 ## Related
 
 - [Transferability](../concepts/transferability.md)
-- [Prioritized approvals](../concepts/prioritized-approvals.md)
+- [Prioritized Approvals](../concepts/prioritized-approvals.md)
 - [Invariants](invariants.md)

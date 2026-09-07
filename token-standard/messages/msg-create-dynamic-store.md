@@ -68,7 +68,7 @@ Ask your agent: "Create a dynamic store that defaults to false, so I can allowli
 
 ## Related
 
-- [Dynamic store challenges](../approval-criteria/dynamic-store-challenges.md)
+- [Dynamic Store Challenges](../approval-criteria/dynamic-store-challenges.md)
 - [MsgSetDynamicStoreValue](msg-set-dynamic-store-value.md)
 - [MsgUpdateDynamicStore](msg-update-dynamic-store.md)
 - [GetDynamicStore](../queries/get-dynamic-store.md)

@@ -2,7 +2,7 @@
 description: "End-user verbs for every BitBadges standard: list, show, status, and the action that emits a ready-to-sign message."
 ---
 
-# Standards commands
+# Standards Commands
 
 Each standard has a command group with read verbs (`list`, `show`, `status`) that query the BitBadges API and action verbs that emit a message to pipe into `bb deploy`. The create side of each standard lives under [Build](build.md).
 
@@ -46,7 +46,7 @@ Ask your agent. The read verbs map onto `query_collection` and `analyze_collecti
 
 `build` in a group forwards to `bb build <type>` with the same flags.
 
-## Status values
+## Status Values
 
 Read `status` before acting; most action verbs throw when the standard is in an incompatible state.
 
@@ -150,7 +150,7 @@ bb dynamic-stores by-creator bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
 bb dynamic-stores search kyc
 ```
 
-Dynamic stores are on-chain address-to-boolean maps used in approval criteria. `add` and `remove` emit multi-message transactions of `MsgSetDynamicStoreValue`. `--global-enabled false` is the kill switch. See [Dynamic store challenges](../token-standard/approval-criteria/dynamic-store-challenges.md).
+Dynamic stores are on-chain address-to-boolean maps used in approval criteria. `add` and `remove` emit multi-message transactions of `MsgSetDynamicStoreValue`. `--global-enabled false` is the kill switch. See [Dynamic Store Challenges](../token-standard/approval-criteria/dynamic-store-challenges.md).
 
 ## intents
 
@@ -228,7 +228,7 @@ bb smart-tokens deposit 88 --creator bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue -
 bb smart-tokens withdraw 88 --creator bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --amount 5 | bb deploy --browser --msg-stdin
 ```
 
-`list` filters to collections that pass the conformance validator. `show` renders backing address, denom, deposit and withdraw approval IDs, and standards. `status` returns the collection ID, backing denom, and the `tradable` and `aiAgentVault` flags. `deposit` emits `MsgTransferTokens` that mints Smart Token units; the chain routes the backing coin into the backing alias. `withdraw` burns units and releases the backing coin. Smart Tokens are the primitive behind vaults, AI agent vaults, and tradable wrapped tokens; see [Smart tokens and vaults](../guides/smart-tokens-and-vaults.md).
+`list` filters to collections that pass the conformance validator. `show` renders backing address, denom, deposit and withdraw approval IDs, and standards. `status` returns the collection ID, backing denom, and the `tradable` and `aiAgentVault` flags. `deposit` emits `MsgTransferTokens` that mints Smart Token units; the chain routes the backing coin into the backing alias. `withdraw` burns units and releases the backing coin. Smart Tokens are the primitive behind vaults, AI agent vaults, and tradable wrapped tokens; see [Smart Tokens and Vaults](../guides/smart-tokens-and-vaults.md).
 
 ## subscriptions
 
@@ -244,7 +244,7 @@ bb subscriptions charge-due 3 --creator bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrs
 
 `claim` emits one `MsgTransferTokens` through the faucet. `enable-renewal` and `cancel` emit `MsgUpdateUserApprovals` that add or remove the recurring approval and preserve other recurring approvals. `subscribe` is claim plus enable-renewal in one wrapper (the site's Subscribe button). `charge-due` is the operator side: one `MsgTransferTokens` per subscriber whose interval is due; pipe into `bb deploy --with-keyring --from agent-wallet`. `--tier` is required on multi-tier collections.
 
-## Signing the output
+## Signing the Output
 
 ```bash
 bb auctions place-bid 42 --creator bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --amount 50 --denom USDC | bb deploy --browser --msg-stdin              # browser wallet

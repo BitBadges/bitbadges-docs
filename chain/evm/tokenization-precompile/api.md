@@ -2,7 +2,7 @@
 description: "Every function on the tokenization precompile from abi.json: 25 transactions, executeMultiple, 17 queries, 7 utilities, with signatures and JSON."
 ---
 
-# Tokenization precompile API
+# Tokenization Precompile API
 
 Reference for all 50 functions on the tokenization precompile at `0x0000000000000000000000000000000000001001`, regenerated from `x/tokenization/precompile/abi.json`. Each method takes one `string calldata msgJson`, except `executeMultiple` and the pure utilities.
 
@@ -75,7 +75,7 @@ interface ITokenizationPrecompile {
 
 The full interface with events and doc comments is [`contracts/interfaces/ITokenizationPrecompile.sol`](https://github.com/BitBadges/bitbadgeschain/blob/master/contracts/interfaces/ITokenizationPrecompile.sol).
 
-## JSON rules
+## JSON Rules
 
 - The JSON is the protobuf JSON of the `x/tokenization` message or query request, decoded with the module codec. Field names are camelCase, exactly as on the [message pages](../../../token-standard/messages/README.md).
 - Numbers are strings (`"123"`, never `123`). Booleans are raw (`true`). Arrays and objects are standard JSON.
@@ -88,7 +88,7 @@ The full interface with events and doc comments is [`contracts/interfaces/IToken
 Ask your agent: "Build the MsgTransferTokens JSON that sends 1 of token ID 1 in collection 1 from alice to bob, with no prioritized approvals, so I can pass it as msgJson to transferTokens." The `bb build transfer` command and the MCP builder tools emit the same camelCase JSON the precompile accepts; strip the outer `typeUrl`/`value` envelope and the `creator` field.
 {% endhint %}
 
-## Transaction methods
+## Transaction Methods
 
 ### transferTokens
 
@@ -587,7 +587,7 @@ function setCollectionApprovals(string calldata msgJson) external returns (uint2
 }
 ```
 
-Helper: `setCollectionApprovalsJSON(collectionId, collectionApprovalsJson, canUpdateCollectionApprovalsJson)` with `collectionApprovalToJson` and `collectionApprovalArrayToJson`. Hex addresses inside approvals and criteria are converted. Criteria reference: [Approval criteria](../../../token-standard/approval-criteria/README.md).
+Helper: `setCollectionApprovalsJSON(collectionId, collectionApprovalsJson, canUpdateCollectionApprovalsJson)` with `collectionApprovalToJson` and `collectionApprovalArrayToJson`. Hex addresses inside approvals and criteria are converted. Criteria reference: [Approval Criteria](../../../token-standard/approval-criteria/README.md).
 
 ### setIsArchived
 
@@ -735,7 +735,7 @@ function createAddressLists(string calldata msgJson) external returns (bool succ
 }
 ```
 
-Helper: `createAddressListsJSON(addressListsJson)` with `addressListInputToJson(listId, addressesJson, whitelist, uri, customData)`. At most 1,000 addresses per list. Emits `AddressListsCreated`. Concept: [Address lists](../../../token-standard/concepts/address-lists.md).
+Helper: `createAddressListsJSON(addressListsJson)` with `addressListInputToJson(listId, addressesJson, whitelist, uri, customData)`. At most 1,000 addresses per list. Emits `AddressListsCreated`. Concept: [Address Lists](../../../token-standard/concepts/address-lists.md).
 
 ### castVote
 
@@ -756,7 +756,7 @@ function castVote(string calldata msgJson) external returns (bool success)
 }
 ```
 
-Helper: `castVoteJSON(collectionId, approvalLevel, approverAddress, approvalId, proposalId, yesWeight)`. Criteria: [Voting challenges](../../../token-standard/approval-criteria/voting-challenges.md).
+Helper: `castVoteJSON(collectionId, approvalLevel, approverAddress, approvalId, proposalId, yesWeight)`. Criteria: [Voting Challenges](../../../token-standard/approval-criteria/voting-challenges.md).
 
 ### executeMultiple
 
@@ -826,7 +826,7 @@ Behavior:
 - Each result is ABI-encoded like the method's own return: `abi.decode(results[i], (bool))` or `(uint256)`.
 - Gas: 10,000 base + 1,000 per message + 100 per 32-byte input chunk, then the transaction buffer. See [Gas](gas.md#executemultiple).
 
-## Query methods
+## Query Methods
 
 Most getters return the protobuf-encoded gRPC response as `bytes`. See [Return values](README.md#return-values) for how to use them. The request JSON is the query request type from the [queries reference](../../../token-standard/queries/README.md); `0x` addresses are converted.
 
@@ -972,7 +972,7 @@ string memory supplyJson = string(abi.encodePacked(
 uint256 supply = TOKENIZATION.getTotalSupply(supplyJson);
 ```
 
-Helper: `getTotalSupplyJSON(collectionId, tokenId, ownershipTime)`. Concept: [Minting and supply](../../../token-standard/concepts/minting-and-supply.md).
+Helper: `getTotalSupplyJSON(collectionId, tokenId, ownershipTime)`. Concept: [Minting and Supply](../../../token-standard/concepts/minting-and-supply.md).
 
 ### getAddressList
 
@@ -1012,7 +1012,7 @@ function getApprovalTracker(string calldata msgJson) external view returns (byte
 }
 ```
 
-Helper: `getApprovalTrackerJSON(collectionId, approvalLevel, approverAddress, approvalId, trackerType, trackedAddress)` (it reuses `approvalId` as the `amountTrackerId`). `approverAddress` and `approvedAddress` accept hex. Criteria: [Approval trackers](../../../token-standard/approval-criteria/approval-trackers.md).
+Helper: `getApprovalTrackerJSON(collectionId, approvalLevel, approverAddress, approvalId, trackerType, trackedAddress)` (it reuses `approvalId` as the `amountTrackerId`). `approverAddress` and `approvedAddress` accept hex. Criteria: [Approval Trackers](../../../token-standard/approval-criteria/approval-trackers.md).
 
 ### getChallengeTracker
 
@@ -1033,7 +1033,7 @@ function getChallengeTracker(string calldata msgJson) external view returns (uin
 }
 ```
 
-Helper: `getChallengeTrackerJSON(collectionId, approvalLevel, approverAddress, approvalId, challengeId, leafIndex)`. Criteria: [Merkle challenges](../../../token-standard/approval-criteria/merkle-challenges.md).
+Helper: `getChallengeTrackerJSON(collectionId, approvalLevel, approverAddress, approvalId, challengeId, leafIndex)`. Criteria: [Merkle Challenges](../../../token-standard/approval-criteria/merkle-challenges.md).
 
 ### getETHSignatureTracker
 
@@ -1054,7 +1054,7 @@ function getETHSignatureTracker(string calldata msgJson) external view returns (
 }
 ```
 
-Criteria: [ETH signature challenges](../../../token-standard/approval-criteria/eth-signature-challenges.md).
+Criteria: [ETH Signature Challenges](../../../token-standard/approval-criteria/eth-signature-challenges.md).
 
 ### getDynamicStore
 
@@ -1122,7 +1122,7 @@ function getWrappableBalances(string calldata msgJson) external view returns (ui
 }
 ```
 
-Helper: `getWrappableBalancesJSON(denom, address)`. Concept: [Cosmos coin wrapper paths](../../../token-standard/ibc/cosmos-coin-wrapper-paths.md).
+Helper: `getWrappableBalancesJSON(denom, address)`. Concept: [Cosmos Coin Wrapper Paths](../../../token-standard/ibc/cosmos-coin-wrapper-paths.md).
 
 ### isAddressReservedProtocol
 
@@ -1209,7 +1209,7 @@ function params(string calldata msgJson) external view returns (bytes memory par
 
 Helper: `paramsJSON()`. Also the cheapest connectivity check: `precompile.params("{}")`.
 
-## Utility methods
+## Utility Methods
 
 Pure functions with no state access.
 
@@ -1314,9 +1314,9 @@ string memory listId = TOKENIZATION.getReservedListId(0x0bc63cfe31d5218eb414b142
 // Returns: "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d" (the bech32 address)
 ```
 
-To test whether a list ID is `"All"`, compare the string: `keccak256(bytes(listId)) == keccak256(bytes("All"))`. Reserved IDs: [Address lists](../../../token-standard/concepts/address-lists.md).
+To test whether a list ID is `"All"`, compare the string: `keccak256(bytes(listId)) == keccak256(bytes("All"))`. Reserved IDs: [Address Lists](../../../token-standard/concepts/address-lists.md).
 
-## Helper library reference
+## Helper Library Reference
 
 Building blocks in `TokenizationJSONHelpers`:
 
@@ -1367,11 +1367,11 @@ Further builders: `balanceToJson`, `balanceArrayToJson`, `tokenMetadataToJson`, 
 
 ## Events
 
-The precompile emits Cosmos events (`precompile_transfer_tokens`, `precompile_set_incoming_approval`, `precompile_set_outgoing_approval`, `precompile_get_balance_amount`) with `module=evm_precompile`. The Solidity interface declares the matching EVM events `TransferTokens`, `SetIncomingApproval`, `SetOutgoingApproval`, `CollectionCreated`, `CollectionUpdated`, `CollectionDeleted`, `AddressListsCreated`, `DynamicStoreCreated`. The module's own events are emitted too; see [WebSocket events](../../websocket-events.md).
+The precompile emits Cosmos events (`precompile_transfer_tokens`, `precompile_set_incoming_approval`, `precompile_set_outgoing_approval`, `precompile_get_balance_amount`) with `module=evm_precompile`. The Solidity interface declares the matching EVM events `TransferTokens`, `SetIncomingApproval`, `SetOutgoingApproval`, `CollectionCreated`, `CollectionUpdated`, `CollectionDeleted`, `AddressListsCreated`, `DynamicStoreCreated`. The module's own events are emitted too; see [WebSocket Events](../../websocket-events.md).
 
 ## Related
 
-- [Tokenization precompile](README.md)
+- [Tokenization Precompile](README.md)
 - [Errors](errors.md)
 - [Gas](gas.md)
 - [Messages](../../../token-standard/messages/README.md)

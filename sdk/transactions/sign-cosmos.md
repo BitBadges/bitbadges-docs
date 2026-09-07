@@ -2,9 +2,9 @@
 description: "Sign a BitBadges transaction payload by hand with Keplr or another Cosmos wallet using signDirect, then build the broadcast body."
 ---
 
-# Sign with a Cosmos wallet
+# Sign with a Cosmos Wallet
 
-Manual Cosmos signing takes the `signDirect` payload from `createTransactionPayload`, asks the wallet for a signature over it, and wraps the result with `createTxBroadcastBody`. Use [Signing client](signing-client.md) unless you need this level of control.
+Manual Cosmos signing takes the `signDirect` payload from `createTransactionPayload`, asks the wallet for a signature over it, and wraps the result with `createTxBroadcastBody`. Use [Signing Client](signing-client.md) unless you need this level of control.
 
 ## Example
 
@@ -92,4 +92,4 @@ console.log(res.tx_response.txhash);
 
 - [Transactions](README.md)
 - [Broadcast](broadcast.md)
-- [Signing client](signing-client.md)
+- [Signing Client](signing-client.md)

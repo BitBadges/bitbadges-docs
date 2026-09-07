@@ -2,7 +2,7 @@
 description: "Reserved, inline, and stored address lists, the ! inversion syntax, and how Mint is handled in each."
 ---
 
-# Address lists
+# Address Lists
 
 An address list is a named set of addresses used by the `fromListId`, `toListId`, and `initiatedByListId` fields of approvals and permissions. A list is either a whitelist (only these addresses) or a blacklist (everyone except these).
 
@@ -56,7 +56,7 @@ function checkAddress(address, list) {
 Ask your agent: "Add a mint approval to collection 1 that only alice and bob can initiate. Pass the two addresses as an inline list." The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 There are three kinds of list ID. The chain resolves reserved and inline IDs on the fly with no storage; stored lists live in state.
 
@@ -86,9 +86,9 @@ Prefix an ID with `!` to flip `whitelist`. Use `!(...)` when the ID itself could
 
 The chain treats `"!x"` as inverted when the ID does not end with `)`, and `"!(x)"` as inverted always.
 
-### Mint handling
+### Mint Handling
 
-`"All"` and any blacklist include `"Mint"`. Because the Mint address has unlimited balance, a `fromListId` that includes it by accident lets anyone mint. Use `"Mint"` for mint approvals and `"!Mint"` or `"AllWithoutMint"` for everything else. See [Minting and supply](minting-and-supply.md).
+`"All"` and any blacklist include `"Mint"`. Because the Mint address has unlimited balance, a `fromListId` that includes it by accident lets anyone mint. Use `"Mint"` for mint approvals and `"!Mint"` or `"AllWithoutMint"` for everything else. See [Minting and Supply](minting-and-supply.md).
 
 ```json
 [
@@ -97,7 +97,7 @@ The chain treats `"!x"` as inverted when the ID does not end with `)`, and `"!(x
 ]
 ```
 
-### Stored lists
+### Stored Lists
 
 Create a stored list with [MsgCreateAddressLists](../messages/msg-create-address-lists.md). Stored lists are immutable and global: any collection can reference the same list ID. They save gas when a long list is referenced more than once.
 
@@ -146,7 +146,7 @@ Off-chain lists also exist in the BitBadges API. They are editable and deletable
 | Inline | none | fewer than about 10 addresses used once |
 | Stored | on-chain | large lists, or any list referenced repeatedly |
 
-### Reference: SDK resolver
+### Reference: SDK Resolver
 
 ```ts
 function getReservedList(addressListId: string, allowAliases?: boolean): AddressList {

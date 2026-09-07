@@ -2,7 +2,7 @@
 description: "altTimeChecks: deny transfers by hour, weekday, month, day of month, or ISO week, in UTC or with a timezone offset."
 ---
 
-# Alt time checks
+# Alt Time Checks
 
 `altTimeChecks` denies a transfer when the block time falls inside an offline window. `transferTimes` says when a transfer is allowed; `altTimeChecks` says when it is denied on a calendar basis (nights, weekends, month ends, blackout weeks).
 
@@ -142,7 +142,7 @@ All ranges are inclusive. Ranges in one array must not overlap, and `start` must
 Ask your agent: "Add a transfer approval to collection 1 that blocks transfers on weekends in US Eastern time." The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 1. Take the block time in UTC. If `timezoneOffsetMinutes` is set, add or subtract it to get local time.
 2. Check the local hour against `offlineHours`.
@@ -238,4 +238,4 @@ Deny the 1st and 15th of every month:
 ## Related
 
 - [Transferability](../concepts/transferability.md)
-- [Approval criteria](README.md)
+- [Approval Criteria](README.md)

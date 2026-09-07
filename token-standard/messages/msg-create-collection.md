@@ -568,7 +568,7 @@ console.log(result.txHash, result.success);
 }
 ```
 
-The example creates "Demo NFTs": 100 token IDs, alice as manager, one `mint` approval that only alice can initiate, and one `transferable` approval with empty criteria so holders can trade freely. Omit `invariants.cosmosCoinBackedPath` unless the collection is backed by a bank coin. See [Backed minting](../ibc/backed-minting.md).
+The example creates "Demo NFTs": 100 token IDs, alice as manager, one `mint` approval that only alice can initiate, and one `transferable` approval with empty criteria so holders can trade freely. Omit `invariants.cosmosCoinBackedPath` unless the collection is backed by a bank coin. See [Backed Minting](../ibc/backed-minting.md).
 
 {% hint style="info" %}
 Ask your agent: "Create an NFT collection called Demo NFTs with 100 tokens, mint them all to me, and make them transferable between anyone."
@@ -590,8 +590,8 @@ Ask your agent: "Create an NFT collection called Demo NFTs with 100 tokens, mint
 | `standards` | string[] | no | Standard identifiers. |
 | `isArchived` | bool | no | Archive flag. Archived collections are read-only. |
 | `mintEscrowCoinsToTransfer` | `Coin[]` | no | Bank coins sent from the creator to the collection's mint escrow address. |
-| `cosmosCoinWrapperPathsToAdd` | `CosmosCoinWrapperPathAddObject[]` | no | Wrapper paths to an x/bank denom. See [Cosmos coin wrapper paths](../ibc/cosmos-coin-wrapper-paths.md). |
-| `aliasPathsToAdd` | `AliasPathAddObject[]` | no | Alias denoms. See [Alias denoms](../ibc/alias-denoms.md). |
+| `cosmosCoinWrapperPathsToAdd` | `CosmosCoinWrapperPathAddObject[]` | no | Wrapper paths to an x/bank denom. See [Cosmos Coin Wrapper Paths](../ibc/cosmos-coin-wrapper-paths.md). |
+| `aliasPathsToAdd` | `AliasPathAddObject[]` | no | Alias denoms. See [Alias Denoms](../ibc/alias-denoms.md). |
 | `invariants` | `InvariantsAddObject` | no | Rules that can never change. See [Invariants](../approval-criteria/invariants.md). |
 
 `InvariantsAddObject` fields: `noCustomOwnershipTimes` (bool), `maxSupplyPerId` (Uint, `0` means unlimited), `cosmosCoinBackedPath` (`{ conversion }`), `noForcefulPostMintTransfers` (bool), `disablePoolCreation` (bool), `evmQueryChallenges` (`EVMQueryChallenge[]`).
@@ -621,4 +621,4 @@ Ask your agent: "Create an NFT collection called Demo NFTs with 100 tokens, mint
 - [MsgUpdateCollection](msg-update-collection.md)
 - [Collections](../concepts/collections.md)
 - [Permissions](../concepts/permissions.md)
-- [Create a collection](../../guides/create-a-collection.md)
+- [Create a Collection](../../guides/create-a-collection.md)

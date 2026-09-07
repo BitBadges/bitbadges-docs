@@ -163,13 +163,13 @@ Each transfer goes through the same checks, in order:
 
 Failure order: insufficient balances, no collection approval, blocked by sender, blocked by recipient.
 
-### Auto-scan vs prioritized approvals
+### Auto-Scan vs Prioritized Approvals
 
-By default the chain scans approvals linearly and uses the first match. That only works for approvals with empty approval criteria (no side effects). Any approval with side effects or custom criteria must appear in `prioritizedApprovals` with its exact `version`. The version pins the approval the user reviewed, so a manager cannot swap the approval between signing and execution. Approvals that cannot be auto-scanned have `mustPrioritize` forced on when they are stored, so the chain rejects transfers that omit them. Set the `onlyCheckPrioritized*` flags to `true` when using prioritized approvals for deterministic behavior. See [Prioritized approvals](../concepts/prioritized-approvals.md).
+By default the chain scans approvals linearly and uses the first match. That only works for approvals with empty approval criteria (no side effects). Any approval with side effects or custom criteria must appear in `prioritizedApprovals` with its exact `version`. The version pins the approval the user reviewed, so a manager cannot swap the approval between signing and execution. Approvals that cannot be auto-scanned have `mustPrioritize` forced on when they are stored, so the chain rejects transfers that omit them. Set the `onlyCheckPrioritized*` flags to `true` when using prioritized approvals for deterministic behavior. See [Prioritized Approvals](../concepts/prioritized-approvals.md).
 
-### ETH signature proofs
+### ETH Signature Proofs
 
-Required when an approval uses [ETH signature challenges](../approval-criteria/eth-signature-challenges.md). The signed message is `nonce + "-" + initiatorAddress + "-" + collectionId + "-" + approverAddress + "-" + approvalLevel + "-" + approvalId + "-" + challengeId`. Each signature can be used once per challenge tracker; the chain tracks used signatures to prevent replay.
+Required when an approval uses [ETH Signature Challenges](../approval-criteria/eth-signature-challenges.md). The signed message is `nonce + "-" + initiatorAddress + "-" + collectionId + "-" + approverAddress + "-" + approvalLevel + "-" + approvalId + "-" + challengeId`. Each signature can be used once per challenge tracker; the chain tracks used signatures to prevent replay.
 
 ### Collection ID `0`
 
@@ -178,6 +178,6 @@ Required when an approval uses [ETH signature challenges](../approval-criteria/e
 ## Related
 
 - [Transferability](../concepts/transferability.md)
-- [Approval criteria](../approval-criteria/README.md)
-- [Predetermined balances](../approval-criteria/predetermined-balances.md)
-- [Mint and distribute](../../guides/mint-and-distribute.md)
+- [Approval Criteria](../approval-criteria/README.md)
+- [Predetermined Balances](../approval-criteria/predetermined-balances.md)
+- [Mint and Distribute](../../guides/mint-and-distribute.md)

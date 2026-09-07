@@ -2,7 +2,7 @@
 description: "Generate a plain-language markdown report of any on-chain collection with interpretCollection in the bitbadges SDK."
 ---
 
-# Interpret a collection
+# Interpret a Collection
 
 `interpretCollection` turns a `BitBadgesCollection` into a markdown explanation of its permissions, approvals, claims, invariants, metadata, and risks. The same function backs `bb explain`, the MCP `explain_collection` tool, and the collection overview on bitbadges.io.
 
@@ -43,6 +43,6 @@ Fetch the collection with metadata and claims included (the default for `getColl
 
 ## Related
 
-- [Interpret a transaction](interpret-transaction.md)
+- [Interpret a Transaction](interpret-transaction.md)
 - [CLI analyze](../../cli/analyze.md)
 - [MCP tools](../../agents/mcp-tools.md)

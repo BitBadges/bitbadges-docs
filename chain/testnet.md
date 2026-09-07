@@ -10,7 +10,7 @@ The BitBadges testnet (`bitbadges-2`) is offline. This page records its status, 
 Testnet has been offline since 2026-04-25 to reduce hosting costs while usage was minimal. Every testnet URL below returns an error (503 or connection refused as of 2026-09-06), and the SDK's `NETWORK_CONFIGS.testnet` is marked `disabled: true`. To ask for a relaunch, [contact the team](https://bitbadges.io/contact).
 {% endhint %}
 
-## Test on mainnet instead
+## Test on Mainnet Instead
 
 Mainnet operates as a chaosnet: fully live, but safe to experiment on.
 
@@ -18,9 +18,9 @@ Mainnet operates as a chaosnet: fully live, but safe to experiment on.
 - Transact with worthless assets such as `CHAOS` (`badges:49:chaosnet`) instead of real-value coins.
 - Contracts, transactions, and integrations run against the real network at no real cost. Pick your assets accordingly.
 
-Every example in these docs targets mainnet. See [Network](README.md) for endpoints and [Supported denoms](supported-denoms.md) for `CHAOS`.
+Every example in these docs targets mainnet. See [Network](README.md) for endpoints and [Supported Denoms](supported-denoms.md) for `CHAOS`.
 
-## What testnet was
+## What Testnet Was
 
 A separate environment isolated from production, with its own chain, database, API, and site. Nothing carried over between the two: not profiles, tokens, settings, or anything else. Third-party integrations such as claim plugins behaved the same in both.
 
@@ -30,7 +30,7 @@ Differences from production:
 - Some restrictions were relaxed: no API keys required, a more lenient faucet.
 - Performance differed from production.
 
-### Endpoints (offline)
+### Endpoints (Offline)
 
 | Surface | URL |
 | --- | --- |
@@ -43,7 +43,7 @@ Differences from production:
 | Cosmos chain ID | `bitbadges-2` |
 | EVM chain ID | `50025` |
 
-## Faucet API (offline)
+## Faucet API (Offline)
 
 The faucet gave free BADGE for testing and bot development. No API key and relaxed CORS. Kept here as the contract for when testnet returns; do not call it as a live step today.
 
@@ -124,5 +124,5 @@ On mainnet there is no faucet; acquire BADGE through normal channels.
 ## Related
 
 - [Network](README.md)
-- [Supported denoms](supported-denoms.md)
-- [Bot examples](../agents/bot-examples.md)
+- [Supported Denoms](supported-denoms.md)
+- [Bot Examples](../agents/bot-examples.md)

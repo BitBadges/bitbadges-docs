@@ -44,3 +44,11 @@
 /for-developers/claim-builder/dynamic-stores	/api/claims/dynamic-stores
 /for-developers/claim-builder/dynamic-stores/overview	/api/claims/dynamic-stores
 /for-developers/claim-builder/dynamic-stores/adding-data	/api/claims/dynamic-stores
+# Legacy targets that appear only inside the OpenAPI descriptions (site/openapi/openapi.json).
+/for-developers/authenticating-with-bitbadges	/api/sign-in
+/for-developers/bitbadges-api/concepts/native-chain-algorithm	/token-standard/concepts/accounts
+/for-developers/bitbadges-api/tutorials/managing-views	/api/pagination-and-views
+/for-developers/bitbadges-api/tutorials/getting-claims	/api/claims/endpoints
+/for-developers/bitbadges-api/tutorials/managing-claims	/api/claims/endpoints
+/for-developers/claim-builder/auto-complete-claims-w-bitbadges-api	/api/claims/endpoints
+/for-developers/claim-builder/universal-approach-claim-codes	/api/claims

@@ -2,7 +2,7 @@
 description: "All 12 x/gamm messages with fields and a JSON example each: pool creation, join, exit, swaps, single-asset joins and exits, stableswap, IBC swap."
 ---
 
-# x/gamm messages
+# x/gamm Messages
 
 Every message is signed by `sender`. Amounts are integer strings in the coin's base unit. Native tokens appear as `badgeslp:<collectionId>:<denom>` alias denoms and are subject to the collection's approvals (see [x/gamm](README.md)). Type URLs use the proto package: `/gamm.v1beta1.Msg<Name>`, except pool creation which lives under `/gamm.poolmodels.balancer.` and `/gamm.poolmodels.stableswap.`.
 
@@ -566,7 +566,7 @@ Behavior: the transaction fails with an unauthorized error when `sender` is not 
 
 ## Related
 
-- [x/gamm queries](queries.md)
+- [x/gamm Queries](queries.md)
 - [Trade on the DEX](../../../guides/trade-on-the-dex.md)
-- [gamm precompile](../../evm/gamm-precompile/README.md)
+- [GAMM Precompile](../../evm/gamm-precompile/README.md)
 - [IBC hooks](../../../token-standard/ibc/transfer-tokens-hook.md)

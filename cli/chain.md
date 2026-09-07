@@ -2,7 +2,7 @@
 description: "Chain-native bb commands from bitbadgeschaind: keys, tx, query, sign-arbitrary, genesis, and node operation."
 ---
 
-# Chain commands
+# Chain Commands
 
 `bb` is the chain node binary `bitbadgeschaind`, a Cosmos SDK binary with the BitBadges modules. This page covers the native commands: key management, transactions, queries, offline signing, and node operation. The SDK verbs (`build`, `deploy`, `api`, and the rest) are forwarded to `bitbadges-cli` and documented on the other CLI pages.
 
@@ -252,7 +252,7 @@ Signs any message with a keyring key in ADR-36 format, offline, with no chain ac
 
 Only `secp256k1` keys are supported; an `eth_secp256k1` key errors with a pointer to `bb keys add <name> --key-type secp256k1`. EIP-191 support is a planned `--format eip191` flag.
 
-## Node operation
+## Node Operation
 
 | Command | Purpose |
 | --- | --- |
@@ -264,9 +264,9 @@ Only `secp256k1` keys are supported; an `eth_secp256k1` key errors with a pointe
 | `pre-upgrade` | Pre-upgrade hook for cosmovisor |
 | `prune`, `snapshots`, `comet` (`tendermint`), `debug` | Standard Cosmos SDK maintenance |
 
-Running a validator or full node: [Run a node](../chain/run-a-node.md). Build from source: [CLI](README.md#chain-binary-from-source).
+Running a validator or full node: [Run a Node](../chain/run-a-node.md). Build from source: [CLI](README.md#chain-binary-from-source).
 
-## SDK alternative
+## SDK Alternative
 
 ```ts
 import { BitBadgesSigningClient, GenericCosmosAdapter, MsgTransferTokens } from 'bitbadges';
@@ -296,7 +296,7 @@ const result = await client.signAndBroadcast([msg]);
 console.log(result.txHash, result.success);
 ```
 
-The [signing client](../sdk/transactions/signing-client.md) handles gas estimation, sequence management, and broadcasting for every message type.
+The [Signing Client](../sdk/transactions/signing-client.md) handles gas estimation, sequence management, and broadcasting for every message type.
 
 ## Related
 

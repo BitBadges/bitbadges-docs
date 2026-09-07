@@ -8,10 +8,10 @@ BitBadges is a Cosmos SDK Layer 1 built around one module, `x/tokenization`, tha
 
 | Page | Read it when |
 | --- | --- |
-| [Use cases](use-cases.md) | You want to know what people build with the standard |
+| [Use Cases](use-cases.md) | You want to know what people build with the standard |
 | [Comparisons](comparisons.md) | You are coming from ERC-20, ERC-3643, or another L1 |
-| [BADGE token](badge-token.md) | You need the native coin, its purposes, and the validator model |
-| [Links and resources](links.md) | You want the app, explorer, socials, brand assets, or how to contribute |
+| [BADGE Token](badge-token.md) | You need the native coin, its purposes, and the validator model |
+| [Links and Resources](links.md) | You want the app, explorer, socials, brand assets, or how to contribute |
 | [FAQ](faq.md) | You have a short question, including the fee schedule |
 
 ## Theses
@@ -22,7 +22,7 @@ BitBadges is a Cosmos SDK Layer 1 built around one module, `x/tokenization`, tha
 
 The motive is the same as the theses. Blockchains and interoperability have potential that the current infrastructure and token standards cannot deliver.
 
-## Problems with existing standards
+## Problems with Existing Standards
 
 ERC-20, ERC-721, CW-20, ICS-20, `x/bank`, `x/tokenfactory`, and `x/nft` cover many use cases, but the approach has structural problems:
 
@@ -32,21 +32,21 @@ ERC-20, ERC-721, CW-20, ICS-20, `x/bank`, `x/tokenfactory`, and `x/nft` cover ma
 - Low interoperability. Tokens stay siloed in one ecosystem, which splits a user base across chains. IBC is the best current answer and still leaves room to improve.
 - Fragmented. Competing standards add incompatible twists, which creates confusion.
 
-## Design decisions
+## Design Decisions
 
 ### Universality
 
 One standard for NFTs, fungible tokens, subscriptions, quests, credentials, real-world assets, and regulatory compliance. The standard is a superset of the existing ones, so a token can be used compatibly where a simpler standard is expected.
 
-### A module, not contracts
+### A Module, Not Contracts
 
 The standard is a Cosmos SDK module. Every feature is implemented once and reused by every collection. Creating a collection is a message with parameters, which is how the BitBadges site is no-code by default. The expectation is that nearly all users never write code, whatever the complexity of the use case. One reusable, tested code path replaces a new contract per token.
 
-### Ever-evolving
+### Ever-Evolving
 
 Features are added to the module as the need appears, without accruing technical debt in deployed contracts. If a use case is missing, the answer is to add it to the standard.
 
-### IBC-first
+### IBC-First
 
 BitBadges is Cosmos native with IBC at the core:
 
@@ -56,17 +56,17 @@ BitBadges is Cosmos native with IBC at the core:
 
 For example, a team can create a token on BitBadges, wrap 20% of the supply to ICS-20, send 10% to Osmosis, send 10% to an EVM chain over IBC Eureka, and keep the rest under time-dependent release in the native module. Think of BitBadges as a layer above IBC: launch on BitBadges for the features, wrap to IBC for reach.
 
-### Value-add over duplication
+### Value-Add over Duplication
 
 BitBadges prioritizes utility that Cosmos does not already have. Where a service already exists in the ecosystem, the preferred path is to wrap tokens and send them there over IBC rather than rebuild it.
 
-## What the standard provides
+## What the Standard Provides
 
-### Time-dependent accounting
+### Time-Dependent Accounting
 
 Every balance carries ownership times, down to the millisecond. A balance is an ownership right for a token id over a time range. Bob can own token 5 until next July, at which point ownership ends with no further transaction. This supports auto-expiring and renewing subscriptions, vesting, and time-based release schedules. Recurring subscriptions combine this with a bot-tipping system for the recurring payment.
 
-### Three transferability levels
+### Three Transferability Levels
 
 1. Collection-level approvals. The manager defines the collection-wide rules and can override user-level approvals when configured to.
 2. Outgoing approvals. Each sender sets rules for transfers out (for example listings).
@@ -74,19 +74,19 @@ Every balance carries ownership times, down to the millisecond. A balance is an 
 
 A transfer succeeds only if the sender has the balance, a collection-level approval matches, and the outgoing and incoming approvals match (unless the collection approval overrides them). The same checks run on swaps, in liquidity pools, and on IBC transfers, so compliance holds regardless of the application.
 
-### Approval criteria
+### Approval Criteria
 
-Every approval, on every level, can specify who can send, who can receive, who can initiate, transfer times, ownership times, predetermined or tallied amounts, the number of transfers, revocability, freezing, BADGE or other IBC coin transfers, royalties, recurrence, non-transferability, incrementing token ids, and ownership of other tokens. See [Approval criteria](../token-standard/approval-criteria/README.md).
+Every approval, on every level, can specify who can send, who can receive, who can initiate, transfer times, ownership times, predetermined or tallied amounts, the number of transfers, revocability, freezing, BADGE or other IBC coin transfers, royalties, recurrence, non-transferability, incrementing token ids, and ownership of other tokens. See [Approval Criteria](../token-standard/approval-criteria/README.md).
 
-### Off-chain criteria
+### Off-Chain Criteria
 
-An oracle-like path lets a service check off-chain criteria and hand the user a signed code to redeem on-chain. BitBadges runs one such service with no-code plugins for more than 7,000 apps: Discord membership, X followers, email, passwords and claim codes, private off-chain data, AI agents, and custom endpoints. Anyone can run their own criteria service to remove the trust assumption on BitBadges. See [Distribute with claims](../guides/distribute-with-claims.md).
+An oracle-like path lets a service check off-chain criteria and hand the user a signed code to redeem on-chain. BitBadges runs one such service with no-code plugins for more than 7,000 apps: Discord membership, X followers, email, passwords and claim codes, private off-chain data, AI agents, and custom endpoints. Anyone can run their own criteria service to remove the trust assumption on BitBadges. See [Distribute with Claims](../guides/distribute-with-claims.md).
 
-### Manager permissions
+### Manager Permissions
 
 Each collection can have a manager with fine-grained, lockable permissions: update metadata, update transferability, archive, delete, add tokens, pause transfers, throttle volume, and more. Checks and balances are enforced on-chain. See [Permissions](../token-standard/concepts/permissions.md).
 
-### EVM and IBC extension
+### EVM and IBC Extension
 
 The goal is that every use case works natively. Where custom logic is needed, EVM contracts call into the module through precompiles, and the module reaches other environments over IBC. See [EVM](../chain/evm/README.md).
 

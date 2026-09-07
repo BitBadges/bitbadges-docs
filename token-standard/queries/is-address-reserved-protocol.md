@@ -35,7 +35,7 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/is_address_r
 ## Behavior
 
 - Reserved addresses come from two sources: chain-derived path addresses (cosmos coin wrapper paths and backed paths) that are flagged automatically when a collection adds them, and addresses set by governance through [MsgSetReservedProtocolAddress](../messages/msg-set-reserved-protocol-address.md).
-- Approval criteria address checks can match or exclude reserved protocol addresses. See [Special address flags](../approval-criteria/special-address-flags.md).
+- Approval criteria address checks can match or exclude reserved protocol addresses. See [Special Address Flags](../approval-criteria/special-address-flags.md).
 
 ## Related
 

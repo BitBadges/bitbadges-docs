@@ -2,7 +2,7 @@
 description: "ethSignatureChallenges: require a one-time Ethereum signature from a named signer over a message bound to the transfer context."
 ---
 
-# ETH signature challenges
+# ETH Signature Challenges
 
 An ETH signature challenge requires the transfer to carry a signature from a fixed Ethereum address. The signer authorizes one specific transfer by signing a nonce plus the transfer context, and each signature can be used once. It is off-chain authorization without a Merkle tree.
 
@@ -144,9 +144,9 @@ The transfer supplies proofs in `Transfer.ethSignatureProofs`.
 Ask your agent: "Add a mint approval to collection 1 that requires a one-time signature from the agent key 0x3e3adf18d0b45a3639a6cf6188b813507e958440 for every mint." The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
-### Message format
+### Message Format
 
 The signer signs this exact string, values joined with literal `-`:
 
@@ -179,11 +179,11 @@ A challenge is satisfied by the first proof that passes all four. All challenges
 
 ### Tracker
 
-Used signatures are stored under a key built from collection ID, approver address, approval level, approval ID, `challengeTrackerId`, and the signature. The value is a use count that only increases. Read it with [GetEthSignatureTracker](../queries/get-eth-signature-tracker.md).
+Used signatures are stored under a key built from collection ID, approver address, approval level, approval ID, `challengeTrackerId`, and the signature. The value is a use count that only increases. Read it with [GetETHSignatureTracker](../queries/get-eth-signature-tracker.md).
 
 Changing `challengeTrackerId` starts a new tracker, so old signatures become valid again for the new tracker ID. Rotate IDs only when that is the intent.
 
-### Multiple signers
+### Multiple Signers
 
 Each challenge names one signer. Require several by listing several challenges:
 
@@ -215,7 +215,7 @@ Each challenge names one signer. Require several by listing several challenges:
 | Missing proof | No proof in the transfer satisfies the challenge |
 | Context mismatch | The signature was made for a different initiator, collection, approver, level, or approval |
 
-### Compared to Merkle challenges
+### Compared to Merkle Challenges
 
 Both verify an off-chain authorization on-chain. A [Merkle challenge](merkle-challenges.md) also proves the signed value was committed in a tree in advance; an ETH signature challenge only checks that the signer signed and that the signature is unused. Use ETH signatures when a live signer can authorize each transfer; use Merkle trees when the set of valid claims is fixed up front.
 
@@ -223,6 +223,6 @@ Approvals with ETH signature challenges are not auto-scannable. Transfers must [
 
 ## Related
 
-- [Merkle challenges](merkle-challenges.md)
-- [GetEthSignatureTracker](../queries/get-eth-signature-tracker.md)
+- [Merkle Challenges](merkle-challenges.md)
+- [GetETHSignatureTracker](../queries/get-eth-signature-tracker.md)
 - [MsgTransferTokens](../messages/msg-transfer-tokens.md)

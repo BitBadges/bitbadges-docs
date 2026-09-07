@@ -76,11 +76,11 @@ The response is empty.
 ## Behavior
 
 - Lists are permanent. There is no update or delete message.
-- `listId` rules: not empty; not a reserved ID (`Mint`, `Manager`, `AllWithoutMint`, `None`); not a valid address; no `:` or `!`; only `a-z`, `A-Z`, `0-9`. Reserved IDs and the inversion prefix `!` are explained in [Address lists](../concepts/address-lists.md).
+- `listId` rules: not empty; not a reserved ID (`Mint`, `Manager`, `AllWithoutMint`, `None`); not a valid address; no `:` or `!`; only `a-z`, `A-Z`, `0-9`. Reserved IDs and the inversion prefix `!` are explained in [Address Lists](../concepts/address-lists.md).
 - Fails with `ErrAddressListAlreadyExists` if the ID is taken or reserved, `ErrInvalidAddressListId` for a bad ID, `ErrDuplicateAddresses` for repeated addresses, and `ErrInvalidURI` for a bad URI.
 - Any approval or permission can reference the list by ID, or by `!listId` for its inverse.
 
 ## Related
 
-- [Address lists](../concepts/address-lists.md)
+- [Address Lists](../concepts/address-lists.md)
 - [GetAddressList](../queries/get-address-list.md)

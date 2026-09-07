@@ -2,7 +2,7 @@
 description: "dynamicStoreChallenges: require the initiator, sender, recipient, or a fixed address to be true in an address-to-bool store with a global kill switch."
 ---
 
-# Dynamic store challenges
+# Dynamic Store Challenges
 
 A dynamic store is an on-chain map from address to boolean that its creator maintains. A dynamic store challenge requires a party of the transfer to be `true` in that store. It is the cheapest way to gate transfers on state that another account, contract, or off-chain system controls.
 
@@ -149,7 +149,7 @@ message DynamicStore {
 Ask your agent: "Create a dynamic store owned by alice that defaults to false, then add an approval to collection 1 so only addresses set to true in that store can initiate transfers." The MCP builder tools (`build_dynamic_store, add_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
 For each challenge:
 
@@ -161,7 +161,7 @@ For each challenge:
 
 All challenges on the approval must pass. The check is read-only; transfers never modify a store.
 
-### Kill switch
+### Kill Switch
 
 `globalEnabled: false` halts every approval that depends on the store in one transaction, whatever the per-address values. Use it as an emergency stop, for example when an integrated protocol is compromised. Both blocks are complete `MsgUpdateDynamicStore` values: the first halts, the second resumes.
 
@@ -187,7 +187,7 @@ All challenges on the approval must pass. The check is read-only; transfers neve
 }
 ```
 
-### Managing stores
+### Managing Stores
 
 | Action | Message or query |
 | --- | --- |
@@ -202,10 +202,10 @@ Only the creator can update or delete a store or set its values. A contract or a
 
 ### Alternatives
 
-Off-chain authorization with no per-address writes: [Merkle challenges](merkle-challenges.md) or [ETH signature challenges](eth-signature-challenges.md). Token-based gating: [token ownership](token-ownership.md).
+Off-chain authorization with no per-address writes: [Merkle Challenges](merkle-challenges.md) or [ETH Signature Challenges](eth-signature-challenges.md). Token-based gating: [Token Ownership](token-ownership.md).
 
 ## Related
 
-- [Token ownership](token-ownership.md)
-- [EVM query challenges](evm-query-challenges.md)
+- [Token Ownership](token-ownership.md)
+- [EVM Query Challenges](evm-query-challenges.md)
 - [MsgCreateDynamicStore](../messages/msg-create-dynamic-store.md)

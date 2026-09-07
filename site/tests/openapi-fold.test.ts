@@ -222,7 +222,7 @@ describe('fold guard — every api/*.md page on disk is folded', () => {
     const source = JSON.parse(await fs.readFile(path.resolve(process.cwd(), 'openapi/openapi.json'), 'utf8'));
     const { spec, report } = foldApiDocs(source, pages);
     expect(report.tags).toEqual(['Claims', 'Sign In with BitBadges']);
-    expect(spec.info.description).toContain('# Pagination and views');
+    expect(spec.info.description).toContain('# Pagination and Views');
     expect(spec.info.description).not.toContain('](README.md)');
     expect(spec.info.description).not.toContain('also part of the');
     expect(spec.info.description).not.toContain('{%');

@@ -83,5 +83,5 @@ function appendSelfInitiatedIncomingApproval(
 ## Related
 
 - [Transferability](../../token-standard/concepts/transferability.md)
-- [Approval criteria](../../token-standard/approval-criteria/README.md)
-- [User approval settings](../../token-standard/approval-criteria/user-approval-settings.md)
+- [Approval Criteria](../../token-standard/approval-criteria/README.md)
+- [User Approval Settings](../../token-standard/approval-criteria/user-approval-settings.md)

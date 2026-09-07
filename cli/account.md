@@ -41,7 +41,7 @@ Every read verb accepts the [network flags](README.md#network-flags), `--condens
 Ask your agent. The MCP tools `convert_address`, `validate_address`, `query_balance`, and `lookup_token_info` cover the same ground: "Convert 0x0bc63cfe31d5218eb414b142c799e20964a54a1a to a bb1 address and tell me what it holds in collection 1."
 {% endhint %}
 
-## Read verbs
+## Read Verbs
 
 | Verb | Wraps | Purpose |
 | --- | --- | --- |
@@ -67,7 +67,7 @@ Ask your agent. The MCP tools `convert_address`, `validate_address`, `query_bala
 | `--price-min <n>`, `--price-max <n>`, `--denom <symbol\|denom>`, `--sort <price-asc\|price-desc>` | `approvals` | Price filter and sort |
 | `--include <list>`, `--exclude <list>` | `all`, `me` | Subset of `account`, `tokens`, `balances`, `assets`, `activity`, `approvals` |
 
-## Address utilities
+## Address Utilities
 
 ```bash
 bb account convert 0x0bc63cfe31d5218eb414b142c799e20964a54a1a --to bb1
@@ -110,7 +110,7 @@ bb account gen-list-id bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d bb1py4mfpg6uf59
 | `convert <address> [--to bb1\|0x]` | Convert between encodings. Default target is the opposite of the input. `bb1` and `0x` are the same key in two encodings. |
 | `validate <address>` | Check validity and detect the chain |
 | `lookup [symbol]` | Token info from the coins registry. Omit the symbol to list all. |
-| `gen-list-id <addresses...> [--blacklist]` | Deterministic reserved address list ID for an ad-hoc allowlist or blocklist, without registering it on chain. See [Address lists](../token-standard/concepts/address-lists.md). |
+| `gen-list-id <addresses...> [--blacklist]` | Deterministic reserved address list ID for an ad-hoc allowlist or blocklist, without registering it on chain. See [Address Lists](../token-standard/concepts/address-lists.md). |
 
 ### alias
 
@@ -138,7 +138,7 @@ bb account alias for-mint-escrow 42
 | `for-wrapper <denom>` | Wrapper path address for a Cosmos coin wrapper |
 | `for-mint-escrow <collectionId>` | Mint escrow address of a collection (where quest reward funds go) |
 
-These are protocol-controlled addresses with auto-set approvals. Do not write to them directly; use the matching flow. See [Alias denoms](../token-standard/ibc/alias-denoms.md) and [Backed minting](../token-standard/ibc/backed-minting.md).
+These are protocol-controlled addresses with auto-set approvals. Do not write to them directly; use the matching flow. See [Alias Denoms](../token-standard/ibc/alias-denoms.md) and [Backed Minting](../token-standard/ibc/backed-minting.md).
 
 ## url
 
@@ -221,6 +221,6 @@ Derives the base64 compressed secp256k1 public key for a `bb1` address (or a `0x
 ## Related
 
 - [Accounts](../token-standard/concepts/accounts.md)
-- [Address conversions](../sdk/snippets/address-conversions.md)
+- [Address Conversions](../sdk/snippets/address-conversions.md)
 - [Auth](auth.md)
 - [Swap](swap.md)

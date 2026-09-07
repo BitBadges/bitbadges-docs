@@ -6,7 +6,7 @@ description: "How SDK types are exported (classes, interfaces, typed arrays, pro
 
 Every SDK type is generic over a number type and ships as both a class and an interface. Read this before you pass values between the API, the SDK helpers, and your own code.
 
-## NumberType and the converters
+## NumberType and the Converters
 
 ```ts
 import { BigIntify, Numberify, Stringify, NumberifyIfPossible, TokenMetadata, type NumberType } from 'bitbadges';
@@ -78,7 +78,7 @@ export interface iBalance<T extends NumberType> {
 
 Each class has a matching interface with an `i` prefix: the same fields, no methods. Most SDK functions accept either. Class constructors accept the interface, so `new Balance(plainObject)` is the conversion in one direction and `.toJson()` is the other. Prefer classes when you call helper methods; interfaces are fine for plain data.
 
-## Typed arrays
+## Typed Arrays
 
 ```ts
 import { BalanceArray } from 'bitbadges';
@@ -89,9 +89,9 @@ balances.addBalances([{ amount: 1n, tokenIds: [{ start: 1n, end: 2n }], ownershi
 const first = balances.find((b) => b.amount === 3n);
 ```
 
-`BalanceArray` and `UintRangeArray` extend the native array. `find`, `map`, and `filter` work as usual, and each adds domain methods (`addBalances`, `sortAndMerge`, `search`, and more). Build one with `.From(...)` or `new` plus `push`. See [Balances](snippets/balances.md) and [Uint ranges](snippets/uint-ranges.md).
+`BalanceArray` and `UintRangeArray` extend the native array. `find`, `map`, and `filter` work as usual, and each adds domain methods (`addBalances`, `sortAndMerge`, `search`, and more). Build one with `.From(...)` or `new` plus `push`. See [Balances](snippets/balances.md) and [Uint Ranges](snippets/uint-ranges.md).
 
-## Proto types
+## Proto Types
 
 ```ts
 import { proto } from 'bitbadges';

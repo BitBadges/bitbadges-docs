@@ -17,7 +17,7 @@ return baseGas + 50_000
 
 The base is deducted before the precompile runs. The keeper's own work (state reads and writes, approval checks, events) then draws from the remaining gas of the call. The buffer exists so `eth_estimateGas` converges on a value that works.
 
-## Transaction methods
+## Transaction Methods
 
 | Method | Base gas | Charged up front |
 | --- | --- | --- |
@@ -58,7 +58,7 @@ charged = base + 200,000
 
 The per-chunk term prices JSON parsing by input size, so a large batch cannot be under-charged. Each message's own keeper work still draws from the remaining gas.
 
-## Query methods
+## Query Methods
 
 | Method | Base gas | Charged up front |
 | --- | --- | --- |
@@ -80,7 +80,7 @@ The per-chunk term prices JSON parsing by input size, so a large batch cannot be
 | `isAddressReservedProtocol` | 2,000 | 52,000 |
 | `params` | 2,000 | 52,000 |
 
-## Utility methods
+## Utility Methods
 
 Pure functions, no state access. They still receive the `+50,000` query buffer in `RequiredGas`.
 
@@ -94,7 +94,7 @@ Pure functions, no state access. They still receive the `+50,000` query buffer i
 | `getBalanceForIdAndTime` | 500 | + 100 per 32-byte input chunk |
 | `getReservedListId` | 300 | |
 
-## Per-element constants
+## Per-Element Constants
 
 `gas.go` defines calculators for size-proportional estimates. `RequiredGas` does not add these on top of the base today; the module's own gas metering covers the real per-element work. They are useful for off-chain estimation and may be applied in a future version.
 
@@ -116,7 +116,7 @@ gas += len(tokenIdsRanges) * GasPerTokenIdRange
 gas += len(ownershipTimesRanges) * GasPerOwnershipTimeRange
 ```
 
-## Limits that affect gas
+## Limits That Affect Gas
 
 | Limit | Value |
 | --- | --- |
@@ -126,17 +126,17 @@ gas += len(ownershipTimesRanges) * GasPerOwnershipTimeRange
 
 Full list on [Security](security.md).
 
-## Spending less
+## Spending Less
 
 - Fewer recipients per transfer; merge adjacent token ID and ownership time ranges.
 - Use `getBalanceAmount` and `getTotalSupply` (direct `uint256`) instead of `getBalance` when you only need an amount.
 - Batch with `executeMultiple` instead of separate transactions; one buffer instead of N.
 - Use `rangeContains` and `searchInRanges` instead of hand-written range loops in Solidity.
 - Cache JSON strings you reuse across calls.
-- Simple operations are cheaper as native Cosmos messages than through the EVM. See [Developer guide](../developer-guide.md).
+- Simple operations are cheaper as native Cosmos messages than through the EVM. See [Developer Guide](../developer-guide.md).
 
 ## Related
 
 - [API reference](api.md)
 - [Security](security.md)
-- [GAMM precompile API](../gamm-precompile/api.md#gas)
+- [GAMM Precompile API](../gamm-precompile/api.md#gas)

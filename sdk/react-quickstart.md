@@ -2,7 +2,7 @@
 description: "Wire BitBadges into a React or Next.js app in four steps, install, connect a wallet, query a collection, sign and broadcast."
 ---
 
-# React quickstart
+# React Quickstart
 
 At the end you have a Next.js page that connects Keplr or MetaMask, shows a collection name, and sends a token transfer on mainnet.
 
@@ -16,7 +16,7 @@ npm install bitbadges ethers
 
 `ethers` is only needed for MetaMask or other EVM wallets. Keplr-only apps can skip it.
 
-## 2. Connect a Cosmos wallet (Keplr)
+## 2. Connect a Cosmos Wallet (Keplr)
 
 ```tsx
 // app/components/ConnectKeplr.tsx
@@ -50,7 +50,7 @@ export function ConnectKeplr({ onConnect }: { onConnect: (a: WalletAdapter) => v
 
 `fromKeplr` throws when the extension is missing. Detect it with `typeof window !== 'undefined' && (window as any).keplr` and send the user to [keplr.app](https://www.keplr.app/). `GenericCosmosAdapter.fromLeap` and `fromCosmostation` work the same way.
 
-## 3. Connect an EVM wallet (MetaMask)
+## 3. Connect an EVM Wallet (MetaMask)
 
 ```tsx
 // app/components/ConnectMetaMask.tsx
@@ -74,9 +74,9 @@ export function ConnectMetaMask({ onConnect }: { onConnect: (a: WalletAdapter) =
 }
 ```
 
-The same user gets a different address from each adapter (Cosmos derivation vs Ethereum derivation). Pick one path per app and fund that address. Details are in [Signing client](transactions/signing-client.md).
+The same user gets a different address from each adapter (Cosmos derivation vs Ethereum derivation). Pick one path per app and fund that address. Details are in [Signing Client](transactions/signing-client.md).
 
-## 4. Query a collection
+## 4. Query a Collection
 
 ```tsx
 // app/components/CollectionInfo.tsx
@@ -107,7 +107,7 @@ export function CollectionInfo({ collectionId }: { collectionId: string }) {
 
 `BitBadgesAPI` needs no wallet. `NEXT_PUBLIC_*` variables reach the browser, so only expose a read-only key there. Keep keys with write scopes on your server and call your own route from the client.
 
-## 5. Sign and broadcast
+## 5. Sign and Broadcast
 
 ```tsx
 // app/components/TransferButton.tsx
@@ -154,9 +154,9 @@ export function TransferButton({ adapter }: { adapter: WalletAdapter }) {
 }
 ```
 
-The client estimates gas, tracks the sequence, and retries on mismatch. It routes through EVM precompiles when the adapter is an EVM adapter. If you only need wallet identity and not transactions, use [Sign in with BitBadges](../api/sign-in/README.md) instead.
+The client estimates gas, tracks the sequence, and retries on mismatch. It routes through EVM precompiles when the adapter is an EVM adapter. If you only need wallet identity and not transactions, use [Sign In with BitBadges](../api/sign-in/README.md) instead.
 
-## 6. Put it together
+## 6. Put It Together
 
 ```tsx
 // app/page.tsx
@@ -183,8 +183,8 @@ export default function Home() {
 
 The [bitbadges-frontend](https://github.com/BitBadges/bitbadges-frontend) repo is a production Next.js app built on these primitives. Read it for wallet state in React context, network switching, and transaction UX (approve, reject, pending).
 
-## Next steps
+## Next Steps
 
-- [Signing client](transactions/signing-client.md): every option, network preset, and error path
+- [Signing Client](transactions/signing-client.md): every option, network preset, and error path
 - [Snippets](snippets/README.md): balance lookups, metadata, transfers with increments, approval inspection
 - [Types](types.md): `NumberType`, `BigIntify` and `Stringify`, the balance array

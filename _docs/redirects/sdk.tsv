@@ -24,3 +24,5 @@
 /for-developers/bitbadges-blockchain/create-and-broadcast-txs/broadcast-to-a-node	/sdk/transactions/broadcast
 /for-developers/bitbadges-blockchain/create-and-broadcast-txs/sign-+-broadcast-bitbadges.io	/sdk/transactions/broadcast
 /for-developers/create-and-broadcast-txs/cosmos-sdk-msgs/msgcreateaddressmappings	/token-standard/messages/msg-create-address-lists
+# Legacy target referenced from the OpenAPI descriptions.
+/for-developers/create-and-broadcast-txs	/sdk/transactions

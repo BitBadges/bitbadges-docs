@@ -12,7 +12,7 @@ Solidity contract -> precompile (Go) -> Cosmos SDK module keeper -> chain state
 
 A precompile is a fixed contract address that runs native Go instead of EVM bytecode. Calling it gives a contract direct access to a Cosmos SDK module, with type conversion, validation, and error handling done on the Go side.
 
-## The three BitBadges precompiles
+## The Three BitBadges Precompiles
 
 | Precompile | Address | Module | Use it for |
 | --- | --- | --- | --- |
@@ -22,23 +22,23 @@ A precompile is a fixed contract address that runs native Go instead of EVM byte
 
 All three take one `string calldata msgJson` argument per method. The JSON matches the protobuf JSON of the underlying Cosmos message. The caller (`msg.sender`) is set as the `creator` or `sender` on the Go side and cannot be spoofed. Addresses are the same on both sides: a `0x` address and its `bb1` bech32 form are the same 20 bytes.
 
-The chain also ships the upstream [Cosmos SDK precompiles](cosmos-precompiles.md) (staking, distribution, bank, governance, IBC, bech32, P256) at `0x0000000000000000000000000000000000000100` through `0x0000000000000000000000000000000000000807`.
+The chain also ships the upstream [Cosmos SDK Precompiles](cosmos-precompiles.md) (staking, distribution, bank, governance, IBC, bech32, P256) at `0x0000000000000000000000000000000000000100` through `0x0000000000000000000000000000000000000807`.
 
 ## Pages
 
 | Page | Read it when |
 | --- | --- |
-| [Solidity quickstart](solidity-quickstart.md) | You want a working contract in five minutes. Constants, addresses, patterns, errors. |
+| [Solidity Quickstart](solidity-quickstart.md) | You want a working contract in five minutes. Constants, addresses, patterns, errors. |
 | [Setup](setup.md) | You need chain IDs, RPC ports, MetaMask, a deploy script, and a frontend hook. |
-| [Developer guide](developer-guide.md) | You need the rules: who can sign what, address conversion, `msg.sender` in precompiles, 9 vs 18 decimals. |
+| [Developer Guide](developer-guide.md) | You need the rules: who can sign what, address conversion, `msg.sender` in precompiles, 9 vs 18 decimals. |
 | [Architecture](architecture.md) | You want the call path and the Go package layout. |
-| [Tokenization precompile](tokenization-precompile/README.md) | Overview, then [API](tokenization-precompile/api.md), [gas](tokenization-precompile/gas.md), [errors](tokenization-precompile/errors.md), [security](tokenization-precompile/security.md). |
-| [GAMM precompile](gamm-precompile/README.md) | Overview, then [API](gamm-precompile/api.md) and [gotchas](gamm-precompile/gotchas.md). |
-| [Send manager precompile](send-manager-precompile.md) | The `send` method. |
-| [Cosmos SDK precompiles](cosmos-precompiles.md) | Staking, distribution, governance, IBC, bank, bech32, P256, slashing, ICS02. |
-| [EVM RPC endpoints](rpc-endpoints.md) | Public JSON-RPC URLs, Hardhat and Foundry config, running your own JSON-RPC node. |
+| [Tokenization Precompile](tokenization-precompile/README.md) | Overview, then [API](tokenization-precompile/api.md), [Gas](tokenization-precompile/gas.md), [Errors](tokenization-precompile/errors.md), [Security](tokenization-precompile/security.md). |
+| [GAMM Precompile](gamm-precompile/README.md) | Overview, then [API](gamm-precompile/api.md) and [gotchas](gamm-precompile/gotchas.md). |
+| [Send Manager Precompile](send-manager-precompile.md) | The `send` method. |
+| [Cosmos SDK Precompiles](cosmos-precompiles.md) | Staking, distribution, governance, IBC, bank, bech32, P256, slashing, ICS02. |
+| [EVM RPC Endpoints](rpc-endpoints.md) | Public JSON-RPC URLs, Hardhat and Foundry config, running your own JSON-RPC node. |
 
-## Minimal example
+## Minimal Example
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -64,7 +64,7 @@ The Solidity interfaces, helper libraries, and example contracts live in the cha
 
 ## Related
 
-- [Token standard](../../token-standard/README.md)
+- [Token Standard](../../token-standard/README.md)
 - [Network endpoints](../README.md)
-- [EVM query challenges](../../token-standard/approval-criteria/evm-query-challenges.md)
+- [EVM Query Challenges](../../token-standard/approval-criteria/evm-query-challenges.md)
 - [Cosmos EVM documentation](https://docs.cosmos.network/evm/v0.5.0/documentation/overview)

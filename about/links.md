@@ -2,7 +2,7 @@
 description: "Official BitBadges links: app, explorer, install, packages, API reference, socials, integrations, brand assets, and how to contribute."
 ---
 
-# Links and resources
+# Links and Resources
 
 Official links for the app, the code, the community, and the brand. Discord is the preferred contact. See the rest of the docs for specific subjects.
 
@@ -29,11 +29,11 @@ bun add bitbadges        # or with bun
 npm install -g bitbadges # SDK CLI and MCP builder tools globally
 ```
 
-## Documentation and reference
+## Documentation and Reference
 
 - [API reference](/api-reference): the interactive reference for every BitBadges API route.
 - [SDK](../sdk/README.md) and [BitBadges API](../api/README.md).
-- [Reading the docs](../agents/reading-the-docs.md): `llms.txt`, `for-llms.txt` (the full docs as one text file), and `bb dev docs`.
+- [Reading the Docs](../agents/reading-the-docs.md): `llms.txt`, `for-llms.txt` (the full docs as one text file), and `bb dev docs`.
 - [Proto definitions](https://github.com/BitBadges/bitbadgeschain/tree/master/proto)
 
 ## Socials
@@ -48,7 +48,7 @@ npm install -g bitbadges # SDK CLI and MCP builder tools globally
 
 - [Zapier](https://zapier.com/apps/bitbadges/integrations)
 
-## Brand guidelines
+## Brand Guidelines
 
 Use the BitBadges name and logo on your site as you see fit. Ask on Discord for other logos, images, or information, or with any question about usage.
 

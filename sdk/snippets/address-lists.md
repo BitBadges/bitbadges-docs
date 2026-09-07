@@ -2,7 +2,7 @@
 description: "Build and query AddressList objects in the bitbadges SDK, membership checks, inversion, removal, and the reserved Mint and All lists."
 ---
 
-# Address lists
+# Address Lists
 
 `AddressList` is a whitelist or blacklist of addresses with an ID. It is the base type behind every `fromList`, `toList`, and `initiatedByList` in approvals, and `BitBadgesAddressList` from the API extends it.
 

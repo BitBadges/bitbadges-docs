@@ -130,7 +130,7 @@ async function myHandler(req: NextApiRequest, res: NextApiResponse) {
 
 `address` is the address the user signed in with (an `0x` address for an Ethereum wallet). `bitbadgesAddress` is its `bb1` form; use it as the unique identifier so the same user cannot sign in twice through the two forms. Each code can be exchanged once. BitBadges enforces this.
 
-## Access tokens
+## Access Tokens
 
 Send the access token as `Authorization: Bearer <token>` on authenticated routes. The SDK sets and clears the header for you:
 
@@ -141,7 +141,7 @@ BitBadgesApi.unsetAccessToken();
 
 Access tokens expire after 1 day. Refresh tokens expire after 60 days. Both become invalid when the user revokes access.
 
-### Health check
+### Health Check
 
 ```ts
 // POST /api/v0/auth/status
@@ -193,7 +193,7 @@ Revoke when you are done with a token. Users can also revoke from **Connections*
 
 Sessions are your call. Tokens are one option; checking IDs, stamping hands, and claim numbers are others.
 
-## What is verified natively
+## What Is Verified Natively
 
 Checked by BitBadges:
 
@@ -207,7 +207,7 @@ Not checked by BitBadges:
 - App-specific criteria (claims, ownership requirements, attestations). Adding `claimId` to the URL does not verify the claim. Check it server-side.
 - Flash ownership, replay, or man-in-the-middle beyond what OAuth 2.0 itself protects against.
 
-## Security considerations
+## Security Considerations
 
 The flow is OAuth 2.0 compatible. Follow the OAuth 2.0 specification and its security guidance for the protocol itself.
 

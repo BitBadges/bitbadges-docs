@@ -2,7 +2,7 @@
 description: "Dynamic stores are BitBadges-hosted address lists you update by API, UI, or Zapier and attach to claims through the whitelist plugin."
 ---
 
-# Dynamic stores
+# Dynamic Stores
 
 A dynamic store is an address list that BitBadges hosts for you. You add and remove addresses from anywhere that can send an HTTP request (a backend, a cron job, an agent, a Zapier zap), then attach the store to one or more claims. Eligibility management is decoupled from claim configuration.
 
@@ -62,7 +62,7 @@ Attach it to a claim with the `whitelist` plugin:
 }
 ```
 
-## How it works
+## How It Works
 
 1. Create a store in the [developer portal](https://bitbadges.io/developer). You receive a store ID (`dynamicDataId`) and a store secret (`dataSecret`).
 2. Add or remove addresses whenever your eligibility changes.
@@ -94,7 +94,7 @@ interface iPerformStoreActionBatchWithBodyAuthPayload {
 
 The developer portal shows the exact route and body for your store if you want to send the request without the SDK.
 
-## Data model
+## Data Model
 
 ```ts
 interface iDynamicDataDoc {
@@ -141,7 +141,7 @@ Only addresses are supported as identifiers. Emails, usernames, and platform IDs
 
 Keep the secret on your backend.
 
-## Ways to update a store
+## Ways to Update a Store
 
 **UI.** Manage entries directly in the developer portal: add, remove, and view addresses.
 
@@ -151,7 +151,7 @@ Keep the secret on your backend.
 
 Zapier can also do the criteria check. Example: a Google Form collects an email, a zap triggers on each response, a Mailchimp step checks the subscriber, and the zap adds the user to the store on success. Point in-site claimers at the form with the `url-clicker` or `custom-instructions` plugin, or from the claim description.
 
-## Integration patterns
+## Integration Patterns
 
 ```ts
 // Backend webhook: a purchase makes the buyer eligible
@@ -200,12 +200,12 @@ Why this shape works: the store is reusable across claims, updates apply in real
 - Only addresses are supported.
 - Queue processing adds a 1 to 2 second delay.
 
-## On-chain dynamic stores
+## On-Chain Dynamic Stores
 
-The chain has its own dynamic stores: boolean address-value stores managed by transactions and checked by approval criteria through `DynamicStoreChallenge`. They are separate from the off-chain stores on this page. See [Dynamic store challenges](../../token-standard/approval-criteria/dynamic-store-challenges.md) and [MsgCreateDynamicStore](../../token-standard/messages/msg-create-dynamic-store.md).
+The chain has its own dynamic stores: boolean address-value stores managed by transactions and checked by approval criteria through `DynamicStoreChallenge`. They are separate from the off-chain stores on this page. See [Dynamic Store Challenges](../../token-standard/approval-criteria/dynamic-store-challenges.md) and [MsgCreateDynamicStore](../../token-standard/messages/msg-create-dynamic-store.md).
 
 ## Related
 
 - [Plugins](plugins.md)
 - [Claims](README.md)
-- [Distribute with claims](../../guides/distribute-with-claims.md)
+- [Distribute with Claims](../../guides/distribute-with-claims.md)

@@ -56,4 +56,4 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_collecti
 
 - [GetCollection](get-collection.md)
 - [GetBalance](get-balance.md)
-- [Minting and supply](../concepts/minting-and-supply.md)
+- [Minting and Supply](../concepts/minting-and-supply.md)

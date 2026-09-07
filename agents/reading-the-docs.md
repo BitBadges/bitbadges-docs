@@ -2,7 +2,7 @@
 description: "How an agent reads these docs. llms.txt, the full-text dump, bb dev docs, the fetch_docs MCP tool, and the URL patterns of this site."
 ---
 
-# Reading the docs
+# Reading the Docs
 
 Agents can read this site four ways: two static files, one CLI command, and one MCP tool. Pick the one your harness already has.
 
@@ -25,7 +25,7 @@ bb dev skills
 bb dev skills smart-token
 ```
 
-## Static files
+## Static Files
 
 | File | Size | Use it for |
 | --- | --- | --- |
@@ -36,11 +36,11 @@ bb dev skills smart-token
 
 `bb dev docs [section]` browses the same content offline after the first fetch. Sections nest with slashes (`docs learn/approval-criteria/merkle-challenges`). A single word with no exact match does partial matching. Reference: [Dev commands](../cli/dev.md).
 
-## MCP tool
+## MCP Tool
 
-`fetch_docs({ topic })` runs a keyword search over the live docs export and returns the top matching sections. `search_knowledge_base({ query, category })` searches the embedded docs, learnings, recipes, error patterns, and critical rules that ship inside the builder. Both are listed on [MCP builder tools](mcp-tools.md#instructions-and-docs).
+`fetch_docs({ topic })` runs a keyword search over the live docs export and returns the top matching sections. `search_knowledge_base({ query, category })` searches the embedded docs, learnings, recipes, error patterns, and critical rules that ship inside the builder. Both are listed on [MCP Builder Tools](mcp-tools.md#instructions-and-docs).
 
-## URL patterns
+## URL Patterns
 
 Pages follow predictable paths, so an agent can guess a URL without an index.
 

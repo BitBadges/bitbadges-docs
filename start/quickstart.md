@@ -55,7 +55,7 @@ bb version   # chain binary
 bb doctor    # SDK CLI health and API connectivity
 ```
 
-## 2. Set an API key
+## 2. Set an API Key
 
 Get a key from the [developer portal](https://bitbadges.io/developer), then:
 
@@ -65,7 +65,7 @@ bb settings set apiKey "$BITBADGES_API_KEY"   # key from https://bitbadges.io/de
 
 `BITBADGES_API_KEY` in the environment also works. Config lives in `~/.bitbadges/config.json`. See [CLI](../cli/README.md) for every settings key, environment variable, and the resolution order.
 
-## 3. First query
+## 3. First Query
 
 ```bash
 bb api tokens get-collection 1
@@ -73,7 +73,7 @@ bb api tokens get-collection 1
 
 `bb api` exposes every BitBadges API route as `bb api <group> <route>`. `bb api --help` lists the groups. `bb dev docs` prints these docs in the terminal.
 
-## 4. First transaction
+## 4. First Transaction
 
 Build a message, then hand it to your browser wallet to sign. The agent or script builds; a person signs.
 
@@ -94,7 +94,7 @@ bb deploy tx.json --browser
 
 For a BitBadges token transfer instead of a bank send, use `bb build transfer --collection-id 1 --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --token-ids 1 --amount 1`. Builders exist for vaults, subscriptions, bounties, auctions, smart tokens, listings, and more. See [Build](../cli/build.md) and [Deploy](../cli/deploy.md).
 
-## TypeScript path
+## TypeScript Path
 
 ```bash
 npm install bitbadges
@@ -159,11 +159,11 @@ else console.error('Failed:', result.error);
 
 In the browser, replace step 1 with a wallet adapter: `GenericCosmosAdapter.fromKeplr('bitbadges-1')` for Keplr, or `GenericEvmAdapter.fromBrowserWallet({ expectedChainId: NETWORK_CONFIGS['mainnet'].evmChainId })` for MetaMask and other EVM wallets. The same user gets a different address on each path, so pick one per app. The [React and Next.js quickstart](../sdk/react-quickstart.md) walks through install, connect, query, and sign in under 10 minutes.
 
-## No-code path
+## No-Code Path
 
 The [Create tab](https://bitbadges.io/create) and the [developer portal](https://bitbadges.io/developer) create tokens, claims, and address lists with no integration. Most setup and management happens there. Explore the claim tester and the creation forms first; the interface answers many questions faster than prose.
 
-## AI agent path
+## AI Agent Path
 
 Bring your own AI. Use Claude Code, Cursor, Codex, or any MCP client you already have. Install the CLI as in step 1, then add the MCP builder tools or the Claude Code plugin. The CLI is the base layer; the rest are conveniences on top of it. Full setup per client: [Agent setup](../agents/setup.md).
 
@@ -223,7 +223,7 @@ Testnet (`bitbadges-2`, EVM 50025) is offline. The SDK throws on `network: 'test
 
 Get BADGE for fees on Discord. Developers can ask for subsidized credits during chaosnet.
 
-## Resources for AI-assisted development
+## Resources for AI-Assisted Development
 
 | Resource | Link |
 | --- | --- |
@@ -231,12 +231,12 @@ Get BADGE for fees on Discord. Developers can ask for subsidized credits during 
 | AI quickstarter repo | [github.com/BitBadges/bitbadges-quickstarter-ai](https://github.com/BitBadges/bitbadges-quickstarter-ai) |
 | API reference | [/api-reference](/api-reference) |
 | Proto definitions | [Proto reference](../chain/proto/README.md) |
-| Docs as text | [Reading the docs](../agents/reading-the-docs.md) (`llms.txt`, `for-llms.txt`, `bb dev docs`) |
+| Docs as text | [Reading the Docs](../agents/reading-the-docs.md) (`llms.txt`, `for-llms.txt`, `bb dev docs`) |
 | SDK type reference | [SDK reference](../sdk/reference/README.md) |
 
-## Next steps
+## Next Steps
 
-- [Create a collection](../guides/create-a-collection.md)
+- [Create a Collection](../guides/create-a-collection.md)
 - [Token Standard concepts](../token-standard/concepts/README.md)
 - [BitBadges API](../api/README.md)
 - [CLI](../cli/README.md)

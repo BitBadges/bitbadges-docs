@@ -40,7 +40,7 @@ Ask your agent. With the [MCP builder tools](../agents/setup.md) wired, the quer
 
 The API is a hosted service with keys and credits. Base URL, credits, limits, and pagination are documented under [BitBadges API](../api/README.md). The full route list is at [API reference](../api-reference).
 
-## Sign and broadcast
+## Sign and Broadcast
 
 ```ts
 import { BitBadgesSigningClient, GenericCosmosAdapter, MsgTransferTokens } from 'bitbadges';
@@ -73,7 +73,7 @@ console.log(result.success, result.txHash);
 
 `BitBadgesSigningClient` fetches the account, simulates for gas, signs with a wallet adapter, broadcasts, and retries on sequence mismatch. Adapters exist for Keplr, Leap, Cosmostation, MetaMask, any EIP-1193 provider, and server-side mnemonics or private keys. The full pipeline and the manual path are under [Transactions](transactions/README.md).
 
-## Convert addresses
+## Convert Addresses
 
 ```ts
 import { convertToBitBadgesAddress, convertToEthAddress } from 'bitbadges';
@@ -84,7 +84,7 @@ const eth = convertToEthAddress(bb);
 // 0x0bC63Cfe31D5218eB414b142c799e20964a54A1A
 ```
 
-## Package layout
+## Package Layout
 
 Everything is exported from the package root. The source folders map to these areas.
 
@@ -99,11 +99,11 @@ Everything is exported from the package root. The source folders map to these ar
 | Node REST | `node-rest-api/` | Typed helpers for chain LCD routes |
 | CLI and MCP | `cli/`, `builder/` | The `bb` CLI commands and the MCP builder tools. Documented under [CLI](../cli/README.md) and [Agents](../agents/README.md) |
 
-## Pages in this section
+## Pages in This Section
 
 | Page | Read it when |
 | --- | --- |
-| [React quickstart](react-quickstart.md) | You are wiring a React or Next.js app: connect a wallet, query, sign |
+| [React Quickstart](react-quickstart.md) | You are wiring a React or Next.js app: connect a wallet, query, sign |
 | [Types](types.md) | You need the class vs interface rules, `NumberType`, and the converters |
 | [Snippets](snippets/README.md) | You need a working example for balances, ranges, transfers, lists, metadata, approvals, or interpreters |
 | [Transactions](transactions/README.md) | You build, sign, and broadcast transactions, with the signing client or by hand |

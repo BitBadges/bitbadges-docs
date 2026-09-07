@@ -85,7 +85,7 @@ The response is empty.
 
 ## Related
 
-- [Voting challenges](../approval-criteria/voting-challenges.md)
+- [Voting Challenges](../approval-criteria/voting-challenges.md)
 - [GetVote](../queries/get-vote.md)
 - [GetVotes](../queries/get-votes.md)
 - [MsgTransferTokens](msg-transfer-tokens.md)

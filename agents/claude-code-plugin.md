@@ -2,7 +2,7 @@
 description: "Install and use the BitBadges Claude Code plugin. It wires the MCP builder tools and adds 8 workflow skills, two slash commands, and a builder subagent."
 ---
 
-# Claude Code plugin
+# Claude Code Plugin
 
 The Claude Code plugin is a convenience layer on top of the chain binary and CLI for Claude Code users. It registers the `bitbadges-builder` MCP server and ships 8 skills that teach Claude how to use the CLI, the MCP tools, and the docs for common workflows.
 
@@ -25,9 +25,9 @@ The chain binary and CLI install is the entry point for everything BitBadges. It
 
 Run `/bitbadges:setup` once to confirm the wiring, and `/bitbadges:status` for a health check at any time.
 
-## What you get
+## What You Get
 
-### MCP server (auto-wired)
+### MCP Server (Auto-Wired)
 
 The plugin's `.mcp.json` registers `bitbadges-builder`, so there is no `claude mcp add` step:
 
@@ -61,7 +61,7 @@ Each skill routes Claude to the right CLI command, MCP tool, or docs page for on
 
 For deeper instructions on a specific token type, the plugin sends Claude to the SDK, CLI, or docs rather than redefining them locally.
 
-### Slash commands
+### Slash Commands
 
 | Command | What it does |
 | --- | --- |
@@ -72,15 +72,15 @@ For deeper instructions on a specific token type, the plugin sends Claude to the
 
 `bitbadges-builder` is a focused builder loop. It reaches for MCP tools first, falls back to the CLI, and only touches the chain binary for live broadcasts. Use it for isolation from the main conversation: "spawn the bitbadges-builder agent and have it build me a smart token end to end".
 
-### SessionStart pre-warm hook
+### SessionStart Pre-warm Hook
 
 On every session start the plugin pre-warms the npx cache for the `bitbadges` package, so the first MCP tool call does not pay 5-15 seconds of npm download.
 
-## API key
+## API Key
 
 The plugin reads `~/.bitbadges/config.json` if the CLI is already configured. Otherwise `/bitbadges:setup` prompts and writes the key with `bb settings set apiKey "$BITBADGES_API_KEY"`, so the CLI and the plugin share it. Get a key at [bitbadges.io/developer](https://bitbadges.io/developer).
 
-## Migrate from a manual MCP setup
+## Migrate from a Manual MCP Setup
 
 If you previously ran `claude mcp add bitbadges-builder -- npx -y -p bitbadges bitbadges-builder`, remove the user-scope entry before installing the plugin to avoid duplicate servers:
 
@@ -90,11 +90,11 @@ claude mcp remove bitbadges-builder
 
 `/bitbadges:setup` detects duplicates and offers cleanup.
 
-## When you do not need the plugin
+## When You Do Not Need the Plugin
 
 The plugin is for Claude Code only. Other harnesses get the same coverage from the MCP server and the skill docs:
 
-- Cursor, Claude Desktop, other MCP clients: set up the `bitbadges-builder` server in your client ([MCP builder tools](mcp-tools.md)). The server exposes `get_skill_instructions({ "skillId": "smart-token" })` for on-demand loading, the same path the plugin uses.
+- Cursor, Claude Desktop, other MCP clients: set up the `bitbadges-builder` server in your client ([MCP Builder Tools](mcp-tools.md)). The server exposes `get_skill_instructions({ "skillId": "smart-token" })` for on-demand loading, the same path the plugin uses.
 - Generic LLMs, shell scripts, CI: use the [CLI](../cli/README.md). For skill instructions, read the [Skills](skills/README.md) pages or run `bb dev skills smart-token`.
 - TypeScript developers: `npm install bitbadges` and use the [SDK](../sdk/README.md).
 

@@ -38,7 +38,7 @@ interface CollectionApproval<T extends bigint> {
 | `version` | Uint | set by chain | Starts at 0 and increments on every update |
 | `uri` | string | no | Metadata link |
 | `customData` | string | no | Free-form string, or inline JSON metadata (`name` + `description`) |
-| `approvalCriteria` | ApprovalCriteria | no | Extra conditions. See [Approval criteria](../approval-criteria/README.md). |
+| `approvalCriteria` | ApprovalCriteria | no | Extra conditions. See [Approval Criteria](../approval-criteria/README.md). |
 
 The first six fields answer who, when, and what. An approval matches a transfer when the sender is in `fromListId`, the recipient in `toListId`, the initiator in `initiatedByListId`, the block time in `transferTimes`, and the balance being moved falls inside `tokenIds` and `ownershipTimes`.
 
@@ -46,9 +46,9 @@ The first six fields answer who, when, and what. An approval matches a transfer 
 Ask your agent: "Make collection 1 freely transferable between all non-Mint addresses, and keep minting limited to alice." The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
 {% endhint %}
 
-## How it works
+## How It Works
 
-### Three levels
+### Three Levels
 
 | Level | Set by | `approvalLevel` | `approverAddress` | Stored on | Message | Typical use |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -58,7 +58,7 @@ Ask your agent: "Make collection 1 freely transferable between all non-Mint addr
 
 Every transfer must satisfy a collection approval. It must also satisfy the sender's outgoing approvals and the recipient's incoming approvals unless the matched collection approval overrides them.
 
-### Validation flow
+### Validation Flow
 
 For each transfer the chain checks, in order:
 
@@ -71,7 +71,7 @@ For each transfer the chain checks, in order:
 
 Approvals define what is allowed. Transfers execute when an allowed path exists and balances suffice. Permissions (`canUpdateCollectionApprovals` and the user equivalents) define whether approvals can change. See [Permissions](permissions.md).
 
-### Collection approvals
+### Collection Approvals
 
 Collection approvals apply to minting and to post-mint transfers alike. They are where the manager enforces global rules: freezing, revocation, whitelists, payments.
 
@@ -196,9 +196,9 @@ Collection approvals apply to minting and to post-mint transfers alike. They are
 
 Reads as: anyone can claim one of token IDs 1-100 from Mint between Aug 13, 2023 and Aug 13, 2024, up to 1000 claims in total.
 
-### User-level approvals
+### User-Level Approvals
 
-Outgoing and incoming approvals have the same shape minus the field that is fixed to the owner. An outgoing approval has no `fromListId` (it is the owner). An incoming approval has no `toListId`. User-level criteria cannot use overrides or the other collection-only fields listed in [Approval criteria](../approval-criteria/README.md).
+Outgoing and incoming approvals have the same shape minus the field that is fixed to the owner. An outgoing approval has no `fromListId` (it is the owner). An incoming approval has no `toListId`. User-level criteria cannot use overrides or the other collection-only fields listed in [Approval Criteria](../approval-criteria/README.md).
 
 ```ts
 interface UserBalanceStore<T extends bigint> {
@@ -418,7 +418,7 @@ An incoming approval owned by carol that accepts token ID 1 to 100 from alice (a
 }
 ```
 
-### Auto-approval flags
+### Auto-Approval Flags
 
 Three flags on the balance store approve transfers without an explicit approval. Leaving all three `true` is the usual choice.
 
@@ -557,15 +557,15 @@ A collection approval that lets alice, the manager, move any post-mint token wit
 
 Mint approvals must set `overridesFromOutgoingApprovals: true` because the Mint address has no approvals of its own. Set the `noForcefulPostMintTransfers` [invariant](../approval-criteria/invariants.md) to forbid overrides on every non-Mint approval forever. Full rules and the reserved-address protection are on [Overrides](../approval-criteria/overrides.md).
 
-### Break-down matching
+### Break-Down Matching
 
 The chain can split one transfer across several approvals. It walks the approvals in order, deducts as much as each one allows, and continues with the remainder. If anything is left over, the transfer fails and the error lists what each candidate approval rejected.
 
-Design approvals so a transfer matches one of them. Rely on splitting only when you must. [Prioritized approvals](prioritized-approvals.md) explains which approvals the scan considers and how to pin a specific one.
+Design approvals so a transfer matches one of them. Rely on splitting only when you must. [Prioritized Approvals](prioritized-approvals.md) explains which approvals the scan considers and how to pin a specific one.
 
 ## Related
 
-- [Approval criteria](../approval-criteria/README.md)
-- [Prioritized approvals](prioritized-approvals.md)
+- [Approval Criteria](../approval-criteria/README.md)
+- [Prioritized Approvals](prioritized-approvals.md)
 - [Permissions](permissions.md)
 - [MsgTransferTokens](../messages/msg-transfer-tokens.md)

@@ -2,9 +2,9 @@
 description: "Explain an unsigned MsgUniversalUpdateCollection transaction body in plain language with interpretTransaction in the bitbadges SDK."
 ---
 
-# Interpret a transaction
+# Interpret a Transaction
 
-`interpretTransaction` explains a raw `MsgUniversalUpdateCollection` body before it is signed. It is the transaction-side counterpart of [Interpret a collection](interpret-collection.md).
+`interpretTransaction` explains a raw `MsgUniversalUpdateCollection` body before it is signed. It is the transaction-side counterpart of [Interpret a Collection](interpret-collection.md).
 
 ## Example
 
@@ -51,9 +51,9 @@ Returns one markdown string.
 | When | Explaining an existing collection | Reviewing a transaction before or after signing |
 | Claims | Includes claim plugin details | No claim data (not part of the transaction) |
 
-Use it in a review step before `signAndBroadcast`, together with [Simulation balance diffs](simulation-balance-diffs.md) for the numbers.
+Use it in a review step before `signAndBroadcast`, together with [Simulation Balance Diffs](simulation-balance-diffs.md) for the numbers.
 
 ## Related
 
-- [Interpret a collection](interpret-collection.md)
+- [Interpret a Collection](interpret-collection.md)
 - [MsgUniversalUpdateCollection](../../token-standard/messages/msg-universal-update-collection.md)

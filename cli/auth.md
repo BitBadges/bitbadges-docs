@@ -91,7 +91,7 @@ bb auth path                      # /home/you/.bitbadges/auth.json
 
 `status` prints one line per session, for example `mainnet   bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d   Cosmos   expires=2026-09-13T02:56:49.365Z (valid) [server: signed-in]`, and the envelope `{ "ok": true, "data": { "sessions": [] }, "warnings": [], "error": null }` when nothing is stored. `logout` removes the local record even if the server call fails.
 
-## Manual paste-in
+## Manual Paste-In
 
 ```bash
 bb auth challenge --address 0x0bc63cfe31d5218eb414b142c799e20964a54a1a
@@ -143,5 +143,5 @@ ETH addresses are detected by the `0x` prefix and need no `--public-key`.
 
 - [API](api.md)
 - [Deploy](deploy.md#sign-bridge)
-- [Chain commands](chain.md#sign-arbitrary)
-- [Sign in with BitBadges](../api/sign-in/README.md)
+- [Chain Commands](chain.md#sign-arbitrary)
+- [Sign In with BitBadges](../api/sign-in/README.md)

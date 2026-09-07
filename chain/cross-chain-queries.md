@@ -2,9 +2,9 @@
 description: "Interchain queries let another Cosmos chain verify x/tokenization ownership over IBC without moving tokens. Packet types, channel setup, Go examples."
 ---
 
-# Cross-chain queries
+# Cross-Chain Queries
 
-Other Cosmos chains can verify token ownership on BitBadges over IBC with interchain queries. Tokens stay in the BitBadges silo; the remote chain receives a balance answer. Use this for cross-chain gating, collateral checks, shared credentials, and ownership-weighted governance. To move value across chains, wrap first (see [Cosmos coin wrapper paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md)).
+Other Cosmos chains can verify token ownership on BitBadges over IBC with interchain queries. Tokens stay in the BitBadges silo; the remote chain receives a balance answer. Use this for cross-chain gating, collateral checks, shared credentials, and ownership-weighted governance. To move value across chains, wrap first (see [Cosmos Coin Wrapper Paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md)).
 
 ```go
 // Create ownership query packet for a single token ID and time
@@ -27,7 +27,7 @@ packetData := &types.TokenizationPacketData{
 // Response contains exact balance amount for that token/time
 ```
 
-## Channel setup
+## Channel Setup
 
 | Setting | Value |
 | --- | --- |
@@ -35,7 +35,7 @@ packetData := &types.TokenizationPacketData{
 | Version | `tokenization-1` |
 | Ordering | `UNORDERED` |
 
-## Packet types
+## Packet Types
 
 Two query shapes exist. `OwnershipQuery` answers one (token ID, ownership time) pair with an exact amount. `FullBalanceQuery` returns the whole `UserBalanceStore`.
 
@@ -83,11 +83,11 @@ Two query shapes exist. `OwnershipQuery` answers one (token ID, ownership time) 
 - `autoApproveSelfInitiatedOutgoingTransfers`, `autoApproveSelfInitiatedIncomingTransfers`, `autoApproveAllIncomingTransfers`
 - `userPermissions`
 
-### Bulk queries
+### Bulk Queries
 
 `BulkOwnershipQueryPacket` carries `queries: OwnershipQueryPacket[]` and returns `BulkOwnershipQueryResponsePacket` with `responses: OwnershipQueryResponsePacket[]`. One packet may hold at most 100 queries.
 
-## Full balance store example
+## Full Balance Store Example
 
 ```go
 // Create full balance query packet
@@ -108,7 +108,7 @@ packetData := &types.TokenizationPacketData{
 // Response contains serialized UserBalanceStore with all data
 ```
 
-## Use cases
+## Use Cases
 
 - Cross-chain token gating: check ownership before granting access on another chain.
 - DeFi collateral verification without transfer.
@@ -119,5 +119,5 @@ packetData := &types.TokenizationPacketData{
 ## Related
 
 - [Balances](../token-standard/concepts/balances.md)
-- [Cosmos coin wrapper paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md)
+- [Cosmos Coin Wrapper Paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md)
 - [BB-402](../token-standard/bb-402/README.md)

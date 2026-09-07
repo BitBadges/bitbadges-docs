@@ -2,7 +2,7 @@
 description: "Configure a claim with plugins, simulate and complete it from your backend, verify success, and gate an on-chain mint with it."
 ---
 
-# Distribute with claims
+# Distribute with Claims
 
 At the end you have a working claim that checks your criteria, a backend that completes and verifies it, and (optionally) an on-chain mint gated by it. Claims are off-chain eligibility checks run by BitBadges; the concepts and the full endpoint list live in [Claims API](../api/claims/endpoints.md).
 
@@ -11,7 +11,7 @@ Prerequisites:
 - A BitBadges API key (see [BitBadges API](../api/README.md)).
 - The `bitbadges` npm package or the `bb` CLI (see [SDK](../sdk/README.md) and [CLI](../cli/README.md)).
 
-## 1. Decide the flow
+## 1. Decide the Flow
 
 Every claim answers three questions:
 
@@ -28,7 +28,7 @@ Pick a criteria plugin per question. Built-in plugins cover most cases; a custom
 | A known set of addresses | `whitelist` | Static list, or a dynamic store you update by API. |
 | Addresses that change over time | `whitelist` with `useDynamicStore` | Add and remove addresses from your backend, Zapier, an agent, or a cron job. The claim config does not change. |
 | On-chain token ownership | `must-own-badges`, `min-badge` | No external setup. Balances are checked directly. |
-| Anything else | custom plugin | Your HTTP endpoint receives the address and returns pass or fail. See [Build a claim plugin](build-a-claim-plugin.md). |
+| Anything else | custom plugin | Your HTTP endpoint receives the address and returns pass or fail. See [Build a Claim Plugin](build-a-claim-plugin.md). |
 
 `numUses` is always present and always required. It caps total uses and drives claim numbers.
 
@@ -56,7 +56,7 @@ Design tips:
 - "Search the claim plugins for a way to gate by Discord server membership, then build the claim with it."
 {% endhint %}
 
-## 2. Configure the claim
+## 2. Configure the Claim
 
 A claim is stored as an `iClaimBuilderDoc`. You create one with `api.createClaims({ claims: [...] })`, whose entries are `CreateClaimRequest` objects. Each entry in `plugins` has this shape:
 
@@ -120,7 +120,7 @@ Codes are one-time use by default. Distribute them however you want.
 
 Create the claim with `bb api claims create-claim --body @claim.json` or `api.createClaims`. See [Claims API](../api/claims/endpoints.md) for the payload.
 
-## 3. Combine gates
+## 3. Combine Gates
 
 Plugins pass together (AND) by default. `satisfyMethod` switches to OR or M-of-N logic; `numUses` is always required regardless. The `iSatisfyMethod` interface is in [Claims API](../api/claims/endpoints.md).
 
@@ -299,7 +299,7 @@ const claim: CreateClaimRequest<bigint> = {
 };
 ```
 
-## 4. Simulate, then complete
+## 4. Simulate, Then Complete
 
 A simulation is instant and has no side effects. Complete for real only after it passes. The body is keyed by `instanceId`; `_expectedVersion` fails the call if the claim changed since you fetched it (`-1` overrides).
 
@@ -348,7 +348,7 @@ await api.completeClaim('claim_demo_05', userAddress, {
 });
 ```
 
-## 5. Verify success
+## 5. Verify Success
 
 Check an address, or a specific attempt, before you grant access:
 
@@ -366,7 +366,7 @@ if (status.success) {
 }
 ```
 
-## 6. Gate an on-chain mint
+## 6. Gate an On-Chain Mint
 
 A claim can gate a mint or transfer. The claim controls the right to initiate; the chain executes. This is a hybrid process:
 
@@ -374,9 +374,9 @@ A claim can gate a mint or transfer. The claim controls the right to initiate; t
 2. The user submits the proof in a `MsgTransferTokens`.
 3. The approval's Merkle challenge validates the proof.
 
-On-chain, the chain verifies the leaf signature matches the sender, verifies the path from leaf to root, checks the root against the approval's `merkleChallenges`, marks the leaf as used in the challenge tracker (no replay), then executes the transfer if every other criterion also passes. The `iMerkleChallenge`, `iMerkleProof`, and tracker types are in [Merkle challenges](../token-standard/approval-criteria/merkle-challenges.md). `merkleChallenges` works at any level: collection, outgoing, or incoming.
+On-chain, the chain verifies the leaf signature matches the sender, verifies the path from leaf to root, checks the root against the approval's `merkleChallenges`, marks the leaf as used in the challenge tracker (no replay), then executes the transfer if every other criterion also passes. The `iMerkleChallenge`, `iMerkleProof`, and tracker types are in [Merkle Challenges](../token-standard/approval-criteria/merkle-challenges.md). `merkleChallenges` works at any level: collection, outgoing, or incoming.
 
-Via the API, `completeClaim` returns the proof and you include it in the transaction. See [Mint and distribute](mint-and-distribute.md) for the transfer itself.
+Via the API, `completeClaim` returns the proof and you include it in the transaction. See [Mint and Distribute](mint-and-distribute.md) for the transfer itself.
 
 The claim document links to the approval through `trackerDetails`:
 
@@ -420,8 +420,8 @@ Do not use claim-gated approvals for high-stakes distributions. The trust model 
 
 Who can manage a linked claim depends on the approval level: only the manager for collection-level approvals, only the sender for outgoing approvals, only the recipient for incoming approvals. Transferring the manager role transfers claim control with it: the new manager can update, reconfigure, or disable every claim linked to collection approvals, and the previous manager loses access. With a manager splitter or multisig, all signers share that authority. See [Permissions](../token-standard/concepts/permissions.md).
 
-## Next steps
+## Next Steps
 
-- [Build a claim plugin](build-a-claim-plugin.md) for criteria the built-in plugins do not cover.
-- [Sign in users](sign-in-users.md) to pair a claim with authentication.
+- [Build a Claim Plugin](build-a-claim-plugin.md) for criteria the built-in plugins do not cover.
+- [Sign In Users](sign-in-users.md) to pair a claim with authentication.
 - [Claims API](../api/claims/endpoints.md) for every endpoint, plugin schema, and the security model.

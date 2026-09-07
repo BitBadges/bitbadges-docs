@@ -12,7 +12,7 @@ This page is also part of the [API reference](/api-reference).
 
 Auth0 lists BitBadges as a preconfigured social connection: [https://marketplace.auth0.com/integrations/bitbadges](https://marketplace.auth0.com/integrations/bitbadges). Enter your client ID and client secret, then register your Auth0 callback as a redirect URI in the developer portal. It ends with `/callback`, for example `https://dev-pgv803tz4ztg35oi.us.auth0.com/login/callback`.
 
-### Custom connection
+### Custom Connection
 
 A custom connection lets you add parameters beyond the standard flow. The callback is the same.
 
@@ -73,7 +73,7 @@ The **Sign in with BitBadges** plugin adds a "Sign in with BitBadges" button to 
 
 The plugin handles authentication only. It does not restrict access by itself. Pair it with [Force Login](https://wordpress.org/plugins/wp-force-login/), [Restrict Content](https://wordpress.org/plugins/restrict-content/), [Members](https://wordpress.org/plugins/members/), or another access-control plugin.
 
-### Install and configure
+### Install and Configure
 
 1. Upload the plugin files to `/wp-content/plugins/` and activate the plugin from the **Plugins** menu.
 2. Create an OAuth app in the [developer portal](https://bitbadges.io/developer).

@@ -15,7 +15,7 @@ try precompile.transferTokens(json) returns (bool success) {
 }
 ```
 
-## Error codes
+## Error Codes
 
 From `x/tokenization/precompile/errors.go`.
 
@@ -33,7 +33,7 @@ From `x/tokenization/precompile/errors.go`.
 
 Keeper errors are mapped by `MapCosmosErrorToPrecompileError`; unmapped errors take the default code of the handler that caught them. Details are sanitized and truncated to 500 characters. Field-level input errors carry a path such as `field 'transfers[0].balances[0].amount': ...`.
 
-## The uint64 trap
+## The uint64 Trap
 
 The most common error for new developers. IDs and timestamps are `uint64` on the chain.
 
@@ -58,7 +58,7 @@ string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(
 
 Defined in both `TokenizationJSONHelpers` and `TokenizationHelpers`.
 
-## Handling errors in Solidity
+## Handling Errors in Solidity
 
 Basic:
 
@@ -106,9 +106,9 @@ contract MyContract {
 }
 ```
 
-## Common failures
+## Common Failures
 
-### Range value overflow
+### Range Value Overflow
 
 ```text
 precompile error [code=1]: invalid input parameters: message validation failed: invalid balance times:
@@ -129,7 +129,7 @@ string memory ownershipJson = TokenizationJSONHelpers.uintRangeToJson(
 uint64 maxTime = TokenizationHelpers.MAX_TIME;
 ```
 
-### Address cannot be empty
+### Address Cannot Be Empty
 
 ```text
 precompile error [code=1]: invalid input parameters: address cannot be empty
@@ -152,7 +152,7 @@ string memory json = TokenizationJSONHelpers.setDynamicStoreValueJSON(
 );
 ```
 
-### Failed to unmarshal JSON
+### Failed to Unmarshal JSON
 
 ```text
 failed to unmarshal JSON for method X: precompile error [code=1]: invalid input parameters: ...
@@ -175,7 +175,7 @@ Causes: invalid JSON syntax (missing quotes, commas, brackets); wrong field type
 }
 ```
 
-### Collection not found
+### Collection Not Found
 
 ```text
 precompile error [code=2]: collection not found: collectionId: 12345
@@ -190,7 +190,7 @@ try precompile.getCollection(TokenizationJSONHelpers.getCollectionJSON(collectio
 }
 ```
 
-### Insufficient balance
+### Insufficient Balance
 
 ```text
 precompile error [code=4]: transfer failed: underflow error: ...
@@ -213,7 +213,7 @@ require(balance >= amount, "Insufficient balance");
 
 Inside a contract, `msg.sender` here is the contract's own caller, but the precompile transfers from the contract's balance. Check the address that actually holds the tokens.
 
-### Not authorized
+### Not Authorized
 
 ```text
 precompile error [code=8]: unauthorized operation: ...
@@ -242,7 +242,7 @@ bytes memory collectionBytes = precompile.getCollection(
 
 Concepts: [Transferability](../../../token-standard/concepts/transferability.md), [Permissions](../../../token-standard/concepts/permissions.md).
 
-### Collection archived
+### Collection Archived
 
 ```text
 precompile error [code=9]: collection is archived (read-only): collectionId: 123
@@ -258,7 +258,7 @@ string memory json = TokenizationJSONHelpers.setIsArchivedJSON(
 precompile.setIsArchived(json);
 ```
 
-### Invalid range (start > end)
+### Invalid Range (Start > End)
 
 ```text
 precompile error [code=1]: invalid input parameters: invalid range: start 100 is greater than end 50
@@ -272,7 +272,7 @@ require(startTokenId <= endTokenId, "Invalid token ID range");
 string memory rangeJson = TokenizationJSONHelpers.uintRangeToJson(startTime, endTime);
 ```
 
-### EVM query challenge failed
+### EVM Query Challenge Failed
 
 A transfer gated by an [EVM query challenge](../../../token-standard/approval-criteria/evm-query-challenges.md) or an invariant fails as a transfer or authorization error (code 4 or 8) with the challenge result in the details, for example `contract returned 0, expected >= 1`.
 
@@ -291,7 +291,7 @@ uint256 value = abi.decode(result, (uint256));
 require(value >= 1, "challenge would fail: contract returned 0, expected >= 1");
 ```
 
-### Dynamic store not found
+### Dynamic Store Not Found
 
 ```text
 precompile error [code=6]: query failed: ... store 999 does not exist
@@ -309,7 +309,7 @@ try precompile.getDynamicStore(TokenizationJSONHelpers.getDynamicStoreJSON(store
 }
 ```
 
-### Approval not found
+### Approval Not Found
 
 ```text
 precompile error [code=6]: query failed: approval "my-approval" does not exist
@@ -330,13 +330,13 @@ try precompile.deleteOutgoingApproval(
 }
 ```
 
-### Invalid approval criteria
+### Invalid Approval Criteria
 
 ```text
 precompile error [code=1]: invalid input parameters: message validation failed: merkle root is required for merkle challenge
 ```
 
-Common causes: a merkle challenge without a root; voting criteria without a proposal ID; an approval tracker without limits. Field reference: [Approval criteria](../../../token-standard/approval-criteria/README.md).
+Common causes: a merkle challenge without a root; voting criteria without a proposal ID; an approval tracker without limits. Field reference: [Approval Criteria](../../../token-standard/approval-criteria/README.md).
 
 ## Debugging
 
@@ -394,7 +394,7 @@ string memory bech32 = precompile.convertEvmAddressToBech32(0x0bc63cfe31d5218eb4
 // Returns: bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
 ```
 
-## JSON quick reference
+## JSON Quick Reference
 
 | Field type | JSON format | Example |
 | --- | --- | --- |

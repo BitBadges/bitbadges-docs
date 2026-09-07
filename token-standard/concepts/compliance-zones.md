@@ -2,7 +2,7 @@
 description: "Why BitBadges enforces compliance at the boundary of x/tokenization instead of in every module, and how the open zone and compliance zone connect."
 ---
 
-# Compliance zones
+# Compliance Zones
 
 Compliance on a chain can live in the token, in the bank module, in every contract, or at one controlled boundary. BitBadges puts it at the boundary: `x/tokenization` is a siloed compliance zone, and everything else on the chain is vanilla Cosmos.
 
@@ -22,9 +22,9 @@ The two zones connect through boundary operations that the approval engine media
 | Side payments | `coinTransfers` on an approval move `sdk.Coin` alongside the token transfer (royalties, redemptions, subscription fees) |
 | IBC-backed minting | An incoming packet mints into a collection, with approvals checked on receipt |
 
-## How it works
+## How It Works
 
-### Why not gate every layer
+### Why Not Gate Every Layer
 
 Putting compliance in bank, IBC, staking, governance, and every contract has four costs:
 
@@ -35,25 +35,25 @@ Putting compliance in bank, IBC, staking, governance, and every contract has fou
 
 The boundary model answers each: one audit surface in `x/tokenization`, an open zone that behaves like any Cosmos chain, rule updates as approval updates ([MsgSetCollectionApprovals](../messages/msg-set-collection-approvals.md), or governance for chain-level params), and mixed postures (compliant equity tokens, a public DEX, and IBC stablecoins on one chain).
 
-### What a boundary check can test
+### What a Boundary Check Can Test
 
 At boundary time the approval engine can check any [approval criterion](../approval-criteria/README.md):
 
 - Sanctions: is the address flagged in a [dynamic store](../approval-criteria/dynamic-store-challenges.md)?
-- KYC: does the address hold a passport token from an authorized issuer ([token ownership](../approval-criteria/token-ownership.md))?
+- KYC: does the address hold a passport token from an authorized issuer ([Token Ownership](../approval-criteria/token-ownership.md))?
 - Jurisdiction: a `jurisdiction:US` token on a non-US asset?
-- Threshold: does the amount cross a Travel Rule trigger ([approval trackers](../approval-criteria/approval-trackers.md))?
+- Threshold: does the amount cross a Travel Rule trigger ([Approval Trackers](../approval-criteria/approval-trackers.md))?
 - External state: an [EVM query](../approval-criteria/evm-query-challenges.md) against a screening contract.
 - Multisig: a [voting challenge](../approval-criteria/voting-challenges.md) with N-of-M signers and an optional `delayAfterQuorum` timelock.
-- Time: `transferTimes` plus [alt time checks](../approval-criteria/alt-time-checks.md) for market hours, business days, and blackout windows.
+- Time: `transferTimes` plus [Alt Time Checks](../approval-criteria/alt-time-checks.md) for market hours, business days, and blackout windows.
 
 Inside the zone the same engine governs ongoing activity: transfer restrictions, holding periods (`mustOwnTokens.ownershipTimes`), dividends (incremented balances plus `coinTransfers`), multisig escrow (voting plus `delayAfterQuorum`), and vesting (`Balance.ownershipTimes`).
 
-### The open zone
+### The Open Zone
 
 The open zone is the chain's standard surface: the gas token as an `sdk.Coin` (`ubadge`), ICS-20 stablecoin vouchers, vanilla bank, staking, and governance, and public DEX activity. It is supervised at chain-config level (IBC channel allowlists, validator set, permitted assets) but never gated per transfer.
 
-### Cross-chain movement
+### Cross-Chain Movement
 
 Collection tokens do not travel over vanilla IBC, because ICS-20 moves `sdk.Coin` with no compliance semantics. The pattern is:
 
@@ -63,7 +63,7 @@ Collection tokens do not travel over vanilla IBC, because ICS-20 moves `sdk.Coin
 
 Each silo enforces its own rules, the hop between them is neutral, and in transit there is no siloed state to violate. This mirrors how tokenized securities move between depositories that each re-apply their own framework.
 
-### Compared to permissioned tokens
+### Compared to Permissioned Tokens
 
 ERC-3643 puts compliance in the token contract, so every transfer everywhere hits restriction logic. The EVM has no seam between plain currency and regulated assets, so the contract must be the boundary. Cosmos has that seam: `sdk.Coin` and `x/tokenization` assets are distinct first-class objects.
 
@@ -77,9 +77,9 @@ ERC-3643 puts compliance in the token contract, so every transfer everywhere hit
 | Ecosystem compatibility | Permissioned tokens break vanilla DeFi | Open zone is vanilla Cosmos |
 | Boundary | Implicit (the contract) | Explicit (approval-engine operations into a silo) |
 
-The two compose: the [tokenization precompile](../../chain/evm/tokenization-precompile/README.md) lets ERC-3643 contracts inherit the zone's gates.
+The two compose: the [Tokenization Precompile](../../chain/evm/tokenization-precompile/README.md) lets ERC-3643 contracts inherit the zone's gates.
 
-### Deploying the pattern
+### Deploying the Pattern
 
 1. Choose what enters the zone: which assets wrap on receipt (IBC-USDC to a wrapped token) and which stay open (gas, DEX-only).
 2. Configure the wrap-step approval criteria: sanctions, KYC, jurisdiction.
@@ -91,7 +91,7 @@ No SDK fork and no plugin pack. The compliance zone is a configuration pattern o
 
 ## Related
 
-- [Cosmos coin wrapper paths](../ibc/cosmos-coin-wrapper-paths.md)
-- [Backed minting](../ibc/backed-minting.md)
+- [Cosmos Coin Wrapper Paths](../ibc/cosmos-coin-wrapper-paths.md)
+- [Backed Minting](../ibc/backed-minting.md)
 - [Transferability](transferability.md)
 - [Comparisons](../../about/comparisons.md)

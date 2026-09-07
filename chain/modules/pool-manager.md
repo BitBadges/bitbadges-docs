@@ -108,6 +108,6 @@ An input too small to produce one unit of output returns `calculated token out a
 ## Related
 
 - [x/gamm](gamm/README.md)
-- [x/gamm queries](gamm/queries.md)
+- [x/gamm Queries](gamm/queries.md)
 - [Swaps in the API](../../api/swaps.md)
 - [Trade on the DEX](../../guides/trade-on-the-dex.md)
