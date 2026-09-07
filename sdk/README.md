@@ -44,7 +44,7 @@ Building and signing still end in a review link you open yourself.
 
 `BitBadgesAPI` wraps every REST route with typed request and response classes. If `apiKey` or `apiUrl` is omitted, the client reads `BITBADGES_API_KEY` and `BITBADGES_API_URL` from the environment. Every numeric field in a response is converted with `convertFunction` (`BigIntify`, `Numberify`, or `Stringify`). See [Types](types.md) for why.
 
-The API is a hosted service with keys and credits. Base URL, credits, limits, and pagination are documented under [BitBadges API](../api/README.md). The full route list is at [API reference](../api-reference).
+The API is a hosted service with keys and credits. Base URL, credits, limits, and pagination are documented under [BitBadges API](../api/README.md). The full route list is at [API reference](/api-reference).
 
 ## Sign and Broadcast
 

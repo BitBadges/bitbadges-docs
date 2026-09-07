@@ -71,7 +71,7 @@ BitBadges enforces compliance rules, transfer restrictions, and approval logic i
 
 ### How They Work Together
 
-Through EVM precompiles, a Solidity contract calls the native token standard with the ERC-3643 function signatures developers already know. The precompile bridges the call; the chain enforces the transfer rules, identity checks, and compliance logic, not the contract. The ERC-3643 interface is optional: the no-code site, the CLI builders, and the MCP builder tools talk to the protocol standard directly. See [Tokenization Precompile](../chain/evm/tokenization-precompile/README.md) and the [ERC-3643 specification](https://erc3643.info/).
+Through EVM precompiles, a Solidity contract calls the native token standard with the ERC-3643 function signatures developers already know. The precompile bridges the call; the chain enforces the transfer rules, identity checks, and compliance logic, not the contract. The ERC-3643 interface is optional: the no-code site, the CLI builders, and the MCP builder tools talk to the protocol standard directly. See [Tokenization Precompile](../chain/evm/tokenization-precompile/README.md) and the [ERC-3643 specification](https://www.erc3643.org/).
 
 ## Related
 
