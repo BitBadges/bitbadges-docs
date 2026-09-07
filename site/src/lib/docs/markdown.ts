@@ -23,6 +23,7 @@ import type { Root as HastRoot, Element } from 'hast';
 import type { Root as MdastRoot } from 'mdast';
 
 import { applyCodeFolds, deserializeRanges, foldRangesFor, serializeRanges } from './fold';
+import { rehypeMermaid } from './mermaid';
 import { gitbookToDirectives } from './gitbook';
 import { resolveAssetPath, resolveDocLink } from './paths';
 
@@ -404,6 +405,7 @@ export async function renderDoc(source: string, options: RenderOptions): Promise
       properties: { class: 'heading-anchor', ariaHidden: 'true', tabIndex: -1 },
       content: { type: 'text', value: '#' },
     })
+    .use(rehypeMermaid, { filePath: options.filePath })
     .use(rehypeContentChrome)
     .use(rehypeShiki, {
       themes: { light: 'github-light', dark: 'github-dark' },
