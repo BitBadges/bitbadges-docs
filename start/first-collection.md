@@ -37,7 +37,7 @@ Get a key at [bitbadges.io/developer](https://bitbadges.io/developer). You do no
 
 For the agent path, wire the MCP server into your client first. See [Setup](../agents/setup.md).
 
-You need no BADGE to sign a first collection. The chain accepts zero-fee transactions today and `--fee 0` is the default.
+Starting with v35, transactions require fees of at least `10ubadge` per unit of gas. Fund the signing account with BADGE before broadcasting. With the updated CLI, burner `--fee 0` means automatic fee estimation; it does not produce a zero-fee transaction. If you need BADGE, use the faucet when available or ask in the [BitBadges Discord](https://discord.com/invite/TJMaEd9bar).
 
 ## The idea
 

@@ -197,11 +197,13 @@ const getPublicKey = async () => {
 };
 ```
 
-Fees: many transactions clear with a zero fee when the network is idle. To pay one, simulate first and price the gas. The bitbadges.io frontend uses a base gas price of `0.025 ubadge` per unit:
+Starting with v35, price the full gas limit at a minimum of `10ubadge` per unit. Simulate first, add a buffer, and finalize the fee before signing. The standard SDK signing client handles this automatically. For low-level payloads:
 
 ```ts
-const baseGasPrice = 0.025;
-const feeInUbadge = BigIntify(Math.round(Number(gasUsed) * baseGasPrice));
+const gasLimit = (BigInt(gasUsed) * 13n + 9n) / 10n; // 30% buffer, rounded up
+if (gasLimit < 1n || gasLimit > 100000000n) throw new Error("Invalid gas limit");
+const feeInUbadge = gasLimit * 10n;
+txContext.fee = { gas: gasLimit.toString(), amount: feeInUbadge.toString(), denom: "ubadge" };
 ```
 
 ## 3. Create the Payload

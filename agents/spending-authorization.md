@@ -118,7 +118,7 @@ In this example alice (`bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d`) is the contr
 bb check ./approval.json --depth structural
 bb tx tokenization set-outgoing-approval 2 "$(jq -c .messages[0].value.approval ./approval.json)" \
   --from alice --chain-id bitbadges-1 \
-  --node https://rpc.bitbadges.io:443 --gas auto --fees 10000ubadge
+  --node https://rpc.bitbadges.io:443 --gas auto --gas-prices 10ubadge
 ```
 
 This approval, on collection `2`, says: the agent at `bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr` may move token ID `1` from the controller to `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue`, at most 100 units and 20 transfers per 24-hour window starting at `startTime`, and only between the two `transferTimes` timestamps. Everything else is rejected.
@@ -196,7 +196,7 @@ The agent signs a `MsgTransferTokens` with itself as `creator` and the controlle
 bb check ./transfer.json --depth structural
 bb tx tokenization transfer-tokens ./transfer.json \
   --from agent-wallet --chain-id bitbadges-1 \
-  --node https://rpc.bitbadges.io:443 --gas auto --fees 10000ubadge
+  --node https://rpc.bitbadges.io:443 --gas auto --gas-prices 10ubadge
 ```
 
 `bb check --depth structural` on either file prints:
@@ -220,7 +220,7 @@ bb tx tokenization transfer-tokens ./transfer.json \
 ```bash
 bb tx tokenization delete-outgoing-approval 2 agent-daily-budget \
   --from alice --chain-id bitbadges-1 \
-  --node https://rpc.bitbadges.io:443 --gas auto --fees 10000ubadge
+  --node https://rpc.bitbadges.io:443 --gas auto --gas-prices 10ubadge
 ```
 
 The same message as JSON, for the SDK or the review-and-sign flow:
