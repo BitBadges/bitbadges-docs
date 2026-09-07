@@ -41,20 +41,24 @@ describe('readAgentFiles', () => {
     }
   });
 
-  test('the full dump is much larger than the index', async () => {
-    const [index, dump] = await readAgentFiles({ basePath: '' });
-    const sizeOf = async (name: string) => (await fs.stat(path.join(process.cwd(), 'public', name))).size;
-    expect(await sizeOf(dump.name)).toBeGreaterThan((await sizeOf(index.name)) * 5);
+  test('offers the index only; the full dump stays a documented option', async () => {
+    const files = await readAgentFiles({ basePath: '' });
+    expect(files.map((f) => f.name)).toEqual(['llms.txt']);
+    // Still generated and served, just not a control in the rail: ~1.8 MB is a
+    // one-shot paste, not something to put next to the index.
+    const dump = await fs.stat(path.join(process.cwd(), 'public', 'for-llms.txt'));
+    const index = await fs.stat(path.join(process.cwd(), 'public', 'llms.txt'));
+    expect(dump.size).toBeGreaterThan(index.size * 5);
   });
 
   test('links are bare routes at the site root', async () => {
     const files = await readAgentFiles({ basePath: '' });
-    expect(files.map((f) => f.href)).toEqual(['/llms.txt', '/for-llms.txt']);
+    expect(files.map((f) => f.href)).toEqual(['/llms.txt']);
   });
 
   test('links carry the mount point when the docs live under a sub-path', async () => {
     const files = await readAgentFiles({ basePath: '/docs' });
-    expect(files.map((f) => f.href)).toEqual(['/docs/llms.txt', '/docs/for-llms.txt']);
+    expect(files.map((f) => f.href)).toEqual(['/docs/llms.txt']);
   });
 
   test('a missing file degrades to a link with no size', async () => {
@@ -62,8 +66,8 @@ describe('readAgentFiles', () => {
     await fs.mkdir(dir, { recursive: true });
     try {
       const files = await readAgentFiles({ dir, basePath: '' });
-      expect(files.map((f) => f.size)).toEqual([null, null]);
-      expect(files.map((f) => f.href)).toEqual(['/llms.txt', '/for-llms.txt']);
+      expect(files.map((f) => f.size)).toEqual([null]);
+      expect(files.map((f) => f.href)).toEqual(['/llms.txt']);
     } finally {
       await fs.rm(dir, { recursive: true, force: true });
     }

@@ -2,15 +2,21 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import { docsConfig, withBasePath } from '@/lib/docs/config';
+import { OnTab } from './OnTab';
 
 /** Where the "how agents read these docs" page lives. */
 export const AGENT_GUIDE_ROUTE = '/agents/reading-the-docs';
 
-/** The corpus files `bun run sync` copies into public/, in the order to offer them. */
-export const AGENT_FILE_SPECS = [
-  { name: 'llms.txt', summary: 'Curated index of every page' },
-  { name: 'for-llms.txt', summary: 'Every page in one file' },
-] as const;
+/**
+ * The one corpus file worth a control in the chrome.
+ *
+ * `for-llms.txt` (every page concatenated, ~1.8 MB) is still generated and
+ * served, but it is roughly 400k tokens and only suits a one-shot paste, so it
+ * is documented on the guide page rather than offered next to the index. The
+ * index is the llmstxt.org standard: an agent reads it, then fetches the pages
+ * it needs.
+ */
+export const AGENT_FILE_SPECS = [{ name: 'llms.txt', summary: 'Index of every page, for agents' }] as const;
 
 export type AgentFile = {
   name: string;
@@ -71,12 +77,19 @@ export async function readAgentFiles(options: { dir?: string; basePath?: string 
  * Plain anchors with `download`, server-rendered — it works with JavaScript
  * off, tabs in document order, and each link names its own file.
  */
-export async function AgentFiles({ className = '' }: { className?: string }) {
+export async function AgentFiles({
+  className = '',
+  onlyTab,
+}: {
+  className?: string;
+  /** Route prefix this belongs to, e.g. `/agents`. Omit to show everywhere. */
+  onlyTab?: string;
+}) {
   const files = await readAgentFiles();
 
   // Labelled by attribute rather than by id: the layout renders this twice (one
   // visible per breakpoint), and two of the same id is invalid HTML.
-  return (
+  const block = (
     <section aria-label="For agents" className={`border-t border-[var(--border)] pt-4 ${className}`}>
       <h2 className="mb-2 px-[0.7rem] text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-[var(--fg-faint)]">
         For agents
@@ -106,4 +119,6 @@ export async function AgentFiles({ className = '' }: { className?: string }) {
       </p>
     </section>
   );
+
+  return onlyTab ? <OnTab prefix={withBasePath(onlyTab)}>{block}</OnTab> : block;
 }

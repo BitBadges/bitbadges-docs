@@ -1,5 +1,5 @@
 # BitBadges documentation, every page in one file
-# Generated from the corpus at build time. Page count: 215.
+# Generated from the corpus at build time. Page count: 216.
 # The SDK reference (/sdk/reference) and proto schema (/chain/proto) are
 # generated separately and excluded here; browse them on the site.
 
@@ -30,9 +30,17 @@ claude mcp add bitbadges-builder -e BITBADGES_API_KEY="$BITBADGES_API_KEY" -- np
 
 3. Tell it what to build:
 
-- "Create me a payment request for 10 USDC"
-- "Build a subscription token that renews monthly for 5 USDC"
-- "Make a 500-piece NFT collection where only I can mint"
+```text
+Create me a payment request for 10 USDC
+```
+
+```text
+Build a subscription token that renews monthly for 5 USDC
+```
+
+```text
+Make a 500-piece NFT collection where only I can mint
+```
 
 The agent assembles the transaction and returns a review link. Open it, check the summary, and sign with your wallet.
 
@@ -830,29 +838,57 @@ Once a harness is wired, these prompts map onto the MCP builder tools and the sk
 
 Create a token:
 
-- "Create an NFT collection called Demo NFTs with 100 tokens, manager `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d`, fully immutable after creation."
-- "Build a fungible token called Demo Coin with 1,000,000 units of token ID 1 and a public mint of up to 10 per address."
-- "Make a USDC-backed smart token with symbol vUSDC and a daily withdraw limit of 1000."
+```text
+Create an NFT collection called Demo NFTs with 100 tokens, manager bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d, fully immutable after creation.
+```
+
+```text
+Build a fungible token called Demo Coin with 1,000,000 units of token ID 1 and a public mint of up to 10 per address.
+```
+
+```text
+Make a USDC-backed smart token with symbol vUSDC and a daily withdraw limit of 1000.
+```
 
 Distribute:
 
-- "Mint 100 Demo Coin to `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue` and `bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf` in the same transaction that creates the collection."
-- "Create a code-gated claim for collection 1 with 50 codes, one use per address."
+```text
+Mint 100 Demo Coin to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue and bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf in the same transaction that creates the collection.
+```
+
+```text
+Create a code-gated claim for collection 1 with 50 codes, one use per address.
+```
 
 Gate:
 
-- "Check whether `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue` owns at least 1 of token ID 1 in collection 1."
-- "Build a 30-day subscription called Demo Membership at 10 USDC per interval paid to `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d`."
+```text
+Check whether bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue owns at least 1 of token ID 1 in collection 1.
+```
+
+```text
+Build a 30-day subscription called Demo Membership at 10 USDC per interval paid to bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d.
+```
 
 Trade:
 
-- "Add a tradable listing approval to collection 1 so anyone can buy token ID 5 for 25 USDC."
-- "Give my agent wallet `bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr` a daily budget of 100 units of collection 2 that it can send to `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue`."
+```text
+Add a tradable listing approval to collection 1 so anyone can buy token ID 5 for 25 USDC.
+```
+
+```text
+Give my agent wallet bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr a daily budget of 100 units of collection 2 that it can send to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue.
+```
 
 Inspect:
 
-- "Explain collection 1 for an auditor: who can change what, and how do tokens move."
-- "Review this transaction file for problems before I sign it."
+```text
+Explain collection 1 for an auditor: who can change what, and how do tokens move.
+```
+
+```text
+Review this transaction file for problems before I sign it.
+```
 
 Every build ends the same way: the agent calls `get_review_url` (or runs `bb preview`) and hands you a bitbadges.io link where you review and sign with your own wallet; the agent never holds the key.
 
@@ -1375,10 +1411,22 @@ add_transfer({
 validate_transaction({})
 review_collection({})
 simulate_transaction({})
+```
 
+`review_collection` returns findings and a summary. Fix anything critical before signing.
+
+```json
+{ "findings": [...], "summary": { "critical": 0, "warning": 1, "info": 3, "verdict": "warn" } }
+```
+
+```text
 # 5. Export and hand off
 get_transaction({})
 get_review_url({})   # give the user reviewUrl to review and sign
+```
+
+```json
+{ "success": true, "code": "prv_7tffq58d", "reviewUrl": "https://bitbadges.io/mint/local-builder?code=prv_7tffq58d", "expiresAt": 1788803578315, "expiresIn": "1 hour" }
 ```
 
 ### CLI Template Build
@@ -1691,7 +1739,7 @@ Each tool sets one field on a session-scoped transaction. Calls in the same roun
 | `remove_transfer` | Remove a transfer message by index. `messages[0]` is the collection and cannot be removed | `index*` (>= 1) |
 | `set_is_archived` | Archive or unarchive. Archived collections stay on-chain but are hidden from browsing | `isArchived*` |
 | `get_transaction` | Return the assembled transaction JSON with `metadataPlaceholders`. Numbers become strings. Blank `image` fields are auto-filled with a deterministic SVG seeded by the collection name | none |
-| `get_review_url` | Final step: upload the transaction to the open preview endpoint and return a short bitbadges.io link the user opens to review and sign. Needs the API key to upload; the person opening the link needs none. Links expire after 1 hour. Lands with bitbadgesjs PR 288 | `transaction` (defaults to the session), `frontendUrl` |
+| `get_review_url` | Final step: upload the transaction to the open preview endpoint and return a short bitbadges.io link the user opens to review and sign. Needs the API key to upload; the person opening the link needs none. Links expire after 1 hour. | `transaction` (defaults to the session), `frontendUrl` |
 
 `generate_placeholder_art` (`seed*`, `style`, `monogram`) still exists in source but is not in the MCP catalog: `get_transaction` fills blank images for you.
 
@@ -1769,6 +1817,14 @@ Rendered skill pages: [Skills](skills/README.md).
 
 ### Session-Based Build
 
+Ask your agent:
+
+```text
+Build a fungible token called Demo Coin with a 1,000,000 supply cap and a public mint of up to 10 per address. Use the session tools, run validate, review, and simulate in parallel, fix any critical findings, then call get_review_url and give me the link.
+```
+
+The prompt above produces this chain:
+
 ```text
 set_standards + set_valid_token_ids + set_invariants + add_approval + set_permissions + set_default_balances + set_collection_metadata + set_token_metadata
   -> (optional) add_transfer (auto-mint at creation)
@@ -1792,7 +1848,7 @@ query_collection -> verify_ownership -> (act on the result)
 
 ### Auto-Mint at Creation
 
-`add_transfer` mints to specific addresses in the same transaction as the collection creation. The transaction then holds two messages: `MsgUniversalUpdateCollection` and `MsgTransferTokens`. Use it for "mint 100 tokens to myself", "distribute tokens to the team", or "auto-mint at creation".
+`add_transfer` mints to specific addresses in the same transaction as the collection creation. The transaction then holds two messages: `MsgCreateCollection` and `MsgTransferTokens`. (The session holds it as `MsgUniversalUpdateCollection`; `get_transaction` narrows it on the way out.) Use it for "mint 100 tokens to myself", "distribute tokens to the team", or "auto-mint at creation".
 
 1. Build the collection with a mint approval (`add_approval` with `fromListId: "Mint"` and `initiatedByListId: <creator address>`).
 2. Call `add_transfer` with the recipient addresses, balances, and `prioritizedApprovals` that reference the mint approval.
@@ -1807,8 +1863,6 @@ The builder never signs or broadcasts. Three exits:
 - `get_review_url` returns `reviewUrl`, where the user reviews and signs with a browser wallet. It is backed by a `prv_` code from `POST /api/v0/builder/preview`. Uploading the preview needs `BITBADGES_API_KEY`; opening the returned link needs none, because the unguessable code is the secret. The code expires in 1 hour. `BITBADGES_FRONTEND_URL` or the `frontendUrl` param points the link at testnet or a local site; a testnet `BITBADGES_API_URL` infers `https://testnet.bitbadges.io`.
 - Save `get_transaction` output to a file and run `bb preview tx.json --open`, or `bb deploy --browser` / `--burner` from the [CLI](../cli/deploy.md).
 - Sign with the [SDK signing client](../sdk/transactions/signing-client.md).
-
-If `get_review_url` is unavailable in your installed version, save the JSON to a file rather than printing it inline; terminal output wraps and truncates JSON.
 
 ## Resources
 
@@ -1834,7 +1888,7 @@ The same registry is reachable from `bb dev` as plain function calls, with no MC
 
 ```bash
 bb dev tools list                              # full schemas, as JSON
-bb dev tools list --names                      # tool names, one per line
+bb dev tools list --names                      # `{ ok, data: { names: [...] } }` envelope; pipe to jq -r '.data.names[]'
 bb dev tools call get_current_timestamp
 bb dev tools call get_skill_instructions --args '{"skillId":"smart-token"}'
 bb dev tools call set_collection_metadata --args-file ./metadata.json --session demo
@@ -1906,11 +1960,11 @@ console.log(result.reviewUrl); // open in a browser to review and sign
 
 This is the scriptable counterpart to the [MCP Builder Tools](mcp-tools.md).
 
-| | No-code site | MCP builder | Programmatic agent |
+| | `bb` CLI | MCP builder | Programmatic agent |
 | --- | --- | --- | --- |
-| Where it runs | Any shell | Claude Desktop, Cursor, Claude Code | Your Node process |
-| LLM key | BitBadges-managed (billed credits) | Your Claude subscription | Your Anthropic or OpenAI key |
-| Good for | End users, one-off builds | Power users, exploratory work | Dapps, bots, games, CI, fine-tuning |
+| Where it runs | Any shell | Claude Code, Cursor, Codex | Your Node process |
+| Model | None; deterministic templates | Your harness supplies the model | Your Anthropic or OpenAI key |
+| Good for | Scripts, CI, one-off builds | Interactive and exploratory work | Dapps, bots, games, fine-tuning |
 
 ## Install
 
@@ -2062,11 +2116,11 @@ Two inputs at two levels:
 ```ts
 new BitBadgesBuilderAgent({
   anthropicKey,
-  skills: ['nft', 'smart-token']          // allowlist, constructor-level filter
+  skills: ['nft-collection', 'smart-token']   // allowlist, constructor-level filter
 });
 
 await agent.build('mint 100 nfts', {
-  selectedSkills: ['nft']                  // actual injection for this build
+  selectedSkills: ['nft-collection']       // actual injection for this build
 });
 ```
 
@@ -2410,7 +2464,7 @@ description: "How an agent reads these docs. llms.txt, the full-text dump, bb de
 Agents can read this site four ways: two static files, one CLI command, and one MCP tool. Pick the one your harness already has.
 
 ```bash
-# Curated index (about 46 KB): start here, then fetch 1-3 pages
+# Curated index (about 47 KB): start here, then fetch 1-3 pages
 curl -sO https://docs.bitbadges.io/llms.txt
 
 # Full-text dump of every page (about 1.6 MB)
@@ -2434,7 +2488,7 @@ Two files, both regenerated with the docs. Every page of this site carries the s
 
 | Download | Size | What it is |
 | --- | --- | --- |
-| [llms.txt](https://docs.bitbadges.io/llms.txt) | about 46 KB | A curated index: every page in this site's navigation order, one line each, with its URL and one-sentence description. No page bodies |
+| [llms.txt](https://docs.bitbadges.io/llms.txt) | about 47 KB | A curated index: every page in this site's navigation order, one line each, with its URL and one-sentence description. No page bodies |
 | [for-llms.txt](https://docs.bitbadges.io/for-llms.txt) | about 1.6 MB | The whole corpus — 216 pages, roughly 43,000 lines — concatenated into one plain-text file |
 
 **Which one to feed your agent:**
@@ -2615,7 +2669,12 @@ env = { BITBADGES_API_KEY = "0123456789abcdef0123456789abcdef0123456789abcdef012
 Claude.ai, ChatGPT, Gemini, or any chat model with no MCP access can still build. Ask it for the transaction JSON and take that JSON to the site to review and sign.
 
 1. Give the model context: paste the relevant [skill page](skills/README.md), or the prompt from `agent.exportPrompt()` on the [Programmatic Agent](programmatic-agent.md#export-as-a-single-prompt-for-no-tools-llms).
-2. Ask for a `{ "messages": [{ "typeUrl": "/tokenization.MsgCreateCollection", "value": { "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d" } }] }` object (with the rest of `value` filled in) and nothing else.
+2. Ask for the transaction object and nothing else:
+
+   ```text
+   Return only a JSON object of the form { "messages": [{ "typeUrl": "/tokenization.MsgCreateCollection", "value": { "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", ... } }] } with the rest of value filled in. No prose, no code fence.
+   ```
+
 3. Paste it into `https://bitbadges.io/mint/local-builder` ("Bring your transaction"). Or, if you have the CLI, `bb preview tx.json --open` gives you a short review link, and a `#tx=<base64url JSON>` link opens the same page with the transaction in the URL hash.
 
 A complete one-message example the model can return, revoking an outgoing approval:
@@ -2647,10 +2706,14 @@ The site runs review, transferability, and permissions checks before the wallet 
 
 ```bash
 bb doctor                                  # chain binary, CLI, API key, network
-bb dev tools list --names | head           # the same registry your client sees
+bb dev tools list --names | jq -r '.data.names[]'   # the same registry your client sees
 ```
 
-In the client, ask for `get_current_timestamp`; a reply proves the server is wired.
+In the client, paste this prompt. A reply with a timestamp and a tool list proves the server is wired.
+
+```text
+Call get_current_timestamp and tell me the ISO time, then list every BitBadges tool you can see.
+```
 
 ## Related
 
@@ -2729,6 +2792,16 @@ description: "On-chain address list where membership = owning x1 of token ID 1. 
 # Address List
 
 Instruction text for agents that use the Address List skill, loaded by `bb dev skills address-list` and the MCP `get_skill_instructions` tool.
+
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the address-list skill and build me one: on-chain address list where membership = owning x1 of token ID 1. Manager can add/remove addresses. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills address-list` prints the same instructions.
 
 ## Summary
 
@@ -2858,6 +2931,16 @@ description: "Single-item auction with intent-based bidding. Seller mints NFT di
 # Auction
 
 Instruction text for agents that use the Auction skill, loaded by `bb dev skills auction` and the MCP `get_skill_instructions` tool.
+
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the auction skill and build me one: single-item auction with intent-based bidding. Seller mints NFT directly to the winning bidder during the accept window. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills auction` prints the same instructions.
 
 ## Summary
 
@@ -3008,6 +3091,16 @@ description: "Mint and distribute tokens to recipients at collection creation ti
 
 Instruction text for agents that use the Auto-Mint skill, loaded by `bb dev skills auto-mint` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the auto-mint skill and build me one: mint and distribute tokens to recipients at collection creation time using MsgTransferTokens. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills auto-mint` prints the same instructions.
+
 ## Summary
 
 Post-creation minting: adds MsgTransferTokens messages to the transaction so tokens are distributed immediately after collection creation.
@@ -3123,6 +3216,16 @@ description: "Token-gated access protocol where ownership of specific badges gra
 
 Instruction text for agents that use the BB-402 Token-Gated Access skill, loaded by `bb dev skills bb-402` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the bb-402 skill and build me one: token-gated access protocol where ownership of specific badges grants API/resource access. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills bb-402` prints the same instructions.
+
 ## Summary
 
 Protocol for token-gated access to APIs/resources using HTTP 402 Payment Required.
@@ -3209,6 +3312,16 @@ description: "Escrow-based bounty with verifier arbitration. Submitter escrows c
 # Bounty
 
 Instruction text for agents that use the Bounty skill, loaded by `bb dev skills bounty` and the MCP `get_skill_instructions` tool.
+
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the bounty skill and build me one: escrow-based bounty with verifier arbitration. Submitter escrows coins, verifier accepts (pays recipient) or denies (refunds submitter). Expires if no decision. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills bounty` prints the same instructions.
 
 ## Summary
 
@@ -3384,6 +3497,16 @@ description: "Allow token holders to burn tokens by sending them to the burn add
 
 Instruction text for agents that use the Burnable skill, loaded by `bb dev skills burnable` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the burnable skill and build me one: allow token holders to burn tokens by sending them to the burn address, permanently removing them from circulation. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills burnable` prints the same instructions.
+
 ## Summary
 
 Allows holders to permanently destroy tokens by sending to burn address.
@@ -3485,6 +3608,16 @@ Instruction text for agents that use the Credit Token skill, loaded by `bb dev s
 
 Reference collections on mainnet: 23.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the credit-token skill and build me one: increment-only, non-transferable credit token purchased with any ICS20 denom. Users pay X of a denom and receive Y tokens as credits/proof of payment. For a 1:1 backed token with on-chain transferability, use the Smart Token standard instead. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills credit-token` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Credit Token"]
@@ -3517,7 +3650,7 @@ Credit tokens are designed for systems that track consumption off-chain. The on-
 
 **Example: BitBadges API Credits (Collection 23 / 80, APITOKEN)**
 - User purchases 10 USDC → receives 1,000,000 APITOKEN (on-chain balance = 1,000,000)
-- User makes API calls → backend tracks `totalUsed` (e.g., 250,000 APITOKEN used)
+- User makes API calls (including the AI Builder) → backend tracks `totalUsed` (e.g., 250,000 APITOKEN used)
 - Remaining budget = on-chain balance (1,000,000) - totalUsed (250,000) = 750,000
 - User purchases 5 more USDC → on-chain balance increments to 2,000,000
 - Remaining budget = 2,000,000 - 250,000 = 1,750,000
@@ -3697,6 +3830,16 @@ description: "On-chain crowdfunding with goal tracking via mustOwnTokens. Contri
 # Crowdfund
 
 Instruction text for agents that use the Crowdfund skill, loaded by `bb dev skills crowdfund` and the MCP `get_skill_instructions` tool.
+
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the crowdfund skill and build me one: on-chain crowdfunding with goal tracking via mustOwnTokens. Contributors deposit funds, receive refund tokens. Crowdfunder withdraws if goal met, contributors refund if not. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills crowdfund` prints the same instructions.
 
 ## Summary
 
@@ -3947,6 +4090,16 @@ description: "Two-factor authentication for transfers using a secondary approval
 
 Instruction text for agents that use the Custom 2FA skill, loaded by `bb dev skills custom-2fa` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the custom-2fa skill and build me one: two-factor authentication for transfers using a secondary approval address. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills custom-2fa` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Custom-2FA"]
@@ -4049,6 +4202,16 @@ description: "Simple fungible token with fixed or unlimited supply and configura
 
 Instruction text for agents that use the Fungible Token skill, loaded by `bb dev skills fungible-token` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the fungible-token skill and build me one: simple fungible token with fixed or unlimited supply and configurable mint/transfer approvals. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills fungible-token` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Fungible Tokens"]
@@ -4143,6 +4306,16 @@ description: "Lock collection permissions to make properties permanently immutab
 # Transferability & Update Rules
 
 Instruction text for agents that use the Transferability & Update Rules skill, loaded by `bb dev skills immutability` and the MCP `get_skill_instructions` tool.
+
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the immutability skill and build me one: lock collection permissions to make properties permanently immutable or permanently permitted. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills immutability` prints the same instructions.
 
 ## Summary
 
@@ -4328,6 +4501,16 @@ description: "Liquidity pool standard with the \"Liquidity Pools\" protocol stan
 
 Instruction text for agents that use the Liquidity Pools skill, loaded by `bb dev skills liquidity-pools` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the liquidity-pools skill and build me one: liquidity pool standard with the "Liquidity Pools" protocol standard tag, used for tradable assets that can be swapped on a DEX. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills liquidity-pools` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Liquidity Pools"]
@@ -4400,6 +4583,16 @@ description: "Mint approval patterns including public mint, whitelist mint, crea
 # Minting
 
 Instruction text for agents that use the Minting skill, loaded by `bb dev skills minting` and the MCP `get_skill_instructions` tool.
+
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the minting skill and build me one: mint approval patterns including public mint, whitelist mint, creator-only mint, payment-gated mint, and escrow payouts. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills minting` prints the same instructions.
 
 ## Summary
 
@@ -4645,6 +4838,16 @@ description: "Require weighted quorum voting from multiple parties before transf
 
 Instruction text for agents that use the Multi-Sig / Voting skill, loaded by `bb dev skills multi-sig-voting` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the multi-sig-voting skill and build me one: require weighted quorum voting from multiple parties before transfers can proceed (multi-sig, governance, etc.). Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills multi-sig-voting` prints the same instructions.
+
 ## Summary
 
 Enables multi-signature-like approval via votingChallenges[] in approvalCriteria.
@@ -4768,6 +4971,16 @@ description: "Non-fungible token collection with unique token IDs, metadata URIs
 # NFT Collection
 
 Instruction text for agents that use the NFT Collection skill, loaded by `bb dev skills nft-collection` and the MCP `get_skill_instructions` tool.
+
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the nft-collection skill and build me one: non-fungible token collection with unique token IDs, metadata URIs, and badge-based ownership. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills nft-collection` prints the same instructions.
 
 ## Summary
 
@@ -4905,6 +5118,16 @@ description: "Invoices, escrows, bounties, milestones, and multi-party agreement
 # Payment Protocol
 
 Instruction text for agents that use the Payment Protocol skill, loaded by `bb dev skills payment-protocol` and the MCP `get_skill_instructions` tool.
+
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the payment-protocol skill and build me one: invoices, escrows, bounties, milestones, and multi-party agreements using coinTransfer-based approvals or IBC-backed smart token escrow. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills payment-protocol` prints the same instructions.
 
 ## Summary
 
@@ -5124,6 +5347,16 @@ description: "Agent-initiated payment request with no escrow. The agent (or any 
 
 Instruction text for agents that use the PaymentRequest skill, loaded by `bb dev skills payment-request` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the payment-request skill and build me one: agent-initiated payment request with no escrow. The agent (or any address) creates a collection requesting payment from a targeted human payer. The payer approves and pays from their own wallet in a single action. Inverse of Bounty. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills payment-request` prints the same instructions.
+
 ## Summary
 
 Required standards: ["PaymentRequest"]
@@ -5262,6 +5495,16 @@ description: "Binary prediction market with YES/NO outcome tokens, liquidity poo
 # Prediction Market
 
 Instruction text for agents that use the Prediction Market skill, loaded by `bb dev skills prediction-market` and the MCP `get_skill_instructions` tool.
+
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the prediction-market skill and build me one: binary prediction market with YES/NO outcome tokens, liquidity pool trading, and vote-based settlement. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills prediction-market` prints the same instructions.
 
 ## Summary
 
@@ -5695,7 +5938,7 @@ After creating the collection and minting initial pairs:
 - Create pool: MsgCreateBalancerPool with badgeslp:collectionId:uyes and badgeslp:collectionId:uno, equal weights
 - Market price discovery: YES_price = NO_reserve / (YES_reserve + NO_reserve)
 
-### Steps for the builder tools
+### Steps for AI Builder
 
 1. Use per-field tools to initialize the collection (set_standards, set_valid_token_ids, etc.)
 2. `set_token_metadata` for YES (token 1) and NO (token 2)
@@ -5741,6 +5984,16 @@ description: "Multi-product storefront with per-product pricing, supply limits, 
 # Products
 
 Instruction text for agents that use the Products skill, loaded by `bb dev skills product-catalog` and the MCP `get_skill_instructions` tool.
+
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the product-catalog skill and build me one: multi-product storefront with per-product pricing, supply limits, and optional burn-on-purchase. Each product is a separate token ID. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills product-catalog` prints the same instructions.
 
 ## Summary
 
@@ -5894,6 +6147,16 @@ description: "Quest/reward collection: users complete criteria and claim a badge
 
 Instruction text for agents that use the Quest skill, loaded by `bb dev skills quest` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the quest skill and build me one: quest/reward collection: users complete criteria and claim a badge + coin payout. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills quest` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Quests"]
@@ -6015,6 +6278,16 @@ description: "IBC-backed smart token with 1:1 backing and two required approvals
 # Smart Token
 
 Instruction text for agents that use the Smart Token skill, loaded by `bb dev skills smart-token` and the MCP `get_skill_instructions` tool.
+
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the smart-token skill and build me one: iBC-backed smart token with 1:1 backing and two required approvals (backing + unbacking). Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills smart-token` prints the same instructions.
 
 ## Summary
 
@@ -6333,6 +6606,16 @@ description: "Time-based subscription token with recurring payment approvals and
 
 Instruction text for agents that use the Subscription skill, loaded by `bb dev skills subscription` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the subscription skill and build me one: time-based subscription token with recurring payment approvals and auto-deletion on expiry. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills subscription` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Subscriptions"]
@@ -6479,6 +6762,16 @@ description: "NFT marketplace standard enabling peer-to-peer transfers with the 
 # Tradable NFTs
 
 Instruction text for agents that use the Tradable NFTs skill, loaded by `bb dev skills tradable` and the MCP `get_skill_instructions` tool.
+
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the tradable skill and build me one: nFT marketplace standard enabling peer-to-peer transfers with the "NFTMarketplace" standard tag and NFTPricingDenom. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills tradable` prints the same instructions.
 
 ## Summary
 
@@ -7304,7 +7597,13 @@ console.log(res.claimAttemptId); // 3b9d2f7a1c4e6b8d0f2a4c6e8b1d3f5a
 ```
 
 {% hint style="info" %}
-**Ask your agent.** With the MCP builder tools connected, a prompt like this works: "Create a claim for collection 1 that requires a Discord role and a password, 100 uses total, one per address." The agent calls `search_plugins` to look up the `discord` and `password` parameter schemas, then `build_claim` to produce the claim document. Review it, then create it through the API or the site.
+**Ask your agent.** With the MCP builder tools connected, a prompt like this works:
+
+```text
+Create a claim for collection 1 that requires a Discord role and a password, 100 uses total, one per address.
+```
+
+The agent calls `search_plugins` to look up the `discord` and `password` parameter schemas, then `build_claim` to produce the claim document. Review it, then create it through the API or the site.
 {% endhint %}
 
 ## What Is in This Section
@@ -9062,7 +9361,13 @@ curl -X POST https://api.bitbadges.io/api/v0/siwbb/token \
 ```
 
 {% hint style="info" %}
-**Ask your agent.** With the MCP builder tools connected, a prompt like this works: "Check whether bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue owns at least one token from collection 1, then tell me which Sign In with BitBadges scopes my backend needs to complete claims on that user's behalf." The agent calls `verify_ownership` and `fetch_docs` and answers with the scope names to put in the authorization URL.
+**Ask your agent.** With the MCP builder tools connected, a prompt like this works:
+
+```text
+Check whether bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue owns at least one token from collection 1, then tell me which Sign In with BitBadges scopes my backend needs to complete claims on that user's behalf.
+```
+
+The agent calls `verify_ownership` and `fetch_docs` and answers with the scope names to put in the authorization URL.
 {% endhint %}
 
 ## OAuth Endpoints
@@ -14086,7 +14391,13 @@ The full interface with events and doc comments is [`contracts/interfaces/IToken
 - Invariants and cosmos coin wrapper paths are settable at creation (`createCollectionWithInvariantsJSON`); the chain README notes some deeply nested items may be skipped silently on conversion, so verify with `getCollection` after creation.
 
 {% hint style="info" %}
-Ask your agent: "Build the MsgTransferTokens JSON that sends 1 of token ID 1 in collection 1 from alice to bob, with no prioritized approvals, so I can pass it as msgJson to transferTokens." The `bb build transfer` command and the MCP builder tools emit the same camelCase JSON the precompile accepts; strip the outer `typeUrl`/`value` envelope and the `creator` field.
+Ask your agent:
+
+```text
+Build the MsgTransferTokens JSON that sends 1 of token ID 1 in collection 1 from alice to bob, with no prioritized approvals, so I can pass it as msgJson to transferTokens.
+```
+
+The `bb build transfer` command and the MCP builder tools emit the same camelCase JSON the precompile accepts; strip the outer `typeUrl`/`value` envelope and the `creator` field.
 {% endhint %}
 
 ## Transaction Methods
@@ -16151,7 +16462,13 @@ curl https://lcd.bitbadges.io/osmosis/gamm/v1beta1/pools/1
 ```
 
 {% hint style="info" %}
-Ask your agent: "Create a 50/50 pool between badges:1:utoken and ubadge with 1,000 of each and show me the pool id." The liquidity-pools skill, `bb pools`, and `bb swap` cover pool creation, joins, and swaps.
+Ask your agent:
+
+```text
+Create a 50/50 pool between badges:1:utoken and ubadge with 1,000 of each and show me the pool id.
+```
+
+The liquidity-pools skill, `bb pools`, and `bb swap` cover pool creation, joins, and swaps.
 {% endhint %}
 
 ## Concepts
@@ -16244,7 +16561,13 @@ Every message is signed by `sender`. Amounts are integer strings in the coin's b
 | [MsgStableSwapAdjustScalingFactors](#msgstableswapadjustscalingfactors) | Adjust a stableswap pool's scaling factors |
 
 {% hint style="info" %}
-Ask your agent: "Swap 1 BADGE for badgeslp:64:utoken through pool 1 with 1% slippage and show me the transaction before you sign it." The `bb swap estimate ubadge badgeslp:64:utoken 1000000 --slippage 1` command and the liquidity-pools skill produce the `MsgSwapExactAmountIn` on this page.
+Ask your agent:
+
+```text
+Swap 1 BADGE for badgeslp:64:utoken through pool 1 with 1% slippage and show me the transaction before you sign it.
+```
+
+The `bb swap estimate ubadge badgeslp:64:utoken 1000000 --slippage 1` command and the liquidity-pools skill produce the `MsgSwapExactAmountIn` on this page.
 {% endhint %}
 
 ## MsgCreateBalancerPool
@@ -16813,7 +17136,13 @@ curl https://lcd.bitbadges.io/osmosis/gamm/v1beta1/pools/1/total_pool_liquidity
 ```
 
 {% hint style="info" %}
-Ask your agent: "Show me pool 1 on mainnet: its assets, total shares, and the spot price of badgeslp:64:utoken in BADGE." The `bb pools show 1` and `bb price` commands read the queries on this page.
+Ask your agent:
+
+```text
+Show me pool 1 on mainnet: its assets, total shares, and the spot price of badgeslp:64:utoken in BADGE.
+```
+
+The `bb pools show 1` and `bb price` commands read the queries on this page.
 {% endhint %}
 
 ## All Queries
@@ -17644,7 +17973,13 @@ All signed by `sender`. Type URLs are `/poolmanager.v1beta1.Msg<Name>`.
 Swaps that touch a native token still run through `MsgTransferTokens` and the collection's approvals, exactly as in x/gamm.
 
 {% hint style="info" %}
-Ask your agent: "Estimate how much badgeslp:64:utoken I get for 1 BADGE and split the route across pools 1 and 4 if that is cheaper." The `bb swap estimate ubadge badgeslp:64:utoken 1000000000` command uses the poolmanager estimate endpoints below.
+Ask your agent:
+
+```text
+Estimate how much badgeslp:64:utoken I get for 1 BADGE and split the route across pools 1 and 4 if that is cheaper.
+```
+
+The `bb swap estimate ubadge badgeslp:64:utoken 1000000000` command uses the poolmanager estimate endpoints below.
 {% endhint %}
 
 ## Queries
@@ -17832,7 +18167,7 @@ description: "Start a BitBadges mainnet full node or validator: init, genesis, p
 
 # Run a Node
 
-This page brings up a BitBadges mainnet full node or validator, one copyable step at a time. The daemon binary is `bitbadgeschaind`; the `bb` developer CLI does not run a node. If you already run Cosmos SDK chains, the flow is the standard one. For help, ask in the `#validators` channel of the [Discord](https://discord.com/invite/TJMaEd9Kar) and ping `@trevormil` for the Validator role.
+This page brings up a BitBadges mainnet full node or validator, one copyable step at a time. The daemon binary is `bitbadgeschaind`; the `bb` developer CLI does not run a node. If you already run Cosmos SDK chains, the flow is the standard one. For help, ask in the `#validators` channel of the [Discord](https://discord.com/invite/TJMaEd9bar) and ping `@trevormil` for the Validator role.
 
 ```bash
 bitbadgeschaind init alice --chain-id bitbadges-1
@@ -18106,7 +18441,13 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/params
 ```
 
 {% hint style="info" %}
-Ask your agent: "List every denom BitBadges accepts for payments and pools, with decimals, and tell me the current USDC price of BADGE." The `bb assets list` and `bb assets price` commands read the registry and the pool prices on this page.
+Ask your agent:
+
+```text
+List every denom BitBadges accepts for payments and pools, with decimals, and tell me the current USDC price of BADGE.
+```
+
+The `bb assets list` and `bb assets price` commands read the registry and the pool prices on this page.
 {% endhint %}
 
 ## Allowlist (Mainnet, 2026-09-06)
@@ -18732,7 +19073,11 @@ The first command, run against mainnet for an address that holds nothing, prints
 ```
 
 {% hint style="info" %}
-Ask your agent. With the [MCP builder tools](../agents/setup.md) wired, the build-and-preview line above is one prompt: "Build a USDC vault called Demo Vault and give me a link to review and sign."
+Ask your agent. With the [MCP builder tools](../agents/setup.md) wired, the build-and-preview line above is one prompt:
+
+```text
+Build a USDC vault called Demo Vault and give me a link to review and sign.
+```
 {% endhint %}
 
 `bb --help` ends with the Chaosnet warning and a link to the policies at bitbadges.io/policies. Transactions use real tokens.
@@ -18787,7 +19132,11 @@ bb url collection 42 --raw | xargs open
 Every read verb accepts the [network flags](README.md#network-flags), `--condensed`, and `--output-file`. `0x` inputs are normalized to `bb1` client-side.
 
 {% hint style="info" %}
-Ask your agent. The MCP tools `convert_address`, `validate_address`, `query_balance`, and `lookup_token_info` cover the same ground: "Convert 0x0bc63cfe31d5218eb414b142c799e20964a54a1a to a bb1 address and tell me what it holds in collection 1."
+Ask your agent. The MCP tools `convert_address`, `validate_address`, `query_balance`, and `lookup_token_info` cover the same ground:
+
+```text
+Convert 0x0bc63cfe31d5218eb414b142c799e20964a54a1a to a bb1 address and tell me what it holds in collection 1.
+```
 {% endhint %}
 
 ## Read Verbs
@@ -19005,7 +19354,11 @@ bb build vault --backing-coin USDC --uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26
 All four print the envelope on stdout and human-readable scorecards on stderr (`--quiet` or `BB_QUIET=1` silences stderr). All accept `--condensed`, `--output-file <path>`, and the [network flags](README.md#network-flags).
 
 {% hint style="info" %}
-Ask your agent. `review_collection`, `explain_collection`, `simulate_transaction`, and `get_review_url` are the MCP equivalents: "Review and explain the transaction in tx.json, simulate it, then give me a link to sign."
+Ask your agent. `review_collection`, `explain_collection`, `simulate_transaction`, and `get_review_url` are the MCP equivalents:
+
+```text
+Review and explain the transaction in tx.json, simulate it, then give me a link to sign.
+```
 {% endhint %}
 
 ## check
@@ -19236,7 +19589,11 @@ bb api tokens get-collection --schema
 ```
 
 {% hint style="info" %}
-Ask your agent. `query_collection`, `query_balance`, and `search` wrap the most-used routes: "Fetch collection 1 and tell me whether bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d holds any of its tokens."
+Ask your agent. `query_collection`, `query_balance`, and `search` wrap the most-used routes:
+
+```text
+Fetch collection 1 and tell me whether bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d holds any of its tokens.
+```
 {% endhint %}
 
 ## Route Groups
@@ -19569,7 +19926,7 @@ Ask your agent. Every template here has a skill (`get_skill_instructions`) and t
 
 ## Subcommands
 
-The subcommand list comes from `bitbadgesjs-sdk/src/cli/commands/build.ts`. Collection builders emit `MsgUniversalUpdateCollection` for a new collection. Approval builders emit `MsgSetOutgoingApproval` or `MsgSetIncomingApproval`.
+The subcommand list comes from `bitbadgesjs-sdk/src/cli/commands/build.ts`. Collection builders emit `MsgCreateCollection` for a new collection (they assemble it as `MsgUniversalUpdateCollection` and narrow it at the emit boundary). Approval builders emit `MsgSetOutgoingApproval` or `MsgSetIncomingApproval`.
 
 | Subcommand | Emits | Purpose |
 | --- | --- | --- |
@@ -19612,7 +19969,7 @@ Every subcommand accepts these. `--help` renders them under `Metadata`, `Output`
 | `--simulate` | Builder | Also call the simulate endpoint and render gas and net balance changes (needs an [API key](../api/README.md#api-keys)). Different from `bb deploy --dry-run`, which simulates and exits. |
 | `--events` | Builder | With `--simulate`, dump the full events array instead of the count |
 | `--network`, `--mainnet`, `--testnet`, `--local`, `--url`, `--api-key` | Network | See [CLI](README.md#network-flags) |
-| `--burner`, `--browser`, `--sign-only`, `--frontend-url`, `--no-open`, `--timeout`, `--expected-address`, `--fund`, `--fee`, `--fee-denom`, `--gas`, `--new`, `--reuse`, `--non-interactive`, `--poll-timeout` | Deploy | Broadcast inline instead of emitting JSON. See [Deploy](deploy.md). |
+| `--burner`, `--browser`, `--sign-only`, `--frontend-url`, `--no-open`, `--timeout`, `--expected-address`, `--fund`, `--fee`, `--fee-denom`, `--gas`, `--new`, `--reuse`, `--non-interactive`, `--poll-timeout`, `--port <n>` | Deploy | Broadcast inline instead of emitting JSON. See [Deploy](deploy.md). |
 
 `--json-only` still works as a deprecated alias for `--quiet`.
 
@@ -20007,7 +20364,11 @@ The query prints the on-chain collection document (mainnet output, permissions a
 Endpoints and chain IDs: [Network](../chain/README.md). Mainnet is `bitbadges-1`; testnet (`bitbadges-2`) is offline.
 
 {% hint style="info" %}
-Ask your agent. Queries have MCP equivalents (`query_collection`, `query_balance`, `query_dynamic_store`); signing does not, by design. "Fetch collection 2 from chain and summarize its approvals" works; the `bb tx` step stays with you and your keyring.
+Ask your agent. Queries have MCP equivalents (`query_collection`, `query_balance`, `query_dynamic_store`); signing does not, by design. This prompt works, and the `bb tx` step stays with you and your keyring:
+
+```text
+Fetch collection 2 from chain and summarize its approvals.
+```
 {% endhint %}
 
 ## keys
@@ -20306,6 +20667,14 @@ Pick exactly one.
 | Burner | `--burner --manager <address>` | A throwaway signer funded from the faucet, create-collection only. Needs a faucet; testnet is offline, so this path is unavailable until it returns. |
 
 `--browser` and `--burner` emit the same envelope. `--with-keyring` prints the chain binary command, or runs it with `--exec`. `--gen-payload` prints the payload and exits.
+
+The chain accepts zero-fee transactions today, so a first collection needs no BADGE at all with `--fee 0` (the default). Testnet is offline and mainnet has no faucet. If a fee is ever required, ask for BADGE in the [BitBadges Discord](https://discord.com/invite/TJMaEd9bar).
+
+Ask your agent:
+
+```text
+I have collection.json. I want to sign with Keplr in my browser on mainnet. Give me the exact bb deploy command with the right flags, then tell me how to confirm the hash landed.
+```
 
 ## deploy
 
@@ -20618,7 +20987,11 @@ The second command returns the skill's structured instructions (mainnet-independ
 The old top-level `tools`, `tool`, `resources`, `docs`, `skills`, and `gen-pub-key` still resolve with a deprecation banner.
 
 {% hint style="info" %}
-Ask your agent. Everything under `bb dev` is what the agent already calls through MCP (`get_skill_instructions`, `search_knowledge_base`, `fetch_docs`). "Load the smart-token skill and explain the two required approvals" runs the first example for you.
+Ask your agent. Everything under `bb dev` is what the agent already calls through MCP (`get_skill_instructions`, `search_knowledge_base`, `fetch_docs`). This prompt runs the first example for you:
+
+```text
+Load the smart-token skill and explain the two required approvals.
+```
 {% endhint %}
 
 ## tools
@@ -20786,7 +21159,11 @@ bb auctions place-bid 42 --creator bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --a
 Action verbs accept the [network flags](README.md#network-flags), `--condensed`, `--output-file`, and the [deploy flags](deploy.md) (`--browser`, `--burner`, `--sign-only`, and the rest) to broadcast inline instead of emitting JSON. Amount flags take display units for symbol denoms and base units for raw denoms; `--base-units` forces base units. Addresses marked "strict" must be in `bb1` form; run `bb account convert` for `0x`.
 
 {% hint style="info" %}
-Ask your agent. The read verbs map onto `query_collection` and `analyze_collection`; the action verbs onto `build_transfer` and the approval builders. "Place a 50 USDC bid on auction 42 from bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue and give me the link to sign" covers the example above.
+Ask your agent. The read verbs map onto `query_collection` and `analyze_collection`; the action verbs onto `build_transfer` and the approval builders. This prompt covers the example above:
+
+```text
+Place a 50 USDC bid on auction 42 from bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue and give me the link to sign.
+```
 {% endhint %}
 
 | Group | Verbs |
@@ -21084,7 +21461,11 @@ bb amount to-raw 1.5 --denom USDC                                     # 1500000
 All read verbs accept the [network flags](README.md#network-flags), `--condensed`, and `--output-file`.
 
 {% hint style="info" %}
-Ask your agent. `lookup_token_info` and `query_balance` cover the lookups here; swaps themselves stay in the wallet. "What is 1 BADGE worth in USDC right now, and which pool has the most BADGE liquidity?" runs `bb price` and `bb pools` for you.
+Ask your agent. `lookup_token_info` and `query_balance` cover the lookups here; swaps themselves stay in the wallet. This prompt runs `bb price` and `bb pools` for you:
+
+```text
+What is 1 BADGE worth in USDC right now, and which pool has the most BADGE liquidity?
+```
 {% endhint %}
 
 {% hint style="warning" %}
@@ -21345,8 +21726,13 @@ Every guide assumes:
 {% hint style="info" %}
 **Ask your agent.** Every guide here has a matching prompt. With the MCP builder tools installed, paste one of these to skip the hand-written JSON:
 
-- "Create a 100-piece NFT collection called Demo NFTs where only I can mint, and give me the review link."
-- "Build a subscription token that renews monthly for 5 USDC."
+```text
+Create a 100-piece NFT collection called Demo NFTs where only I can mint, and give me the review link.
+```
+
+```text
+Build a subscription token that renews monthly for 5 USDC.
+```
 {% endhint %}
 
 ## Guides
@@ -21441,8 +21827,13 @@ Each field's meaning is tabled in [Plugins](../api/claims/plugins.md). The choic
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Search the claim plugins for one that checks GitHub contributions and explain what params it needs."
-- "Write a Next.js API route for a Stateless claim plugin that verifies pluginSecret, returns 200 on simulation, and rejects users whose answer does not match a private param."
+```text
+Search the claim plugins for one that checks GitHub contributions and explain what params it needs.
+```
+
+```text
+Write a Next.js API route for a Stateless claim plugin that verifies pluginSecret, returns 200 on simulation, and rejects users whose answer does not match a private param.
+```
 {% endhint %}
 
 ## 2. Define Parameters and User Inputs
@@ -22092,295 +22483,298 @@ Full signing options (Ethereum wallets, browser handoff, payload generation) are
 
 ### Raw JSON
 
-A complete `MsgCreateCollection` for a tradable NFT collection (100 NFTs, creator-only mint, free post-mint transfers, priced in canonical USDC). All permissions are empty, so the manager keeps soft-enabled control of everything. Rows at their defaults are folded; click one to expand it.
+A complete `MsgCreateCollection` for a tradable NFT collection, wrapped in the `{ typeUrl, value }` envelope that `bb check`, `bb preview`, and `bb deploy` accept (100 NFTs, creator-only mint, free post-mint transfers, priced in canonical USDC). All permissions are empty, so the manager keeps soft-enabled control of everything. Rows at their defaults are folded; click one to expand it.
 
-```json fold=3-6,10-17,19-31,61-65,78-82,84-96,106-111,113-157,159-163,173-182,184-201,204-209,212-263,265-269,274-280,282-286
+```json fold=5-8,12-19,21-33,63-67,80-84,86-98,108-113,115-159,161-165,175-184,186-203,206-211,214-265,267-271,276-282,284-288
 {
-  "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
-  "defaultBalances": {
-    "balances": [],
-    "outgoingApprovals": [],
-    "incomingApprovals": [],
-    "autoApproveSelfInitiatedOutgoingTransfers": true,
-    "autoApproveSelfInitiatedIncomingTransfers": true,
-    "autoApproveAllIncomingTransfers": true,
-    "userPermissions": {
-      "canUpdateOutgoingApprovals": [],
-      "canUpdateIncomingApprovals": [],
-      "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
-      "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
-      "canUpdateAutoApproveAllIncomingTransfers": []
-    }
-  },
-  "validTokenIds": [{ "start": "1", "end": "100" }],
-  "collectionPermissions": {
-    "canDeleteCollection": [],
-    "canArchiveCollection": [],
-    "canUpdateStandards": [],
-    "canUpdateCustomData": [],
-    "canUpdateManager": [],
-    "canUpdateCollectionMetadata": [],
-    "canUpdateValidTokenIds": [],
-    "canUpdateTokenMetadata": [],
-    "canUpdateCollectionApprovals": [],
-    "canAddMoreAliasPaths": [],
-    "canAddMoreCosmosCoinWrapperPaths": []
-  },
-  "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
-  "collectionMetadata": {
-    "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
-    "customData": ""
-  },
-  "tokenMetadata": [
-    {
-      "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json",
-      "customData": "",
-      "tokenIds": [{ "start": "1", "end": "100" }]
+  "typeUrl": "/tokenization.MsgCreateCollection",
+  "value": {
+    "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+    "defaultBalances": {
+      "balances": [],
+      "outgoingApprovals": [],
+      "incomingApprovals": [],
+      "autoApproveSelfInitiatedOutgoingTransfers": true,
+      "autoApproveSelfInitiatedIncomingTransfers": true,
+      "autoApproveAllIncomingTransfers": true,
+      "userPermissions": {
+        "canUpdateOutgoingApprovals": [],
+        "canUpdateIncomingApprovals": [],
+        "canUpdateAutoApproveSelfInitiatedOutgoingTransfers": [],
+        "canUpdateAutoApproveSelfInitiatedIncomingTransfers": [],
+        "canUpdateAutoApproveAllIncomingTransfers": []
+      }
     },
-    {
-      "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/placeholder.json",
-      "customData": "",
-      "tokenIds": [{ "start": "101", "end": "18446744073709551615" }]
-    }
-  ],
-  "customData": "",
-  "collectionApprovals": [
-    {
-      "fromListId": "Mint",
-      "toListId": "All",
-      "initiatedByListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
-      "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
-      "tokenIds": [{ "start": "1", "end": "100" }],
-      "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
-      "uri": "",
-      "customData": "",
-      "approvalId": "manager-mint",
-      "approvalCriteria": {
-        "merkleChallenges": [],
-        "predeterminedBalances": {
-          "manualBalances": [],
-          "incrementedBalances": {
-            "startBalances": [
-              {
-                "amount": "1",
-                "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
-                "tokenIds": [{ "start": "1", "end": "1" }]
-              }
-            ],
-            "incrementTokenIdsBy": "1",
-            "incrementOwnershipTimesBy": "0",
-            "durationFromTimestamp": "0",
-            "allowOverrideTimestamp": false,
-            "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
-            "allowOverrideWithAnyValidToken": false,
-            "allowAmountScaling": false,
-            "maxScalingMultiplier": "0"
+    "validTokenIds": [{ "start": "1", "end": "100" }],
+    "collectionPermissions": {
+      "canDeleteCollection": [],
+      "canArchiveCollection": [],
+      "canUpdateStandards": [],
+      "canUpdateCustomData": [],
+      "canUpdateManager": [],
+      "canUpdateCollectionMetadata": [],
+      "canUpdateValidTokenIds": [],
+      "canUpdateTokenMetadata": [],
+      "canUpdateCollectionApprovals": [],
+      "canAddMoreAliasPaths": [],
+      "canAddMoreCosmosCoinWrapperPaths": []
+    },
+    "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+    "collectionMetadata": {
+      "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json",
+      "customData": ""
+    },
+    "tokenMetadata": [
+      {
+        "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/{id}.json",
+        "customData": "",
+        "tokenIds": [{ "start": "1", "end": "100" }]
+      },
+      {
+        "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/placeholder.json",
+        "customData": "",
+        "tokenIds": [{ "start": "101", "end": "18446744073709551615" }]
+      }
+    ],
+    "customData": "",
+    "collectionApprovals": [
+      {
+        "fromListId": "Mint",
+        "toListId": "All",
+        "initiatedByListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+        "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+        "tokenIds": [{ "start": "1", "end": "100" }],
+        "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+        "uri": "",
+        "customData": "",
+        "approvalId": "manager-mint",
+        "approvalCriteria": {
+          "merkleChallenges": [],
+          "predeterminedBalances": {
+            "manualBalances": [],
+            "incrementedBalances": {
+              "startBalances": [
+                {
+                  "amount": "1",
+                  "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+                  "tokenIds": [{ "start": "1", "end": "1" }]
+                }
+              ],
+              "incrementTokenIdsBy": "1",
+              "incrementOwnershipTimesBy": "0",
+              "durationFromTimestamp": "0",
+              "allowOverrideTimestamp": false,
+              "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+              "allowOverrideWithAnyValidToken": false,
+              "allowAmountScaling": false,
+              "maxScalingMultiplier": "0"
+            },
+            "orderCalculationMethod": {
+              "useOverallNumTransfers": true,
+              "usePerToAddressNumTransfers": false,
+              "usePerFromAddressNumTransfers": false,
+              "usePerInitiatedByAddressNumTransfers": false,
+              "useMerkleChallengeLeafIndex": false,
+              "challengeTrackerId": ""
+            }
           },
-          "orderCalculationMethod": {
-            "useOverallNumTransfers": true,
-            "usePerToAddressNumTransfers": false,
-            "usePerFromAddressNumTransfers": false,
-            "usePerInitiatedByAddressNumTransfers": false,
-            "useMerkleChallengeLeafIndex": false,
-            "challengeTrackerId": ""
+          "approvalAmounts": {
+            "overallApprovalAmount": "0",
+            "perToAddressApprovalAmount": "0",
+            "perFromAddressApprovalAmount": "0",
+            "perInitiatedByAddressApprovalAmount": "0",
+            "amountTrackerId": "",
+            "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+          },
+          "maxNumTransfers": {
+            "overallMaxNumTransfers": "100",
+            "perToAddressMaxNumTransfers": "0",
+            "perFromAddressMaxNumTransfers": "0",
+            "perInitiatedByAddressMaxNumTransfers": "1",
+            "amountTrackerId": "nft-mint-tracker",
+            "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+          },
+          "coinTransfers": [],
+          "requireToEqualsInitiatedBy": false,
+          "requireFromEqualsInitiatedBy": false,
+          "requireToDoesNotEqualInitiatedBy": false,
+          "requireFromDoesNotEqualInitiatedBy": false,
+          "overridesFromOutgoingApprovals": true,
+          "overridesToIncomingApprovals": false,
+          "autoDeletionOptions": {
+            "afterOneUse": false,
+            "afterOverallMaxNumTransfers": false,
+            "allowCounterpartyPurge": false,
+            "allowPurgeIfExpired": false
+          },
+          "mustOwnTokens": [],
+          "dynamicStoreChallenges": [],
+          "ethSignatureChallenges": [],
+          "senderChecks": {
+            "mustBeEvmContract": false,
+            "mustNotBeEvmContract": false,
+            "mustBeLiquidityPool": false,
+            "mustNotBeLiquidityPool": false
+          },
+          "recipientChecks": {
+            "mustBeEvmContract": false,
+            "mustNotBeEvmContract": false,
+            "mustBeLiquidityPool": false,
+            "mustNotBeLiquidityPool": false
+          },
+          "initiatorChecks": {
+            "mustBeEvmContract": false,
+            "mustNotBeEvmContract": false,
+            "mustBeLiquidityPool": false,
+            "mustNotBeLiquidityPool": false
+          },
+          "altTimeChecks": {
+            "offlineHours": [],
+            "offlineDays": [],
+            "offlineMonths": [],
+            "offlineDaysOfMonth": [],
+            "offlineWeeksOfYear": [],
+            "timezoneOffsetMinutes": "0",
+            "timezoneOffsetNegative": false
+          },
+          "mustPrioritize": false,
+          "votingChallenges": [],
+          "allowBackedMinting": false,
+          "allowSpecialWrapping": false,
+          "evmQueryChallenges": [],
+          "userApprovalSettings": {
+            "allowedDenoms": [],
+            "disableUserCoinTransfers": false,
+            "userRoyalties": { "percentage": "0", "payoutAddress": "" }
           }
         },
-        "approvalAmounts": {
-          "overallApprovalAmount": "0",
-          "perToAddressApprovalAmount": "0",
-          "perFromAddressApprovalAmount": "0",
-          "perInitiatedByAddressApprovalAmount": "0",
-          "amountTrackerId": "",
-          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
-        },
-        "maxNumTransfers": {
-          "overallMaxNumTransfers": "100",
-          "perToAddressMaxNumTransfers": "0",
-          "perFromAddressMaxNumTransfers": "0",
-          "perInitiatedByAddressMaxNumTransfers": "1",
-          "amountTrackerId": "nft-mint-tracker",
-          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
-        },
-        "coinTransfers": [],
-        "requireToEqualsInitiatedBy": false,
-        "requireFromEqualsInitiatedBy": false,
-        "requireToDoesNotEqualInitiatedBy": false,
-        "requireFromDoesNotEqualInitiatedBy": false,
-        "overridesFromOutgoingApprovals": true,
-        "overridesToIncomingApprovals": false,
-        "autoDeletionOptions": {
-          "afterOneUse": false,
-          "afterOverallMaxNumTransfers": false,
-          "allowCounterpartyPurge": false,
-          "allowPurgeIfExpired": false
-        },
-        "mustOwnTokens": [],
-        "dynamicStoreChallenges": [],
-        "ethSignatureChallenges": [],
-        "senderChecks": {
-          "mustBeEvmContract": false,
-          "mustNotBeEvmContract": false,
-          "mustBeLiquidityPool": false,
-          "mustNotBeLiquidityPool": false
-        },
-        "recipientChecks": {
-          "mustBeEvmContract": false,
-          "mustNotBeEvmContract": false,
-          "mustBeLiquidityPool": false,
-          "mustNotBeLiquidityPool": false
-        },
-        "initiatorChecks": {
-          "mustBeEvmContract": false,
-          "mustNotBeEvmContract": false,
-          "mustBeLiquidityPool": false,
-          "mustNotBeLiquidityPool": false
-        },
-        "altTimeChecks": {
-          "offlineHours": [],
-          "offlineDays": [],
-          "offlineMonths": [],
-          "offlineDaysOfMonth": [],
-          "offlineWeeksOfYear": [],
-          "timezoneOffsetMinutes": "0",
-          "timezoneOffsetNegative": false
-        },
-        "mustPrioritize": false,
-        "votingChallenges": [],
-        "allowBackedMinting": false,
-        "allowSpecialWrapping": false,
-        "evmQueryChallenges": [],
-        "userApprovalSettings": {
-          "allowedDenoms": [],
-          "disableUserCoinTransfers": false,
-          "userRoyalties": { "percentage": "0", "payoutAddress": "" }
-        }
+        "version": "0"
       },
-      "version": "0"
-    },
-    {
-      "fromListId": "!Mint",
-      "toListId": "All",
-      "initiatedByListId": "All",
-      "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
-      "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
-      "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
-      "uri": "",
-      "customData": "",
-      "approvalId": "transferable",
-      "approvalCriteria": {
-        "merkleChallenges": [],
-        "predeterminedBalances": {
-          "manualBalances": [],
-          "incrementedBalances": {
-            "startBalances": [],
-            "incrementTokenIdsBy": "0",
-            "incrementOwnershipTimesBy": "0",
-            "durationFromTimestamp": "0",
-            "allowOverrideTimestamp": false,
-            "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
-            "allowOverrideWithAnyValidToken": false,
-            "allowAmountScaling": false,
-            "maxScalingMultiplier": "0"
+      {
+        "fromListId": "!Mint",
+        "toListId": "All",
+        "initiatedByListId": "All",
+        "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+        "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
+        "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+        "uri": "",
+        "customData": "",
+        "approvalId": "transferable",
+        "approvalCriteria": {
+          "merkleChallenges": [],
+          "predeterminedBalances": {
+            "manualBalances": [],
+            "incrementedBalances": {
+              "startBalances": [],
+              "incrementTokenIdsBy": "0",
+              "incrementOwnershipTimesBy": "0",
+              "durationFromTimestamp": "0",
+              "allowOverrideTimestamp": false,
+              "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+              "allowOverrideWithAnyValidToken": false,
+              "allowAmountScaling": false,
+              "maxScalingMultiplier": "0"
+            },
+            "orderCalculationMethod": {
+              "useOverallNumTransfers": false,
+              "usePerToAddressNumTransfers": false,
+              "usePerFromAddressNumTransfers": false,
+              "usePerInitiatedByAddressNumTransfers": false,
+              "useMerkleChallengeLeafIndex": false,
+              "challengeTrackerId": ""
+            }
           },
-          "orderCalculationMethod": {
-            "useOverallNumTransfers": false,
-            "usePerToAddressNumTransfers": false,
-            "usePerFromAddressNumTransfers": false,
-            "usePerInitiatedByAddressNumTransfers": false,
-            "useMerkleChallengeLeafIndex": false,
-            "challengeTrackerId": ""
+          "approvalAmounts": {
+            "overallApprovalAmount": "0",
+            "perToAddressApprovalAmount": "0",
+            "perFromAddressApprovalAmount": "0",
+            "perInitiatedByAddressApprovalAmount": "0",
+            "amountTrackerId": "transferable",
+            "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+          },
+          "maxNumTransfers": {
+            "overallMaxNumTransfers": "0",
+            "perToAddressMaxNumTransfers": "0",
+            "perFromAddressMaxNumTransfers": "0",
+            "perInitiatedByAddressMaxNumTransfers": "0",
+            "amountTrackerId": "transferable",
+            "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
+          },
+          "coinTransfers": [],
+          "requireToEqualsInitiatedBy": false,
+          "requireFromEqualsInitiatedBy": false,
+          "requireToDoesNotEqualInitiatedBy": false,
+          "requireFromDoesNotEqualInitiatedBy": false,
+          "overridesFromOutgoingApprovals": false,
+          "overridesToIncomingApprovals": false,
+          "autoDeletionOptions": {
+            "afterOneUse": false,
+            "afterOverallMaxNumTransfers": false,
+            "allowCounterpartyPurge": false,
+            "allowPurgeIfExpired": false
+          },
+          "mustOwnTokens": [],
+          "dynamicStoreChallenges": [],
+          "ethSignatureChallenges": [],
+          "senderChecks": {
+            "mustBeEvmContract": false,
+            "mustNotBeEvmContract": false,
+            "mustBeLiquidityPool": false,
+            "mustNotBeLiquidityPool": false
+          },
+          "recipientChecks": {
+            "mustBeEvmContract": false,
+            "mustNotBeEvmContract": false,
+            "mustBeLiquidityPool": false,
+            "mustNotBeLiquidityPool": false
+          },
+          "initiatorChecks": {
+            "mustBeEvmContract": false,
+            "mustNotBeEvmContract": false,
+            "mustBeLiquidityPool": false,
+            "mustNotBeLiquidityPool": false
+          },
+          "altTimeChecks": {
+            "offlineHours": [],
+            "offlineDays": [],
+            "offlineMonths": [],
+            "offlineDaysOfMonth": [],
+            "offlineWeeksOfYear": [],
+            "timezoneOffsetMinutes": "0",
+            "timezoneOffsetNegative": false
+          },
+          "mustPrioritize": false,
+          "votingChallenges": [],
+          "allowBackedMinting": false,
+          "allowSpecialWrapping": false,
+          "evmQueryChallenges": [],
+          "userApprovalSettings": {
+            "allowedDenoms": [],
+            "disableUserCoinTransfers": false,
+            "userRoyalties": { "percentage": "0", "payoutAddress": "" }
           }
         },
-        "approvalAmounts": {
-          "overallApprovalAmount": "0",
-          "perToAddressApprovalAmount": "0",
-          "perFromAddressApprovalAmount": "0",
-          "perInitiatedByAddressApprovalAmount": "0",
-          "amountTrackerId": "transferable",
-          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
-        },
-        "maxNumTransfers": {
-          "overallMaxNumTransfers": "0",
-          "perToAddressMaxNumTransfers": "0",
-          "perFromAddressMaxNumTransfers": "0",
-          "perInitiatedByAddressMaxNumTransfers": "0",
-          "amountTrackerId": "transferable",
-          "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" }
-        },
-        "coinTransfers": [],
-        "requireToEqualsInitiatedBy": false,
-        "requireFromEqualsInitiatedBy": false,
-        "requireToDoesNotEqualInitiatedBy": false,
-        "requireFromDoesNotEqualInitiatedBy": false,
-        "overridesFromOutgoingApprovals": false,
-        "overridesToIncomingApprovals": false,
-        "autoDeletionOptions": {
-          "afterOneUse": false,
-          "afterOverallMaxNumTransfers": false,
-          "allowCounterpartyPurge": false,
-          "allowPurgeIfExpired": false
-        },
-        "mustOwnTokens": [],
-        "dynamicStoreChallenges": [],
-        "ethSignatureChallenges": [],
-        "senderChecks": {
-          "mustBeEvmContract": false,
-          "mustNotBeEvmContract": false,
-          "mustBeLiquidityPool": false,
-          "mustNotBeLiquidityPool": false
-        },
-        "recipientChecks": {
-          "mustBeEvmContract": false,
-          "mustNotBeEvmContract": false,
-          "mustBeLiquidityPool": false,
-          "mustNotBeLiquidityPool": false
-        },
-        "initiatorChecks": {
-          "mustBeEvmContract": false,
-          "mustNotBeEvmContract": false,
-          "mustBeLiquidityPool": false,
-          "mustNotBeLiquidityPool": false
-        },
-        "altTimeChecks": {
-          "offlineHours": [],
-          "offlineDays": [],
-          "offlineMonths": [],
-          "offlineDaysOfMonth": [],
-          "offlineWeeksOfYear": [],
-          "timezoneOffsetMinutes": "0",
-          "timezoneOffsetNegative": false
-        },
-        "mustPrioritize": false,
-        "votingChallenges": [],
-        "allowBackedMinting": false,
-        "allowSpecialWrapping": false,
-        "evmQueryChallenges": [],
-        "userApprovalSettings": {
-          "allowedDenoms": [],
-          "disableUserCoinTransfers": false,
-          "userRoyalties": { "percentage": "0", "payoutAddress": "" }
-        }
-      },
-      "version": "0"
-    }
-  ],
-  "standards": [
-    "NFTMarketplace",
-    "NFTs",
-    "NFTPricingDenom:ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8"
-  ],
-  "isArchived": false,
-  "mintEscrowCoinsToTransfer": [],
-  "cosmosCoinWrapperPathsToAdd": [],
-  "invariants": {
-    "noCustomOwnershipTimes": false,
-    "maxSupplyPerId": "0",
-    "cosmosCoinBackedPath": { "conversion": { "sideA": { "amount": "0", "denom": "" }, "sideB": [] } },
-    "noForcefulPostMintTransfers": false,
-    "disablePoolCreation": false,
-    "evmQueryChallenges": []
-  },
-  "aliasPathsToAdd": []
+        "version": "0"
+      }
+    ],
+    "standards": [
+      "NFTMarketplace",
+      "NFTs",
+      "NFTPricingDenom:ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8"
+    ],
+    "isArchived": false,
+    "mintEscrowCoinsToTransfer": [],
+    "cosmosCoinWrapperPathsToAdd": [],
+    "invariants": {
+      "noCustomOwnershipTimes": false,
+      "maxSupplyPerId": "0",
+      "cosmosCoinBackedPath": { "conversion": { "sideA": { "amount": "0", "denom": "" }, "sideB": [] } },
+      "noForcefulPostMintTransfers": false,
+      "disablePoolCreation": false,
+      "evmQueryChallenges": []
+    },
+    "aliasPathsToAdd": []
+  }
 }
 ```
 
@@ -22615,8 +23009,13 @@ Design tips:
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Build a claim gated by 100 one-time codes, one use per address, and show me the claim JSON and the codes."
-- "Search the claim plugins for a way to gate by Discord server membership, then build the claim with it."
+```text
+Build a claim gated by 100 one-time codes, one use per address, and show me the claim JSON and the codes.
+```
+
+```text
+Search the claim plugins for a way to gate by Discord server membership, then build the claim with it.
+```
 {% endhint %}
 
 ## 2. Configure the Claim
@@ -23105,8 +23504,13 @@ Subscription AND not banned:
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Check whether bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue owns token 1 of collection 1 right now."
-- "Using the bb-402 skill, build a soulbound receipt collection where minting costs 1 USDC, then give me the review link."
+```text
+Check whether bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue owns token 1 of collection 1 right now.
+```
+
+```text
+Using the bb-402 skill, build a soulbound receipt collection where minting costs 1 USDC, then give me the review link.
+```
 {% endhint %}
 
 ## 2. Check Ownership from the Server
@@ -23532,8 +23936,13 @@ For editable fields, use neutral `[]` rather than `permanentlyPermittedTimes`. N
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Lock the mint approvals on collection 1 so supply can never change, keep metadata editable, and give me the review link."
-- "Explain which permissions on collection 1 are frozen and which the manager can still change."
+```text
+Lock the mint approvals on collection 1 so supply can never change, keep metadata editable, and give me the review link.
+```
+
+```text
+Explain which permissions on collection 1 are frozen and which the manager can still change.
+```
 {% endhint %}
 
 ## 2. Decide the Two Permissions That Matter Most
@@ -24036,8 +24445,13 @@ Rules that apply to every mint approval:
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Add a public mint to collection 1 that charges 5 BADGE per mint, one per address, capped at 1,000 mints, and give me the review link."
-- "Build a transfer that mints token 1 of collection 1 to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue through the manager-mint approval, validate it, and give me the review link."
+```text
+Add a public mint to collection 1 that charges 5 BADGE per mint, one per address, capped at 1,000 mints, and give me the review link.
+```
+
+```text
+Build a transfer that mints token 1 of collection 1 to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue through the manager-mint approval, validate it, and give me the review link.
+```
 {% endhint %}
 
 ### Creator-Only Mint
@@ -24851,8 +25265,13 @@ Reserved list IDs are `All`, `Mint`, `!Mint`, `AllWithoutMint`, one address such
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Make collection 1 transferable and burnable after mint, run the review, and give me the review link."
-- "Add an admin override approval on collection 1 for bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d that can move any token, and flag anything risky in the review."
+```text
+Make collection 1 transferable and burnable after mint, run the review, and give me the review link.
+```
+
+```text
+Add an admin override approval on collection 1 for bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d that can move any token, and flag anything risky in the review.
+```
 {% endhint %}
 
 ## 2. Start from the Empty Criteria Template
@@ -25530,8 +25949,13 @@ Endpoints:
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Read the Sign In with BitBadges docs and write me an Express callback handler that exchanges the code and starts a session."
-- "Check whether the signed-in address bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue has completed claim claim_demo_01."
+```text
+Read the Sign In with BitBadges docs and write me an Express callback handler that exchanges the code and starts a session.
+```
+
+```text
+Check whether the signed-in address bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue has completed claim claim_demo_01.
+```
 {% endhint %}
 
 ## 2. Build the Authorization URL
@@ -25818,8 +26242,13 @@ The BitBadges site's Create tab also has a Smart Token flow with the same option
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Build a smart token backed 1:1 by USDC called Wrapped USDC, transferable, with an alias path, and give me the review link."
-- "Build an AI agent vault backed by USDC with a 1,000 USDC daily withdraw limit and 2FA from collection 74, run the review, and flag anything risky."
+```text
+Build a smart token backed 1:1 by USDC called Wrapped USDC, transferable, with an alias path, and give me the review link.
+```
+
+```text
+Build an AI agent vault backed by USDC with a 1,000 USDC daily withdraw limit and 2FA from collection 74, run the review, and flag anything risky.
+```
 {% endhint %}
 
 ### Raw JSON
@@ -27042,8 +27471,13 @@ See [Predetermined Balances](../token-standard/approval-criteria/predetermined-b
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Build a subscription token called Demo Membership that renews monthly for 5 USDC paid to me, with three tiers, and give me the review link."
-- "Build a credit token where 1 USDC buys 100,000 API credits, non-transferable, with an alias path, and run the review."
+```text
+Build a subscription token called Demo Membership that renews monthly for 5 USDC paid to me, with three tiers, and give me the review link.
+```
+
+```text
+Build a credit token where 1 USDC buys 100,000 API credits, non-transferable, with an alias path, and run the review.
+```
 {% endhint %}
 
 ## 2. Subscribe, Renew, and Charge
@@ -27442,8 +27876,13 @@ In TypeScript the same data is `api.getAllPools`, `getPoolInfoById`, `getPoolInf
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Using the liquidity-pools skill, create a balancer pool of BADGE and the wrapped token of collection 1 with a 0.3% swap fee, and give me the review link."
-- "Look up the current price of BADGE in USDC and the pools that hold both."
+```text
+Using the liquidity-pools skill, create a balancer pool of BADGE and the wrapped token of collection 1 with a 0.3% swap fee, and give me the review link.
+```
+
+```text
+Look up the current price of BADGE in USDC and the pools that hold both.
+```
 {% endhint %}
 
 ## 2. Check Balances
@@ -27708,8 +28147,13 @@ const collection = {
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Add a cosmos coin wrapper path to my collection for denom utoken with symbol TOKEN and 6 decimals, add the wrap and unwrap approvals, and give me the review link."
-- "Generate the wrapper address for denom utoken."
+```text
+Add a cosmos coin wrapper path to my collection for denom utoken with symbol TOKEN and 6 decimals, add the wrap and unwrap approvals, and give me the review link.
+```
+
+```text
+Generate the wrapper address for denom utoken.
+```
 {% endhint %}
 
 ## 2. Derive the Wrapper Address
@@ -27905,7 +28349,13 @@ console.log(account.accountNumber, account.sequence);
 ```
 
 {% hint style="info" %}
-Ask your agent. With the [MCP builder tools](../agents/setup.md) wired, the queries on this page are one prompt away: "Fetch collection 1 and the account bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d and summarize both." Building and signing still end in a review link you open yourself.
+Ask your agent. With the [MCP builder tools](../agents/setup.md) wired, the queries on this page are one prompt away:
+
+```text
+Fetch collection 1 and the account bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d and summarize both.
+```
+
+Building and signing still end in a review link you open yourself.
 {% endhint %}
 
 `BitBadgesAPI` wraps every REST route with typed request and response classes. If `apiKey` or `apiUrl` is omitted, the client reads `BITBADGES_API_KEY` and `BITBADGES_API_URL` from the environment. Every numeric field in a response is converted with `convertFunction` (`BigIntify`, `Numberify`, or `Stringify`). See [Types](types.md) for why.
@@ -29144,7 +29594,13 @@ console.log(sim.gas_info.gas_used, res.tx_response.txhash);
 ```
 
 {% hint style="info" %}
-Ask your agent. The MCP builder tools run steps 1 and 3 for you (`build_transfer`, `validate_transaction`, `simulate_transaction`) and stop at `get_review_url`: "Build a transfer of one unit of token 1 in collection 1 from me to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, simulate it, and give me the link to sign." Signing stays with your wallet.
+Ask your agent. The MCP builder tools run steps 1 and 3 for you (`build_transfer`, `validate_transaction`, `simulate_transaction`) and stop at `get_review_url`:
+
+```text
+Build a transfer of one unit of token 1 in collection 1 from me to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, simulate it, and give me the link to sign.
+```
+
+Signing stays with your wallet.
 {% endhint %}
 
 ## Choose a Path
@@ -30043,6 +30499,214 @@ const protoMsg = proto.tokenization.MsgTransferTokens; // proto class: string nu
 - [SDK reference](reference/README.md)
 
 
+## File: start/first-collection.md
+
+---
+description: "Idea to on-chain in one sitting: build a subscription token with the CLI or an AI agent, check it, simulate it, and sign it in the browser. Every command shows its real output."
+---
+
+# Your First Collection
+
+This page goes from an idea to a signed collection on-chain. Every command below shows the output it produced, so you can tell success from failure at each step.
+
+Two ways in. Pick one, or read both; they meet at the same review link.
+
+- **Terminal.** The `bb` CLI builds from flags. No model involved.
+- **AI agent.** Claude Code, Codex, or Cursor with the BitBadges MCP server. You describe the token; the agent runs the same steps.
+
+The agent never signs. Neither does the CLI unless you tell it to. Both hand you a link, and you sign in the browser with your own wallet.
+
+## Prerequisites
+
+```bash
+curl -fsSL https://install.bitbadges.io | sh
+bb settings set apiKey <key>
+bb doctor
+```
+
+Get a key at [bitbadges.io/developer](https://bitbadges.io/developer). You do not need one to build; you need one for `bb simulate` and for the query tools. Set it now so nothing below stalls.
+
+For the agent path, wire the MCP server into your client first. See [Setup](../agents/setup.md).
+
+You need no BADGE to sign a first collection. The chain accepts zero-fee transactions today and `--fee 0` is the default.
+
+## The idea
+
+A subscription: members pay 10 USDC a month and hold a token while their subscription is live. This is the whole spec.
+
+## Path A: the CLI
+
+### 1. Build
+
+```bash
+bb build subscription \
+  --interval monthly --price 10 --denom USDC \
+  --recipient bb1w63npeee74ewuudzf8cgvy6at4jn4mjr0a9r5p \
+  --creator bb1w63npeee74ewuudzf8cgvy6at4jn4mjr0a9r5p \
+  --manager bb1w63npeee74ewuudzf8cgvy6at4jn4mjr0a9r5p \
+  --name "Pro Plan" --description "Monthly access." --image https://example.com/pro.png \
+  --output-file tx.json
+```
+
+`--creator` and `--manager` are your address. Leave them out and the message ships with `creator: ""`, which the chain rejects at simulate time, not build time.
+
+The build prints a review to stderr, then writes the file:
+
+```text
+━━━ Review ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ■ CRITICAL  review.audit.supply.mint_approvals_can_be_modified_unlimited_supply_risk
+  ■ CRITICAL  review.ux.forceful_transfers_not_locked
+  Summary  2 critical  ·  1 warning  ·  3 info  ·  verdict: fail
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Written to tx.json
+```
+
+Two critical findings on a fresh build is expected. Read the next step before you react to them.
+
+The file holds the universal envelope. `data` is the message; `hint` is the next command:
+
+```json
+{
+  "ok": true,
+  "data": { "typeUrl": "/tokenization.MsgCreateCollection", "value": { "creator": "bb1w63np…", "…": "…" } },
+  "warnings": [],
+  "hint": "Next: bb check tx.json && bb preview tx.json --open — audits it, then opens the browser to review and sign.",
+  "meta": { "review": { "summary": { "critical": 2, "warning": 1, "info": 3, "verdict": "fail" } } },
+  "error": null
+}
+```
+
+### 2. Check
+
+```bash
+bb check tx.json
+```
+
+```json
+{
+  "ok": false,
+  "data": null,
+  "hint": "Fix the reported errors and critical findings (each carries a recommendation), then re-run `bb check`. Do not preview or deploy a transaction that fails here.",
+  "error": { "code": "review_critical", "message": "Check failed: 2 critical review finding(s)." }
+}
+```
+
+Exit code 2. The full review is in `meta.review`. The two critical findings, with their recommendations:
+
+| Finding | What it means | Recommendation |
+| --- | --- | --- |
+| Mint approvals can be modified | The manager can edit the mint approval later, including its price. | Lock `canUpdateCollectionApprovals` for `fromListId: "Mint"` if the price must never change. |
+| Forceful transfers are not permanently blocked | The manager could move tokens out of a member's wallet. | Set `invariants.noForcefulPostMintTransfers = true` at creation. It cannot be toggled later. |
+
+These are decisions, not bugs. For a subscription whose price you expect to raise, an updatable mint approval is the point. The reviewer does not know your intent, so it flags anything a manager could abuse. Decide each one, edit `tx.json` if you want the lock, and re-run `bb check` until the verdict is what you meant.
+
+`bb explain tx.json` prints the same transaction in plain English if the review text is too dense.
+
+### 3. Simulate
+
+```bash
+bb simulate tx.json
+```
+
+```json
+{
+  "ok": true,
+  "data": { "success": true, "valid": true, "gasUsed": "118061", "events": ["…"], "netChanges": {} },
+  "warnings": [],
+  "error": null
+}
+```
+
+`valid: true` means the chain would accept it. A failing simulation exits 2 with `ok: false` and the chain's reason in `error.message`.
+
+### 4. Review and sign
+
+```bash
+bb preview tx.json --open
+```
+
+```text
+Review + sign: https://bitbadges.io/mint/local-builder?code=prv_7tffq58d
+Expires in 1 hour.
+```
+
+```json
+{
+  "ok": true,
+  "data": {
+    "code": "prv_7tffq58d",
+    "url": "https://bitbadges.io/mint/local-builder?code=prv_7tffq58d",
+    "reviewUrl": "https://bitbadges.io/mint/local-builder?code=prv_7tffq58d",
+    "expiresAt": 1788803578315,
+    "expiresIn": "1 hour"
+  },
+  "warnings": [],
+  "error": null
+}
+```
+
+`--open` launches the link. The page loads the transaction, lands on Review, and walks Preview, Review Items, Transferability, and Permissions before the wallet signature. Sign there.
+
+Prefer to stay in the terminal and have the hash come back to you? `bb deploy --browser` opens the sign page and blocks until the wallet confirms:
+
+```bash
+bb deploy --msg-file tx.json --browser --manager bb1w63npeee74ewuudzf8cgvy6at4jn4mjr0a9r5p
+```
+
+```json
+{ "success": true, "path": "browser", "mode": "sign-and-broadcast", "txHash": "E5B4C3A6E5B1F3B9F0F4C1F2B7A6D5C4E3F2A1B0C9D8E7F6A5B4C3D2E1F0A9B8", "chain": "cosmos" }
+```
+
+### 5. Confirm
+
+```bash
+bb tx wait E5B4C3A6E5B1F3B9F0F4C1F2B7A6D5C4E3F2A1B0C9D8E7F6A5B4C3D2E1F0A9B8 --timeout 60
+```
+
+The response carries the new `collectionId` in its events. Then:
+
+```bash
+bb api tokens get-collection <collectionId>
+```
+
+That returns the collection as the indexer sees it. Your subscription is on-chain.
+
+## Path B: an AI agent
+
+With the MCP server wired, paste this into Claude Code, Codex, or Cursor:
+
+```text
+Build me a subscription token called Pro Plan: members pay 10 USDC a month and keep access while it is live. I am the manager. Load the subscription skill, use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+The agent calls `get_skill_instructions`, then the `set_*` and `add_approval` tools in one round, then the three verify tools, then `get_review_url`. You see the same two review findings, phrased in plain English, and the agent asks you whether the price should be lockable. Answer, and it hands back:
+
+```json
+{
+  "success": true,
+  "code": "prv_5cip1cmg",
+  "reviewUrl": "https://bitbadges.io/mint/local-builder?code=prv_5cip1cmg",
+  "expiresAt": 1788803578315,
+  "expiresIn": "1 hour"
+}
+```
+
+Open `reviewUrl`. From here it is step 4 above: review, sign with your wallet, confirm.
+
+Building a second collection in the same conversation? Ask the agent to call `reset_session` first. Session state persists, and without the reset the new collection inherits the first one's approvals.
+
+## Running against a local stack
+
+Every command above takes `--local` to target an indexer on `localhost:3001` and a chain on `localhost:26657`. `bb simulate --local` needs no API key. `bb preview --local` prints a `localhost:3000` link.
+
+## Where to go next
+
+- [Build Commands](../cli/build.md) lists all 19 templates and their flags.
+- [Skills](../agents/skills/README.md) is the agent's version of the same list, with a paste-ready prompt on every page.
+- [Deploy Commands](../cli/deploy.md) covers every signing path, including unattended `--burner` and keyring signing.
+- [Create a Collection](../guides/create-a-collection.md) builds the message by hand when no template fits.
+
+
 ## File: start/quickstart.md
 
 ---
@@ -30073,7 +30737,7 @@ The installer detects your OS and architecture and installs two things:
 Installer options:
 
 ```bash
-curl -fsSL https://install.bitbadges.io | sh -s -- --version v29              # a specific release
+curl -fsSL https://install.bitbadges.io | sh -s -- --version v35              # a specific release
 curl -fsSL https://install.bitbadges.io | sh -s -- --install-dir ~/.local/bin  # custom directory
 curl -fsSL https://install.bitbadges.io | sh -s -- --no-sudo                   # never use sudo
 ```
@@ -30139,7 +30803,7 @@ bb preview tx.json    # shareable bitbadges.io preview URL; add --open to jump t
 bb deploy tx.json --browser
 ```
 
-For a BitBadges token transfer instead of a bank send, use `bb build transfer --collection-id 1 --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --token-ids 1 --amount 1`. Builders exist for vaults, subscriptions, bounties, auctions, smart tokens, listings, and more. See [Build](../cli/build.md) and [Deploy](../cli/deploy.md).
+For a BitBadges token transfer instead of a bank send, use `bb build transfer --yes --collection-id 1 --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --token-ids 1 --amount 1`. Builders exist for vaults, subscriptions, bounties, auctions, smart tokens, listings, and more. See [Build](../cli/build.md) and [Deploy](../cli/deploy.md).
 
 ## TypeScript Path
 
@@ -30245,8 +30909,13 @@ The server reads `BITBADGES_API_KEY` from its environment. Add an `env` block wi
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Show me collection 1 and explain its mint approval."
-- "Build a transfer of token 1 in collection 1 from my address to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, validate it, and give me the review link."
+```text
+Show me collection 1 and explain its mint approval.
+```
+
+```text
+Build a transfer of token 1 in collection 1 from my address to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, validate it, and give me the review link.
+```
 {% endhint %}
 
 The agent builds the transaction. A person reviews and signs it in the browser through a handoff link. Get the link one of three ways:
@@ -30268,7 +30937,7 @@ See [Agents](../agents/README.md) for the paths table, the review-and-sign hando
 
 Testnet (`bitbadges-2`, EVM 50025) is offline. The SDK throws on `network: 'testnet'`. Mainnet runs as a chaosnet: gas fees can be zero while activity is low, so test there with low-value assets. See [Testnet](../chain/testnet.md) and [Network](../chain/README.md).
 
-Get BADGE for fees on Discord. Developers can ask for subsidized credits during chaosnet.
+The chain accepts zero-fee transactions today, so a first collection needs no BADGE at all with `--fee 0` (the default). Testnet is offline and mainnet has no faucet. If a fee is ever required, ask for BADGE in the [BitBadges Discord](https://discord.com/invite/TJMaEd9bar).
 
 ## Resources for AI-Assisted Development
 
@@ -30448,7 +31117,13 @@ The proto defines three criteria types. Fields missing from a level cannot be se
 | `overridesFromOutgoingApprovals`, `overridesToIncomingApprovals`, `allowBackedMinting`, `allowSpecialWrapping`, `userApprovalSettings` | yes | no | no |
 
 {% hint style="info" %}
-Ask your agent: "Add a collection approval to collection 1 that lets anyone mint one token each, and show me the full approvalCriteria it generates." The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a collection approval to collection 1 that lets anyone mint one token each, and show me the full approvalCriteria it generates.
+```
+
+The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -30633,7 +31308,13 @@ The checks attach to a party:
 An outgoing approval cannot check the sender and an incoming approval cannot check the recipient, because that party is the approval's owner.
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 1 where only EVM contracts can receive tokens, and never let tokens move into a liquidity pool." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 1 where only EVM contracts can receive tokens, and never let tokens move into a liquidity pool.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -30848,7 +31529,13 @@ interface AltTimeChecks {
 All ranges are inclusive. Ranges in one array must not overlap, and `start` must be less than or equal to `end`.
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 1 that blocks transfers on weekends in US Eastern time." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 1 that blocks transfers on weekends in US Eastern time.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -31102,7 +31789,13 @@ interface ResetTimeIntervals<T> {
 `"0"` in any limit means unlimited, and that tally is not tracked.
 
 {% hint style="info" %}
-Ask your agent: "Add a mint approval to collection 1 capped at 1000 tokens overall and 10 per address, with a tracker that resets every 30 days." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a mint approval to collection 1 capped at 1000 tokens overall and 10 per address, with a tracker that resets every 30 days.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -31353,7 +32046,13 @@ interface AutoDeletionOptions {
 | `allowPurgeIfExpired` | Anyone may purge this approval on the owner's behalf once it has no future `transferTimes`. Useful for cleanup. |
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 1 that deletes itself after ten uses." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 1 that deletes itself after ten uses.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -31576,7 +32275,13 @@ interface iCosmosCoin<T extends NumberType> {
 | `overrideToWithInitiator` | bool | `true`: send to the initiator instead of `to`. |
 
 {% hint style="info" %}
-Ask your agent: "Add a mint approval to collection 1 that charges 1000 BADGE per mint, paid to alice's address bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d." The MCP builder tools (`add_approval, set_mint_escrow_coins`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a mint approval to collection 1 that charges 1000 BADGE per mint, paid to alice's address bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d.
+```
+
+The MCP builder tools (`add_approval, set_mint_escrow_coins`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -31995,7 +32700,13 @@ message DynamicStore {
 | `uri`, `customData` | Metadata, or inline JSON metadata |
 
 {% hint style="info" %}
-Ask your agent: "Create a dynamic store owned by alice that defaults to false, then add an approval to collection 1 so only addresses set to true in that store can initiate transfers." The MCP builder tools (`build_dynamic_store, add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Create a dynamic store owned by alice that defaults to false, then add an approval to collection 1 so only addresses set to true in that store can initiate transfers.
+```
+
+The MCP builder tools (`build_dynamic_store, add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -32205,7 +32916,13 @@ interface ETHSignatureProof {
 The transfer supplies proofs in `Transfer.ethSignatureProofs`.
 
 {% hint style="info" %}
-Ask your agent: "Add a mint approval to collection 1 that requires a one-time signature from the agent key 0x3e3adf18d0b45a3639a6cf6188b813507e958440 for every mint." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a mint approval to collection 1 that requires a one-time signature from the agent key 0x3e3adf18d0b45a3639a6cf6188b813507e958440 for every mint.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -32441,7 +33158,13 @@ interface EVMQueryChallenge {
 The same structure is used for post-transfer [Invariants](invariants.md) on the collection. This page covers the approval criterion.
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 1 that only lets addresses holding at least 100 units of the ERC-20 at 0x5fbdb2315678afecb367f032d93f642f64180aa3 send tokens." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 1 that only lets addresses holding at least 100 units of the ERC-20 at 0x5fbdb2315678afecb367f032d93f642f64180aa3 send tokens.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -32601,7 +33324,13 @@ message CollectionInvariants {
 | `evmQueryChallenges` | EVMQueryChallenge[] | Read-only EVM calls run after all balance updates. Any failure reverts the transfer. Up to 10. |
 
 {% hint style="info" %}
-Ask your agent: "Create a collection with a hard cap of 1 per token ID, no custom ownership times, and no forceful post-mint transfers, locked as invariants." The MCP builder tools (`set_invariants`) produce the objects on this page.
+Ask your agent:
+
+```text
+Create a collection with a hard cap of 1 per token ID, no custom ownership times, and no forceful post-mint transfers, locked as invariants.
+```
+
+The MCP builder tools (`set_invariants`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -32822,7 +33551,13 @@ interface MerkleProof {
 ```
 
 {% hint style="info" %}
-Ask your agent: "Gate minting of collection 1 behind a whitelist of these 200 addresses, one mint each." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Gate minting of collection 1 behind a whitelist of these 200 addresses, one mint each.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -33143,7 +33878,13 @@ interface ApprovalCriteria<T extends NumberType> {
 Collection approvals only.
 
 {% hint style="info" %}
-Ask your agent: "Add a manager-only approval to collection 1 that lets alice move tokens out of any address, so she can revoke." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a manager-only approval to collection 1 that lets alice move tokens out of any address, so she can revoke.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -33478,7 +34219,13 @@ A complete `predeterminedBalances` with `incrementedBalances` open:
 Most options exclude each other. Transfer number 0 uses `startBalances` as-is; number N applies the increments N times.
 
 {% hint style="info" %}
-Ask your agent: "Add a mint approval to collection 1 that hands out token IDs 1 to 100 in order, one token per transfer." The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a mint approval to collection 1 that hands out token IDs 1 to 100 in order, one token per transfer.
+```
+
+The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -33734,7 +34481,13 @@ interface ApprovalCriteria<T extends NumberType> {
 Collection approvals only.
 
 {% hint style="info" %}
-Ask your agent: "Add a wrapper path to collection 1 so token ID 1 can be wrapped into an IBC denom, with the wrap and unwrap approvals it needs." The MCP builder tools (`add_cosmos_wrapper_path, add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a wrapper path to collection 1 so token ID 1 can be wrapped into an IBC denom, with the wrap and unwrap approvals it needs.
+```
+
+The MCP builder tools (`add_cosmos_wrapper_path, add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -33948,7 +34701,13 @@ interface MustOwnTokens<T extends NumberType> {
 | `ownershipCheckParty` | string | `"initiator"` (default when empty), `"sender"`, `"recipient"`, or a fixed `bb1` address |
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 2 that only lets holders of token ID 1 in collection 1 receive tokens." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 2 that only lets holders of token ID 1 in collection 1 receive tokens.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -34204,7 +34963,13 @@ interface UserRoyalties<T extends NumberType> {
 Collection approvals only.
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 1 with a 5% royalty to alice on every payment, and only allow payments in BADGE." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 1 with a 5% royalty to alice on every payment, and only allow payments in BADGE.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -34478,7 +35243,13 @@ Votes are cast with [MsgCastVote](../messages/msg-cast-vote.md):
 | `yesWeight` | 0-100. Percent of the voter's weight allocated to yes; the rest is no. |
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 1 that needs 2 of 3 votes from alice, bob, and carol before any transfer executes." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 1 that needs 2 of 3 votes from alice, bob, and carol before any transfer executes.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -34780,7 +35551,13 @@ Subscription and not banned:
 ```
 
 {% hint style="info" %}
-Ask your agent: "Check whether bob (bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue) owns token ID 1 of collection 42 right now." The MCP builder tools (`verify_ownership`) produce the objects on this page.
+Ask your agent:
+
+```text
+Check whether bob (bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue) owns token ID 1 of collection 42 right now.
+```
+
+The MCP builder tools (`verify_ownership`) produce the objects on this page.
 {% endhint %}
 
 ## Security Notes
@@ -34830,7 +35607,13 @@ collectionApprovals: [
 ```
 
 {% hint style="info" %}
-Ask your agent: "Create a soulbound access-token collection where only alice can mint and revoke, and lock those approvals forever." The MCP builder tools (`add_approval, set_permissions`) produce the objects on this page.
+Ask your agent:
+
+```text
+Create a soulbound access-token collection where only alice can mint and revoke, and lock those approvals forever.
+```
+
+The MCP builder tools (`add_approval, set_permissions`) produce the objects on this page.
 {% endhint %}
 
 ## The Core Pattern
@@ -35306,7 +36089,13 @@ The building blocks:
 Circulating supply is not a stored number. It is the total that has left the Mint address. Mint approvals plus the permission to update them decide the supply.
 
 {% hint style="info" %}
-Ask your agent: "Transfer one of token ID 1 in collection 1 from alice to bob and show me the transaction JSON." The MCP builder tools (`build_transfer`) produce the objects on this page.
+Ask your agent:
+
+```text
+Transfer one of token ID 1 in collection 1 from alice to bob and show me the transaction JSON.
+```
+
+The MCP builder tools (`build_transfer`) produce the objects on this page.
 {% endhint %}
 
 ## Reading Order
@@ -35371,7 +36160,13 @@ isAddressValid('bb1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw'); // true
 | account number | A number the chain assigns the first time the address transacts or receives BADGE. |
 
 {% hint style="info" %}
-Ask your agent: "Convert 0x0bc63cfe31d5218eb414b142c799e20964a54a1a to its bb1 address and check that it is valid." The MCP builder tools (`convert_address, validate_address`) produce the objects on this page.
+Ask your agent:
+
+```text
+Convert 0x0bc63cfe31d5218eb414b142c799e20964a54a1a to its bb1 address and check that it is valid.
+```
+
+The MCP builder tools (`convert_address, validate_address`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -35446,7 +36241,13 @@ function checkAddress(address, list) {
 ```
 
 {% hint style="info" %}
-Ask your agent: "Add a mint approval to collection 1 that only alice and bob can initiate. Pass the two addresses as an inline list." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a mint approval to collection 1 that only alice and bob can initiate. Pass the two addresses as an inline list.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -35640,7 +36441,13 @@ export interface Balance<T extends NumberType> {
 A user's balance store holds an array of these. Approvals, trackers, and transfers all use the same structure.
 
 {% hint style="info" %}
-Ask your agent: "Show bob's balance of token ID 1 in collection 1 right now." The MCP builder tools (`query_balance`) produce the objects on this page.
+Ask your agent:
+
+```text
+Show bob's balance of token ID 1 in collection 1 right now.
+```
+
+The MCP builder tools (`query_balance`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -35951,7 +36758,13 @@ A complete `MsgCreateCollection`. The collection-level fields are open; the defa
 | `createdBy` | string | chain | | Creator address |
 
 {% hint style="info" %}
-Ask your agent: "Create an NFT collection named Demo NFTs with 100 tokens, managed by alice, with metadata at ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json." The MCP builder tools (`set_collection_metadata, set_token_metadata, set_valid_token_ids, set_standards`) produce the objects on this page.
+Ask your agent:
+
+```text
+Create an NFT collection named Demo NFTs with 100 tokens, managed by alice, with metadata at ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/collection.json.
+```
+
+The MCP builder tools (`set_collection_metadata, set_token_metadata, set_valid_token_ids, set_standards`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -36427,7 +37240,13 @@ A complete mint approval. `fromListId` and the required override are open:
 | `mintEscrowAddress` | A generated `bb1` address that holds `x/bank` coins on behalf of `"Mint"`. |
 
 {% hint style="info" %}
-Ask your agent: "Create a collection with a mint approval capped at 1000 mints, mint the first 10 to alice at creation, then lock the mint approval forever." The MCP builder tools (`add_approval, add_transfer, set_permissions`) produce the objects on this page.
+Ask your agent:
+
+```text
+Create a collection with a mint approval capped at 1000 mints, mint the first 10 to alice at creation, then lock the mint approval forever.
+```
+
+The MCP builder tools (`add_approval, add_transfer, set_permissions`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -37279,7 +38098,13 @@ A time cannot be in both arrays of the same element.
 User permissions are rarely needed. Leave them as empty arrays unless you must lock a user's ability to change their own approvals, for example an escrow account.
 
 {% hint style="info" %}
-Ask your agent: "Lock collection 1 so its approvals and metadata can never change, but leave the manager updatable." The MCP builder tools (`set_permissions`) produce the objects on this page.
+Ask your agent:
+
+```text
+Lock collection 1 so its approvals and metadata can never change, but leave the manager updatable.
+```
+
+The MCP builder tools (`set_permissions`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -38037,7 +38862,13 @@ A complete `MsgTransferTokens` in which carol moves one of token ID 1 from alice
 | `onlyCheckPrioritizedIncomingApprovals` | bool | Same for the recipient's incoming approvals |
 
 {% hint style="info" %}
-Ask your agent: "Build a transfer of token ID 1 in collection 1 from alice to bob that uses only the collection approval with ID abc123." The MCP builder tools (`build_transfer`) produce the objects on this page.
+Ask your agent:
+
+```text
+Build a transfer of token ID 1 in collection 1 from alice to bob that uses only the collection approval with ID abc123.
+```
+
+The MCP builder tools (`build_transfer`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -38495,7 +39326,13 @@ interface CollectionApproval<T extends bigint> {
 The first six fields answer who, when, and what. An approval matches a transfer when the sender is in `fromListId`, the recipient in `toListId`, the initiator in `initiatedByListId`, the block time in `transferTimes`, and the balance being moved falls inside `tokenIds` and `ownershipTimes`.
 
 {% hint style="info" %}
-Ask your agent: "Make collection 1 freely transferable between all non-Mint addresses, and keep minting limited to alice." The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Make collection 1 freely transferable between all non-Mint addresses, and keep minting limited to alice.
+```
+
+The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -39059,7 +39896,13 @@ export interface UintRange<T extends NumberType> {
 | `end` | Uint (string in JSON) | yes | Last value in the range, inclusive |
 
 {% hint style="info" %}
-Ask your agent: "Set the valid token IDs of the collection I am building to 1 through 100 and 200 through 250." The MCP builder tools (`set_valid_token_ids`) produce the objects on this page.
+Ask your agent:
+
+```text
+Set the valid token IDs of the collection I am building to 1 through 100 and 200 through 250.
+```
+
+The MCP builder tools (`set_valid_token_ids`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -39156,7 +39999,13 @@ Two supporting pages complete the picture:
 - [Cross-Chain Queries](../../chain/cross-chain-queries.md): interchain queries that let another chain verify ownership without moving tokens.
 
 {% hint style="info" %}
-Ask your agent: "Give collection 1 an alias denom with symbol DEMO and 6 decimals so token ID 1 can sit in a liquidity pool." The MCP builder tools (`add_alias_path`) produce the objects on this page.
+Ask your agent:
+
+```text
+Give collection 1 an alias denom with symbol DEMO and 6 decimals so token ID 1 can sit in a liquidity pool.
+```
+
+The MCP builder tools (`add_alias_path`) produce the objects on this page.
 {% endhint %}
 
 ## How to Choose
@@ -39205,7 +40054,13 @@ badgeslp:COLLECTION_ID:denom
 | amount | `5` | Integer alias units, converted to `Balances[]` by the path's `conversion` |
 
 {% hint style="info" %}
-Ask your agent: "Add an alias path to collection 1 with symbol BASETOKEN and 6 decimals so token IDs 1 to 100 can be used as an sdk.Coin." The MCP builder tools (`add_alias_path, generate_alias_path`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add an alias path to collection 1 with symbol BASETOKEN and 6 decimals so token IDs 1 to 100 can be used as an sdk.Coin.
+```
+
+The MCP builder tools (`add_alias_path, generate_alias_path`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
@@ -39765,7 +40620,13 @@ The complete `invariants` object in raw JSON:
 | `conversion.sideB` | `Balance[]` | yes | Tokens that side A backs |
 
 {% hint style="info" %}
-Ask your agent: "Create a smart token backed 1:1 by USDC (ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8) where each address can unback at most 10 times per day." The MCP builder tools (`generate_backing_address, set_invariants, add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Create a smart token backed 1:1 by USDC (ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8) where each address can unback at most 10 times per day.
+```
+
+The MCP builder tools (`generate_backing_address, set_invariants, add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## Special Address
@@ -40386,7 +41247,13 @@ A complete `MsgCreateCollection` with both paths open:
 | `address` | string | derived | The wrapper address, generated from `denom`. Not present on alias paths. |
 
 {% hint style="info" %}
-Ask your agent: "Add a wrapper path to collection 1 with denom utoken and symbol TOKEN, plus the wrap and unwrap approvals it needs." The MCP builder tools (`add_cosmos_wrapper_path, generate_wrapper_address, add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a wrapper path to collection 1 with denom utoken and symbol TOKEN, plus the wrap and unwrap approvals it needs.
+```
+
+The MCP builder tools (`add_cosmos_wrapper_path, generate_wrapper_address, add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## Wrapper Paths Versus Alias Paths
@@ -42702,7 +43569,11 @@ console.log(result.txHash, result.success);
 ```
 
 {% hint style="info" %}
-Ask your agent: "Create an on-chain address list called teamwallets that contains bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d and bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue."
+Ask your agent:
+
+```text
+Create an on-chain address list called teamwallets that contains bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d and bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue.
+```
 {% endhint %}
 
 ## Fields
@@ -43312,7 +44183,11 @@ console.log(result.txHash, result.success);
 The example creates "Demo NFTs": 100 token IDs, alice as manager, one `mint` approval that only alice can initiate, and one `transferable` approval with empty criteria so holders can trade freely. Omit `invariants.cosmosCoinBackedPath` unless the collection is backed by a bank coin. See [Backed Minting](../ibc/backed-minting.md).
 
 {% hint style="info" %}
-Ask your agent: "Create an NFT collection called Demo NFTs with 100 tokens, mint them all to me, and make them transferable between anyone."
+Ask your agent:
+
+```text
+Create an NFT collection called Demo NFTs with 100 tokens, mint them all to me, and make them transferable between anyone.
+```
 {% endhint %}
 
 ## Fields
@@ -43410,7 +44285,11 @@ console.log(result.txHash, result.success);
 `uri` and `customData` are optional. Pass empty strings for a bare store.
 
 {% hint style="info" %}
-Ask your agent: "Create a dynamic store that defaults to false, so I can allowlist addresses for my membership collection."
+Ask your agent:
+
+```text
+Create a dynamic store that defaults to false, so I can allowlist addresses for my membership collection.
+```
 {% endhint %}
 
 ## Fields
@@ -43530,7 +44409,11 @@ console.log(result.txHash, result.success);
 ```
 
 {% hint style="info" %}
-Ask your agent: "Delete dynamic store 1."
+Ask your agent:
+
+```text
+Delete dynamic store 1.
+```
 {% endhint %}
 
 ## Fields
@@ -44334,7 +45217,11 @@ console.log(result.txHash, result.success);
 ```
 
 {% hint style="info" %}
-Ask your agent: "Allowlist bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue in dynamic store 1."
+Ask your agent:
+
+```text
+Allowlist bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue in dynamic store 1.
+```
 {% endhint %}
 
 ## Fields
@@ -44584,7 +45471,11 @@ console.log(result.txHash, result.success);
 The `set-incoming-approval` CLI command takes the `approval` object on its own, not the whole message.
 
 {% hint style="info" %}
-Ask your agent: "Place a bid of 20 USDC on token 5 of collection 1."
+Ask your agent:
+
+```text
+Place a bid of 20 USDC on token 5 of collection 1.
+```
 {% endhint %}
 
 ## Fields
@@ -45014,7 +45905,11 @@ console.log(result.txHash, result.success);
 The `set-outgoing-approval` CLI command takes the `approval` object on its own, not the whole message. This approval has side effects (`coinTransfers`, trackers, auto-deletion), so `mustPrioritize` is `true` and bob must list it in `prioritizedApprovals` when he executes the transfer.
 
 {% hint style="info" %}
-Ask your agent: "List token 5 of collection 1 for sale to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue for 25 USDC."
+Ask your agent:
+
+```text
+List token 5 of collection 1 for sale to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue for 25 USDC.
+```
 {% endhint %}
 
 ## Fields
@@ -45493,7 +46388,11 @@ console.log(result.txHash, result.success);
 A `precalculateBalancesFromApproval` with every field blank is ignored. To mint from an approval that has `predeterminedBalances`, set `from` to `Mint`, leave `balances` empty, and name the approval in `precalculateBalancesFromApproval`. The chain computes the balances at execution time and overwrites the field.
 
 {% hint style="info" %}
-Ask your agent: "Send 1 of token 1 from collection 1 to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue."
+Ask your agent:
+
+```text
+Send 1 of token 1 from collection 1 to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue.
+```
 {% endhint %}
 
 ## Fields
@@ -46168,7 +47067,11 @@ Create (`collectionId: "0"`):
 Update (`collectionId` set): same shape without `defaultBalances` and without `invariants`, with `update*` set to `true` only for the fields that change. Including `invariants` on an update fails with `ErrInvariantsImmutable`.
 
 {% hint style="info" %}
-Ask your agent: "Use bb build to make a crowdfund collection with a 10,000 USDC goal and a 30-day deadline."
+Ask your agent:
+
+```text
+Use bb build to make a crowdfund collection with a 10,000 USDC goal and a 30-day deadline.
+```
 {% endhint %}
 
 ## Fields
@@ -46457,7 +47360,11 @@ To change only the metadata, pass the current `defaultValue` and `globalEnabled`
 To clear the metadata, pass empty strings.
 
 {% hint style="info" %}
-Ask your agent: "Halt dynamic store 1 so every approval that checks it fails until I turn it back on."
+Ask your agent:
+
+```text
+Halt dynamic store 1 so every approval that checks it fails until I turn it back on.
+```
 {% endhint %}
 
 ## Fields

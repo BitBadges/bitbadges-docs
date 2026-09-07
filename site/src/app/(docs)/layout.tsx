@@ -11,13 +11,15 @@ export default async function DocsLayout({ children }: { children: React.ReactNo
     <div className="mx-auto flex max-w-[100rem] px-4 lg:px-6">
       <aside className="scroll-rail sticky top-[var(--shell-topbar)] hidden h-[calc(100dvh-var(--shell-topbar))] w-[var(--shell-sidebar)] shrink-0 overflow-y-auto py-7 pr-5 lg:block">
         <Sidebar tabs={tabs} />
-        <AgentFiles className="pb-8" />
+        {/* Only the Agents tab: the corpus download is for people wiring an
+            agent, and on every other tab it is noise in the rail. */}
+        <AgentFiles className="pb-8" onlyTab="/agents" />
       </aside>
       <div className="min-w-0 flex-1">
         {children}
         {/* The sidebar carries this above lg; below it the rail is a drawer that
-            closes on navigation, so the corpus links ride under the page. */}
-        <AgentFiles className="mx-auto mb-12 max-w-[46rem] lg:hidden" />
+            closes on navigation, so the link rides under the page. */}
+        <AgentFiles className="mx-auto mb-12 max-w-[46rem] lg:hidden" onlyTab="/agents" />
       </div>
     </div>
   );

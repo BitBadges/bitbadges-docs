@@ -231,6 +231,7 @@
 ## API
 
 * [Overview](api/README.md)
+* [API Reference](/api-reference)
 * [Pagination and Views](api/pagination-and-views.md)
 * [Swaps](api/swaps.md)
 * [Claims](api/claims/README.md)
@@ -243,7 +244,6 @@
   * [Callback](api/sign-in/callback.md)
   * [Verification](api/sign-in/verification.md)
   * [Frameworks](api/sign-in/frameworks.md)
-* [API Reference](/api-reference)
 
 ## SDK & CLI
 

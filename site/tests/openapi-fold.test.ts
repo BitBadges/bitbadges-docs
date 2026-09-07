@@ -252,9 +252,10 @@ describe('orphan guard — no api/*.md page disappears', () => {
     expect(api).toBeDefined();
     const hrefs = flattenNav([api!]).map((n) => n.href);
     expect([...hrefs].sort()).toEqual([...onDisk.map(filePathToRoute), '/api-reference'].sort());
-    // The Scalar reference is the tab's last entry, after the prose.
-    expect(hrefs.at(-1)).toBe('/api-reference');
+    // Overview first, then the Scalar reference: a reader looking for the
+    // route list should not have to scroll past every guide to find it.
     expect(hrefs[0]).toBe('/api');
+    expect(hrefs[1]).toBe('/api-reference');
   });
 
   test('the introduction links only to pages that exist on disk', () => {
