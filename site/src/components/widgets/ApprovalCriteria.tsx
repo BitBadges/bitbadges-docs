@@ -148,7 +148,7 @@ function cards(p: Props): CardSpec[] {
       body: p.coinTransfers.length ? (
         <ul className="m-0 flex list-none flex-col gap-1 p-0">
           {p.coinTransfers.map((c, i) => (
-            <li key={i} className="m-0 flex flex-wrap items-center gap-1 p-0">
+            <li key={i} className="m-0 flex min-w-0 flex-wrap items-center gap-1 p-0">
               <span className="font-semibold text-[var(--fg)]">{c.coins.map((coin) => formatCoin(coin.amount, coin.denom)).join(' + ')}</span>
               <Icon name="arrowRight" size={12} />
               {c.overrideToWithInitiator ? <Chip>the initiator</Chip> : <AddressChip address={c.to} />}
@@ -252,8 +252,8 @@ export function Component(props: Props) {
   const list = cards(props);
   const autoDelete = props.autoDeletionOptions?.afterOneUse || props.autoDeletionOptions?.afterOverallMaxNumTransfers;
   return (
-    <WidgetFrame name="approval-criteria">
-      <div className="grid gap-2 sm:grid-cols-2">
+    <WidgetFrame name="approval-criteria" className="@container p-2">
+      <div className="grid gap-2 @[36rem]:grid-cols-2">
         {list.map((card) => (
           <Card key={card.key} muted={!card.enabled} className="flex flex-col gap-2">
             <CardHeader

@@ -249,7 +249,25 @@ Read-only mocks of bitbadges.io UI that a page embeds from markdown. They are
 React components living in the docs site, not imports from the frontend, so the
 docs build stays free of antd, wallet contexts, and data fetching. Each copies
 the frontend's layout, icons, and colors, and reads the site's design tokens
-(`--fg`, `--bg-subtle`, `--border`), so it follows the light and dark theme.
+(`--fg`, `--bg-inset`, `--border`), so it follows the light and dark theme.
+
+Surfaces. `WidgetFrame` in `shared.tsx` is the one outer wrapper; its
+`widget-surface` class (globals.css) is the code-figure surface (`--bg-code`,
+`--border`, 12px radius, `--shadow-sm`), so a widget next to a code block reads
+as the same kind of figure. Panels inside a widget use `widget-panel`, the
+code figure's caption tint one step in. A widget adds only its own padding and
+width through `className`; it never paints its own outer surface.
+
+Logos. Chain and token marks are the frontend's own image files, copied
+unchanged from `bitbadges-frontend/public/images` into `site/public/widgets/`
+(`eth-logo.webp`, `solana-logo.webp`, `bitcoin-logo.webp`, `cosmos-logo.webp`
+for ATOM, `usdc.webp`), plus `bitbadges-logo.png`, the circular
+`bitbadgeslogonotext.png` downscaled to 64px for the address chip. The map is
+`CHAIN_LOGOS` / `TOKEN_LOGOS` in `shared.tsx`; nothing is hand-drawn. The
+`<img>` carries `data-site-asset`, which tells the asset rewrite in
+`markdown.ts` to leave the `src` alone (it is already `basePath`-prefixed and
+lives in `public/`, not the content tree), and `.doc .widget img` drops the
+frame `.doc img` gives content images.
 
 Syntax. A leaf directive for flat props, a container directive for JSON:
 
@@ -288,6 +306,13 @@ writes `_docs/widgets/*.png` (light and dark) and `_docs/widgets/README.md`.
 It borrows Playwright from the frontend checkout (`PLAYWRIGHT_MODULE` overrides
 the path) and starts `next dev` on a free port unless `BASE_URL` is set. Manual
 step, not part of the tests.
+
+Wrapping audit: `--widths=360,540,900 --out=/tmp/widget-shots` pins the
+gallery's content column to each width and writes one `<width>px/` folder per
+width, so a layout change can be checked at phone, narrow-tablet and desktop
+widths without committing the extra images. Widgets adapt with container
+queries (`@container` on the frame), not viewport breakpoints, because the
+content column, not the window, is what varies.
 
 ### Frontend screenshots (`using-the-frontend/`)
 

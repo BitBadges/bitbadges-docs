@@ -17,8 +17,8 @@ export type Props = z.output<typeof schema>;
 export function Component({ listId, title, whitelist, addresses }: Props) {
   const rows = addresses.map((entry) => (typeof entry === 'string' ? { address: entry } : entry));
   return (
-    <WidgetFrame name="address-list">
-      <div className="inline-block min-w-[18rem] max-w-full rounded-lg border border-[var(--border)] bg-[var(--bg-subtle)] p-3">
+    <WidgetFrame name="address-list" className="w-fit min-w-[18rem] max-w-full p-3">
+      <div>
         <div className="mb-2 flex items-center justify-between gap-3">
           <span className="text-sm font-bold text-[var(--fg)]">{title ?? (listId ? `Address list "${listId}"` : 'Addresses')}</span>
           <Chip tone={whitelist ? 'good' : 'bad'}>
@@ -28,7 +28,7 @@ export function Component({ listId, title, whitelist, addresses }: Props) {
         </div>
         <ul className="m-0 flex list-none flex-col gap-2 p-0">
           {rows.map((row) => (
-            <li key={row.address} className="m-0 flex items-center p-0">
+            <li key={row.address} className="m-0 flex min-w-0 items-center p-0">
               <AddressChip address={row.address} name={row.name} chain={row.chain} />
             </li>
           ))}

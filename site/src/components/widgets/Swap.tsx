@@ -27,8 +27,8 @@ export type Props = z.output<typeof schema>;
 
 function Side({ label, side, showMax }: { label: string; side: z.output<typeof sideSchema>; showMax?: boolean }) {
   return (
-    <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-raised)] p-4">
-      <div className="mb-2 flex items-center justify-between">
+    <div className="widget-panel p-4">
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
         <span className="text-sm font-medium text-[var(--fg-muted)]">{label}</span>
         {side.balance && (
           <span className="flex items-center gap-2 text-xs text-[var(--fg-faint)]">
@@ -38,8 +38,8 @@ function Side({ label, side, showMax }: { label: string; side: z.output<typeof s
         )}
       </div>
       <div className="flex items-center justify-between gap-3">
-        <span className="text-2xl font-semibold tabular-nums text-[var(--fg)]">{side.amount}</span>
-        <span className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-subtle)] py-1 pl-1.5 pr-3">
+        <span className="min-w-0 truncate text-2xl font-semibold tabular-nums text-[var(--fg)]">{side.amount}</span>
+        <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-inset)] py-1 pl-1.5 pr-3">
           <TokenMark symbol={side.symbol} size={24} />
           <span className="text-sm font-bold text-[var(--fg)]">{side.symbol}</span>
           <Icon name="arrowDown" size={12} className="text-[var(--fg-faint)]" />
@@ -57,8 +57,8 @@ function Side({ label, side, showMax }: { label: string; side: z.output<typeof s
 
 export function Component({ from, to, rate, slippage, fee, route, estimatedTime, button, warning }: Props) {
   return (
-    <WidgetFrame name="swap">
-      <div className="w-[24rem] max-w-full rounded-xl border border-[var(--border)] bg-[var(--bg-subtle)] p-4 shadow-[var(--shadow-sm)]">
+    <WidgetFrame name="swap" className="w-full max-w-[24rem] p-4">
+      <div>
         <div className="mb-3 flex items-center justify-between">
           <span className="text-base font-bold text-[var(--fg)]">Swap</span>
           <span className="inline-flex items-center gap-2 text-xs text-[var(--fg-faint)]">
@@ -69,7 +69,7 @@ export function Component({ from, to, rate, slippage, fee, route, estimatedTime,
         <Side label="You pay" side={from} showMax />
         <div className="relative z-10 -my-3 flex justify-center">
           <span
-            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[var(--bg-subtle)] text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[var(--bg-code)] text-white"
             style={{ background: 'linear-gradient(90deg, #1890ff, #da0c91)' }}
           >
             <Icon name="arrowDown" size={16} />
@@ -78,9 +78,9 @@ export function Component({ from, to, rate, slippage, fee, route, estimatedTime,
         <Side label="You receive" side={to} />
         <div className="mt-3 flex flex-col gap-1 text-xs text-[var(--fg-faint)]">
           {rate && (
-            <div className="flex justify-between">
-              <span>Rate</span>
-              <span className="text-[var(--fg-muted)]">{rate}</span>
+            <div className="flex justify-between gap-3">
+              <span className="shrink-0">Rate</span>
+              <span className="min-w-0 text-right text-[var(--fg-muted)]">{rate}</span>
             </div>
           )}
           {fee && (
@@ -90,9 +90,9 @@ export function Component({ from, to, rate, slippage, fee, route, estimatedTime,
             </div>
           )}
           {route && (
-            <div className="flex justify-between">
-              <span>Route</span>
-              <span className="text-[var(--fg-muted)]">{route}</span>
+            <div className="flex justify-between gap-3">
+              <span className="shrink-0">Route</span>
+              <span className="min-w-0 text-right text-[var(--fg-muted)]">{route}</span>
             </div>
           )}
           {estimatedTime && (
