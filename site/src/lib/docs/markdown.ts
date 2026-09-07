@@ -294,37 +294,46 @@ function rehypeCodeFolds() {
       const folds = applyCodeFolds(code, deserializeRanges(spec));
       if (folds === 0) return;
       figure.properties['data-folds'] = String(folds);
-      addExpandAllButton(figure);
+      figure.properties['data-view'] = 'collapsed';
+      addViewTabs(figure);
     });
   };
 }
 
 /**
- * Put an "Expand all" toggle immediately left of the copy button.
+ * Put the Collapsed / Full view tabs between the language label and the copy
+ * button.
  *
- * Only figures that actually folded get one, which is why it is added here
- * rather than in the chrome pass: a `fold=` range can fall outside the block
- * and collapse to nothing. `CopyButtons` drives it; without script the folds
- * still open one at a time.
+ * Only figures that actually folded get them, which is why they are added
+ * here rather than in the chrome pass: a `fold=` range can fall outside the
+ * block and collapse to nothing. `CopyButtons` drives them; the server
+ * renders the collapsed view selected.
  */
-function addExpandAllButton(figure: Element) {
+function addViewTabs(figure: Element) {
   const caption = figure.children.find(
     (child): child is Element => child.type === 'element' && child.tagName === 'figcaption',
   );
   if (!caption) return;
+  const tab = (view: 'collapsed' | 'full', label: string): Element => ({
+    type: 'element',
+    tagName: 'button',
+    properties: {
+      type: 'button',
+      role: 'tab',
+      className: ['code-view-tab'],
+      'data-view-tab': view,
+      'aria-selected': view === 'collapsed' ? 'true' : 'false',
+    },
+    children: [{ type: 'text', value: label }],
+  });
   const copyIndex = caption.children.findIndex(
     (child) => child.type === 'element' && 'data-copy' in (child.properties ?? {}),
   );
   caption.children.splice(copyIndex === -1 ? caption.children.length : copyIndex, 0, {
     type: 'element',
-    tagName: 'button',
-    properties: {
-      type: 'button',
-      className: ['copy-button'],
-      'data-expand-all': '',
-      'aria-expanded': 'false',
-    },
-    children: [{ type: 'text', value: 'Expand all' }],
+    tagName: 'span',
+    properties: { className: ['code-view'], role: 'tablist', 'aria-label': 'Code view' },
+    children: [tab('collapsed', 'Collapsed'), tab('full', 'Full')],
   });
 }
 
