@@ -133,6 +133,16 @@ bb amount slippage --expected 5000000 --actual 4975000
 
 ## 4. Estimate the Swap
 
+:::widget{name="swap" caption="The same estimate as the swap panel on bitbadges.io shows it. The numbers here are illustrative."}
+{
+  "from": { "symbol": "BADGE", "amount": "1", "balance": "2,500 BADGE", "chain": "BitBadges" },
+  "to": { "symbol": "USDC", "amount": "0.1231", "chain": "BitBadges" },
+  "rate": "1 BADGE = 0.1231 USDC",
+  "fee": "0.3% pool fee",
+  "route": "Pool 1 (BADGE / USDC)"
+}
+:::
+
 ```bash
 # 1 BADGE -> USDC on the BitBadges chain, 1% slippage (default)
 bb swap estimate ubadge uusdc 1000000

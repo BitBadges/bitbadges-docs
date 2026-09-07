@@ -52,6 +52,17 @@ function checkAddress(address, list) {
 }
 ```
 
+:::widget{name="address-list" caption="The list above as bitbadges.io shows it. A whitelist reads as only these; a blacklist reads as all except."}
+{
+  "listId": "vipMembers",
+  "addresses": [
+    "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+    "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+    "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf"
+  ]
+}
+:::
+
 {% hint style="info" %}
 Ask your agent:
 
