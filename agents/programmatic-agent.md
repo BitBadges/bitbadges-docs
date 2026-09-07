@@ -24,7 +24,7 @@ This is the scriptable counterpart to the [MCP Builder Tools](mcp-tools.md).
 
 | | No-code site | MCP builder | Programmatic agent |
 | --- | --- | --- | --- |
-| Where it runs | `bitbadges.io/create` | Claude Desktop, Cursor, Claude Code | Your Node process |
+| Where it runs | Any shell | Claude Desktop, Cursor, Claude Code | Your Node process |
 | LLM key | BitBadges-managed (billed credits) | Your Claude subscription | Your Anthropic or OpenAI key |
 | Good for | End users, one-off builds | Power users, exploratory work | Dapps, bots, games, CI, fine-tuning |
 
@@ -213,30 +213,7 @@ result.inferredTokenTypeSource;      // 'standards' (existing-collection fast pa
 result.inferredTokenTypeReasoning;   // one-sentence rationale
 ```
 
-Inference is skipped when `selectedSkills` already contains a token-type entry; explicit picks win. Non-token-type skills (community, additional-context) do not block inference. The type table lives in [Smart Tokens and Vaults](../guides/smart-tokens-and-vaults.md).
-
-#### Community skills (power users)
-
-`promptSkillIds` injects community-contributed skill docs stored on BitBadges. No discovery UI ships; callers bring their own ids (shared by URL, Discord, or an internal registry). Requires a BitBadges API key.
-
-```ts
-import { BitBadgesBuilderAgent, createBitBadgesCommunitySkillsFetcher } from 'bitbadges/builder/agent';
-
-const agent = new BitBadgesBuilderAgent({
-  anthropicKey,
-  bitbadgesApiKey: process.env.BITBADGES_API_KEY,
-  communitySkillsFetcher: createBitBadgesCommunitySkillsFetcher()
-});
-
-await agent.build(prompt, {
-  selectedSkills:  ['subscription'],
-  promptSkillIds:  ['community-skill-xyz-123']
-});
-```
-
-The fetcher calls `GET /api/v0/builder/community-skills?ids=...` and returns an empty array on any failure (missing key, network error, timeout). The build still runs without the community injection.
-
-Local development: when `bitbadgesApiUrl` points at `localhost`, `127.0.0.1`, or `*.localhost`, the fetcher skips the API-key requirement. This mirrors the BitBadges API's relaxed auth for local development.
+Inference is skipped when `selectedSkills` already contains a token-type entry; explicit picks win. Non-token-type skills (additional-context) do not block inference. The type table lives in [Smart Tokens and Vaults](../guides/smart-tokens-and-vaults.md).
 
 ### Prompt-Injection Guard on the System-Prompt Slots
 
@@ -367,7 +344,7 @@ console.log(buildReviewUrlFromCode('https://bitbadges.io', code, result.transact
 // https://bitbadges.io/mint/local-builder?code=prv_ab12cd34
 ```
 
-Update transactions (a non-zero `collectionId`) route to `/update/local-builder/:id` so the site diffs against on-chain state. The helpers `buildHandoffUrl`, `buildReviewUrlFromCode`, `buildPreviewUrlFromCode`, `detectExistingCollectionId`, and `encodeTxForHash` are exported from `bitbadges/builder/agent`.
+Update transactions (a non-zero `collectionId`) route to `/update/local-builder/:id` so the site diffs against on-chain state. The helpers `buildHandoffUrl`, `buildReviewUrlFromCode`, `detectExistingCollectionId`, and `encodeTxForHash` are exported from `bitbadges/builder/agent`.
 
 ## Image Placeholders
 

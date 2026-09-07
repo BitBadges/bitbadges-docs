@@ -345,7 +345,7 @@ await api.createClaims({
 });
 ```
 
-Route: `POST /api/v0/claims`. Requires a session with the `Manage Claims` scope. The response is `{}`. Pass `testClaims: true` to create test claims that disappear when the browser session ends and never show in search. Linking a claim to an on-chain collection approval requires the proper permissions and extra setup; the site or the MCP builder tools apply `collectionId` and the tracker details for you. If you use the MCP builder tools or the AI builder, call the `build_claim` tool instead of writing this payload. For the `codes` plugin, set `publicParams.numCodes` as a number and leave `privateParams` empty. The server generates `seedCode` and the codes. Use the `search_plugins` tool to list plugins and their parameters.
+Route: `POST /api/v0/claims`. Requires a session with the `Manage Claims` scope. The response is `{}`. Pass `testClaims: true` to create test claims that disappear when the browser session ends and never show in search. Linking a claim to an on-chain collection approval requires the proper permissions and extra setup; the site or the MCP builder tools apply `collectionId` and the tracker details for you. If you use the MCP builder tools, call the `build_claim` tool instead of writing this payload. For the `codes` plugin, set `publicParams.numCodes` as a number and leave `privateParams` empty. The server generates `seedCode` and the codes. Use the `search_plugins` tool to list plugins and their parameters.
 
 Update with `PUT /api/v0/claims` (`{ claims: UpdateClaimRequest[] }`).
 

@@ -458,7 +458,7 @@ The on-chain balance is `totalCreditsPaidFor`, the total ever purchased. Your ba
 Worked example, the BitBadges API credits collection (collection 23 / 80, `APITOKEN`):
 
 - A user buys 10 USDC and receives 1,000,000 APITOKEN (balance 1,000,000).
-- The user makes API calls, including the AI builder; the backend records `totalUsed` = 250,000.
+- The user makes API calls; the backend records `totalUsed` = 250,000.
 - Remaining budget = 1,000,000 - 250,000 = 750,000.
 - The user buys 5 more USDC; the balance increments to 2,000,000 and the remaining budget is 1,750,000.
 

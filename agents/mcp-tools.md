@@ -240,7 +240,7 @@ set_standards + set_valid_token_ids + set_invariants + add_approval + set_permis
 2. Auto-mint (optional). Call `add_transfer` to append a `MsgTransferTokens` next to the collection creation.
 3. Verify. Call `validate_transaction`, `review_collection`, and `simulate_transaction` in parallel. Fix errors with a targeted `remove_approval` and re-add.
 4. Export. Call `get_transaction` for the final JSON.
-5. Hand off. Call `get_review_url` and give the user `reviewUrl`. Prefer the link over pasting JSON: it is short and cannot be corrupted in transit. `previewUrl` is the read-only variant for a reviewer.
+5. Hand off. Call `get_review_url` and give the user `reviewUrl`. Prefer the link over pasting JSON: it is short and cannot be corrupted in transit.
 
 ### Query and Verification (No Signing)
 
@@ -262,7 +262,7 @@ Maximum 4 transfer messages per transaction.
 
 The builder never signs or broadcasts. Three exits:
 
-- `get_review_url` returns `reviewUrl` (review and sign with a browser wallet) and `previewUrl` (read-only). Both are backed by one `prv_` code from `POST /api/v0/builder/preview`, an open endpoint with no API key. The code expires in 1 hour. `BITBADGES_FRONTEND_URL` or the `frontendUrl` param points the link at testnet or a local site; a testnet `BITBADGES_API_URL` infers `https://testnet.bitbadges.io`.
+- `get_review_url` returns `reviewUrl`, where the user reviews and signs with a browser wallet. It is backed by a `prv_` code from `POST /api/v0/builder/preview`, an open endpoint with no API key. The code expires in 1 hour. `BITBADGES_FRONTEND_URL` or the `frontendUrl` param points the link at testnet or a local site; a testnet `BITBADGES_API_URL` infers `https://testnet.bitbadges.io`.
 - Save `get_transaction` output to a file and run `bb preview tx.json --open`, or `bb deploy --browser` / `--burner` from the [CLI](../cli/deploy.md).
 - Sign with the [SDK signing client](../sdk/transactions/signing-client.md).
 
