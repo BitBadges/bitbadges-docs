@@ -14,6 +14,8 @@ export type DocsConfig = {
   assetsPrefix: string;
   /** Route prefix when mounted under a sub-path, e.g. `/docs`. Empty at root. */
   basePath: string;
+  /** Public origin of the site, used where a link must be absolute (llms.txt, page Markdown). */
+  siteUrl: string;
   siteName: string;
   siteDescription: string;
   /** URL of the OpenAPI document powering the API reference page. */
@@ -36,6 +38,7 @@ export const docsConfig: DocsConfig = {
   contentDir: path.resolve(/* turbopackIgnore: true */ process.cwd(), env('DOCS_CONTENT_DIR', '..')),
   assetsPrefix: env('DOCS_ASSETS_PREFIX', '/docs-assets'),
   basePath: env('DOCS_BASE_PATH', '').replace(/\/$/, ''),
+  siteUrl: env('DOCS_SITE_URL', 'https://docs.bitbadges.io').replace(/\/$/, ''),
   siteName: env('DOCS_SITE_NAME', 'BitBadges Documentation'),
   siteDescription: env(
     'DOCS_SITE_DESCRIPTION',

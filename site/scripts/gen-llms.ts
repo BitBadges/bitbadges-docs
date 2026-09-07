@@ -9,7 +9,7 @@ import matter from 'gray-matter';
 import { docsConfig } from '../src/lib/docs/config';
 import { parseSummary, type NavNode } from '../src/lib/docs/summary';
 
-const SITE = 'https://docs.bitbadges.io';
+const SITE = docsConfig.siteUrl;
 const summary = await fs.readFile(path.join(docsConfig.contentDir, 'SUMMARY.md'), 'utf8');
 const groups = parseSummary(summary);
 
@@ -41,7 +41,7 @@ const body: string[] = [
   '',
   '> BitBadges is a Cosmos SDK L1 with a native token standard (x/tokenization): collections, time-based balances, three-level transfer approvals with on-chain criteria, manager permissions, IBC wrapping, and EVM precompiles. Off-chain: a REST API, a TypeScript SDK, a CLI (`bb`), claims with plugins, Sign In with BitBadges, and MCP builder tools for AI agents.',
   '',
-  `Full corpus as one file: ${SITE}/for-llms.txt. OpenAPI: ${SITE}/openapi.json. API reference: ${SITE}/api-reference.`,
+  `Full corpus as one file: ${SITE}/llms-full.txt (also served as ${SITE}/for-llms.txt). Every page is also served as Markdown at its URL plus .md, for example ${SITE}/agents/setup.md. OpenAPI: ${SITE}/openapi.json. API reference: ${SITE}/api-reference.`,
   '',
   'URL patterns: /token-standard/messages/msg-<kebab>, /token-standard/queries/<kebab>, /token-standard/approval-criteria/<kebab>, /cli/<group>, /api/..., /agents/skills/<skill-id>.',
   '',

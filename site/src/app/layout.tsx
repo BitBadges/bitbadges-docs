@@ -14,6 +14,8 @@ const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains', 
 export const metadata: Metadata = {
   title: { default: docsConfig.siteName, template: `%s · ${docsConfig.siteName}` },
   description: docsConfig.siteDescription,
+  // Doc pages add their Markdown twin next to this; see (docs)/[[...slug]]/page.tsx.
+  alternates: { types: { 'text/plain': `${docsConfig.basePath}/llms.txt` } },
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

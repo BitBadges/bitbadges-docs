@@ -54,6 +54,50 @@ function containerBody(source: string, node: DirectiveNode): string {
   return body.join('\n');
 }
 
+const FENCE = /^\s{0,3}(`{3,}|~{3,})/;
+const WIDGET_LEAF = /^\s{0,3}::widget\b/;
+const WIDGET_OPEN = /^\s{0,3}:::widget\b/;
+const WIDGET_CLOSE = /^\s{0,3}:::\s*$/;
+
+/**
+ * Remove every `::widget` line and `:::widget ... :::` block from a page.
+ *
+ * Widgets are visual: an agent reading the page's Markdown already has the
+ * JSON in the code block beside them, so the directive is noise. Fenced code
+ * is left alone so a page can still document the syntax.
+ */
+export function stripWidgets(markdown: string): string {
+  const out: string[] = [];
+  let fence: string | null = null;
+  let inWidget = false;
+
+  for (const line of markdown.split('\n')) {
+    const fenceMatch = FENCE.exec(line);
+    if (fenceMatch && !inWidget) {
+      const marker = fenceMatch[1][0];
+      if (fence === null) fence = marker;
+      else if (marker === fence) fence = null;
+      out.push(line);
+      continue;
+    }
+    if (fence !== null) {
+      out.push(line);
+      continue;
+    }
+    if (inWidget) {
+      if (WIDGET_CLOSE.test(line)) inWidget = false;
+      continue;
+    }
+    if (WIDGET_OPEN.test(line)) {
+      inWidget = true;
+      continue;
+    }
+    if (WIDGET_LEAF.test(line)) continue;
+    out.push(line);
+  }
+  return out.join('\n').replace(/\n{3,}/g, '\n\n');
+}
+
 export function widgetHtml(name: string, props: unknown, caption?: string): string {
   if (!isWidgetName(name)) {
     throw new Error(`unknown widget "${name}" (known: ${widgetNames.join(', ')})`);
