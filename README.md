@@ -264,6 +264,8 @@ The longer argument is in [Why BitBadges](about/README.md) and [Comparisons](abo
 
 ## What People Build
 
+Each row below has a longer pitch, with the fields that matter and a prompt for an agent, under [Use Cases](use-cases/README.md).
+
 | Build | Mechanism | Start |
 | --- | --- | --- |
 | NFT or fungible collection | `validTokenIds` plus a mint approval | [Create a Collection](guides/create-a-collection.md) |

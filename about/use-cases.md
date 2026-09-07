@@ -65,6 +65,7 @@ The token standard tokenizes assets, services, and rights with protocol-level tr
 
 ## Related
 
+- [Use Cases by Build](../use-cases/README.md)
 - [Why BitBadges](README.md)
 - [Guides](../guides/README.md)
 - [Transferability](../token-standard/concepts/transferability.md)
