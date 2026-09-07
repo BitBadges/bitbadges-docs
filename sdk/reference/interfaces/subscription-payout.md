@@ -4,7 +4,7 @@ description: "Interface: SubscriptionPayout — BitBadges TypeScript SDK interfa
 
 # Interface: SubscriptionPayout
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:19](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L19)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:20](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L20)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:19](http
 
 > **amount**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:21](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L21)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:22](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L22)
 
 ***
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:21](http
 
 > **denom**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:22](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L22)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:23](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L23)
 
 ***
 
@@ -28,4 +28,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:22](http
 
 > **recipient**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:20](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L20)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:21](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L21)
