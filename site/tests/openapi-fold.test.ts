@@ -107,6 +107,7 @@ describe('foldApiDocs', () => {
     openapi: '3.1.0',
     info: { title: 'T', version: '1', description: '# Old intro\n\nreplaced' },
     tags: [
+      { name: 'Assets', description: 'Assets and swaps' },
       { name: 'Claims', description: 'Endpoints for managing claims' },
       { name: 'Sign In with BitBadges', description: 'Auth' },
       { name: 'Tokens', description: 'Tokens' },
@@ -131,16 +132,27 @@ describe('foldApiDocs', () => {
     ['api/sign-in/frameworks.md', '# Frameworks\n\nAuth0.\n'],
   ]);
 
-  test('info.description is Overview then the three pages, as top-level sections in order', () => {
+  test('info.description is one Overview section with the other intro pages nested under it', () => {
     const { spec: out } = foldApiDocs(spec(), pages);
     const description = out.info.description as string;
-    const order = ['# Overview', 'Intro text.', '## API keys', '# Pagination and views', '## How it works', '# Swaps', '# Self-hosting', '## Docker'];
+    const order = ['# Overview', 'Intro text.', '## API keys', '## Pagination and views', '### How it works', '## Self-hosting', '### Docker'];
     const positions = order.map((s) => description.indexOf(s));
     expect(positions.every((p) => p >= 0)).toBe(true);
     expect([...positions].sort((a, b) => a - b)).toEqual(positions);
     expect(description.startsWith('# Overview')).toBe(true);
+    // Scalar renders only the lowest heading level and one below it, so a
+    // second H1 would put a page beside Overview instead of inside it.
+    expect(description.match(/^# /gm)).toHaveLength(1);
     expect(description).not.toContain('Old intro');
     expect(description).not.toContain('# BitBadges API');
+    // Swaps maps onto a tag with real operations, so it is not in the intro.
+    expect(description).not.toContain('Swapping.');
+  });
+
+  test('swaps folds onto the Assets tag, which owns the swap endpoints', () => {
+    const { spec: out } = foldApiDocs(spec(), pages);
+    const assets = out.tags.find((t: { name: string }) => t.name === 'Assets');
+    expect(assets?.description).toContain('Swapping.');
   });
 
   test('sets the Claims and Sign In tag descriptions from their page groups', () => {
@@ -165,7 +177,7 @@ describe('foldApiDocs', () => {
 
   test('reports which tags received folded text and fails loudly on a missing tag', () => {
     const { report } = foldApiDocs(spec(), pages);
-    expect(report.tags).toEqual(['Claims', 'Sign In with BitBadges']);
+    expect(report.tags).toEqual(['Assets', 'Claims', 'Sign In with BitBadges']);
     const noClaims = spec();
     noClaims.tags = noClaims.tags.filter((t) => t.name !== 'Claims');
     expect(() => foldApiDocs(noClaims, pages)).toThrow(/Claims/);
@@ -181,7 +193,9 @@ describe('foldApiDocs', () => {
     const input = spec();
     foldApiDocs(input, pages);
     expect(input.info.description).toBe('# Old intro\n\nreplaced');
-    expect(input.tags[0].description).toBe('Endpoints for managing claims');
+    expect(input.tags.find((t: { name: string }) => t.name === 'Claims')?.description).toBe(
+      'Endpoints for managing claims',
+    );
   });
 
   test('sanitising after the fold keeps the folded sections when no grouping is requested', () => {
@@ -192,7 +206,7 @@ describe('foldApiDocs', () => {
     const description = out.info.description as string;
     expect(description.startsWith('# Overview')).toBe(true);
     expect(description.match(/^# /gm)).toHaveLength(1);
-    expect(description).toContain('\n## Swaps');
+    expect(description).toContain('\n## Pagination and views');
     expect(description).toContain('\n## Self-hosting');
   });
 });
@@ -219,7 +233,7 @@ describe('fold guard — every api/*.md page on disk is folded', () => {
     }
     const source = JSON.parse(await fs.readFile(path.resolve(process.cwd(), 'openapi/openapi.json'), 'utf8'));
     const { spec, report } = foldApiDocs(source, pages);
-    expect(report.tags).toEqual(['Claims', 'Sign In with BitBadges']);
+    expect(report.tags).toEqual(['Assets', 'Claims', 'Sign In with BitBadges']);
     expect(spec.info.description).toContain('# Pagination and views');
     expect(spec.info.description).not.toContain('](README.md)');
     expect(spec.info.description).not.toContain('also part of the');
