@@ -6,6 +6,8 @@ description: "Task guides for BitBadges. Each one gets you to a working result w
 
 Each guide takes one job (create a token, distribute it, gate access, sign users in) and shows the working commands first. Concepts are not re-explained here; each step links to the canonical page in the Token Standard tab.
 
+For the pitch behind each build (which two or three approval fields turn the standard into a stablecoin, a subscription, or an agent vault), read [Use Cases](../use-cases/README.md) first.
+
 Every guide assumes:
 
 - `bb` is installed (see the [Quickstart](../start/quickstart.md)).
