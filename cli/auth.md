@@ -22,7 +22,7 @@ bb auth login \
   --message    "$MSG"
 
 # use the session
-bb api accounts update-account-info --body '{"username":"alice"}' --with-session
+bb api misc fetch-api-keys --body '{}' --with-session
 bb auth whoami
 ```
 

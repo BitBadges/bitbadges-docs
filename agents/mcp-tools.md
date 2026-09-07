@@ -143,13 +143,14 @@ Each tool sets one field on a session-scoped transaction. Calls in the same roun
 | `set_approval_metadata` | Set a name and description on an approval. Image is always empty for approvals | `approvalId*`, `name*`, `description*` |
 | `add_alias_path` | Add an alias path for ICS20-backed tokens or liquidity pools. Required for smart tokens. Decimals must match the IBC denom | `aliasPath*` (object), `pathName`, `pathDescription`, `pathImage`, `denomUnitName`, `denomUnitDescription`, `denomUnitImage` (off-chain, routed to `metadataPlaceholders`) |
 | `remove_alias_path` | Remove an alias path by denom | `denom*` |
-| `add_cosmos_wrapper_path` | Add a wrapper path that mints and burns a new ICS20 coin from collection tokens. Advanced; most cases want smart tokens, pools, or `coinTransfers`. Approvals for the wrapper address need `allowSpecialWrapping: true` and `mustPrioritize: true` | `wrapperPath*` (object), plus the same off-chain `path*` and `denomUnit*` params as `add_alias_path` |
+| `add_cosmos_wrapper_path` | Add a wrapper path that mints and burns a new ICS20 coin from collection tokens. Advanced; most cases want smart tokens, pools, or `coinTransfers`. Approvals for the wrapper address need `allowSpecialWrapping: true` and `mustPrioritize: true` | `wrapperPath*` (object), plus the same off-chain `pathName`, `pathDescription`, `pathImage`, `denomUnitName`, `denomUnitDescription`, and `denomUnitImage` params as `add_alias_path` |
 | `remove_cosmos_wrapper_path` | Remove a wrapper path by denom | `denom*` |
 | `add_transfer` | Append a `MsgTransferTokens` after the collection message for auto-mint at creation. `collectionId` is set to `"0"` (the new collection). Needs a matching mint approval | `transfers*` (array of from, to, balances, prioritized approval) |
 | `remove_transfer` | Remove a transfer message by index. `messages[0]` is the collection and cannot be removed | `index*` (>= 1) |
 | `set_is_archived` | Archive or unarchive. Archived collections stay on-chain but are hidden from browsing | `isArchived*` |
 | `get_transaction` | Return the assembled transaction JSON with `metadataPlaceholders`. Numbers become strings. Blank `image` fields are auto-filled with a deterministic SVG seeded by the collection name | none |
 | `get_review_url` | Final step: upload the transaction to the open preview endpoint and return a short bitbadges.io link the user opens to review and sign. Needs the API key to upload; the person opening the link needs none. Links expire after 1 hour. | `transaction` (defaults to the session), `frontendUrl` |
+| `reset_session` | Clear all session state and start from a blank collection. Call it before building a second collection in the same conversation; session state is global and persists, so the new collection would otherwise inherit the previous approvals, metadata, alias paths, and transfers | `sessionId` (omit for the default session) |
 
 `generate_placeholder_art` (`seed*`, `style`, `monogram`) still exists in source but is not in the MCP catalog: `get_transaction` fills blank images for you.
 
