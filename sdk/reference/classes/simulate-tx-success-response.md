@@ -4,7 +4,7 @@ description: "iSimulateTxSuccessResponse"
 
 # Class: SimulateTxSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1680](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1680)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1679](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1679)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1680]
 
 > **new SimulateTxSuccessResponse**(`data`): `SimulateTxSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1688](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1688)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1687](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1687)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1688]
 
 > **gas\_info**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1681](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1681)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1680](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1680)
 
 How much gas was used in the simulation.
 
@@ -64,7 +64,7 @@ How much gas was used in the simulation.
 
 > **result**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1682](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1682)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1681](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1681)
 
 The result of the simulation.
 

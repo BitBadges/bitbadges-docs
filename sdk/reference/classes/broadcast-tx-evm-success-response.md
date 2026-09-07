@@ -4,7 +4,7 @@ description: "iBroadcastTxEvmSuccessResponse"
 
 # Class: BroadcastTxEvmSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5586](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5586)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5481](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5481)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5586]
 
 > **new BroadcastTxEvmSuccessResponse**(`data`): `BroadcastTxEvmSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5594](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5594)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5489](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5489)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5594]
 
 > `optional` **cosmosTxHash?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5591](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5591)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5486](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5486)
 
 The cosmos-side `MsgEthereumTx` wrapping hash. Cosmos tooling (explorer,
 indexer, Skip Go tracker) must use this hash — `txhash` alone won't
@@ -58,7 +58,7 @@ resolve there. May be `undefined` if the tx didn't mine in time.
 
 > **success**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5592](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5592)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5487](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5487)
 
 #### Implementation of
 
@@ -70,7 +70,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5592]
 
 > **txhash**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5590](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5590)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5485](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5485)
 
 The EVM keccak256 transaction hash.
 

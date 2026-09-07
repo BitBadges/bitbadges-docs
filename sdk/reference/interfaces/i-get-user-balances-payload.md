@@ -4,7 +4,7 @@ description: "Get User Balances Route: GET /api/v0/account/:address/balances"
 
 # Interface: iGetUserBalancesPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4903](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4903)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4798](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4798)
 
 Get User Balances
 Route: GET /api/v0/account/:address/balances
@@ -22,7 +22,7 @@ fields (profile, bio, sequence, etc.).
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4905](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4905)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4800](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4800)
 
 Pagination bookmark from the previous response.
 
@@ -32,6 +32,6 @@ Pagination bookmark from the previous response.
 
 > `optional` **limit?**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4907](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4907)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4802](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4802)
 
 Page size. Indexer-enforced max applies.

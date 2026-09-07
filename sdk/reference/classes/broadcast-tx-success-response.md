@@ -4,7 +4,7 @@ description: "iBroadcastTxSuccessResponse"
 
 # Class: BroadcastTxSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1629](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1629)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1628](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1628)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1629]
 
 > **new BroadcastTxSuccessResponse**(`data`): `BroadcastTxSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1647](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1647)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1646](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1646)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1647]
 
 > **tx\_response**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1630](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1630)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1629](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1629)
 
 The response from the blockchain for the broadcasted tx.
 

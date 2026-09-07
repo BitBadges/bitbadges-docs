@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: AccountDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:426](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L426)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:425](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L425)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:426](ht
 
 > **new AccountDoc**\<`T`\>(`data`): `AccountDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:437](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L437)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:436](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L436)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:437](ht
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:427](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L427)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:426](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L426)
 
 A unique stringified document ID
 
@@ -62,7 +62,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:428](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L428)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:427](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L427)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -76,7 +76,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **accountNumber**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:430](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L430)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:429](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L429)
 
 The account number of the account. This is the account number registered on the BitBadges blockchain.
 
@@ -94,7 +94,7 @@ WARNING (BB-34): post-v34 accounts get hash-derived account numbers larger than 
 
 > `optional` **balances?**: [`CosmosCoin`](/sdk/reference/classes/cosmos-coin)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:435](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L435)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:434](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L434)
 
 The BADGE balance of the account and other sdk.coin balances
 
@@ -108,7 +108,7 @@ The BADGE balance of the account and other sdk.coin balances
 
 > **bitbadgesAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:432](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L432)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:431](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L431)
 
 The BitBadges address of the account
 
@@ -122,7 +122,7 @@ The BitBadges address of the account
 
 > **ethAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:433](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L433)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:432](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L432)
 
 The Eth address of the account
 
@@ -136,7 +136,7 @@ The Eth address of the account
 
 > **pubKeyType**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:431](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L431)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:430](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L430)
 
 The public key type of the account
 
@@ -150,7 +150,7 @@ The public key type of the account
 
 > **publicKey**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:429](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L429)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:428](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L428)
 
 The public key of the account
 
@@ -164,7 +164,7 @@ The public key of the account
 
 > `optional` **sequence?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:434](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L434)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:433](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L433)
 
 The sequence of the account. This is the nonce for the blockchain for this account.
 
@@ -199,7 +199,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `AccountDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:454](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L454)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:453](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L453)
 
 Converts the object to a different NumberType equivalent.
 
@@ -269,7 +269,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:450](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L450)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:449](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L449)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

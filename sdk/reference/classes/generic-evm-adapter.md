@@ -4,7 +4,7 @@ description: "GenericEvmAdapter provides wallet adapter functionality for EVM wa
 
 # Class: GenericEvmAdapter
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:81](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L81)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:94](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L94)
 
 GenericEvmAdapter provides wallet adapter functionality for EVM wallets
 like MetaMask via ethers.js or direct EIP-1193 providers.
@@ -40,7 +40,7 @@ const adapter = await GenericEvmAdapter.fromProvider(window.ethereum);
 
 > `readonly` **address**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:83](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L83)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:96](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L96)
 
 The address managed by this adapter (BitBadges bb-prefixed for Cosmos, 0x for EVM)
 
@@ -58,7 +58,7 @@ The address managed by this adapter (BitBadges bb-prefixed for Cosmos, 0x for EV
 
 > `readonly` **chainType**: `"evm"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:82](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L82)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:95](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L95)
 
 The chain type this adapter supports
 
@@ -76,7 +76,7 @@ The chain type this adapter supports
 
 > **estimateEvmGas**(`tx`): `Promise`\<`bigint`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:312](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L312)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:372](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L372)
 
 Estimate gas for an EVM transaction via the connected provider.
 
@@ -108,7 +108,7 @@ Estimated gas as bigint
 
 > **getPublicKey**(): `Promise`\<`string`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:262](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L262)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:275](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L275)
 
 Get the public key.
 Note: EVM wallets don't directly expose public keys for Cosmos signing.
@@ -131,7 +131,7 @@ Note: EVM wallets don't directly expose public keys for Cosmos signing.
 
 > **sendEvmTransaction**(`tx`): `Promise`\<`string`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:274](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L274)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:334](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L334)
 
 Send an EVM transaction to a precompile contract.
 
@@ -163,7 +163,7 @@ The transaction hash
 
 > `optional` **signDirect**(`payload`, `accountNumber`): `Promise`\<[`SigningResult`](/sdk/reference/interfaces/signing-result)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:74](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L74)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:88](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L88)
 
 Sign a transaction using Cosmos SignDirect format.
 Only implemented by Cosmos wallet adapters.
@@ -200,11 +200,51 @@ The signature and public key
 
 ***
 
+### signTypedData()
+
+> **signTypedData**(`typed`): `Promise`\<`string`\>
+
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:296](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L296)
+
+Sign EIP-712 typed-data with the connected EVM wallet.
+
+The output is a `0x...`-prefixed 65-byte hex signature (r || s || v).
+Pair with `recoverEvmPublicKey()` from `@/eip712` to derive the
+pubkey used in the Cosmos AuthInfo, or strip the trailing recovery
+byte to feed the chain's ethsecp256k1 verifier directly.
+
+Routes through the wallet's `eth_signTypedData_v4` (EIP-1193) when
+available, otherwise through ethers' `Signer.signTypedData`. Native
+MetaMask / Privy / Coinbase Smart Wallet take the canonical Cosmos
+EVM domain (`verifyingContract: "cosmos"`, `salt: "0"`) without
+complaint; ethers v6 hard-rejects it, so prefer the EIP-1193 path
+when both are wired.
+
+#### Parameters
+
+##### typed
+
+[`EIP712TypedData`](/sdk/reference/interfaces/eip712-typed-data)
+
+#### Returns
+
+`Promise`\<`string`\>
+
+#### Implementation of
+
+[`WalletAdapter`](/sdk/reference/interfaces/wallet-adapter).[`signTypedData`](/sdk/reference/interfaces/wallet-adapter#signtypeddata)
+
+#### Overrides
+
+[`BaseWalletAdapter`](/sdk/reference/classes/base-wallet-adapter).[`signTypedData`](/sdk/reference/classes/base-wallet-adapter#signtypeddata)
+
+***
+
 ### supportsEvmTransaction()
 
 > **supportsEvmTransaction**(): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:356](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L356)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:416](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L416)
 
 Check if the adapter supports EVM transactions
 
@@ -226,7 +266,7 @@ Check if the adapter supports EVM transactions
 
 > **supportsSignAmino**(): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:352](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L352)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:412](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L412)
 
 Check if the adapter supports Amino signing (legacy)
 
@@ -248,7 +288,7 @@ Check if the adapter supports Amino signing (legacy)
 
 > **supportsSignDirect**(): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:348](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L348)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:408](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L408)
 
 Check if the adapter supports SignDirect signing
 
@@ -266,11 +306,33 @@ Check if the adapter supports SignDirect signing
 
 ***
 
+### supportsSignTypedData()
+
+> **supportsSignTypedData**(): `boolean`
+
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:420](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L420)
+
+Check if the adapter supports EIP-712 typed-data signing
+
+#### Returns
+
+`boolean`
+
+#### Implementation of
+
+[`WalletAdapter`](/sdk/reference/interfaces/wallet-adapter).[`supportsSignTypedData`](/sdk/reference/interfaces/wallet-adapter#supportssigntypeddata)
+
+#### Overrides
+
+[`BaseWalletAdapter`](/sdk/reference/classes/base-wallet-adapter).[`supportsSignTypedData`](/sdk/reference/classes/base-wallet-adapter#supportssigntypeddata)
+
+***
+
 ### fromBrowserWallet()
 
 > `static` **fromBrowserWallet**(`options?`): `Promise`\<`GenericEvmAdapter`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:251](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L251)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:264](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L264)
 
 Create an adapter from window.ethereum (MetaMask, etc.).
 
@@ -298,7 +360,7 @@ Error if expectedChainId is provided and wallet is on wrong network
 
 > `static` **fromMnemonic**(`mnemonic`, `evmRpcUrl`, `options?`): `Promise`\<`GenericEvmAdapter`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:193](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L193)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:206](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L206)
 
 Create an adapter from a mnemonic phrase for server-side EVM signing.
 
@@ -348,7 +410,7 @@ const client = new BitBadgesSigningClient({ adapter, network: 'testnet' });
 
 > `static` **fromPrivateKey**(`privateKey`, `evmRpcUrl`, `options?`): `Promise`\<`GenericEvmAdapter`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:224](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L224)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:237](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L237)
 
 Create an adapter from a private key for server-side EVM signing.
 
@@ -388,7 +450,7 @@ A new GenericEvmAdapter for server-side signing
 
 > `static` **fromProvider**(`provider`, `options?`): `Promise`\<`GenericEvmAdapter`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:156](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L156)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:169](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L169)
 
 Create an adapter from an EIP-1193 provider (like window.ethereum).
 
@@ -422,7 +484,7 @@ Error if expectedChainId is provided and wallet is on wrong network
 
 > `static` **fromSigner**(`signer`, `options?`): `Promise`\<`GenericEvmAdapter`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:131](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L131)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts:144](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/GenericEvmAdapter.ts#L144)
 
 Create an adapter from an ethers.js Signer (v6).
 

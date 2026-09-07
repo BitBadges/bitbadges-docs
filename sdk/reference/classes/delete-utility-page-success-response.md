@@ -4,7 +4,7 @@ description: "any"
 
 # Class: DeleteUtilityPageSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3746](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3746)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3745](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3745)
 
 ## Extends
 

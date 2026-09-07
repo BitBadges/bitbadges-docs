@@ -32,7 +32,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/blockin/index.ts:48](https://github.co
 
 > `optional` **assetOwnershipRequirements?**: [`AssetConditionGroup`](/sdk/reference/type-aliases/asset-condition-group)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/blockin/index.ts:57](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/blockin/index.ts#L57)
+Defined in: [packages/bitbadgesjs-sdk/src/blockin/index.ts:64](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/blockin/index.ts#L64)
 
 ***
 
@@ -84,11 +84,24 @@ Defined in: [packages/bitbadgesjs-sdk/src/blockin/index.ts:55](https://github.co
 
 ***
 
+### requestId?
+
+> `optional` **requestId?**: `string`
+
+Defined in: [packages/bitbadgesjs-sdk/src/blockin/index.ts:62](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/blockin/index.ts#L62)
+
+Optional EIP-4361 §3 Request ID. Lets the relying party correlate
+this challenge with a server-side request. SIWE-aware libraries
+parse `Request ID: <value>` between Not Before and Resources.
+Mirrors the field added to the underlying `blockin` package.
+
+***
+
 ### resources?
 
 > `optional` **resources?**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/blockin/index.ts:56](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/blockin/index.ts#L56)
+Defined in: [packages/bitbadgesjs-sdk/src/blockin/index.ts:63](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/blockin/index.ts#L63)
 
 ***
 

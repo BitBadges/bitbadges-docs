@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iGetVotesByVoterSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5411](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5411)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5306](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5306)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5411]
 
 > **pagination**: [`PaginationInfo`](/sdk/reference/interfaces/pagination-info)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5413](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5413)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5308](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5308)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5413]
 
 > **votes**: [`iVoteApiData`](/sdk/reference/interfaces/i-vote-api-data)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5412](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5412)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5307](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5307)

@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iGetVoteByProposalIdSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5340](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5340)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5235](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5235)
 
 ## Type Parameters
 
@@ -18,4 +18,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5340]
 
 > **vote**: [`iVoteApiData`](/sdk/reference/interfaces/i-vote-api-data)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5341](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5341)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5236](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5236)

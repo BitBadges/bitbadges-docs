@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iGetOnChainDynamicStoreValueSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4161](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4161)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4160](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4160)
 
 ## Extends
 
@@ -50,7 +50,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **address**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2105](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2105)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2071](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2071)
 
 #### Inherited from
 
@@ -62,7 +62,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2
 
 > **storeId**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2104](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2104)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2070](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2070)
 
 #### Inherited from
 
@@ -74,7 +74,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2
 
 > **value**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2106](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2106)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2072](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2072)
 
 #### Inherited from
 

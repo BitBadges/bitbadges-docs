@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: GetCollectionChallengeTrackerByIdSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3974](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3974)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3973](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3973)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3974]
 
 > **new GetCollectionChallengeTrackerByIdSuccessResponse**\<`T`\>(`data`): `GetCollectionChallengeTrackerByIdSuccessResponse`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3980](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3980)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3979](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3979)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3980]
 
 > **challengeTracker**: [`ApprovalTrackerDoc`](/sdk/reference/classes/approval-tracker-doc)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3978](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3978)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3977](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3977)
 
 #### Implementation of
 
@@ -78,7 +78,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `GetCollectionChallengeTrackerByIdSuccessResponse`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3985](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3985)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3984](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3984)
 
 Converts the object to a different NumberType equivalent.
 

@@ -4,7 +4,7 @@ description: "any"
 
 # Class: GetTokensFromFaucetPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1737](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1737)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1736](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1736)
 
 ## Extends
 

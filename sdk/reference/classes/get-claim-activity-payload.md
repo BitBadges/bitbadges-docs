@@ -4,7 +4,7 @@ description: "any"
 
 # Class: GetClaimActivityPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:527](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L527)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:526](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L526)
 
 ## Extends
 

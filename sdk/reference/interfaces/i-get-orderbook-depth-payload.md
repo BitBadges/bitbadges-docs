@@ -4,7 +4,7 @@ description: "Aggregated bid/ask depth for a single (collectionId, tokenId, deno
 
 # Interface: iGetOrderbookDepthPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5106](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5106)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5001](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5001)
 
 Aggregated bid/ask depth for a single (collectionId, tokenId, denom).
 Indexer side stores the doc keyed by `${collectionId}:${tokenId}:${denom}`.
@@ -18,6 +18,6 @@ maps. Treat as opaque on the client.
 
 > **denom**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5108](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5108)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5003](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5003)
 
 Denom to filter the orderbook by (e.g. `ubadge`).

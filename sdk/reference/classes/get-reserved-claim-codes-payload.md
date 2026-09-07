@@ -4,7 +4,7 @@ description: "any"
 
 # Class: GetReservedClaimCodesPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:786](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L786)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:785](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L785)
 
 ## Extends
 

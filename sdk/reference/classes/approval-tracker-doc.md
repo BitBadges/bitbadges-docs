@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: ApprovalTrackerDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1468](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1468)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1467](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1467)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1468](h
 
 > **new ApprovalTrackerDoc**\<`T`\>(`data`): `ApprovalTrackerDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1482](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1482)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1481](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1481)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1482](h
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1469](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1469)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1468](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1468)
 
 A unique stringified document ID
 
@@ -62,7 +62,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1470](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1470)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1469](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1469)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -76,7 +76,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **amounts**: [`BalanceArray`](/sdk/reference/classes/balance-array)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1472](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1472)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1471](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1471)
 
 A tally of the amounts transferred for this approval.
 
@@ -90,7 +90,7 @@ A tally of the amounts transferred for this approval.
 
 > **amountTrackerId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1475](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1475)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1474](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1474)
 
 The amount tracker ID of the approval.
 
@@ -104,7 +104,7 @@ The amount tracker ID of the approval.
 
 > **approvalId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1474](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1474)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1473](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1473)
 
 The approval ID
 
@@ -118,7 +118,7 @@ The approval ID
 
 > **approvalLevel**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1476](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1476)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1475](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1475)
 
 The approval level of the approval "collection", "incoming", or "outgoing".
 
@@ -132,7 +132,7 @@ The approval level of the approval "collection", "incoming", or "outgoing".
 
 > **approvedAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1479](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1479)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1478](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1478)
 
 The address to check for the approval.
 
@@ -146,7 +146,7 @@ The address to check for the approval.
 
 > **approverAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1477](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1477)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1476](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1476)
 
 The address of the approval to check.
 
@@ -160,7 +160,7 @@ The address of the approval to check.
 
 > **collectionId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1473](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1473)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1472](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1472)
 
 The collection ID for the approval.
 
@@ -174,7 +174,7 @@ The collection ID for the approval.
 
 > **lastUpdatedAt**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1480](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1480)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1479](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1479)
 
 Last updated timestamp
 
@@ -188,7 +188,7 @@ Last updated timestamp
 
 > **numTransfers**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1471](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1471)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1470](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1470)
 
 The number of transfers. Is an incrementing tally.
 
@@ -202,7 +202,7 @@ The number of transfers. Is an incrementing tally.
 
 > **trackerType**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1478](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1478)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1477](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1477)
 
 The type of tracker to check "overall", "to", "from", or "initiatedBy".
 
@@ -234,7 +234,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `ApprovalTrackerDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1502](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1502)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1501](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1501)
 
 Converts the object to a different NumberType equivalent.
 
@@ -304,7 +304,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1498](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1498)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1497](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1497)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

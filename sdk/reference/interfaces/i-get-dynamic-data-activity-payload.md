@@ -4,7 +4,7 @@ description: "The pagination bookmark to start from"
 
 # Interface: iGetDynamicDataActivityPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3239](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3239)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3238](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3238)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3239]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3243](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3243)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3242](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3242)
 
 The pagination bookmark to start from
 
@@ -22,7 +22,7 @@ The pagination bookmark to start from
 
 > `optional` **dataSecret?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3245](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3245)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3244](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3244)
 
 The data secret to fetch activity for. Needed if you are not signed in as creator. Not applicable to public stores
 
@@ -32,6 +32,6 @@ The data secret to fetch activity for. Needed if you are not signed in as creato
 
 > **dynamicDataId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3241](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3241)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3240](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3240)
 
 The dynamic data ID to fetch activity for

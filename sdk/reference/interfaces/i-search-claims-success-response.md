@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iSearchClaimsSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:532](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L532)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:531](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L531)
 
 ## Extends
 
@@ -22,7 +22,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:532](
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:436](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L436)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:435](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L435)
 
 #### Inherited from
 
@@ -34,7 +34,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:436](
 
 > **claims**: [`iClaimDetails`](/sdk/reference/interfaces/i-claim-details)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:435](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L435)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:434](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L434)
 
 #### Inherited from
 

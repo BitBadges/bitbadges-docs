@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: GetLiquidityPairPriceHistorySuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5230](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5230)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5125](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5125)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5230]
 
 > **new GetLiquidityPairPriceHistorySuccessResponse**\<`T`\>(`data`): `GetLiquidityPairPriceHistorySuccessResponse`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5236](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5236)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5131](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5131)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5236]
 
 > **docs**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5234](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5234)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5129](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5129)
 
 #### Index Signature
 
@@ -118,7 +118,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `GetLiquidityPairPriceHistorySuccessResponse`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5245](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5245)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5140](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5140)
 
 Converts the object to a different NumberType equivalent.
 
@@ -188,7 +188,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5241](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5241)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5136](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5136)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

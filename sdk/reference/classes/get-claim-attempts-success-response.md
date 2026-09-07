@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: GetClaimAttemptsSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:723](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L723)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:722](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L722)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:723](
 
 > **new GetClaimAttemptsSuccessResponse**\<`T`\>(`data`): `GetClaimAttemptsSuccessResponse`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:731](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L731)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:730](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L730)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:731](
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:728](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L728)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:727](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L727)
 
 #### Implementation of
 
@@ -60,7 +60,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:728](
 
 > **docs**: [`ClaimAttempt`](/sdk/reference/classes/claim-attempt)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:727](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L727)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:726](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L726)
 
 #### Implementation of
 
@@ -72,7 +72,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:727](
 
 > `optional` **total?**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:729](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L729)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:728](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L728)
 
 #### Implementation of
 
@@ -102,7 +102,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `GetClaimAttemptsSuccessResponse`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:738](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L738)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:737](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L737)
 
 Converts the object to a different NumberType equivalent.
 

@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iSearchDeveloperAppsSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2279](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2279)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2278](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2278)
 
 ## Extends
 
@@ -22,7 +22,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2279]
 
 > **developerApps**: [`iDeveloperAppDoc`](/sdk/reference/interfaces/i-developer-app-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2255](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2255)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2254](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2254)
 
 #### Inherited from
 
@@ -34,7 +34,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2255]
 
 > **pagination**: [`PaginationInfo`](/sdk/reference/interfaces/pagination-info)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2256](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2256)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2255](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2255)
 
 #### Inherited from
 

@@ -4,7 +4,7 @@ description: "Interface: iGetVotesByCollectionPayload — BitBadges TypeScript S
 
 # Interface: iGetVotesByCollectionPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5366](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5366)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5261](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5261)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5366]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5367](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5367)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5262](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5262)
 
 ***
 
@@ -20,4 +20,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5367]
 
 > `optional` **limit?**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5368](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5368)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5263](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5263)

@@ -4,7 +4,7 @@ description: "Interface: iGetOrderbookDepthSuccessResponse — BitBadges TypeScr
 
 # Interface: iGetOrderbookDepthSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5130](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5130)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5025](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5025)
 
 ## Properties
 
@@ -12,4 +12,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5130]
 
 > **orderbookDepth**: [`iOrderbookDepth`](/sdk/reference/interfaces/i-orderbook-depth) \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5131](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5131)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5026](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5026)

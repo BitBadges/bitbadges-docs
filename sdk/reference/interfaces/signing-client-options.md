@@ -56,7 +56,7 @@ Override the Cosmos chain ID. Overrides network preset.
 
 Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:213](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L213)
 
-Default gas limit when not simulating. Default: 400000
+Gas limit for explicit simulate: false (1..100000000). Default: 400000
 
 ***
 
@@ -76,7 +76,7 @@ Override the EVM chain ID. Overrides network preset.
 
 Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:215](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L215)
 
-Gas limit for EVM precompile transactions. Default: 2000000
+EVM gas limit for explicit simulate: false (1..100000000). Default: 2000000
 
 ***
 
@@ -96,7 +96,7 @@ Override the EVM JSON-RPC URL. Overrides network preset.
 
 Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:211](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L211)
 
-Gas multiplier for estimation. Default: 1.3
+Gas multiplier for estimation (finite and >= 1). Default: 1.3
 
 ***
 

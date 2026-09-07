@@ -4,7 +4,7 @@ description: "The banner image URL."
 
 # Interface: iUpdateAccountInfoPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:826](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L826)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:825](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L825)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:826](
 
 > `optional` **bannerImage?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:875](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L875)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:874](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L874)
 
 The banner image URL.
 
@@ -22,7 +22,7 @@ The banner image URL.
 
 > `optional` **bluesky?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:850](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L850)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:849](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L849)
 
 The Bluesky username.
 
@@ -32,7 +32,7 @@ The Bluesky username.
 
 > `optional` **discord?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:830](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L830)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:829](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L829)
 
 The Discord username.
 
@@ -42,7 +42,7 @@ The Discord username.
 
 > `optional` **github?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:840](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L840)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:839](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L839)
 
 The GitHub username.
 
@@ -52,7 +52,7 @@ The GitHub username.
 
 > `optional` **hiddenTokens?**: [`iBatchTokenDetails`](/sdk/reference/interfaces/i-batch-token-details)\<[`NumberType`](/sdk/reference/type-aliases/number-type)\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:865](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L865)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:864](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L864)
 
 The tokens to hide and not view for this profile's portfolio
 
@@ -62,7 +62,7 @@ The tokens to hide and not view for this profile's portfolio
 
 > `optional` **notifications?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:890](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L890)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:889](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L889)
 
 The notification preferences for the user. Will only be returned if user is authenticated with full access.
 
@@ -112,7 +112,7 @@ The notification preferences for the user. Will only be returned if user is auth
 
 > `optional` **profilePicImageFile?**: `any`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:885](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L885)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:884](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L884)
 
 The profile picture image file to set. We will then upload to our CDN.
 
@@ -122,7 +122,7 @@ The profile picture image file to set. We will then upload to our CDN.
 
 > `optional` **profilePicUrl?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:870](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L870)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:869](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L869)
 
 The profile picture URL.
 
@@ -132,7 +132,7 @@ The profile picture URL.
 
 > `optional` **readme?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:860](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L860)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:859](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L859)
 
 The README details (markdown supported).
 
@@ -142,7 +142,7 @@ The README details (markdown supported).
 
 > `optional` **seenActivity?**: [`NumberType`](/sdk/reference/type-aliases/number-type)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:855](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L855)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:854](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L854)
 
 The last seen activity timestamp.
 
@@ -152,7 +152,7 @@ The last seen activity timestamp.
 
 > `optional` **telegram?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:845](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L845)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:844](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L844)
 
 The Telegram username.
 
@@ -162,7 +162,7 @@ The Telegram username.
 
 > `optional` **twitter?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:835](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L835)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:834](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L834)
 
 The Twitter username.
 
@@ -172,6 +172,6 @@ The Twitter username.
 
 > `optional` **username?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:880](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L880)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:879](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L879)
 
 The username.

@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: SearchDeveloperAppsSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2284](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2284)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2283](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2283)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2284]
 
 > **new SearchDeveloperAppsSuccessResponse**\<`T`\>(`data`): `SearchDeveloperAppsSuccessResponse`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2288](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2288)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2287](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2287)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2288]
 
 > **developerApps**: [`DeveloperAppDoc`](/sdk/reference/classes/developer-app-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2266](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2266)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2265](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2265)
 
 #### Implementation of
 
@@ -64,7 +64,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2266]
 
 > **pagination**: [`PaginationInfo`](/sdk/reference/interfaces/pagination-info)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2267](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2267)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2266](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2266)
 
 #### Implementation of
 

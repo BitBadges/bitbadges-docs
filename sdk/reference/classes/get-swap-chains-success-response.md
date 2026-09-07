@@ -4,7 +4,7 @@ description: "iGetSwapChainsSuccessResponse"
 
 # Class: GetSwapChainsSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4644](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4644)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4539](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4539)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4644]
 
 > **new GetSwapChainsSuccessResponse**(`data`): `GetSwapChainsSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4647](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4647)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4542](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4542)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4647]
 
 > **chains**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4645](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4645)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4540](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4540)
 
 Chain entries (mirrors Skip:Go /v2/info/chains).
 

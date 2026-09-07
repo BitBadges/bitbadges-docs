@@ -4,7 +4,7 @@ description: "Description of the app."
 
 # Interface: iCreateDeveloperAppPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2104](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2104)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2103](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2103)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2104]
 
 > **description**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2108](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2108)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2107](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2107)
 
 Description of the app.
 
@@ -22,7 +22,7 @@ Description of the app.
 
 > **image**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2110](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2110)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2109](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2109)
 
 Image for the app.
 
@@ -32,7 +32,7 @@ Image for the app.
 
 > **name**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2106](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2106)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2105](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2105)
 
 Metadata for the secret for display purposes. Note this should not contain anything sensitive. It may be displayed to verifiers.
 
@@ -42,6 +42,6 @@ Metadata for the secret for display purposes. Note this should not contain anyth
 
 > **redirectUris**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2112](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2112)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2111](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2111)
 
 Redirect URIs for the app.

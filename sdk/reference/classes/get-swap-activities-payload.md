@@ -4,7 +4,7 @@ description: "iGetSwapActivitiesPayload = {}"
 
 # Class: GetSwapActivitiesPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4005](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4005)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4004](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4004)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4005]
 
 > **new GetSwapActivitiesPayload**(`data?`): `GetSwapActivitiesPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4008](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4008)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4007](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4007)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4008]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4006](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4006)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4005](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4005)
 
 #### Implementation of
 
@@ -217,7 +217,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `GetSwapActivitiesPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4013](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4013)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4012](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4012)
 
 #### Parameters
 

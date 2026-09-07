@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: IPFSTotalsDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1717](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1717)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1716](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1716)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1717](h
 
 > **new IPFSTotalsDoc**\<`T`\>(`data`): `IPFSTotalsDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1722](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1722)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1721](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1721)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1722](h
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1718](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1718)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1717](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1717)
 
 A unique stringified document ID
 
@@ -62,7 +62,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1719](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1719)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1718](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1718)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -76,7 +76,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **bytesUploaded**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1720](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1720)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1719](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1719)
 
 The total bytes uploaded
 
@@ -108,7 +108,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `IPFSTotalsDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1733](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1733)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1732](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1732)
 
 Converts the object to a different NumberType equivalent.
 
@@ -178,7 +178,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1729](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1729)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1728](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1728)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

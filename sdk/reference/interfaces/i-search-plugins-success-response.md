@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iSearchPluginsSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2695](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2695)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2694](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2694)
 
 ## Extends
 
@@ -22,7 +22,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2695]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2668](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2668)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2667](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2667)
 
 Bookmark for pagination of the plugins. Only applicable if fetching the directory.
 
@@ -36,7 +36,7 @@ Bookmark for pagination of the plugins. Only applicable if fetching the director
 
 > **plugins**: [`iPluginDoc`](/sdk/reference/interfaces/i-plugin-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2665](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2665)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2664](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2664)
 
 #### Inherited from
 

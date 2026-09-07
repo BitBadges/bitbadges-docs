@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iCreateUtilityPagePayload\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3582](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3582)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3581](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3581)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3582]
 
 > **categories**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3605](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3605)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3604](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3604)
 
 The categories of the listing
 
@@ -28,7 +28,7 @@ The categories of the listing
 
 > **content**: [`iUtilityPageContent`](/sdk/reference/interfaces/i-utility-page-content)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3587](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3587)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3586](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3586)
 
 The content for the listing
 
@@ -38,7 +38,7 @@ The content for the listing
 
 > `optional` **directLink?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3602](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3602)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3601](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3601)
 
 The direct link for the listing. If specified, we will skip the entire content / listing page. Thus, content and links should be empty [].
 
@@ -48,7 +48,7 @@ The direct link for the listing. If specified, we will skip the entire content /
 
 > `optional` **displayTimes?**: [`iUintRange`](/sdk/reference/interfaces/i-uint-range)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3599](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3599)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3598](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3598)
 
 The display times of the listing. Optionally specify when to show vs not show the listing.
 
@@ -58,7 +58,7 @@ The display times of the listing. Optionally specify when to show vs not show th
 
 > `optional` **estimatedCost?**: [`iEstimatedCost`](/sdk/reference/interfaces/i-estimated-cost)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3617](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3617)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3616](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3616)
 
 The estimated cost for this utility/service
 
@@ -68,7 +68,7 @@ The estimated cost for this utility/service
 
 > `optional` **estimatedTime?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3620](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3620)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3619](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3619)
 
 The estimated time to complete or deliver this utility/service
 
@@ -78,7 +78,7 @@ The estimated time to complete or deliver this utility/service
 
 > `optional` **inheritMetadataFrom?**: [`iInheritMetadataFrom`](/sdk/reference/interfaces/i-inherit-metadata-from)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3611](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3611)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3610](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3610)
 
 Where to inherit metadata from? Only one can be specified.
 
@@ -88,7 +88,7 @@ Where to inherit metadata from? Only one can be specified.
 
 > `optional` **linkedTo?**: [`iLinkedTo`](/sdk/reference/interfaces/i-linked-to)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3608](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3608)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3607](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3607)
 
 The details for if this listing is linked to a specific collection or list (displayed in Utility tab)
 
@@ -98,7 +98,7 @@ The details for if this listing is linked to a specific collection or list (disp
 
 > **links**: [`iUtilityPageLink`](/sdk/reference/interfaces/i-utility-page-link)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3590](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3590)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3589](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3589)
 
 The links for the listing
 
@@ -108,7 +108,7 @@ The links for the listing
 
 > `optional` **locale?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3614](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3614)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3613](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3613)
 
 Locale (ex: es, fr, etc.). If not specified, we assume en.
 
@@ -118,7 +118,7 @@ Locale (ex: es, fr, etc.). If not specified, we assume en.
 
 > **metadata**: [`iMetadataWithoutInternals`](/sdk/reference/type-aliases/i-metadata-without-internals)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3584](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3584)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3583](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3583)
 
 The overall metadata for the listing
 
@@ -128,7 +128,7 @@ The overall metadata for the listing
 
 > **type**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3593](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3593)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3592](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3592)
 
 The type of the listing
 
@@ -138,6 +138,6 @@ The type of the listing
 
 > **visibility**: `"public"` \| `"private"` \| `"unlisted"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3596](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3596)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3595](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3595)
 
 The visibility of the listing

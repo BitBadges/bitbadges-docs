@@ -4,7 +4,7 @@ description: "any"
 
 # Class: PerformStoreActionBatchWithBodyAuthSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3206](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3206)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3205](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3205)
 
 ## Extends
 

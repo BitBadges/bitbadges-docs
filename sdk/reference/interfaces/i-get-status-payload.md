@@ -4,7 +4,7 @@ description: "Chain to check? Defaults to BitBadges poller."
 
 # Interface: iGetStatusPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:160](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L160)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:159](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L159)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:160](
 
 > `optional` **chain?**: `"Thorchain"` \| `"BitBadges"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:167](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L167)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:166](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L166)
 
 Chain to check? Defaults to BitBadges poller.
 
@@ -22,6 +22,6 @@ Chain to check? Defaults to BitBadges poller.
 
 > `optional` **withOutOfSyncCheck?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:164](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L164)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:163](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L163)
 
 If true, we will check if the indexer is out of sync with the blockchain.

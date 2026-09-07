@@ -4,7 +4,7 @@ description: "iRotateApiKeySuccessResponse"
 
 # Class: RotateApiKeySuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3433](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3433)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3432](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3432)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3433]
 
 > **new RotateApiKeySuccessResponse**(`data`): `RotateApiKeySuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3436](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3436)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3435](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3435)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3436]
 
 > **key**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3434](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3434)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3433](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3433)
 
 #### Implementation of
 

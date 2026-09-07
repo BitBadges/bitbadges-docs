@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: ListingViewsDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1203](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1203)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1202](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1202)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1203](h
 
 > **new ListingViewsDoc**\<`T`\>(`data`): `ListingViewsDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1211](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1211)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1210](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1210)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1211](h
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1204](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1204)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1203](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1203)
 
 A unique stringified document ID
 
@@ -62,7 +62,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1205](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1205)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1204](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1204)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -76,7 +76,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **lastUpdated**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1208](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1208)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1207](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1207)
 
 The last time this view count was updated
 
@@ -90,7 +90,7 @@ The last time this view count was updated
 
 > **listingId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1206](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1206)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1205](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1205)
 
 The listing ID this view count is for
 
@@ -104,7 +104,7 @@ The listing ID this view count is for
 
 > **viewCount**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1207](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1207)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1206](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1206)
 
 The total number of views
 
@@ -118,7 +118,7 @@ The total number of views
 
 > `optional` **viewsByPeriod?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1209](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1209)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1208](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1208)
 
 Optional breakdown of views by time period for trending calculations
 
@@ -166,7 +166,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `ListingViewsDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1225](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1225)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1224](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1224)
 
 Converts the object to a different NumberType equivalent.
 
@@ -236,7 +236,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1221](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1221)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1220](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1220)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

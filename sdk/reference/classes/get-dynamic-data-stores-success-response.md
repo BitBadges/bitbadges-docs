@@ -4,7 +4,7 @@ description: "Q extends DynamicDataHandlerType"
 
 # Class: GetDynamicDataStoresSuccessResponse\<Q, T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3046](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3046)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3045](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3045)
 
 ## Extends
 
@@ -34,7 +34,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3046]
 
 > **new GetDynamicDataStoresSuccessResponse**\<`Q`, `T`\>(`data`): `GetDynamicDataStoresSuccessResponse`\<`Q`, `T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3056](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3056)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3055](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3055)
 
 #### Parameters
 
@@ -56,7 +56,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3056]
 
 > **docs**: ([`DynamicDataDoc`](/sdk/reference/classes/dynamic-data-doc)\<`Q`, `T`\> \| `undefined`)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3050](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3050)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3049](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3049)
 
 #### Implementation of
 
@@ -68,7 +68,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3050]
 
 > **pagination**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3051](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3051)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3050](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3050)
 
 #### bookmark
 
@@ -106,7 +106,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `GetDynamicDataStoresSuccessResponse`\<`Q`, `U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3062](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3062)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3061](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3061)
 
 Converts the object to a different NumberType equivalent.
 

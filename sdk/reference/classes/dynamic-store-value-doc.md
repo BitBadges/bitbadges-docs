@@ -4,7 +4,7 @@ description: "DynamicStoreValueDoc represents a value stored in an on-chain dyna
 
 # Class: DynamicStoreValueDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2298](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2298)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2254](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2254)
 
 DynamicStoreValueDoc represents a value stored in an on-chain dynamic store for a specific address.
 
@@ -32,7 +32,7 @@ DynamicStoreValueDoc represents a value stored in an on-chain dynamic store for 
 
 > **new DynamicStoreValueDoc**\<`T`\>(`doc`): `DynamicStoreValueDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2305](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2305)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2261](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2261)
 
 #### Parameters
 
@@ -54,7 +54,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2305](h
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2300](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2300)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2256](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2256)
 
 A unique stringified document ID
 
@@ -68,7 +68,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2299](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2299)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2255](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2255)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -82,7 +82,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **address**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2302](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2302)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2258](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2258)
 
 #### Implementation of
 
@@ -94,7 +94,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2302](h
 
 > **storeId**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2301](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2301)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2257](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2257)
 
 #### Implementation of
 
@@ -106,7 +106,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2301](h
 
 > **value**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2303](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2303)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2259](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2259)
 
 #### Implementation of
 
@@ -136,7 +136,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `DynamicStoreValueDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2318](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2318)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2274](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2274)
 
 Converts the object to a different NumberType equivalent.
 
@@ -206,7 +206,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2314](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2314)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2270](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2270)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

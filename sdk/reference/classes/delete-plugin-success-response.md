@@ -4,7 +4,7 @@ description: "any"
 
 # Class: DeletePluginSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2527](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2527)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2526](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2526)
 
 ## Extends
 

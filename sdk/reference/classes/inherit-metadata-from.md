@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: InheritMetadataFrom\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1257](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1257)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1256](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1256)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1257](h
 
 > **new InheritMetadataFrom**\<`T`\>(`data`): `InheritMetadataFrom`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1264](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1264)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1263](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1263)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1264](h
 
 > `optional` **applicationId?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1259](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1259)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1258](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1258)
 
 The application ID to link to
 
@@ -62,7 +62,7 @@ The application ID to link to
 
 > `optional` **claimId?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1258](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1258)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1257](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1257)
 
 The claim ID to link to
 
@@ -76,7 +76,7 @@ The claim ID to link to
 
 > `optional` **collectionId?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1260](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1260)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1259](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1259)
 
 The collection ID to link to
 
@@ -90,7 +90,7 @@ The collection ID to link to
 
 > `optional` **mapId?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1261](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1261)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1260](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1260)
 
 The map ID to link to
 
@@ -104,7 +104,7 @@ The map ID to link to
 
 > `optional` **tokenId?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1262](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1262)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1261](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1261)
 
 The token ID to link to "collectionId: CollectionId\<T>dgeId"
 
@@ -136,7 +136,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `InheritMetadataFrom`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1277](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1277)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1276](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1276)
 
 #### Type Parameters
 
@@ -209,7 +209,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1273](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1273)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:1272](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L1272)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

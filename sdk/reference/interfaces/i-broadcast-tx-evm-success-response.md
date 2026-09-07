@@ -4,7 +4,7 @@ description: "The cosmos-side MsgEthereumTx wrapping hash. Cosmos tooling (explo
 
 # Interface: iBroadcastTxEvmSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5571](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5571)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5466](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5466)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5571]
 
 > `optional` **cosmosTxHash?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5579](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5579)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5474](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5474)
 
 The cosmos-side `MsgEthereumTx` wrapping hash. Cosmos tooling (explorer,
 indexer, Skip Go tracker) must use this hash — `txhash` alone won't
@@ -24,7 +24,7 @@ resolve there. May be `undefined` if the tx didn't mine in time.
 
 > **success**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5580](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5580)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5475](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5475)
 
 ***
 
@@ -32,6 +32,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5580]
 
 > **txhash**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5573](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5573)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5468](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5468)
 
 The EVM keccak256 transaction hash.

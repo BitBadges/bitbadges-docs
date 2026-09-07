@@ -4,7 +4,7 @@ description: "The response from the blockchain for the broadcasted tx."
 
 # Interface: iBroadcastTxSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1604](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1604)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1603](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1603)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1604]
 
 > **tx\_response**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1608](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1608)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1607](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1607)
 
 The response from the blockchain for the broadcasted tx.
 

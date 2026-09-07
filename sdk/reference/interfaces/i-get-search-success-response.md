@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iGetSearchSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:304](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L304)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:303](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L303)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:304](
 
 > **accounts**: [`iBitBadgesUserInfo`](/sdk/reference/interfaces/i-bit-badges-user-info)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:306](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L306)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:305](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L305)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:306](
 
 > `optional` **claims?**: [`iClaimDetails`](/sdk/reference/interfaces/i-claim-details)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:311](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L311)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:310](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L310)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:311](
 
 > **collections**: [`iBitBadgesCollection`](/sdk/reference/interfaces/i-bit-badges-collection)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:305](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L305)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:304](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L304)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:305](
 
 > **tokens**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:307](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L307)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:306](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L306)
 
 #### collection
 
@@ -58,4 +58,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:307](
 
 > `optional` **utilityPages?**: [`iUtilityPageDoc`](/sdk/reference/interfaces/i-utility-page-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:312](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L312)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:311](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L311)

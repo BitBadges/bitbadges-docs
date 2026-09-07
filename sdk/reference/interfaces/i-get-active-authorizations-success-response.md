@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iGetActiveAuthorizationsSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2159](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2159)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2158](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2158)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2159]
 
 > **authorizations**: [`iAccessTokenDoc`](/sdk/reference/interfaces/i-access-token-doc)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2160](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2160)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2159](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2159)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2160]
 
 > **developerApps**: ([`iDeveloperAppDoc`](/sdk/reference/interfaces/i-developer-app-doc)\<`T`\> \| `undefined`)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2166](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2166)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2165](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2165)
 
 Developer app docs for each authorization.
 

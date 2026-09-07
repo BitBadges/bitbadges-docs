@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iCreateUtilityPageSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3626](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3626)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3625](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3625)
 
 ## Type Parameters
 
@@ -18,4 +18,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3626]
 
 > **doc**: [`iUtilityPageDoc`](/sdk/reference/interfaces/i-utility-page-doc)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3627](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3627)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3626](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3626)

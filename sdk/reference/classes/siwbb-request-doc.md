@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: SIWBBRequestDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2135](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2135)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2091](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2091)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2135](h
 
 > **new SIWBBRequestDoc**\<`T`\>(`data`): `SIWBBRequestDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2154](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2154)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2110](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2110)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2154](h
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2136](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2136)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2092](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2092)
 
 A unique stringified document ID
 
@@ -62,7 +62,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2137](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2137)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2093](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2093)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -76,7 +76,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **address**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2149](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2149)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2105](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2105)
 
 The native address of the signer
 
@@ -90,7 +90,7 @@ The native address of the signer
 
 > **bitbadgesAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2143](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2143)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2099](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2099)
 
 The BitBadges address of the signer
 
@@ -104,7 +104,7 @@ The BitBadges address of the signer
 
 > **chain**: [`SupportedChain`](/sdk/reference/enumerations/supported-chain)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2150](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2150)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2106](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2106)
 
 The native chain for the user
 
@@ -118,7 +118,7 @@ The native chain for the user
 
 > **clientId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2139](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2139)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2095](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2095)
 
 The client ID of the app that requested the signature
 
@@ -132,7 +132,7 @@ The client ID of the app that requested the signature
 
 > **code**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2138](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2138)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2094](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2094)
 
 The actual code itself
 
@@ -146,7 +146,7 @@ The actual code itself
 
 > `optional` **codeChallenge?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2151](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2151)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2107](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2107)
 
 The code challenge for the SIWBB request (if used with PKCE).
 
@@ -160,7 +160,7 @@ The code challenge for the SIWBB request (if used with PKCE).
 
 > `optional` **codeChallengeMethod?**: `"S256"` \| `"plain"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2152](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2152)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2108](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2108)
 
 The code challenge method for the SIWBB request (if used with PKCE).
 
@@ -174,7 +174,7 @@ The code challenge method for the SIWBB request (if used with PKCE).
 
 > **createdAt**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2144](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2144)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2100](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2100)
 
 The timestamp of when the signature was created (milliseconds since epoch)
 
@@ -188,7 +188,7 @@ The timestamp of when the signature was created (milliseconds since epoch)
 
 > `optional` **deletedAt?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2147](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2147)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2103](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2103)
 
 If deleted, we still store temporarily for a period of time. We use a deletedAt timestamp to determine when to delete.
 
@@ -202,7 +202,7 @@ If deleted, we still store temporarily for a period of time. We use a deletedAt 
 
 > `optional` **description?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2141](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2141)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2097](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2097)
 
 #### Implementation of
 
@@ -214,7 +214,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2141](h
 
 > **expiresAt**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2146](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2146)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2102](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2102)
 
 #### Implementation of
 
@@ -226,7 +226,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2146](h
 
 > `optional` **image?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2142](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2142)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2098](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2098)
 
 #### Implementation of
 
@@ -238,7 +238,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2142](h
 
 > `optional` **name?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2140](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2140)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2096](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2096)
 
 #### Implementation of
 
@@ -250,7 +250,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2140](h
 
 > `optional` **redirectUri?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2148](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2148)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2104](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2104)
 
 The redirect URI of the app
 
@@ -264,7 +264,7 @@ The redirect URI of the app
 
 > **scopes**: [`OAuthScopeDetails`](/sdk/reference/interfaces/o-auth-scope-details)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2145](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2145)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2101](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2101)
 
 #### Implementation of
 
@@ -294,7 +294,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `SIWBBRequestDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2179](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2179)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2135](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2135)
 
 Converts the object to a different NumberType equivalent.
 
@@ -364,7 +364,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2175](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2175)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2131](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2131)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

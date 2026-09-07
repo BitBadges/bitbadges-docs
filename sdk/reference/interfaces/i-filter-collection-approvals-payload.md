@@ -4,7 +4,7 @@ description: "Filter Collection Approvals Route: POST /api/v0/collection/:collec
 
 # Interface: iFilterCollectionApprovalsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4851](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4851)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4746](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4746)
 
 Filter Collection Approvals
 Route: POST /api/v0/collection/:collectionId/filterApprovals
@@ -24,7 +24,7 @@ isActive, sufficientBalances, intentPayDenom, etc.).
 
 > **query**: `Record`\<`string`, `unknown`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4853](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4853)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4748](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4748)
 
 Mongo-style filter object (matches the ApprovalItemDoc shape).
 
@@ -34,6 +34,6 @@ Mongo-style filter object (matches the ApprovalItemDoc shape).
 
 > **sortBy**: `Record`\<`string`, `unknown`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4855](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4855)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4750](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4750)
 
 Mongo-style sort object (e.g. `{ _id: -1 }`).

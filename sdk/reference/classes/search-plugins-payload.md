@@ -4,7 +4,7 @@ description: "iSearchPluginsPayload"
 
 # Class: SearchPluginsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2544](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2544)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2543](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2543)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2544]
 
 > **new SearchPluginsPayload**(`payload`): `SearchPluginsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2549](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2549)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2548](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2548)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2549]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2545](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2545)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2544](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2544)
 
 Bookmark for pagination of the plugins (obtained from a previous call to this endpoint).
 
@@ -56,7 +56,7 @@ Bookmark for pagination of the plugins (obtained from a previous call to this en
 
 > `optional` **locale?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2547](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2547)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2546](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2546)
 
 Locale to restrict results to. By default, we assume 'en'.
 
@@ -70,7 +70,7 @@ Locale to restrict results to. By default, we assume 'en'.
 
 > `optional` **searchValue?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2546](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2546)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2545](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2545)
 
 Search value to filter by plugin name.
 
@@ -247,7 +247,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `SearchPluginsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2556](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2556)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2555](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2555)
 
 #### Parameters
 

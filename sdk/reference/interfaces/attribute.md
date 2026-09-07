@@ -4,7 +4,7 @@ description: "An event attribute."
 
 # Interface: Attribute
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:137](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L137)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:136](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L136)
 
 An event attribute.
 
@@ -21,7 +21,7 @@ from bytes to string in the Tendermint 0.34 case should be done by performing
 
 > `readonly` **key**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:138](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L138)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:137](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L137)
 
 ***
 
@@ -29,4 +29,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:138](
 
 > `readonly` **value**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:139](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L139)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:138](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L138)

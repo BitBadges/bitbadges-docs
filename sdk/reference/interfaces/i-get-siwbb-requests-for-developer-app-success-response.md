@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iGetSIWBBRequestsForDeveloperAppSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1963](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1963)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1962](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1962)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1963]
 
 > **pagination**: [`PaginationInfo`](/sdk/reference/interfaces/pagination-info)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1965](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1965)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1964](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1964)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1965]
 
 > **siwbbRequests**: [`iSIWBBRequestDoc`](/sdk/reference/interfaces/i-siwbb-request-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1964](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1964)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1963](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1963)

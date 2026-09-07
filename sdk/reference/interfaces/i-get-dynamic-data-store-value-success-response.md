@@ -4,7 +4,7 @@ description: "Interface: iGetDynamicDataStoreValueSuccessResponse — BitBadges 
 
 # Interface: iGetDynamicDataStoreValueSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2963](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2963)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2962](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2962)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2963]
 
 > **inStore**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2966](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2966)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2965](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2965)
 
 ***
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2966]
 
 > **key**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2964](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2964)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2963](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2963)
 
 ***
 
@@ -28,4 +28,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2964]
 
 > `optional` **lookupType?**: `"username"` \| `"id"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2965](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2965)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2964](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2964)

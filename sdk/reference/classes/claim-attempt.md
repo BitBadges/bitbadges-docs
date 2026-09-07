@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: ClaimAttempt\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:690](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L690)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:689](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L689)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:690](
 
 > **new ClaimAttempt**\<`T`\>(`data`): `ClaimAttempt`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:699](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L699)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:698](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L698)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:699](
 
 > **attemptedAt**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:692](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L692)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:691](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L691)
 
 #### Implementation of
 
@@ -60,7 +60,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:692](
 
 > **bitbadgesAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:694](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L694)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:693](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L693)
 
 #### Implementation of
 
@@ -72,7 +72,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:694](
 
 > **claimAttemptId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:695](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L695)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:694](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L694)
 
 #### Implementation of
 
@@ -84,7 +84,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:695](
 
 > **claimId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:693](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L693)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:692](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L692)
 
 #### Implementation of
 
@@ -96,7 +96,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:693](
 
 > **claimNumber**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:696](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L696)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:695](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L695)
 
 #### Implementation of
 
@@ -108,7 +108,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:696](
 
 > `optional` **error?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:697](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L697)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:696](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L696)
 
 #### Implementation of
 
@@ -120,7 +120,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:697](
 
 > **success**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:691](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L691)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:690](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L690)
 
 #### Implementation of
 
@@ -150,7 +150,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `ClaimAttempt`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:714](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L714)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:713](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L713)
 
 Converts the object to a different NumberType equivalent.
 
@@ -220,7 +220,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:710](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L710)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:709](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L709)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

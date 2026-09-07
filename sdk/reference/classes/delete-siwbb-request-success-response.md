@@ -4,7 +4,7 @@ description: "any"
 
 # Class: DeleteSIWBBRequestSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2099](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2099)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2098](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2098)
 
 ## Extends
 

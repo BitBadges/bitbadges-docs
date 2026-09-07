@@ -4,7 +4,7 @@ description: "The claim ID to delete."
 
 # Interface: iDeleteClaimPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2709](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2709)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2708](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2708)
 
 ## Properties
 
@@ -12,6 +12,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2709]
 
 > **claimIds**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2711](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2711)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2710](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2710)
 
 The claim ID to delete.

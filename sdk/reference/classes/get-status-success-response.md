@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: GetStatusSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:216](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L216)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:215](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L215)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:216](
 
 > **new GetStatusSuccessResponse**\<`T`\>(`data`): `GetStatusSuccessResponse`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:224](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L224)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:223](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L223)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:224](
 
 > `optional` **outOfSync?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:221](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L221)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:220](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L220)
 
 If true, we are out of sync with the blockchain.
 If undefined, we did not check for out of sync.
@@ -63,7 +63,7 @@ If undefined, we did not check for out of sync.
 
 > `optional` **prices?**: `Record`\<`string`, `number`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:222](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L222)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:221](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L221)
 
 Prices for the assets
 
@@ -77,7 +77,7 @@ Prices for the assets
 
 > **status**: [`StatusDoc`](/sdk/reference/classes/status-doc)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:220](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L220)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:219](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L219)
 
 Status details about the indexer / blockchain.
 
@@ -109,7 +109,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `GetStatusSuccessResponse`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:231](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L231)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:230](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L230)
 
 Converts the object to a different NumberType equivalent.
 

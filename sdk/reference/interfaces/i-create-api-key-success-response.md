@@ -4,7 +4,7 @@ description: "Interface: iCreateApiKeySuccessResponse — BitBadges TypeScript S
 
 # Interface: iCreateApiKeySuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3400](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3400)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3399](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3399)
 
 ## Properties
 
@@ -12,4 +12,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3400]
 
 > **key**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3401](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3401)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3400](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3400)

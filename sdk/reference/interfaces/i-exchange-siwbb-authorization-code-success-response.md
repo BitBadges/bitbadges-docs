@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iExchangeSIWBBAuthorizationCodeSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2065](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2065)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2064](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2064)
 
 ## Extends
 
@@ -22,7 +22,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2065]
 
 > **access\_token**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2069](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2069)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2068](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2068)
 
 The access token to use for the SIWBB request.
 
@@ -32,7 +32,7 @@ The access token to use for the SIWBB request.
 
 > `optional` **access\_token\_expires\_at?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2075](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2075)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2074](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2074)
 
 The time at which the access token expires.
 
@@ -99,7 +99,7 @@ The ownership requirements for the user
 
 > `optional` **refresh\_token?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2078](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2078)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2077](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2077)
 
 The refresh token to use for the SIWBB request.
 
@@ -109,7 +109,7 @@ The refresh token to use for the SIWBB request.
 
 > `optional` **refresh\_token\_expires\_at?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2081](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2081)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2080](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2080)
 
 The time at which the refresh token expires.
 
@@ -119,7 +119,7 @@ The time at which the refresh token expires.
 
 > **token\_type**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2072](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2072)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2071](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2071)
 
 The token type
 

@@ -4,7 +4,7 @@ description: "Estimated gas as a decimal string."
 
 # Interface: iSimulateTxEvmSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5619](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5619)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5514](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5514)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5619]
 
 > **gas\_used**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5621](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5621)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5516](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5516)
 
 Estimated gas as a decimal string.
 
@@ -22,4 +22,4 @@ Estimated gas as a decimal string.
 
 > **success**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5622](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5622)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5517](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5517)

@@ -4,7 +4,7 @@ description: "DynamicStoreDocWithDetails extends DynamicStoreDoc with populated 
 
 # Interface: iDynamicStoreDocWithDetails\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2094](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2094)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2060](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2060)
 
 DynamicStoreDocWithDetails extends DynamicStoreDoc with populated metadata.
 
@@ -52,7 +52,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **createdBy**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2082](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2082)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2048](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2048)
 
 #### Inherited from
 
@@ -64,7 +64,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2
 
 > `optional` **customData?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2086](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2086)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2052](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2052)
 
 #### Inherited from
 
@@ -76,7 +76,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2
 
 > **defaultValue**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2083](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2083)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2049](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2049)
 
 #### Inherited from
 
@@ -88,7 +88,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2
 
 > **globalEnabled**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2084](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2084)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2050](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2050)
 
 #### Inherited from
 
@@ -100,7 +100,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2
 
 > `optional` **metadata?**: [`iMetadata`](/sdk/reference/interfaces/i-metadata)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2095](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2095)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2061](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2061)
 
 ***
 
@@ -108,7 +108,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2
 
 > **storeId**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2081](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2081)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2047](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2047)
 
 #### Inherited from
 
@@ -120,7 +120,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2
 
 > `optional` **uri?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2085](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2085)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:2051](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L2051)
 
 #### Inherited from
 

@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: ExchangeSIWBBAuthorizationCodeSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2019](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2019)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2018](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2018)
 
 ## Extends
 
@@ -22,7 +22,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2019]
 
 > **new ExchangeSIWBBAuthorizationCodeSuccessResponse**\<`T`\>(`data`): `ExchangeSIWBBAuthorizationCodeSuccessResponse`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2037](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2037)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2036](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2036)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2037]
 
 > **access\_token**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2030](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2030)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2029](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2029)
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2030]
 
 > `optional` **access\_token\_expires\_at?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2032](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2032)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2031](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2031)
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2032]
 
 > **address**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2022](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2022)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2021](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2021)
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2022]
 
 > **bitbadgesAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2024](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2024)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2023](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2023)
 
 ***
 
@@ -76,7 +76,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2024]
 
 > **chain**: [`SupportedChain`](/sdk/reference/enumerations/supported-chain)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2023](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2023)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2022](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2022)
 
 ***
 
@@ -84,7 +84,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2023]
 
 > `optional` **refresh\_token?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2034](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2034)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2033](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2033)
 
 ***
 
@@ -92,7 +92,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2034]
 
 > `optional` **refresh\_token\_expires\_at?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2035](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2035)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2034](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2034)
 
 ***
 
@@ -100,7 +100,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2035]
 
 > **token\_type**: `string` = `'Bearer'`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2031](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2031)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2030](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2030)
 
 ***
 
@@ -108,7 +108,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2031]
 
 > `optional` **verificationResponse?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2025](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2025)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2024](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2024)
 
 #### errorMessage?
 
@@ -142,7 +142,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `ExchangeSIWBBAuthorizationCodeSuccessResponse`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2054](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2054)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2053](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2053)
 
 Converts the object to a different NumberType equivalent.
 
@@ -212,7 +212,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2050](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2050)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2049](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2049)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

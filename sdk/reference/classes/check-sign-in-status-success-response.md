@@ -4,7 +4,7 @@ description: "iCheckSignInStatusSuccessResponse"
 
 # Class: CheckSignInStatusSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1348](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1348)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1347](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1347)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1348]
 
 > **new CheckSignInStatusSuccessResponse**(`data`): `CheckSignInStatusSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1388](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1388)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1387](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1387)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1388]
 
 > **address**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1384](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1384)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1383](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1383)
 
 #### Implementation of
 
@@ -54,7 +54,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1384]
 
 > **bitbadgesAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1385](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1385)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1384](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1384)
 
 #### Implementation of
 
@@ -66,7 +66,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1385]
 
 > `optional` **bluesky?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1375](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1375)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1374](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1374)
 
 Signed in with Bluesky?
 
@@ -88,7 +88,7 @@ Signed in with Bluesky?
 
 > **chain**: [`SupportedChain`](/sdk/reference/enumerations/supported-chain)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1386](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1386)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1385](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1385)
 
 #### Implementation of
 
@@ -100,7 +100,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1386]
 
 > `optional` **discord?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1352](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1352)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1351](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1351)
 
 Signed in with Discord username and discriminator?
 
@@ -126,7 +126,7 @@ Signed in with Discord username and discriminator?
 
 > `optional` **email?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1383](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1383)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1382](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1382)
 
 The email of the session.
 
@@ -140,7 +140,7 @@ The email of the session.
 
 > `optional` **facebook?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1377](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1377)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1376](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1376)
 
 Signed in with Facebook?
 
@@ -162,7 +162,7 @@ Signed in with Facebook?
 
 > `optional` **farcaster?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1379](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1379)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1378](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1378)
 
 Signed in with Farcaster?
 
@@ -184,7 +184,7 @@ Signed in with Farcaster?
 
 > `optional` **github?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1361](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1361)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1360](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1360)
 
 Signed in with GitHub username?
 
@@ -206,7 +206,7 @@ Signed in with GitHub username?
 
 > `optional` **google?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1365](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1365)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1364](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1364)
 
 Signed in with Google username?
 
@@ -228,7 +228,7 @@ Signed in with Google username?
 
 > `optional` **googleCalendar?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1369](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1369)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1368](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1368)
 
 Signed in with Google Calendar?
 
@@ -250,7 +250,7 @@ Signed in with Google Calendar?
 
 > `optional` **linkedIn?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1381](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1381)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1380](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1380)
 
 Signed in with LinkedIn?
 
@@ -272,7 +272,7 @@ Signed in with LinkedIn?
 
 > `optional` **mailchimp?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1376](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1376)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1375](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1375)
 
 Signed in with Mailchimp?
 
@@ -294,7 +294,7 @@ Signed in with Mailchimp?
 
 > `optional` **meetup?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1374](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1374)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1373](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1373)
 
 Signed in with Meetup?
 
@@ -316,7 +316,7 @@ Signed in with Meetup?
 
 > **message**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1350](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1350)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1349](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1349)
 
 The message that was signed.
 
@@ -330,7 +330,7 @@ The message that was signed.
 
 > `optional` **reddit?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1373](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1373)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1372](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1372)
 
 Signed in with Reddit?
 
@@ -352,7 +352,7 @@ Signed in with Reddit?
 
 > **scopes**: [`OAuthScopeDetailsWithId`](/sdk/reference/type-aliases/o-auth-scope-details-with-id)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1351](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1351)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1350](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1350)
 
 Approved scopes
 
@@ -366,7 +366,7 @@ Approved scopes
 
 > `optional` **shopify?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1382](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1382)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1381](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1381)
 
 Signed in with Shopify?
 
@@ -388,7 +388,7 @@ Signed in with Shopify?
 
 > **signedIn**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1349](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1349)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1348](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1348)
 
 Indicates whether the user is signed in.
 
@@ -402,7 +402,7 @@ Indicates whether the user is signed in.
 
 > `optional` **slack?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1380](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1380)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1379](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1379)
 
 Signed in with Slack?
 
@@ -424,7 +424,7 @@ Signed in with Slack?
 
 > `optional` **strava?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1371](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1371)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1370](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1370)
 
 Signed in with Strava?
 
@@ -446,7 +446,7 @@ Signed in with Strava?
 
 > `optional` **telegram?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1378](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1378)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1377](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1377)
 
 Signed in with Telegram?
 
@@ -468,7 +468,7 @@ Signed in with Telegram?
 
 > `optional` **twitch?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1370](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1370)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1369](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1369)
 
 Signed in with Twitch?
 
@@ -490,7 +490,7 @@ Signed in with Twitch?
 
 > `optional` **twitter?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1357](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1357)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1356](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1356)
 
 Signed in with Twitter username?
 
@@ -512,7 +512,7 @@ Signed in with Twitter username?
 
 > `optional` **youtube?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1372](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1372)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1371](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1371)
 
 Signed in with Youtube?
 

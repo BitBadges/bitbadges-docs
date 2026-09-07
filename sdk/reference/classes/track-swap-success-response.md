@@ -4,7 +4,7 @@ description: "iTrackSwapSuccessResponse"
 
 # Class: TrackSwapSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4735](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4735)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4630](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4630)
 
 ## Extends
 
@@ -24,7 +24,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4735]
 
 > **new TrackSwapSuccessResponse**(`data`): `TrackSwapSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4738](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4738)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4633](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4633)
 
 #### Parameters
 

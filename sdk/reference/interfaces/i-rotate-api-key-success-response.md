@@ -4,7 +4,7 @@ description: "Interface: iRotateApiKeySuccessResponse — BitBadges TypeScript S
 
 # Interface: iRotateApiKeySuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3426](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3426)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3425](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3425)
 
 ## Properties
 
@@ -12,4 +12,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3426]
 
 > **key**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3427](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3427)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3426](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3426)

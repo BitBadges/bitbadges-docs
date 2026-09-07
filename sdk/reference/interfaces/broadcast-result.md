@@ -4,7 +4,7 @@ description: "Result from broadcasting a transaction."
 
 # Interface: BroadcastResult
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:277](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L277)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:289](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L289)
 
 Result from broadcasting a transaction.
 
@@ -14,7 +14,7 @@ Result from broadcasting a transaction.
 
 > **code**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:287](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L287)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:299](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L299)
 
 Transaction code (0 = success)
 
@@ -24,7 +24,7 @@ Transaction code (0 = success)
 
 > `optional` **error?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:285](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L285)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:297](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L297)
 
 Error message if broadcast failed
 
@@ -34,7 +34,7 @@ Error message if broadcast failed
 
 > **rawResponse**: `any`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:281](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L281)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:293](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L293)
 
 Raw response from the broadcast endpoint
 
@@ -44,7 +44,7 @@ Raw response from the broadcast endpoint
 
 > **success**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:283](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L283)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:295](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L295)
 
 Whether the broadcast was successful
 
@@ -54,6 +54,6 @@ Whether the broadcast was successful
 
 > **txHash**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:279](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L279)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/types.ts:291](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/types.ts#L291)
 
 Transaction hash

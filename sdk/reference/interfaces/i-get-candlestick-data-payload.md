@@ -4,7 +4,7 @@ description: "Denom for the candlestick price/volume aggregation (e.g. ubadge)."
 
 # Interface: iGetCandlestickDataPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5151](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5151)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5046](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5046)
 
 ## Properties
 
@@ -12,6 +12,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5151]
 
 > **denom**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5153](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5153)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5048](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5048)
 
 Denom for the candlestick price/volume aggregation (e.g. `ubadge`).
