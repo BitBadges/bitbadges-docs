@@ -79,7 +79,12 @@ describe('widget registry', () => {
     for (const name of widgetNames) {
       for (const example of widgets[name].examples) {
         const html = renderStatic(createWidgetElement(name, example.props));
-        for (const m of html.matchAll(/src="\/widgets\/([^"]+)"/g)) expect(files.has(m[1])).toBe(true);
+        // Logos sit directly under public/widgets; sample artwork one level down.
+        for (const m of html.matchAll(/src="\/widgets\/([^"]+)"/g)) {
+          const parts = m[1].split('/');
+          const dir = parts.length > 1 ? await fs.readdir(path.resolve(import.meta.dirname, `../public/widgets/${parts.slice(0, -1).join('/')}`)) : [...files];
+          expect(dir.includes(parts[parts.length - 1])).toBe(true);
+        }
       }
     }
   });

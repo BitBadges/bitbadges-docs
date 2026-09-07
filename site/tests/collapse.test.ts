@@ -101,6 +101,44 @@ describe('pruneJson', () => {
     expect(out).not.toMatch(/\{\s*\n\s*\}/);
   });
 
+  test('protects a meaningful empty value at the root but not a nested stub', () => {
+    const source = [
+      '{',
+      '  "from": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",',
+      '  "uri": "",',
+      '  "customData": "",',
+      '  "balances": [{ "amount": "1" }],',
+      '  "precalculateBalancesFromApproval": {',
+      '    "approvalId": ""',
+      '  },',
+      '  "prioritizedApprovals": [],',
+      '  "onlyCheckPrioritizedCollectionApprovals": false',
+      '}',
+    ].join('\n');
+    const out = pruneJson(source)!;
+    expect(() => JSON.parse(out)).not.toThrow();
+    // An empty uri at the root says the metadata is inline, so it stays.
+    expect(out).toContain('"uri": ""');
+    // A wrapper whose only field is an empty id says nothing; both go.
+    expect(out).not.toContain('precalculateBalancesFromApproval');
+    expect(out).not.toContain('"approvalId"');
+    expect(out).not.toContain('"customData"');
+  });
+
+  test('drops the trailing comma when the last member of the root object goes', () => {
+    const source = [
+      '{',
+      '  "a": "keep",',
+      '  "b": "keep too",',
+      '  "c": [],',
+      '  "d": {}',
+      '}',
+    ].join('\n');
+    const out = pruneJson(source)!;
+    expect(out).toBe('{\n  "a": "keep",\n  "b": "keep too"\n}');
+    expect(() => JSON.parse(out)).not.toThrow();
+  });
+
   test('never leaves a trailing comma before a closing bracket', () => {
     expect(pruneJson(approval)!).not.toMatch(/,\s*[}\]]/);
   });

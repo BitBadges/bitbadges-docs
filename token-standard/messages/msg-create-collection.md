@@ -572,7 +572,7 @@ The example creates "Demo NFTs": 100 token IDs, alice as manager, one `mint` app
 
 :::widget{name="collection-card" caption="The collection as the browse grid on bitbadges.io shows it once the metadata at the collection URI resolves."}
 {
-  "collectionId": 1,
+  "image": "/widgets/samples/nft.png", "collectionId": 1,
   "name": "Demo NFTs",
   "standards": [
     "NFTs"

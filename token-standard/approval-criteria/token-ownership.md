@@ -125,28 +125,6 @@ A complete `approvalCriteria` with the `mustOwnTokens` array open. Folded lines 
 }
 ```
 
-:::widget{name="approval-criteria" caption="The token ownership card on bitbadges.io: the initiator must hold exactly one of token 1 in collection 1."}
-{
-  "overridesFromOutgoingApprovals": true,
-  "mustOwnTokens": [
-    {
-      "collectionId": "1",
-      "tokenIds": [
-        {
-          "start": "1",
-          "end": "1"
-        }
-      ],
-      "amountRange": {
-        "start": "1",
-        "end": "1"
-      },
-      "mustSatisfyForAllAssets": true
-    }
-  ]
-}
-:::
-
 ```ts
 interface MustOwnTokens<T extends NumberType> {
   collectionId: T;

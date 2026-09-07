@@ -20,9 +20,13 @@ const PRUNE_LANGS = new Set(['json', 'jsonc']);
 const PRUNE_MIN_LINES = 24;
 
 /**
- * Keys whose value carries meaning even when it looks like boilerplate. An
- * empty `uri` says the metadata is inline; an `approvalId` of `""` is a real
- * choice a reader has to see.
+ * Root-level keys whose value carries meaning even when it looks like
+ * boilerplate. An empty `uri` on a collection says the metadata is inline.
+ *
+ * Only the root is protected. The same name nested inside another object is
+ * usually a stub: `precalculateBalancesFromApproval.approvalId` of `""` says
+ * this transfer does not precalculate, so showing the wrapper with one empty
+ * field tells a reader less than dropping both.
  */
 const PROTECTED_KEYS = new Set([
   'approvalId',
@@ -67,7 +71,8 @@ function boilerplatePaths(value: unknown, at: string[] = [], out: string[][] = [
   }
   for (const [key, child] of Object.entries(value)) {
     const path = [...at, key];
-    if (!PROTECTED_KEYS.has(key) && isBoilerplateValue(child)) out.push(path);
+    const protectedHere = at.length === 0 && PROTECTED_KEYS.has(key);
+    if (!protectedHere && isBoilerplateValue(child)) out.push(path);
     else boilerplatePaths(child, path, out);
   }
   return out;

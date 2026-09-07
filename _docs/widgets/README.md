@@ -15,6 +15,7 @@ Regenerate after a widget changes; the live page is `/widgets` on the site.
 | `address-list` | blacklist-mixed-chains | ![address-list blacklist-mixed-chains](./address-list--blacklist-mixed-chains.png) | ![address-list blacklist-mixed-chains dark](./address-list--blacklist-mixed-chains--dark.png) |
 | `approval-criteria` | paid-mint | ![approval-criteria paid-mint](./approval-criteria--paid-mint.png) | ![approval-criteria paid-mint dark](./approval-criteria--paid-mint--dark.png) |
 | `approval-criteria` | gated-by-ownership | ![approval-criteria gated-by-ownership](./approval-criteria--gated-by-ownership.png) | ![approval-criteria gated-by-ownership dark](./approval-criteria--gated-by-ownership--dark.png) |
+| `approval-criteria` | scaled-payout-with-daily-reset | ![approval-criteria scaled-payout-with-daily-reset](./approval-criteria--scaled-payout-with-daily-reset.png) | ![approval-criteria scaled-payout-with-daily-reset dark](./approval-criteria--scaled-payout-with-daily-reset--dark.png) |
 | `approval-criteria` | empty | ![approval-criteria empty](./approval-criteria--empty.png) | ![approval-criteria empty dark](./approval-criteria--empty--dark.png) |
 | `collection-card` | nft | ![collection-card nft](./collection-card--nft.png) | ![collection-card nft dark](./collection-card--nft--dark.png) |
 | `collection-card` | subscription | ![collection-card subscription](./collection-card--subscription.png) | ![collection-card subscription dark](./collection-card--subscription--dark.png) |

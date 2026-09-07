@@ -680,19 +680,6 @@ Daily limit of 1 USDC (1,000,000 base units) per sender, resetting every 24 hour
 }
 ```
 
-:::widget{name="approval-criteria" caption="The withdrawal rule on bitbadges.io: 1,000,000 base units per sender, reset every day."}
-{
-  "approvalAmounts": {
-    "perFromAddressApprovalAmount": "1000000",
-    "amountTrackerId": "daily-withdraw-limit",
-    "resetTimeIntervals": {
-      "startTime": "0",
-      "intervalLength": "86400000"
-    }
-  }
-}
-:::
-
 2FA on withdrawal. The initiator must hold a token from collection 74 at the current time (`overrideWithCurrentTime: true` matters for expiring 2FA tokens). The same unbacking approval with that rule instead:
 
 ```json fold=11-20,22-40,42-48,50-63,73-103,107-111

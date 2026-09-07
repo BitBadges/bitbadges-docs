@@ -44,8 +44,6 @@ All chain state (balances, approvals, address lists, trackers) keys on the `bb1`
 
 Display the native address to users. Use the `bb1` form when you build messages or read state. `convertToBitBadgesAddress` returns an empty string for an invalid input, so it doubles as a validator.
 
-::widget{name="address" address="0x0bc63cfe31d5218eb414b142c799e20964a54a1a" caption="How bitbadges.io shows an Ethereum user: identicon, chain logo, then the abbreviated native address."}
-
 ## Related
 
 - [Address Lists](address-lists.md)

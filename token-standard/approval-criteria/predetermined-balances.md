@@ -143,30 +143,6 @@ A complete `predeterminedBalances` with `incrementedBalances` open:
 }
 ```
 
-:::widget{name="approval-criteria" caption="The predetermined balances card on bitbadges.io: one token per transfer, with IDs handed out in order."}
-{
-  "predeterminedBalances": {
-    "incrementedBalances": {
-      "startBalances": [
-        {
-          "amount": "1",
-          "tokenIds": [
-            {
-              "start": "1",
-              "end": "1"
-            }
-          ]
-        }
-      ],
-      "incrementTokenIdsBy": "1"
-    },
-    "orderCalculationMethod": {
-      "useOverallNumTransfers": true
-    }
-  }
-}
-:::
-
 | Field | Description | Example |
 | --- | --- | --- |
 | `startBalances` | Balances for transfer number 0 | |

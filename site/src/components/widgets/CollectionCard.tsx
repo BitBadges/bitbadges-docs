@@ -1,13 +1,19 @@
 import { z } from 'zod';
 
-import { AddressChip, Chip, Icon, WidgetFrame } from './shared';
+import { withBasePath } from '../../lib/docs/config';
+import { AddressChip, Chip, WidgetFrame } from './shared';
 
 /** A collection as the browse grid shows it: image, name, id, standard, supply, manager. */
 export const schema = z.object({
   collectionId: z.union([z.string(), z.number()]).transform(String),
   name: z.string().min(1),
   description: z.string().optional(),
-  image: z.string().url().optional(),
+  /**
+   * Cover art. Required: a card with an empty frame is worse than no card, and
+   * every collection on bitbadges.io has art. Sample artwork for docs examples
+   * lives in `site/public/widgets/samples/`.
+   */
+  image: z.string().min(1),
   /** Standards from `collection.standards`; the first one is the badge on the card. */
   standards: z.array(z.string()).default([]),
   supply: z.string().optional(),
@@ -25,13 +31,7 @@ export function Component({ collectionId, name, description, image, standards, s
     <WidgetFrame name="collection-card" className="@container w-full max-w-[20rem] overflow-hidden">
       <div>
         <div className="relative aspect-square w-full bg-[var(--bg-inset)]">
-          {image ? (
-            <img src={image} alt="" className="h-full w-full object-cover" />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center text-[var(--fg-faint)]">
-              <Icon name="image" size={40} />
-            </div>
-          )}
+          <img src={withBasePath(image)} alt="" data-site-asset className="h-full w-full object-cover" />
           {standards[0] && (
             <span className="absolute left-2 top-2 rounded-md bg-black/60 px-2 py-0.5 text-xs font-semibold text-white">{standards[0]}</span>
           )}
@@ -79,6 +79,7 @@ export const examples: { name: string; props: z.input<typeof schema> }[] = [
       collectionId: 1,
       name: 'Demo NFTs',
       description: 'One hundred unique tokens, each with its own metadata.',
+      image: '/widgets/samples/nft.png',
       standards: ['NFTs', 'Tradable'],
       supply: '100',
       manager: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
@@ -92,6 +93,7 @@ export const examples: { name: string; props: z.input<typeof schema> }[] = [
       collectionId: 3,
       name: 'Demo Membership',
       description: 'Members hold a token while the subscription is live.',
+      image: '/widgets/samples/membership.png',
       standards: ['Subscriptions'],
       price: '10 USDC / month',
       priceLabel: 'Base price',
@@ -100,6 +102,13 @@ export const examples: { name: string; props: z.input<typeof schema> }[] = [
   },
   {
     name: 'fungible',
-    props: { collectionId: 2, name: 'Demo Coin', standards: ['Fungible Tokens'], symbol: 'DEMO', supply: '1,000,000' },
+    props: {
+      collectionId: 2,
+      name: 'Demo Coin',
+      image: '/widgets/samples/points.png',
+      standards: ['Fungible Tokens'],
+      symbol: 'DEMO',
+      supply: '1,000,000',
+    },
   },
 ];

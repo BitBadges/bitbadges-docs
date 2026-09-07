@@ -198,7 +198,7 @@ That returns the collection as the indexer sees it. Your subscription is on-chai
 
 :::widget{name="collection-card" caption="What the browse grid on bitbadges.io shows once the collection is indexed: the name, description, and price from the build flags."}
 {
-  "collectionId": "<collectionId>",
+  "image": "/widgets/samples/membership.png", "collectionId": "<collectionId>",
   "name": "Pro Plan",
   "description": "Monthly access.",
   "standards": [

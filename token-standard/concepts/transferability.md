@@ -91,7 +91,7 @@ Approvals define what is allowed. Transfers execute when an allowed path exists 
 
 Collection approvals apply to minting and to post-mint transfers alike. They are where the manager enforces global rules: freezing, revocation, whitelists, payments.
 
-:::widget{name="transferability-row" caption="The approval below as the transferability tab on bitbadges.io lists it."}
+:::widget{name="transferability-row" caption="A mint approval as the transferability tab lists it: Mint sends, anyone receives, anyone initiates, inside a fixed window."}
 {
   "approvalId": "mint-to-all",
   "fromListId": "Mint",

@@ -48,7 +48,7 @@ Renewal is a user-level approval the subscriber sets once. A bot, the issuer, or
 
 :::widget{name="collection-card" caption="The subscription on the browse grid: the faucet's price and interval show as the base price."}
 {
-  "collectionId": 3,
+  "image": "/widgets/samples/membership.png", "collectionId": 3,
   "name": "Demo Membership",
   "standards": [
     "Subscriptions"
