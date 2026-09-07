@@ -264,6 +264,19 @@ One exception: [Predetermined Balances](predetermined-balances.md) that order tr
 }
 ```
 
+:::widget{name="approval-criteria" caption="The amount restriction card on bitbadges.io: 100 overall, reset every 30 days."}
+{
+  "approvalAmounts": {
+    "overallApprovalAmount": "100",
+    "amountTrackerId": "monthly-tracker",
+    "resetTimeIntervals": {
+      "startTime": "1691978400000",
+      "intervalLength": "2592000000"
+    }
+  }
+}
+:::
+
 This allows 100 per 30-day period starting Aug 13, 2023. If `startTime` is in the future, no reset happens yet. Use it for subscriptions and rate limits. Set both values to `0` for no resets.
 
 ## Related

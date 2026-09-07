@@ -177,6 +177,19 @@ Delete after ten uses:
 }
 ```
 
+:::widget{name="approval-criteria" caption="The ten-use approval on bitbadges.io: the max transfers card and the auto deletion card are both on."}
+{
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "10",
+    "amountTrackerId": "ten-uses"
+  },
+  "autoDeletionOptions": {
+    "afterOneUse": false,
+    "afterOverallMaxNumTransfers": true
+  }
+}
+:::
+
 Let the counterparty reject:
 
 ```json

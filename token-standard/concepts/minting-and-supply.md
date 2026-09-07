@@ -175,6 +175,18 @@ A complete mint approval. `fromListId` and the required override are open:
 }
 ```
 
+:::widget{name="transferability-row" caption="The mint approval as the transferability tab lists it: Mint is the sender, anyone can start a mint, and the required override shows as a criterion."}
+{
+  "approvalId": "mint-approval",
+  "fromListId": "Mint",
+  "toListId": "All",
+  "initiatedByListId": "All",
+  "criteria": [
+    "Skips sender outgoing approvals"
+  ]
+}
+:::
+
 | Term | Meaning |
 | --- | --- |
 | `"Mint"` | Reserved sender with unlimited balance of every token ID. Cannot receive tokens. |

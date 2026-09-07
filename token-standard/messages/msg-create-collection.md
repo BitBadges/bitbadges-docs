@@ -570,6 +570,18 @@ console.log(result.txHash, result.success);
 
 The example creates "Demo NFTs": 100 token IDs, alice as manager, one `mint` approval that only alice can initiate, and one `transferable` approval with empty criteria so holders can trade freely. Omit `invariants.cosmosCoinBackedPath` unless the collection is backed by a bank coin. See [Backed Minting](../ibc/backed-minting.md).
 
+:::widget{name="collection-card" caption="The collection as the browse grid on bitbadges.io shows it once the metadata at the collection URI resolves."}
+{
+  "collectionId": 1,
+  "name": "Demo NFTs",
+  "standards": [
+    "NFTs"
+  ],
+  "supply": "100",
+  "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
+}
+:::
+
 {% hint style="info" %}
 Ask your agent:
 

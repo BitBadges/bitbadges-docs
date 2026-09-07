@@ -211,6 +211,22 @@ console.log(result.txHash, result.success);
 }
 ```
 
+:::widget{name="transferability-row" caption="The incoming approval as bob's account page lists it: transfers alice starts, for any token of collection 1, with no extra criteria."}
+{
+  "approvalId": "accept-from-alice",
+  "level": "incoming",
+  "fromListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "toListId": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
+  "initiatedByListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "tokenIds": [
+    {
+      "start": "1",
+      "end": "100"
+    }
+  ]
+}
+:::
+
 The `set-incoming-approval` CLI command takes the `approval` object on its own, not the whole message.
 
 {% hint style="info" %}
