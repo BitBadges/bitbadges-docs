@@ -491,7 +491,7 @@ Alias path. `symbol` on the path is the base unit; `denomUnits` lists display un
 }
 ```
 
-Every metadata field on the chain (collection, token, alias path, denom unit) is `{ uri, customData }` and nothing else. The examples above use hosted URIs. The AI builder uses placeholder URIs (`ipfs://METADATA_COLLECTION`, `ipfs://METADATA_TOKEN_<id>`, `ipfs://METADATA_ALIAS_<denom>`, `ipfs://METADATA_ALIAS_<denom>_UNIT`) and registers the real name, description, and image in a `metadataPlaceholders` sidecar keyed by those URIs; after deploy the auto-apply flow uploads the JSON and substitutes real URIs. Write real user-facing descriptions for each approval, not labels like "Backing Approval".
+Every metadata field on the chain (collection, token, alias path, denom unit) is `{ uri, customData }` and nothing else. The examples above use hosted URIs. The builder tools use placeholder URIs (`ipfs://METADATA_COLLECTION`, `ipfs://METADATA_TOKEN_<id>`, `ipfs://METADATA_ALIAS_<denom>`, `ipfs://METADATA_ALIAS_<denom>_UNIT`) and registers the real name, description, and image in a `metadataPlaceholders` sidecar keyed by those URIs; after deploy the auto-apply flow uploads the JSON and substitutes real URIs. Write real user-facing descriptions for each approval, not labels like "Backing Approval".
 
 To wrap a native Cosmos SDK coin (not an IBC coin) alongside, add `cosmosCoinWrapperPathsToAdd` with `allowSpecialWrapping: true` on its approvals; see [Wrap to an IBC Denom](wrap-to-an-ibc-denom.md).
 
@@ -1058,9 +1058,9 @@ If the agent speaks MCP, the same operations are available as [MCP tools](../age
 | Sequence mismatch | Nonce out of sync | The client retries automatically, up to 3 times |
 | Insufficient gas | Not enough `BADGE` | Fund the agent address with `BADGE` |
 
-## 5. How the AI Builder Detects a Token Type
+## 5. How the Builder Agent Detects a Token Type
 
-The AI builder (`bitbadges.io/create` with the Smart Detect toggle, `POST /api/v0/builder/ai-build`, and the programmatic `BitBadgesBuilderAgent`) picks one token-type skill from a prompt when the caller has not chosen one, so smart tokens, vaults, subscriptions, and the rest do not need to be classified by hand. It runs only when `selectedSkills` contains no token-type skill and `autoInferTokenType` is `true` (the default). An explicit pick always wins.
+The programmatic `BitBadgesBuilderAgent` picks one token-type skill from a prompt when the caller has not chosen one, so smart tokens, vaults, subscriptions, and the rest do not need to be classified by hand. It runs only when `selectedSkills` contains no token-type skill and `autoInferTokenType` is `true` (the default). An explicit pick always wins.
 
 Two signals, in order. When an existing collection is available (the session transaction in `refine` mode, or an on-chain snapshot in `update` mode), its `standards` map directly to a skill with no LLM call:
 

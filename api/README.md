@@ -267,7 +267,7 @@ API credits (on-chain symbol `APITOKEN`) meter API calls. Every request debits o
 
 To top up: open [https://bitbadges.io/developer](https://bitbadges.io/developer), **API Keys** tab, enter a USDC amount, confirm the on-chain transaction. The balance updates once the transfer confirms. The same card shows the current balance and a low-balance warning.
 
-The legacy hosted AI Builder on the site drew from the same credit balance and charged per model call based on tokens read and written, with the exact cost quoted before a run. It is being retired. Build tokens with your own AI instead: see [Agents setup](../agents/setup.md).
+Credits pay for API requests. The site no longer runs an AI builder of its own, so nothing here is charged per model call. Build tokens with your own AI instead: see [Agents setup](../agents/setup.md).
 
 ### Balance
 

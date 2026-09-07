@@ -178,7 +178,7 @@ A successful upload prints (the code is an example; every upload mints a fresh o
   "ok": true,
   "data": {
     "code": "prv_ab12cd34",
-    "url": "https://bitbadges.io/builder/preview?code=prv_ab12cd34",
+    "url": "https://bitbadges.io/mint/local-builder?code=prv_ab12cd34",
     "reviewUrl": "https://bitbadges.io/mint/local-builder?code=prv_ab12cd34",
     "expiresAt": 1788742800000,
     "expiresIn": "1h"
@@ -191,13 +191,13 @@ A successful upload prints (the code is an example; every upload mints a fresh o
 | Field | Description |
 | --- | --- |
 | `reviewUrl` | Review and sign. Opens Preview, Review Items, Transferability, Permissions, then the wallet signature. Update transactions route to `/update/local-builder/<id>` so the site diffs against chain state. |
-| `url` | Read-only preview at `/builder/preview`. Hand it to a reviewer without submit rights. |
-| `code` | The `prv_` code behind both links. Valid for one hour. |
+| `url` | The same destination. `url` is the older field name, kept so existing scripts keep working. |
+| `code` | The `prv_` code behind the link. Valid for one hour. |
 
 | Flag | Description |
 | --- | --- |
-| `--open` | Open `reviewUrl` in the default browser |
-| `--frontend-url <url>` | Base for the printed links (default `https://bitbadges.io`) |
+| `--open` | Open the link in the default browser |
+| `--frontend-url <url>` | Base for the printed link (default `https://bitbadges.io`) |
 | network flags | Which BitBadges API stores the preview |
 
 The preview endpoint needs no API key; the unguessable code is the secret. The site also accepts the code pasted into `/mint/local-builder`. Prefer `bb preview --open` when you want the full review sidebar before signing; `bb deploy --browser` is the tighter loop for a transaction you have already reviewed.

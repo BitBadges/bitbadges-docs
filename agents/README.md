@@ -61,7 +61,7 @@ Every build ends the same way: the agent calls `get_review_url` (or runs `bb pre
 | Direct HTTP | Lightweight scripts in any language | REST calls to `api.bitbadges.io` | [API](../api/README.md) |
 | Spending authorization | Daily caps, time windows, and revocation for a delegate wallet | on-chain approval | [Spending Authorization](spending-authorization.md) |
 
-Bring your own AI is the default. The MCP server, the CLI, and the plugin are model-agnostic; the harness you already run provides the model. The hosted builder at `bitbadges.io/create` is the fallback for people without a harness.
+Bring your own AI. The MCP server, the CLI, and the plugin are model-agnostic; the harness you already run provides the model. The site runs no LLM of its own and never holds your model key: it receives what you built, reviews it, and signs it.
 
 ```bash
 # Step 1: install the chain binary and CLI (always)

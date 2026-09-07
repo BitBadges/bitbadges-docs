@@ -24,7 +24,7 @@ This is the scriptable counterpart to the [MCP Builder Tools](mcp-tools.md).
 
 | | No-code site | MCP builder | Programmatic agent |
 | --- | --- | --- | --- |
-| Where it runs | `bitbadges.io/create` | Claude Desktop, Cursor, Claude Code | Your Node process |
+| Where it runs | Any shell | Claude Desktop, Cursor, Claude Code | Your Node process |
 | LLM key | BitBadges-managed (billed credits) | Your Claude subscription | Your Anthropic or OpenAI key |
 | Good for | End users, one-off builds | Power users, exploratory work | Dapps, bots, games, CI, fine-tuning |
 
