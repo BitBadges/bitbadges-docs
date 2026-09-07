@@ -28,10 +28,16 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const doc = await getDoc(routeOf((await params).slug));
   if (!doc) return {};
+  const { basePath } = docsConfig;
   return {
     title: doc.title,
     description: doc.description ?? docsConfig.siteDescription,
     openGraph: { title: doc.title, description: doc.description ?? docsConfig.siteDescription },
+    // The page's Markdown twin and the llms.txt index, for agents and crawlers
+    // that look for machine-readable alternates in the head.
+    alternates: {
+      types: { 'text/markdown': `${basePath}${markdownRoute(doc.route)}`, 'text/plain': `${basePath}/llms.txt` },
+    },
   };
 }
 

@@ -52,4 +52,12 @@ describe('doc page', () => {
     expect(await getAllRoutes()).toContain(MCP_SETUP_ROUTE);
   });
 
+  test('the head advertises the Markdown twin and the llms index, and describes the page', async () => {
+    const metadata = await generateMetadata({ params });
+    expect(metadata.alternates?.types).toEqual({
+      'text/markdown': '/token-standard/concepts/transferability.md',
+      'text/plain': '/llms.txt',
+    });
+    expect(metadata.description).toMatch(/approval/i);
+  });
 });

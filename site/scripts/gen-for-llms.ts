@@ -46,9 +46,12 @@ export async function generate(): Promise<{ pages: number; bytes: number }> {
   );
 
   const text = renderCorpus(entries);
+  // `llms-full.txt` is the name the llms.txt convention uses for the full dump;
+  // `for-llms.txt` predates it and stays so existing links keep working.
   const target = path.resolve(process.cwd(), 'public', 'for-llms.txt');
   await fs.mkdir(path.dirname(target), { recursive: true });
   await fs.writeFile(target, text);
+  await fs.writeFile(path.resolve(process.cwd(), 'public', 'llms-full.txt'), text);
   return { pages: entries.length, bytes: Buffer.byteLength(text) };
 }
 
