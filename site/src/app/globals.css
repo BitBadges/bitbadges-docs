@@ -519,10 +519,15 @@ body {
   background: var(--bg-code);
   box-shadow: var(--shadow-sm);
 }
+/*
+ * Panels inside a widget carry no fill of their own: a hairline is enough to
+ * group them, and a tint made them read as raised above the card in dark mode.
+ * One background per widget, the same one a code figure uses.
+ */
 .widget-panel {
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: color-mix(in oklab, var(--bg-inset) 55%, transparent);
+  background: transparent;
 }
 .doc .widget img {
   border: 0;

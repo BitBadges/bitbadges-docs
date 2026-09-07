@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 
 import { Shell } from '@/components/docs/Shell';
@@ -12,10 +12,42 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'sw
 const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains', display: 'swap' });
 
 export const metadata: Metadata = {
+  // Absolute URLs for social cards and canonical links come from this.
+  metadataBase: new URL(docsConfig.siteUrl),
   title: { default: docsConfig.siteName, template: `%s · ${docsConfig.siteName}` },
   description: docsConfig.siteDescription,
+  applicationName: docsConfig.siteName,
   // Doc pages add their Markdown twin next to this; see (docs)/[[...slug]]/page.tsx.
   alternates: { types: { 'text/plain': `${docsConfig.basePath}/llms.txt` } },
+  openGraph: {
+    type: 'website',
+    siteName: docsConfig.siteName,
+    title: docsConfig.siteName,
+    description: docsConfig.siteDescription,
+    url: '/',
+    images: [{ url: `${docsConfig.basePath}/og.png`, width: 1200, height: 630, alt: docsConfig.siteName }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: docsConfig.siteName,
+    description: docsConfig.siteDescription,
+    images: [`${docsConfig.basePath}/og.png`],
+    site: '@bitbadges_io',
+  },
+  // The circular mark, the same file the top bar renders.
+  icons: {
+    icon: [{ url: `${docsConfig.basePath}/icon.svg`, type: 'image/svg+xml' }],
+    apple: [{ url: `${docsConfig.basePath}/apple-icon.png`, sizes: '180x180' }],
+  },
+  manifest: `${docsConfig.basePath}/manifest.webmanifest`,
+};
+
+/** Matches the dark and light page backgrounds so mobile browser chrome blends in. */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0b0f1e' },
+  ],
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

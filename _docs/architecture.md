@@ -243,6 +243,14 @@ Three channels, each generated from a source the tests can check. The plan and t
 - **Widgets.** Read-only mocks of frontend UI, embedded from markdown; see the next subsection.
 - **Screenshots.** Playwright captures of bitbadges.io for the Using the Frontend walkthrough, driven by one manifest; see the Frontend screenshots subsection.
 
+### Site metadata and icons
+
+`site/src/app/layout.tsx` carries `metadataBase` (from `DOCS_SITE_URL`), the title template, Open Graph and Twitter cards, the icon set, and a `viewport.themeColor` per color scheme.
+
+- Favicon: `site/src/app/icon.svg`, the same circular mark as the top bar and the widgets (`site/public/bitbadges-logo.svg`). Apple touch icon: `site/src/app/apple-icon.png` (180px).
+- Web app manifest: `site/src/app/manifest.ts`, serving `/manifest.webmanifest` with `public/icon-192.png` and `public/icon-512.png`.
+- Social card: `site/public/og.png` (1200x630), a static file so it works under a static export. Regenerate it by rendering the card HTML in a headless browser; the source lives with the OG script in the scratchpad recipe recorded in this section's history, and the file is committed.
+
 ### Widgets (site/src/components/widgets)
 
 Read-only mocks of bitbadges.io UI that a page embeds from markdown. They are
