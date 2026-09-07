@@ -76,17 +76,39 @@ export function formatIdRanges(ranges: { start: string; end: string }[]): string
     .join(', ');
 }
 
-/** `1000000` + `ubadge` -> `1 BADGE`; unknown denoms stay raw. */
+/** `1000000` + `ubadge` -> `1 BADGE`; unknown denoms stay raw. IBC hashes are the mainnet denoms from `chain/supported-denoms.md`. */
 export function formatCoin(amount: string, denom: string): string {
   const known: Record<string, [string, number]> = {
     ubadge: ['BADGE', 6],
     uusdc: ['USDC', 6],
+    'ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8': ['USDC', 6],
+    'ibc/F082B65C88E4B6D5EF1DB243CDA1D331D002759E938A0F5CD3FFDC5D53B3E349': ['USDC.n', 6],
+    'ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701': ['ATOM', 6],
   };
   const hit = known[denom];
   if (!hit) return `${amount} ${denom}`;
   const [symbol, decimals] = hit;
   const n = Number(amount) / 10 ** decimals;
   return `${n.toLocaleString('en-US', { maximumFractionDigits: decimals })} ${symbol}`;
+}
+
+/** Milliseconds to the largest whole unit: `86400000` -> `24 hours`, `2592000000` -> `30 days`. */
+export function formatDuration(ms: string): string {
+  const n = Number(ms);
+  if (!Number.isFinite(n) || n <= 0) return `${ms} ms`;
+  const units: [string, number][] = [
+    ['day', 86400000],
+    ['hour', 3600000],
+    ['minute', 60000],
+    ['second', 1000],
+  ];
+  for (const [unit, size] of units) {
+    if (n % size === 0) {
+      const count = n / size;
+      return `${count} ${unit}${count === 1 ? '' : 's'}`;
+    }
+  }
+  return `${n} ms`;
 }
 
 /* ---------- icons ---------- */
