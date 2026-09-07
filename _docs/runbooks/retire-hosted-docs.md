@@ -18,6 +18,19 @@ nothing to catch them, and search engines re-crawl faster than they forget.
 `_docs/runbooks/docs-sync.md` [5] states the same intent from the sync-CI side.
 This document supersedes it on sequencing detail; that section now points here.
 
+> **Every `kubectl` command below runs on the k3s box, not locally.** The local
+> kubeconfig's current context is a different DigitalOcean cluster, so a bare
+> `kubectl apply` silently succeeds against the wrong place. Prefix each one:
+>
+> ```bash
+> ssh -i ~/.ssh/bitbadges-mainnet-rpc root@138.197.122.4 "kubectl ..."
+> ```
+>
+> The docs Service, Deployment and Ingress already exist there, so a rollout is
+> `kubectl rollout restart deployment bitbadges-docs` and nothing needs applying.
+> The image tag is mutable, so restart only after the image build has finished;
+> restarting while it is still running pulls the previous build.
+
 ## [1] What replaced what
 
 Verified in the worktree at the commit this runbook was written against.

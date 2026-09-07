@@ -13,8 +13,13 @@ jobs:
         steps:
             - name: Checkout repository
               uses: actions/checkout@v6
+              # ADMIN_PAT belonged to the repo's old owner and lost write access
+              # when this moved to the BitBadges org, so every push 403'd and
+              # for-llms.txt went stale. The job already declares
+              # `contents: write`, so the built-in token is enough and cannot
+              # rot the same way.
               with:
-                  token: ${{ secrets.ADMIN_PAT }}
+                  persist-credentials: true
 
             - name: Set up Python
               uses: actions/setup-python@v6
