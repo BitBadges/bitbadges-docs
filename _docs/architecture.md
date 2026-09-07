@@ -233,6 +233,52 @@ Every writer appends rows to `_docs/redirects.tsv` (old route TAB new route, rou
    page (between the `proto-nav` markers, written by the generator) and, for the
    SDK, the six group indexes plus the fifteen `START_HERE` symbols.
 
+### Widgets (site/src/components/widgets)
+
+Read-only mocks of bitbadges.io UI that a page embeds from markdown. They are
+React components living in the docs site, not imports from the frontend, so the
+docs build stays free of antd, wallet contexts, and data fetching. Each copies
+the frontend's layout, icons, and colors, and reads the site's design tokens
+(`--fg`, `--bg-subtle`, `--border`), so it follows the light and dark theme.
+
+Syntax. A leaf directive for flat props, a container directive for JSON:
+
+```
+::widget{name="address" address="bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d" caption="One sentence."}
+
+:::widget{name="approval-criteria" caption="One sentence."}
+{ "coinTransfers": [ ... ] }
+:::
+```
+
+`site/src/lib/docs/widgets.ts` resolves the directive against the registry,
+validates the props with the widget's zod schema, renders the component to
+static HTML with `site/src/lib/docs/react-static.ts`, and replaces the node.
+An unknown name or invalid props throws with the file and line, so the page
+fails the build and `site/tests/widgets.test.ts` rather than rendering nothing.
+`markdown.ts` carries one `.use(remarkWidgets, options)` line for this.
+
+Registered widgets: `address`, `address-list`, `collection-card`,
+`approval-criteria`, `permissions-grid`, `swap`, `transferability-row`.
+
+Adding a widget:
+
+1. Create `site/src/components/widgets/<Name>.tsx` exporting `schema` (zod),
+   `Component` (a pure function of the parsed props; no hooks, no context),
+   and `examples` (named prop sets).
+2. Register it in `site/src/components/widgets/index.ts`.
+3. Run `cd site && bun test -u tests/widgets.test.ts` to record its HTML
+   snapshots under `site/tests/__snapshots__/`. A later look change shows up
+   as a snapshot diff in review; accept it with the same command.
+4. Open `/widgets` on the dev server to eyeball every example, then refresh
+   the gallery images.
+
+Refreshing the gallery images: `cd site && bun scripts/widget-gallery-screenshots.ts`
+writes `_docs/widgets/*.png` (light and dark) and `_docs/widgets/README.md`.
+It borrows Playwright from the frontend checkout (`PLAYWRIGHT_MODULE` overrides
+the path) and starts `next dev` on a free port unless `BASE_URL` is set. Manual
+step, not part of the tests.
+
 ### Self-hosting gaps still open (in this repo)
 
 | Gap | Where | Effect |

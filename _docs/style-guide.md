@@ -55,6 +55,12 @@ A heading that is only a code identifier stays exactly as it is: `## approvalCri
 - Field names, flags, types, and message names go in backticks and use the exact casing from source.
 - Long JSON examples fold their boilerplate. Put `fold=12-40,55-80` (1-based, inclusive) on the fence to collapse the parts a reader can skip; the site renders each range as a `··· N lines hidden` row that expands on click, and the copy button still copies everything. `json` blocks over 40 lines fold runs of boilerplate (`[]`, `{}`, `false`, `"0"`, `""`, closing brackets) automatically; add `nofold` to keep one fully open.
 
+## Widgets
+
+- A widget shows what the reader would see on bitbadges.io. A code block shows what they would send. Use both when the page explains an object the site renders (an approval, a permission set, an address list); use only the code block on reference pages.
+- One `::widget` per section, with a one-sentence `caption` in sentence case. Widget names and syntax are in `_docs/architecture.md`.
+- Widget props use the fixture values in `_docs/fixtures.md`, so the mock agrees with the JSON around it.
+
 ## Terminology (use exactly these)
 
 - token, not badge. The only exceptions: `BADGE` the native coin, `ubadge` the denom, and field or type names that still contain "badge" in source.
