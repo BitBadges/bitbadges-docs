@@ -1,5 +1,5 @@
 ---
-description: "Build collections from natural-language prompts in Node with BitBadgesBuilderAgent and your own Anthropic or OpenAI key. Config, hooks, sessions, result shape, review handoff."
+description: "Build collections from natural-language prompts in Node with BitBadgesBuilderAgent and your own Anthropic or OpenAI key: config, hooks, sessions, handoff."
 ---
 
 # Programmatic Agent
@@ -406,7 +406,7 @@ const { valid, errors, simulation } = await agent.validate(existing);
 To hand the build to Claude.ai, ChatGPT, or Gemini (no tools there), `agent.exportPrompt()` assembles the no-tools variant of the system prompt concatenated with the user message. The LLM emits the final transaction JSON directly.
 
 ```ts
-const { prompt, communitySkillsIncluded } = await agent.exportPrompt(
+const { prompt } = await agent.exportPrompt(
   'create a subscription token for $10/mo',
   { selectedSkills: ['subscription'] }
 );
