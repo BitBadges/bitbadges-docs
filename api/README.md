@@ -8,6 +8,20 @@ The BitBadges API is the hosted REST service at `https://api.bitbadges.io` that 
 
 This page is the introduction to the API tab: keys, credits, limits, number types, errors, and the refresh queue. The other pages on this tab go deeper on one topic each, and the [API reference](/api-reference) is the interactive list of every route.
 
+## Which API do I want?
+
+There are two, and they answer different questions.
+
+| | BitBadges API (this tab) | Chain API |
+| --- | --- | --- |
+| What it is | The hosted indexer at `https://api.bitbadges.io` | The chain's own LCD gateway at `https://lcd.bitbadges.io` |
+| Answers | What the chain means, plus everything off-chain | What one node holds in state right now |
+| Gives you | Collections with metadata resolved, search, activity and history, balances by address, claims and plugins, Sign In with BitBadges, address lists, the refresh queue | Module queries straight from state: `x/tokenization`, `x/gamm`, `x/poolmanager`, `x/sendmanager`, plus the standard Cosmos SDK and IBC endpoints |
+| Needs a key | Yes | No |
+| Reference | [API reference](/api-reference) | [Chain API reference](/chain-api-reference) |
+
+Use this API for almost everything. It reads the chain for you, joins in the off-chain pieces the chain never sees, and returns one object per question. Use the Chain API when you need raw module state with no indexer in the path, when you are running against your own node, or when you are writing a chain-side integration. See [Chain](../chain/README.md) for nodes, modules, and the LCD.
+
 ## API Keys
 
 1. Sign in at [https://bitbadges.io/developer](https://bitbadges.io/developer) and open the **API Keys** tab.

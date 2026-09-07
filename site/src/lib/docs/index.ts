@@ -10,7 +10,7 @@ export {
   type DocPage,
   type SearchRecord,
 } from './content';
-export { autoFoldRanges, parseFoldMeta, type FoldRange } from './fold';
+export { collapsedSourceFor, parseFoldMeta, pruneJson } from './fold';
 export { gitbookToDirectives } from './gitbook';
 export { renderDoc, type Heading, type RenderedDoc, type RenderOptions } from './markdown';
 export {

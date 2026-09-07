@@ -149,6 +149,7 @@ URL patterns: /token-standard/messages/msg-<kebab>, /token-standard/queries/<keb
 - [Overview](https://docs.bitbadges.io/chain): The BitBadges chain: what runs on it, chain IDs, the BADGE denom and EVM decimals, public endpoints (RPC, LCD, EVM RPC, explorer, chain registry), IBC channels.
 - [Chain API Reference](https://docs.bitbadges.io/chain-api-reference)
 - [Modules](https://docs.bitbadges.io/chain/modules): Every BitBadges-specific Cosmos SDK module: x/tokenization (the token standard), gamm, poolmanager, sendmanager, managersplitter, and the IBC middleware.
+  - [x/tokenization](https://docs.bitbadges.io/token-standard): What the x/tokenization module is, how its pieces fit together, and the order to read this tab in.
   - [x/gamm](https://docs.bitbadges.io/chain/modules/gamm): The x/gamm AMM module, forked from Osmosis. How pools hold native tokens through badgeslp alias denoms and why pool trades still obey collection approvals.
     - [Messages](https://docs.bitbadges.io/chain/modules/gamm/messages): All 12 x/gamm messages with fields and a JSON example each: pool creation, join, exit, swaps, single-asset joins and exits, stableswap, IBC swap.
     - [Queries](https://docs.bitbadges.io/chain/modules/gamm/queries): All 16 x/gamm queries with LCD paths and live mainnet examples: pools, liquidity, shares, spot price, join and exit calculators, estimates, params.

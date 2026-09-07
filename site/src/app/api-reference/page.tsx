@@ -12,7 +12,7 @@ export default function ApiReferencePage() {
   return (
     <ApiReference
       specUrl={`${docsConfig.basePath}${docsConfig.openapiUrl}`}
-      backTo={{ href: '/api', label: 'Back to the API overview' }}
+      backTo={{ href: '/api', label: 'Back' }}
     />
   );
 }

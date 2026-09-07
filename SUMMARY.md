@@ -143,6 +143,7 @@
 * [Overview](chain/README.md)
 * [Chain API Reference](/chain-api-reference)
 * [Modules](chain/modules/README.md)
+  * [x/tokenization](/token-standard)
   * [x/gamm](chain/modules/gamm/README.md)
     * [Messages](chain/modules/gamm/messages.md)
     * [Queries](chain/modules/gamm/queries.md)

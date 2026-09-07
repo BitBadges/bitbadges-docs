@@ -364,38 +364,17 @@ body {
 }
 
 /*
- * Collapsible line ranges. A folded figure carries data-view="collapsed" or
- * "full"; the caption tabs switch it. Collapsed, each marked run is clipped to
- * zero height (still in the flow, so a drag-select picks it up and ⌘C matches
- * the copy button) and an empty .code-elision span draws one quiet
- * "··· N lines" row from its attributes. Full, the run lays out as before and
- * the row disappears. The listing itself never breaks into panels.
+ * A folded figure holds two complete listings and shows the one its
+ * data-view names. The collapsed JSON is a document in its own right, so
+ * there is nothing to mark where a member was dropped.
  */
-.doc .code-fold-lines {
-  display: contents;
-}
-.doc figure[data-view='collapsed'] .code-fold-lines {
-  display: block;
-  max-height: 0;
-  overflow: hidden;
-}
-.doc .code-elision {
+.doc figure[data-code] > [data-code-view] {
   display: none;
 }
-.doc figure[data-view='collapsed'] .code-elision {
+.doc figure[data-code]:not([data-view]) > [data-code-view='full'],
+.doc figure[data-view='collapsed'] > [data-code-view='collapsed'],
+.doc figure[data-view='full'] > [data-code-view='full'] {
   display: block;
-  padding-left: 0.1rem;
-  color: color-mix(in oklab, var(--fg-faint) 85%, transparent);
-  font-size: 0.82em;
-  line-height: 1.7;
-  opacity: 0.75;
-  user-select: none;
-}
-.doc figure[data-view='collapsed'] .code-elision::before {
-  content: '··· ' attr(data-hidden) ' lines';
-}
-.doc figure[data-view='collapsed'] .code-elision[data-hidden='1']::before {
-  content: '··· 1 line';
 }
 
 /* The Collapsed / Full tabs: a small segmented control in the caption. */
