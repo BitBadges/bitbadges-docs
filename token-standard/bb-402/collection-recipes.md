@@ -1,24 +1,12 @@
-# Collection Recipes
+---
+description: "Collection approval configurations for BB-402 auth patterns: basic soulbound access token, revocable token, short-lived 2FA token, ban list, and tiered access."
+---
 
-How to configure BitBadges collections for common BB-402 authentication patterns.
+# BB-402 collection recipes
 
-## The Core Pattern
+These are the collection approval setups that back common BB-402 gates. Every recipe is a variation of one pattern: the provider mints, tokens are soulbound, and revocation is optional.
 
-Most authentication protocols built on BB-402 follow the same structure:
-
-1. **You (the provider) have free mint power** — you can mint tokens to anyone, either for all times or specific time windows
-2. **Soulbound** — tokens are non-transferable after minting (no post-mint transfers)
-3. **Revocable (optional)** — you can burn/revoke tokens from users if needed
-
-Everything else is just variations on this. You control who has access by minting and revoking.
-
-## Recipe: Basic Access Token
-
-Provider-minted, soulbound, no transfers. The simplest BB-402 gate.
-
-**Collection approvals:**
-
-```typescript
+```ts
 collectionApprovals: [
   // Provider can mint to anyone, anytime
   {
@@ -39,13 +27,25 @@ collectionApprovals: [
 ]
 ```
 
-**BB-402 check:** `mustOwnAmounts: { start: '1', end: '1' }` on this collection.
+## The core pattern
 
-## Recipe: Revocable Access Token
+1. The provider has free mint power: it can mint to anyone, for all time or for a window.
+2. Soulbound: no post-mint transfer approval exists, so tokens cannot move.
+3. Revocable (optional): the provider can burn tokens from users.
 
-Same as above, but provider can also burn tokens (revoke access).
+You control access by minting and revoking. Everything else is a variation.
 
-```typescript
+## Basic access token
+
+Provider-minted, soulbound, no transfers. The approvals above are the whole configuration.
+
+BB-402 check: `mustOwnAmounts: { start: '1', end: '1' }` on this collection.
+
+## Revocable access token
+
+The basic pattern plus a second approval that lets the provider move any token back to `Mint` (burn).
+
+```ts
 collectionApprovals: [
   // Provider can mint
   {
@@ -80,13 +80,11 @@ collectionApprovals: [
 ]
 ```
 
-## Recipe: Short-Lived 2FA Token
+## Short-lived 2FA token
 
-For sensitive operations, mint a token that is only valid for a brief window (e.g., 60 seconds). The user completes a 2FA challenge on your frontend, you mint the short-lived token, and your API checks for it.
+For sensitive operations, mint a token that is valid for a brief window (for example 60 seconds). The user completes a 2FA challenge on your frontend, you mint the short-lived token, and the gated endpoint checks for it alongside the main access token.
 
-**Recommended: use 2FA on the frontend standard flow.** When a user passes 2FA on your site, mint a token valid for the next 60 seconds. Your BB-402 gated endpoint then checks for this token alongside the main access token.
-
-```typescript
+```ts
 // After user passes 2FA on your frontend:
 const now = BigInt(Date.now());
 const sixtySeconds = 60n * 1000n;
@@ -102,7 +100,7 @@ const transfer = {
 };
 ```
 
-**BB-402 check:** Combine with `$and` — must own the main access token AND the short-lived 2FA token:
+BB-402 check: `$and` of the main access token and the 2FA token.
 
 ```json
 {
@@ -127,19 +125,19 @@ const transfer = {
 }
 ```
 
-The 2FA token expires automatically — no revocation, no cleanup.
+The 2FA token expires on its own. No revocation, no cleanup.
 
-## Recipe: Ban List
+## Ban list
 
-A separate collection where owning a token means you are banned. Check with `mustOwnAmounts: { start: '0', end: '0' }` (must NOT own).
+A separate collection where owning a token means the address is banned. Use the provider-mint plus soulbound pattern; to ban, mint to the user; to unban, revoke with the revocable pattern.
 
-```typescript
-// Ban collection — same provider-mint + soulbound pattern
+```ts
+// Ban collection: same provider-mint + soulbound pattern
 // To ban: mint token to the user
 // To unban: revoke (use the revocable pattern above)
 ```
 
-**BB-402 check:**
+BB-402 check with `mustOwnAmounts: { start: '0', end: '0' }` (must not own):
 
 ```json
 {
@@ -152,21 +150,27 @@ A separate collection where owning a token means you are banned. Check with `mus
 }
 ```
 
-## Recipe: Tiered Access
+## Tiered access
 
-Use different token IDs for different tiers within the same collection.
+Use token IDs within one collection as tiers:
 
-- Token ID 1 = basic tier
-- Token ID 2 = premium tier
-- Token ID 3 = enterprise tier
+- Token ID 1: basic
+- Token ID 2: premium
+- Token ID 3: enterprise
 
-Mint the appropriate token ID to each user. Check with `$or` for "any tier" or specific token IDs for tier-specific endpoints.
+Mint the matching token ID to each user. Check with `$or` for "any tier", or with a specific token ID for a tier-specific endpoint.
 
-## How to Create
+## How to create the collection
 
-Collections can be created:
-- **On-site** at [bitbadges.io](https://bitbadges.io) — recommended for most cases. You can also use an LLM with the [BitBadges Builder](https://github.com/bitbadges/bitbadgesjs/tree/main/packages/bitbadgesjs-sdk/src/builder) to help configure collections.
-- **Via SDK** using `MsgUniversalUpdateCollection` from `bitbadges`
-- **Via chain CLI** using `bitbadgeschaind tx tokenization`
+- On the BitBadges site, the recommended path for most providers. An AI agent with the [MCP builder tools](../../agents/mcp-tools.md) can also assemble the configuration.
+- With the CLI: `bb build` then `bb deploy`; see [Create a collection](../../guides/create-a-collection.md).
+- With the SDK: [MsgUniversalUpdateCollection](../messages/msg-universal-update-collection.md).
 
-Most providers will create their collection on-site and then use the SDK or API to mint/revoke programmatically.
+Most providers create the collection once and then mint and revoke programmatically through the SDK or API.
+
+## Related
+
+- [BB-402](README.md)
+- [Gate access](../../guides/gate-access.md)
+- [Set transferability](../../guides/set-transferability.md)
+- [Mint and distribute](../../guides/mint-and-distribute.md)

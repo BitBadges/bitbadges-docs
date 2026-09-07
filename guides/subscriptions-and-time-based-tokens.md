@@ -1,0 +1,315 @@
+---
+description: "Sell recurring subscriptions, prepaid credit tokens, and expiring tokens on BitBadges with bb build subscription, bb build credit-token, and ownership times."
+---
+
+# Subscriptions and time-based tokens
+
+At the end you have a subscription collection that charges each interval, a credit token that users top up with USDC, and you know how to mint tokens that expire.
+
+All three rely on time-based ownership: a balance is owned for `ownershipTimes` ranges, in milliseconds since the epoch, and stops existing when the range ends. See [Balances](../token-standard/concepts/balances.md).
+
+## 1. Build a subscription
+
+### bb CLI
+
+```bash
+bb build subscription --interval monthly \
+  --price 10 --denom USDC --recipient bb1... \
+  --tiers 3 --transferable \
+  --name "Pro plan" --image ipfs://... --description "Monthly access" \
+  | bb deploy --browser
+```
+
+| Flag | Required | Description |
+| --- | --- | --- |
+| `--interval <duration>` | Yes | `daily`, `monthly`, `annually`, or shorthand such as `30d` |
+| `--price <amount>` | No | Price per interval in display units; use with `--denom` and `--recipient` |
+| `--denom <symbol\|denom>` | No | Payment coin: `USDC`, `BADGE`, or a canonical denom (`ubadge`, `ibc/...`) |
+| `--recipient <address>` | No | Payout address |
+| `--payouts <json>` | No | Multiple payouts: `[{"recipient","amount","denom"}]` |
+| `--tiers <n>` | No | Number of tiers (default `1`) |
+| `--transferable` | No | Allow post-mint transfers between users |
+| `--uri` or `--name` + `--image` + `--description` | Yes | Metadata, one mode or the other |
+
+The output is a `MsgUniversalUpdateCollection`. Add `--explain` to read what it does, `--simulate` to run it through the BitBadges API simulate endpoint, or `--json '{...}'` to pass every parameter as JSON. See [Build](../cli/build.md).
+
+### Raw JSON
+
+The builder emits this shape. A subscription is a Mint approval (the "faucet") whose predetermined balance starts at the mint timestamp and lasts `durationFromTimestamp` milliseconds.
+
+```json
+{
+  "standards": ["Subscriptions"],
+  "validTokenIds": [{ "start": "1", "end": "1" }],
+  "collectionApprovals": [{
+    "fromListId": "Mint",
+    "toListId": "All",
+    "initiatedByListId": "All",
+    "approvalId": "subscription-mint",
+    "tokenIds": [{ "start": "1", "end": "1" }],
+    "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+    "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+    "approvalCriteria": {
+      "coinTransfers": [{
+        "to": "bb1creator...",
+        "coins": [{ "denom": "ubadge", "amount": "5000000000" }],
+        "overrideFromWithApproverAddress": false,
+        "overrideToWithInitiator": false
+      }],
+      "predeterminedBalances": {
+        "incrementedBalances": {
+          "startBalances": [{ "amount": "1", "tokenIds": [{ "start": "1", "end": "1" }], "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }] }],
+          "incrementTokenIdsBy": "0",
+          "incrementOwnershipTimesBy": "0",
+          "durationFromTimestamp": "2592000000",
+          "allowOverrideTimestamp": true,
+          "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+          "allowOverrideWithAnyValidToken": false
+        },
+        "orderCalculationMethod": {
+          "useOverallNumTransfers": true,
+          "usePerToAddressNumTransfers": false,
+          "usePerFromAddressNumTransfers": false,
+          "usePerInitiatedByAddressNumTransfers": false,
+          "useMerkleChallengeLeafIndex": false,
+          "challengeTrackerId": ""
+        },
+        "manualBalances": []
+      },
+      "overridesFromOutgoingApprovals": true,
+      "merkleChallenges": []
+    }
+  }]
+}
+```
+
+Rules the chain and the validator enforce:
+
+- `standards` includes `"Subscriptions"`.
+- `invariants.noCustomOwnershipTimes` is `false` (or omitted). Each period mints a new ownership window, so custom ownership times must be allowed.
+- `validTokenIds` is exactly one token ID per tier: `[{ "start": "1", "end": "1" }]`.
+- The faucet approval has `fromListId: "Mint"`, `tokenIds` of exactly one token, and `overridesFromOutgoingApprovals: true`.
+- `coinTransfers` has at least one entry with both override flags `false`.
+- `durationFromTimestamp` is non-zero: monthly `"2592000000"` (30 days), annual `"31536000000"` (365 days), daily `"86400000"` (24 hours).
+- `allowOverrideTimestamp` is `true`, so each mint starts its own window.
+- `incrementTokenIdsBy` and `incrementOwnershipTimesBy` are `"0"`.
+- `orderCalculationMethod` has exactly one method `true` (default `useOverallNumTransfers`).
+- Only one of `durationFromTimestamp`, `incrementOwnershipTimesBy`, and `recurringOwnershipTimes` may be non-zero. Keep `recurringOwnershipTimes` as all zeros: `{ "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" }`.
+
+See [Predetermined balances](../token-standard/approval-criteria/predetermined-balances.md) for how `durationFromTimestamp` and `recurringOwnershipTimes` compute balances.
+
+## 2. Subscribe, renew, and charge
+
+A subscriber's recurring approval must be derived from the live collection, not built offline, so there is no `bb build recurring-payment`. The `bb subscriptions` group reads the faucet approval and emits the right messages.
+
+```bash
+# Tiers in a collection (one per faucet approval)
+bb subscriptions list <collection-id>
+
+# Is this address subscribed, does it have a future approval, when is the next charge?
+bb subscriptions status <collection-id> --address bb1subscriber...
+
+# Claim one period (MsgTransferTokens through the faucet)
+bb subscriptions claim <collection-id> --creator bb1subscriber... | bb deploy --browser
+
+# Claim and enable auto-renewal in one transaction (mirrors the site's Subscribe button)
+bb subscriptions subscribe <collection-id> --creator bb1subscriber... --tier pro-tier | bb deploy --browser
+
+# Add or remove only the recurring approval (MsgUpdateUserApprovals)
+bb subscriptions enable-renewal <collection-id> --creator bb1subscriber... --tip 0 | bb deploy --browser
+bb subscriptions cancel <collection-id> --creator bb1subscriber... | bb deploy --browser
+
+# Issuer side: mint the next period for every subscriber whose charge is due
+bb subscriptions charge-due <collection-id>
+```
+
+`--tier <approvalId>` is required on multi-tier collections. `--tip <ubadge>` adds a per-interval tip in base denom units. `--approval-id <id>` overrides the generated recurring-approval ID. Renewal works because the subscriber's recurring outgoing approval lets the faucet's coin transfer run each interval. See [Standards commands](../cli/standards.md).
+
+## 3. Build a credit token
+
+A credit token is increment-only and non-transferable. Users pay X of an ICS20 denom (USDC, ATOM, BADGE) and receive Y tokens as proof of payment. Tokens are never redeemed, burned, or transferred; the payout address gets the coin immediately, with no escrow. For a 1:1 backed token that users can transfer and redeem, use [Smart tokens and vaults](smart-tokens-and-vaults.md).
+
+### bb CLI
+
+```bash
+bb build credit-token --payment-denom USDC \
+  --recipient bb1... --symbol CREDIT --tokens-per-unit 100 \
+  --name "API credits" --image ipfs://... --description "Prepaid API usage" \
+  | bb deploy --browser
+```
+
+| Flag | Required | Description |
+| --- | --- | --- |
+| `--payment-denom <symbol\|denom>` | Yes | Payment coin (`--denom` is an alias) |
+| `--recipient <address>` | Yes | Payment recipient |
+| `--symbol <symbol>` | No | Token symbol (default `CREDIT`) |
+| `--tokens-per-unit <n>` | No | Tokens per 1 display unit of payment (default `100`) |
+
+Buy credits from any credit token collection:
+
+```bash
+bb credit-tokens list <collection-id>          # credit-* tiers
+bb credit-tokens show <collection-id>          # symbol, decimals, alias path, tiers
+bb credit-tokens purchase <collection-id> --creator bb1buyer... --units 10 | bb deploy --browser
+
+# BitBadges' own API-credits collection on this network
+bb credit-tokens purchase --api-credits --creator bb1buyer... --units 10 --browser
+```
+
+Credits are non-transferable, so sign with the wallet that should hold them (`--browser` pins the signer to `--creator`; `--burner` is create-only and is rejected). `--tier <approvalId>` picks a legacy per-tier approval when the collection has no credit-scaled tier.
+
+### Raw JSON
+
+Required structure:
+
+- `standards`: `["Credit Token"]`.
+- `validTokenIds`: `[{ "start": "1", "end": "1" }]`.
+- `collectionApprovals`: only `fromListId: "Mint"` approvals. No transferable or burnable approval.
+- `defaultBalances`: `autoApproveAllIncomingTransfers`, `autoApproveSelfInitiatedOutgoingTransfers`, and `autoApproveSelfInitiatedIncomingTransfers` all `true`.
+- Every mint approval: `toListId: "All"`, `initiatedByListId: "All"`, `overridesFromOutgoingApprovals: true`, `mustPrioritize: true` (required for correct tier matching), and `coinTransfers` with the price and recipient.
+- All collection permissions frozen, including `canUpdateCollectionApprovals`.
+- An alias path, so balances display with a symbol and decimals.
+
+Conversion rate: `coinTransfers.coins[0].amount` is the payment in base units and `startBalances[0].amount` is the number of tokens minted. For 1 USDC (`"1000000"` base units) = 100,000 tokens, set those two values.
+
+Mint approval template, one per tier:
+
+```json
+{
+  "toListId": "All",
+  "fromListId": "Mint",
+  "initiatedByListId": "All",
+  "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "tokenIds": [{ "start": "1", "end": "1" }],
+  "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+  "approvalId": "credit-<amount>",
+  "uri": "",
+  "customData": "",
+  "approvalCriteria": {
+    "predeterminedBalances": {
+      "manualBalances": [],
+      "incrementedBalances": {
+        "startBalances": [{ "amount": "<tokens_to_mint>", "tokenIds": [{"start":"1","end":"1"}], "ownershipTimes": [{"start":"1","end":"18446744073709551615"}] }],
+        "incrementTokenIdsBy": "0",
+        "incrementOwnershipTimesBy": "0",
+        "allowOverrideTimestamp": false,
+        "recurringOwnershipTimes": { "startTime": "0", "intervalLength": "0", "chargePeriodLength": "0" },
+        "allowOverrideWithAnyValidToken": false
+      },
+      "orderCalculationMethod": { "useOverallNumTransfers": true, "usePerToAddressNumTransfers": false, "usePerFromAddressNumTransfers": false, "usePerInitiatedByAddressNumTransfers": false, "useMerkleChallengeLeafIndex": false, "challengeTrackerId": "" }
+    },
+    "approvalAmounts": { "overallApprovalAmount": "0", "perToAddressApprovalAmount": "0", "perFromAddressApprovalAmount": "0", "perInitiatedByAddressApprovalAmount": "0", "amountTrackerId": "credit-<amount>", "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" } },
+    "maxNumTransfers": { "overallMaxNumTransfers": "0", "perToAddressMaxNumTransfers": "0", "perFromAddressMaxNumTransfers": "0", "perInitiatedByAddressMaxNumTransfers": "0", "amountTrackerId": "credit-<amount>", "resetTimeIntervals": { "startTime": "0", "intervalLength": "0" } },
+    "coinTransfers": [{
+      "to": "<payment_recipient_address>",
+      "coins": [{ "amount": "<payment_base_units>", "denom": "<ics20_denom>" }],
+      "overrideFromWithApproverAddress": false,
+      "overrideToWithInitiator": false
+    }],
+    "merkleChallenges": [],
+    "mustOwnTokens": [],
+    "overridesFromOutgoingApprovals": true,
+    "overridesToIncomingApprovals": false,
+    "mustPrioritize": true
+  },
+  "version": 0
+}
+```
+
+Tiers: create 8 to 10 approvals named `credit-<multiplier>` so the site can split any purchase into the fewest transactions (greedy decomposition). The multiplier is the number of base payment units; each tier's payment is multiplier times the base payment, and tokens minted are multiplier times tokens per unit. Pick denominations that fit the expected purchase sizes; nothing is hardcoded. Example at 1 USDC = 100K tokens:
+
+| approvalId | Payment | Tokens minted |
+| --- | --- | --- |
+| credit-1 | 1 USDC | 100,000 |
+| credit-5 | 5 USDC | 500,000 |
+| credit-10 | 10 USDC | 1,000,000 |
+| credit-50 | 50 USDC | 5,000,000 |
+| credit-100 | 100 USDC | 10,000,000 |
+| credit-500 | 500 USDC | 50,000,000 |
+| credit-1000 | 1,000 USDC | 100,000,000 |
+| credit-10000 | 10,000 USDC | 1,000,000,000 |
+| credit-100000 | 100,000 USDC | 10,000,000,000 |
+| credit-1000000000 | 1B USDC | 100T tokens |
+
+Alias path (required for display):
+
+```json
+"aliasPathsToAdd": [{
+  "denom": "u<symbol_lowercase>",
+  "conversion": {
+    "sideA": { "amount": "1" },
+    "sideB": [{ "amount": "1", "ownershipTimes": [{"start":"1","end":"18446744073709551615"}], "tokenIds": [{"start":"1","end":"1"}] }]
+  },
+  "symbol": "<SYMBOL>",
+  "denomUnits": [],
+  "metadata": { "uri": "ipfs://METADATA_ALIAS_u<symbol_lowercase>", "customData": "" }
+}]
+```
+
+Permissions, all frozen:
+
+```json
+"collectionPermissions": {
+  "canDeleteCollection": [],
+  "canArchiveCollection": [],
+  "canUpdateStandards": [],
+  "canUpdateCustomData": [],
+  "canUpdateManager": [],
+  "canUpdateCollectionMetadata": [],
+  "canUpdateValidTokenIds": [],
+  "canUpdateTokenMetadata": [],
+  "canUpdateCollectionApprovals": [],
+  "canAddMoreAliasPaths": [],
+  "canAddMoreCosmosCoinWrapperPaths": []
+}
+```
+
+{% hint style="info" %}
+Empty arrays here are the credit token skill's convention for "locked". On the chain, `[]` is the neutral, soft-enabled state; to make a permission irreversible you set `permanentlyForbiddenTimes`. See [Lock permissions](lock-permissions.md) and check the emitted transaction with `bb check`.
+{% endhint %}
+
+### Track usage off-chain
+
+The on-chain balance is `totalCreditsPaidFor`, the total ever purchased. Your backend tracks `totalUsed`. Remaining budget is `balance - totalUsed`. Both numbers only go up.
+
+Worked example, the BitBadges API credits collection (collection 23 / 80, `APITOKEN`):
+
+- A user buys 10 USDC and receives 1,000,000 APITOKEN (balance 1,000,000).
+- The user makes API calls, including the AI builder; the backend records `totalUsed` = 250,000.
+- Remaining budget = 1,000,000 - 250,000 = 750,000.
+- The user buys 5 more USDC; the balance increments to 2,000,000 and the remaining budget is 1,750,000.
+
+The site's credit token page shows the balance through the alias path, a purchase form with a denom amount selector, the conversion rate, and the multi-tier decomposition. Reference collection: [Collection 23](https://bitbadges.io/collections/23).
+
+Credit token versus smart token: increment-only versus deposit and withdraw; non-transferable versus transferable; no `cosmosCoinBackedPath`; multiple tiers; credits never expire (full ownership range).
+
+## 4. Mint tokens that expire
+
+Any transfer can carry a bounded `ownershipTimes` window. Five minutes from now is the current timestamp in milliseconds plus `5 * 60 * 1000`:
+
+```json
+"ownershipTimes": [{
+  "start": "1706000000000",
+  "end": "1706000300000"
+}]
+```
+
+The balance exists only inside the window; queries and approval checks outside it see nothing. Use this for passes, trials, and short-lived 2FA tokens (`bb custom-2fa mint <collection-id> --to bb1... --expiration 10m` encodes the lifetime at mint time; see [Standards commands](../cli/standards.md)). To forbid custom windows on a collection, set the `noCustomOwnershipTimes` invariant; see [Invariants](../token-standard/approval-criteria/invariants.md).
+
+## Common mistakes
+
+- Non-zero `recurringOwnershipTimes` next to `durationFromTimestamp`. They are mutually exclusive.
+- `durationFromTimestamp: "0"` or `allowOverrideTimestamp: false` on a subscription faucet.
+- More than one token ID in a subscription or credit token.
+- Coin transfer override flags set `true`; standard payments use `false` for both.
+- `noCustomOwnershipTimes: true` on a subscription collection.
+- A transferable or burnable approval on a credit token, or a missing `mustPrioritize: true` on its mint approvals.
+- A credit token without an alias path. Balances will not display properly.
+- Numbers instead of strings.
+
+## Next steps
+
+- [Balances](../token-standard/concepts/balances.md)
+- [Coin transfers](../token-standard/approval-criteria/coin-transfers.md)
+- [Smart tokens and vaults](smart-tokens-and-vaults.md)
+- [Subscription skill](../agents/skills/subscription.md)

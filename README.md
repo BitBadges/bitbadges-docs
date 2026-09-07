@@ -1,67 +1,45 @@
 ---
-description: >-
-    Here, you will find documentation about BitBadges, how it works, how to
-    interact, and how to contribute!
+description: "BitBadges is a Cosmos L1 with a native token standard. Start here to install the CLI, run a first query, and find the right tab."
 ---
 
-# 👋 BitBadges Overview
+# BitBadges documentation
 
-## 🚀 The Next-Generation Token Standard
+BitBadges is a Cosmos SDK Layer 1 whose `x/tokenization` module is a complete token standard. Collections, balances, approvals, and permissions are chain state, not smart contracts. Transferability rules run on every transfer, swap, and IBC transfer. Balances carry ownership times, so subscriptions, vesting, and expiring credentials need no follow-up transactions. Tokens wrap to `x/bank` denoms for IBC, and EVM contracts reach the module through precompiles.
 
-BitBadges has built a brand new tokenization standard exclusively as a Cosmos SDK module, designed specifically for RWAs (Real World Assets), compliance, payments, and custom transferability requirements.
+## Install and run a first query
 
-Unlike existing standards (`x/bank`, `x/tokenfactory`, `x/nft`, ICS20, ERC20, ERC-3643), our `x/tokenization` module provides native support for compliance checks on every transfer (even IBC transfers and in liquidity pools), custom transferability / compliance rules, issuer-level control, and enterprise-grade tokenization features—all out of the box with no code or smart contracts required, just a module! All plug-and-play and infinitely customizable.
+```bash
+curl -fsSL https://install.bitbadges.io | sh
+bb settings set apiKey <your-api-key>   # get one at https://bitbadges.io/developer
+bb api tokens get-collection 1          # fetch collection 1 from the BitBadges API
+bb dev docs                             # browse these docs from the terminal
+```
 
-Our revolutionary token standard goes far beyond ERC-20, ERC-721, and other existing standards with features like time-dependent ownership, fine-grained transferability controls, IBC compatibility, connecting to 7000+ apps, connecting to EVM, IBC, and more.
+The installer puts the chain binary on your path with the `bb` alias and installs the SDK CLI. Linux, macOS, and Windows (Git Bash or WSL) are supported.
 
-Our theses are:
+## Where to go
 
-1. The next wave of tokenization needs a next-generation standard. Existing ones are not enough and built on outdated technology.
-2. Compliance / transferability is not just a matter of a simple whitelist/blacklist or transferable vs soulbound. It is a complex series of moving parts (time-gating, ownerships, approvals, who can send to who?, initiated by who?, revokable? freezable?, and so on). To truly make compliance work on-chain, you need to handle all these moving parts automatically, not with a manually updated whitelist/blacklist. And, this belongs on the token standard level.
-3. The standardized, reusable, no-code approach wins over per use-case smart contracts over time.
+| Tab | Read it when you want to | Start at |
+| --- | --- | --- |
+| Quickstart | Install, query, and broadcast one transaction in the CLI, TypeScript, the site, or an AI agent | [Quickstart](start/quickstart.md) |
+| Guides | Do a task: create a collection, mint, set transferability, gate access, sign users in | [Guides](guides/README.md) |
+| Token Standard | Understand the data model, approval criteria, messages, queries, IBC, and EVM | [Token Standard](token-standard/README.md) |
+| API | Call the hosted BitBadges API, use Sign In with BitBadges, or run claims | [BitBadges API](api/README.md) |
+| SDK & CLI | Use `bitbadges` from TypeScript or drive the chain from the `bb` command line | [SDK](sdk/README.md), [CLI](cli/README.md) |
+| Agents | Wire an AI agent through the MCP builder tools, the Claude Code plugin, or the CLI | [Agents](agents/README.md) |
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+## Surfaces
 
-## ❓ Why BitBadges?
+- No-code: the [Create tab](https://bitbadges.io/create) and the [developer portal](https://bitbadges.io/developer) cover token, claim, and address list creation without an integration.
+- CLI: `bb` builds, checks, simulates, previews, and deploys transactions. It also exposes every BitBadges API route as `bb api <group> <route>`.
+- TypeScript: `npm install bitbadges` gives you `BitBadgesAPI` for reads and `BitBadgesSigningClient` for transactions.
+- Agents: bring your own AI. The same package ships the `bitbadges-builder` MCP server and a Claude Code plugin for Claude Code, Cursor, Codex, or any MCP client. The agent builds; a person reviews and signs in the browser through a handoff link. See [Agent setup](agents/setup.md).
 
-BitBadges is simply tokenization-as-a-service. Create anything from subscriptions and memberships to tradable NFTs, credentials, and access tokens - all with the most advanced token standard ever built.
+Mainnet is the live network (chain id `bitbadges-1`). Testnet is offline. See [Testnet](token-standard/network/testnet.md) for status.
 
-Traditional token standards are limited, inflexible, and locked to single blockchain ecosystems. BitBadges fixes this with a 100x improvement that supports:
+## Related
 
--   **No Code, No Smart Contracts, No Audits** - Everything works out-of-the-box with no code. One reusable module.
--   **Compliance Checked Every Transfer, Swap, IBC Transfer** - Build complex transferability systems checked everywhere. No backdoors. Compliance checked every swap.
--   **Drop-In 1000x Upgrade -** We are a superset of existing standards. One line of code change for 1000x unlock in features.
--   **Supports Any IBC (ICS20) Currency -** We've designed it in a way such that it is seamlessly compatible with any ICS20 currency paired for payments, swaps, liquidity, or anything else.
--   **IBC Compatibility** - One interface, one token experience for all blockchain ecosystems via IBC.
--   **Time-Dependent Ownership** - Create subscriptions, time-locked tokens, and expiring credentials with time-dependent logic and approvals.
--   **Advanced Transferability / Compliance** - Fine-grained controls over who can transfer what, when, and how on any level.
--   **Three Transferability Levels** - Customize transferability on the collection, sender,and recipient levels.
--   **Connect to 7000+ Apps** - Connect to 7000+ apps and integrations with seamless on/off-chain criteria checks
--   **Connect to Cosmos via IBC** - Connect to Cosmos and beyond via IBC and use the BitBadges token standard on any Cosmos chain
--   **Extend with EVM Contracts** - Extend the BitBadges token standard with EVM contracts or any other custom environment
--   **Customizable Permissions** - Flexible manager controls for collections
-
-## 🤔 Motive for building BitBadges?
-
-The answer is simple. We believe in the potential of blockchains and interoperability, but this potential cannot be realized with the current infrastructure and token standards in place today.
-
-## ⚠️ Problems with Existing Standards
-
-Existing tokenization standards (ERC-20, ERC-721, CW-20, ICS-20, etc.) are **flawed from the ground up**:
-
--   **Too Simple** - Basic mint/transfer/burn functionality lacks the flexibility needed for 90% of real-world applications. The industry has been stuck with these limited standards for 10+ years due to technical debt.
--   **Vulnerable by Default** - Smart contract approach introduces new attack vectors with each token contract. Each deployment is a potential vulnerability.
--   **Complex & Expensive** - Requires extensive technical knowledge to implement, deploy, and maintain contracts.
--   **Low Interoperability** - Tokens are siloed to single ecosystems, forcing companies to split their userbase across chains.
--   **Fragmented Standards** - Many competing standards with incompatible twists create confusion and fragmentation.
-
-**The whole tokenization approach needs a complete overhaul.**
-
-## 💡 Our Design Philosophy
-
-BitBadges addresses these fundamental issues through core design decisions:
-
--   **Universality** - One standard powerful enough for any use case: NFTs, fungible tokens, subscriptions, credentials, RWAs, compliance, or anything you can imagine. One standard to rule them all.
--   **No-Code Module Approach** - Built as a Cosmos SDK module, not smart contracts. 99% of users will never need to write code, regardless of complexity. Promotes reusability and battle-tested security.
--   **Ever-Evolving** - Purpose-built for next-generation tokenization. We're not stuck in the past like ERC-20/721. New features are added continuously with no technical debt accrual.
--   **IBC-First** - Cosmos-native with IBC at the core. Custom wrappable to ICS-20/721, supports IBC denominations for payments/swaps/liquidity, and enables one-signature multi-hop IBC transfers.
+- [Why BitBadges](about/README.md)
+- [Use cases](about/use-cases.md)
+- [Links and resources](about/links.md)
+- [FAQ](about/faq.md)

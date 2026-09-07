@@ -16,7 +16,7 @@ import { tabsFromNav } from '../src/lib/docs/tabs';
 // Corpus-size floors. They catch a walk that silently drops a directory, not
 // the exact count; raise them after the docs restructure lands (the new tree
 // has fewer, denser pages and a shorter SUMMARY.md).
-const MIN_PAGES = 300;
+const MIN_PAGES = 200;
 const MIN_NAV_ENTRIES = 200;
 
 /** Issues present now but absent from the recorded baseline. */
@@ -70,7 +70,8 @@ describe('corpus', () => {
   });
 
   test('no internal link breakage beyond the recorded baseline', async () => {
-    const routes = new Set(await getAllRoutes());
+    // /api-reference is a Next route (Scalar), not a markdown page, so it is not in getAllRoutes().
+    const routes = new Set([...(await getAllRoutes()), '/api-reference']);
     const broken: string[] = [];
     for (const { file, doc } of rendered) {
       for (const match of doc!.html.matchAll(/href="(\/[^"#]*)/g)) {

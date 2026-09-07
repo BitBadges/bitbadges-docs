@@ -29,7 +29,14 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   outputFileTracingRoot: import.meta.dirname,
   async redirects() {
-    return readRedirects().map(({ source, destination }) => ({ source, destination, permanent: true }));
+    // Next matches `source` with path-to-regexp, where `+ ( ) ? * :` are
+    // operators. Old GitBook slugs contain literal `+`, so escape them.
+    const escape = (route: string) => route.replace(/[+()?*:]/g, (c) => `\\${c}`);
+    return readRedirects().map(({ source, destination }) => ({
+      source: escape(source),
+      destination,
+      permanent: true,
+    }));
   },
 };
 
