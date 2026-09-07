@@ -9,6 +9,8 @@
     "gen:proto": "bun scripts/gen-proto-reference.ts",
     "gen:chain-openapi": "bun scripts/gen-chain-openapi.ts",
     "gen:llms": "bun scripts/gen-llms.ts",
+    "screenshots": "bun scripts/capture-frontend-screenshots.ts",
+    "screenshots:check": "bun scripts/capture-frontend-screenshots.ts --check",
     "predev": "bun run sync",
     "dev": "next dev",
     "prebuild": "bun run sync",

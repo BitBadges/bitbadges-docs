@@ -62,6 +62,7 @@ guides/wrap-to-an-ibc-denom.md     <- examples/cosmos-coin-wrapper-example.md, e
 guides/trade-on-the-dex.md         <- x-gamm README (user half), bitbadges-api/estimating-swaps.md (guide part), cli swap/pools/pairs/price (from source). Pools, swaps, liquidity.
 guides/subscriptions-and-time-based-tokens.md <- skills/subscription.md, learn balance-system (time part, link only), skills/credit-token.md (config).
 guides/smart-tokens-and-vaults.md  <- skills/smart-token.md, ai-agents/openclaw-vault-tutorial.md, learn/ibc-backed-minting.md (link only), ai-agents/smart-token-type-detection.md (the type table).
+using-the-frontend/README.md + 8 pages  NEW. Walkthrough of bitbadges.io with captured screenshots (see "Frontend screenshots" under Site changes).
 about/README.md                    <- README.md (why), overview/what-is-bitbadges.md, x-tokenization/README.md (features list). "Why BitBadges": theses, design decisions. No hype multipliers. ~900 words.
 about/use-cases.md                 <- overview/use-cases.md. Cut the templated restatements.
 about/comparisons.md               <- overview/bitbadges-vs-erc3643.md, overview/comparing-bitbadges-to-other-protocols.md.
@@ -240,7 +241,7 @@ Three channels, each generated from a source the tests can check. The plan and t
 - **Diagrams.** A ```mermaid fence renders to inline SVG at build time (`site/src/lib/docs/mermaid.ts`, `beautiful-mermaid`, no DOM, no client script). Colors are the site tokens, so diagrams follow the theme. `site/tests/mermaid.test.ts` renders every fence in the corpus.
 - **Code folds.** A folded figure has Collapsed and Full tabs in its caption (`site/src/lib/docs/fold.ts`, `CopyButtons.tsx`). The listing never breaks into panels; the reader's choice is remembered in `localStorage`.
 - **Widgets.** Read-only mocks of frontend UI, embedded from markdown; see the next subsection.
-- **Screenshots.** Playwright captures of bitbadges.io for the Using the Frontend walkthrough, driven by one manifest (`site/scripts/capture-frontend-screenshots.ts`).
+- **Screenshots.** Playwright captures of bitbadges.io for the Using the Frontend walkthrough, driven by one manifest; see the Frontend screenshots subsection.
 
 ### Widgets (site/src/components/widgets)
 
@@ -287,6 +288,16 @@ writes `_docs/widgets/*.png` (light and dark) and `_docs/widgets/README.md`.
 It borrows Playwright from the frontend checkout (`PLAYWRIGHT_MODULE` overrides
 the path) and starts `next dev` on a free port unless `BASE_URL` is set. Manual
 step, not part of the tests.
+
+### Frontend screenshots (`using-the-frontend/`)
+
+The Docs tab section `using-the-frontend/` embeds real screenshots of bitbadges.io. They are captured, not drawn, so they are regenerated rather than edited.
+
+- Manifest: `site/scripts/frontend-screenshots/manifest.ts`. One entry per PNG: route, the doc page that embeds it, optional `setup: 'signed-in'`, optional `waitFor`, `fill`, `click`, and `mask` selectors. Adding a screenshot is one entry here plus one `![alt](../.gitbook/assets/frontend/<file>.png)` in the named page.
+- Output: `.gitbook/assets/frontend/<file>.png`, committed. PNGs over 400 KB are downscaled with `sips` at capture time.
+- Capture: `cd site && bun run screenshots` (one entry: `bun run screenshots -- home.png`). Needs the frontend on `http://localhost:3000` (override with `DOCS_SHOT_BASE_URL`) and, for signed-in entries, an indexer it can sign in against. Playwright and the mock wallet come from a `bitbadges-frontend` checkout (`BITBADGES_FRONTEND_DIR`, default: a sibling directory of this repo); the docs repo has no browser dependency. Sign-in uses the frontend harness in `src/__tests__/playwright/agent/` with its default unfunded mnemonic. Sample ids default to collection `1` and the harness address; override with `DOCS_SHOT_COLLECTION_ID`, `DOCS_SHOT_ADDRESS`, `DOCS_SHOT_CLAIM_ID`, `DOCS_SHOT_APPROVAL_ID`.
+- Determinism: 1440x900 at 1x, reduced motion plus CSS animations off, the browser clock pinned to a fixed time, the policies banner closed, and per-entry masks. Re-capturing against the same data gives byte-identical PNGs, so a diff means the UI changed.
+- Check: `bun run screenshots:check` (offline, no browser) fails when a manifest entry has no PNG, when a page embeds a `frontend/*.png` the manifest does not list, or when a PNG in the folder is not in the manifest. `site/tests/frontend-screenshots.test.ts` runs the same check under `bun test`, so CI catches stale references.
 
 ### Self-hosting gaps still open (in this repo)
 
