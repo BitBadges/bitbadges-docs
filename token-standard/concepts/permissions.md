@@ -301,8 +301,10 @@ Set `manager: ''` for no manager. Permission values are then irrelevant because 
 
 There is no "forbidden but changeable" state. It would be equivalent to permitted, because the manager could flip it and act in the same block.
 
+Permanently permitted is the one that surprises people, because neutral already allows the action. The difference is the promise. Neutral says the manager can do this today and may lock it tomorrow; permanently permitted says the door stays open forever and the manager has given up the ability to close it. Use it to commit to keeping a capability, for example that collection metadata can always be corrected, so a holder knows the manager cannot freeze themselves out of fixing it later.
+
 ```ts
-// Lock deletion forever
+// Lock deletion forever, and promise metadata stays editable forever
 const locked: CollectionPermissions<bigint> = {
   canDeleteCollection: [
     {
@@ -312,11 +314,20 @@ const locked: CollectionPermissions<bigint> = {
       ],
     },
   ],
+  // The opposite promise: metadata can always be corrected, and the manager
+  // cannot take that away from themselves later.
+  canUpdateCollectionMetadata: [
+    {
+      permanentlyPermittedTimes: [
+        { start: 1n, end: 18446744073709551615n },
+      ],
+      permanentlyForbiddenTimes: [],
+    },
+  ],
   canArchiveCollection: [],
   canUpdateStandards: [],
   canUpdateCustomData: [],
   canUpdateManager: [],
-  canUpdateCollectionMetadata: [],
   canUpdateValidTokenIds: [],
   canUpdateTokenMetadata: [],
   canUpdateCollectionApprovals: [],
@@ -342,13 +353,13 @@ const soft: CollectionPermissions<bigint> = {
 
 Once a time is permitted or forbidden, an update that tries to change it is rejected.
 
-:::widget{name="permissions-grid" caption="The locked example as bitbadges.io shows it: deletion is frozen as forbidden, every other permission stays neutral."}
+:::widget{name="permissions-grid" caption="The example above as bitbadges.io shows it, and all three states at once: deletion frozen as forbidden, metadata frozen as permitted, everything else neutral."}
 {
   "permissions": {
     "canDeleteCollection": [{ "permanentlyForbiddenTimes": [{ "start": "1", "end": "18446744073709551615" }] }],
+    "canUpdateCollectionMetadata": [{ "permanentlyPermittedTimes": [{ "start": "1", "end": "18446744073709551615" }] }],
     "canArchiveCollection": [],
     "canUpdateManager": [],
-    "canUpdateCollectionMetadata": [],
     "canUpdateCollectionApprovals": []
   }
 }
