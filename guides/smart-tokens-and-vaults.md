@@ -344,7 +344,7 @@ console.log('Agent address:', client.address); // bb1...
 
 The same mnemonic gives a different address through the Cosmos adapter and the EVM adapter. Fund the address that matches the adapter you use.
 
-The agent needs a small amount of `BADGE` for gas, separate from its USDC. Send it from your main wallet (`bb build send --to <agent> --amount 1 --denom BADGE`). The testnet faucet is offline; see [Testnet](../token-standard/network/testnet.md).
+The agent needs a small amount of `BADGE` for gas, separate from its USDC. Send it from your main wallet (`bb build send --to <agent> --amount 1 --denom BADGE`). The testnet faucet is offline; see [Testnet](../chain/testnet.md).
 
 Then deposit USDC into the vault for the agent with `bb smart-tokens deposit` (step 3), or with the deposit message below.
 

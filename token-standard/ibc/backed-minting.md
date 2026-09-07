@@ -202,7 +202,7 @@ const collection: MsgCreateCollection = {
 };
 ```
 
-The escrow address derives from the denom string. A backed collection cannot be repointed to another denom later. Pick the canonical denom at creation. See [Supported denoms](../network/supported-denoms.md).
+The escrow address derives from the denom string. A backed collection cannot be repointed to another denom later. Pick the canonical denom at creation. See [Supported denoms](../../chain/supported-denoms.md).
 
 ## Mint address restrictions
 

@@ -22,5 +22,5 @@
 /for-developers/sign-in-with-bitbadges/authorization-url	/api/sign-in/authorization-url
 /for-developers/sign-in-with-bitbadges/authorization-url/configuration	/api/sign-in/authorization-url
 /for-developers/sign-in-with-bitbadges/authorization-url/generating-the-url	/api/sign-in/authorization-url
-/other-modules/x-gamm	/token-standard/modules/gamm
+/other-modules/x-gamm	/chain/modules/gamm
 /for-developers/bitbadges-api/estimating-swaps	/api/swaps

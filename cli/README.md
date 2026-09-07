@@ -176,7 +176,7 @@ Every SDK verb that reaches the network accepts the same flags.
 | --- | --- |
 | `--network <name>` | `mainnet`, `testnet`, or `local` |
 | `--mainnet` | Shortcut for `--network mainnet` (the default) |
-| `--testnet` | Shortcut for `--network testnet`. Testnet is offline; see [Testnet](../token-standard/network/testnet.md). |
+| `--testnet` | Shortcut for `--network testnet`. Testnet is offline; see [Testnet](../chain/testnet.md). |
 | `--local` | Shortcut for `--network local` (`http://localhost:3001`, LCD `http://localhost:1317`) |
 | `--url <url>` | Custom API base URL (overrides everything else) |
 | `--api-key <key>` | Override the API key for this call |

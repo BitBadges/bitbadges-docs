@@ -98,4 +98,4 @@ For development, https://bitbadges.io/dev/broadcast signs and broadcasts for you
 - [Transactions](README.md)
 - [Signing client](signing-client.md)
 - [CLI deploy](../../cli/deploy.md)
-- [Websocket events](../../token-standard/network/websocket-events.md)
+- [Websocket events](../../chain/websocket-events.md)

@@ -11,7 +11,6 @@ import baseline from './content-issues.baseline.json' with { type: 'json' };
 import { docsConfig } from '../src/lib/docs/config';
 import { getAllFiles, getAllRoutes, getDoc, getNav } from '../src/lib/docs/content';
 import { flattenNav } from '../src/lib/docs/summary';
-import { tabsFromNav } from '../src/lib/docs/tabs';
 
 // Corpus-size floors. They catch a walk that silently drops a directory, not
 // the exact count; raise them after the docs restructure lands (the new tree
@@ -134,8 +133,12 @@ describe('navigation', () => {
     expect(head!.prev).toBeNull();
   });
 
-  test('prev/next chain is wired for a page in the middle of the nav', async () => {
-    const order = flattenNav(await getNav());
+  test('prev/next chain is wired for a page in the middle of a tab', async () => {
+    // Prev/next are scoped to the active tab, so pick the middle page of the
+    // largest tab rather than of the whole corpus (which may be a tab's first page).
+    const tabs = tabsFromNav(await getNav());
+    const largest = tabs.reduce((a, b) => (b.routes.length > a.routes.length ? b : a));
+    const order = flattenNav(largest.groups);
     const middle = order[Math.floor(order.length / 2)];
     const doc = await getDoc(middle.href);
     expect(doc).not.toBeNull();

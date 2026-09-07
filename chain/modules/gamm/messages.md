@@ -564,4 +564,4 @@ Behavior: the transaction fails with an unauthorized error when `sender` is not 
 - [x/gamm queries](queries.md)
 - [Trade on the DEX](../../../guides/trade-on-the-dex.md)
 - [gamm precompile](../../evm/gamm-precompile/README.md)
-- [IBC hooks](../../ibc/transfer-tokens-hook.md)
+- [IBC hooks](../../../token-standard/ibc/transfer-tokens-hook.md)

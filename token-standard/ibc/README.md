@@ -24,8 +24,8 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/sendmanager/balance/bb1ab
 
 Two supporting pages complete the picture:
 
-- [Rate limits](rate-limits.md): the `x/ibc-rate-limit` middleware that caps net flow, unique senders, and per-address volume per channel and denom.
-- [Cross-chain queries](cross-chain-queries.md): interchain queries that let another chain verify ownership without moving tokens.
+- [Rate limits](../../chain/modules/ibc-rate-limit.md): the `x/ibc-rate-limit` middleware that caps net flow, unique senders, and per-address volume per channel and denom.
+- [Cross-chain queries](../../chain/cross-chain-queries.md): interchain queries that let another chain verify ownership without moving tokens.
 
 ## How to choose
 
@@ -42,4 +42,4 @@ Native `x/tokenization` balances never travel over IBC. Only x/bank coins do. Wr
 - [Wrap to an IBC denom](../../guides/wrap-to-an-ibc-denom.md)
 - [Special address flags](../approval-criteria/special-address-flags.md)
 - [Prioritized approvals](../concepts/prioritized-approvals.md)
-- [Send manager](../modules/send-manager.md)
+- [Send manager](../../chain/modules/send-manager.md)

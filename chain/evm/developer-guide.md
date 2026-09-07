@@ -115,7 +115,7 @@ Rules:
 - Precompiles convert for you. Address fields in precompile JSON accept either form; the Go side normalizes to bech32.
 - Cosmos SDK validates bech32; the EVM validates hex. Both name the same account.
 
-Concept page: [Accounts](../concepts/accounts.md).
+Concept page: [Accounts](../../token-standard/concepts/accounts.md).
 
 ## Precompile caller
 
@@ -203,7 +203,7 @@ Approval system:
 // Precompile sees contract as caller, but contract has user's approval
 ```
 
-See [Transferability](../concepts/transferability.md) for how outgoing approvals authorize a third party.
+See [Transferability](../../token-standard/concepts/transferability.md) for how outgoing approvals authorize a third party.
 
 ### Security notes
 
@@ -298,7 +298,7 @@ string memory evmQueryChallenge = string(abi.encodePacked(
 ));
 ```
 
-Full field reference: [EVM query challenges](../approval-criteria/evm-query-challenges.md) and [Invariants](../approval-criteria/invariants.md).
+Full field reference: [EVM query challenges](../../token-standard/approval-criteria/evm-query-challenges.md) and [Invariants](../../token-standard/approval-criteria/invariants.md).
 
 ## Best practices
 
@@ -321,4 +321,4 @@ Full field reference: [EVM query challenges](../approval-criteria/evm-query-chal
 - [Tokenization precompile](tokenization-precompile/README.md)
 - [Architecture](architecture.md)
 - [Security](tokenization-precompile/security.md)
-- [Network](../network/README.md)
+- [Network](../README.md)

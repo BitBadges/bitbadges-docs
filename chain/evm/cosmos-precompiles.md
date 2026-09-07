@@ -155,7 +155,7 @@ Query methods:
 | `denoms(PageRequest pagination)` | Get all denom traces |
 | `denomHash(string trace)` | Get hash from denom trace |
 
-Outbound IBC transfers are subject to the chain's [rate limits](../ibc/rate-limits.md).
+Outbound IBC transfers are subject to the chain's [rate limits](../modules/ibc-rate-limit.md).
 
 ## Bank
 

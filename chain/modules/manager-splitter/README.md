@@ -54,7 +54,7 @@ message ManagerSplitterPermissions {
 }
 ```
 
-The permission set mirrors the collection's `CollectionPermissions` (see [Permissions](../../concepts/permissions.md)). Each entry maps a permission to the addresses allowed to exercise it. A permission with no criteria is denied to everyone except the admin. The only supported criteria type today is an approved-address list.
+The permission set mirrors the collection's `CollectionPermissions` (see [Permissions](../../../token-standard/concepts/permissions.md)). Each entry maps a permission to the addresses allowed to exercise it. A permission with no criteria is denied to everyone except the admin. The only supported criteria type today is an approved-address list.
 
 ## How it works
 
@@ -86,6 +86,6 @@ A splitter is one option beyond a single manager address. Others: the Cosmos SDK
 
 ## Related
 
-- [Permissions](../../concepts/permissions.md)
-- [MsgUniversalUpdateCollection](../../messages/msg-universal-update-collection.md)
-- [MsgSetManager](../../messages/msg-set-manager.md)
+- [Permissions](../../../token-standard/concepts/permissions.md)
+- [MsgUniversalUpdateCollection](../../../token-standard/messages/msg-universal-update-collection.md)
+- [MsgSetManager](../../../token-standard/messages/msg-set-manager.md)

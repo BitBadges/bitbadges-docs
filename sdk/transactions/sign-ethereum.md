@@ -99,7 +99,7 @@ function useEthereumSigning() {
 - If you set only `evmAddress` and no `sender`, the payload contains only `evmTx`. With both, you also get the Cosmos payloads and can fall back.
 - `payload.evmTx` is `undefined` when any message has no precompile mapping. Check for it and fall back to [Cosmos signing](sign-cosmos.md).
 - Several tokenization messages in one payload become one `executeMultiple` call to the tokenization precompile (`functionName` is `executeMultiple`). Messages from different modules cannot share one EVM transaction.
-- The wallet must be on the BitBadges EVM network: chain ID `50024` on mainnet, RPC `https://evm-rpc.bitbadges.io`. See [RPC endpoints](../../token-standard/evm/rpc-endpoints.md).
+- The wallet must be on the BitBadges EVM network: chain ID `50024` on mainnet, RPC `https://evm-rpc.bitbadges.io`. See [RPC endpoints](../../chain/evm/rpc-endpoints.md).
 
 | | Cosmos | Ethereum |
 | --- | --- | --- |
@@ -112,5 +112,5 @@ function useEthereumSigning() {
 ## Related
 
 - [Transactions](README.md)
-- [Tokenization precompile](../../token-standard/evm/tokenization-precompile/README.md)
-- [EVM developer guide](../../token-standard/evm/developer-guide.md)
+- [Tokenization precompile](../../chain/evm/tokenization-precompile/README.md)
+- [EVM developer guide](../../chain/evm/developer-guide.md)

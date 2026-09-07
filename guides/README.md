@@ -9,7 +9,7 @@ Each guide takes one job (create a token, distribute it, gate access, sign users
 Every guide assumes:
 
 - `bb` is installed (see the [Quickstart](../start/quickstart.md)).
-- Examples target mainnet. The testnet is offline; see [Testnet](../token-standard/network/testnet.md).
+- Examples target mainnet. The testnet is offline; see [Testnet](../chain/testnet.md).
 - Transaction JSON is signed and broadcast with `bb deploy` (see [Deploy](../cli/deploy.md)) or the [SDK signing client](../sdk/transactions/README.md).
 
 ## Guides

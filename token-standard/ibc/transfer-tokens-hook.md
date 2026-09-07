@@ -145,7 +145,7 @@ Cross-chain minting, cross-chain purchases (pay with IBC coins, receive tokens a
 
 ## `swap_and_action`
 
-Swaps the received coins through an [x/gamm](../modules/gamm/README.md) pool and then performs one post-swap action: a local transfer or an IBC transfer. The memo format follows Skip Protocol's implementation with minor differences; some Skip features are not supported.
+Swaps the received coins through an [x/gamm](../../chain/modules/gamm/README.md) pool and then performs one post-swap action: a local transfer or an IBC transfer. The memo format follows Skip Protocol's implementation with minor differences; some Skip features are not supported.
 
 ### Types
 
@@ -460,5 +460,5 @@ Swap with affiliates:
 
 - [MsgTransferTokens](../messages/msg-transfer-tokens.md)
 - [Backed minting](backed-minting.md)
-- [x/gamm](../modules/gamm/README.md)
-- [Rate limits](rate-limits.md)
+- [x/gamm](../../chain/modules/gamm/README.md)
+- [Rate limits](../../chain/modules/ibc-rate-limit.md)

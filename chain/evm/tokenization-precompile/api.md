@@ -77,7 +77,7 @@ The full interface with events and doc comments is [`contracts/interfaces/IToken
 
 ## JSON rules
 
-- The JSON is the protobuf JSON of the `x/tokenization` message or query request, decoded with the module codec. Field names are camelCase, exactly as on the [message pages](../../messages/README.md).
+- The JSON is the protobuf JSON of the `x/tokenization` message or query request, decoded with the module codec. Field names are camelCase, exactly as on the [message pages](../../../token-standard/messages/README.md).
 - Numbers are strings (`"123"`, never `123`). Booleans are raw (`true`). Arrays and objects are standard JSON.
 - Addresses may be `0x` hex or `bb1` bech32. The precompile converts hex to bech32 in `toAddresses`, `manager`, approval criteria, address lists, and query address fields.
 - `creator` is set from `msg.sender`. A value in the JSON is ignored.
@@ -88,7 +88,7 @@ The full interface with events and doc comments is [`contracts/interfaces/IToken
 
 ### transferTokens
 
-Transfer tokens from the caller (or from an address that has approved the caller) to one or more recipients. Message: [MsgTransferTokens](../../messages/msg-transfer-tokens.md).
+Transfer tokens from the caller (or from an address that has approved the caller) to one or more recipients. Message: [MsgTransferTokens](../../../token-standard/messages/msg-transfer-tokens.md).
 
 ```solidity
 function transferTokens(string calldata msgJson) external returns (bool success)
@@ -153,7 +153,7 @@ Emits `precompile_transfer_tokens` with `collection_id`, `from`, `to_addresses`,
 
 ### setIncomingApproval
 
-Set or replace one incoming approval on the caller's balance store. Message: [MsgSetIncomingApproval](../../messages/msg-set-incoming-approval.md).
+Set or replace one incoming approval on the caller's balance store. Message: [MsgSetIncomingApproval](../../../token-standard/messages/msg-set-incoming-approval.md).
 
 ```solidity
 function setIncomingApproval(string calldata msgJson) external returns (bool success)
@@ -178,7 +178,7 @@ Helper: `setIncomingApprovalJSON(collectionId, approvalJson)`; build the approva
 
 ### setOutgoingApproval
 
-Set or replace one outgoing approval on the caller's balance store. Message: [MsgSetOutgoingApproval](../../messages/msg-set-outgoing-approval.md).
+Set or replace one outgoing approval on the caller's balance store. Message: [MsgSetOutgoingApproval](../../../token-standard/messages/msg-set-outgoing-approval.md).
 
 ```solidity
 function setOutgoingApproval(string calldata msgJson) external returns (bool success)
@@ -203,7 +203,7 @@ Helper: `setOutgoingApprovalJSON(collectionId, approvalJson)` with `userOutgoing
 
 ### deleteIncomingApproval and deleteOutgoingApproval
 
-Delete an approval by ID. Messages: [MsgDeleteIncomingApproval](../../messages/msg-delete-incoming-approval.md), [MsgDeleteOutgoingApproval](../../messages/msg-delete-outgoing-approval.md).
+Delete an approval by ID. Messages: [MsgDeleteIncomingApproval](../../../token-standard/messages/msg-delete-incoming-approval.md), [MsgDeleteOutgoingApproval](../../../token-standard/messages/msg-delete-outgoing-approval.md).
 
 ```solidity
 function deleteIncomingApproval(string calldata msgJson) external returns (bool success)
@@ -231,7 +231,7 @@ string memory json = TokenizationJSONHelpers.deleteOutgoingApprovalJSON(
 
 ### updateUserApprovals
 
-Replace the caller's outgoing approvals, incoming approvals, auto-approve flags, and user permissions in one message. Each group has an `update*` flag. Message: [MsgUpdateUserApprovals](../../messages/msg-update-user-approvals.md).
+Replace the caller's outgoing approvals, incoming approvals, auto-approve flags, and user permissions in one message. Each group has an `update*` flag. Message: [MsgUpdateUserApprovals](../../../token-standard/messages/msg-update-user-approvals.md).
 
 ```solidity
 function updateUserApprovals(string calldata msgJson) external returns (bool success)
@@ -259,7 +259,7 @@ Helper: `updateUserApprovalsJSON(...)`.
 
 ### purgeApprovals
 
-Remove expired approvals, or counterparty approvals that name the caller, from a balance store. Returns the number purged. Message: [MsgPurgeApprovals](../../messages/msg-purge-approvals.md).
+Remove expired approvals, or counterparty approvals that name the caller, from a balance store. Returns the number purged. Message: [MsgPurgeApprovals](../../../token-standard/messages/msg-purge-approvals.md).
 
 ```solidity
 function purgeApprovals(string calldata msgJson) external returns (uint256 numPurged)
@@ -279,7 +279,7 @@ Helper: `purgeApprovalsJSON(...)`.
 
 ### createCollection
 
-Create a collection. The caller becomes the creator; `manager` may be any address. Returns the new collection ID. Message: [MsgCreateCollection](../../messages/msg-create-collection.md).
+Create a collection. The caller becomes the creator; `manager` may be any address. Returns the new collection ID. Message: [MsgCreateCollection](../../../token-standard/messages/msg-create-collection.md).
 
 ```solidity
 function createCollection(string calldata msgJson) external returns (uint256 collectionId)
@@ -349,7 +349,7 @@ Emits `CollectionCreated`.
 
 ### updateCollection
 
-Update the fields of a collection that the caller (the manager) is permitted to change. Each field has an `update*` flag. Returns the collection ID. Message: [MsgUpdateCollection](../../messages/msg-update-collection.md).
+Update the fields of a collection that the caller (the manager) is permitted to change. Each field has an `update*` flag. Returns the collection ID. Message: [MsgUpdateCollection](../../../token-standard/messages/msg-update-collection.md).
 
 ```solidity
 function updateCollection(string calldata msgJson) external returns (uint256 collectionId)
@@ -375,7 +375,7 @@ Emits `CollectionUpdated`.
 
 ### universalUpdateCollection
 
-The superset message: create (`collectionId` `"0"`) or update a collection, with `defaultBalances` and every `update*` flag from `updateCollection`. Returns the collection ID. Message: [MsgUniversalUpdateCollection](../../messages/msg-universal-update-collection.md).
+The superset message: create (`collectionId` `"0"`) or update a collection, with `defaultBalances` and every `update*` flag from `updateCollection`. Returns the collection ID. Message: [MsgUniversalUpdateCollection](../../../token-standard/messages/msg-universal-update-collection.md).
 
 ```solidity
 function universalUpdateCollection(string calldata msgJson) external returns (uint256 collectionId)
@@ -402,7 +402,7 @@ function universalUpdateCollection(string calldata msgJson) external returns (ui
 
 ### deleteCollection
 
-Delete a collection. Only the manager with the `canDeleteCollection` permission can delete. Message: [MsgDeleteCollection](../../messages/msg-delete-collection.md).
+Delete a collection. Only the manager with the `canDeleteCollection` permission can delete. Message: [MsgDeleteCollection](../../../token-standard/messages/msg-delete-collection.md).
 
 ```solidity
 function deleteCollection(string calldata msgJson) external returns (bool success)
@@ -422,7 +422,7 @@ Emits `CollectionDeleted`.
 
 ### setValidTokenIds
 
-Set the collection's valid token ID ranges and, optionally, lock the permission. Returns the collection ID. Message: [MsgSetValidTokenIds](../../messages/msg-set-valid-token-ids.md).
+Set the collection's valid token ID ranges and, optionally, lock the permission. Returns the collection ID. Message: [MsgSetValidTokenIds](../../../token-standard/messages/msg-set-valid-token-ids.md).
 
 ```solidity
 function setValidTokenIds(string calldata msgJson) external returns (uint256 collectionId)
@@ -440,7 +440,7 @@ Helper: `setValidTokenIdsJSON(collectionId, validTokenIdsJson, canUpdateValidTok
 
 ### setManager
 
-Transfer the manager role. Returns the collection ID. Message: [MsgSetManager](../../messages/msg-set-manager.md).
+Transfer the manager role. Returns the collection ID. Message: [MsgSetManager](../../../token-standard/messages/msg-set-manager.md).
 
 ```solidity
 function setManager(string calldata msgJson) external returns (uint256 collectionId)
@@ -458,7 +458,7 @@ Helper: `setManagerJSON(collectionId, manager, canUpdateManagerJson)`. The hex m
 
 ### setCollectionMetadata
 
-Set the collection metadata (`uri`, `customData`). Returns the collection ID. Message: [MsgSetCollectionMetadata](../../messages/msg-set-collection-metadata.md).
+Set the collection metadata (`uri`, `customData`). Returns the collection ID. Message: [MsgSetCollectionMetadata](../../../token-standard/messages/msg-set-collection-metadata.md).
 
 ```solidity
 function setCollectionMetadata(string calldata msgJson) external returns (uint256 collectionId)
@@ -476,7 +476,7 @@ Helper: `setCollectionMetadataJSON(collectionId, collectionMetadataJson, canUpda
 
 ### setTokenMetadata
 
-Set per-token-ID metadata. Returns the collection ID. Message: [MsgSetTokenMetadata](../../messages/msg-set-token-metadata.md).
+Set per-token-ID metadata. Returns the collection ID. Message: [MsgSetTokenMetadata](../../../token-standard/messages/msg-set-token-metadata.md).
 
 ```solidity
 function setTokenMetadata(string calldata msgJson) external returns (uint256 collectionId)
@@ -496,7 +496,7 @@ Helper: `setTokenMetadataJSON(...)` with `tokenMetadataToJson`.
 
 ### setCustomData
 
-Set the collection's `customData` string. Returns the collection ID. Message: [MsgSetCustomData](../../messages/msg-set-custom-data.md).
+Set the collection's `customData` string. Returns the collection ID. Message: [MsgSetCustomData](../../../token-standard/messages/msg-set-custom-data.md).
 
 ```solidity
 function setCustomData(string calldata msgJson) external returns (uint256 collectionId)
@@ -514,7 +514,7 @@ Helper: `setCustomDataJSON(collectionId, customData, canUpdateCustomDataJson)`.
 
 ### setStandards
 
-Set the collection's standards list. Returns the collection ID. Message: [MsgSetStandards](../../messages/msg-set-standards.md).
+Set the collection's standards list. Returns the collection ID. Message: [MsgSetStandards](../../../token-standard/messages/msg-set-standards.md).
 
 ```solidity
 function setStandards(string calldata msgJson) external returns (uint256 collectionId)
@@ -532,7 +532,7 @@ Helper: `setStandardsJSON(collectionId, standardsJson, canUpdateStandardsJson)`.
 
 ### setCollectionApprovals
 
-Replace the collection-level approvals. Returns the collection ID. Message: [MsgSetCollectionApprovals](../../messages/msg-set-collection-approvals.md).
+Replace the collection-level approvals. Returns the collection ID. Message: [MsgSetCollectionApprovals](../../../token-standard/messages/msg-set-collection-approvals.md).
 
 ```solidity
 function setCollectionApprovals(string calldata msgJson) external returns (uint256 collectionId)
@@ -557,11 +557,11 @@ function setCollectionApprovals(string calldata msgJson) external returns (uint2
 }
 ```
 
-Helper: `setCollectionApprovalsJSON(...)` with `collectionApprovalToJson` and `collectionApprovalArrayToJson`. Hex addresses inside approvals and criteria are converted. Criteria reference: [Approval criteria](../../approval-criteria/README.md).
+Helper: `setCollectionApprovalsJSON(...)` with `collectionApprovalToJson` and `collectionApprovalArrayToJson`. Hex addresses inside approvals and criteria are converted. Criteria reference: [Approval criteria](../../../token-standard/approval-criteria/README.md).
 
 ### setIsArchived
 
-Archive or unarchive a collection. Returns the collection ID. Message: [MsgSetIsArchived](../../messages/msg-set-is-archived.md).
+Archive or unarchive a collection. Returns the collection ID. Message: [MsgSetIsArchived](../../../token-standard/messages/msg-set-is-archived.md).
 
 ```solidity
 function setIsArchived(string calldata msgJson) external returns (uint256 collectionId)
@@ -579,7 +579,7 @@ Helper: `setIsArchivedJSON(collectionId, isArchived, canArchiveCollectionJson)`.
 
 ### createDynamicStore
 
-Create a dynamic boolean store (for example a KYC registry). Returns the store ID. Message: [MsgCreateDynamicStore](../../messages/msg-create-dynamic-store.md).
+Create a dynamic boolean store (for example a KYC registry). Returns the store ID. Message: [MsgCreateDynamicStore](../../../token-standard/messages/msg-create-dynamic-store.md).
 
 ```solidity
 function createDynamicStore(string calldata msgJson) external returns (uint256 storeId)
@@ -615,7 +615,7 @@ Emits `DynamicStoreCreated`.
 
 ### updateDynamicStore
 
-Update a store's default value, global enabled flag, or metadata. Only the store creator may update. Message: [MsgUpdateDynamicStore](../../messages/msg-update-dynamic-store.md).
+Update a store's default value, global enabled flag, or metadata. Only the store creator may update. Message: [MsgUpdateDynamicStore](../../../token-standard/messages/msg-update-dynamic-store.md).
 
 ```solidity
 function updateDynamicStore(string calldata msgJson) external returns (bool success)
@@ -635,7 +635,7 @@ Helper: `updateDynamicStoreJSON(...)`.
 
 ### deleteDynamicStore
 
-Delete a store. Only the creator may delete. Message: [MsgDeleteDynamicStore](../../messages/msg-delete-dynamic-store.md).
+Delete a store. Only the creator may delete. Message: [MsgDeleteDynamicStore](../../../token-standard/messages/msg-delete-dynamic-store.md).
 
 ```solidity
 function deleteDynamicStore(string calldata msgJson) external returns (bool success)
@@ -651,7 +651,7 @@ Helper: `deleteDynamicStoreJSON(storeId)`.
 
 ### setDynamicStoreValue
 
-Set the boolean for an address in a store. Only the creator may set. Message: [MsgSetDynamicStoreValue](../../messages/msg-set-dynamic-store-value.md).
+Set the boolean for an address in a store. Only the creator may set. Message: [MsgSetDynamicStoreValue](../../../token-standard/messages/msg-set-dynamic-store-value.md).
 
 ```solidity
 function setDynamicStoreValue(string calldata msgJson) external returns (bool success)
@@ -685,7 +685,7 @@ TOKENIZATION.setDynamicStoreValue(setValueJson);
 
 ### createAddressLists
 
-Create one or more address lists. Message: [MsgCreateAddressLists](../../messages/msg-create-address-lists.md).
+Create one or more address lists. Message: [MsgCreateAddressLists](../../../token-standard/messages/msg-create-address-lists.md).
 
 ```solidity
 function createAddressLists(string calldata msgJson) external returns (bool success)
@@ -705,11 +705,11 @@ function createAddressLists(string calldata msgJson) external returns (bool succ
 }
 ```
 
-Helper: `createAddressListsJSON(...)` with `addressListInputToJson`. At most 1,000 addresses per list. Emits `AddressListsCreated`. Concept: [Address lists](../../concepts/address-lists.md).
+Helper: `createAddressListsJSON(...)` with `addressListInputToJson`. At most 1,000 addresses per list. Emits `AddressListsCreated`. Concept: [Address lists](../../../token-standard/concepts/address-lists.md).
 
 ### castVote
 
-Cast a vote on a voting challenge attached to an approval. Message: [MsgCastVote](../../messages/msg-cast-vote.md).
+Cast a vote on a voting challenge attached to an approval. Message: [MsgCastVote](../../../token-standard/messages/msg-cast-vote.md).
 
 ```solidity
 function castVote(string calldata msgJson) external returns (bool success)
@@ -726,7 +726,7 @@ function castVote(string calldata msgJson) external returns (bool success)
 }
 ```
 
-Helper: `castVoteJSON(...)`. Criteria: [Voting challenges](../../approval-criteria/voting-challenges.md).
+Helper: `castVoteJSON(...)`. Criteria: [Voting challenges](../../../token-standard/approval-criteria/voting-challenges.md).
 
 ### executeMultiple
 
@@ -786,11 +786,11 @@ Behavior:
 
 ## Query methods
 
-Most getters return the protobuf-encoded gRPC response as `bytes`. See [Return values](README.md#return-values) for how to use them. The request JSON is the query request type from the [queries reference](../../queries/README.md); `0x` addresses are converted.
+Most getters return the protobuf-encoded gRPC response as `bytes`. See [Return values](README.md#return-values) for how to use them. The request JSON is the query request type from the [queries reference](../../../token-standard/queries/README.md); `0x` addresses are converted.
 
 ### getCollection
 
-Query: [GetCollection](../../queries/get-collection.md).
+Query: [GetCollection](../../../token-standard/queries/get-collection.md).
 
 ```solidity
 function getCollection(string calldata msgJson) external view returns (bytes memory collection)
@@ -814,7 +814,7 @@ bytes memory collection = TOKENIZATION.getCollection(queryJson);
 
 ### getCollectionStats
 
-Holder count and circulating supply. Query: [GetCollectionStats](../../queries/get-collection-stats.md).
+Holder count and circulating supply. Query: [GetCollectionStats](../../../token-standard/queries/get-collection-stats.md).
 
 ```solidity
 function getCollectionStats(string calldata msgJson) external view returns (bytes memory stats)
@@ -843,7 +843,7 @@ uint256 holders = TokenizationDecoders.parseHolderCountFromStats(stats);
 
 ### getBalance
 
-The full balance store for an address: balances, approvals, permissions. Query: [GetBalance](../../queries/get-balance.md).
+The full balance store for an address: balances, approvals, permissions. Query: [GetBalance](../../../token-standard/queries/get-balance.md).
 
 ```solidity
 function getBalance(string calldata msgJson) external view returns (bytes memory balance)
@@ -930,11 +930,11 @@ string memory supplyJson = string(abi.encodePacked(
 uint256 supply = TOKENIZATION.getTotalSupply(supplyJson);
 ```
 
-Helper: `getTotalSupplyJSON(collectionId, tokenId, ownershipTime)`. Concept: [Minting and supply](../../concepts/minting-and-supply.md).
+Helper: `getTotalSupplyJSON(collectionId, tokenId, ownershipTime)`. Concept: [Minting and supply](../../../token-standard/concepts/minting-and-supply.md).
 
 ### getAddressList
 
-Query: [GetAddressList](../../queries/get-address-list.md).
+Query: [GetAddressList](../../../token-standard/queries/get-address-list.md).
 
 ```solidity
 function getAddressList(string calldata msgJson) external view returns (bytes memory list)
@@ -952,7 +952,7 @@ string memory json = TokenizationJSONHelpers.getAddressListJSON(listId);
 
 ### getApprovalTracker
 
-Tallied amounts and transfer counts for an approval tracker. Query: [GetApprovalTracker](../../queries/get-approval-tracker.md).
+Tallied amounts and transfer counts for an approval tracker. Query: [GetApprovalTracker](../../../token-standard/queries/get-approval-tracker.md).
 
 ```solidity
 function getApprovalTracker(string calldata msgJson) external view returns (bytes memory tracker)
@@ -970,11 +970,11 @@ function getApprovalTracker(string calldata msgJson) external view returns (byte
 }
 ```
 
-Helper: `getApprovalTrackerJSON(...)`. `approverAddress` and `approvedAddress` accept hex. Criteria: [Approval trackers](../../approval-criteria/approval-trackers.md).
+Helper: `getApprovalTrackerJSON(...)`. `approverAddress` and `approvedAddress` accept hex. Criteria: [Approval trackers](../../../token-standard/approval-criteria/approval-trackers.md).
 
 ### getChallengeTracker
 
-How many times a merkle challenge leaf has been used. Returns `uint256`. Query: [GetChallengeTracker](../../queries/get-challenge-tracker.md).
+How many times a merkle challenge leaf has been used. Returns `uint256`. Query: [GetChallengeTracker](../../../token-standard/queries/get-challenge-tracker.md).
 
 ```solidity
 function getChallengeTracker(string calldata msgJson) external view returns (uint256 numUsed)
@@ -991,11 +991,11 @@ function getChallengeTracker(string calldata msgJson) external view returns (uin
 }
 ```
 
-Helper: `getChallengeTrackerJSON(...)`. Criteria: [Merkle challenges](../../approval-criteria/merkle-challenges.md).
+Helper: `getChallengeTrackerJSON(...)`. Criteria: [Merkle challenges](../../../token-standard/approval-criteria/merkle-challenges.md).
 
 ### getETHSignatureTracker
 
-How many times an ETH signature has been used against an approval. Returns `uint256`. Query: [GetETHSignatureTracker](../../queries/get-eth-signature-tracker.md).
+How many times an ETH signature has been used against an approval. Returns `uint256`. Query: [GetETHSignatureTracker](../../../token-standard/queries/get-eth-signature-tracker.md).
 
 ```solidity
 function getETHSignatureTracker(string calldata msgJson) external view returns (uint256 numUsed)
@@ -1012,11 +1012,11 @@ function getETHSignatureTracker(string calldata msgJson) external view returns (
 }
 ```
 
-Criteria: [ETH signature challenges](../../approval-criteria/eth-signature-challenges.md).
+Criteria: [ETH signature challenges](../../../token-standard/approval-criteria/eth-signature-challenges.md).
 
 ### getDynamicStore
 
-Store configuration: creator, default value, global enabled flag, metadata. Query: [GetDynamicStore](../../queries/get-dynamic-store.md).
+Store configuration: creator, default value, global enabled flag, metadata. Query: [GetDynamicStore](../../../token-standard/queries/get-dynamic-store.md).
 
 ```solidity
 function getDynamicStore(string calldata msgJson) external view returns (bytes memory store)
@@ -1032,7 +1032,7 @@ Helper: `getDynamicStoreJSON(storeId)`.
 
 ### getDynamicStoreValue
 
-The boolean for an address in a store, as protobuf bytes. Query: [GetDynamicStoreValue](../../queries/get-dynamic-store-value.md).
+The boolean for an address in a store, as protobuf bytes. Query: [GetDynamicStoreValue](../../../token-standard/queries/get-dynamic-store-value.md).
 
 ```solidity
 function getDynamicStoreValue(string calldata msgJson) external view returns (bytes memory value)
@@ -1067,7 +1067,7 @@ bytes memory result = TOKENIZATION.getDynamicStoreValue(getValueJson);
 
 ### getWrappableBalances
 
-How much of a wrapped denom the address can unwrap back into collection tokens. Returns `uint256`. Query: [GetWrappableBalances](../../queries/get-wrappable-balances.md).
+How much of a wrapped denom the address can unwrap back into collection tokens. Returns `uint256`. Query: [GetWrappableBalances](../../../token-standard/queries/get-wrappable-balances.md).
 
 ```solidity
 function getWrappableBalances(string calldata msgJson) external view returns (uint256 amount)
@@ -1080,11 +1080,11 @@ function getWrappableBalances(string calldata msgJson) external view returns (ui
 }
 ```
 
-Helper: `getWrappableBalancesJSON(denom, address)`. Concept: [Cosmos coin wrapper paths](../../ibc/cosmos-coin-wrapper-paths.md).
+Helper: `getWrappableBalancesJSON(denom, address)`. Concept: [Cosmos coin wrapper paths](../../../token-standard/ibc/cosmos-coin-wrapper-paths.md).
 
 ### isAddressReservedProtocol
 
-Whether an address is a reserved protocol address. Returns `bool`. The zero address returns `false`. Query: [IsAddressReservedProtocol](../../queries/is-address-reserved-protocol.md).
+Whether an address is a reserved protocol address. Returns `bool`. The zero address returns `false`. Query: [IsAddressReservedProtocol](../../../token-standard/queries/is-address-reserved-protocol.md).
 
 ```solidity
 function isAddressReservedProtocol(string calldata msgJson) external view returns (bool isReserved)
@@ -1100,7 +1100,7 @@ Helper: `isAddressReservedProtocolJSON(address)`.
 
 ### getAllReservedProtocolAddresses
 
-All reserved protocol addresses, returned as EVM addresses. Query: [GetAllReservedProtocolAddresses](../../queries/get-all-reserved-protocol-addresses.md).
+All reserved protocol addresses, returned as EVM addresses. Query: [GetAllReservedProtocolAddresses](../../../token-standard/queries/get-all-reserved-protocol-addresses.md).
 
 ```solidity
 function getAllReservedProtocolAddresses(string calldata msgJson) external view returns (address[] memory addresses)
@@ -1114,7 +1114,7 @@ Helper: `getAllReservedProtocolAddressesJSON()`. Pass `"{}"` or an empty string.
 
 ### getVote
 
-One voter's vote on a proposal. Query: [GetVote](../../queries/get-vote.md).
+One voter's vote on a proposal. Query: [GetVote](../../../token-standard/queries/get-vote.md).
 
 ```solidity
 function getVote(string calldata msgJson) external view returns (bytes memory vote)
@@ -1135,7 +1135,7 @@ Helper: `getVoteJSON(...)`.
 
 ### getVotes
 
-All votes on a proposal. Query: [GetVotes](../../queries/get-votes.md).
+All votes on a proposal. Query: [GetVotes](../../../token-standard/queries/get-votes.md).
 
 ```solidity
 function getVotes(string calldata msgJson) external view returns (bytes memory votes)
@@ -1155,7 +1155,7 @@ Helper: `getVotesJSON(...)`.
 
 ### params
 
-Module parameters. Query: [Params](../../queries/params.md).
+Module parameters. Query: [Params](../../../token-standard/queries/params.md).
 
 ```solidity
 function params(string calldata msgJson) external view returns (bytes memory params)
@@ -1272,7 +1272,7 @@ string memory listId = TOKENIZATION.getReservedListId(msg.sender);
 // Returns: "bb1qy2q3j4k5l6m7n8p9q0r..." (the bech32 address)
 ```
 
-To test whether a list ID is `"All"`, compare the string: `keccak256(bytes(listId)) == keccak256(bytes("All"))`. Reserved IDs: [Address lists](../../concepts/address-lists.md).
+To test whether a list ID is `"All"`, compare the string: `keccak256(bytes(listId)) == keccak256(bytes("All"))`. Reserved IDs: [Address lists](../../../token-standard/concepts/address-lists.md).
 
 ## Helper library reference
 
@@ -1325,11 +1325,11 @@ Further builders: `balanceToJson`, `balanceArrayToJson`, `tokenMetadataToJson`, 
 
 ## Events
 
-The precompile emits Cosmos events (`precompile_transfer_tokens`, `precompile_set_incoming_approval`, `precompile_set_outgoing_approval`, `precompile_get_balance_amount`) with `module=evm_precompile`. The Solidity interface declares the matching EVM events `TransferTokens`, `SetIncomingApproval`, `SetOutgoingApproval`, `CollectionCreated`, `CollectionUpdated`, `CollectionDeleted`, `AddressListsCreated`, `DynamicStoreCreated`. The module's own events are emitted too; see [WebSocket events](../../network/websocket-events.md).
+The precompile emits Cosmos events (`precompile_transfer_tokens`, `precompile_set_incoming_approval`, `precompile_set_outgoing_approval`, `precompile_get_balance_amount`) with `module=evm_precompile`. The Solidity interface declares the matching EVM events `TransferTokens`, `SetIncomingApproval`, `SetOutgoingApproval`, `CollectionCreated`, `CollectionUpdated`, `CollectionDeleted`, `AddressListsCreated`, `DynamicStoreCreated`. The module's own events are emitted too; see [WebSocket events](../../websocket-events.md).
 
 ## Related
 
 - [Tokenization precompile](README.md)
 - [Errors](errors.md)
 - [Gas](gas.md)
-- [Messages](../../messages/README.md)
+- [Messages](../../../token-standard/messages/README.md)

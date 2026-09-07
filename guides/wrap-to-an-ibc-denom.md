@@ -202,7 +202,7 @@ bb build send --from bb1you... --to <wrapperAddress> --amount 5000000 --denom ut
 
 `bb build send` treats `--amount` as base units when `--denom` is a raw chain denom and as display units for known symbols; `--base-units` forces base units.
 
-The coin is now a regular x/bank balance: send it with a bank transfer, trade it in a pool (see [Trade on the DEX](trade-on-the-dex.md)), or move it over IBC. For rate limits on outbound IBC transfers, see [Rate limits](../token-standard/ibc/rate-limits.md).
+The coin is now a regular x/bank balance: send it with a bank transfer, trade it in a pool (see [Trade on the DEX](trade-on-the-dex.md)), or move it over IBC. For rate limits on outbound IBC transfers, see [Rate limits](../chain/modules/ibc-rate-limit.md).
 
 ## Next steps
 

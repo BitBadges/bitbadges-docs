@@ -28,7 +28,7 @@ No. The standard takes inspiration from ERC-721 but has its own properties and a
 
 ## Can the standard be extended with smart contracts?
 
-Yes. The token standard is a Cosmos module. The aim is that no smart contract is ever needed, but EVM environments can call into the module, and the module can call into other environments. See [EVM](../token-standard/evm/README.md).
+Yes. The token standard is a Cosmos module. The aim is that no smart contract is ever needed, but EVM environments can call into the module, and the module can call into other environments. See [EVM](../chain/evm/README.md).
 
 ## What does the protocol charge? Can I add affiliate fees?
 

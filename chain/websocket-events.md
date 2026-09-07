@@ -73,7 +73,7 @@ The `message.action` attribute is the message type URL, `/<proto package>.<Msg>`
 | Swap (gamm) | `/gamm.v1beta1.MsgSwapExactAmountIn` |
 | Send with alias routing | `/sendmanager.MsgSendWithAliasRouting` |
 
-The full message list is in [Messages](../messages/README.md).
+The full message list is in [Messages](../token-standard/messages/README.md).
 
 ## Node.js listener
 
@@ -169,10 +169,10 @@ All queries:
 - Event attributes can be base64-encoded in CometBFT responses. Decode with `atob()` or `Buffer.from(str, 'base64').toString()`. Newer CometBFT versions return plain strings; handle both.
 - Connections drop on network issues. Reconnect with exponential backoff in production bots.
 - The BitBadges API's internal WebSocket (activity feeds, candlestick data) is not public. Use the REST API for indexed data.
-- For historical data, use the [BitBadges API](../../api/README.md) rather than replaying events.
+- For historical data, use the [BitBadges API](../api/README.md) rather than replaying events.
 
 ## Related
 
 - [Network](README.md)
-- [Bot examples](../../agents/bot-examples.md)
-- [Messages](../messages/README.md)
+- [Bot examples](../agents/bot-examples.md)
+- [Messages](../token-standard/messages/README.md)

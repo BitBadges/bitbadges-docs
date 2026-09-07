@@ -86,4 +86,4 @@ Uses: contract-only integrations, keeping a token out of liquidity pools, requir
 
 - [Overrides](overrides.md)
 - [Approval criteria](README.md)
-- [gamm](../modules/gamm/README.md)
+- [gamm](../../chain/modules/gamm/README.md)

@@ -11,7 +11,7 @@ This page sets up a development environment for building dApps against the BitBa
 | Network | EVM chain ID | Status |
 | --- | --- | --- |
 | Local development | `90123` | Default when you run a node yourself |
-| Testnet | `50025` | Registered in ethereum-lists/chains. Offline, see [Testnet](../network/testnet.md) |
+| Testnet | `50025` | Registered in ethereum-lists/chains. Offline, see [Testnet](../testnet.md) |
 | Mainnet | `50024` | Registered in ethereum-lists/chains |
 
 The values come from `app/params/constants.go`:
@@ -468,7 +468,7 @@ contract ComplianceToken {
 }
 ```
 
-A cheaper alternative for gating is a [dynamic store challenge](../approval-criteria/dynamic-store-challenges.md) in the collection approvals, which the chain checks on every transfer without a contract call.
+A cheaper alternative for gating is a [dynamic store challenge](../../token-standard/approval-criteria/dynamic-store-challenges.md) in the collection approvals, which the chain checks on every transfer without a contract call.
 
 ## Complete examples
 
@@ -519,4 +519,4 @@ Each example uses dynamic stores for compliance registries, time-bound ownership
 - [Developer guide](developer-guide.md)
 - [Tokenization precompile API](tokenization-precompile/api.md)
 - [EVM RPC endpoints](rpc-endpoints.md)
-- [Run a node](../network/run-a-node.md)
+- [Run a node](../run-a-node.md)

@@ -242,5 +242,5 @@ Community guides that cover the same ground: [provewithryd](https://docs.provewi
 ## Related
 
 - [Network](README.md)
-- [EVM RPC endpoints](../evm/rpc-endpoints.md)
+- [EVM RPC endpoints](evm/rpc-endpoints.md)
 - [WebSocket events](websocket-events.md)

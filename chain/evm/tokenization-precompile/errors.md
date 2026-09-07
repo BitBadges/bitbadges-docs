@@ -229,7 +229,7 @@ bytes memory collectionBytes = precompile.getCollection(
 // Check incoming approval for recipient
 ```
 
-Concepts: [Transferability](../../concepts/transferability.md), [Permissions](../../concepts/permissions.md).
+Concepts: [Transferability](../../../token-standard/concepts/transferability.md), [Permissions](../../../token-standard/concepts/permissions.md).
 
 ### Collection archived
 
@@ -263,7 +263,7 @@ string memory rangeJson = TokenizationJSONHelpers.uintRangeToJson(startTime, end
 
 ### EVM query challenge failed
 
-A transfer gated by an [EVM query challenge](../../approval-criteria/evm-query-challenges.md) or an invariant fails as a transfer or authorization error (code 4 or 8) with the challenge result in the details, for example `contract returned 0, expected >= 1`.
+A transfer gated by an [EVM query challenge](../../../token-standard/approval-criteria/evm-query-challenges.md) or an invariant fails as a transfer or authorization error (code 4 or 8) with the challenge result in the details, for example `contract returned 0, expected >= 1`.
 
 Debugging:
 
@@ -316,7 +316,7 @@ Cause: deleting or referencing an approval ID that does not exist.
 precompile error [code=1]: invalid input parameters: message validation failed: merkle root is required for merkle challenge
 ```
 
-Common causes: a merkle challenge without a root; voting criteria without a proposal ID; an approval tracker without limits. Field reference: [Approval criteria](../../approval-criteria/README.md).
+Common causes: a merkle challenge without a root; voting criteria without a proposal ID; an approval tracker without limits. Field reference: [Approval criteria](../../../token-standard/approval-criteria/README.md).
 
 ## Debugging
 
@@ -333,7 +333,7 @@ function debugTransfer(...) external {
 }
 ```
 
-Validate the JSON outside the chain: copy it from the log, check it in a JSON validator, and compare field names against the [message page](../../messages/README.md).
+Validate the JSON outside the chain: copy it from the log, check it in a JSON validator, and compare field names against the [message page](../../../token-standard/messages/README.md).
 
 Test components on their own:
 

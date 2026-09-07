@@ -6,7 +6,7 @@ description: "Copy-paste bot patterns on mainnet. Mint a fungible token, conditi
 
 Copy-paste patterns for bots and agents that act on mainnet. Each example is a complete script skeleton; fill in the collection configuration and addresses.
 
-Testnet is offline, so every example targets mainnet. Test on a low-value collection first. Testnet status and the faucet API shape: [Testnet](../token-standard/network/testnet.md).
+Testnet is offline, so every example targets mainnet. Test on a low-value collection first. Testnet status and the faucet API shape: [Testnet](../chain/testnet.md).
 
 ## 1. Mint a fungible token
 
@@ -172,7 +172,7 @@ ws.on('close', () => {
 });
 ```
 
-Query syntax and event types: [WebSocket events](../token-standard/network/websocket-events.md).
+Query syntax and event types: [WebSocket events](../chain/websocket-events.md).
 
 ## 5. Builder tool workflow
 
@@ -232,7 +232,7 @@ The builder builds and validates but never signs or broadcasts. Sign with the SD
 ## Tips for agents
 
 - Simulate before broadcasting. Use `simulate_transaction`, `bb simulate`, or the signing client's `simulate: true` option to catch errors before spending gas.
-- Test on a low-value collection first. Testnet is offline; see [Testnet](../token-standard/network/testnet.md) for status and the faucet shape.
+- Test on a low-value collection first. Testnet is offline; see [Testnet](../chain/testnet.md) for status and the faucet shape.
 - Check `result.success` and `result.error` after every broadcast.
 - The signing client handles nonce and sequence with retries.
 - Keep credentials in environment variables (`BITBADGES_MNEMONIC`, `BITBADGES_API_KEY`). Never hardcode them.

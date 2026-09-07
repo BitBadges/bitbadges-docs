@@ -589,7 +589,7 @@ A complete `MsgCreateCollection` for a tradable NFT collection (100 NFTs, creato
 ```
 
 {% hint style="warning" %}
-Price new collections in canonical USDC, the Injective-routed denom `ibc/E1116484...`. Its token-standard allowlisting ships with governance proposal 45 and early supply is small, so early traders may need to bridge via Injective themselves. Do not use the legacy `USDC.n` (`ibc/F082B65C...`): backed-path escrows derive from the denom string, so a collection created on it is stuck there permanently. See [Supported denoms](../token-standard/network/supported-denoms.md).
+Price new collections in canonical USDC, the Injective-routed denom `ibc/E1116484...`. Its token-standard allowlisting ships with governance proposal 45 and early supply is small, so early traders may need to bridge via Injective themselves. Do not use the legacy `USDC.n` (`ibc/F082B65C...`): backed-path escrows derive from the denom string, so a collection created on it is stuck there permanently. See [Supported denoms](../chain/supported-denoms.md).
 {% endhint %}
 
 ### Variant: a claim-gated quest token

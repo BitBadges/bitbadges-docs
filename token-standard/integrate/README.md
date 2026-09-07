@@ -28,7 +28,7 @@ anteHandler, _ := sdk.ChainAnteDecorators(
 - Standard keepers: account and bank for balances and module accounts.
 - A send manager (or your own `BankKeeper`-shaped router) if any other module should move native tokens as `sdk.Coins`. See [Support multiple standards](multiple-standards.md).
 - IBC wiring only if you want wrapper paths to reach other chains, backed minting against IBC denoms, the transfer tokens hook, or interchain queries. See [IBC and x/bank compatibility](../ibc/README.md).
-- Optional EVM wiring for the precompiles. See [EVM](../evm/README.md).
+- Optional EVM wiring for the precompiles. See [EVM](../../chain/evm/README.md).
 
 The source of truth is [bitbadgeschain](https://github.com/bitbadges/bitbadgeschain) `app/` and `x/tokenization`. Copy the wiring from there rather than from memory; keeper constructor signatures change between versions.
 
@@ -44,6 +44,6 @@ The source of truth is [bitbadgeschain](https://github.com/bitbadges/bitbadgesch
 ## Related
 
 - [Token standard](../README.md)
-- [Chain modules](../modules/README.md)
+- [Chain modules](../../chain/modules/README.md)
 - [IBC and x/bank compatibility](../ibc/README.md)
-- [EVM](../evm/README.md)
+- [EVM](../../chain/evm/README.md)

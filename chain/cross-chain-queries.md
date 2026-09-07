@@ -4,7 +4,7 @@ description: "Interchain queries let another Cosmos chain verify x/tokenization 
 
 # Cross-chain queries
 
-Other Cosmos chains can verify token ownership on BitBadges over IBC with interchain queries. Tokens stay in the BitBadges silo; the remote chain receives a balance answer. Use this for cross-chain gating, collateral checks, shared credentials, and ownership-weighted governance. To move value across chains, wrap first (see [Cosmos coin wrapper paths](cosmos-coin-wrapper-paths.md)).
+Other Cosmos chains can verify token ownership on BitBadges over IBC with interchain queries. Tokens stay in the BitBadges silo; the remote chain receives a balance answer. Use this for cross-chain gating, collateral checks, shared credentials, and ownership-weighted governance. To move value across chains, wrap first (see [Cosmos coin wrapper paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md)).
 
 ```go
 // Create ownership query packet for a single token ID and time
@@ -118,6 +118,6 @@ packetData := &types.TokenizationPacketData{
 
 ## Related
 
-- [Balances](../concepts/balances.md)
-- [Cosmos coin wrapper paths](cosmos-coin-wrapper-paths.md)
-- [BB-402](../bb-402/README.md)
+- [Balances](../token-standard/concepts/balances.md)
+- [Cosmos coin wrapper paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md)
+- [BB-402](../token-standard/bb-402/README.md)

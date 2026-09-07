@@ -12,12 +12,13 @@ Status: working spec for the `feat/docs-rewrite` branch. Every writer agent work
 
 ## Top tabs
 
-`##` groups in SUMMARY.md map to tabs (site change in `site/`). Five tabs:
+`##` groups in SUMMARY.md map to tabs (site change in `site/`). Six tabs (the Chain tab was split out of Token Standard after review; paths under token-standard/{network,modules,evm}, ibc/rate-limits, ibc/cross-chain-queries moved to chain/):
 
 | Tab | URL prefix | Audience | Contents |
 | --- | --- | --- | --- |
 | Docs | `/`, `/start`, `/guides`, `/about` | everyone | landing, quickstart, task guides, positioning, links, FAQ |
-| Token Standard | `/token-standard` | protocol and chain developers | concepts, approval criteria, messages, queries, IBC, modules, EVM, integrate, BB-402, network |
+| Token Standard | `/token-standard` | protocol developers | concepts, approval criteria, messages, queries, wrapping and IBC hooks, integrate, BB-402 |
+| Chain | `/chain` | chain and infra developers | network constants and endpoints, modules (x/tokenization links back), EVM precompiles, rate limits, ICQ, nodes, testnet, websocket |
 | API | `/api`, `/api-reference` | app backends | REST API concepts, sign in with BitBadges, claims API, the Scalar reference |
 | SDK & CLI | `/sdk`, `/cli` | TypeScript and terminal users | bitbadgesjs reference and snippets, `bb` command reference, signing and broadcasting |
 | Agents | `/agents` | AI agents and people wiring them | install paths, MCP tools, plugin, CLI for agents, skills, agent patterns |

@@ -127,7 +127,7 @@ const local = new BitBadgesSigningClient({ adapter, network: 'local' });
 const custom = new BitBadgesSigningClient({ adapter, network: 'mainnet', apiUrl: 'https://api.example.com' });
 ```
 
-The testnet preset is marked `disabled` and the client throws when you select it. Set `BITBADGES_TESTNET_OFFLINE=false` in the environment to bypass the guard for a private chain that reuses the testnet chain ID. See [Testnet](../../token-standard/network/testnet.md).
+The testnet preset is marked `disabled` and the client throws when you select it. Set `BITBADGES_TESTNET_OFFLINE=false` in the environment to bypass the guard for a private chain that reuses the testnet chain ID. See [Testnet](../../chain/testnet.md).
 
 ## Wallet adapters
 

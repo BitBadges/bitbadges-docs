@@ -86,7 +86,7 @@ bb pools by-assets BADGE USDC
 bb pools batch 1 2 3
 ```
 
-`--sort-by` accepts `liquidity`, `volume`, `dailyVolume`, `weeklyVolume`, `monthlyVolume`, `allTimeVolume`, `lastLiquidityUpdate`, `lastVolumeUpdate`. `show` returns assets, total liquidity, total shares, and volume buckets. `by-assets` is order-insensitive. Pool mechanics: [gamm](../token-standard/modules/gamm/README.md).
+`--sort-by` accepts `liquidity`, `volume`, `dailyVolume`, `weeklyVolume`, `monthlyVolume`, `allTimeVolume`, `lastLiquidityUpdate`, `lastVolumeUpdate`. `show` returns assets, total liquidity, total shares, and volume buckets. `by-assets` is order-insensitive. Pool mechanics: [gamm](../chain/modules/gamm/README.md).
 
 ## pairs
 

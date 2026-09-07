@@ -4,7 +4,7 @@ description: "Find pools and prices, check balances, estimate and execute a swap
 
 # Trade on the DEX
 
-At the end you have swapped one asset for another on the BitBadges chain and know how to join or exit a liquidity pool. The DEX is the `x/gamm` module (a generalized automated market maker with balancer pools); the messages, queries, and fee rules are in [x/gamm](../token-standard/modules/gamm/README.md). Routing can also cross IBC chains such as Osmosis through Skip:Go; the estimate endpoint is documented in [Swaps](../api/swaps.md).
+At the end you have swapped one asset for another on the BitBadges chain and know how to join or exit a liquidity pool. The DEX is the `x/gamm` module (a generalized automated market maker with balancer pools); the messages, queries, and fee rules are in [x/gamm](../chain/modules/gamm/README.md). Routing can also cross IBC chains such as Osmosis through Skip:Go; the estimate endpoint is documented in [Swaps](../api/swaps.md).
 
 Prerequisites:
 
@@ -208,7 +208,7 @@ bb deploy '{
 }' --browser
 ```
 
-Proto and JSON field names for every gamm message are in [x/gamm messages](../token-standard/modules/gamm/messages.md). Signing options (keyring, browser, external signer via `bb gen-tx-payload`) are in [Deploy commands](../cli/deploy.md).
+Proto and JSON field names for every gamm message are in [x/gamm messages](../chain/modules/gamm/messages.md). Signing options (keyring, browser, external signer via `bb gen-tx-payload`) are in [Deploy commands](../cli/deploy.md).
 
 ## 6. Provide liquidity
 

@@ -57,7 +57,7 @@ With this on, no post-mint collection approval can bypass user-level approvals, 
 
 ### disablePoolCreation
 
-Pool creation in [gamm](../modules/gamm/README.md) fails for this collection's denoms.
+Pool creation in [gamm](../../chain/modules/gamm/README.md) fails for this collection's denoms.
 
 ### evmQueryChallenges
 
@@ -87,7 +87,7 @@ Placeholders in the invariant context:
 | `$recipients` | Every recipient, each ABI-padded to 32 bytes, concatenated with no separator (two recipients = 128 hex characters) |
 | `$collectionId` | Collection ID as a 32-byte padded uint256 |
 
-Gas: default 250000 per query when `gasLimit` is `0`, maximum 500000 per query, maximum 2500000 across all invariants on the collection, and at most 10 invariants. A contract that reads collection state through the [tokenization precompile](../evm/tokenization-precompile/README.md) needs roughly 145000 gas for one `getCollectionStats` call, so leave headroom.
+Gas: default 250000 per query when `gasLimit` is `0`, maximum 500000 per query, maximum 2500000 across all invariants on the collection, and at most 10 invariants. A contract that reads collection state through the [tokenization precompile](../../chain/evm/tokenization-precompile/README.md) needs roughly 145000 gas for one `getCollectionStats` call, so leave headroom.
 
 ## Related
 

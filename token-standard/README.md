@@ -31,12 +31,10 @@ Main properties:
 | [Approval criteria](approval-criteria/README.md) | Every field of `approvalCriteria` and how each one is enforced | Designing transferability |
 | [Messages](messages/README.md) | One page per transaction message | Building a transaction |
 | [Queries](queries/README.md) | One page per query | Reading chain state |
-| [IBC and x/bank](ibc/README.md) | Alias denoms, wrapper paths, backed minting, transfer hooks, rate limits | Moving tokens across chains or into the DEX |
-| [Modules](modules/README.md) | `x/gamm`, `x/managersplitter`, `x/sendmanager`, `x/poolmanager` | Using the DEX or shared management |
-| [EVM](evm/README.md) | Precompiles and Solidity integration | Writing contracts against tokens |
+| [IBC and wrapping](ibc/README.md) | Alias denoms, wrapper paths, backed minting, transfer hooks | Moving tokens across chains or into the DEX |
 | [Integrate](integrate/README.md) | Standards, extension hooks, ante handler gates | Extending the chain itself |
 | [BB-402](bb-402/README.md) | Payment-required protocol built on approvals | Charging for access |
-| [Network](network/README.md) | Chain IDs, denoms, endpoints, nodes, testnet status | Connecting a client |
+| [Chain tab](../chain/README.md) | The other modules (`x/gamm`, `x/managersplitter`, ...), EVM precompiles, endpoints, nodes | Anything about the chain around the module |
 
 ## Reading order
 

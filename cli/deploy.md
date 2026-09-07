@@ -162,7 +162,7 @@ bb build subscription --interval monthly --price 10 --denom USDC \
 ```
 
 {% hint style="warning" %}
-`--fund faucet` needs a live faucet. Testnet is offline, so the burner path works only against a local chain today. Mainnet has no faucet; `--fund manual` waits for you to send dust yourself. See [Testnet](../token-standard/network/testnet.md).
+`--fund faucet` needs a live faucet. Testnet is offline, so the burner path works only against a local chain today. Mainnet has no faucet; `--fund manual` waits for you to send dust yourself. See [Testnet](../chain/testnet.md).
 {% endhint %}
 
 Two addresses are involved: the burner, generated fresh and discarded after one signature, and the owner you pass as `--manager`, who holds the collection from the first block. The burner has no lasting authority.

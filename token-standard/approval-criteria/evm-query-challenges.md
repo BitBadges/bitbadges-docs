@@ -152,5 +152,5 @@ Initiator must own NFT #1 (`ownerOf(uint256)` is `6352211e`):
 ## Related
 
 - [Invariants](invariants.md)
-- [Tokenization precompile](../evm/tokenization-precompile/README.md)
-- [EVM](../evm/README.md)
+- [Tokenization precompile](../../chain/evm/tokenization-precompile/README.md)
+- [EVM](../../chain/evm/README.md)

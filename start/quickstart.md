@@ -31,7 +31,7 @@ curl -fsSL https://install.bitbadges.io | sh -s -- --install-dir ~/.local/bin  #
 curl -fsSL https://install.bitbadges.io | sh -s -- --no-sudo                   # never use sudo
 ```
 
-The `--testnet` flag installs the testnet binary. Testnet is offline, so use the mainnet default. See [Testnet](../token-standard/network/testnet.md).
+The `--testnet` flag installs the testnet binary. Testnet is offline, so use the mainnet default. See [Testnet](../chain/testnet.md).
 
 SDK CLI only (API access, review tools, docs, no chain binary):
 
@@ -209,7 +209,7 @@ See [Agents](../agents/README.md) for the paths table, the review-and-sign hando
 | mainnet | `https://api.bitbadges.io` | `https://lcd.bitbadges.io` | `bitbadges-1` | 50024 | `https://evm-rpc.bitbadges.io` |
 | local | `http://localhost:3001` | `http://localhost:1317` | `bitbadges-1` | 90123 | `http://localhost:8545` |
 
-Testnet (`bitbadges-2`, EVM 50025) is offline. The SDK throws on `network: 'testnet'`. Mainnet runs as a chaosnet: gas fees can be zero while activity is low, so test there with low-value assets. See [Testnet](../token-standard/network/testnet.md) and [Network](../token-standard/network/README.md).
+Testnet (`bitbadges-2`, EVM 50025) is offline. The SDK throws on `network: 'testnet'`. Mainnet runs as a chaosnet: gas fees can be zero while activity is low, so test there with low-value assets. See [Testnet](../chain/testnet.md) and [Network](../chain/README.md).
 
 Get BADGE for fees on Discord. Developers can ask for subsidized credits during chaosnet.
 

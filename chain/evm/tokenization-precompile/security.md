@@ -122,7 +122,7 @@ Input size also adds gas (`GasPerInputChunk`) on `executeMultiple`, `searchInRan
 2. Check return values. Transaction methods return `bool success` or an ID.
 3. Wrap calls in `try`/`catch` where you want to recover instead of revert.
 4. Use `TokenizationJSONHelpers` and `TokenizationErrors` so the JSON matches the schema.
-5. Review the collection's approvals and permissions. A transfer from a contract is subject to the same rules as any other sender. See [Transferability](../../concepts/transferability.md) and [Permissions](../../concepts/permissions.md).
+5. Review the collection's approvals and permissions. A transfer from a contract is subject to the same rules as any other sender. See [Transferability](../../../token-standard/concepts/transferability.md) and [Permissions](../../../token-standard/concepts/permissions.md).
 6. Do authorization in the contract. The precompile sees the contract as the caller, never the user behind it.
 
 ## Related

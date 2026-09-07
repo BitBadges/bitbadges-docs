@@ -40,7 +40,7 @@ curl -X POST http://localhost:3001/api/v0/collections/fetch \
 
 Storage is MongoDB. Redis backs rate limiting, the credit ledger, and caches. Both are required.
 
-Point the poller at your own node. Public nodes are not built for an indexer that can send more than 100 requests per second. See [Run a node](../token-standard/network/run-a-node.md).
+Point the poller at your own node. Public nodes are not built for an indexer that can send more than 100 requests per second. See [Run a node](../chain/run-a-node.md).
 
 ## Environment variables
 
@@ -109,4 +109,4 @@ MongoDB connection failed: check that `DB_URL` is correct and reachable, that th
 ## Related
 
 - [BitBadges API](README.md)
-- [Run a node](../token-standard/network/run-a-node.md)
+- [Run a node](../chain/run-a-node.md)

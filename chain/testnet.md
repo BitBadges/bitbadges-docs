@@ -125,4 +125,4 @@ On mainnet there is no faucet; acquire BADGE through normal channels.
 
 - [Network](README.md)
 - [Supported denoms](supported-denoms.md)
-- [Bot examples](../../agents/bot-examples.md)
+- [Bot examples](../agents/bot-examples.md)

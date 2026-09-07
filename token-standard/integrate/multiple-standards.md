@@ -4,7 +4,7 @@ description: "A send manager with alias denom routing lets one BankKeeper-shaped
 
 # Support multiple standards
 
-To support more than one token standard on a chain, put a send manager with alias denom routing in front of `x/bank`. It reads each coin's denom prefix and routes the send to the module that owns it. The BitBadges chain ships this as [x/sendmanager](../modules/send-manager.md); copy or import that implementation when the chain only combines `x/tokenization` and `x/bank`.
+To support more than one token standard on a chain, put a send manager with alias denom routing in front of `x/bank`. It reads each coin's denom prefix and routes the send to the module that owns it. The BitBadges chain ships this as [x/sendmanager](../../chain/modules/send-manager.md); copy or import that implementation when the chain only combines `x/tokenization` and `x/bank`.
 
 The keeper is a drop-in replacement for the `BankKeeper` interface. Replace calls such as `k.bankKeeper.SendCoins()` with `k.sendManagerKeeper.SendCoinsWithAliasRouting()` (or the matching function) and every caller gains multi-standard support through dynamic routing.
 
@@ -163,7 +163,7 @@ func (k Keeper) SendCoinsWithAliasRouting(ctx sdk.Context, from, to sdk.AccAddre
 
 ## Related
 
-- [x/sendmanager](../modules/send-manager.md)
+- [x/sendmanager](../../chain/modules/send-manager.md)
 - [Alias denoms](../ibc/alias-denoms.md)
 - [Prioritized approvals](../concepts/prioritized-approvals.md)
 - [MsgUpdateUserApprovals](../messages/msg-update-user-approvals.md)

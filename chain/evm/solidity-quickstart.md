@@ -257,7 +257,7 @@ TokenizationJSONHelpers.uintRangeArrayToJson(starts, ends);
 // Produces: [{"start":"1","end":"100"},{"start":"200","end":"300"}]
 ```
 
-Concept page: [UintRanges](../concepts/uint-ranges.md).
+Concept page: [UintRanges](../../token-standard/concepts/uint-ranges.md).
 
 ## Address formats
 

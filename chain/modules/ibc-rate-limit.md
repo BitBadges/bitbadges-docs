@@ -149,6 +149,6 @@ The module has no query service. Read the live configuration from the module's g
 
 ## Related
 
-- [IBC and x/bank compatibility](README.md)
-- [Supported denoms](../network/supported-denoms.md)
-- [Cosmos coin wrapper paths](cosmos-coin-wrapper-paths.md)
+- [IBC and x/bank compatibility](../../token-standard/ibc/README.md)
+- [Supported denoms](../supported-denoms.md)
+- [Cosmos coin wrapper paths](../../token-standard/ibc/cosmos-coin-wrapper-paths.md)

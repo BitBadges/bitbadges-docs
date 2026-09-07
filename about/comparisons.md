@@ -26,7 +26,7 @@ Protocols such as Ethereum rely on ERC-20 and ERC-721, which need a smart contra
 
 ### Smart contract support
 
-Ethereum and Solana have broad smart contract support. BitBadges does not run ERC-20 contracts natively, but it does support EVM contracts, which can extend the module and build dApps through precompiles. The goal remains a standard where custom contracts are never needed. See [EVM](../token-standard/evm/README.md).
+Ethereum and Solana have broad smart contract support. BitBadges does not run ERC-20 contracts natively, but it does support EVM contracts, which can extend the module and build dApps through precompiles. The goal remains a standard where custom contracts are never needed. See [EVM](../chain/evm/README.md).
 
 ## BitBadges and ERC-3643
 
@@ -71,11 +71,11 @@ BitBadges enforces compliance rules, transfer restrictions, and approval logic i
 
 ### How they work together
 
-Through EVM precompiles, a Solidity contract calls the native token standard with the ERC-3643 function signatures developers already know. The precompile bridges the call; the chain enforces the transfer rules, identity checks, and compliance logic, not the contract. The ERC-3643 interface is optional: the no-code site, the CLI builders, and the MCP builder tools talk to the protocol standard directly. See [Tokenization precompile](../token-standard/evm/tokenization-precompile/README.md) and the [ERC-3643 specification](https://erc3643.info/).
+Through EVM precompiles, a Solidity contract calls the native token standard with the ERC-3643 function signatures developers already know. The precompile bridges the call; the chain enforces the transfer rules, identity checks, and compliance logic, not the contract. The ERC-3643 interface is optional: the no-code site, the CLI builders, and the MCP builder tools talk to the protocol standard directly. See [Tokenization precompile](../chain/evm/tokenization-precompile/README.md) and the [ERC-3643 specification](https://erc3643.info/).
 
 ## Related
 
 - [Why BitBadges](README.md)
 - [Transferability](../token-standard/concepts/transferability.md)
 - [Permissions](../token-standard/concepts/permissions.md)
-- [EVM](../token-standard/evm/README.md)
+- [EVM](../chain/evm/README.md)

@@ -17,7 +17,7 @@ bb query tokenization collection 1 --node https://lcd.bitbadges.io:443 --output 
 bb sign-arbitrary mykey "auth challenge text"
 ```
 
-Endpoints and chain IDs: [Network](../token-standard/network/README.md). Mainnet is `bitbadges-1`; testnet (`bitbadges-2`) is offline.
+Endpoints and chain IDs: [Network](../chain/README.md). Mainnet is `bitbadges-1`; testnet (`bitbadges-2`) is offline.
 
 ## keys
 
@@ -144,7 +144,7 @@ bb tx gamm join-swap-extern-amount-in ... | join-swap-share-amount-out ... | exi
 bb tx gamm swap-exact-amount-in-with-ibc-transfer ...
 ```
 
-Arguments and flags are in `bb tx gamm <command> --help`. Message semantics: [gamm messages](../token-standard/modules/gamm/messages.md).
+Arguments and flags are in `bb tx gamm <command> --help`. Message semantics: [gamm messages](../chain/modules/gamm/messages.md).
 
 ## query
 
@@ -209,7 +209,7 @@ Only `secp256k1` keys are supported; an `eth_secp256k1` key errors with a pointe
 | `pre-upgrade` | Pre-upgrade hook for cosmovisor |
 | `prune`, `snapshots`, `comet` (`tendermint`), `debug` | Standard Cosmos SDK maintenance |
 
-Running a validator or full node: [Run a node](../token-standard/network/run-a-node.md). Build from source: [CLI](README.md#chain-binary-from-source).
+Running a validator or full node: [Run a node](../chain/run-a-node.md). Build from source: [CLI](README.md#chain-binary-from-source).
 
 ## SDK alternative
 
@@ -228,4 +228,4 @@ The [signing client](../sdk/transactions/signing-client.md) handles gas estimati
 - [Messages](../token-standard/messages/README.md)
 - [Queries](../token-standard/queries/README.md)
 - [Deploy](deploy.md)
-- [Network](../token-standard/network/README.md)
+- [Network](../chain/README.md)

@@ -64,7 +64,7 @@ The Solidity interfaces, helper libraries, and example contracts live in the cha
 
 ## Related
 
-- [Token standard](../README.md)
-- [Network endpoints](../network/README.md)
-- [EVM query challenges](../approval-criteria/evm-query-challenges.md)
+- [Token standard](../../token-standard/README.md)
+- [Network endpoints](../README.md)
+- [EVM query challenges](../../token-standard/approval-criteria/evm-query-challenges.md)
 - [Cosmos EVM documentation](https://docs.cosmos.network/evm/v0.5.0/documentation/overview)

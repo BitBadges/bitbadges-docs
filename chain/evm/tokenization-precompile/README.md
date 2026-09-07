@@ -64,7 +64,7 @@ contract MyTokenContract {
 
 ## How it works
 
-Every method takes one `string calldata msgJson`. The JSON is the protobuf JSON of the matching `x/tokenization` message or query request, the same shape the CLI and SDK use. See [Messages](../../messages/README.md) and [Queries](../../queries/README.md) for the field references.
+Every method takes one `string calldata msgJson`. The JSON is the protobuf JSON of the matching `x/tokenization` message or query request, the same shape the CLI and SDK use. See [Messages](../../../token-standard/messages/README.md) and [Queries](../../../token-standard/queries/README.md) for the field references.
 
 ```solidity
 // Correct: JSON string
@@ -194,7 +194,7 @@ function transferWithExpiration(
 }
 ```
 
-Concept: [Balances](../../concepts/balances.md) (ownership times).
+Concept: [Balances](../../../token-standard/concepts/balances.md) (ownership times).
 
 ### KYC registry with a dynamic store
 
@@ -233,7 +233,7 @@ function kycValueBytes(address user) external view returns (bytes memory) {
 }
 ```
 
-To enforce the registry on transfers without a contract in the loop, add a [dynamic store challenge](../../approval-criteria/dynamic-store-challenges.md) to the collection approvals.
+To enforce the registry on transfers without a contract in the loop, add a [dynamic store challenge](../../../token-standard/approval-criteria/dynamic-store-challenges.md) to the collection approvals.
 
 ### Create a collection
 
@@ -276,7 +276,7 @@ function createMyCollection(
 }
 ```
 
-Invariants and cosmos coin wrapper paths can be set at creation through `createCollectionWithInvariantsJSON` or by writing the `invariants` and `cosmosCoinWrapperPathsToAdd` fields yourself. See [MsgCreateCollection](../../messages/msg-create-collection.md).
+Invariants and cosmos coin wrapper paths can be set at creation through `createCollectionWithInvariantsJSON` or by writing the `invariants` and `cosmosCoinWrapperPathsToAdd` fields yourself. See [MsgCreateCollection](../../../token-standard/messages/msg-create-collection.md).
 
 ### Create a collection and transfer in one transaction
 

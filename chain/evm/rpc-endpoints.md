@@ -32,7 +32,7 @@ console.log("Balance:", ethers.formatEther(balance), "BADGE");
 | Testnet | Cosmos RPC | `https://rpc-testnet.bitbadges.io` | Offline |
 | Testnet | Cosmos REST/LCD | `https://lcd-testnet.bitbadges.io` | Offline |
 
-EVM tools use the `evm-rpc*.bitbadges.io` URLs. Cosmos tools (cosmjs, LCD queries, `bb`) use `rpc*.bitbadges.io` or `lcd*.bitbadges.io`. Mixing them up is the most common connection failure. Testnet status: [Testnet](../network/testnet.md).
+EVM tools use the `evm-rpc*.bitbadges.io` URLs. Cosmos tools (cosmjs, LCD queries, `bb`) use `rpc*.bitbadges.io` or `lcd*.bitbadges.io`. Mixing them up is the most common connection failure. Testnet status: [Testnet](../testnet.md).
 
 web3.js works the same way:
 
@@ -181,7 +181,7 @@ The public endpoints may rate-limit to keep usage fair. For production traffic, 
 
 ## Run your own JSON-RPC node
 
-Follow [Run a node](../network/run-a-node.md) for the full node setup. The EVM-specific settings are in `app.toml`.
+Follow [Run a node](../run-a-node.md) for the full node setup. The EVM-specific settings are in `app.toml`.
 
 ### Set the EVM chain ID
 
@@ -238,5 +238,5 @@ enable-indexer = true
 
 - [Setup](setup.md)
 - [Developer guide](developer-guide.md)
-- [Network](../network/README.md)
-- [Run a node](../network/run-a-node.md)
+- [Network](../README.md)
+- [Run a node](../run-a-node.md)

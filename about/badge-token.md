@@ -39,5 +39,5 @@ The proof-of-authority model took effect at launch, ran in parallel with the rew
 ## Related
 
 - [FAQ](faq.md)
-- [Network](../token-standard/network/README.md)
-- [Run a node](../token-standard/network/run-a-node.md)
+- [Network](../chain/README.md)
+- [Run a node](../chain/run-a-node.md)

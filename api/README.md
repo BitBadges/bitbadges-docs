@@ -175,7 +175,7 @@ Failed fetches retry with the backoff in the limits table. On the site, a collec
 
 ## Testnet
 
-A testnet API exists at `https://api.bitbadges.io/testnet` with the same routes under the `/testnet` prefix. It is a separate service: keys, credits, and data do not carry over. Testnet is offline at the time of writing. See [Testnet](../token-standard/network/testnet.md) for status.
+A testnet API exists at `https://api.bitbadges.io/testnet` with the same routes under the `/testnet` prefix. It is a separate service: keys, credits, and data do not carry over. Testnet is offline at the time of writing. See [Testnet](../chain/testnet.md) for status.
 
 ## Related
 

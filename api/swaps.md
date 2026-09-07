@@ -124,5 +124,5 @@ Cross-chain, EVM, and multi-hop routes are returned but not auto-executed. Sign 
 
 - [Trade on the DEX](../guides/trade-on-the-dex.md)
 - [CLI swap](../cli/swap.md)
-- [gamm module](../token-standard/modules/gamm/README.md)
+- [gamm module](../chain/modules/gamm/README.md)
 - [API reference](/api-reference)

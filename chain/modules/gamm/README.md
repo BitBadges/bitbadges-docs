@@ -48,7 +48,7 @@ Interface changes:
 - Removed governance proposal handling and the future pool governor.
 - Removed pool creation fee requirements.
 
-Native token integration. A pool asset can be a native token expressed as an [alias denom](../../ibc/alias-denoms.md), `badgeslp:<collectionId>:<denom>`. The pool treats it as a "ghost denom": there is no mint or burn behind the scenes, and the coin is really backed by core `x/tokenization` balances. The collection's `aliasPaths` (`conversion.sideB`) define the rate between one alias unit and `Balances[]`.
+Native token integration. A pool asset can be a native token expressed as an [alias denom](../../../token-standard/ibc/alias-denoms.md), `badgeslp:<collectionId>:<denom>`. The pool treats it as a "ghost denom": there is no mint or burn behind the scenes, and the coin is really backed by core `x/tokenization` balances. The collection's `aliasPaths` (`conversion.sideB`) define the rate between one alias unit and `Balances[]`.
 
 ```text
 Token: badgeslp:21:utoken
@@ -75,7 +75,7 @@ That means the approval system gates the DEX:
 - Time windows: allow pool operations only at certain times.
 - Any other criteria the approval system can express.
 
-See [Approval criteria](../../approval-criteria/README.md) and [Compliance zones](../../concepts/compliance-zones.md).
+See [Approval criteria](../../../token-standard/approval-criteria/README.md) and [Compliance zones](../../../token-standard/concepts/compliance-zones.md).
 
 ## Reference
 
@@ -87,6 +87,6 @@ See [Approval criteria](../../approval-criteria/README.md) and [Compliance zones
 ## Related
 
 - [Trade on the DEX](../../../guides/trade-on-the-dex.md)
-- [Alias denoms](../../ibc/alias-denoms.md)
+- [Alias denoms](../../../token-standard/ibc/alias-denoms.md)
 - [x/poolmanager](../pool-manager.md)
 - [Swaps in the API](../../../api/swaps.md)

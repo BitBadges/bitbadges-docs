@@ -54,5 +54,5 @@ For indexed, paginated, or historical data (activity, metadata, claims, search) 
 ## Related
 
 - [Messages](../messages/README.md)
-- [Network](../network/README.md)
+- [Network](../../chain/README.md)
 - [BitBadges API](../../api/README.md)

@@ -78,7 +78,7 @@ const result = await client.signAndBroadcast([
 console.log('TX Hash:', result.txHash);
 ```
 
-Examples target mainnet because testnet is offline. The faucet API shape and the testnet status live on [Testnet](../token-standard/network/testnet.md).
+Examples target mainnet because testnet is offline. The faucet API shape and the testnet status live on [Testnet](../chain/testnet.md).
 
 ## Agent workflow with the CLI
 
@@ -218,7 +218,7 @@ For zero hosting and an image, the SDK ships a deterministic SVG placeholder-art
 | testnet (offline) | `https://api.bitbadges.io/testnet` | `https://lcd-testnet.bitbadges.io` | `bitbadges-2` | 50025 | `https://evm-rpc-testnet.bitbadges.io` |
 | local | `http://localhost:3001` | `http://localhost:1317` | `bitbadges-1` | 90123 | `http://localhost:8545` |
 
-Testnet endpoints when it returns: RPC `https://rpc-testnet.bitbadges.io`, WebSocket `wss://rpc-testnet.bitbadges.io/websocket`. Status: [Testnet](../token-standard/network/testnet.md). Full endpoint table: [Network](../token-standard/network/README.md).
+Testnet endpoints when it returns: RPC `https://rpc-testnet.bitbadges.io`, WebSocket `wss://rpc-testnet.bitbadges.io/websocket`. Status: [Testnet](../chain/testnet.md). Full endpoint table: [Network](../chain/README.md).
 
 ## Token-gated API access (BB-402)
 
@@ -249,6 +249,6 @@ Guide: [Gate access](../guides/gate-access.md). Spec: [BB-402](../token-standard
 ## Related
 
 - [Claims API](../api/claims/endpoints.md) for automated minting through claims
-- [WebSocket events](../token-standard/network/websocket-events.md)
+- [WebSocket events](../chain/websocket-events.md)
 - [BitBadges AI Quickstarter](https://github.com/BitBadges/bitbadges-quickstarter-ai) (GitHub template repo)
 - [SDK AI agent guide](https://github.com/BitBadges/bitbadgesjs/blob/main/packages/bitbadgesjs-sdk/AI_AGENT_GUIDE.md)

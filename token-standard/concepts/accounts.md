@@ -38,4 +38,4 @@ Display the native address to users. Use the `bb1` form when you build messages 
 
 - [Address lists](address-lists.md)
 - [Address conversions](../../sdk/snippets/address-conversions.md)
-- [Network](../network/README.md)
+- [Network](../../chain/README.md)

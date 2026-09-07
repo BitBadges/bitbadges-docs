@@ -88,7 +88,7 @@ Each collection can have a manager with fine-grained, lockable permissions: upda
 
 ### EVM and IBC extension
 
-The goal is that every use case works natively. Where custom logic is needed, EVM contracts call into the module through precompiles, and the module reaches other environments over IBC. See [EVM](../token-standard/evm/README.md).
+The goal is that every use case works natively. Where custom logic is needed, EVM contracts call into the module through precompiles, and the module reaches other environments over IBC. See [EVM](../chain/evm/README.md).
 
 ## Related
 

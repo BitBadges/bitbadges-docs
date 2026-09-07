@@ -83,7 +83,7 @@ Approvals are text-only: `--name` + `--description`, no image. The CLI errors if
 
 ### Denoms and amounts
 
-`--denom` style flags accept a symbol (`BADGE`, `USDC`, `ATOM`, `OSMO`) or a canonical denom (`ubadge`, `ibc/...`). Amounts are display units when the denom is a symbol and base units when it is a raw denom. `--base-units` forces base units. `USDC` resolves to the canonical Injective-routed denom; `USDC.n` is the legacy denom. See [Supported denoms](../token-standard/network/supported-denoms.md).
+`--denom` style flags accept a symbol (`BADGE`, `USDC`, `ATOM`, `OSMO`) or a canonical denom (`ubadge`, `ibc/...`). Amounts are display units when the denom is a symbol and base units when it is a raw denom. `--base-units` forces base units. `USDC` resolves to the canonical Injective-routed denom; `USDC.n` is the legacy denom. See [Supported denoms](../chain/supported-denoms.md).
 
 Durations accept `daily`, `monthly`, `annually`, shorthand such as `30d`, `24h`, `5m`, or ms-since-epoch.
 

@@ -75,6 +75,6 @@ const legacy = MAINNET_COINS_REGISTRY['ibc/F082B65C88E4B6D5EF1DB243CDA1D331D0027
 ## Related
 
 - [Network](README.md)
-- [Backed minting](../ibc/backed-minting.md)
-- [Coin transfers](../approval-criteria/coin-transfers.md)
-- [IBC rate limits](../ibc/rate-limits.md)
+- [Backed minting](../token-standard/ibc/backed-minting.md)
+- [Coin transfers](../token-standard/approval-criteria/coin-transfers.md)
+- [IBC rate limits](modules/ibc-rate-limit.md)

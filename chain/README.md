@@ -1,10 +1,22 @@
 ---
-description: "BitBadges chain facts: chain IDs, the BADGE denom and EVM decimals, public endpoints (RPC, LCD, EVM RPC, explorer, chain registry), IBC channels."
+description: "The BitBadges chain: what runs on it, chain IDs, the BADGE denom and EVM decimals, public endpoints (RPC, LCD, EVM RPC, explorer, chain registry), IBC channels."
 ---
 
-# Network
+# Chain
 
-BitBadges is an L1 delegated proof-of-stake chain built with the Cosmos SDK and CometBFT. Blocks reach instant finality. Accounts can sign with Cosmos keys (`bb1...` bech32 addresses) or with Ethereum keys (`0x...` addresses) through the EVM precompiles. This page holds the constants every integration needs.
+BitBadges is an L1 delegated proof-of-stake chain built with the Cosmos SDK and CometBFT. Blocks reach instant finality. Accounts can sign with Cosmos keys (`bb1...` bech32 addresses) or with Ethereum keys (`0x...` addresses) through the EVM precompiles. This tab covers the chain around the token standard; the standard itself is the [Token Standard](../token-standard/README.md) tab.
+
+| Area | What it covers | Read when |
+| --- | --- | --- |
+| [Modules](modules/README.md) | `x/tokenization` (the token standard), `x/gamm`, `x/poolmanager`, `x/sendmanager`, `x/managersplitter`, IBC hooks, rate limits | You use the DEX, shared management, or IBC middleware |
+| [EVM](evm/README.md) | Precompiles at `0x...1001` to `0x...1003`, Solidity quickstart, JSON-RPC | You write contracts against tokens or connect an Ethereum wallet |
+| [Cross-chain queries](cross-chain-queries.md) | Interchain queries that verify ownership from another chain | Another chain gates on BitBadges balances |
+| [Supported denoms](supported-denoms.md) | The IBC coins the chain accepts for payments and pools | You attach a payment or seed a pool |
+| [Run a node](run-a-node.md) | Full node and validator setup, cosmovisor, upgrades | You operate infrastructure |
+| [Testnet](testnet.md) | Status and the faucet API shape | You need a sandbox |
+| [WebSocket events](websocket-events.md) | CometBFT event subscriptions | A bot reacts to transfers in real time |
+
+The rest of this page holds the constants every integration needs.
 
 ```bash
 curl https://lcd.bitbadges.io/cosmos/base/tendermint/v1beta1/node_info | jq .default_node_info.network
@@ -35,7 +47,7 @@ Both EVM chain IDs are claimed in the ethereum-lists/chains registry.
 | EVM decimals | 18, through the precisebank module |
 | EVM base unit | `abadge` (1 `ubadge` = 10^9 `abadge`, 1 BADGE = 10^18 `abadge`) |
 
-In Cosmos messages, use 9-decimal precision (`1000000000ubadge` is one BADGE). In Solidity and EVM JSON-RPC, use 18-decimal precision (one BADGE is `1e18` wei-equivalent). The precisebank module converts between the two; `abadge` is only visible on the EVM side. See [About BADGE](../../about/badge-token.md) for supply and rewards.
+In Cosmos messages, use 9-decimal precision (`1000000000ubadge` is one BADGE). In Solidity and EVM JSON-RPC, use 18-decimal precision (one BADGE is `1e18` wei-equivalent). The precisebank module converts between the two; `abadge` is only visible on the EVM side. See [About BADGE](../about/badge-token.md) for supply and rewards.
 
 ## Endpoints
 
@@ -44,9 +56,9 @@ In Cosmos messages, use 9-decimal precision (`1000000000ubadge` is one BADGE). I
 | CometBFT RPC | `https://rpc.bitbadges.io` | Tx broadcast, block and tx queries |
 | WebSocket | `wss://rpc.bitbadges.io/websocket` | Event subscriptions, see [WebSocket events](websocket-events.md) |
 | LCD (REST) | `https://lcd.bitbadges.io` | gRPC-gateway for every module; `/bitbadges/bitbadgeschain/tokenization/...`, `/osmosis/gamm/...`, `/cosmos/...` |
-| EVM JSON-RPC | `https://evm-rpc.bitbadges.io` | `eth_`, `net_`, `web3_` namespaces, see [EVM RPC endpoints](../evm/rpc-endpoints.md) |
+| EVM JSON-RPC | `https://evm-rpc.bitbadges.io` | `eth_`, `net_`, `web3_` namespaces, see [EVM RPC endpoints](evm/rpc-endpoints.md) |
 | Explorer | `https://explorer.bitbadges.io` | Blocks, validators, staking |
-| BitBadges API | `https://api.bitbadges.io` | Indexed data, needs an API key, see [API](../../api/README.md) |
+| BitBadges API | `https://api.bitbadges.io` | Indexed data, needs an API key, see [API](../api/README.md) |
 | Source | `https://github.com/bitbadges/bitbadgeschain` | Chain source and proto definitions |
 | Chain registry | `https://github.com/cosmos/chain-registry/tree/master/bitbadges` | Official metadata, assets, IBC connections, peer lists |
 
@@ -76,6 +88,6 @@ The Injective connection (`_IBC/bitbadges-injective.json`) carries the canonical
 
 ## Related
 
-- [Accounts](../concepts/accounts.md)
-- [EVM](../evm/README.md)
-- [IBC and x/bank compatibility](../ibc/README.md)
+- [Accounts](../token-standard/concepts/accounts.md)
+- [EVM](evm/README.md)
+- [IBC and x/bank compatibility](../token-standard/ibc/README.md)

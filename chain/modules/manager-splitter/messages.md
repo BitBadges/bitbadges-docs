@@ -269,5 +269,5 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/managersplitter/bb1manage
 ## Related
 
 - [x/managersplitter](README.md)
-- [MsgUniversalUpdateCollection](../../messages/msg-universal-update-collection.md)
-- [Permissions](../../concepts/permissions.md)
+- [MsgUniversalUpdateCollection](../../../token-standard/messages/msg-universal-update-collection.md)
+- [Permissions](../../../token-standard/concepts/permissions.md)

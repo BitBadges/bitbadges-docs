@@ -114,7 +114,7 @@ const transfer = {
 };
 ```
 
-On the BitBadges chain, [Send manager](../modules/send-manager.md) is the module that accepts mixed `sdk.Coins` like these and routes each denom to x/bank or `x/tokenization` by prefix. [x/gamm](../modules/gamm/README.md) pools hold alias denoms as pool assets.
+On the BitBadges chain, [Send manager](../../chain/modules/send-manager.md) is the module that accepts mixed `sdk.Coins` like these and routes each denom to x/bank or `x/tokenization` by prefix. [x/gamm](../../chain/modules/gamm/README.md) pools hold alias denoms as pool assets.
 
 ## Permission control
 
@@ -188,6 +188,6 @@ When `MsgUniversalUpdateCollection` carries `aliasPathsToAdd`, the chain checks 
 ## Related
 
 - [Cosmos coin wrapper paths](cosmos-coin-wrapper-paths.md)
-- [Send manager](../modules/send-manager.md)
+- [Send manager](../../chain/modules/send-manager.md)
 - [Permissions](../concepts/permissions.md)
 - [MsgUniversalUpdateCollection](../messages/msg-universal-update-collection.md)

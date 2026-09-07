@@ -4,7 +4,7 @@ description: "x/sendmanager routes sdk.Coins by denom prefix to x/bank or x/toke
 
 # x/sendmanager
 
-`x/sendmanager` is a bank-shaped send layer that understands [alias denoms](../ibc/alias-denoms.md). It inspects each coin's denom prefix: `badgeslp:` routes to `x/tokenization`, anything else routes to `x/bank`. One message or keeper call can therefore carry a native token and a standard coin side by side. The [send manager precompile](../evm/send-manager-precompile.md) at `0x...1003` exposes the same message to Solidity.
+`x/sendmanager` is a bank-shaped send layer that understands [alias denoms](../../token-standard/ibc/alias-denoms.md). It inspects each coin's denom prefix: `badgeslp:` routes to `x/tokenization`, anything else routes to `x/bank`. One message or keeper call can therefore carry a native token and a standard coin side by side. The [send manager precompile](../evm/send-manager-precompile.md) at `0x...1003` exposes the same message to Solidity.
 
 ```json
 {
@@ -90,7 +90,7 @@ On mainnet the `params` route currently returns `Not Implemented` (gRPC code 12)
 
 ## Keeper API
 
-Chain developers use the keeper as a drop-in replacement for `BankKeeper` sends. Full details and the routing internals are on [Support multiple standards](../integrate/multiple-standards.md).
+Chain developers use the keeper as a drop-in replacement for `BankKeeper` sends. Full details and the routing internals are on [Support multiple standards](../../token-standard/integrate/multiple-standards.md).
 
 ```go
 type SendManagerKeeper interface {
@@ -112,7 +112,7 @@ From Solidity, call `send(string msgJson) returns (bool success)` on `0x00000000
 
 ## Related
 
-- [Alias denoms](../ibc/alias-denoms.md)
-- [Support multiple standards](../integrate/multiple-standards.md)
+- [Alias denoms](../../token-standard/ibc/alias-denoms.md)
+- [Support multiple standards](../../token-standard/integrate/multiple-standards.md)
 - [Send manager precompile](../evm/send-manager-precompile.md)
-- [MsgTransferTokens](../messages/msg-transfer-tokens.md)
+- [MsgTransferTokens](../../token-standard/messages/msg-transfer-tokens.md)

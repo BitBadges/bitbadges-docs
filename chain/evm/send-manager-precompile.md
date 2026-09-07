@@ -93,7 +93,7 @@ The JSON is a `MsgSendWithAliasRouting` from `x/sendmanager`. The Go side decode
 
 - `from_address` is set from `msg.sender` after unmarshal, so a contract can only spend its own balance.
 - `ValidateBasic` runs before the send. Empty or invalid coins and addresses fail with code 1.
-- Alias denoms route through the tokenization module; standard denoms go through `x/bank`. See [Send manager module](../modules/send-manager.md) and [Alias denoms](../ibc/alias-denoms.md).
+- Alias denoms route through the tokenization module; standard denoms go through `x/bank`. See [Send manager module](../modules/send-manager.md) and [Alias denoms](../../token-standard/ibc/alias-denoms.md).
 - A successful send emits a `precompile_send` event with `from`, `to_address`, and `amount` attributes.
 - Amounts are in Cosmos precision (9 decimals for `BADGE`), not the EVM's 18. See [Developer guide](developer-guide.md#decimals-9-on-the-cosmos-side-18-on-the-evm-side).
 

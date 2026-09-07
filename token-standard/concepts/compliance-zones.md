@@ -77,7 +77,7 @@ ERC-3643 puts compliance in the token contract, so every transfer everywhere hit
 | Ecosystem compatibility | Permissioned tokens break vanilla DeFi | Open zone is vanilla Cosmos |
 | Boundary | Implicit (the contract) | Explicit (approval-engine operations into a silo) |
 
-The two compose: the [tokenization precompile](../evm/tokenization-precompile/README.md) lets ERC-3643 contracts inherit the zone's gates.
+The two compose: the [tokenization precompile](../../chain/evm/tokenization-precompile/README.md) lets ERC-3643 contracts inherit the zone's gates.
 
 ### Deploying the pattern
 

@@ -168,5 +168,5 @@ Add a new precompile:
 
 - [Tokenization precompile](tokenization-precompile/README.md)
 - [Developer guide](developer-guide.md)
-- [Token standard](../README.md)
+- [Token standard](../../token-standard/README.md)
 - [Cosmos EVM documentation](https://docs.cosmos.network/evm/v0.5.0/documentation/overview)
