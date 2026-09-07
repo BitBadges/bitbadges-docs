@@ -297,6 +297,7 @@ Pass the same `sessionId` across `.build()` calls to continue a session (e.g., f
 interface BuildResult {
   valid: boolean;
   transaction: any;              // parsed object — not a JSON string
+  reviewUrl: string;             // bitbadges.io link: review + sign this tx in the browser
   errors: StructuredError[];     // code, message, path?, fixHint?
   warnings: Warning[];           // non-fatal advisory notes
   advisoryNotes: string[];       // raw review findings
@@ -325,6 +326,41 @@ import {
   SimulationError
 } from 'bitbadges/builder/agent';
 ```
+
+## Review and sign in the browser
+
+The SDK never signs for the user. `result.reviewUrl` is a bitbadges.io link
+that opens the transaction in the review-and-sign flow (Preview, Review
+Items, Transferability, Permissions, then wallet signature). The whole
+transaction rides in the URL hash (`#tx=<base64url JSON>`), so nothing is
+uploaded and the link works offline. Set `BITBADGES_FRONTEND_URL` to point
+at testnet or a local frontend.
+
+```ts
+const result = await agent.build('create a subscription token for $10/mo');
+console.log(result.reviewUrl);
+// https://bitbadges.io/mint/local-builder#tx=eyJtZXNzYWdlcyI6...
+```
+
+For a short, shareable link (chat, email, an LLM relaying it to a user), upload
+through the open preview endpoint instead — that is what the MCP
+`get_review_url` tool and `bb preview` do:
+
+```ts
+import { buildReviewUrlFromCode } from 'bitbadges/builder/agent';
+
+const res = await fetch('https://api.bitbadges.io/api/v0/builder/preview', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ transaction: result.transaction })
+});
+const { code } = await res.json(); // prv_xxxxxxxx, valid 1 hour
+console.log(buildReviewUrlFromCode('https://bitbadges.io', code, result.transaction));
+// https://bitbadges.io/mint/local-builder?code=prv_xxxxxxxx
+```
+
+Update transactions (a non-zero `collectionId`) route to
+`/update/local-builder/:id` automatically so the site diffs against on-chain state.
 
 ## Image placeholders
 
@@ -400,8 +436,9 @@ const { prompt, communitySkillsIncluded } = await agent.exportPrompt(
 );
 
 // Paste `prompt` into Claude.ai / ChatGPT / Gemini — the output will be
-// a { messages: [{ typeUrl, value }] } JSON object ready to paste into
-// the frontend's Paste Transaction step.
+// a { messages: [{ typeUrl, value }] } JSON object. Paste it into
+// https://bitbadges.io/mint/local-builder ("Bring your transaction")
+// to review and sign.
 ```
 
 No Anthropic call is made. No validation, no simulation, no fix loop — this

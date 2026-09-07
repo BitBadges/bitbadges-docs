@@ -129,11 +129,16 @@ User-level approval messages (`MsgUpdateUserApprovals`, `MsgSetIncomingApproval`
 
 ## preview
 
-`bb preview` uploads a transaction to the indexer and prints a shareable `bitbadges.io/builder/preview?code=...` URL. Intended for handing a tx off to a non-CLI reviewer for visual inspection without giving them edit/submit rights. Lives 1 hour in the indexer's Redis cache.
+`bb preview` uploads a transaction to the indexer and prints two links backed by one short `prv_` code (valid 1 hour):
+
+- `reviewUrl` — `bitbadges.io/mint/local-builder?code=...` (or `/update/local-builder/:id` for updates). Opens the review-and-sign flow: Preview, Review Items, Transferability, Permissions, then wallet signature. This is the zero-friction way to get a CLI-built tx signed with a browser wallet.
+- `url` — `bitbadges.io/builder/preview?code=...`. Read-only. Hand it to a reviewer without giving them submit rights.
 
 ```bash
 bb preview tx.json
-bb preview tx.json --frontend-url https://staging.bitbadges.io
+bb preview tx.json --open                      # launch the review-and-sign page
+bb build vault --name Treasury ... | bb preview - --open
+bb preview tx.json --frontend-url https://testnet.bitbadges.io
 echo '{"messages":[...]}' | bb preview -
 ```
 
@@ -141,12 +146,15 @@ echo '{"messages":[...]}' | bb preview -
 
 | Flag | Description |
 |---|---|
-| `--frontend-url <url>` | Override the bitbadges.io frontend base for the printed URL (default: `https://bitbadges.io`) |
+| `--frontend-url <url>` | Override the bitbadges.io frontend base for the printed URLs (default: `https://bitbadges.io`) |
+| `--open` | Open `reviewUrl` in your default browser |
 | `--condensed` | Single-line JSON envelope |
 | `--output-file <path>` | Write the envelope to a file instead of stdout |
 | `--testnet`, `--local`, `--url` | Network selection — controls which indexer hosts the preview |
 
-Stdout is the universal envelope; the URL lives at `data.url`, expiry at `data.expiresIn`.
+Stdout is the universal envelope; `data.reviewUrl` (review + sign), `data.url` (read-only preview), `data.code`, and `data.expiresIn`.
+
+Prefer `bb preview --open` over `bb deploy --browser` when you want the full review sidebar before signing; `--browser` is the tighter loop for a tx you have already reviewed.
 
 The endpoint is intentionally open (no API key required); the unguessable code in the URL is the secret.
 

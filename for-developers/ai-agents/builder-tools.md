@@ -107,6 +107,7 @@ The recommended way to build collections. Each tool sets one field on a session-
 | `add_transfer` | Append a MsgTransferTokens to the transaction (for auto-minting at creation) |
 | `remove_transfer` | Remove a transfer message from the transaction |
 | `get_transaction` | Return the current session transaction as JSON |
+| `get_review_url` | Upload the transaction and return a short bitbadges.io link where the user reviews and signs it (final step; no API key; 1-hour expiry) |
 
 ### Helper Builders
 
@@ -190,6 +191,7 @@ set_standards + set_valid_token_ids + set_invariants + add_approval + set_permis
   → validate_transaction + review_collection + simulate_transaction (in parallel)
   → fix errors with remove_approval + re-add (max 3 attempts)
   → get_transaction (final JSON)
+  → get_review_url (link the user opens to review + sign)
 ```
 
 **Step-by-step:**
@@ -197,7 +199,8 @@ set_standards + set_valid_token_ids + set_invariants + add_approval + set_permis
 1. **Build** — Call per-field tools in parallel to define the collection: standards, token IDs, invariants, approvals, permissions, metadata, balances.
 2. **Auto-Mint** (optional) — If the user wants tokens minted to specific addresses at creation, call `add_transfer` to append a `MsgTransferTokens` alongside the collection creation.
 3. **Verify** — Call `validate_transaction`, `review_collection`, and `simulate_transaction` in parallel. Fix any errors with targeted `remove_approval` + re-add.
-4. **Export** — Call `get_transaction` to get the final transaction JSON for signing.
+4. **Export** — Call `get_transaction` to get the final transaction JSON.
+5. **Hand off** — Call `get_review_url` and give the user `reviewUrl`. It opens bitbadges.io in the review-and-sign flow (Preview, Review Items, Transferability, Permissions, then wallet signature). Prefer this over pasting JSON into chat: the link is short and cannot be corrupted in transit. `previewUrl` is the read-only variant for sharing with a reviewer.
 
 ### Query & Verification (No Signing)
 
@@ -205,7 +208,7 @@ set_standards + set_valid_token_ids + set_invariants + add_approval + set_permis
 query_collection → verify_ownership → (take action based on result)
 ```
 
-> **Note:** The builder does not handle signing or broadcasting. Transaction signing must be done externally using the BitBadges SDK, a wallet, or the BitBadges frontend.
+> **Note:** The builder never signs or broadcasts. Hand the user a `get_review_url` link (browser wallet), pipe the JSON into `bb deploy --browser` / `--burner` (CLI), or sign with the SDK signing client.
 
 ## Auto-Mint at Creation
 
