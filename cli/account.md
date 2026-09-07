@@ -1,5 +1,5 @@
 ---
-description: "Read an address's profile, tokens, balances, activity, and approvals; convert and validate addresses; derive alias addresses; resolve bitbadges.io URLs; derive a public key."
+description: "Read an address profile, tokens, balances, activity, and approvals; convert and validate addresses; derive alias addresses and public keys; resolve URLs."
 ---
 
 # bb account, url, gen-pub-key

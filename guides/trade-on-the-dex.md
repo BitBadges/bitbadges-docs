@@ -1,5 +1,5 @@
 ---
-description: "Find pools and prices, check balances, estimate and execute a swap, and add or remove liquidity on the BitBadges DEX from the bb CLI, TypeScript, or raw messages."
+description: "Find pools and prices, check balances, estimate and execute a swap, and add or remove liquidity on the BitBadges DEX from the CLI, TypeScript, or raw messages."
 ---
 
 # Trade on the DEX

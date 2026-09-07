@@ -1,5 +1,5 @@
 ---
-description: "Idea to on-chain in one sitting: build a subscription token with the CLI or an AI agent, check it, simulate it, and sign it in the browser. Every command shows its real output."
+description: "Idea to on-chain in one sitting: build a subscription token with the CLI or an AI agent, check it, simulate it, and sign it in the browser, with real output."
 ---
 
 # Your First Collection

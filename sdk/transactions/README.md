@@ -1,5 +1,5 @@
 ---
-description: "The BitBadges transaction pipeline in TypeScript, build messages, create a transaction context, produce the payload, sign with a Cosmos or EVM wallet, and broadcast."
+description: "The TypeScript transaction pipeline: build messages, create a transaction context, produce the payload, sign with a Cosmos or EVM wallet, and broadcast."
 ---
 
 # Transactions

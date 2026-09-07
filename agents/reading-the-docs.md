@@ -32,12 +32,12 @@ Two files, both regenerated with the docs. Every page of this site carries the s
 | Download | Size | What it is |
 | --- | --- | --- |
 | [llms.txt](https://docs.bitbadges.io/llms.txt) | about 47 KB | A curated index: every page in this site's navigation order, one line each, with its URL and one-sentence description. No page bodies |
-| [for-llms.txt](https://docs.bitbadges.io/for-llms.txt) | about 1.6 MB | The whole corpus — 216 pages, roughly 43,000 lines — concatenated into one plain-text file |
+| [for-llms.txt](https://docs.bitbadges.io/for-llms.txt) | about 1.6 MB | The whole corpus (216 pages, roughly 43,000 lines) concatenated into one plain-text file |
 
 **Which one to feed your agent:**
 
-- **Context-limited agent, or one that can fetch URLs** — give it `llms.txt`. It fits in any context window, and every line carries the URL of the page to fetch next. This is the default.
-- **One-shot paste, or an agent with a large context and no network** — give it `for-llms.txt`. Roughly 400k tokens; paste it whole, attach it as a file, or `grep` it locally and paste the sections you hit.
+- **Context-limited agent, or one that can fetch URLs:** give it `llms.txt`. It fits in any context window, and every line carries the URL of the page to fetch next. This is the default.
+- **One-shot paste, or an agent with a large context and no network:** give it `for-llms.txt`. Roughly 400k tokens; paste it whole, attach it as a file, or `grep` it locally and paste the sections you hit.
 
 Both are plain text with no markup beyond the markdown the pages are written in, so they need no preprocessing.
 

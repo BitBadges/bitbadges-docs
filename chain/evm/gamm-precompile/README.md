@@ -1,5 +1,5 @@
 ---
-description: "The GAMM precompile at 0x0000000000000000000000000000000000001002: join and exit liquidity pools, swap, swap with an IBC transfer, create a pool, and query pools from Solidity."
+description: "The GAMM precompile at 0x0000000000000000000000000000000000001002: join and exit pools, swap, swap with an IBC transfer, create and query pools from Solidity."
 ---
 
 # GAMM Precompile

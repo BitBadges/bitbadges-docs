@@ -226,7 +226,7 @@ See [Agents](../agents/README.md) for the paths table, the review-and-sign hando
 
 Testnet (`bitbadges-2`, EVM 50025) is offline. The SDK throws on `network: 'testnet'`. Mainnet runs as a chaosnet: gas fees can be zero while activity is low, so test there with low-value assets. See [Testnet](../chain/testnet.md) and [Network](../chain/README.md).
 
-The chain accepts zero-fee transactions today, so a first collection needs no BADGE at all with `--fee 0` (the default). Testnet is offline and mainnet has no faucet. If a fee is ever required, ask for BADGE in the [BitBadges Discord](https://discord.com/invite/TJMaEd9bar).
+A first collection needs no BADGE today: the chain accepts zero-fee transactions with `--fee 0` (the default). See [Deploy](../cli/deploy.md) for fees and funding.
 
 ## Resources for AI-Assisted Development
 

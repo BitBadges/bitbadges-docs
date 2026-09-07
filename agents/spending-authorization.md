@@ -1,5 +1,5 @@
 ---
-description: "Give an AI agent a delegate wallet with on-chain spending limits. Daily caps, time windows, recipient and token allowlists, and one-transaction revocation, all enforced by the chain."
+description: "Give an AI agent a delegate wallet with chain-enforced spending limits: daily caps, time windows, recipient and token allowlists, one-transaction revocation."
 ---
 
 # Spending Authorization
