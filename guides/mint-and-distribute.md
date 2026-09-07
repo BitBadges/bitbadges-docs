@@ -477,6 +477,47 @@ One complete `CollectionApproval` for `collectionApprovals`:
 }
 ```
 
+:::widget{name="approval-criteria" caption="The public mint on bitbadges.io: 5,000 BADGE per mint to alice, sequential IDs, 1,000 mints in total and one per address."}
+{
+  "predeterminedBalances": {
+    "incrementedBalances": {
+      "startBalances": [
+        {
+          "amount": "1",
+          "tokenIds": [
+            {
+              "start": "1",
+              "end": "1"
+            }
+          ]
+        }
+      ],
+      "incrementTokenIdsBy": "1"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": true
+    }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "1000",
+    "perInitiatedByAddressMaxNumTransfers": "1",
+    "amountTrackerId": "public-mint-tracker"
+  },
+  "coinTransfers": [
+    {
+      "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "coins": [
+        {
+          "denom": "ubadge",
+          "amount": "5000000000"
+        }
+      ]
+    }
+  ],
+  "overridesFromOutgoingApprovals": true
+}
+:::
+
 To add a mint approval after creation, the collection's `canUpdateCollectionApprovals` permission must not be frozen for `Mint`, and you send the approval in a separate `MsgUniversalUpdateCollection`. See [Lock Permissions](lock-permissions.md).
 
 ## 2. Mint at Creation Time

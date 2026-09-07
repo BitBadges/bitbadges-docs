@@ -111,7 +111,7 @@ Restore the snapshot after steps 1 to 6 and before step 7.
 
 ## 10. Optional: Run Under Cosmovisor
 
-Upgrades are announced in the `#chain-upgrades` Discord channel and use the Cosmos SDK `x/upgrade` module. [Cosmovisor](https://docs.cosmos.network/main/tooling/cosmovisor) applies them automatically at the scheduled height.
+Upgrades are announced in the `#chain-upgrades` Discord channel and use the Cosmos SDK `x/upgrade` module. [Cosmovisor](https://github.com/cosmos/cosmos-sdk/tree/main/tools/cosmovisor) applies them automatically at the scheduled height.
 
 ```bash
 export DAEMON_HOME=$HOME/.bitbadgeschain
@@ -235,7 +235,7 @@ Every JSON-RPC option is also a flag:
 - [Binary releases](https://github.com/BitBadges/bitbadgeschain/releases)
 - [Canonical genesis file](https://github.com/BitBadges/bitbadgeschain/blob/master/genesis-711316.json)
 - [Block explorer](https://explorer.bitbadges.io/BitBadges%20Mainnet/staking)
-- [Cosmos SDK: running a node](https://docs.cosmos.network/main/user/run-node/run-node)
+- [Cosmos SDK: running a node](https://github.com/cosmos/cosmos-sdk/blob/main/docs/docs/user/run-node/01-run-node.md)
 - [Cosmos tutorials: path to production](https://tutorials.cosmos.network/tutorials/9-path-to-prod/1-overview.html)
 
 Community guides that cover the same ground: [provewithryd](https://docs.provewithryd.xyz/mainnet/bitbadges/network-overview) and [nodestake](https://nodestake.org/bitbadges). Most active validators in `#validators` have their own write-ups.

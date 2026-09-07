@@ -52,7 +52,7 @@ console.log(collection.manager); // bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
 ```
 
 ```bash
-bb api get-collection 1
+bb api tokens get-collection 1
 ```
 
 The response for the Demo NFTs collection (synthesized from the SDK types; numbers arrive as strings):

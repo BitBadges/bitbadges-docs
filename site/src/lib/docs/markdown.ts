@@ -23,8 +23,12 @@ import type { Root as HastRoot, Element } from 'hast';
 import type { Root as MdastRoot } from 'mdast';
 
 import { applyCodeFolds, deserializeRanges, foldRangesFor, serializeRanges } from './fold';
+import { rehypeMermaid } from './mermaid';
+import { rehypeThemedImages } from './themedImages';
+import { stripWidgets } from './widgets';
 import { gitbookToDirectives } from './gitbook';
 import { resolveAssetPath, resolveDocLink } from './paths';
+import { remarkWidgets } from './widgets';
 
 export type Heading = { depth: number; id: string; text: string };
 
@@ -187,6 +191,8 @@ function rehypeRewrite(options: RenderOptions, headings: Heading[]) {
       if (node.tagName === 'img') {
         const src = String(node.properties?.src ?? '');
         if (!src || isExternal(src)) return;
+        // Widget logos live in the site's own public/ and are already basePath-prefixed.
+        if (node.properties?.dataSiteAsset !== undefined) return;
         const asset = resolveAssetPath(filePath, src);
         if (asset) node.properties!.src = `${assetsPrefix}/${encodePath(asset)}`;
         node.properties!.loading ??= 'lazy';
@@ -294,37 +300,46 @@ function rehypeCodeFolds() {
       const folds = applyCodeFolds(code, deserializeRanges(spec));
       if (folds === 0) return;
       figure.properties['data-folds'] = String(folds);
-      addExpandAllButton(figure);
+      figure.properties['data-view'] = 'collapsed';
+      addViewTabs(figure);
     });
   };
 }
 
 /**
- * Put an "Expand all" toggle immediately left of the copy button.
+ * Put the Collapsed / Full view tabs between the language label and the copy
+ * button.
  *
- * Only figures that actually folded get one, which is why it is added here
- * rather than in the chrome pass: a `fold=` range can fall outside the block
- * and collapse to nothing. `CopyButtons` drives it; without script the folds
- * still open one at a time.
+ * Only figures that actually folded get them, which is why they are added
+ * here rather than in the chrome pass: a `fold=` range can fall outside the
+ * block and collapse to nothing. `CopyButtons` drives them; the server
+ * renders the collapsed view selected.
  */
-function addExpandAllButton(figure: Element) {
+function addViewTabs(figure: Element) {
   const caption = figure.children.find(
     (child): child is Element => child.type === 'element' && child.tagName === 'figcaption',
   );
   if (!caption) return;
+  const tab = (view: 'collapsed' | 'full', label: string): Element => ({
+    type: 'element',
+    tagName: 'button',
+    properties: {
+      type: 'button',
+      role: 'tab',
+      className: ['code-view-tab'],
+      'data-view-tab': view,
+      'aria-selected': view === 'collapsed' ? 'true' : 'false',
+    },
+    children: [{ type: 'text', value: label }],
+  });
   const copyIndex = caption.children.findIndex(
     (child) => child.type === 'element' && 'data-copy' in (child.properties ?? {}),
   );
   caption.children.splice(copyIndex === -1 ? caption.children.length : copyIndex, 0, {
     type: 'element',
-    tagName: 'button',
-    properties: {
-      type: 'button',
-      className: ['copy-button'],
-      'data-expand-all': '',
-      'aria-expanded': 'false',
-    },
-    children: [{ type: 'text', value: 'Expand all' }],
+    tagName: 'span',
+    properties: { className: ['code-view'], role: 'tablist', 'aria-label': 'Code view' },
+    children: [tab('collapsed', 'Collapsed'), tab('full', 'Full')],
   });
 }
 
@@ -359,7 +374,7 @@ function rehypeContentRefTitles(options: RenderOptions) {
 
 /** Strip code blocks and markup down to prose, for the search index. */
 function plainText(markdown: string): string {
-  return markdown
+  return stripWidgets(markdown)
     .replace(/^---\n[\s\S]*?\n---\n/, '')
     .replace(/```[\s\S]*?```/g, ' ')
     .replace(/~~~[\s\S]*?~~~/g, ' ')
@@ -381,6 +396,7 @@ export async function renderDoc(source: string, options: RenderOptions): Promise
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkDirective)
+    .use(remarkWidgets, options)
     .use(remarkLiteralDirectives)
     .use(remarkCodeMeta)
     .use(remarkExtractTitle, store)
@@ -389,12 +405,14 @@ export async function renderDoc(source: string, options: RenderOptions): Promise
     .use(rehypeRaw)
     .use(rehypeSlug)
     .use(rehypeRewrite, options, headings)
+    .use(rehypeThemedImages, options)
     .use(rehypeContentRefTitles, options)
     .use(rehypeAutolinkHeadings, {
       behavior: 'append',
       properties: { class: 'heading-anchor', ariaHidden: 'true', tabIndex: -1 },
       content: { type: 'text', value: '#' },
     })
+    .use(rehypeMermaid, { filePath: options.filePath })
     .use(rehypeContentChrome)
     .use(rehypeShiki, {
       themes: { light: 'github-light', dark: 'github-dark' },

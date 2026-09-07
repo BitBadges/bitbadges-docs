@@ -279,6 +279,21 @@ console.log(result.txHash, result.success);
 
 The `mint` approval is not in the list, so this message deletes it: minting stops for good. The permission entry forbids every future change to `transferable`, so the collection stays freely tradable.
 
+:::widget{name="transferability-row" caption="The transferability tab after this message: one approval remains, and the permission entry means no manager can change it."}
+{
+  "approvalId": "transferable",
+  "fromListId": "AllWithoutMint",
+  "toListId": "All",
+  "initiatedByListId": "All",
+  "tokenIds": [
+    {
+      "start": "1",
+      "end": "100"
+    }
+  ]
+}
+:::
+
 ## Fields
 
 | Field | Type | Required | Description |

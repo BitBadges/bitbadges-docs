@@ -196,6 +196,19 @@ A complete `MsgCreateCollection`. The collection-level fields are open; the defa
 }
 ```
 
+:::widget{name="collection-card" caption="The collection as the browse grid on bitbadges.io shows it: the first standard becomes the badge on the image, and the manager sits in the footer."}
+{
+  "collectionId": 1,
+  "name": "Demo NFTs",
+  "standards": [
+    "Tradable",
+    "NFT"
+  ],
+  "supply": "100",
+  "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
+}
+:::
+
 | Field | Type | Set | Permission | Description |
 | --- | --- | --- | --- | --- |
 | `collectionId` | Uint | chain | | Assigned at creation, starting at 1 |

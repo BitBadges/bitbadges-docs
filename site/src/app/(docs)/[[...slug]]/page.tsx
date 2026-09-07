@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { CopyButtons } from '@/components/docs/CopyButtons';
+import { PageActions } from '@/components/docs/PageActions';
 import { Pagination } from '@/components/docs/Pagination';
 import { TableOfContents } from '@/components/docs/TableOfContents';
 import { docsConfig } from '@/lib/docs/config';
 import { getAllRoutes, getDoc } from '@/lib/docs/content';
+import { markdownRoute } from '@/lib/docs/page-markdown';
 
 type PageProps = { params: Promise<{ slug?: string[] }> };
 
@@ -26,10 +28,16 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const doc = await getDoc(routeOf((await params).slug));
   if (!doc) return {};
+  const { basePath } = docsConfig;
   return {
     title: doc.title,
     description: doc.description ?? docsConfig.siteDescription,
     openGraph: { title: doc.title, description: doc.description ?? docsConfig.siteDescription },
+    // The page's Markdown twin and the llms.txt index, for agents and crawlers
+    // that look for machine-readable alternates in the head.
+    alternates: {
+      types: { 'text/markdown': `${basePath}${markdownRoute(doc.route)}`, 'text/plain': `${basePath}/llms.txt` },
+    },
   };
 }
 
@@ -42,9 +50,17 @@ export default async function DocPage({ params }: PageProps) {
       <article id="doc-content" className="min-w-0 flex-1 py-9 lg:py-11 lg:pl-8">
         <div className="mx-auto max-w-[46rem]">
           <header className="mb-8">
-            <h1 className="text-[2.1rem] font-bold leading-[1.18] tracking-[-0.022em] text-[var(--fg)]">
-              {doc.title}
-            </h1>
+            <div className="flex items-start justify-between gap-4">
+              <h1 className="text-[2.1rem] font-bold leading-[1.18] tracking-[-0.022em] text-[var(--fg)]">
+                {doc.title}
+              </h1>
+              <PageActions
+                title={doc.title}
+                route={doc.route}
+                basePath={docsConfig.basePath}
+                siteUrl={docsConfig.siteUrl}
+              />
+            </div>
             {doc.description && (
               <p className="mt-3 text-[1.05rem] leading-relaxed text-[var(--fg-muted)]">{doc.description}</p>
             )}

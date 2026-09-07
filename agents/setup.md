@@ -1,5 +1,5 @@
 ---
-description: "Set up your AI harness for BitBadges. The one MCP server command, then the exact config for Claude Code, Claude Desktop, Cursor, Windsurf, Codex CLI, VS Code, Zed, and LLMs without tools."
+description: "Set up your AI harness for BitBadges: the MCP server command and the config for Claude Code, Claude Desktop, Cursor, Windsurf, Codex CLI, VS Code, and Zed."
 ---
 
 # Set Up Your AI

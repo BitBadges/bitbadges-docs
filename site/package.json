@@ -9,6 +9,8 @@
     "gen:proto": "bun scripts/gen-proto-reference.ts",
     "gen:chain-openapi": "bun scripts/gen-chain-openapi.ts",
     "gen:llms": "bun scripts/gen-llms.ts",
+    "screenshots": "bun scripts/capture-frontend-screenshots.ts",
+    "screenshots:check": "bun scripts/capture-frontend-screenshots.ts --check",
     "predev": "bun run sync",
     "dev": "next dev",
     "prebuild": "bun run sync",
@@ -20,6 +22,7 @@
   "dependencies": {
     "@scalar/api-reference-react": "0.9.66",
     "@shikijs/rehype": "4.4.3",
+    "beautiful-mermaid": "1.1.3",
     "gray-matter": "4.0.3",
     "hast-util-to-string": "3.0.1",
     "minisearch": "7.2.0",
@@ -35,7 +38,8 @@
     "remark-parse": "11.0.0",
     "remark-rehype": "11.1.2",
     "unified": "11.0.5",
-    "unist-util-visit": "5.1.0"
+    "unist-util-visit": "5.1.0",
+    "zod": "4.5.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.3.3",

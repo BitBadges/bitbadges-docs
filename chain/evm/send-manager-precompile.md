@@ -1,5 +1,5 @@
 ---
-description: "The send manager precompile at 0x0000000000000000000000000000000000001003: one send method that moves native coins and alias denoms from a contract with all accounting in x/bank."
+description: "The send manager precompile at 0x0000000000000000000000000000000000001003: one send method that moves native coins and alias denoms from a contract via x/bank."
 ---
 
 # Send Manager Precompile

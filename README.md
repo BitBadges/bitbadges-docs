@@ -264,6 +264,8 @@ The longer argument is in [Why BitBadges](about/README.md) and [Comparisons](abo
 
 ## What People Build
 
+Each row below has a longer pitch, with the fields that matter and a prompt for an agent, under [Use Cases](use-cases/README.md).
+
 | Build | Mechanism | Start |
 | --- | --- | --- |
 | NFT or fungible collection | `validTokenIds` plus a mint approval | [Create a Collection](guides/create-a-collection.md) |
@@ -356,7 +358,7 @@ Full table, denoms, and node setup: [Network](chain/README.md).
 
 | Tab | Read it when you want to | Start at |
 | --- | --- | --- |
-| Docs | Install, run a first transaction, do a task, or read why BitBadges exists | [Quickstart](start/quickstart.md), [Guides](guides/README.md), [About](about/README.md) |
+| Docs | Install, run a first transaction, do a task, use the site, or read why BitBadges exists | [Quickstart](start/quickstart.md), [Using the Frontend](using-the-frontend/README.md), [Guides](guides/README.md), [About](about/README.md) |
 | Token Standard | Understand the data model, approval criteria, every message and query, and wrapping | [Overview](token-standard/README.md) |
 | Chain | The other modules, the DEX, EVM precompiles, endpoints, denoms, running a node | [Chain](chain/README.md) |
 | API | Call the hosted API, run claims and plugins, add Sign In with BitBadges | [BitBadges API](api/README.md), [OpenAPI reference](/api-reference) |

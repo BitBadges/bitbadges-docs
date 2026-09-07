@@ -8,7 +8,7 @@ At the end you have a custom plugin: an HTTP endpoint that BitBadges POSTs to du
 
 Three parties are involved. The plugin creator (you) builds and maintains the endpoint. The claim creator adds the plugin to a claim and sets its public and private params. The claiming user attempts the claim and supplies user inputs. All three sources are merged into one payload sent to your handler.
 
-```
+```text
 User claims -> BitBadges sends POST to your endpoint -> You return 200 OK or an error
 ```
 
@@ -274,7 +274,7 @@ Finalize version 0 in the portal. A finalized version is immutable (schemas, end
 
 Iterate with new versions:
 
-```
+```text
 Create v0 (unfinalized) -> Test -> Finalize v0 -> Claims use v0
 Create v1 (unfinalized) -> Test -> Finalize v1 -> New claims use v1, existing claims stay on v0
 ```

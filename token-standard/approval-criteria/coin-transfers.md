@@ -120,6 +120,25 @@ A complete `approvalCriteria` with the `coinTransfers` array open. Folded lines 
 }
 ```
 
+:::widget{name="approval-criteria" caption="The coin transfer card on bitbadges.io: 1,000 BADGE goes to alice on every use."}
+{
+  "overridesFromOutgoingApprovals": true,
+  "coinTransfers": [
+    {
+      "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "coins": [
+        {
+          "denom": "ubadge",
+          "amount": "1000000000"
+        }
+      ],
+      "overrideFromWithApproverAddress": false,
+      "overrideToWithInitiator": false
+    }
+  ]
+}
+:::
+
 ```ts
 interface iCoinTransfer<T extends NumberType> {
   to: string;

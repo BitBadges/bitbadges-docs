@@ -12,49 +12,60 @@ export function codeSourceFor(button: Element | null): string | null {
   return button?.closest('figure')?.getAttribute('data-code-source') ?? null;
 }
 
-/** Reflect a fold's open state onto its clipped line container. */
-function syncFold(details: HTMLDetailsElement) {
-  const lines = details.querySelector(':scope > .code-fold-lines');
-  if (!lines) return;
-  // The lines are rendered but clipped when closed, so without this they would
-  // be read out alongside the "n lines hidden" summary.
-  if (details.open) lines.removeAttribute('aria-hidden');
-  else lines.setAttribute('aria-hidden', 'true');
+export type CodeView = 'collapsed' | 'full';
+
+const VIEW_KEY = 'bb-docs:code-view';
+
+/** Switch one folded figure between its two views and keep its tabs and ARIA in step. */
+export function setCodeView(figure: Element, view: CodeView) {
+  figure.setAttribute('data-view', view);
+  for (const tab of figure.querySelectorAll<HTMLButtonElement>('button[data-view-tab]')) {
+    tab.setAttribute('aria-selected', String(tab.getAttribute('data-view-tab') === view));
+  }
+  // The folded lines are rendered but clipped while collapsed, so without
+  // this they would be read out alongside the elision row.
+  for (const lines of figure.querySelectorAll('.code-fold-lines')) {
+    if (view === 'full') lines.removeAttribute('aria-hidden');
+    else lines.setAttribute('aria-hidden', 'true');
+  }
 }
 
-/** Relabel a figure's expand-all button from the state of its folds. */
-function syncExpandAll(figure: Element) {
-  const button = figure.querySelector<HTMLButtonElement>('button[data-expand-all]');
-  if (!button) return;
-  const folds = [...figure.querySelectorAll<HTMLDetailsElement>('details.code-fold')];
-  const allOpen = folds.length > 0 && folds.every((fold) => fold.open);
-  button.setAttribute('aria-expanded', String(allOpen));
-  button.textContent = allOpen ? 'Collapse all' : 'Expand all';
+function storedView(): CodeView | null {
+  try {
+    const value = localStorage.getItem(VIEW_KEY);
+    return value === 'full' || value === 'collapsed' ? value : null;
+  } catch {
+    return null;
+  }
 }
 
 /**
- * One delegated listener for every code block's copy and expand-all buttons.
+ * One delegated listener for every code block's copy button and view tabs.
  *
  * The buttons are part of the server-rendered markdown HTML, so there is no
- * per-block React component and no hydration cost. Everything here is a
- * progressive enhancement — the folds are native `<details>` and toggle
- * individually without it.
+ * per-block React component and no hydration cost. A reader who picks Full
+ * once keeps it on every folded block, on this page and the next.
  */
 export function CopyButtons() {
   useEffect(() => {
+    const apply = (view: CodeView) => {
+      for (const figure of document.querySelectorAll('figure[data-code][data-view]')) setCodeView(figure, view);
+    };
+    const remembered = storedView();
+    if (remembered && remembered !== 'collapsed') apply(remembered);
+
     const onClick = async (event: MouseEvent) => {
       const target = event.target as HTMLElement | null;
 
-      const expandAll = target?.closest<HTMLButtonElement>('button[data-expand-all]');
-      if (expandAll) {
-        const figure = expandAll.closest('figure');
-        if (!figure) return;
-        const open = expandAll.getAttribute('aria-expanded') !== 'true';
-        for (const fold of figure.querySelectorAll<HTMLDetailsElement>('details.code-fold')) {
-          fold.open = open;
-          syncFold(fold);
+      const tab = target?.closest<HTMLButtonElement>('button[data-view-tab]');
+      if (tab) {
+        const view = tab.getAttribute('data-view-tab') === 'full' ? 'full' : 'collapsed';
+        try {
+          localStorage.setItem(VIEW_KEY, view);
+        } catch {
+          // Private mode or storage disabled: the choice still applies to this page.
         }
-        syncExpandAll(figure);
+        apply(view);
         return;
       }
 
@@ -75,21 +86,8 @@ export function CopyButtons() {
       }, 1600);
     };
 
-    // `toggle` does not bubble, so it has to be caught in the capture phase.
-    const onToggle = (event: Event) => {
-      const details = event.target as HTMLDetailsElement | null;
-      if (!details?.matches?.('details.code-fold')) return;
-      syncFold(details);
-      const figure = details.closest('figure');
-      if (figure) syncExpandAll(figure);
-    };
-
     document.addEventListener('click', onClick);
-    document.addEventListener('toggle', onToggle, true);
-    return () => {
-      document.removeEventListener('click', onClick);
-      document.removeEventListener('toggle', onToggle, true);
-    };
+    return () => document.removeEventListener('click', onClick);
   }, []);
 
   return null;

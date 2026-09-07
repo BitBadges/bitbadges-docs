@@ -116,6 +116,26 @@ export const wrapperApproval = ({
 });
 ```
 
+:::widget{name="transferability-row" caption="The wrap approval as the transferability tab lists it: any holder sends tokens 1 to 100 to the wrapper address derived in step 2."}
+{
+  "approvalId": "wrap",
+  "fromListId": "AllWithoutMint",
+  "toListId": "bb1epzsfvc4snsrnefpcvuvp60l2q8ke92ax05m55xtszpt6flxkg7qc38zch",
+  "initiatedByListId": "All",
+  "tokenIds": [
+    {
+      "start": "1",
+      "end": "100"
+    }
+  ],
+  "criteria": [
+    "Special wrapping",
+    "Must prioritize",
+    "Skips recipient incoming approvals"
+  ]
+}
+:::
+
 If `defaultBalances.autoApproveAllIncomingTransfers` is `true`, the wrapper address already accepts all incoming transfers and `overridesToIncomingApprovals` is not strictly needed. Setting it keeps the path working if the default ever changes.
 
 Unwrapper approval (the wrapper address sends tokens back to users):

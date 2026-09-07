@@ -24,6 +24,8 @@ export {
   type FoldReport,
   type SanitizeReport,
 } from './openapi';
+export { agentLinks, buildAgentPrompt, MCP_SETUP_ROUTE, type AgentPromptInput } from './page-actions';
+export { markdownRoute, pageMarkdown, type PageMarkdownOptions } from './page-markdown';
 export { filePathToRoute, resolveAssetPath, resolveDocLink, routeToCandidates } from './paths';
 export { loadRedirects, parseRedirects, type Redirect } from './redirects';
 export { flattenNav, parseSummary, type NavGroup, type NavNode } from './summary';

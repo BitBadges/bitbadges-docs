@@ -11,7 +11,7 @@ See the [API reference](/api-reference) for every route's request and response s
 ## Look Up Any Plugin
 
 ```bash
-curl https://api.bitbadges.io/api/v0/plugins/must-own-badges -H "x-api-key: $BITBADGES_API_KEY"
+curl https://api.bitbadges.io/api/v0/plugin/must-own-badges -H "x-api-key: $BITBADGES_API_KEY"
 ```
 
 ```ts

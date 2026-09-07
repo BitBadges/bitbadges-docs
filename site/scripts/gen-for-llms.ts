@@ -12,6 +12,7 @@ import path from 'node:path';
 
 import { docsConfig } from '../src/lib/docs/config';
 import { getAllFiles } from '../src/lib/docs/content';
+import { stripWidgets } from '../src/lib/docs/widgets';
 
 /**
  * Generated reference trees are excluded. `sdk/reference` alone is 1647 pages
@@ -41,14 +42,17 @@ export async function generate(): Promise<{ pages: number; bytes: number }> {
   const entries = await Promise.all(
     files.sort().map(async (file) => ({
       file,
-      body: await fs.readFile(path.join(docsConfig.contentDir, file), 'utf8'),
+      body: stripWidgets(await fs.readFile(path.join(docsConfig.contentDir, file), 'utf8')),
     })),
   );
 
   const text = renderCorpus(entries);
+  // `llms-full.txt` is the name the llms.txt convention uses for the full dump;
+  // `for-llms.txt` predates it and stays so existing links keep working.
   const target = path.resolve(process.cwd(), 'public', 'for-llms.txt');
   await fs.mkdir(path.dirname(target), { recursive: true });
   await fs.writeFile(target, text);
+  await fs.writeFile(path.resolve(process.cwd(), 'public', 'llms-full.txt'), text);
   return { pages: entries.length, bytes: Buffer.byteLength(text) };
 }
 

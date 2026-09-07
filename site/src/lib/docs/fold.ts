@@ -3,9 +3,11 @@
  *
  * Authors mark ranges on the fence (` ```json fold=12-40,55-80 `); long
  * `json`/`jsonc` blocks fold their boilerplate automatically unless `nofold`
- * is present. The rendered fold is a native `<details>` so no script is
- * needed to toggle it, and the full source stays in the DOM and on the copy
- * attribute.
+ * is present. A folded figure has two views, switched by tabs in its caption:
+ * `collapsed` hides every marked run behind a single quiet elision row, and
+ * `full` shows the source untouched. The whole block switches at once, so the
+ * listing never breaks into panels. The full source stays in the DOM and on
+ * the copy attribute in both views.
  */
 import type { Element, ElementContent } from 'hast';
 
@@ -121,12 +123,14 @@ const isLine = (node: ElementContent): node is Element => {
 };
 
 /**
- * Wrap the given line ranges of a Shiki `<code>` element in `<details>`.
+ * Mark the given line ranges of a Shiki `<code>` element as folded.
  *
  * Shiki emits one `span.line` per source line, separated by `\n` text nodes.
- * Each line and its trailing newline move together, so the visible text is
- * byte-identical whether the fold is open or closed. Returns the number of
- * folds made.
+ * Each range becomes an empty `span.code-elision` (the stylesheet draws the
+ * "··· N lines" row from its attributes, so the marker adds no text to the
+ * block) followed by a `span.code-fold-lines` holding the lines and their
+ * trailing newlines. Which of the two is visible depends on the figure's
+ * `data-view`. Returns the number of folds made.
  */
 export function applyCodeFolds(code: Element, ranges: FoldRange[]): number {
   const units: ElementContent[][] = [];
@@ -147,27 +151,19 @@ export function applyCodeFolds(code: Element, ranges: FoldRange[]): number {
     const hidden = to - from;
     next.push({
       type: 'element',
-      tagName: 'details',
-      properties: { className: ['code-fold'] },
-      children: [
-        {
-          type: 'element',
-          tagName: 'summary',
-          properties: {},
-          children: [{ type: 'text', value: `··· ${hidden} line${hidden === 1 ? '' : 's'} hidden (${from + 1}-${to})` }],
-        },
-        {
-          // The folded lines stay in the flow, clipped to zero height by the
-          // stylesheet, so a mouse selection dragged across a closed fold
-          // still picks them up — the browser's own hiding of details content
-          // would leave them out of the selection. Hidden from assistive tech
-          // while closed; `CopyButtons` clears the attribute when it opens.
-          type: 'element',
-          tagName: 'span',
-          properties: { className: ['code-fold-lines'], ariaHidden: 'true' },
-          children: units.slice(from, to).flat(),
-        },
-      ],
+      tagName: 'span',
+      properties: { className: ['code-elision'], 'data-hidden': String(hidden), 'data-range': `${from + 1}-${to}` },
+      children: [],
+    });
+    next.push({
+      // The folded lines stay in the flow, clipped to zero height by the
+      // stylesheet while collapsed, so a mouse selection dragged across the
+      // block still picks them up. Hidden from assistive tech while
+      // collapsed; `CopyButtons` clears the attribute in the full view.
+      type: 'element',
+      tagName: 'span',
+      properties: { className: ['code-fold-lines'], ariaHidden: 'true' },
+      children: units.slice(from, to).flat(),
     });
     cursor = to;
     folds++;

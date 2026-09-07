@@ -342,6 +342,18 @@ const soft: CollectionPermissions<bigint> = {
 
 Once a time is permitted or forbidden, an update that tries to change it is rejected.
 
+:::widget{name="permissions-grid" caption="The locked example as bitbadges.io shows it: deletion is frozen as forbidden, every other permission stays neutral."}
+{
+  "permissions": {
+    "canDeleteCollection": [{ "permanentlyForbiddenTimes": [{ "start": "1", "end": "18446744073709551615" }] }],
+    "canArchiveCollection": [],
+    "canUpdateManager": [],
+    "canUpdateCollectionMetadata": [],
+    "canUpdateCollectionApprovals": []
+  }
+}
+:::
+
 ### First Match
 
 The chain walks the array and applies the first element whose criteria match. Later elements are ignored for that combination, even if they say the opposite.

@@ -1,5 +1,5 @@
 ---
-description: "Sign and broadcast with bb deploy (browser wallet, keyring, burner, or a generated payload), confirm with bb tx status and tx wait, and use the browser sign bridge."
+description: "Sign and broadcast with bb deploy (browser wallet, keyring, burner, or generated payload), confirm with bb tx status and tx wait, and use the sign bridge."
 ---
 
 # bb deploy and bb tx

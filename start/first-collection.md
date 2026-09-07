@@ -1,5 +1,5 @@
 ---
-description: "Idea to on-chain in one sitting: build a subscription token with the CLI or an AI agent, check it, simulate it, and sign it in the browser. Every command shows its real output."
+description: "Idea to on-chain in one sitting: build a subscription token with the CLI or an AI agent, check it, simulate it, and sign it in the browser, with real output."
 ---
 
 # Your First Collection
@@ -12,6 +12,18 @@ Two ways in. Pick one, or read both; they meet at the same review link.
 - **AI agent.** Claude Code, Codex, or Cursor with the BitBadges MCP server. You describe the token; the agent runs the same steps.
 
 The agent never signs. Neither does the CLI unless you tell it to. Both hand you a link, and you sign in the browser with your own wallet.
+
+```mermaid title="Two ways in, one review link"
+flowchart LR
+  T["Terminal: bb build"] --> C["bb check"]
+  C --> S["bb simulate"]
+  S --> P["bb preview"]
+  A["AI agent: MCP tools"] --> V["validate, review, simulate"]
+  V --> R["get_review_url"]
+  P --> L["Review and sign in the browser"]
+  R --> L
+  L --> O["On-chain"]
+```
 
 ## Prerequisites
 
@@ -183,6 +195,20 @@ bb api tokens get-collection <collectionId>
 ```
 
 That returns the collection as the indexer sees it. Your subscription is on-chain.
+
+:::widget{name="collection-card" caption="What the browse grid on bitbadges.io shows once the collection is indexed: the name, description, and price from the build flags."}
+{
+  "collectionId": "<collectionId>",
+  "name": "Pro Plan",
+  "description": "Monthly access.",
+  "standards": [
+    "Subscriptions"
+  ],
+  "price": "10 USDC / month",
+  "priceLabel": "Base price",
+  "manager": "bb1w63npeee74ewuudzf8cgvy6at4jn4mjr0a9r5p"
+}
+:::
 
 ## Path B: an AI agent
 

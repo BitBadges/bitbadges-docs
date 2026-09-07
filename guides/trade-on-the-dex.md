@@ -1,5 +1,5 @@
 ---
-description: "Find pools and prices, check balances, estimate and execute a swap, and add or remove liquidity on the BitBadges DEX from the bb CLI, TypeScript, or raw messages."
+description: "Find pools and prices, check balances, estimate and execute a swap, and add or remove liquidity on the BitBadges DEX from the CLI, TypeScript, or raw messages."
 ---
 
 # Trade on the DEX
@@ -132,6 +132,16 @@ bb amount slippage --expected 5000000 --actual 4975000
 `bb amount max-wrappable`, `wrap-preview`, and `unwrap-preview` convert through a collection's wrapper path; see [Wrap to an IBC Denom](wrap-to-an-ibc-denom.md).
 
 ## 4. Estimate the Swap
+
+:::widget{name="swap" caption="The same estimate as the swap panel on bitbadges.io shows it. The numbers here are illustrative."}
+{
+  "from": { "symbol": "BADGE", "amount": "1", "balance": "2,500 BADGE", "chain": "BitBadges" },
+  "to": { "symbol": "USDC", "amount": "0.1231", "chain": "BitBadges" },
+  "rate": "1 BADGE = 0.1231 USDC",
+  "fee": "0.3% pool fee",
+  "route": "Pool 1 (BADGE / USDC)"
+}
+:::
 
 ```bash
 # 1 BADGE -> USDC on the BitBadges chain, 1% slippage (default)

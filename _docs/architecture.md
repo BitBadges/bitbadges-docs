@@ -62,6 +62,7 @@ guides/wrap-to-an-ibc-denom.md     <- examples/cosmos-coin-wrapper-example.md, e
 guides/trade-on-the-dex.md         <- x-gamm README (user half), bitbadges-api/estimating-swaps.md (guide part), cli swap/pools/pairs/price (from source). Pools, swaps, liquidity.
 guides/subscriptions-and-time-based-tokens.md <- skills/subscription.md, learn balance-system (time part, link only), skills/credit-token.md (config).
 guides/smart-tokens-and-vaults.md  <- skills/smart-token.md, ai-agents/openclaw-vault-tutorial.md, learn/ibc-backed-minting.md (link only), ai-agents/smart-token-type-detection.md (the type table).
+using-the-frontend/README.md + 8 pages  NEW. Walkthrough of bitbadges.io with captured screenshots (see "Frontend screenshots" under Site changes).
 about/README.md                    <- README.md (why), overview/what-is-bitbadges.md, x-tokenization/README.md (features list). "Why BitBadges": theses, design decisions. No hype multipliers. ~900 words.
 about/use-cases.md                 <- overview/use-cases.md. Cut the templated restatements.
 about/comparisons.md               <- overview/bitbadges-vs-erc3643.md, overview/comparing-bitbadges-to-other-protocols.md.
@@ -233,14 +234,122 @@ Every writer appends rows to `_docs/redirects.tsv` (old route TAB new route, rou
    page (between the `proto-nav` markers, written by the generator) and, for the
    SDK, the six group indexes plus the fifteen `START_HERE` symbols.
 
+### Visuals
+
+Three channels, each generated from a source the tests can check. The plan and the backlog are in [`visuals.md`](visuals.md).
+
+- **Diagrams.** A ```mermaid fence renders to inline SVG at build time (`site/src/lib/docs/mermaid.ts`, `beautiful-mermaid`, no DOM, no client script). Colors are the site tokens, so diagrams follow the theme. `site/tests/mermaid.test.ts` renders every fence in the corpus.
+- **Code folds.** A folded figure has Collapsed and Full tabs in its caption (`site/src/lib/docs/fold.ts`, `CopyButtons.tsx`). The listing never breaks into panels; the reader's choice is remembered in `localStorage`.
+- **Widgets.** Read-only mocks of frontend UI, embedded from markdown; see the next subsection.
+- **Screenshots.** Playwright captures of bitbadges.io in light and dark for the Using the Frontend walkthrough, driven by one manifest; see the Frontend screenshots subsection.
+
+### Site metadata and icons
+
+`site/src/app/layout.tsx` carries `metadataBase` (from `DOCS_SITE_URL`), the title template, Open Graph and Twitter cards, the icon set, and a `viewport.themeColor` per color scheme.
+
+- Favicon: `site/src/app/icon.svg`, the same circular mark as the top bar and the widgets (`site/public/bitbadges-logo.svg`). Apple touch icon: `site/src/app/apple-icon.png` (180px).
+- Web app manifest: `site/src/app/manifest.ts`, serving `/manifest.webmanifest` with `public/icon-192.png` and `public/icon-512.png`.
+- Social card: `site/public/og.png` (1200x630), a static file so it works under a static export. Regenerate it by rendering the card HTML in a headless browser; the source lives with the OG script in the scratchpad recipe recorded in this section's history, and the file is committed.
+
+### Widgets (site/src/components/widgets)
+
+Read-only mocks of bitbadges.io UI that a page embeds from markdown. They are
+React components living in the docs site, not imports from the frontend, so the
+docs build stays free of antd, wallet contexts, and data fetching. Each copies
+the frontend's layout, icons, and colors, and reads the site's design tokens
+(`--fg`, `--bg-inset`, `--border`), so it follows the light and dark theme.
+
+Surfaces. `WidgetFrame` in `shared.tsx` is the one outer wrapper; its
+`widget-surface` class (globals.css) is the code-figure surface (`--bg-code`,
+`--border`, 12px radius, `--shadow-sm`), so a widget next to a code block reads
+as the same kind of figure. Panels inside a widget use `widget-panel`, the
+code figure's caption tint one step in. A widget adds only its own padding and
+width through `className`; it never paints its own outer surface.
+
+Logos. Chain and token marks are the frontend's own image files, copied
+unchanged from `bitbadges-frontend/public/images` into `site/public/widgets/`
+(`eth-logo.webp`, `solana-logo.webp`, `bitcoin-logo.webp`, `cosmos-logo.webp`
+for ATOM, `usdc.webp`), plus `bitbadges-logo.svg`, the same circular
+mark the top bar uses (`site/public/bitbadges-logo.svg`), never the frontend's older PNG marks. The map is
+`CHAIN_LOGOS` / `TOKEN_LOGOS` in `shared.tsx`; nothing is hand-drawn. The
+`<img>` carries `data-site-asset`, which tells the asset rewrite in
+`markdown.ts` to leave the `src` alone (it is already `basePath`-prefixed and
+lives in `public/`, not the content tree), and `.doc .widget img` drops the
+frame `.doc img` gives content images.
+
+Syntax. A leaf directive for flat props, a container directive for JSON:
+
+```
+::widget{name="address" address="bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d" caption="One sentence."}
+
+:::widget{name="approval-criteria" caption="One sentence."}
+{ "coinTransfers": [ ... ] }
+:::
+```
+
+`site/src/lib/docs/widgets.ts` resolves the directive against the registry,
+validates the props with the widget's zod schema, renders the component to
+static HTML with `site/src/lib/docs/react-static.ts`, and replaces the node.
+An unknown name or invalid props throws with the file and line, so the page
+fails the build and `site/tests/widgets.test.ts` rather than rendering nothing.
+`markdown.ts` carries one `.use(remarkWidgets, options)` line for this.
+
+Registered widgets: `address`, `address-list`, `collection-card`,
+`approval-criteria`, `permissions-grid`, `swap`, `transferability-row`.
+
+Adding a widget:
+
+1. Create `site/src/components/widgets/<Name>.tsx` exporting `schema` (zod),
+   `Component` (a pure function of the parsed props; no hooks, no context),
+   and `examples` (named prop sets).
+2. Register it in `site/src/components/widgets/index.ts`.
+3. Run `cd site && bun test -u tests/widgets.test.ts` to record its HTML
+   snapshots under `site/tests/__snapshots__/`. A later look change shows up
+   as a snapshot diff in review; accept it with the same command.
+4. Open `/widgets` on the dev server to eyeball every example, then refresh
+   the gallery images.
+
+Refreshing the gallery images: `cd site && bun scripts/widget-gallery-screenshots.ts`
+writes `_docs/widgets/*.png` (light and dark) and `_docs/widgets/README.md`.
+It borrows Playwright from the frontend checkout (`PLAYWRIGHT_MODULE` overrides
+the path) and starts `next dev` on a free port unless `BASE_URL` is set. Manual
+step, not part of the tests.
+
+Wrapping audit: `--widths=360,540,900 --out=/tmp/widget-shots` pins the
+gallery's content column to each width and writes one `<width>px/` folder per
+width, so a layout change can be checked at phone, narrow-tablet and desktop
+widths without committing the extra images. Widgets adapt with container
+queries (`@container` on the frame), not viewport breakpoints, because the
+content column, not the window, is what varies.
+
+### Frontend screenshots (`using-the-frontend/`)
+
+The Docs tab section `using-the-frontend/` embeds real screenshots of bitbadges.io. They are captured, not drawn, so they are regenerated rather than edited. Full runbook: `site/scripts/frontend-screenshots/README.md`.
+
+- Manifest: `site/scripts/frontend-screenshots/manifest.ts`. One entry per screenshot: route, the doc page that embeds it, optional `base` (`prod`, the default, or `local` for a screen production does not have yet), `setup: 'signed-in'`, `waitFor`, `fill`, `click`, `mask`, and `themedPaint: false`. The sample ids are named constants with a comment on why each was chosen: collection 47 ("NFTs", a BitBadges showcase collection with artwork, 100 tokens, and a Mint approval), its manager `bb18el5ug...` for the account pages, and collection 32 ("Peer Member") for the claim link. Override per run with `DOCS_SHOT_*` env vars.
+- Output: `.gitbook/assets/frontend/<file>.png` (light) and `<file>--dark.png` (dark), both committed. Markdown references the light file only; the site pairs the twin by name. PNGs over 400 KB are downscaled with `sips` at capture time.
+- Capture: `cd site && bun run screenshots` (one entry, both themes: `bun run screenshots -- home.png`). Production entries need network; `local` entries need the frontend on `http://localhost:3000` with an indexer it can sign in against. Playwright and the mock wallet come from a `bitbadges-frontend` checkout (`BITBADGES_FRONTEND_DIR`, default: a sibling directory); the docs repo has no browser dependency. Sign-in uses the frontend harness in `src/__tests__/playwright/agent/` with its default unfunded mnemonic, on production too, so signed-in screens show an empty portal.
+- Themes: one browser context per (base, session, theme). The theme is forced through `localStorage.darkMode` and `colorScheme` before the app boots, then verified on every page: the `dark` class on `<html>` and the rendered pixels at three viewport points (skipped for `themedPaint: false` routes such as the landing page, which is dark in both themes).
+- Determinism: 1440x900 at 1x, reduced motion plus CSS animations and transitions off, the browser clock pinned to a fixed time, the policies cookie and chaosnet acknowledgement pre-seeded, and per-entry masks over the feedback bubble, timestamps, and live prices. Re-capturing against the same data gives byte-identical PNGs, so a diff means the UI or the data changed.
+- Check: `bun run screenshots:check` (offline, no browser) fails when either theme's PNG is missing, when a page references a `--dark` file directly, when a page embeds a `frontend/*.png` the manifest does not list, or when a PNG in the folder is not in the manifest. `site/tests/frontend-screenshots.test.ts` runs the same check under `bun test`, so CI catches stale references.
+
+### Page actions and Markdown route
+
+Every doc page carries a small Copy control at the top right of its title, the way GitBook does (`site/src/components/docs/PageActions.tsx`). Copy puts the page on the clipboard as Markdown. The chevron opens a menu: Copy page, View as Markdown, Copy prompt, Open in ChatGPT, Open in Claude, and Set up the BitBadges MCP (a link to `agents/setup.md`; there is no docs MCP, only the builder). The prompt is built by `site/src/lib/docs/page-actions.ts`: three lines that name the page, its Markdown URL, and `llms.txt`, and the ChatGPT and Claude links carry the same prompt in `?q=`. The menu is a plain `role="menu"` with arrow, Home, End, Escape, and outside-click handling; no dependency.
+
+The Markdown comes from the page's twin at `<route>.md` (`/index.md` for the root page). `site/scripts/gen-page-markdown.ts` writes one file per page into `public/` during `bun run sync`, so the twins are build output (gitignored) and serve identically under `next start`, the standalone image, and a `basePath` mount. `site/src/lib/docs/page-markdown.ts` shapes each one: frontmatter dropped, the title as an H1 when the body has none, `::widget` directives removed (`stripWidgets` in `widgets.ts`; the JSON beside a widget stays), and every internal link and image rewritten to an absolute URL under `docsConfig.siteUrl` (`DOCS_SITE_URL`). Each page's head also carries `<link rel="alternate" type="text/markdown">` pointing at its twin and `type="text/plain"` pointing at `/llms.txt`; `/llms-full.txt` is the convention-named alias of `/for-llms.txt`, and `src/app/robots.ts` names the AI crawlers with an explicit allow. Tests: `site/tests/page-markdown.test.ts` and `site/tests/page-actions.test.ts`.
+
+### Agent text files
+
+- `llms.txt` (about 51 KB) is the curated index, written by `site/scripts/gen-llms.ts` from `SUMMARY.md` and each page's `description:`. The generated `sdk/reference` and `chain/proto` trees collapse to one line each; listing them would add roughly 1,700 entries and bury the hand-written corpus. `site/tests/llms.test.ts` regenerates and compares, so the committed file cannot drift from the nav.
+- `for-llms.txt` (about 1.9 MB, 216 pages) is the full corpus dump, built by `site/scripts/gen-for-llms.ts` during `bun run sync` and served at both `/for-llms.txt` and `/llms-full.txt`. It excludes the same generated trees and strips widget directives.
+- Regenerate the index with `cd site && bun scripts/gen-llms.ts` after any nav or description change; the test tells you when you need to.
+
 ### Self-hosting gaps still open (in this repo)
 
 | Gap | Where | Effect |
 | --- | --- | --- |
-| `/llms.txt` and `/for-llms.txt` return 404 on the built site | `site/scripts/sync-content.ts` copies neither into `public/` | `llms.txt` advertises `https://docs.bitbadges.io/for-llms.txt`, and `agents/reading-the-docs.md` points agents at both. Both are dead links until sync copies them. |
-| `llms.txt` has no script and no workflow | `site/scripts/gen-llms.ts` is absent from `site/package.json` and from CI | It regenerates only when someone remembers, so it drifts from `SUMMARY.md`. |
 | 30 of 199 repointed SDK links in the served spec are dead | `repointSdkLinks` in `site/src/lib/docs/openapi.ts` | Two use `/sdk/reference/types/…` where TypeDoc emits `type-aliases`; the other 28 name interfaces (applications, maps, points, refresh status, request-bin) the SDK no longer exports. The rewrite should leave a link unlinked when the target page does not exist, the way `gen-sdk-reference.ts` already does. |
-| `for-llms.txt` in the tree is pre-rewrite | regenerated by `.github/workflows/for--llms.yml` on push to `master` | The committed copy still carries `for-developers/**` pages and 20 `stoplight.io` / `github.io` links. It self-heals on merge, but the workflow now also sweeps `sdk/reference/**` (1647 pages) and every `*.json` outside `node_modules` — including `site/openapi/*.json` — so the file is about to grow by an order of magnitude. |
 
 ## Upstream follow-ups found during the rewrite
 
