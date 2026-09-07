@@ -6,7 +6,7 @@ description: "SubscriptionParams"
 
 > **buildSubscription**(`params`): `any`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:42](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L42)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:50](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L50)
 
 ## Parameters
 

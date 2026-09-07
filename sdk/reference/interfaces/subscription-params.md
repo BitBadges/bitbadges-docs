@@ -4,7 +4,7 @@ description: "Multiple payouts per interval — use this OR price/denom/recipien
 
 # Interface: SubscriptionParams
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:25](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L25)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:26](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L26)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:25](http
 
 > `optional` **denom?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:29](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L29)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:30](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L30)
 
 ***
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:29](http
 
 > `optional` **description?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:38](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L38)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:46](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L46)
 
 ***
 
@@ -28,7 +28,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:38](http
 
 > `optional` **image?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:39](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L39)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:47](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L47)
 
 ***
 
@@ -36,7 +36,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:39](http
 
 > **interval**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:26](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L26)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:27](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L27)
 
 ***
 
@@ -44,7 +44,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:26](http
 
 > `optional` **name?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:37](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L37)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:45](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L45)
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:37](http
 
 > `optional` **payouts?**: [`SubscriptionPayout`](/sdk/reference/interfaces/subscription-payout)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:32](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L32)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:33](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L33)
 
 Multiple payouts per interval — use this OR price/denom/recipient
 
@@ -62,7 +62,7 @@ Multiple payouts per interval — use this OR price/denom/recipient
 
 > `optional` **price?**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:28](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L28)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:29](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L29)
 
 Single payout — use this OR payouts[]
 
@@ -72,7 +72,7 @@ Single payout — use this OR payouts[]
 
 > `optional` **recipient?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:30](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L30)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:31](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L31)
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:30](http
 
 > `optional` **tiers?**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:33](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L33)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:34](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L34)
 
 ***
 
@@ -88,7 +88,20 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:33](http
 
 > `optional` **transferable?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:34](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L34)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:35](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L35)
+
+***
+
+### updatableMint?
+
+> `optional` **updatableMint?**: `boolean`
+
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:42](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L42)
+
+Leave the mint (faucet) approval editable so the manager can change the
+price later. Default false: the faucet is locked forever, which is what
+`bb check` requires to pass. Opting in surfaces a critical review
+finding, on purpose, so the choice is visible to whoever signs.
 
 ***
 
@@ -96,6 +109,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:34](http
 
 > `optional` **uri?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:36](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L36)
+Defined in: [packages/bitbadgesjs-sdk/src/core/builders/subscription.ts:44](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/builders/subscription.ts#L44)
 
 Pre-hosted collection metadata URI. If provided, name/image/description are ignored.
