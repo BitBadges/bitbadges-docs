@@ -76,9 +76,9 @@ For each transfer the chain checks, in order:
 ```mermaid title="Transfer validation, in order"
 flowchart TD
   B["1. Sender balance covers the amounts, IDs, and ownership times"] --> C["2. A collection approval matches, criteria included"]
-  C --> O{"overridesFromOutgoingApprovals?"}
+  C --> O{"overrides outgoing?"}
   O -->|no| OA["3. Sender outgoing approvals match, or self-initiated auto-approve"]
-  O -->|yes| I{"overridesToIncomingApprovals?"}
+  O -->|yes| I{"overrides incoming?"}
   OA --> I
   I -->|no| IA["4. Recipient incoming approvals match, or an auto-approve flag is on"]
   I -->|yes| X["Transfer executes"]

@@ -13,11 +13,19 @@ import { toString as hastToString } from 'hast-util-to-string';
 import { renderMermaidSVG } from 'beautiful-mermaid';
 import { visit } from 'unist-util-visit';
 
-const COLORS = { bg: 'var(--bg-code)', fg: 'var(--fg)', accent: 'var(--accent)' };
-
-/** SVG for one diagram, themed by the site's CSS tokens, with no external font. */
+/**
+ * SVG for one diagram, with no inline colors and no external font.
+ *
+ * The renderer names its color variables `--bg`, `--fg`, and `--accent`, the
+ * same names the site uses for its own tokens, so the diagram inherits the
+ * page's foreground and accent as-is. Writing them on the `<svg>` would make
+ * `--fg: var(--fg)` a self-reference and turn every derived color black, so
+ * the inline declaration is removed; the stylesheet sets `--bg` to the code
+ * background (`.doc figure.diagram svg`).
+ */
 export function renderMermaid(source: string): string {
-  return renderMermaidSVG(source.trim(), { ...COLORS, transparent: true, padding: 16 })
+  return renderMermaidSVG(source.trim(), { transparent: true, padding: 16 })
+    .replace(/^(<svg [^>]*?) style="[^"]*"/, '$1')
     .replace(/\s*@import url\([^)]*\);/g, '')
     .replace(/text \{ font-family: [^}]*\}/, 'text { font-family: inherit; }');
 }

@@ -507,6 +507,8 @@ body {
   overflow-x: auto;
 }
 .doc figure.diagram svg {
+  /* The renderer's --bg; --fg and --accent are the page's own and inherit. */
+  --bg: var(--bg-code);
   display: block;
   max-width: 100%;
   height: auto;

@@ -18,11 +18,12 @@ describe('mermaid fences', () => {
     expect(doc.html).not.toContain('language-mermaid');
   });
 
-  test('take their colors from the site tokens and load no external font', () => {
+  test('carry no inline colors, so the page tokens of the same name reach them, and load no external font', () => {
     const svg = renderMermaid(flow);
-    expect(svg).toContain('--bg:var(--bg-code)');
-    expect(svg).toContain('--fg:var(--fg)');
-    expect(svg).toContain('--accent:var(--accent)');
+    // `--fg: var(--fg)` on the root would be a self-reference and paint every node black.
+    expect(svg).toMatch(/^<svg [^>]*>/);
+    expect(svg.match(/^<svg [^>]*/)![0]).not.toContain('style=');
+    expect(svg).toContain('color-mix(in srgb, var(--fg)');
     expect(svg).not.toContain('@import');
     expect(svg).not.toContain('fonts.googleapis.com');
     expect(svg).toContain('font-family: inherit');
