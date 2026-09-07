@@ -400,17 +400,17 @@ kubectl apply -f site/k8s/ingress.yaml
 kubectl rollout status deployment/bitbadges-docs
 ```
 
-**Check the TLS certificate before applying the ingress.** It reuses
-`bitbadges-cert`, the secret already serving `bitbadges.io`, `testnet.` and
-`stagenet.`. That strongly suggests a `*.bitbadges.io` wildcard, but confirm:
+The ingress reuses `bitbadges-cert`. That secret is not a wildcard, but it
+already lists `docs.bitbadges.io` (and `www.docs.bitbadges.io`) among its SANs,
+so no cert-manager change is needed. Re-check after any certificate rotation:
 
 ```bash
 kubectl get secret bitbadges-cert -o jsonpath='{.data.tls\.crt}' \
   | base64 -d | openssl x509 -noout -text | grep -A1 'Subject Alternative Name'
 ```
 
-If `docs.bitbadges.io` is not covered, add a cert-manager `Certificate` for it
-and point `secretName` at that instead.
+If a future rotation drops the host, add a cert-manager `Certificate` for
+`docs.bitbadges.io` and point `secretName` at that instead.
 
 ### Subsequent deploys
 
@@ -423,9 +423,16 @@ kubectl rollout restart deployment bitbadges-docs
 
 ### Cutover
 
-GitBook and Stoplight keep serving until the Cloudflare record for
-`docs.bitbadges.io` is repointed at this cluster. To roll back, point it back;
-nothing here modifies either service.
+**Done — `docs.bitbadges.io` is served by this cluster.** The Cloudflare record
+was already repointed before the deployment, which is why the host returned 526
+(no ingress claimed it, so nginx answered with its default certificate and
+Cloudflare rejected the origin) until the ingress was applied.
+
+GitBook and Stoplight are still running and unmodified; rolling back is a
+Cloudflare change, not a redeploy.
+
+Measured after the first rollout: 2m CPU and 59Mi memory, against a 128Mi
+request. The node runs hot (~71% memory), so the headroom matters.
 
 The two corpus links that advertised GitBook's MCP endpoint have been removed.
 `for-llms.txt` still mentions it until CI regenerates that file.
