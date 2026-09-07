@@ -6824,7 +6824,27 @@ description: "The BitBadges API in one page. Base URL, API keys, credits and pri
 
 The BitBadges API is the hosted REST service at `https://api.bitbadges.io` that indexes the chain and adds off-chain features (claims, sign in, metadata, search). Use it from any backend with an API key.
 
-This page is also part of the [API reference](/api-reference).
+This page is the introduction to the API tab: keys, credits, limits, number types, errors, and the refresh queue. The other pages on this tab go deeper on one topic each, and the [API reference](/api-reference) is the interactive list of every route.
+
+## API Keys
+
+1. Sign in at [https://bitbadges.io/developer](https://bitbadges.io/developer) and open the **API Keys** tab.
+2. Create a key. Send it in the `x-api-key` header on every request.
+3. Top up credits in the same tab.
+
+Select read-only routes are public without a key and are rate limited per IP. Everything else requires a key. A route that needs a key answers `401` with `{ "errorMessage": "Unauthorized request. This route is only accessible with an API key. To get an API key, visit https://bitbadges.io/developer and go to API Keys." }` when the key is missing.
+
+The SDK also reads `BITBADGES_API_KEY` from the environment when `apiKey` is not passed. The CLI reads the same variable (see [CLI api](../cli/api.md)).
+
+## What Is on This Tab
+
+| Page | Read it when |
+| --- | --- |
+| [Pagination and Views](pagination-and-views.md) | A response returns `bookmark` and `hasMore`, or you fetch a `views` object. |
+| [Swaps](swaps.md) | You want a swap estimate and the messages to execute it. |
+| [Claims](claims/README.md) | You gate a mint or an app on off-chain criteria. Concepts, then [endpoints](claims/endpoints.md), [Plugins](claims/plugins.md), and [Dynamic Stores](claims/dynamic-stores.md). |
+| [Sign In with BitBadges](sign-in/README.md) | You want users to prove address ownership or grant your app API scopes. |
+| [API Reference](/api-reference) | You need the exact method, path, body, and response of a route. |
 
 ## Example
 
@@ -7048,27 +7068,6 @@ The response for the Demo NFTs collection (synthesized from the SDK types; numbe
 }
 ```
 
-Every route is documented in the [API reference](/api-reference). The reference groups routes by tag (Accounts, Tokens, Claims, Sign In with BitBadges, Transactions, Applications, Plugins, Dynamic Stores, On-Chain Dynamic Stores, Utility Pages, Miscellaneous, Assets).
-
-## What Is on This Tab
-
-| Page | Read it when |
-| --- | --- |
-| [Pagination and Views](pagination-and-views.md) | A response returns `bookmark` and `hasMore`, or you fetch a `views` object. |
-| [Swaps](swaps.md) | You want a swap estimate and the messages to execute it. |
-| [Claims](claims/README.md) | You gate a mint or an app on off-chain criteria. Concepts, then [endpoints](claims/endpoints.md), [Plugins](claims/plugins.md), and [Dynamic Stores](claims/dynamic-stores.md). |
-| [Sign In with BitBadges](sign-in/README.md) | You want users to prove address ownership or grant your app API scopes. |
-
-## API Keys
-
-1. Sign in at [https://bitbadges.io/developer](https://bitbadges.io/developer) and open the **API Keys** tab.
-2. Create a key. Send it in the `x-api-key` header on every request.
-3. Top up credits in the same tab.
-
-Select read-only routes are public without a key and are rate limited per IP. Everything else requires a key. A route that needs a key answers `401` with `{ "errorMessage": "Unauthorized request. This route is only accessible with an API key. To get an API key, visit https://bitbadges.io/developer and go to API Keys." }` when the key is missing.
-
-The SDK also reads `BITBADGES_API_KEY` from the environment when `apiKey` is not passed. The CLI reads the same variable (see [CLI api](../cli/api.md)).
-
 ## Credits and Pricing
 
 API credits (on-chain symbol `APITOKEN`) meter API calls. Every request debits one credit from the account that owns the key.
@@ -7238,7 +7237,7 @@ description: "How claims work. Plugins, indexed versus on-demand, claim numbers,
 
 A claim is an off-chain criteria check hosted by BitBadges: meet the criteria, receive the reward. Claims run airdrops, whitelist mints, code redemptions, attendance rewards, and any flow where a user must qualify before receiving tokens or access. No contract or frontend code is required.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 
@@ -7563,7 +7562,7 @@ description: "Dynamic stores are BitBadges-hosted address lists you update by AP
 
 A dynamic store is an address list that BitBadges hosts for you. You add and remove addresses from anywhere that can send an HTTP request (a backend, a cron job, an agent, a Zapier zap), then attach the store to one or more claims. Eligibility management is decoupled from claim configuration.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 
@@ -7778,7 +7777,7 @@ description: "Claims API reference. Complete, simulate, and verify claims, fetch
 
 The claims routes let a backend or an agent complete claims for users, check who has claimed, and manage claims without the site. All claim routes require an API key in the `x-api-key` header. Create one at [bitbadges.io/developer](https://bitbadges.io/developer). Concepts (indexed versus on-demand claims, success logic, claim numbers, the trust model) live in [Claims](README.md).
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 Addresses in paths accept any supported format. `0x` and `bb1` addresses both work and resolve to the same account. The examples complete `claim_demo_01` (a code-gated claim on collection 1 with the instance id `codes-gate`) for bob.
 
@@ -8279,7 +8278,7 @@ description: "Every claim plugin id with its parameters, state, and where it run
 
 A claim is a list of plugin instances. Each plugin checks one criterion and reports pass or fail. This page is the reference for the built-in plugin ids and for the HTTP contract that custom plugins implement. The tutorial for writing one is [Build a Claim Plugin](../../guides/build-a-claim-plugin.md).
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Look Up Any Plugin
 
@@ -8818,7 +8817,7 @@ description: "Bookmark pagination and the views object in BitBadges API response
 
 Paginated routes return a `bookmark` and `hasMore`. Pass the bookmark back to get the next page. Some routes (accounts, collections) group several paginated lists into one `views` object.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 
@@ -9007,7 +9006,7 @@ description: "Sign In with BitBadges (SIWBB) is an OAuth 2.0 flow that proves ad
 
 Sign In with BitBadges (SIWBB) is an OAuth 2.0 provider. A user proves they own an address on BitBadges, your app receives an authorization code, and you exchange it for the address plus access and refresh tokens. Use it when you need authenticated BitBadges API access on a user's behalf, or when you want one flow that combines address ownership with claim criteria.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 
@@ -9122,7 +9121,7 @@ description: "Build the Sign In with BitBadges authorization URL. Parameters, sc
 
 The user authenticates at `https://bitbadges.io/siwbb/authorize` with your parameters in the query string. On success they receive an authorization code, delivered to your redirect URI (digital flows) or shown as a QR code (in-person and delayed flows).
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 
@@ -9225,7 +9224,7 @@ description: "Handle the Sign In with BitBadges redirect callback. Read code and
 
 With a `redirect_uri` in the authorization URL, BitBadges sends the user back to your app with `code` and `state` as query parameters as soon as authentication finishes. The user never sees the code.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 
@@ -9303,7 +9302,7 @@ description: "Use Sign In with BitBadges through Auth0, WordPress, Supabase, Dis
 
 Sign In with BitBadges is a standard OAuth 2.0 provider, so most frameworks connect to it with configuration rather than code. This page collects the ready-made integrations.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Auth0
 
@@ -9438,7 +9437,7 @@ description: "Register an OAuth app in the BitBadges developer portal and get th
 
 Register an OAuth app before building an authorization URL. Registration gives you a client ID and client secret and records the redirect URIs your app may use.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Register the App
 
@@ -9476,7 +9475,7 @@ description: "Exchange a Sign In with BitBadges code for the address and tokens,
 
 Exchange the authorization code (a 32-byte hex string) at the token endpoint. The response carries the address, a `verificationResponse`, and access and refresh tokens for session management and authorized API calls.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 
@@ -9702,7 +9701,7 @@ description: "Estimate a token swap through the BitBadges API. Payload, response
 
 `POST /api/v0/swap/estimate` returns the expected output amount and the messages needed to execute a swap. Routing covers native pools (the `x/gamm` module) and Skip Go routes across IBC chains such as Osmosis. The route requires an API key in the `x-api-key` header. Create one at [bitbadges.io/developer](https://bitbadges.io/developer).
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 

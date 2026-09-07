@@ -4,7 +4,10 @@
 // chunk; a CSS import reached only through next/dynamic is not bundled.
 import '@scalar/api-reference-react/style.css';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
+
+import { ChevronIcon } from './Icons';
 
 // Scalar renders a Vue app internally; it must not run during SSR.
 const ApiReferenceReact = dynamic(
@@ -45,8 +48,20 @@ function useHideAiControls(ready: boolean) {
   }, [ready]);
 }
 
-/** Interactive OpenAPI reference — the self-hosted replacement for Stoplight. */
-export function ApiReference({ specUrl }: { specUrl: string }) {
+/** Where the back control returns to: the docs page this reference belongs to. */
+export type BackTo = { href: string; label: string };
+
+/**
+ * Interactive OpenAPI reference — the self-hosted replacement for Stoplight.
+ *
+ * These routes render outside the `(docs)` group, so Scalar replaces the docs
+ * sidebar entirely and there is no in-page way back to the prose. The bar above
+ * the embed is that way back. It sits *above* Scalar rather than floating over
+ * it because Scalar owns its own top-left corner at every width: the sidebar
+ * search box on desktop, its own collapsed nav bar below `md`. It is a plain
+ * link, so it works before (and without) the client bundle that draws Scalar.
+ */
+export function ApiReference({ specUrl, backTo }: { specUrl: string; backTo: BackTo }) {
   const [dark, setDark] = useState<boolean | null>(null);
   useHideAiControls(dark !== null);
 
@@ -59,8 +74,23 @@ export function ApiReference({ specUrl }: { specUrl: string }) {
     return () => observer.disconnect();
   }, []);
 
-  if (dark === null) return null;
+  return (
+    <div id="doc-content" className="api-page">
+      <div className="api-backbar">
+        <Link href={backTo.href} className="api-back">
+          <ChevronIcon className="h-[0.85rem] w-[0.85rem] rotate-180" />
+          {backTo.label}
+        </Link>
+      </div>
 
+      {/* Themed on mount; rendering the embed before the theme is known would
+          flash the wrong palette and then remount. The bar renders regardless. */}
+      <div className="api-shell">{dark === null ? null : <Embed specUrl={specUrl} dark={dark} />}</div>
+    </div>
+  );
+}
+
+function Embed({ specUrl, dark }: { specUrl: string; dark: boolean }) {
   return (
     <ApiReferenceReact
       // Remounting on theme change is the reliable way to re-theme the embed.

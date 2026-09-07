@@ -6,7 +6,7 @@ description: "Use Sign In with BitBadges through Auth0, WordPress, Supabase, Dis
 
 Sign In with BitBadges is a standard OAuth 2.0 provider, so most frameworks connect to it with configuration rather than code. This page collects the ready-made integrations.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Auth0
 

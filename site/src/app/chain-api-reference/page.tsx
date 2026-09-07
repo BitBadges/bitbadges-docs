@@ -11,8 +11,9 @@ export const metadata: Metadata = {
 
 export default function ChainApiReferencePage() {
   return (
-    <div id="doc-content" className="api-shell">
-      <ApiReference specUrl={`${docsConfig.basePath}${docsConfig.chainOpenapiUrl}`} />
-    </div>
+    <ApiReference
+      specUrl={`${docsConfig.basePath}${docsConfig.chainOpenapiUrl}`}
+      backTo={{ href: '/chain', label: 'Back to the Chain overview' }}
+    />
   );
 }

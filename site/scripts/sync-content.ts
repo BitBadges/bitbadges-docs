@@ -106,7 +106,9 @@ async function syncOpenApi(): Promise<string> {
       const { spec, report } = sanitizeOpenApi(folded, {
         sdkRouteExists: (route) => sdkRoutes.has(route),
       });
-      console.log(`openapi: folded ${pages.size} api/ page(s) into info.description and tag(s) ${fold.tags.join(', ')}`);
+      console.log(
+        `openapi: introduction links ${pages.size} api/ page(s); pointed tag(s) ${fold.tags.join(', ')} at their guides`,
+      );
 
       await fs.mkdir(publicDir, { recursive: true });
       await fs.writeFile(path.join(publicDir, 'openapi.json'), JSON.stringify(spec));

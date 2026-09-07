@@ -6,7 +6,7 @@ description: "Register an OAuth app in the BitBadges developer portal and get th
 
 Register an OAuth app before building an authorization URL. Registration gives you a client ID and client secret and records the redirect URIs your app may use.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Register the App
 

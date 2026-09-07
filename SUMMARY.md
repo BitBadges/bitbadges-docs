@@ -2,7 +2,7 @@
 
 ## Docs
 
-* [BitBadges](README.md)
+* [Overview](README.md)
 * [Quickstart](start/quickstart.md)
 * [Guides](guides/README.md)
   * [Create a Collection](guides/create-a-collection.md)
@@ -229,7 +229,20 @@
 
 ## API
 
-* [OpenAPI Reference](/api-reference)
+* [Overview](api/README.md)
+* [Pagination and Views](api/pagination-and-views.md)
+* [Swaps](api/swaps.md)
+* [Claims](api/claims/README.md)
+  * [Endpoints](api/claims/endpoints.md)
+  * [Plugins](api/claims/plugins.md)
+  * [Dynamic Stores](api/claims/dynamic-stores.md)
+* [Sign In with BitBadges](api/sign-in/README.md)
+  * [Setup](api/sign-in/setup.md)
+  * [Authorization URL](api/sign-in/authorization-url.md)
+  * [Callback](api/sign-in/callback.md)
+  * [Verification](api/sign-in/verification.md)
+  * [Frameworks](api/sign-in/frameworks.md)
+* [API Reference](/api-reference)
 
 ## SDK & CLI
 

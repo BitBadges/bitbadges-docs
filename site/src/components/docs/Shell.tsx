@@ -126,18 +126,24 @@ export function Shell({ tabs, basePath, searchIndexUrl, children }: ShellProps) 
               </button>
             </div>
 
-            <div className="segmented mb-5 w-full flex-wrap">
+            {/*
+              The drawer has room for full labels, so it uses them: a wrapping
+              segmented control left "Token Standard" reading as "Token" and
+              broke into a ragged 4-then-2 row. A two-column grid fits six tabs
+              evenly and stays legible at 320px.
+            */}
+            <nav aria-label="Sections" className="mb-5 grid grid-cols-2 gap-1.5">
               {tabs.map((tab, index) => (
                 <Link
                   key={tab.href}
                   href={tab.href}
                   aria-current={index === active ? 'page' : undefined}
-                  className="segmented-tab flex-1 text-center"
+                  className="drawer-tab"
                 >
-                  {tab.short}
+                  {tab.label}
                 </Link>
               ))}
-            </div>
+            </nav>
 
             <Sidebar tabs={tabs} onNavigate={() => setMenuOpen(false)} />
 

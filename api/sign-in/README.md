@@ -6,7 +6,7 @@ description: "Sign In with BitBadges (SIWBB) is an OAuth 2.0 flow that proves ad
 
 Sign In with BitBadges (SIWBB) is an OAuth 2.0 provider. A user proves they own an address on BitBadges, your app receives an authorization code, and you exchange it for the address plus access and refresh tokens. Use it when you need authenticated BitBadges API access on a user's behalf, or when you want one flow that combines address ownership with claim criteria.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 

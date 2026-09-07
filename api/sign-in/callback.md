@@ -6,7 +6,7 @@ description: "Handle the Sign In with BitBadges redirect callback. Read code and
 
 With a `redirect_uri` in the authorization URL, BitBadges sends the user back to your app with `code` and `state` as query parameters as soon as authentication finishes. The user never sees the code.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 

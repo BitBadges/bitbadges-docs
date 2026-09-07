@@ -6,7 +6,27 @@ description: "The BitBadges API in one page. Base URL, API keys, credits and pri
 
 The BitBadges API is the hosted REST service at `https://api.bitbadges.io` that indexes the chain and adds off-chain features (claims, sign in, metadata, search). Use it from any backend with an API key.
 
-This page is also part of the [API reference](/api-reference).
+This page is the introduction to the API tab: keys, credits, limits, number types, errors, and the refresh queue. The other pages on this tab go deeper on one topic each, and the [API reference](/api-reference) is the interactive list of every route.
+
+## API Keys
+
+1. Sign in at [https://bitbadges.io/developer](https://bitbadges.io/developer) and open the **API Keys** tab.
+2. Create a key. Send it in the `x-api-key` header on every request.
+3. Top up credits in the same tab.
+
+Select read-only routes are public without a key and are rate limited per IP. Everything else requires a key. A route that needs a key answers `401` with `{ "errorMessage": "Unauthorized request. This route is only accessible with an API key. To get an API key, visit https://bitbadges.io/developer and go to API Keys." }` when the key is missing.
+
+The SDK also reads `BITBADGES_API_KEY` from the environment when `apiKey` is not passed. The CLI reads the same variable (see [CLI api](../cli/api.md)).
+
+## What Is on This Tab
+
+| Page | Read it when |
+| --- | --- |
+| [Pagination and Views](pagination-and-views.md) | A response returns `bookmark` and `hasMore`, or you fetch a `views` object. |
+| [Swaps](swaps.md) | You want a swap estimate and the messages to execute it. |
+| [Claims](claims/README.md) | You gate a mint or an app on off-chain criteria. Concepts, then [endpoints](claims/endpoints.md), [Plugins](claims/plugins.md), and [Dynamic Stores](claims/dynamic-stores.md). |
+| [Sign In with BitBadges](sign-in/README.md) | You want users to prove address ownership or grant your app API scopes. |
+| [API Reference](/api-reference) | You need the exact method, path, body, and response of a route. |
 
 ## Example
 
@@ -229,27 +249,6 @@ The response for the Demo NFTs collection (synthesized from the SDK types; numbe
   ]
 }
 ```
-
-Every route is documented in the [API reference](/api-reference). The reference groups routes by tag (Accounts, Tokens, Claims, Sign In with BitBadges, Transactions, Applications, Plugins, Dynamic Stores, On-Chain Dynamic Stores, Utility Pages, Miscellaneous, Assets).
-
-## What Is on This Tab
-
-| Page | Read it when |
-| --- | --- |
-| [Pagination and Views](pagination-and-views.md) | A response returns `bookmark` and `hasMore`, or you fetch a `views` object. |
-| [Swaps](swaps.md) | You want a swap estimate and the messages to execute it. |
-| [Claims](claims/README.md) | You gate a mint or an app on off-chain criteria. Concepts, then [endpoints](claims/endpoints.md), [Plugins](claims/plugins.md), and [Dynamic Stores](claims/dynamic-stores.md). |
-| [Sign In with BitBadges](sign-in/README.md) | You want users to prove address ownership or grant your app API scopes. |
-
-## API Keys
-
-1. Sign in at [https://bitbadges.io/developer](https://bitbadges.io/developer) and open the **API Keys** tab.
-2. Create a key. Send it in the `x-api-key` header on every request.
-3. Top up credits in the same tab.
-
-Select read-only routes are public without a key and are rate limited per IP. Everything else requires a key. A route that needs a key answers `401` with `{ "errorMessage": "Unauthorized request. This route is only accessible with an API key. To get an API key, visit https://bitbadges.io/developer and go to API Keys." }` when the key is missing.
-
-The SDK also reads `BITBADGES_API_KEY` from the environment when `apiKey` is not passed. The CLI reads the same variable (see [CLI api](../cli/api.md)).
 
 ## Credits and Pricing
 

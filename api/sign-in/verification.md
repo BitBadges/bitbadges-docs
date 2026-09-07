@@ -6,7 +6,7 @@ description: "Exchange a Sign In with BitBadges code for the address and tokens,
 
 Exchange the authorization code (a 32-byte hex string) at the token endpoint. The response carries the address, a `verificationResponse`, and access and refresh tokens for session management and authorized API calls.
 
-This page is also part of the [API reference](/api-reference).
+See the [API reference](/api-reference) for every route's request and response schema.
 
 ## Example
 
