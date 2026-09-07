@@ -30,7 +30,7 @@ Every sign-bridge command resolves to one of three URL `mode` values on the `/si
 |---|---|---|---|
 | `login` | `bb auth login --browser` | The SIWBB (SIWE) challenge message | Signature → CLI replays it on `/auth/verify` to mint a Full Access session cookie |
 | `msg` | `bb deploy --browser --message <text>` | An arbitrary string to sign | Signature + address (+ pubkey for Cosmos) |
-| `tx` | `bb deploy --browser`, `bb build … --browser` | A Cosmos `MsgCreateCollection` (or any single tx). For collection-creation msgs the page runs the same review pipeline as `/builder/preview`, so you see the full Preview / Review Items / Transferability / Permissions / Details / Compatibility / Alternatives sidebar before you sign. | Tx hash (or signed bytes if `--sign-only` is set) |
+| `tx` | `bb deploy --browser`, `bb build … --browser` | A Cosmos `MsgCreateCollection` (or any single tx). For collection-creation msgs the page runs the same review pipeline as `bb preview`, so you see the full Preview / Review Items / Transferability / Permissions / Details / Compatibility / Alternatives sidebar before you sign. | Tx hash (or signed bytes if `--sign-only` is set) |
 
 ## The `/sign` page
 

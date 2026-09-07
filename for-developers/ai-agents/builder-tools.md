@@ -202,7 +202,7 @@ set_standards + set_valid_token_ids + set_invariants + add_approval + set_permis
 2. **Auto-Mint** (optional) — If the user wants tokens minted to specific addresses at creation, call `add_transfer` to append a `MsgTransferTokens` alongside the collection creation.
 3. **Verify** — Call `validate_transaction`, `review_collection`, and `simulate_transaction` in parallel. Fix any errors with targeted `remove_approval` + re-add.
 4. **Export** — Call `get_transaction` to get the final transaction JSON.
-5. **Hand off** — Call `get_review_url` and give the user `reviewUrl`. It opens bitbadges.io in the review-and-sign flow (Preview, Review Items, Transferability, Permissions, then wallet signature). Prefer this over pasting JSON into chat: the link is short and cannot be corrupted in transit. `previewUrl` is the read-only variant for sharing with a reviewer.
+5. **Hand off** — Call `get_review_url` and give the user `reviewUrl`. It opens bitbadges.io in the review-and-sign flow (Preview, Review Items, Transferability, Permissions, then wallet signature). Prefer this over pasting JSON into chat: the link is short and cannot be corrupted in transit.
 
 ### Query & Verification (No Signing)
 

@@ -106,15 +106,14 @@ bb dev skills smart-token
 
 ### Step 5: Hand the transaction to a human to review and sign
 
-The usual case: your agent built it, a person signs it. `--open` launches the review-and-sign page; drop the flag to just print the links.
+The usual case: your agent built it, a person signs it. `--open` launches the page; drop the flag to just print the link.
 
 ```bash
 bb preview tx.json --open
-# reviewUrl -> bitbadges.io/mint/local-builder?code=prv_xxxxxxxx  (review + sign)
-# url       -> bitbadges.io/builder/preview?code=prv_xxxxxxxx     (read-only, shareable)
+# Review + sign: bitbadges.io/mint/local-builder?code=prv_xxxxxxxx
 ```
 
-`bb deploy --browser` is the tighter loop for a tx you have already reviewed: it opens `/sign` and returns the tx hash to your terminal. Both links expire after an hour.
+`bb deploy --browser` is the tighter loop for a transaction you have already reviewed: it opens `/sign` and returns the tx hash to your terminal. Links expire after an hour.
 
 ### Step 6: Sign and broadcast without a browser (chain binary)
 
