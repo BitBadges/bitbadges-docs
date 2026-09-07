@@ -22,11 +22,11 @@ export type Props = z.output<typeof schema>;
 
 export function Component({ collectionId, name, description, image, standards, supply, symbol, manager, price, priceLabel }: Props) {
   return (
-    <WidgetFrame name="collection-card">
-      <div className="w-[17rem] max-w-full overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-raised)] shadow-[var(--shadow-sm)] transition hover:shadow-[var(--shadow-md)]">
+    <WidgetFrame name="collection-card" className="@container w-full max-w-[20rem] overflow-hidden">
+      <div>
         <div className="relative aspect-square w-full bg-[var(--bg-inset)]">
           {image ? (
-            <img src={image} alt="" className="h-full w-full object-cover" style={{ margin: 0, border: 0, borderRadius: 0 }} />
+            <img src={image} alt="" className="h-full w-full object-cover" />
           ) : (
             <div className="flex h-full w-full items-center justify-center text-[var(--fg-faint)]">
               <Icon name="image" size={40} />
@@ -50,19 +50,18 @@ export function Component({ collectionId, name, description, image, standards, s
             ))}
           </div>
           {(price || manager) && (
-            <div className="mt-2 flex items-end justify-between gap-2 border-t border-[var(--border)] pt-2">
-              {price ? (
-                <div className="flex flex-col">
-                  <span className="text-sm font-semibold text-[var(--fg)]">{price}</span>
+            /* Price left, manager right on one line; the card stacks them when it is narrower than 18rem. */
+            <div className="mt-2 flex flex-col gap-2 border-t border-[var(--border)] pt-2 @[18rem]:flex-row @[18rem]:items-end @[18rem]:justify-between">
+              {price && (
+                <div className="flex min-w-0 shrink-0 flex-col">
+                  <span className="truncate text-sm font-semibold text-[var(--fg)]">{price}</span>
                   <span className="text-xs text-[var(--fg-faint)]">{priceLabel ?? 'Price'}</span>
                 </div>
-              ) : (
-                <span />
               )}
               {manager && (
-                <div className="flex flex-col items-end">
+                <div className="flex min-w-0 flex-col items-start gap-0.5 @[18rem]:ml-auto @[18rem]:items-end">
                   <span className="text-[11px] text-[var(--fg-faint)]">Manager</span>
-                  <AddressChip address={manager} />
+                  <AddressChip address={manager} size="compact" />
                 </div>
               )}
             </div>

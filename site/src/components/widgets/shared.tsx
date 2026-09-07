@@ -1,8 +1,8 @@
 /**
  * Building blocks shared by the widgets: the frontend's address chip (blockie +
- * chain logo + abbreviated address), a small stroke icon set, token and chain
- * marks drawn as inline SVG, and the formatters the frontend applies to times
- * and ranges.
+ * chain logo + abbreviated address), a small stroke icon set, the chain and
+ * token logos (the frontend's own image files), and the formatters the frontend
+ * applies to times and ranges.
  *
  * Everything here is a pure function of its props. No hooks, no context, no
  * fetches: `renderStatic` walks these at build time.
@@ -10,6 +10,7 @@
 import type { ReactNode } from 'react';
 import { z } from 'zod';
 
+import { withBasePath } from '../../lib/docs/config';
 import { blockieSvg } from './blockies';
 
 /* ---------- schemas shared across widgets ---------- */
@@ -137,113 +138,68 @@ export function Icon({ name, className, size = 16 }: { name: IconName; className
   );
 }
 
-/* ---------- chain and token marks ---------- */
+/* ---------- chain and token logos ---------- */
 
-/** Chain logos the frontend shows next to an address (`getChainLogo`), as inline SVG. */
-export function ChainLogo({ chain, size = 20 }: { chain: Chain; size?: number }) {
-  const common = { width: size, height: size, viewBox: '0 0 32 32', 'aria-hidden': true as const, role: 'img' as const };
-  switch (chain) {
-    case 'Ethereum':
-      return (
-        <svg {...common}>
-          <circle cx="16" cy="16" r="16" fill="#627EEA" />
-          <path d="M16 5v8.1l6.9 3.1z" fill="#fff" fill-opacity=".6" />
-          <path d="M16 5 9 16.2l7-3.1z" fill="#fff" />
-          <path d="M16 21.9V27l7-9.6z" fill="#fff" fill-opacity=".6" />
-          <path d="M16 27v-5.1l-7-4.5z" fill="#fff" />
-          <path d="m16 20.6 6.9-4.4L16 13.1z" fill="#fff" fill-opacity=".2" />
-          <path d="m9 16.2 7 4.4v-7.5z" fill="#fff" fill-opacity=".6" />
-        </svg>
-      );
-    case 'Solana':
-      return (
-        <svg {...common}>
-          <defs>
-            <linearGradient id="w-sol" x1="0" y1="1" x2="1" y2="0">
-              <stop offset="0" stop-color="#9945FF" />
-              <stop offset="1" stop-color="#14F195" />
-            </linearGradient>
-          </defs>
-          <circle cx="16" cy="16" r="16" fill="#0b0b0f" />
-          <path d="M9.5 20.5h13l-3 3h-13zM9.5 14.5h13l-3-3h-13zM9.5 8.5h13l-3 3h-13z" fill="url(#w-sol)" />
-        </svg>
-      );
-    case 'Bitcoin':
-      return (
-        <svg {...common}>
-          <circle cx="16" cy="16" r="16" fill="#F7931A" />
-          <path
-            d="M13 8h4.5a3.2 3.2 0 0 1 1.9 5.8A3.5 3.5 0 0 1 18 24h-5zm3 6.5h1.4a1.4 1.4 0 0 0 0-2.8H16zm0 6h2a1.6 1.6 0 0 0 0-3.2h-2zM14 6h1.8v2.5H14zm2.7 0h1.8v2.5h-1.8zM14 23.5h1.8V26H14zm2.7 0h1.8V26h-1.8z"
-            fill="#fff"
-          />
-        </svg>
-      );
-    case 'Cosmos':
-      return (
-        <svg {...common}>
-          <circle cx="16" cy="16" r="16" fill="#2E3148" />
-          <circle cx="16" cy="16" r="2.2" fill="#fff" />
-          <ellipse cx="16" cy="16" rx="12" ry="4.5" fill="none" stroke="#fff" stroke-width="1" />
-          <ellipse cx="16" cy="16" rx="12" ry="4.5" fill="none" stroke="#fff" stroke-width="1" transform="rotate(60 16 16)" />
-          <ellipse cx="16" cy="16" rx="12" ry="4.5" fill="none" stroke="#fff" stroke-width="1" transform="rotate(120 16 16)" />
-        </svg>
-      );
-    case 'BitBadges':
-    default:
-      return <BadgeMark size={size} />;
-  }
-}
+/**
+ * The frontend's logo files, copied as-is from `bitbadges-frontend/public/images`
+ * into `site/public/widgets/` (`getChainLogo` and the `*_LOGO` constants in
+ * `src/constants.tsx`). `bitbadges-logo.png` is `bitbadgeslogonotext.png`, the
+ * circular mark, downscaled to 64px.
+ */
+export const CHAIN_LOGOS: Record<Chain, string> = {
+  BitBadges: 'bitbadges-logo.png',
+  Ethereum: 'eth-logo.webp',
+  Solana: 'solana-logo.webp',
+  Bitcoin: 'bitcoin-logo.webp',
+  Cosmos: 'cosmos-logo.webp',
+};
 
-/** The BADGE token and BitBadges chain mark: brand gradient rounded square. */
-export function BadgeMark({ size = 20 }: { size?: number }) {
+export const TOKEN_LOGOS: Record<string, string> = {
+  BADGE: CHAIN_LOGOS.BitBadges,
+  ETH: CHAIN_LOGOS.Ethereum,
+  BTC: CHAIN_LOGOS.Bitcoin,
+  SOL: CHAIN_LOGOS.Solana,
+  ATOM: CHAIN_LOGOS.Cosmos,
+  USDC: 'usdc.webp',
+};
+
+/**
+ * One logo image. `data-site-asset` tells the markdown asset rewrite to leave
+ * the `src` alone (it lives in the site's `public/`, not the content tree), and
+ * `.widget img` in globals.css drops the border and background `.doc img` adds.
+ */
+export function Logo({ file, size, title }: { file: string; size: number; title?: string }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" role="img">
-      <defs>
-        <linearGradient id="w-bb" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#1890ff" />
-          <stop offset="1" stop-color="#da0c91" />
-        </linearGradient>
-      </defs>
-      <rect width="32" height="32" rx="8" fill="url(#w-bb)" />
-      <path d="M11 8h7.5a4.5 4.5 0 0 1 2.6 8.2A4.8 4.8 0 0 1 18.8 25H11zm3.6 3.4v3.9h3.6a1.95 1.95 0 0 0 0-3.9zm0 7v3.2h4.1a1.6 1.6 0 0 0 0-3.2z" fill="#fff" />
-    </svg>
+    <img
+      src={withBasePath(`/widgets/${file}`)}
+      alt=""
+      width={size}
+      height={size}
+      title={title}
+      className="shrink-0"
+      style={{ width: size, height: size }}
+      data-site-asset
+    />
   );
 }
 
-export const TOKEN_SYMBOLS = ['BADGE', 'USDC', 'ETH', 'ATOM', 'OSMO', 'BTC', 'SOL'] as const;
-export type TokenSymbol = (typeof TOKEN_SYMBOLS)[number];
+/** Chain logo the frontend shows next to an address (`getChainLogo`). */
+export function ChainLogo({ chain, size = 20 }: { chain: Chain; size?: number }) {
+  return <Logo file={CHAIN_LOGOS[chain]} size={size} title={`This address is for a ${chain} user`} />;
+}
 
 /** Token logo for the swap widget; unknown symbols get a lettered circle. */
 export function TokenMark({ symbol, size = 24 }: { symbol: string; size?: number }) {
-  switch (symbol.toUpperCase()) {
-    case 'BADGE':
-      return <BadgeMark size={size} />;
-    case 'ETH':
-      return <ChainLogo chain="Ethereum" size={size} />;
-    case 'BTC':
-      return <ChainLogo chain="Bitcoin" size={size} />;
-    case 'SOL':
-      return <ChainLogo chain="Solana" size={size} />;
-    case 'ATOM':
-      return <ChainLogo chain="Cosmos" size={size} />;
-    case 'USDC':
-      return (
-        <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" role="img">
-          <circle cx="16" cy="16" r="16" fill="#2775CA" />
-          <path d="M20.5 18.6c0-2.3-1.4-3.1-4.2-3.5-2-.3-2.4-.8-2.4-1.7s.7-1.5 2-1.5c1.2 0 1.9.4 2.2 1.4.1.2.2.3.4.3h1.1c.2 0 .4-.2.4-.4v-.1a3.7 3.7 0 0 0-3.3-3V8.5c0-.2-.2-.4-.5-.5h-1c-.2 0-.4.2-.5.5V10c-2 .3-3.3 1.6-3.3 3.3 0 2.2 1.3 3 4.1 3.4 1.9.3 2.5.7 2.5 1.8s-.9 1.7-2.2 1.7c-1.7 0-2.3-.7-2.5-1.7-.1-.3-.3-.4-.5-.4H11.7c-.2 0-.4.2-.4.4v.1c.3 1.7 1.4 2.9 3.6 3.3v1.6c0 .2.2.4.5.5h1c.2 0 .4-.2.5-.5v-1.6c2-.4 3.6-1.7 3.6-3.6z" fill="#fff" />
-          <path d="M12.6 25.6A10 10 0 0 1 12.6 6.5c.2-.1.3-.3.3-.5v-1c0-.2-.1-.4-.3-.4h-.2A12 12 0 0 0 12.4 27h.2c.2 0 .3-.2.3-.4v-1c0-.1-.1-.3-.3-.4zm7-21c-.2-.1-.4 0-.5.2v1c0 .2.1.4.3.5a10 10 0 0 1 0 19.1c-.2.1-.3.3-.3.5v1c0 .2.2.4.4.4h.1a12 12 0 0 0 0-22.7z" fill="#fff" />
-        </svg>
-      );
-    default:
-      return (
-        <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" role="img">
-          <circle cx="16" cy="16" r="16" fill="#4a319d" />
-          <text x="16" y="21" text-anchor="middle" font-size="14" font-weight="700" fill="#fff" font-family="ui-sans-serif, system-ui, sans-serif">
-            {symbol.slice(0, 1).toUpperCase()}
-          </text>
-        </svg>
-      );
-  }
+  const file = TOKEN_LOGOS[symbol.toUpperCase()];
+  if (file) return <Logo file={file} size={size} />;
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" role="img" className="shrink-0">
+      <circle cx="16" cy="16" r="16" fill="#4a319d" />
+      <text x="16" y="21" text-anchor="middle" font-size="14" font-weight="700" fill="#fff" font-family="ui-sans-serif, system-ui, sans-serif">
+        {symbol.slice(0, 1).toUpperCase()}
+      </text>
+    </svg>
+  );
 }
 
 /* ---------- the address chip (AddressWithBlockies) ---------- */
@@ -255,20 +211,26 @@ export type AddressChipProps = {
   name?: string;
   /** Profile picture URL; replaces the blockie. */
   avatar?: string;
-  size?: 'small' | 'large';
+  /** `compact` is the card footer size: 16px marks, 13px text. */
+  size?: 'compact' | 'small' | 'large';
 };
 
-/** Blockie (or the Mint / All avatars), chain logo, then the bold abbreviated address. */
+const CHIP_SIZES = { compact: [16, 13], small: [20, 16], large: [32, 20] } as const;
+
+/**
+ * Blockie (or the Mint / All avatars), chain logo, then the bold abbreviated
+ * address. The label truncates with an ellipsis instead of wrapping, so a chip
+ * in a narrow cell stays on one line; the full address is the tooltip.
+ */
 export function AddressChip({ address, chain, name, avatar, size = 'small' }: AddressChipProps) {
-  const px = size === 'large' ? 32 : 20;
-  const fontSize = size === 'large' ? 20 : 16;
+  const [px, fontSize] = CHIP_SIZES[size];
   const special = address === 'Mint' || address === 'All';
   const resolvedChain = chain ?? chainForAddress(address);
   const label = name ?? abbreviate(address);
 
   return (
-    <span className="inline-flex items-center gap-2 align-middle" data-address={address}>
-      <span className="inline-flex items-center gap-2">
+    <span className="inline-flex min-w-0 max-w-full items-center gap-2 align-middle" data-address={address}>
+      <span className="inline-flex shrink-0 items-center gap-2">
         {address === 'Mint' ? (
           <span className="inline-flex items-center justify-center rounded text-white" style={{ width: px, height: px, backgroundColor: '#4CAF50' }}>
             <Icon name="coins" size={px * 0.6} />
@@ -282,13 +244,9 @@ export function AddressChip({ address, chain, name, avatar, size = 'small' }: Ad
         ) : (
           <span className="inline-flex overflow-hidden rounded" style={{ width: px, height: px }} dangerouslySetInnerHTML={{ __html: blockieSvg(address, px) }} />
         )}
-        {!special && (
-          <span className="inline-flex" title={`This address is for a ${resolvedChain} user`}>
-            <ChainLogo chain={resolvedChain} size={px} />
-          </span>
-        )}
+        {!special && <ChainLogo chain={resolvedChain} size={px} />}
       </span>
-      <span className="font-bold break-all text-[var(--fg)]" style={{ fontSize }} title={address}>
+      <span className="min-w-0 truncate font-bold text-[var(--fg)]" style={{ fontSize }} title={address}>
         {label}
       </span>
     </span>
@@ -300,7 +258,7 @@ export function AddressChip({ address, chain, name, avatar, size = 'small' }: Ad
 export function Card({ children, className = '', muted = false }: { children: ReactNode; className?: string; muted?: boolean }) {
   return (
     <div
-      className={`rounded-lg border border-[var(--border)] bg-[var(--bg-subtle)] p-3 text-left ${muted ? 'opacity-55' : ''} ${className}`}
+      className={`widget-panel p-3 text-left ${muted ? 'opacity-55' : ''} ${className}`}
     >
       {children}
     </div>
@@ -333,10 +291,16 @@ export function Chip({ children, tone = 'neutral' }: { children: ReactNode; tone
   return <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-semibold ${tones[tone]}`}>{children}</span>;
 }
 
-/** Outer wrapper every widget renders into; the gallery and tests key off `data-widget`. */
+/**
+ * Outer wrapper every widget renders into. `widget-surface` (globals.css) is
+ * the code-figure surface, so all widgets share one look by construction;
+ * `widget-panel` is the one-step-inset panel for the boxes inside. Widgets add
+ * their own padding and width through `className`. The gallery and the tests
+ * key off `data-widget`.
+ */
 export function WidgetFrame({ name, children, className = '' }: { name: string; children: ReactNode; className?: string }) {
   return (
-    <div className={`widget not-prose my-1 text-[var(--fg)] ${className}`} data-widget={name}>
+    <div className={`widget widget-surface not-prose text-[var(--fg)] ${className}`.trimEnd()} data-widget={name}>
       {children}
     </div>
   );

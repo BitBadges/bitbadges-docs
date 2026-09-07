@@ -492,6 +492,33 @@ body {
   margin-top: 0.5rem;
 }
 
+/*
+ * Widgets (site/src/components/widgets). `.widget-surface` is the code-figure
+ * surface above, so a widget beside a code block reads as the same kind of
+ * figure; `.widget-panel` is the one-step-inset box for the panels inside it
+ * (the code figure's caption tint). Logos inside are the frontend's own files
+ * and must not get the `.doc img` frame.
+ */
+.doc .widget {
+  margin-top: 1.5rem;
+}
+.widget-surface {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-code);
+  box-shadow: var(--shadow-sm);
+}
+.widget-panel {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--bg-inset) 55%, transparent);
+}
+.doc .widget img {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
 .doc img {
   max-width: 100%;
   height: auto;

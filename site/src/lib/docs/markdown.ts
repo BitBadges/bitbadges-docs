@@ -189,6 +189,8 @@ function rehypeRewrite(options: RenderOptions, headings: Heading[]) {
       if (node.tagName === 'img') {
         const src = String(node.properties?.src ?? '');
         if (!src || isExternal(src)) return;
+        // Widget logos live in the site's own public/ and are already basePath-prefixed.
+        if (node.properties?.dataSiteAsset !== undefined) return;
         const asset = resolveAssetPath(filePath, src);
         if (asset) node.properties!.src = `${assetsPrefix}/${encodePath(asset)}`;
         node.properties!.loading ??= 'lazy';

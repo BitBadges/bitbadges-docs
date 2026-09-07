@@ -17,7 +17,7 @@ export type Props = z.output<typeof schema>;
 
 export function Component({ address, chain, name, avatar, size, tag }: Props) {
   return (
-    <WidgetFrame name="address">
+    <WidgetFrame name="address" className="w-fit max-w-full p-3">
       <div className="inline-flex flex-col items-start gap-1">
         <AddressChip address={address} chain={chain} name={name} avatar={avatar} size={size} />
         {tag && <span className="ml-0.5 rounded-md bg-[var(--bg-inset)] px-2 py-0.5 text-xs font-semibold text-[var(--fg-muted)]">{tag}</span>}

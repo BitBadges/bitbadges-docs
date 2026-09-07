@@ -32,7 +32,7 @@ export default function WidgetGalleryPage() {
                     <div className="mb-3 font-mono text-xs text-[var(--fg-faint)]">
                       {name} / {example.name}
                     </div>
-                    <div data-widget-example={`${name}/${example.name}`}>{createWidgetElement(name, example.props)}</div>
+                    <div data-widget-example={`${name}/${example.name}`} className="[&>.widget]:mt-0">{createWidgetElement(name, example.props)}</div>
                   </div>
                 ))}
               </div>

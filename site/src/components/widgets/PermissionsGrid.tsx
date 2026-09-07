@@ -95,10 +95,10 @@ export function Component({ permissions, hideNeutral }: Props) {
   const hasCriteria = rows.some((r) => r.criteria.length);
 
   return (
-    <WidgetFrame name="permissions-grid">
-      <div className="overflow-x-auto rounded-lg border border-[var(--border)] bg-[var(--bg-raised)]">
+    <WidgetFrame name="permissions-grid" className="overflow-x-auto">
+      <div>
         <div role="table" className="min-w-[32rem] text-sm">
-          <div role="row" className="grid grid-cols-[1.4fr_1fr_1fr] gap-3 border-b border-[var(--border)] bg-[var(--bg-subtle)] px-4 py-2 font-semibold text-[var(--fg)]"
+          <div role="row" className="grid grid-cols-[1.4fr_1fr_1fr] gap-3 border-b border-[var(--border)] bg-[color-mix(in_oklab,var(--bg-inset)_55%,transparent)] px-4 py-2 font-semibold text-[var(--fg)]"
             style={hasCriteria ? { gridTemplateColumns: '1.4fr 1fr 1fr 1.2fr' } : undefined}>
             <span role="columnheader">Permission</span>
             <span role="columnheader">State</span>
@@ -111,7 +111,7 @@ export function Component({ permissions, hideNeutral }: Props) {
               <div
                 key={`${row.name}-${i}`}
                 role="row"
-                className="grid grid-cols-[1.4fr_1fr_1fr] items-center gap-3 border-b border-[var(--border)] px-4 py-2.5 last:border-b-0 hover:bg-[var(--bg-subtle)]"
+                className="grid grid-cols-[1.4fr_1fr_1fr] items-center gap-3 border-b border-[var(--border)] px-4 py-2.5 last:border-b-0 hover:bg-[color-mix(in_oklab,var(--bg-inset)_45%,transparent)]"
                 style={hasCriteria ? { gridTemplateColumns: '1.4fr 1fr 1fr 1.2fr' } : undefined}
               >
                 <span role="cell" className="font-semibold text-[var(--fg)]">{row.name}</span>

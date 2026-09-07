@@ -34,7 +34,7 @@ function ListCell({ title, value }: { title: string; value: string | string[] })
   let body: ReactNode;
   if (Array.isArray(value)) {
     body = (
-      <span className="flex flex-col items-center gap-1">
+      <span className="flex max-w-full flex-col items-center gap-1">
         {value.map((a) => (
           <AddressChip key={a} address={a} />
         ))}
@@ -60,7 +60,7 @@ function ListCell({ title, value }: { title: string; value: string | string[] })
     );
   }
   return (
-    <div className="flex flex-col items-center gap-1.5 text-center">
+    <div className="flex min-w-0 flex-col items-center gap-1.5 text-center">
       <span className="text-sm font-bold text-[var(--fg-muted)]">{title}</span>
       {body}
     </div>
@@ -78,8 +78,8 @@ function Fact({ title, value }: { title: string; value: string }) {
 
 export function Component(p: Props) {
   return (
-    <WidgetFrame name="transferability-row">
-      <div className={`rounded-lg border border-[var(--border)] bg-[var(--bg-subtle)] p-3 ${p.disabled ? 'opacity-50' : ''}`}>
+    <WidgetFrame name="transferability-row" className={`@container p-3 ${p.disabled ? 'opacity-50' : ''}`}>
+      <div>
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
           <span className="text-base font-bold text-[var(--fg)]">{p.name ?? p.approvalId}</span>
           <span className="inline-flex items-center gap-1.5">
@@ -87,12 +87,12 @@ export function Component(p: Props) {
             <Chip>ID: {p.approvalId}</Chip>
           </span>
         </div>
-        <div className="grid grid-cols-3 gap-3 rounded-md bg-[var(--bg-raised)] p-3">
+        <div className="widget-panel grid grid-cols-1 gap-3 p-3 @[28rem]:grid-cols-3">
           <ListCell title="Sender" value={p.fromListId} />
           <ListCell title="Recipient" value={p.toListId} />
           <ListCell title="Initiator" value={p.initiatedByListId} />
         </div>
-        <div className="mt-3 grid grid-cols-3 gap-3">
+        <div className="mt-3 grid grid-cols-1 gap-3 @[28rem]:grid-cols-3">
           <Fact title="Transfer Times" value={formatTimeRanges(p.transferTimes)} />
           <Fact title="Token IDs" value={formatIdRanges(p.tokenIds)} />
           <Fact title="Ownership Times" value={formatTimeRanges(p.ownershipTimes)} />
