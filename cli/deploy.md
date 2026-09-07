@@ -37,7 +37,7 @@ Pick exactly one.
 
 `--browser` and `--burner` emit the same envelope. `--with-keyring` prints the chain binary command, or runs it with `--exec`. `--gen-payload` prints the payload and exits.
 
-The chain accepts zero-fee transactions today, so a first collection needs no BADGE at all with `--fee 0` (the default). Testnet is offline and mainnet has no faucet. If a fee is ever required, ask for BADGE in the [BitBadges Discord](https://discord.com/invite/TJMaEd9bar).
+Starting with v35, transactions require fees of at least `10ubadge` per unit of gas. Fund the signing account with BADGE before broadcasting. With the updated CLI, burner `--fee 0` means automatic fee estimation; it does not produce a zero-fee transaction. If you need BADGE, use the faucet when available or ask in the [BitBadges Discord](https://discord.com/invite/TJMaEd9bar).
 
 Ask your agent:
 
@@ -57,7 +57,7 @@ bb deploy col.json --browser --manager bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
 | `--manager <address>` | | Owner of the created collection. Required for `--burner`; recommended for `--browser`. |
 | `--dry-run` | | Simulate and print expected gas and balance changes; never broadcast. Needs an [API key](../api/README.md#api-keys) off `--local`. |
 | `--wait-for-indexer [timeout-ms]` | `30000` | After broadcast, poll the BitBadges API until the created collection or dynamic store appears. Adds `waited: { entity, id, attempts, elapsedMs, ok, body }` (or `{ ok: false, lastStatus }`). |
-| `--fee <amount>`, `--fee-denom <symbol\|denom>`, `--gas <n>` | `0`, `ubadge`, `400000` | Fee and gas. The chain accepts zero-fee transactions today. |
+| `--fee <amount>`, `--fee-denom <symbol\|denom>`, `--gas <n>` | `0`, `ubadge`, `400000` | Burner fee in ubadge; `0` requests estimation at 10ubadge/gas. Gas is a floor for the buffered estimate. |
 | network flags | mainnet | See [CLI](README.md#network-flags) |
 
 `--dry-run` differs from `bb build --simulate`: `--simulate` augments the build output and still emits JSON; `--dry-run` simulates and exits.
@@ -136,7 +136,7 @@ The payload for the third command (synthesized for a funded account; byte string
   "chainId": "bitbadges-1",
   "sender": { "address": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "accountNumber": "7", "sequence": "3", "publicKey": "A7TliNEJ+WoiaZvtnrOrdIuLIaVayagqvp47kF2L3Np3" },
   "evmAddress": "0x0bc63cfe31d5218eb414b142c799e20964a54a1a",
-  "fee": { "amount": "0", "denom": "ubadge", "gas": "600000" },
+  "fee": { "amount": "6000000", "denom": "ubadge", "gas": "600000" },
   "memo": "",
   "messages": [{ "typeUrl": "/tokenization.MsgCreateCollection", "value": { "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d" } }],
   "signDirect": { "bodyBytes": "CpIBCo8BCiEvdG9rZW5pemF0aW9uLk1zZ0NyZWF0ZUNvbGxlY3Rpb24=", "authInfoBytes": "ClAKRgofL2Nvc21vcy5jcnlwdG8uc2VjcDI1NmsxLlB1YktleQ==", "signBytes": "Athauu8aoa3qxL2n1o1yQ2Q2dQ6n3n8Uu1G9xI0uY0k=" },
