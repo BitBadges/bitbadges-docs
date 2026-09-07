@@ -7,10 +7,10 @@ description: "How an agent reads these docs. llms.txt, the full-text dump, bb de
 Agents can read this site four ways: two static files, one CLI command, and one MCP tool. Pick the one your harness already has. Every page is also served as Markdown at its URL plus `.md` (for example `https://docs.bitbadges.io/agents/setup.md`), and the Copy control at the top right of each page copies that same Markdown or a prompt that points an agent at it.
 
 ```bash
-# Curated index (about 47 KB): start here, then fetch 1-3 pages
+# Curated index (about 51 KB): start here, then fetch 1-3 pages
 curl -sO https://docs.bitbadges.io/llms.txt
 
-# Full-text dump of every page (about 1.6 MB); /for-llms.txt is the same file
+# Full-text dump of every page (about 1.9 MB); /for-llms.txt is the same file
 curl -sO https://docs.bitbadges.io/llms-full.txt
 
 # One page as Markdown
@@ -34,8 +34,8 @@ Two files, both regenerated with the docs. Every page of this site carries the s
 
 | Download | Size | What it is |
 | --- | --- | --- |
-| [llms.txt](https://docs.bitbadges.io/llms.txt) | about 47 KB | A curated index: every page in this site's navigation order, one line each, with its URL and one-sentence description. No page bodies |
-| [llms-full.txt](https://docs.bitbadges.io/llms-full.txt) | about 1.6 MB | The whole corpus (216 pages, roughly 43,000 lines) concatenated into one plain-text file. Also served as [for-llms.txt](https://docs.bitbadges.io/for-llms.txt) |
+| [llms.txt](https://docs.bitbadges.io/llms.txt) | about 51 KB | A curated index: every page in this site's navigation order, one line each, with its URL and one-sentence description. No page bodies. The generated SDK and proto reference trees are one line each rather than thousands |
+| [llms-full.txt](https://docs.bitbadges.io/llms-full.txt) | about 1.9 MB | The whole corpus (216 pages, roughly 49,000 lines) concatenated into one plain-text file. Also served as [for-llms.txt](https://docs.bitbadges.io/for-llms.txt) |
 
 **Which one to feed your agent:**
 

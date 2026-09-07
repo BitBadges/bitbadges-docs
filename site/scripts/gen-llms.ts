@@ -1,6 +1,14 @@
 /**
  * Regenerate ../llms.txt from SUMMARY.md and each page's `description:`.
  * Run after any nav change: `bun scripts/gen-llms.ts`.
+ *
+ * llms.txt is a curated index an agent reads whole, so the generated
+ * reference trees are collapsed to one line each: `sdk/reference` alone is
+ * 1666 nav entries of TypeDoc and `chain/proto` another 68, which would bury
+ * the hand-written corpus and change on every regeneration of those trees.
+ * Both stay browsable on the site and reachable from the line that replaces
+ * them. `site/tests/llms.test.ts` fails when the committed file drifts from
+ * what this writes.
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -25,17 +33,29 @@ async function describe(route: string): Promise<string> {
   return '';
 }
 
-async function lines(nodes: NavNode[], depth = 0): Promise<string[]> {
+/**
+ * Generated trees: the route that keeps its own entry, and the note that
+ * replaces every page below it.
+ */
+const COLLAPSED: { prefix: string; note: string }[] = [
+  { prefix: '/sdk/reference', note: 'Generated TypeDoc for every exported class, function and type. Browse on the site; the full corpus dump excludes it too.' },
+  { prefix: '/chain/proto', note: 'Generated reference for every protobuf message and service in the chain modules. Browse on the site.' },
+];
+
+export async function lines(nodes: NavNode[], depth = 0): Promise<string[]> {
   const out: string[] = [];
   for (const n of nodes) {
     const url = n.external ? n.href : `${SITE}${n.href}`;
-    const desc = n.external ? '' : await describe(n.href);
+    const collapsed = n.external ? undefined : COLLAPSED.find((c) => c.prefix === n.href);
+    const desc = collapsed ? collapsed.note : n.external ? '' : await describe(n.href);
     out.push(`${'  '.repeat(depth)}- [${n.title}](${url})${desc ? `: ${desc}` : ''}`);
+    if (collapsed) continue;
     out.push(...(await lines(n.children, depth + 1)));
   }
   return out;
 }
 
+export async function render(): Promise<string> {
 const body: string[] = [
   '# BitBadges',
   '',
@@ -49,5 +69,13 @@ const body: string[] = [
 for (const g of groups) {
   body.push(`## ${g.title ?? 'Docs'}`, '', ...(await lines(g.items)), '');
 }
-await fs.writeFile(path.join(docsConfig.contentDir, 'llms.txt'), body.join('\n'));
-console.log(`llms.txt: ${groups.length} sections written`);
+  return body.join('\n');
+}
+
+export const LLMS_PATH = path.join(docsConfig.contentDir, 'llms.txt');
+
+if (import.meta.main) {
+  const text = await render();
+  await fs.writeFile(LLMS_PATH, text);
+  console.log(`llms.txt: ${groups.length} sections, ${text.split('\n').length} lines written`);
+}
