@@ -167,7 +167,7 @@ Account information including accountNumber, sequence, and publicKey
 
 > **signAndBroadcast**(`messages`, `options?`): `Promise`\<[`BroadcastResult`](/sdk/reference/interfaces/broadcast-result)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:520](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L520)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:521](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L521)
 
 Sign and broadcast a transaction.
 
@@ -233,7 +233,7 @@ Simulation result with gas estimates
 
 > **simulateAndReview**(`messages`, `options?`): `Promise`\<[`SimulateAndReviewResult`](/sdk/reference/interfaces/simulate-and-review-result)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:470](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L470)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:471](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L471)
 
 Simulate a transaction and return parsed event data with net balance changes.
 
