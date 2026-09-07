@@ -1,10 +1,10 @@
 ---
-description: "Every type alias the BitBadges TypeScript SDK exports — 57 reference pages."
+description: "Every type alias the BitBadges TypeScript SDK exports — 59 reference pages."
 ---
 
 # Type aliases
 
-Every type alias the `bitbadges` package exports (57 total).
+Every type alias the `bitbadges` package exports (59 total).
 
 - [AccountFetchDetails](/sdk/reference/type-aliases/account-fetch-details)
 - [AccountViewKey](/sdk/reference/type-aliases/account-view-key)
@@ -31,6 +31,8 @@ Every type alias the `bitbadges` package exports (57 total).
 - [DynamicDataHandlerActionRequest](/sdk/reference/type-aliases/dynamic-data-handler-action-request)
 - [DynamicDataHandlerData\<Q\>](/sdk/reference/type-aliases/dynamic-data-handler-data)
 - [DynamicDataHandlerType](/sdk/reference/type-aliases/dynamic-data-handler-type)
+- [EIP712Types](/sdk/reference/type-aliases/eip712-types)
+- [ETHSignatureChallengeMessageContext](/sdk/reference/type-aliases/eth-signature-challenge-message-context)
 - [FindingSource](/sdk/reference/type-aliases/finding-source)
 - [GetCollectionRequestBody](/sdk/reference/type-aliases/get-collection-request-body)
 - [iBroadcastTxPayload](/sdk/reference/type-aliases/i-broadcast-tx-payload)

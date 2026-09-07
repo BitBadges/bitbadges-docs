@@ -4,7 +4,7 @@ description: "iGetSkipAssetsSuccessResponse"
 
 # Class: GetSkipAssetsSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4375](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4375)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4270](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4270)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4375]
 
 > **new GetSkipAssetsSuccessResponse**(`data`): `GetSkipAssetsSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4378](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4378)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4273](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4273)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4378]
 
 > **chain\_to\_assets\_map**: `Record`\<`string`, `unknown`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4376](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4376)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4271](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4271)
 
 Map of chain_id → assets payload (mirrors Skip:Go /v2/fungible/assets).
 

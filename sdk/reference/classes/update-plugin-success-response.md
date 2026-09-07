@@ -4,7 +4,7 @@ description: "any"
 
 # Class: UpdatePluginSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2509](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2509)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2508](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2508)
 
 ## Extends
 

@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iSIWBBRequestDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1925](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1925)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1891](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1891)
 
 ## Extends
 
@@ -50,7 +50,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **address**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1932](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1932)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1898](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1898)
 
 The native address of the signer
 
@@ -60,7 +60,7 @@ The native address of the signer
 
 > **bitbadgesAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1930](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1930)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1896](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1896)
 
 The BitBadges address of the signer
 
@@ -70,7 +70,7 @@ The BitBadges address of the signer
 
 > **chain**: [`SupportedChain`](/sdk/reference/enumerations/supported-chain)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1934](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1934)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1900](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1900)
 
 The native chain for the user
 
@@ -80,7 +80,7 @@ The native chain for the user
 
 > **clientId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1949](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1949)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1915](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1915)
 
 The client ID of the app that requested the signature
 
@@ -90,7 +90,7 @@ The client ID of the app that requested the signature
 
 > **code**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1927](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1927)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1893](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1893)
 
 The actual code itself
 
@@ -100,7 +100,7 @@ The actual code itself
 
 > `optional` **codeChallenge?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1955](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1955)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1921](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1921)
 
 The code challenge for the SIWBB request (if used with PKCE).
 
@@ -110,7 +110,7 @@ The code challenge for the SIWBB request (if used with PKCE).
 
 > `optional` **codeChallengeMethod?**: `"S256"` \| `"plain"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1958](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1958)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1924](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1924)
 
 The code challenge method for the SIWBB request (if used with PKCE).
 
@@ -120,7 +120,7 @@ The code challenge method for the SIWBB request (if used with PKCE).
 
 > **createdAt**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1944](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1944)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1910](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1910)
 
 The timestamp of when the signature was created (milliseconds since epoch)
 
@@ -130,7 +130,7 @@ The timestamp of when the signature was created (milliseconds since epoch)
 
 > `optional` **deletedAt?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1946](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1946)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1912](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1912)
 
 If deleted, we still store temporarily for a period of time. We use a deletedAt timestamp to determine when to delete.
 
@@ -140,7 +140,7 @@ If deleted, we still store temporarily for a period of time. We use a deletedAt 
 
 > `optional` **description?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1937](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1937)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1903](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1903)
 
 ***
 
@@ -148,7 +148,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1
 
 > **expiresAt**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1941](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1941)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1907](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1907)
 
 ***
 
@@ -156,7 +156,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1
 
 > `optional` **image?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1938](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1938)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1904](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1904)
 
 ***
 
@@ -164,7 +164,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1
 
 > `optional` **name?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1936](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1936)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1902](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1902)
 
 ***
 
@@ -172,7 +172,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1
 
 > `optional` **redirectUri?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1952](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1952)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1918](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1918)
 
 The redirect URI of the app
 
@@ -182,4 +182,4 @@ The redirect URI of the app
 
 > **scopes**: [`OAuthScopeDetails`](/sdk/reference/interfaces/o-auth-scope-details)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1940](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1940)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts:1906](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/interfaces.ts#L1906)

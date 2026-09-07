@@ -4,4 +4,4 @@ description: "Interface: iGetReservedClaimCodesPayload — BitBadges TypeScript 
 
 # Interface: iGetReservedClaimCodesPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:781](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L781)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:780](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L780)

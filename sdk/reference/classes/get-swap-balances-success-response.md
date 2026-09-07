@@ -4,7 +4,7 @@ description: "iGetSwapBalancesSuccessResponse"
 
 # Class: GetSwapBalancesSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4695](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4695)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4590](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4590)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4695]
 
 > **new GetSwapBalancesSuccessResponse**(`data`): `GetSwapBalancesSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4698](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4698)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4593](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4593)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4698]
 
 > **balances**: `Record`\<`string`, `Record`\<`string`, [`iSwapBalance`](/sdk/reference/interfaces/i-swap-balance)[]\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4696](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4696)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4591](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4591)
 
 balances[chainId][address] = array of consolidated balance entries.
 

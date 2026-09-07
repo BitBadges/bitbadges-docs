@@ -4,7 +4,7 @@ description: "Parsed prediction-market data plus the collection's approval docum
 
 # Interface: iGetPredictionDetailSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5487](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5487)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5382](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5382)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5487]
 
 > **prediction**: [`iPredictionMarketApiData`](/sdk/reference/interfaces/i-prediction-market-api-data) & `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5493](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5493)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5388](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5388)
 
 Parsed prediction-market data plus the collection's approval documents.
 Approvals arrive over the wire as JSON (BigInts serialized to strings) —

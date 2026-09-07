@@ -4,7 +4,7 @@ description: "The claims to fetch."
 
 # Interface: iGetClaimsPayloadV1
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:413](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L413)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:412](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L412)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:413](
 
 > **claimsToFetch**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:415](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L415)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:414](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L414)
 
 The claims to fetch.
 

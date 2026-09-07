@@ -4,7 +4,7 @@ description: "The result for the approval challenge details (if applicable)."
 
 # Interface: iAddApprovalDetailsToOffChainStorageSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:989](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L989)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:988](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L988)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:989](
 
 > **approvalResults**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:990](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L990)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:989](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L989)
 
 #### challengeResults?
 

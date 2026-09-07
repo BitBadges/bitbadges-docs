@@ -4,7 +4,7 @@ description: "iSearchClaimsPayload"
 
 # Class: SearchClaimsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:366](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L366)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:365](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L365)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:366](
 
 > **new SearchClaimsPayload**(`payload`): `SearchClaimsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:371](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L371)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:370](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L370)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:371](
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:367](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L367)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:366](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L366)
 
 Bookmark to start from. Obtained from previous request. Leave blank to start from the beginning. Only applicable when no additional criteria is specified.
 
@@ -56,7 +56,7 @@ Bookmark to start from. Obtained from previous request. Leave blank to start fro
 
 > `optional` **fetchPrivateParams?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:368](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L368)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:367](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L367)
 
 Fetch private parameters for the claim. Only applicable if you are the creator / manager of the claim. Otherwise, it will be the public read-only view.
 
@@ -70,7 +70,7 @@ Fetch private parameters for the claim. Only applicable if you are the creator /
 
 > `optional` **searchValue?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:369](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L369)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:368](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L368)
 
 If provided, we will only return claims with names that regex match the search value.
 
@@ -247,7 +247,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `SearchClaimsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:378](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L378)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:377](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L377)
 
 #### Parameters
 

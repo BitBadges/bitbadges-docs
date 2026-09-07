@@ -1,10 +1,10 @@
 ---
-description: "Every class the BitBadges TypeScript SDK exports — 444 reference pages."
+description: "Every class the BitBadges TypeScript SDK exports — 437 reference pages."
 ---
 
 # Classes
 
-Every class the `bitbadges` package exports (444 total).
+Every class the `bitbadges` package exports (437 total).
 
 - [AccessTokenDoc](/sdk/reference/classes/access-token-doc)
 - [AccountDoc\<T\>](/sdk/reference/classes/account-doc)
@@ -106,7 +106,6 @@ Every class the `bitbadges` package exports (444 total).
 - [CreateDeveloperAppSuccessResponse](/sdk/reference/classes/create-developer-app-success-response)
 - [CreateDynamicDataStoreSuccessResponse\<Q, T\>](/sdk/reference/classes/create-dynamic-data-store-success-response)
 - [CreatePluginSuccessResponse](/sdk/reference/classes/create-plugin-success-response)
-- [CreatePromptSkillSuccessResponse](/sdk/reference/classes/create-prompt-skill-success-response)
 - [CreateSIWBBRequestSuccessResponse](/sdk/reference/classes/create-siwbb-request-success-response)
 - [CreateUtilityPageSuccessResponse\<T\>](/sdk/reference/classes/create-utility-page-success-response)
 - [CreatorCreditsDoc\<T\>](/sdk/reference/classes/creator-credits-doc)
@@ -117,7 +116,6 @@ Every class the `bitbadges` package exports (444 total).
 - [DeleteDeveloperAppSuccessResponse](/sdk/reference/classes/delete-developer-app-success-response)
 - [DeleteDynamicDataStoreSuccessResponse](/sdk/reference/classes/delete-dynamic-data-store-success-response)
 - [DeletePluginSuccessResponse](/sdk/reference/classes/delete-plugin-success-response)
-- [DeletePromptSkillSuccessResponse](/sdk/reference/classes/delete-prompt-skill-success-response)
 - [DeleteSIWBBRequestSuccessResponse](/sdk/reference/classes/delete-siwbb-request-success-response)
 - [DeleteUtilityPageSuccessResponse](/sdk/reference/classes/delete-utility-page-success-response)
 - [DenomUnit\<T\>](/sdk/reference/classes/denom-unit)
@@ -142,7 +140,6 @@ Every class the `bitbadges` package exports (444 total).
 - [ExistenceProof](/sdk/reference/classes/existence-proof)
 - [FetchDoc\<T\>](/sdk/reference/classes/fetch-doc)
 - [FetchMetadataDirectlySuccessResponse\<T\>](/sdk/reference/classes/fetch-metadata-directly-success-response)
-- [FetchPromptSkillsSuccessResponse](/sdk/reference/classes/fetch-prompt-skills-success-response)
 - [FilterCollectionApprovalsSuccessResponse\<T\>](/sdk/reference/classes/filter-collection-approvals-success-response)
 - [FilterSuggestionsSuccessResponse](/sdk/reference/classes/filter-suggestions-success-response)
 - [FilterTokensInCollectionSuccessResponse\<T\>](/sdk/reference/classes/filter-tokens-in-collection-success-response)
@@ -228,7 +225,6 @@ Every class the `bitbadges` package exports (444 total).
 - [GetPredictionDetailSuccessResponse](/sdk/reference/classes/get-prediction-detail-success-response)
 - [GetPredictionPricesSuccessResponse](/sdk/reference/classes/get-prediction-prices-success-response)
 - [GetPredictionsSuccessResponse](/sdk/reference/classes/get-predictions-success-response)
-- [GetPromptSkillSuccessResponse](/sdk/reference/classes/get-prompt-skill-success-response)
 - [GetReservedClaimCodesPayload](/sdk/reference/classes/get-reserved-claim-codes-payload)
 - [GetReservedClaimCodesSuccessResponse](/sdk/reference/classes/get-reserved-claim-codes-success-response)
 - [GetSearchPayload\<T\>](/sdk/reference/classes/get-search-payload)
@@ -366,7 +362,6 @@ Every class the `bitbadges` package exports (444 total).
 - [PredeterminedBalances\<T\>](/sdk/reference/classes/predetermined-balances)
 - [PredeterminedOrderCalculationMethod](/sdk/reference/classes/predetermined-order-calculation-method)
 - [ProfileDoc\<T\>](/sdk/reference/classes/profile-doc)
-- [PromptSkillDoc](/sdk/reference/classes/prompt-skill-doc)
 - [ProofSpec](/sdk/reference/classes/proof-spec)
 - [QueueDoc\<T\>](/sdk/reference/classes/queue-doc)
 - [RecurringOwnershipTimes\<T\>](/sdk/reference/classes/recurring-ownership-times)
@@ -388,7 +383,6 @@ Every class the `bitbadges` package exports (444 total).
 - [SearchDynamicDataStoresSuccessResponse\<Q, T\>](/sdk/reference/classes/search-dynamic-data-stores-success-response)
 - [SearchPluginsPayload](/sdk/reference/classes/search-plugins-payload)
 - [SearchPluginsSuccessResponse\<T\>](/sdk/reference/classes/search-plugins-success-response)
-- [SearchPromptSkillsSuccessResponse](/sdk/reference/classes/search-prompt-skills-success-response)
 - [SearchUtilityPagesPayload](/sdk/reference/classes/search-utility-pages-payload)
 - [SearchUtilityPagesSuccessResponse\<T\>](/sdk/reference/classes/search-utility-pages-success-response)
 - [SignOutSuccessResponse](/sdk/reference/classes/sign-out-success-response)
@@ -424,7 +418,6 @@ Every class the `bitbadges` package exports (444 total).
 - [UpdateDynamicDataStoreSuccessResponse\<Q, T\>](/sdk/reference/classes/update-dynamic-data-store-success-response)
 - [UpdateHistory\<T\>](/sdk/reference/classes/update-history)
 - [UpdatePluginSuccessResponse](/sdk/reference/classes/update-plugin-success-response)
-- [UpdatePromptSkillSuccessResponse](/sdk/reference/classes/update-prompt-skill-success-response)
 - [UpdateUtilityPageSuccessResponse\<T\>](/sdk/reference/classes/update-utility-page-success-response)
 - [UsedLeafStatus\<T\>](/sdk/reference/classes/used-leaf-status)
 - [UserApprovalSettings\<T\>](/sdk/reference/classes/user-approval-settings)

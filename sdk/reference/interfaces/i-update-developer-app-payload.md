@@ -4,7 +4,7 @@ description: "Client ID for the app to update."
 
 # Interface: iUpdateDeveloperAppPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2319](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2319)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2318](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2318)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2319]
 
 > **clientId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2321](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2321)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2320](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2320)
 
 Client ID for the app to update.
 
@@ -22,7 +22,7 @@ Client ID for the app to update.
 
 > `optional` **description?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2325](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2325)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2324](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2324)
 
 Description of the app.
 
@@ -32,7 +32,7 @@ Description of the app.
 
 > `optional` **image?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2327](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2327)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2326](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2326)
 
 Image for the app.
 
@@ -42,7 +42,7 @@ Image for the app.
 
 > `optional` **name?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2323](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2323)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2322](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2322)
 
 Metadata for for display purposes. Note this should not contain anything sensitive. It may be displayed to verifiers.
 
@@ -52,7 +52,7 @@ Metadata for for display purposes. Note this should not contain anything sensiti
 
 > `optional` **redirectUris?**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2329](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2329)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2328](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2328)
 
 Redirect URIs for the app.
 
@@ -62,6 +62,6 @@ Redirect URIs for the app.
 
 > `optional` **rotateClientSecret?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2331](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2331)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2330](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2330)
 
 Rotate the client secret?

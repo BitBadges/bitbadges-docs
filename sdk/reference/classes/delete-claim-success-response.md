@@ -4,7 +4,7 @@ description: "any"
 
 # Class: DeleteClaimSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2722](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2722)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2721](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2721)
 
 ## Extends
 

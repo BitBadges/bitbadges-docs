@@ -4,7 +4,7 @@ description: "Optional raw EVM-encoded tx bytes (hex string or Uint8Array)."
 
 # Interface: iBroadcastTxEvmPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5553](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5553)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5448](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5448)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5553]
 
 > `optional` **evmTx?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5555](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5555)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5450](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5450)
 
 #### chain\_id?
 
@@ -40,7 +40,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5555]
 
 > **mode**: `"evm"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5554](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5554)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5449](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5449)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5554]
 
 > `optional` **tx\_bytes?**: `string` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5565](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5565)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5460](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5460)
 
 Optional raw EVM-encoded tx bytes (hex string or Uint8Array).
 
@@ -58,6 +58,6 @@ Optional raw EVM-encoded tx bytes (hex string or Uint8Array).
 
 > `optional` **txHash?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5563](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5563)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5458](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5458)
 
 Optional already-broadcast EVM tx hash to track.

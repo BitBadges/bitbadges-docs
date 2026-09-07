@@ -6,7 +6,7 @@ description: "createTransactionPayload creates a transaction payload for a given
 
 > **createTransactionPayload**(`context`, `messages`): [`TransactionPayload`](/sdk/reference/interfaces/transaction-payload)
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:214](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L214)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:231](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L231)
 
 createTransactionPayload creates a transaction payload for a given transaction context and messages.
 

@@ -4,7 +4,7 @@ description: "Skip:Go tx-status payload (transfers, state, etc). Indexer may inj
 
 # Interface: iGetSkipTxStatusSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4509](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4509)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4404](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4404)
 
 ## Indexable
 
@@ -16,7 +16,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4509]
 
 > `optional` **swapEventInfo?**: `Record`\<`string`, `unknown`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4512](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4512)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4407](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4407)
 
 ***
 
@@ -24,6 +24,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4512]
 
 > `optional` **transfers?**: `unknown`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4511](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4511)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4406](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4406)
 
 Skip:Go tx-status payload (transfers, state, etc). Indexer may inject `swapEventInfo` derived from on-chain swap events.

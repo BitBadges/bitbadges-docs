@@ -4,7 +4,7 @@ description: "Fetch all claimed users for the claim. If true, you will be able t
 
 # Interface: iGetClaimPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:464](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L464)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:463](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L463)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:464](
 
 > `optional` **fetchAllClaimedUsers?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:469](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L469)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:468](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L468)
 
 Fetch all claimed users for the claim.  If true, you will be able to find all { [bitbadgesAddress]: [...zeroIndexedClaimNumbers] }
 on the numUses plugin's publicState.
@@ -23,7 +23,7 @@ on the numUses plugin's publicState.
 
 > `optional` **fetchPrivateParams?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:466](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L466)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:465](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L465)
 
 Fetch private parameters for the claim. Only applicable if you are the creator / manager of the claim.
 
@@ -33,6 +33,6 @@ Fetch private parameters for the claim. Only applicable if you are the creator /
 
 > `optional` **privateStatesToFetch?**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:471](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L471)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:470](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L470)
 
 The private state instance IDs to fetch. By default, we do not fetch any private states.

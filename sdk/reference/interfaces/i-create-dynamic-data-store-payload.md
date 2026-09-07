@@ -4,7 +4,7 @@ description: "The handler ID for the dynamic data store"
 
 # Interface: iCreateDynamicDataStorePayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2829](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2829)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2828](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2828)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2829]
 
 > **handlerId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2831](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2831)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2830](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2830)
 
 The handler ID for the dynamic data store
 
@@ -22,7 +22,7 @@ The handler ID for the dynamic data store
 
 > **label**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2833](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2833)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2832](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2832)
 
 The label of the dynamic data store
 
@@ -32,6 +32,6 @@ The label of the dynamic data store
 
 > `optional` **publicUseInClaims?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2835](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2835)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2834](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2834)
 
 Whether the dynamic data store should be public. If true, the data can be accessed without authentication. Defaults to false (private).

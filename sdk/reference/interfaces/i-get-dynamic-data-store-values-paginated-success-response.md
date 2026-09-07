@@ -4,7 +4,7 @@ description: "Q extends DynamicDataHandlerType"
 
 # Interface: iGetDynamicDataStoreValuesPaginatedSuccessResponse\<Q, T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2905](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2905)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2904](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2904)
 
 ## Type Parameters
 
@@ -22,7 +22,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2905]
 
 > **lookupValues**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2907](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2907)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2906](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2906)
 
 The lookup values for the dynamic data store
 
@@ -50,4 +50,4 @@ The lookup type of the lookup value
 
 > **pagination**: [`PaginationInfo`](/sdk/reference/interfaces/pagination-info)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2916](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2916)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2915](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2915)

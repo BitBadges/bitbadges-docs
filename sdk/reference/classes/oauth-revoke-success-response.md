@@ -4,7 +4,7 @@ description: "any"
 
 # Class: OauthRevokeSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2792](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2792)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2791](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2791)
 
 ## Extends
 

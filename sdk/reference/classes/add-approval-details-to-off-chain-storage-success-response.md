@@ -4,7 +4,7 @@ description: "iAddApprovalDetailsToOffChainStorageSuccessResponse"
 
 # Class: AddApprovalDetailsToOffChainStorageSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1011](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1011)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1010](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1010)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1011]
 
 > **new AddApprovalDetailsToOffChainStorageSuccessResponse**(`data`): `AddApprovalDetailsToOffChainStorageSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1024](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1024)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1023](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1023)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1024]
 
 > **approvalResults**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1015](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1015)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1014](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1014)
 
 #### challengeResults?
 

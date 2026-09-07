@@ -4,7 +4,7 @@ description: "The verification status of the user's email."
 
 # Class: EmailVerificationStatus\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:494](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L494)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:493](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L493)
 
 The verification status of the user's email.
 
@@ -28,7 +28,7 @@ The verification status of the user's email.
 
 > **new EmailVerificationStatus**\<`T`\>(`data`): `EmailVerificationStatus`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:504](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L504)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:503](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L503)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:504](ht
 
 > `optional` **antiPhishingCode?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:502](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L502)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:501](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L501)
 
 A unique code that we will send with all emails to verify that BitBadges is the one sending the email.
 
@@ -64,7 +64,7 @@ A unique code that we will send with all emails to verify that BitBadges is the 
 
 > `optional` **expiry?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:501](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L501)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:500](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L500)
 
 The expiry of the token for verification purposes.
 
@@ -78,7 +78,7 @@ The expiry of the token for verification purposes.
 
 > `optional` **token?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:500](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L500)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:499](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L499)
 
 The email verification token. This is used for verification and unsubscription.
 
@@ -92,7 +92,7 @@ The email verification token. This is used for verification and unsubscription.
 
 > `optional` **verified?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:498](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L498)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:497](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L497)
 
 Whether or not the email has been verified.
 
@@ -106,7 +106,7 @@ Whether or not the email has been verified.
 
 > `optional` **verifiedAt?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:499](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L499)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:498](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L498)
 
 Verified at timestamp.
 
@@ -138,7 +138,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `EmailVerificationStatus`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:517](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L517)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:516](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L516)
 
 Converts the object to a different NumberType equivalent.
 
@@ -208,7 +208,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:513](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L513)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:512](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L512)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

@@ -4,7 +4,7 @@ description: "The intended use for the API key"
 
 # Interface: iCreateApiKeyPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3390](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3390)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3389](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3389)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3390]
 
 > **intendedUse**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3394](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3394)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3393](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3393)
 
 The intended use for the API key
 
@@ -22,6 +22,6 @@ The intended use for the API key
 
 > **label**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3392](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3392)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3391](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3391)
 
 The label for the API key

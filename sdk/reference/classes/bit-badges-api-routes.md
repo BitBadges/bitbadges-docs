@@ -191,18 +191,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:86](htt
 
 ***
 
-### CRUDPromptSkillsRoute()
-
-> `static` **CRUDPromptSkillsRoute**(): `string`
-
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:205](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L205)
-
-#### Returns
-
-`string`
-
-***
-
 ### CRUDSIWBBRequestRoute()
 
 > `static` **CRUDSIWBBRequestRoute**(): `string`
@@ -256,18 +244,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:71](htt
 > `static` **FetchMetadataDirectlyRoute**(): `string`
 
 Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:68](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L68)
-
-#### Returns
-
-`string`
-
-***
-
-### FetchPromptSkillsRoute()
-
-> `static` **FetchPromptSkillsRoute**(): `string`
-
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:204](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L204)
 
 #### Returns
 
@@ -1241,24 +1217,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:187](ht
 
 ***
 
-### GetPromptSkillRoute()
-
-> `static` **GetPromptSkillRoute**(`promptSkillId`): `string`
-
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:202](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L202)
-
-#### Parameters
-
-##### promptSkillId
-
-`string`
-
-#### Returns
-
-`string`
-
-***
-
 ### GetRefreshStatusRoute()
 
 > `static` **GetRefreshStatusRoute**(`collectionId`): `string`
@@ -1786,18 +1744,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:98](htt
 > `static` **SearchPluginsRoute**(): `string`
 
 Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:84](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L84)
-
-#### Returns
-
-`string`
-
-***
-
-### SearchPromptSkillsRoute()
-
-> `static` **SearchPromptSkillsRoute**(): `string`
-
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:203](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L203)
 
 #### Returns
 

@@ -4,7 +4,7 @@ description: "Locale that is supported by the plugin. By default, we assume 'en'
 
 # Interface: iUpdatePluginPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2457](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2457)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2456](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2456)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2457]
 
 > `optional` **locale?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2498](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2498)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2497](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2497)
 
 Locale that is supported by the plugin. By default, we assume 'en' is supported if not specified.
 
@@ -22,7 +22,7 @@ Locale that is supported by the plugin. By default, we assume 'en' is supported 
 
 > `optional` **metadata?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2461](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2461)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2460](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2460)
 
 #### createdBy?
 
@@ -78,7 +78,7 @@ Support link for the plugin
 
 > **pluginId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2459](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2459)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2458](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2458)
 
 The unique plugin ID
 
@@ -88,7 +88,7 @@ The unique plugin ID
 
 > `optional` **rotatePluginSecret?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2484](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2484)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2483](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2483)
 
 Rotate the plugin secret?
 
@@ -98,7 +98,7 @@ Rotate the plugin secret?
 
 > `optional` **toPublish?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2481](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2481)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2480](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2480)
 
 To publish in the directory. This will trigger the start of the review process.
 
@@ -108,7 +108,7 @@ To publish in the directory. This will trigger the start of the review process.
 
 > `optional` **versionCreate?**: [`PluginVersionConfigPayload`](/sdk/reference/interfaces/plugin-version-config-payload)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2495](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2495)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2494](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2494)
 
 Create a new version
 
@@ -118,7 +118,7 @@ Create a new version
 
 > `optional` **versionUpdates?**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2487](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2487)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2486](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2486)
 
 Update an existing version
 

@@ -4,7 +4,7 @@ description: "any"
 
 # Class: CheckClaimSuccessPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3903](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3903)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3902](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3902)
 
 ## Extends
 

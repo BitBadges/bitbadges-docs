@@ -1,10 +1,10 @@
 ---
-description: "Every interface the BitBadges TypeScript SDK exports — 742 reference pages."
+description: "Every interface the BitBadges TypeScript SDK exports — 737 reference pages."
 ---
 
 # Interfaces
 
-Every interface the `bitbadges` package exports (742 total).
+Every interface the `bitbadges` package exports (737 total).
 
 - [AcceptAuctionBidMsg](/sdk/reference/interfaces/accept-auction-bid-msg)
 - [AccountInfo](/sdk/reference/interfaces/account-info)
@@ -33,6 +33,8 @@ Every interface the `bitbadges` package exports (742 total).
 - [BountyVoteMsg](/sdk/reference/interfaces/bounty-vote-msg)
 - [BroadcastPostBody](/sdk/reference/interfaces/broadcast-post-body)
 - [BroadcastResult](/sdk/reference/interfaces/broadcast-result)
+- [BuildEIP712Args](/sdk/reference/interfaces/build-eip712-args)
+- [BuildEip712TxRawArgs](/sdk/reference/interfaces/build-eip712-tx-raw-args)
 - [Chain](/sdk/reference/interfaces/chain)
 - [ChallengeParams\<T\>](/sdk/reference/interfaces/challenge-params)
 - [Channel](/sdk/reference/interfaces/channel)
@@ -60,6 +62,9 @@ Every interface the `bitbadges` package exports (742 total).
 - [DistributionPrecompileParams](/sdk/reference/interfaces/distribution-precompile-params)
 - [DistributionRewardsResponse](/sdk/reference/interfaces/distribution-rewards-response)
 - [Doc](/sdk/reference/interfaces/doc)
+- [EIP712Domain](/sdk/reference/interfaces/eip712-domain)
+- [EIP712TypedData](/sdk/reference/interfaces/eip712-typed-data)
+- [EIP712TypeField](/sdk/reference/interfaces/eip712-type-field)
 - [EncodeObject](/sdk/reference/interfaces/encode-object)
 - [ErrorDoc](/sdk/reference/interfaces/error-doc)
 - [ErrorResponse](/sdk/reference/interfaces/error-response)
@@ -69,6 +74,7 @@ Every interface the `bitbadges` package exports (742 total).
 - [ExtractedProduct](/sdk/reference/interfaces/extracted-product)
 - [Fee](/sdk/reference/interfaces/fee)
 - [Finding](/sdk/reference/interfaces/finding)
+- [FlattenedPayload](/sdk/reference/interfaces/flattened-payload)
 - [GeneratePlaceholderArtInput](/sdk/reference/interfaces/generate-placeholder-art-input)
 - [GeneratePlaceholderArtResult](/sdk/reference/interfaces/generate-placeholder-art-result)
 - [GenericCosmosAdapterConfig](/sdk/reference/interfaces/generic-cosmos-adapter-config)
@@ -189,8 +195,6 @@ Every interface the `bitbadges` package exports (742 total).
 - [iCreateDynamicDataStoreSuccessResponse\<Q, T\>](/sdk/reference/interfaces/i-create-dynamic-data-store-success-response)
 - [iCreatePluginPayload](/sdk/reference/interfaces/i-create-plugin-payload)
 - [iCreatePluginSuccessResponse](/sdk/reference/interfaces/i-create-plugin-success-response)
-- [iCreatePromptSkillPayload](/sdk/reference/interfaces/i-create-prompt-skill-payload)
-- [iCreatePromptSkillSuccessResponse](/sdk/reference/interfaces/i-create-prompt-skill-success-response)
 - [iCreateSIWBBRequestPayload](/sdk/reference/interfaces/i-create-siwbb-request-payload)
 - [iCreateSIWBBRequestSuccessResponse](/sdk/reference/interfaces/i-create-siwbb-request-success-response)
 - [iCreateUtilityPagePayload\<T\>](/sdk/reference/interfaces/i-create-utility-page-payload)
@@ -208,8 +212,6 @@ Every interface the `bitbadges` package exports (742 total).
 - [iDeleteDynamicDataStoreSuccessResponse](/sdk/reference/interfaces/i-delete-dynamic-data-store-success-response)
 - [iDeletePluginPayload](/sdk/reference/interfaces/i-delete-plugin-payload)
 - [iDeletePluginSuccessResponse](/sdk/reference/interfaces/i-delete-plugin-success-response)
-- [iDeletePromptSkillPayload](/sdk/reference/interfaces/i-delete-prompt-skill-payload)
-- [iDeletePromptSkillSuccessResponse](/sdk/reference/interfaces/i-delete-prompt-skill-success-response)
 - [iDeleteSIWBBRequestPayload](/sdk/reference/interfaces/i-delete-siwbb-request-payload)
 - [iDeleteSIWBBRequestSuccessResponse](/sdk/reference/interfaces/i-delete-siwbb-request-success-response)
 - [iDeleteUtilityPagePayload](/sdk/reference/interfaces/i-delete-utility-page-payload)
@@ -244,8 +246,6 @@ Every interface the `bitbadges` package exports (742 total).
 - [iFetchDoc\<T\>](/sdk/reference/interfaces/i-fetch-doc)
 - [iFetchMetadataDirectlyPayload](/sdk/reference/interfaces/i-fetch-metadata-directly-payload)
 - [iFetchMetadataDirectlySuccessResponse\<T\>](/sdk/reference/interfaces/i-fetch-metadata-directly-success-response)
-- [iFetchPromptSkillsPayload](/sdk/reference/interfaces/i-fetch-prompt-skills-payload)
-- [iFetchPromptSkillsSuccessResponse](/sdk/reference/interfaces/i-fetch-prompt-skills-success-response)
 - [iFilterCollectionApprovalsPayload](/sdk/reference/interfaces/i-filter-collection-approvals-payload)
 - [iFilterCollectionApprovalsSuccessResponse\<T\>](/sdk/reference/interfaces/i-filter-collection-approvals-success-response)
 - [iFilterSuggestionsPayload](/sdk/reference/interfaces/i-filter-suggestions-payload)
@@ -385,8 +385,6 @@ Every interface the `bitbadges` package exports (742 total).
 - [iGetPredictionPricesSuccessResponse](/sdk/reference/interfaces/i-get-prediction-prices-success-response)
 - [iGetPredictionsPayload](/sdk/reference/interfaces/i-get-predictions-payload)
 - [iGetPredictionsSuccessResponse](/sdk/reference/interfaces/i-get-predictions-success-response)
-- [iGetPromptSkillPayload](/sdk/reference/interfaces/i-get-prompt-skill-payload)
-- [iGetPromptSkillSuccessResponse](/sdk/reference/interfaces/i-get-prompt-skill-success-response)
 - [iGetReservedClaimCodesPayload](/sdk/reference/interfaces/i-get-reserved-claim-codes-payload)
 - [iGetReservedClaimCodesSuccessResponse](/sdk/reference/interfaces/i-get-reserved-claim-codes-success-response)
 - [iGetSearchPayload\<T\>](/sdk/reference/interfaces/i-get-search-payload)
@@ -564,7 +562,6 @@ Every interface the `bitbadges` package exports (742 total).
 - [iPredictionMarketApiData](/sdk/reference/interfaces/i-prediction-market-api-data)
 - [iPredictionMarketInfo](/sdk/reference/interfaces/i-prediction-market-info)
 - [iProfileDoc\<T\>](/sdk/reference/interfaces/i-profile-doc)
-- [iPromptSkillDoc](/sdk/reference/interfaces/i-prompt-skill-doc)
 - [iQueueDoc\<T\>](/sdk/reference/interfaces/i-queue-doc)
 - [iRecurringOwnershipTimes\<T\>](/sdk/reference/interfaces/i-recurring-ownership-times)
 - [iRefreshDoc\<T\>](/sdk/reference/interfaces/i-refresh-doc)
@@ -591,8 +588,6 @@ Every interface the `bitbadges` package exports (742 total).
 - [iSearchDynamicDataStoresSuccessResponse\<Q, T\>](/sdk/reference/interfaces/i-search-dynamic-data-stores-success-response)
 - [iSearchPluginsPayload](/sdk/reference/interfaces/i-search-plugins-payload)
 - [iSearchPluginsSuccessResponse\<T\>](/sdk/reference/interfaces/i-search-plugins-success-response)
-- [iSearchPromptSkillsPayload](/sdk/reference/interfaces/i-search-prompt-skills-payload)
-- [iSearchPromptSkillsSuccessResponse](/sdk/reference/interfaces/i-search-prompt-skills-success-response)
 - [iSearchUtilityPagesPayload](/sdk/reference/interfaces/i-search-utility-pages-payload)
 - [iSearchUtilityPagesSuccessResponse\<T\>](/sdk/reference/interfaces/i-search-utility-pages-success-response)
 - [iSignOutPayload](/sdk/reference/interfaces/i-sign-out-payload)
@@ -635,8 +630,6 @@ Every interface the `bitbadges` package exports (742 total).
 - [iUpdateHistory\<T\>](/sdk/reference/interfaces/i-update-history)
 - [iUpdatePluginPayload](/sdk/reference/interfaces/i-update-plugin-payload)
 - [iUpdatePluginSuccessResponse](/sdk/reference/interfaces/i-update-plugin-success-response)
-- [iUpdatePromptSkillPayload](/sdk/reference/interfaces/i-update-prompt-skill-payload)
-- [iUpdatePromptSkillSuccessResponse](/sdk/reference/interfaces/i-update-prompt-skill-success-response)
 - [iUpdateUtilityPagePayload\<T\>](/sdk/reference/interfaces/i-update-utility-page-payload)
 - [iUpdateUtilityPageSuccessResponse\<T\>](/sdk/reference/interfaces/i-update-utility-page-success-response)
 - [iUsedLeafStatus\<T\>](/sdk/reference/interfaces/i-used-leaf-status)
@@ -668,6 +661,7 @@ Every interface the `bitbadges` package exports (742 total).
 - [ListingParams](/sdk/reference/interfaces/listing-params)
 - [Localized](/sdk/reference/interfaces/localized)
 - [MergedUniversalPermissionDetails](/sdk/reference/interfaces/merged-universal-permission-details)
+- [MessageGenerated\<T\>](/sdk/reference/interfaces/message-generated)
 - [MetadataFetchOptions](/sdk/reference/interfaces/metadata-fetch-options)
 - [MintCustom2FAParams](/sdk/reference/interfaces/mint-custom2-fa-params)
 - [MultiChainMsg](/sdk/reference/interfaces/multi-chain-msg)
@@ -704,6 +698,7 @@ Every interface the `bitbadges` package exports (742 total).
 - [PurchaseCreditTokenMsg](/sdk/reference/interfaces/purchase-credit-token-msg)
 - [PurchaseProductMsg](/sdk/reference/interfaces/purchase-product-msg)
 - [QuestsParams](/sdk/reference/interfaces/quests-params)
+- [RecoveredKey](/sdk/reference/interfaces/recovered-key)
 - [RedeemArgs](/sdk/reference/interfaces/redeem-args)
 - [ResolvedCoin](/sdk/reference/interfaces/resolved-coin)
 - [ReviewContext](/sdk/reference/interfaces/review-context)

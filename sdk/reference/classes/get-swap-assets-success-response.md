@@ -4,7 +4,7 @@ description: "iGetSwapAssetsSuccessResponse"
 
 # Class: GetSwapAssetsSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4607](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4607)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4502](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4502)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4607]
 
 > **new GetSwapAssetsSuccessResponse**(`data`): `GetSwapAssetsSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4610](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4610)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4505](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4505)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4610]
 
 > **chain\_to\_assets\_map**: `Record`\<`string`, \{ `assets`: [`iSwapAsset`](/sdk/reference/interfaces/i-swap-asset)[]; \}\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4608](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4608)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4503](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4503)
 
 Map of chain_id → consolidated assets payload.
 

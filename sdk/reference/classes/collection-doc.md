@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: CollectionDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:350](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L350)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:349](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L349)
 
 ## Extends
 
@@ -31,7 +31,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:350](ht
 
 > **new CollectionDoc**\<`T`\>(`data`): `CollectionDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:376](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L376)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:375](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L375)
 
 #### Parameters
 
@@ -53,7 +53,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:376](ht
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:354](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L354)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:353](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L353)
 
 A unique stringified document ID
 
@@ -67,7 +67,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:355](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L355)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:354](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L354)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -81,7 +81,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **aliasPaths**: [`AliasPath`](/sdk/reference/classes/alias-path)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:373](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L373)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:372](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L372)
 
 The alias (non-wrapping) paths for the collection
 
@@ -95,7 +95,7 @@ The alias (non-wrapping) paths for the collection
 
 > **collectionApprovals**: [`CollectionApproval`](/sdk/reference/classes/collection-approval)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:362](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L362)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:361](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L361)
 
 The collection approved transfers timeline
 
@@ -109,7 +109,7 @@ The collection approved transfers timeline
 
 > **collectionId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:356](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L356)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:355](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L355)
 
 The collection ID
 
@@ -123,7 +123,7 @@ The collection ID
 
 > **collectionMetadata**: [`CollectionMetadata`](/sdk/reference/classes/collection-metadata)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:357](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L357)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:356](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L356)
 
 The collection metadata
 
@@ -137,7 +137,7 @@ The collection metadata
 
 > **collectionPermissions**: [`CollectionPermissions`](/sdk/reference/classes/collection-permissions)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:361](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L361)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:360](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L360)
 
 The collection permissions
 
@@ -151,7 +151,7 @@ The collection permissions
 
 > **cosmosCoinWrapperPaths**: [`CosmosCoinWrapperPath`](/sdk/reference/classes/cosmos-coin-wrapper-path)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:372](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L372)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:371](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L371)
 
 The IBC wrapper paths for the collection
 
@@ -165,7 +165,7 @@ The IBC wrapper paths for the collection
 
 > **createdBlock**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:367](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L367)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:366](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L366)
 
 The block number when this collection was created
 
@@ -179,7 +179,7 @@ The block number when this collection was created
 
 > **createdBy**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:366](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L366)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:365](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L365)
 
 The BitBadges address of the user who created this collection
 
@@ -193,7 +193,7 @@ The BitBadges address of the user who created this collection
 
 > **createdTimestamp**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:368](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L368)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:367](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L367)
 
 The timestamp when this collection was created (milliseconds since epoch)
 
@@ -207,7 +207,7 @@ The timestamp when this collection was created (milliseconds since epoch)
 
 > **customData**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:359](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L359)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:358](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L358)
 
 The custom data
 
@@ -221,7 +221,7 @@ The custom data
 
 > **defaultBalances**: [`UserBalanceStore`](/sdk/reference/classes/user-balance-store)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:365](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L365)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:364](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L364)
 
 The default balances for users who have not interacted with the collection yet. Only used if collection has "Standard" balance type.
 
@@ -235,7 +235,7 @@ The default balances for users who have not interacted with the collection yet. 
 
 > **invariants**: [`CollectionInvariants`](/sdk/reference/classes/collection-invariants)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:374](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L374)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:373](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L373)
 
 Collection-level invariants that cannot be broken. These are set upon genesis and cannot be modified.
 
@@ -249,7 +249,7 @@ Collection-level invariants that cannot be broken. These are set upon genesis an
 
 > **isArchived**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:364](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L364)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:363](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L363)
 
 The is archived flag
 
@@ -263,7 +263,7 @@ The is archived flag
 
 > **manager**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:360](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L360)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:359](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L359)
 
 The manager
 
@@ -277,7 +277,7 @@ The manager
 
 > **mintEscrowAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:371](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L371)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:370](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L370)
 
 Mint escrow address
 
@@ -291,7 +291,7 @@ Mint escrow address
 
 > **standards**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:363](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L363)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:362](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L362)
 
 The standards
 
@@ -305,7 +305,7 @@ The standards
 
 > **tokenMetadata**: [`TokenMetadata`](/sdk/reference/classes/token-metadata)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:358](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L358)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:357](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L357)
 
 The token metadata
 
@@ -319,7 +319,7 @@ The token metadata
 
 > **updateHistory**: [`UpdateHistory`](/sdk/reference/classes/update-history)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:369](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L369)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:368](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L368)
 
 The update history of this collection
 
@@ -333,7 +333,7 @@ The update history of this collection
 
 > **validTokenIds**: [`UintRangeArray`](/sdk/reference/classes/uint-range-array)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:370](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L370)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:369](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L369)
 
 Valid token IDs for the collection
 
@@ -347,7 +347,7 @@ Valid token IDs for the collection
 
 > **clone**(): `CollectionDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:417](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L417)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:416](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L416)
 
 Deep copies the object and returns a new instance.
 
@@ -369,7 +369,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `CollectionDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:413](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L413)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:412](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L412)
 
 Converts the object to a different NumberType equivalent.
 
@@ -447,7 +447,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getDefaultUserBalance**(): [`UserBalanceStore`](/sdk/reference/classes/user-balance-store)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:405](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L405)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:404](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L404)
 
 Creates a blank balance object with the genesis default approvals and balances.
 
@@ -461,7 +461,7 @@ Creates a blank balance object with the genesis default approvals and balances.
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:409](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L409)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:408](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L408)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

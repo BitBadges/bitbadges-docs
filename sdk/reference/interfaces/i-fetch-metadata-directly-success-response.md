@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iFetchMetadataDirectlySuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1705](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1705)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1704](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1704)
 
 ## Type Parameters
 
@@ -18,4 +18,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1705]
 
 > **metadata**: [`iMetadata`](/sdk/reference/interfaces/i-metadata)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1706](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1706)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1705](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1705)

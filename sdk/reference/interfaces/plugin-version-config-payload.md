@@ -4,7 +4,7 @@ description: "Custom details display for the plugin. Use {{publicParamKey}} to d
 
 # Interface: PluginVersionConfigPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2362](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2362)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2361](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2361)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2362]
 
 > `optional` **customDetailsDisplay?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2405](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2405)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2404](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2404)
 
 Custom details display for the plugin. Use {{publicParamKey}} to dynamically display the values of public parameters.
 
@@ -22,7 +22,7 @@ Custom details display for the plugin. Use {{publicParamKey}} to dynamically dis
 
 > **duplicatesAllowed**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2370](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2370)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2369](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2369)
 
 Whether it makes sense for multiple of this plugin to be allowed
 
@@ -32,7 +32,7 @@ Whether it makes sense for multiple of this plugin to be allowed
 
 > **finalized**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2364](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2364)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2363](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2363)
 
 Finalized
 
@@ -42,7 +42,7 @@ Finalized
 
 > `optional` **ignoreSimulations?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2379](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2379)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2378](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2378)
 
 Ignore simulations?
 
@@ -52,7 +52,7 @@ Ignore simulations?
 
 > `optional` **privateParamsSchema?**: [`JsonBodyInputSchema`](/sdk/reference/type-aliases/json-body-input-schema)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2392](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2392)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2391](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2391)
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2392]
 
 > `optional` **publicParamsSchema?**: [`JsonBodyInputSchema`](/sdk/reference/type-aliases/json-body-input-schema)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2391](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2391)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2390](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2390)
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2391]
 
 > **receiveStatusWebhook**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2373](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2373)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2372](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2372)
 
 Whether the plugin should receive status webhooks
 
@@ -78,7 +78,7 @@ Whether the plugin should receive status webhooks
 
 > `optional` **requireSignIn?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2402](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2402)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2401](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2401)
 
 Require BitBadges sign-in to use the plugin?
 
@@ -88,7 +88,7 @@ Require BitBadges sign-in to use the plugin?
 
 > **requiresSessions**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2388](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2388)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2387](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2387)
 
 This means that the plugin can be used w/o any session cookies or authentication.
 
@@ -98,7 +98,7 @@ This means that the plugin can be used w/o any session cookies or authentication
 
 > **requiresUserInputs**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2385](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2385)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2384](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2384)
 
 This is a flag for being compatible with auto-triggered claims, meaning no user interaction is needed.
 
@@ -108,7 +108,7 @@ This is a flag for being compatible with auto-triggered claims, meaning no user 
 
 > **reuseForNonIndexed**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2382](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2382)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2381](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2381)
 
 Reuse for non-indexed?
 
@@ -118,7 +118,7 @@ Reuse for non-indexed?
 
 > `optional` **skipProcessingWebhook?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2376](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2376)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2375](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2375)
 
 Whether the plugin should skip processing webhooks. We will just auto-treat it as successful.
 
@@ -128,7 +128,7 @@ Whether the plugin should skip processing webhooks. We will just auto-treat it a
 
 > **stateFunctionPreset**: [`PluginPresetType`](/sdk/reference/enumerations/plugin-preset-type)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2367](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2367)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2366](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2366)
 
 Preset type for how the plugin state is to be maintained.
 
@@ -138,7 +138,7 @@ Preset type for how the plugin state is to be maintained.
 
 > `optional` **userInputsSchema?**: [`JsonBodyInputSchema`](/sdk/reference/type-aliases/json-body-input-schema)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2390](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2390)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2389](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2389)
 
 ***
 
@@ -146,7 +146,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2390]
 
 > `optional` **verificationCall?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2395](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2395)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2394](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2394)
 
 The verification URL
 

@@ -4,7 +4,7 @@ description: "The original message that was signed."
 
 # Interface: iVerifySignInPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1117](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1117)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1116](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1116)
 
 ## Extended by
 
@@ -16,7 +16,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1117]
 
 > **message**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1121](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1121)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1120](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1120)
 
 The original message that was signed.
 
@@ -26,7 +26,7 @@ The original message that was signed.
 
 > `optional` **publicKey?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1131](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1131)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1130](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1130)
 
 Required for some chains (Cosmos) to verify signature. The public key of the signer.
 
@@ -36,6 +36,6 @@ Required for some chains (Cosmos) to verify signature. The public key of the sig
 
 > **signature**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1126](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1126)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1125](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1125)
 
 The signature of the message

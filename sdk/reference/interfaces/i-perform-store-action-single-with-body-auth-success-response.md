@@ -4,4 +4,4 @@ description: "Interface: iPerformStoreActionSingleWithBodyAuthSuccessResponse â€
 
 # Interface: iPerformStoreActionSingleWithBodyAuthSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3172](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3172)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3171](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3171)

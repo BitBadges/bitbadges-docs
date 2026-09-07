@@ -4,7 +4,7 @@ description: "For any merkle challenge claims that we are implementing"
 
 # Interface: iAddApprovalDetailsToOffChainStoragePayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:964](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L964)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:963](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L963)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:964](
 
 > **approvalDetails**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:965](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L965)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:964](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L964)
 
 #### challengeInfoDetails?
 

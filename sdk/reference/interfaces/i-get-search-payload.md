@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iGetSearchPayload\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:239](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L239)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:238](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L238)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:239](
 
 > `optional` **noAccounts?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:243](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L243)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:242](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L242)
 
 If true, we will skip all account queries.
 
@@ -28,7 +28,7 @@ If true, we will skip all account queries.
 
 > `optional` **noApplications?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:249](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L249)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:248](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L248)
 
 If true, we will skip all application queries.
 
@@ -38,7 +38,7 @@ If true, we will skip all application queries.
 
 > `optional` **noClaims?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:251](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L251)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:250](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L250)
 
 If true, we will skip all claim queries.
 
@@ -48,7 +48,7 @@ If true, we will skip all claim queries.
 
 > `optional` **noCollections?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:241](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L241)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:240](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L240)
 
 If true, we will skip all collection queries.
 
@@ -58,7 +58,7 @@ If true, we will skip all collection queries.
 
 > `optional` **noMaps?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:247](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L247)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:246](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L246)
 
 If true, we will skip all map queries.
 
@@ -68,7 +68,7 @@ If true, we will skip all map queries.
 
 > `optional` **noTokens?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:245](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L245)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:244](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L244)
 
 If true, we will skip all badge queries.
 
@@ -78,6 +78,6 @@ If true, we will skip all badge queries.
 
 > `optional` **specificCollectionId?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:253](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L253)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:252](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L252)
 
 If true, we will limit collection-based results to a single collection.

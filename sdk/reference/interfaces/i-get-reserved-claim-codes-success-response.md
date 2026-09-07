@@ -4,7 +4,7 @@ description: "The leaf signatures for the reserved claim codes to prove address 
 
 # Interface: iGetReservedClaimCodesSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:791](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L791)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:790](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L790)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:791](
 
 > `optional` **leafSignatures?**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:802](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L802)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:801](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L801)
 
 The leaf signatures for the reserved claim codes to prove address \<-> leaf mapping.
 
@@ -22,7 +22,7 @@ The leaf signatures for the reserved claim codes to prove address \<-> leaf mapp
 
 > `optional` **reservedCodes?**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:797](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L797)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:796](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L796)
 
 The previously reserved claim codes for the user. These are
 what are used in the eventual on-chain merkle proof to complete

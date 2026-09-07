@@ -6,7 +6,7 @@ description: "AminoConverters"
 
 > **createIBCAminoConverters**(): [`AminoConverters`](/sdk/reference/type-aliases/amino-converters)
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:308](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L308)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:309](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L309)
 
 ## Returns
 

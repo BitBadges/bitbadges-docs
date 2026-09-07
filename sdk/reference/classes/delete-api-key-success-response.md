@@ -4,7 +4,7 @@ description: "any"
 
 # Class: DeleteApiKeySuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3460](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3460)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3459](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3459)
 
 ## Extends
 
