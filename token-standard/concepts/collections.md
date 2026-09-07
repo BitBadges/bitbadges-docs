@@ -198,7 +198,7 @@ A complete `MsgCreateCollection`. The collection-level fields are open; the defa
 
 :::widget{name="collection-card" caption="The collection as the browse grid on bitbadges.io shows it: the first standard becomes the badge on the image, and the manager sits in the footer."}
 {
-  "collectionId": 1,
+  "image": "/widgets/samples/nft.png", "collectionId": 1,
   "name": "Demo NFTs",
   "standards": [
     "Tradable",

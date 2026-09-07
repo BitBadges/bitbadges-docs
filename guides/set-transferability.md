@@ -413,15 +413,6 @@ const burnableApproval = new CollectionApproval({
 }
 ```
 
-:::widget{name="transferability-row" caption="The burnable approval: any holder can send to the burn address, which nobody controls."}
-{
-  "approvalId": "burnable-approval",
-  "fromListId": "!Mint",
-  "toListId": "bb1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqs7gvmv",
-  "initiatedByListId": "All"
-}
-:::
-
 - `fromListId: "!Mint"`: any holder can burn.
 - `toListId`: the burn address as a single-address list.
 - `initiatedByListId: "All"`: anyone can initiate (in practice the holder, whose outgoing approvals still apply).

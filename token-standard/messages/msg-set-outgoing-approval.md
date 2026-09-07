@@ -235,33 +235,6 @@ console.log(result.txHash, result.success);
 }
 ```
 
-:::widget{name="transferability-row" caption="The listing as the outgoing approvals tab on bitbadges.io shows it: bob alone can take token 5 for 25 USDC inside the seven-day window."}
-{
-  "approvalId": "sell-token-5-to-bob",
-  "level": "outgoing",
-  "fromListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
-  "toListId": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
-  "initiatedByListId": "bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue",
-  "transferTimes": [
-    {
-      "start": "1788739200000",
-      "end": "1789344000000"
-    }
-  ],
-  "tokenIds": [
-    {
-      "start": "5",
-      "end": "5"
-    }
-  ],
-  "criteria": [
-    "25 USDC to alice",
-    "Max 1 transfer",
-    "Deleted after one use"
-  ]
-}
-:::
-
 The `set-outgoing-approval` CLI command takes the `approval` object on its own, not the whole message. This approval has side effects (`coinTransfers`, trackers, auto-deletion), so `mustPrioritize` is `true` and bob must list it in `prioritizedApprovals` when he executes the transfer.
 
 {% hint style="info" %}

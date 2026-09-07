@@ -48,7 +48,7 @@ Editions are the same collection with an amount above 1 per token ID. Soulbound 
 
 :::widget{name="collection-card" caption="The collection on the browse grid: 100 tokens, the NFTs standard as its badge, alice as manager."}
 {
-  "collectionId": 1,
+  "image": "/widgets/samples/nft.png", "collectionId": 1,
   "name": "Demo NFTs",
   "standards": [
     "NFTs",

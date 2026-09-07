@@ -49,23 +49,6 @@ console.log(result.txHash, result.success);
 }
 ```
 
-:::widget{name="permissions-grid" caption="The permissions tab after this message: Update manager is frozen as permitted, so bob can hand the role on again."}
-{
-  "permissions": {
-    "canUpdateManager": [
-      {
-        "permanentlyPermittedTimes": [
-          {
-            "start": "1",
-            "end": "18446744073709551615"
-          }
-        ]
-      }
-    ]
-  }
-}
-:::
-
 ## Fields
 
 | Field | Type | Required | Description |

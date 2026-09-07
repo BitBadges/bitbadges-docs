@@ -103,21 +103,6 @@ console.log(result.txHash, result.success);
 }
 ```
 
-:::widget{name="transferability-row" caption="The transferable approval the example names, as bitbadges.io lists it on Demo NFTs: any holder except Mint can send any of the 100 tokens to anyone."}
-{
-  "approvalId": "transferable",
-  "fromListId": "AllWithoutMint",
-  "toListId": "All",
-  "initiatedByListId": "All",
-  "tokenIds": [
-    {
-      "start": "1",
-      "end": "100"
-    }
-  ]
-}
-:::
-
 A `precalculateBalancesFromApproval` with every field blank is ignored. To mint from an approval that has `predeterminedBalances`, set `from` to `Mint`, leave `balances` empty, and name the approval in `precalculateBalancesFromApproval`. The chain computes the balances at execution time and overwrites the field.
 
 {% hint style="info" %}
