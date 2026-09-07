@@ -41,11 +41,48 @@ The crowdfund success approval for a 10000 USDC goal:
         "overrideWithCurrentTime": true
       }
     ],
-    "coinTransfers": [{ "to": "", "coins": [{ "amount": "1", "denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701" }], "overrideFromWithApproverAddress": true, "overrideToWithInitiator": true }],
+    "coinTransfers": [{ "to": "", "coins": [{ "amount": "1", "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8" }], "overrideFromWithApproverAddress": true, "overrideToWithInitiator": true }],
     "maxNumTransfers": { "overallMaxNumTransfers": "1", "amountTrackerId": "crowdfund-success" }
   }
 }
 ```
+
+:::widget{name="approval-criteria" caption="The success approval on bitbadges.io: the goal check reads the collection's own progress balance, and the escrow pays the initiator."}
+{
+  "mustOwnTokens": [
+    {
+      "collectionId": "0",
+      "tokenIds": [
+        {
+          "start": "2",
+          "end": "2"
+        }
+      ],
+      "amountRange": {
+        "start": "10000000000",
+        "end": "18446744073709551615"
+      }
+    }
+  ],
+  "coinTransfers": [
+    {
+      "to": "",
+      "coins": [
+        {
+          "amount": "1",
+          "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8"
+        }
+      ],
+      "overrideFromWithApproverAddress": true,
+      "overrideToWithInitiator": true
+    }
+  ],
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "1",
+    "amountTrackerId": "crowdfund-success"
+  }
+}
+:::
 
 The refund approval is the mirror: `fromListId: "!Mint"` (backers burn token 1), `amountRange` from `0` to goal minus 1, unlimited uses.
 

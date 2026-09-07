@@ -38,12 +38,45 @@ The credit mint approval at 100 credits per USDC:
         "maxScalingMultiplier": "18446744073709551615"
       }
     },
-    "coinTransfers": [{ "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "coins": [{ "amount": "1", "denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701" }] }],
+    "coinTransfers": [{ "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "coins": [{ "amount": "1", "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8" }] }],
     "overridesFromOutgoingApprovals": true,
     "mustPrioritize": true
   }
 }
 ```
+
+:::widget{name="approval-criteria" caption="The credit mint on bitbadges.io: 100 credits per unit, scaled to the amount bought, with the base price on the payment card."}
+{
+  "predeterminedBalances": {
+    "incrementedBalances": {
+      "startBalances": [
+        {
+          "amount": "100",
+          "tokenIds": [
+            {
+              "start": "1",
+              "end": "1"
+            }
+          ]
+        }
+      ],
+      "allowAmountScaling": true
+    }
+  },
+  "coinTransfers": [
+    {
+      "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "coins": [
+        {
+          "amount": "1",
+          "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8"
+        }
+      ]
+    }
+  ],
+  "overridesFromOutgoingApprovals": true
+}
+:::
 
 `amount: "1"` is one micro-USDC. A user who mints 1000000 credits pays 10000 micro-USDC, which is 0.01 USDC, so the displayed rate is 100 credits per 0.000001 USDC at base units; the alias path makes the wallet show it as intended.
 

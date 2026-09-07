@@ -33,13 +33,55 @@ The receipt token is what makes the rest of the standard available: a receipt ca
       "incrementedBalances": { "startBalances": [{ "amount": "1", "tokenIds": [{ "start": "1", "end": "1" }], "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }] }] },
       "orderCalculationMethod": { "useOverallNumTransfers": true }
     },
-    "coinTransfers": [{ "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "coins": [{ "amount": "25000000", "denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701" }], "overrideFromWithApproverAddress": false, "overrideToWithInitiator": false }],
+    "coinTransfers": [{ "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "coins": [{ "amount": "25000000", "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8" }], "overrideFromWithApproverAddress": false, "overrideToWithInitiator": false }],
     "maxNumTransfers": { "overallMaxNumTransfers": "100", "amountTrackerId": "product-purchase-1" },
     "overridesFromOutgoingApprovals": true,
     "overridesToIncomingApprovals": true
   }
 }
 ```
+
+:::widget{name="approval-criteria" caption="The purchase approval on bitbadges.io: one unit per buy at 25 USDC, 100 in stock, and both user-level checks skipped."}
+{
+  "predeterminedBalances": {
+    "incrementedBalances": {
+      "startBalances": [
+        {
+          "amount": "1",
+          "tokenIds": [
+            {
+              "start": "1",
+              "end": "1"
+            }
+          ]
+        }
+      ]
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": true
+    }
+  },
+  "coinTransfers": [
+    {
+      "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+      "coins": [
+        {
+          "amount": "25000000",
+          "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8"
+        }
+      ],
+      "overrideFromWithApproverAddress": false,
+      "overrideToWithInitiator": false
+    }
+  ],
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "100",
+    "amountTrackerId": "product-purchase-1"
+  },
+  "overridesFromOutgoingApprovals": true,
+  "overridesToIncomingApprovals": true
+}
+:::
 
 Product 2 is the same approval on token ID 2 with its own price, and `toListId` set to the burn address if it is a consumable.
 

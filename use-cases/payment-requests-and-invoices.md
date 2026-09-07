@@ -32,7 +32,7 @@ The result is an on-chain invoice a wallet can render, an agent can create witho
     "coinTransfers": [
       {
         "to": "bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr",
-        "coins": [{ "amount": "10000000", "denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701" }],
+        "coins": [{ "amount": "10000000", "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8" }],
         "overrideFromWithApproverAddress": false,
         "overrideToWithInitiator": false
       }
@@ -41,6 +41,28 @@ The result is an on-chain invoice a wallet can render, an agent can create witho
   }
 }
 ```
+
+:::widget{name="approval-criteria" caption="The pay approval on bitbadges.io: 10 USDC from the payer to the agent, usable once."}
+{
+  "coinTransfers": [
+    {
+      "to": "bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr",
+      "coins": [
+        {
+          "amount": "10000000",
+          "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8"
+        }
+      ],
+      "overrideFromWithApproverAddress": false,
+      "overrideToWithInitiator": false
+    }
+  ],
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "1",
+    "amountTrackerId": "payment-request-pay-tracker"
+  }
+}
+:::
 
 A second approval, `payment-request-deny`, is identical minus `coinTransfers`. Executing it burns the receipt and records the refusal.
 

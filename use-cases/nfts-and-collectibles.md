@@ -46,6 +46,20 @@ Editions are the same collection with an amount above 1 per token ID. Soulbound 
 }
 ```
 
+:::widget{name="collection-card" caption="The collection on the browse grid: 100 tokens, the NFTs standard as its badge, alice as manager."}
+{
+  "collectionId": 1,
+  "name": "Demo NFTs",
+  "standards": [
+    "NFTs",
+    "NFTMarketplace",
+    "NFTPricingDenom:ubadge"
+  ],
+  "supply": "100",
+  "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
+}
+:::
+
 Delete `transferable-approval` and the collection is soulbound. Replace `toListId: "All"` with the burn address and it is burnable but not tradable.
 
 ```bash

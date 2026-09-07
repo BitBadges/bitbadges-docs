@@ -41,7 +41,7 @@ The paired mint and the YES-wins settlement:
             "maxScalingMultiplier": "18446744073709551615"
           }
         },
-        "coinTransfers": [{ "to": "Mint", "coins": [{ "amount": "1", "denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701" }] }],
+        "coinTransfers": [{ "to": "Mint", "coins": [{ "amount": "1", "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8" }] }],
         "requireToEqualsInitiatedBy": true,
         "overridesFromOutgoingApprovals": true
       }
@@ -54,13 +54,47 @@ The paired mint and the YES-wins settlement:
       "tokenIds": [{ "start": "1", "end": "1" }],
       "approvalCriteria": {
         "votingChallenges": [{ "proposalId": "pm-settle-yes-9b02", "quorumThreshold": "100", "voters": [{ "address": "bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf", "weight": "1" }] }],
-        "coinTransfers": [{ "to": "", "coins": [{ "amount": "1", "denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701" }], "overrideFromWithApproverAddress": true, "overrideToWithInitiator": true }],
+        "coinTransfers": [{ "to": "", "coins": [{ "amount": "1", "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8" }], "overrideFromWithApproverAddress": true, "overrideToWithInitiator": true }],
         "maxNumTransfers": { "perInitiatedByAddressMaxNumTransfers": "1", "amountTrackerId": "pm-settle-yes-9b02" }
       }
     }
   ]
 }
 ```
+
+:::widget{name="approval-criteria" caption="The paired mint on bitbadges.io: one YES and one NO per unit of USDC sent to the mint escrow, scaled to the deposit."}
+{
+  "predeterminedBalances": {
+    "incrementedBalances": {
+      "startBalances": [
+        {
+          "amount": "1",
+          "tokenIds": [
+            {
+              "start": "1",
+              "end": "2"
+            }
+          ]
+        }
+      ],
+      "allowAmountScaling": true
+    }
+  },
+  "coinTransfers": [
+    {
+      "to": "Mint",
+      "coins": [
+        {
+          "amount": "1",
+          "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8"
+        }
+      ]
+    }
+  ],
+  "requireToEqualsInitiatedBy": true,
+  "overridesFromOutgoingApprovals": true
+}
+:::
 
 Amounts here are ratios: the `amount: "1"` on the deposit and on the payout scale together with `allowAmountScaling`. The verifier casts one MsgCastVote on `pm-settle-yes-9b02`; after that, any YES holder burns their tokens through this approval and receives USDC.
 

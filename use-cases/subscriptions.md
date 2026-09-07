@@ -38,13 +38,26 @@ Renewal is a user-level approval the subscriber sets once. A bot, the issuer, or
       "orderCalculationMethod": { "useOverallNumTransfers": true }
     },
     "coinTransfers": [
-      { "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "coins": [{ "amount": "10000000", "denom": "ibc/A4DB47A9D3CF9A068D454513891B526702455D3EF08FB9EB558C561F9DC2B701" }] }
+      { "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "coins": [{ "amount": "10000000", "denom": "ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8" }] }
     ],
     "overridesFromOutgoingApprovals": true,
     "overridesToIncomingApprovals": false
   }
 }
 ```
+
+:::widget{name="collection-card" caption="The subscription on the browse grid: the faucet's price and interval show as the base price."}
+{
+  "collectionId": 3,
+  "name": "Demo Membership",
+  "standards": [
+    "Subscriptions"
+  ],
+  "price": "10 USDC / month",
+  "priceLabel": "Base price",
+  "manager": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d"
+}
+:::
 
 `durationFromTimestamp: "2592000000"` is 30 days in milliseconds. `overridesToIncomingApprovals` stays `false` on purpose: the subscriber's incoming approval is what says "you may charge me again".
 
