@@ -61,6 +61,32 @@ export const ApiIcon = ({ className }: IconProps) => (
   </svg>
 );
 
+export const CopyIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <rect x="9" y="9" width="11" height="11" rx="2" />
+    <path d="M5 15V6a2 2 0 0 1 2-2h9" />
+  </svg>
+);
+
+export const FileTextIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z" />
+    <path d="M14 3v5h5M9 13h6M9 17h6" />
+  </svg>
+);
+
+export const SparkleIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.1 2.1M15.6 15.6l2.1 2.1M6.3 17.7l2.1-2.1M15.6 8.4l2.1-2.1" />
+  </svg>
+);
+
+export const PlugIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M9 3v5M15 3v5M7 8h10v3a5 5 0 0 1-10 0V8ZM12 16v5" />
+  </svg>
+);
+
 /* Brand marks are filled glyphs, unlike the stroked UI icons above. */
 const brand = { viewBox: '0 0 24 24', fill: 'currentColor', 'aria-hidden': true };
 
