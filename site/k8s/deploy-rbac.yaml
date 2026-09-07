@@ -1,0 +1,59 @@
+# CI deploy identity for the docs site.
+#
+# Scoped as tightly as a rollout allows: this token can restart and watch the
+# bitbadges-docs Deployment in the default namespace and nothing else. It
+# cannot read Secrets, exec into pods, or touch any other workload on the
+# cluster, which matters because this cluster also runs the API, the frontend
+# and both explorers.
+#
+# Apply once:  kubectl apply -f site/k8s/deploy-rbac.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: docs-deployer
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: docs-deployer
+  namespace: default
+rules:
+  # `rollout restart` patches the pod template annotation; `rollout status`
+  # then watches the same object. resourceNames pins both to the docs
+  # deployment, so the token cannot restart anything else.
+  - apiGroups: ['apps']
+    resources: ['deployments']
+    resourceNames: ['bitbadges-docs']
+    verbs: ['get', 'patch', 'watch']
+  # `list` cannot be restricted by resourceName. Listing deployment names in
+  # one namespace is read-only and harmless; without it kubectl errors before
+  # it gets to the object.
+  - apiGroups: ['apps']
+    resources: ['deployments']
+    verbs: ['list']
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: docs-deployer
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: docs-deployer
+subjects:
+  - kind: ServiceAccount
+    name: docs-deployer
+    namespace: default
+---
+# Kubernetes 1.24 and later stopped minting long-lived ServiceAccount tokens
+# automatically, so CI gets one through an explicit Secret.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: docs-deployer-token
+  namespace: default
+  annotations:
+    kubernetes.io/service-account.name: docs-deployer
+type: kubernetes.io/service-account-token

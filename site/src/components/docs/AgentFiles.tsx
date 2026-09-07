@@ -46,7 +46,11 @@ export async function readAgentFiles(options: { dir?: string; basePath?: string 
 
   return Promise.all(
     AGENT_FILE_SPECS.map(async ({ name, summary }) => {
-      const stat = await fs.stat(path.join(dir, name)).catch(() => null);
+      // turbopackIgnore, as in config.ts: the size is read at build time, so the
+      // content repo must not be traced into the server output.
+      const stat = await fs
+        .stat(/* turbopackIgnore: true */ path.join(/* turbopackIgnore: true */ dir, name))
+        .catch(() => null);
       return {
         name,
         summary,
@@ -66,12 +70,11 @@ export async function readAgentFiles(options: { dir?: string; basePath?: string 
 export async function AgentFiles({ className = '' }: { className?: string }) {
   const files = await readAgentFiles();
 
+  // Labelled by attribute rather than by id: the layout renders this twice (one
+  // visible per breakpoint), and two of the same id is invalid HTML.
   return (
-    <section aria-labelledby="agent-files-title" className={`border-t border-[var(--border)] pt-4 ${className}`}>
-      <h2
-        id="agent-files-title"
-        className="mb-2 px-[0.7rem] text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-[var(--fg-faint)]"
-      >
+    <section aria-label="For agents" className={`border-t border-[var(--border)] pt-4 ${className}`}>
+      <h2 className="mb-2 px-[0.7rem] text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-[var(--fg-faint)]">
         For agents
       </h2>
       <ul className="space-y-1.5 px-[0.7rem]">

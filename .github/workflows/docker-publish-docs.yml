@@ -40,3 +40,36 @@ jobs:
           push: true
           tags: trevormil23/bitbadges-docs:latest
           platforms: linux/amd64
+
+      # Roll the cluster only after the push above has finished, so the pull
+      # cannot race the tag. Doing this by hand twice in a row restarted onto
+      # the previous image because the build was still running.
+      - name: Deploy to the cluster
+        if: github.event_name != 'pull_request'
+        env:
+          KUBE_SERVER: ${{ secrets.KUBE_SERVER }}
+          KUBE_TOKEN: ${{ secrets.KUBE_TOKEN }}
+          KUBE_CA: ${{ secrets.KUBE_CA }}
+        run: |
+          set -euo pipefail
+          if [ -z "${KUBE_SERVER:-}" ] || [ -z "${KUBE_TOKEN:-}" ]; then
+            echo "::warning::KUBE_SERVER or KUBE_TOKEN is unset — image pushed, cluster not rolled."
+            echo "Set them in repo secrets to enable auto-deploy. See _docs/runbooks/docs-sync.md."
+            exit 0
+          fi
+
+          # The token belongs to the docs-deployer ServiceAccount and can only
+          # restart this one Deployment. See site/k8s/deploy-rbac.yaml.
+          if [ -n "${KUBE_CA:-}" ]; then
+            printf '%s' "$KUBE_CA" | base64 -d > /tmp/kube-ca.crt
+            kubectl config set-cluster k3s --server="$KUBE_SERVER" --certificate-authority=/tmp/kube-ca.crt --embed-certs=true
+          else
+            echo "::warning::KUBE_CA is unset — verifying the API server by name only is not possible, skipping TLS verification."
+            kubectl config set-cluster k3s --server="$KUBE_SERVER" --insecure-skip-tls-verify=true
+          fi
+          kubectl config set-credentials ci --token="$KUBE_TOKEN"
+          kubectl config set-context ci --cluster=k3s --user=ci --namespace=default
+          kubectl config use-context ci
+
+          kubectl rollout restart deployment/bitbadges-docs
+          kubectl rollout status deployment/bitbadges-docs --timeout=5m

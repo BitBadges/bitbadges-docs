@@ -221,7 +221,11 @@
 * [WebSocket Events](chain/websocket-events.md)
 * [Source Code](https://github.com/BitBadges/bitbadgeschain)
 * [Chain Registry](https://github.com/cosmos/chain-registry/tree/master/bitbadges)
-* [Explorer](https://explorer.bitbadges.io/)
+
+## Explorer
+
+* [Cosmos Explorer](/explorer/cosmos)
+* [EVM Explorer](/explorer/evm)
 
 ## API
 
