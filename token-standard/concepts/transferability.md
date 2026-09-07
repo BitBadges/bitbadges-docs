@@ -73,7 +73,17 @@ For each transfer the chain checks, in order:
 3. Unless `overridesFromOutgoingApprovals` is set on the matched collection approval: the sender's outgoing approvals match, or the transfer is self-initiated and `autoApproveSelfInitiatedOutgoingTransfers` is on.
 4. Unless `overridesToIncomingApprovals` is set: the recipient's incoming approvals match, or the transfer is self-initiated and `autoApproveSelfInitiatedIncomingTransfers` is on, or `autoApproveAllIncomingTransfers` is on.
 
-<img src="../../.gitbook/assets/image (1) (1).png" alt="Transfer validation flow: balance check, then collection approvals, then outgoing and incoming approvals unless overridden">
+```mermaid title="Transfer validation, in order"
+flowchart TD
+  B["1. Sender balance covers the amounts, IDs, and ownership times"] --> C["2. A collection approval matches, criteria included"]
+  C --> O{"overrides outgoing?"}
+  O -->|no| OA["3. Sender outgoing approvals match, or self-initiated auto-approve"]
+  O -->|yes| I{"overrides incoming?"}
+  OA --> I
+  I -->|no| IA["4. Recipient incoming approvals match, or an auto-approve flag is on"]
+  I -->|yes| X["Transfer executes"]
+  IA --> X
+```
 
 Approvals define what is allowed. Transfers execute when an allowed path exists and balances suffice. Permissions (`canUpdateCollectionApprovals` and the user equivalents) define whether approvals can change. See [Permissions](permissions.md).
 

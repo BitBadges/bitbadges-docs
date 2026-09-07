@@ -233,6 +233,14 @@ Every writer appends rows to `_docs/redirects.tsv` (old route TAB new route, rou
    page (between the `proto-nav` markers, written by the generator) and, for the
    SDK, the six group indexes plus the fifteen `START_HERE` symbols.
 
+### Visuals
+
+Three channels, each generated from a source the tests can check. The plan and the backlog are in [`visuals.md`](visuals.md).
+
+- **Diagrams.** A ```mermaid fence renders to inline SVG at build time (`site/src/lib/docs/mermaid.ts`, `beautiful-mermaid`, no DOM, no client script). Colors are the site tokens, so diagrams follow the theme. `site/tests/mermaid.test.ts` renders every fence in the corpus.
+- **Code folds.** A folded figure has Collapsed and Full tabs in its caption (`site/src/lib/docs/fold.ts`, `CopyButtons.tsx`). The listing never breaks into panels; the reader's choice is remembered in `localStorage`.
+- **Widgets and screenshots.** Read-only mocks of frontend UI (`site/src/components/widgets/`) and Playwright captures of bitbadges.io (`site/scripts/capture-frontend-screenshots.ts`). Each ships with its own manifest and test; see their sections once merged.
+
 ### Self-hosting gaps still open (in this repo)
 
 | Gap | Where | Effect |
