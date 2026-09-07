@@ -12,6 +12,7 @@ import path from 'node:path';
 import { docsConfig } from '../src/lib/docs/config';
 import { buildSearchRecords, MEDIA_EXTENSIONS } from '../src/lib/docs/content';
 import { sanitizeOpenApi } from '../src/lib/docs/openapi';
+import { loadRedirects } from '../src/lib/docs/redirects';
 
 const publicDir = path.resolve(process.cwd(), 'public');
 const assetsDir = path.join(publicDir, docsConfig.assetsPrefix.replace(/^\//, ''));
@@ -85,6 +86,11 @@ console.log(`assets: ${copied} file(s) updated in ${path.relative(process.cwd(),
 
 const spec = await syncOpenApi();
 console.log(spec ? `openapi: copied from ${path.relative(process.cwd(), spec)}` : 'openapi: no spec found — API reference will be empty');
+
+// next.config.ts reads this at build time; see README "Redirects".
+const redirects = await loadRedirects(docsConfig.redirectsDir);
+await fs.writeFile(path.resolve(process.cwd(), 'redirects.json'), `${JSON.stringify(redirects, null, 2)}\n`);
+console.log(`redirects: ${redirects.length} rule(s) from ${path.relative(process.cwd(), docsConfig.redirectsDir)}`);
 
 const records = await buildSearchRecords();
 await fs.writeFile(path.join(publicDir, 'search-index.json'), JSON.stringify(records));

@@ -30,6 +30,7 @@ bun run typecheck
 | GitBook / Stoplight feature | How it works here |
 | --- | --- |
 | Navigation tree | Parsed from the existing `SUMMARY.md` — one source of truth |
+| Top tabs | One per `##` group in `SUMMARY.md`; sidebar and prev/next scoped to the tab |
 | Page content | `remark`/`rehype` pipeline, rendered at build time |
 | `{% hint %}` | Styled callouts (info / warning / danger / success) |
 | `{% content-ref %}` | Cards labelled with the **target page's** title |
@@ -46,6 +47,32 @@ Deliberately **not** built: an AI chatbot, and a replacement for GitBook's MCP
 endpoint (`docs.bitbadges.io/~gitbook/mcp`), which stopped existing at cutover.
 References to it have been removed from the corpus. The repo already publishes
 `llms.txt` and `for-llms.txt` for agent consumption.
+
+## Tabs
+
+`src/lib/docs/tabs.ts` turns the `##` groups of `SUMMARY.md` into top tabs: label
+= group title minus its leading emoji, link = the group's first internal page,
+phone label = the first word. The active tab is the longest route-prefix match
+of the current path against the tab's pages; the first tab owns `/` and any
+page no tab claims. The sidebar, the mobile drawer and prev/next pagination all
+show only the active tab. `/api-reference` belongs to the tab labelled `API`
+when the SUMMARY has one, otherwise it is appended as its own trailing tab.
+
+## Redirects
+
+Moved pages are listed in `../_docs/redirects/*.tsv` as `old<TAB>new` routes,
+one per line, `#` comments allowed. `bun run sync` merges every file (deduped by
+source, identity rows dropped) into `redirects.json`, which `next.config.ts`
+serves as permanent redirects; Next adds `basePath` itself. `tests/redirects.test.ts`
+checks that no source is still a live page and every destination resolves — it
+only warns until the restructured content is swapped in; run it with
+`DOCS_REDIRECTS_STRICT=1 bun test` to enforce.
+
+## Images
+
+Any image path containing `.gitbook/assets/` resolves from the content root,
+whatever the page's depth or how many `../` it uses. Other relative paths
+resolve from the page's directory.
 
 ## Moving it into bitbadges.io
 
@@ -81,7 +108,8 @@ no version reconciliation to do.
 | `DOCS_OPENAPI_URL` | `/openapi.json` | Where the page fetches the spec |
 | `DOCS_OPENAPI_SOURCE` | *(see below)* | Spec to copy during `sync` |
 | `DOCS_EDIT_BASE_URL` | GitHub `edit/master` | "Edit this page" target; empty disables |
-| `DOCS_EXCLUDED_DIRS` | `_docs,site,node_modules` | Directories never served |
+| `DOCS_EXCLUDED_DIRS` | `_docs,_new,site,node_modules` | Directories never served |
+| `DOCS_REDIRECTS_DIR` | `../_docs/redirects` | Folder of `*.tsv` redirect tables |
 
 `sync` looks for the spec at `DOCS_OPENAPI_SOURCE`, then `openapi/openapi.json`
 (committed here so the site builds standalone), then the sibling SDK at
@@ -139,6 +167,8 @@ site/
 │   └── lib/docs/                 portable, framework-free
 │       ├── config.ts             the deployment seam
 │       ├── summary.ts            SUMMARY.md -> nav tree
+│       ├── tabs.ts               ## groups -> top tabs, active-tab matching
+│       ├── redirects.ts          _docs/redirects/*.tsv -> redirects.json
 │       ├── gitbook.ts            liquid blocks -> directives
 │       ├── markdown.ts           the render pipeline
 │       ├── openapi.ts            Stoplight-parity spec sanitizer

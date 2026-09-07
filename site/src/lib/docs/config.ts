@@ -22,6 +22,8 @@ export type DocsConfig = {
   editBaseUrl: string;
   /** Directory names never served as documentation. */
   excludedDirs: string[];
+  /** Folder of `*.tsv` redirect tables merged into `redirects.json` by `sync`. */
+  redirectsDir: string;
 };
 
 const env = (key: string, fallback: string) => process.env[key]?.trim() || fallback;
@@ -39,7 +41,8 @@ export const docsConfig: DocsConfig = {
   ),
   openapiUrl: env('DOCS_OPENAPI_URL', '/openapi.json'),
   editBaseUrl: env('DOCS_EDIT_BASE_URL', 'https://github.com/trevormil/bitbadges-docs/edit/master'),
-  excludedDirs: env('DOCS_EXCLUDED_DIRS', '_docs,site,node_modules').split(',').map((s) => s.trim()),
+  excludedDirs: env('DOCS_EXCLUDED_DIRS', '_docs,_new,site,node_modules').split(',').map((s) => s.trim()),
+  redirectsDir: path.resolve(/* turbopackIgnore: true */ process.cwd(), env('DOCS_REDIRECTS_DIR', '../_docs/redirects')),
 };
 
 /** Prefix an internal route with the mount point. */

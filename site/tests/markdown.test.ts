@@ -69,10 +69,19 @@ describe('renderDoc — link and asset rewriting', () => {
 
   test('resolves deeply nested ../ image paths against the source file', async () => {
     const doc = await renderDoc(
-      '# T\n\n<figure><img src="../../.gitbook/assets/x.png" alt=""></figure>',
+      '# T\n\n<figure><img src="../../images/x.png" alt=""></figure>',
       { ...opts, filePath: 'a/b/c/page.md' },
     );
-    expect(doc.html).toContain('src="/docs-assets/a/.gitbook/assets/x.png"');
+    expect(doc.html).toContain('src="/docs-assets/a/images/x.png"');
+  });
+
+  test('resolves .gitbook/assets images from the content root whatever the depth', async () => {
+    const doc = await renderDoc(
+      '# T\n\n<figure><img src="../../.gitbook/assets/x.png" alt=""></figure>\n\n![](../../../../../.gitbook/assets/y.png)',
+      { ...opts, filePath: 'a/b/c/page.md' },
+    );
+    expect(doc.html).toContain('src="/docs-assets/.gitbook/assets/x.png"');
+    expect(doc.html).toContain('src="/docs-assets/.gitbook/assets/y.png"');
   });
 
   test('leaves an absolute image url alone', async () => {

@@ -611,6 +611,22 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
+/* Five short labels have to fit beside the logo, search and theme controls on
+   a phone; tighten the tabs and let the rail scroll rather than overflow. */
+.segmented-rail {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.segmented-rail::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 639px) {
+  .segmented-rail .segmented-tab {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.78rem;
+  }
+}
+
 /* ==========================================================================
    Scalar API reference
 

@@ -11,6 +11,13 @@ import baseline from './content-issues.baseline.json' with { type: 'json' };
 import { docsConfig } from '../src/lib/docs/config';
 import { getAllFiles, getAllRoutes, getDoc, getNav } from '../src/lib/docs/content';
 import { flattenNav } from '../src/lib/docs/summary';
+import { tabsFromNav } from '../src/lib/docs/tabs';
+
+// Corpus-size floors. They catch a walk that silently drops a directory, not
+// the exact count; raise them after the docs restructure lands (the new tree
+// has fewer, denser pages and a shorter SUMMARY.md).
+const MIN_PAGES = 300;
+const MIN_NAV_ENTRIES = 200;
 
 /** Issues present now but absent from the recorded baseline. */
 function newIssues(found: string[], recorded: string[]): string[] {
@@ -31,7 +38,7 @@ const rendered = await (async () => {
 
 describe('corpus', () => {
   test('discovers the full set of pages', () => {
-    expect(rendered.length).toBeGreaterThan(300);
+    expect(rendered.length).toBeGreaterThan(MIN_PAGES);
     expect(rendered.every((r) => r.doc !== null)).toBe(true);
   });
 
@@ -103,7 +110,7 @@ describe('navigation', () => {
   test('SUMMARY.md yields the expected shape', async () => {
     const nav = await getNav();
     expect(nav.length).toBeGreaterThan(3);
-    expect(flattenNav(nav).length).toBeGreaterThan(200);
+    expect(flattenNav(nav).length).toBeGreaterThan(MIN_NAV_ENTRIES);
   });
 
   test('every internal nav entry resolves to a real page', async () => {
@@ -112,6 +119,18 @@ describe('navigation', () => {
       .map((n) => n.href)
       .filter((href) => !routes.has(href));
     expect(dangling).toEqual([]);
+  });
+
+  test('prev/next stays inside the tab: the last page of the first tab has no next', async () => {
+    const tabs = tabsFromNav(await getNav());
+    const first = flattenNav(tabs[0].groups);
+    const second = flattenNav(tabs[1].groups);
+    expect(second.length).toBeGreaterThan(0);
+
+    const last = await getDoc(first.at(-1)!.href);
+    expect(last!.next).toBeNull();
+    const head = await getDoc(second[0].href);
+    expect(head!.prev).toBeNull();
   });
 
   test('prev/next chain is wired for a page in the middle of the nav', async () => {

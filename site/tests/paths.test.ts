@@ -89,3 +89,27 @@ describe('resolveDocLink — over-relative links', () => {
     expect(resolveAssetPath('a/b.md', '../../.gitbook/assets/x.png')).toBe('.gitbook/assets/x.png');
   });
 });
+
+describe('resolveAssetPath — .gitbook/assets resolves from the content root', () => {
+  // Pages move between directories during the rewrite; an image reference that
+  // names `.gitbook/assets/` must keep working regardless of the page's depth.
+  test('a deeply nested page with too few ../ segments', () => {
+    expect(
+      resolveAssetPath('token-standard/evm/tokenization-precompile/api.md', '../.gitbook/assets/diagram.png'),
+    ).toBe('.gitbook/assets/diagram.png');
+  });
+
+  test('a shallow page with too many ../ segments', () => {
+    expect(resolveAssetPath('start/quickstart.md', '../../../.gitbook/assets/hero (1).png')).toBe(
+      '.gitbook/assets/hero (1).png',
+    );
+  });
+
+  test('a root page referencing the folder directly', () => {
+    expect(resolveAssetPath('README.md', '.gitbook/assets/logo.svg')).toBe('.gitbook/assets/logo.svg');
+  });
+
+  test('other relative assets still resolve from the page directory', () => {
+    expect(resolveAssetPath('guides/x.md', './images/a.png')).toBe('guides/images/a.png');
+  });
+});

@@ -11,6 +11,7 @@ import { docsConfig, type DocsConfig } from './config';
 import { renderDoc, type RenderedDoc } from './markdown';
 import { filePathToRoute, routeToCandidates } from './paths';
 import { flattenNav, parseSummary, type NavGroup, type NavNode } from './summary';
+import { activeTabIndex, tabsFromNav } from './tabs';
 
 export type DocPage = RenderedDoc & {
   route: string;
@@ -122,7 +123,9 @@ export async function getDoc(route: string): Promise<DocPage | null> {
       resolveTitle: (route) => titles.get(route),
     });
 
-    const order = flattenNav(await getNav());
+    // Prev/next never crosses a tab boundary — each tab reads as its own book.
+    const tabs = tabsFromNav(await getNav());
+    const order = flattenNav(tabs[activeTabIndex(tabs, normalized)].groups);
     const index = order.findIndex((node) => node.href === normalized);
 
     return {

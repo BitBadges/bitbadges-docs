@@ -28,7 +28,8 @@ Why MCP gets a tab: it is the priority developer path and has its own audience. 
 
 - Testnet is offline (503 as of 2026-09-06). Mainnet LCD `https://lcd.bitbadges.io` works. Examples target mainnet. Keep exactly one testnet status page (`token-standard/network/testnet.md`). Do not tell readers to hit the testnet faucet as a live step.
 - `bb` is the CLI alias for `bitbadgeschaind`. Never teach `bb cli <subcmd>` (deprecated alias).
-- Real MCP tool list (53) is in `bitbadgesjs/packages/bitbadgesjs-sdk/src/builder/tools/` (registry). `build_address_list` and `get_review_url` do not exist. `add_preset_approval`, `list_presets`, `flag_review_item`, `generate_placeholder_art`, `search` do.
+- Real MCP tool list (53) is in `bitbadgesjs/packages/bitbadgesjs-sdk/src/builder/tools/` (registry). `build_address_list` does not exist. `get_review_url`, `BuildResult.reviewUrl`, and `bb preview --open` come from open PR bitbadgesjs #288 and are documented as current. `add_preset_approval`, `list_presets`, `flag_review_item`, `generate_placeholder_art`, `search` exist on master.
+- Bring your own AI is the default builder path (frontend PR #328). The hosted in-site AI builder is a legacy fallback and is never presented as an entry point. `bitbadges.io/mint/local-builder` accepts `#tx=<base64url JSON>`, `?code=prv_...`, and pasted JSON for review and sign.
 - Real CLI commands are in `bitbadgesjs/packages/bitbadgesjs-sdk/src/cli/commands/`. 21 `build` subcommands, 13 standards groups plus `custom-2fa`. Undocumented groups to add: `amount`, `balances`, `assets`, `pools`, `pairs`, `price`, `swap`, `url`, `gen-pub-key`, `sign-with-browser`.
 - Claims plugin ids in the indexer (16): anonymous, codes, discord, github, github-contributions, google, halt, initiatedBy, min-badge, must-own-badges, numUses, password, transferTimes, twitch, twitter, whitelist. Verify url-clicker, custom-instructions, satisfies-claim, username-set against `bitbadges-frontend` before documenting them.
 - tokenization Msgs (27) and Queries (16): see inventory-B. All must have a page. `x/pot` does not exist; the proof-of-token page must say it is app-level integration guidance (verify against chain source) or be dropped.
@@ -197,6 +198,7 @@ cli/chain.md                       <- chain-commands.md, create-and-broadcast-tx
 
 ```
 agents/README.md                   <- ai-agents/README.md, cli/for-ai-agents.md. Paths table (CLI, MCP, Claude Code plugin, SDK), quickstart, review-and-sign handoff, metadata without hosting.
+agents/setup.md                    NEW. Per-harness setup: Claude Code, Claude Desktop, Cursor, Windsurf, Codex CLI, VS Code, Zed, no-tools LLM paste-JSON handoff.
 agents/mcp-tools.md                <- ai-agents/builder-tools.md, cli/tool-commands.md. Regenerate the tool list from the registry (53). Group by purpose.
 agents/claude-code-plugin.md
 agents/programmatic-agent.md       (strip 59 em-dashes)
