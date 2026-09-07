@@ -224,7 +224,7 @@ Both hit the chain directly: the Cosmos LCD `/cosmos/tx/v1beta1/txs/{hash}` firs
 | `2` | RPC error, not found, or (`wait`) timeout. On timeout `error.code` is `timeout` and `hint` says to re-run `tx status` or extend `--timeout`. |
 
 {% hint style="warning" %}
-The chain binary owns `bb tx` and does not forward `status` or `wait`. Run them as `bitbadges-cli tx status <hash>` until the forwarder list is updated.
+Chain releases before the forwarder fix do not expose `bb tx status` or `bb tx wait`. If they print unknown command, run `bitbadges-cli tx status <hash>`.
 {% endhint %}
 
 ## Sign bridge

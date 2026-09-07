@@ -98,7 +98,7 @@ bb url collection 42 --raw          # only the URL string
 | `--condensed`, `--output-file <path>` | Output flags |
 
 {% hint style="warning" %}
-The chain binary does not forward `url`. Run it as `bitbadges-cli url ...` until the forwarder list is updated.
+Chain releases before the forwarder fix do not forward `url`. If `bb url` prints unknown command, run `bitbadges-cli url ...`.
 {% endhint %}
 
 ## gen-pub-key

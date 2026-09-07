@@ -115,7 +115,7 @@ bb custom-2fa mint 84 --creator bb1mgr... --to bb1a...,bb1b... --expiration 10m 
 Emits `MsgTransferTokens`. The lifetime is encoded at mint time; broadcasting a raw mint without this command yields tokens that never expire. Create the collection with `bb build custom-2fa`.
 
 {% hint style="warning" %}
-The chain binary does not forward `custom-2fa`. Run it as `bitbadges-cli custom-2fa mint ...` until the forwarder list is updated.
+Chain releases before the forwarder fix do not forward `custom-2fa`. If `bb custom-2fa` prints unknown command, run `bitbadges-cli custom-2fa mint ...`.
 {% endhint %}
 
 ## dynamic-stores

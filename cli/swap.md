@@ -21,7 +21,7 @@ bb amount to-raw 1.5 --denom USDC                                     # 1500000
 All read verbs accept the [network flags](README.md#network-flags), `--condensed`, and `--output-file`.
 
 {% hint style="warning" %}
-The chain binary forwards `swap`, `pools`, `pairs`, and `price` but not `amount`, `balances`, or `assets`. Run those three as `bitbadges-cli <verb>` until the forwarder list is updated.
+Chain releases before the forwarder fix do not forward `amount`, `balances`, or `assets`. If they print unknown command, run them as `bitbadges-cli <verb>`.
 {% endhint %}
 
 ## swap

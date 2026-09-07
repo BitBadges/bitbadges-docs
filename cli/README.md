@@ -86,7 +86,7 @@ bb --help-json | jq '.commands[] | .name'   # full SDK command tree as JSON
 | Misc | `completion` | this page |
 
 {% hint style="warning" %}
-The chain binary forwards SDK verbs by name. Its forwarder list does not include `tx status`, `tx wait`, `amount`, `balances`, `assets`, `url`, or `custom-2fa` (the chain owns `tx`). Until that list is updated, run those as `bitbadges-cli <verb>`. Every other verb on these pages works as `bb <verb>`.
+The chain binary forwards SDK verbs by name. Chain releases before the fix in bitbadgeschain PR `fix/bb-forward-missing-sdk-verbs` do not forward `tx status`, `tx wait`, `amount`, `balances`, `assets`, `url`, or `custom-2fa`. On those releases run them as `bitbadges-cli <verb>`; `bb --help` shows which verbs your binary forwards.
 {% endhint %}
 
 ### Deprecated forms
