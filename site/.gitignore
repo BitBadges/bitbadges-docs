@@ -9,4 +9,6 @@ next-env.d.ts
 public/docs-assets/
 public/search-index.json
 public/openapi.json
+public/llms-full.txt
+public/**/*.md
 redirects.json

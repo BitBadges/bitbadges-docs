@@ -14,6 +14,7 @@ import { buildSearchRecords, MEDIA_EXTENSIONS } from '../src/lib/docs/content';
 import { API_FOLD, foldApiDocs, foldedPageFiles, sanitizeOpenApi } from '../src/lib/docs/openapi';
 import { loadRedirects } from '../src/lib/docs/redirects';
 import { generate as generateForLlms } from './gen-for-llms';
+import { generate as generatePageMarkdown } from './gen-page-markdown';
 
 const publicDir = path.resolve(process.cwd(), 'public');
 const assetsDir = path.join(publicDir, docsConfig.assetsPrefix.replace(/^\//, ''));
@@ -163,6 +164,12 @@ if (await fs.access(llmsIndex).then(() => true).catch(() => false)) {
 
 const corpus = await generateForLlms();
 console.log(`for-llms: ${corpus.pages} page(s), ${(corpus.bytes / 1024 / 1024).toFixed(2)} MB`);
+
+// Every page's Markdown twin at `<route>.md`, read by the page actions menu
+// and by agents. Static files in public/ so they serve the same way under
+// `next start`, the standalone image, and a basePath mount.
+const twins = await generatePageMarkdown();
+console.log(`markdown: ${twins.pages} page(s) written as <route>.md`);
 
 const spec = await syncOpenApi();
 console.log(spec ? `openapi: copied from ${path.relative(process.cwd(), spec)}` : 'openapi: no spec found — API reference will be empty');
