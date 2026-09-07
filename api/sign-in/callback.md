@@ -17,7 +17,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { BigIntify, BitBadgesAPI } from 'bitbadges';
 import { getSession } from '../../lib/session'; // your own session helper
 
-const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify });
+const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify }); // key from https://bitbadges.io/developer
 
 export default async function callbackHandler(req: NextApiRequest, res: NextApiResponse) {
   const code = req.query.code as string;

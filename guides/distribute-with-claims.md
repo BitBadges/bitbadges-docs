@@ -8,7 +8,7 @@ At the end you have a working claim that checks your criteria, a backend that co
 
 Prerequisites:
 
-- A BitBadges API key (see [BitBadges API](../api/README.md)).
+- A BitBadges API key. Create one at [bitbadges.io/developer](https://bitbadges.io/developer) and send it in the `x-api-key` header, or set `BITBADGES_API_KEY` for the SDK. See [BitBadges API](../api/README.md).
 - The `bitbadges` npm package or the `bb` CLI (see [SDK](../sdk/README.md) and [CLI](../cli/README.md)).
 
 ## 1. Decide the Flow

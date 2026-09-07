@@ -7,11 +7,11 @@ description: "How an agent reads these docs. llms.txt, the full-text dump, bb de
 Agents can read this site four ways: two static files, one CLI command, and one MCP tool. Pick the one your harness already has.
 
 ```bash
-# Curated index (about 16 KB): start here, then fetch 1-3 pages
-curl -s https://docs.bitbadges.io/llms.txt
+# Curated index (about 46 KB): start here, then fetch 1-3 pages
+curl -sO https://docs.bitbadges.io/llms.txt
 
 # Full-text dump of every page (about 1.6 MB)
-curl -s https://docs.bitbadges.io/for-llms.txt
+curl -sO https://docs.bitbadges.io/for-llms.txt
 
 # From the CLI (fetched from GitHub, cached 24 hours in ~/.bitbadges/docs-cache.json)
 bb dev docs                          # navigable tree of sections
@@ -25,12 +25,21 @@ bb dev skills
 bb dev skills smart-token
 ```
 
-## Static Files
+## Download the Corpus
 
-| File | Size | Use it for |
+Two files, both regenerated with the docs. Every page of this site carries the same two links in its sidebar under **For agents**, with the current byte size next to each.
+
+| Download | Size | What it is |
 | --- | --- | --- |
-| `https://docs.bitbadges.io/llms.txt` | about 16 KB | A curated index of the pages that matter for a task, with one line each. Read it first |
-| `https://docs.bitbadges.io/for-llms.txt` | about 1.6 MB | Every page concatenated. Load it into a large context or grep it locally |
+| [llms.txt](https://docs.bitbadges.io/llms.txt) | about 46 KB | A curated index: every page in this site's navigation order, one line each, with its URL and one-sentence description. No page bodies |
+| [for-llms.txt](https://docs.bitbadges.io/for-llms.txt) | about 1.6 MB | The whole corpus — 216 pages, roughly 43,000 lines — concatenated into one plain-text file |
+
+**Which one to feed your agent:**
+
+- **Context-limited agent, or one that can fetch URLs** — give it `llms.txt`. It fits in any context window, and every line carries the URL of the page to fetch next. This is the default.
+- **One-shot paste, or an agent with a large context and no network** — give it `for-llms.txt`. Roughly 400k tokens; paste it whole, attach it as a file, or `grep` it locally and paste the sections you hit.
+
+Both are plain text with no markup beyond the markdown the pages are written in, so they need no preprocessing.
 
 ## CLI
 

@@ -256,6 +256,16 @@ checks that no source is still a live page and every destination resolves — it
 only warns until the restructured content is swapped in; run it with
 `DOCS_REDIRECTS_STRICT=1 bun test` to enforce.
 
+## Agent corpus downloads
+
+`bun run sync` copies `../llms.txt` (curated index) and `../for-llms.txt` (the
+whole corpus in one file) into `public/`, so the built site serves them at
+`/llms.txt` and `/for-llms.txt`. `src/components/docs/AgentFiles.tsx` renders the
+**For agents** block in the docs sidebar footer — plain `<a download>` links plus
+a pointer at `/agents/reading-the-docs`. It `stat`s the two files at build time
+rather than quoting a size, so the labels cannot go stale; a missing file drops
+to a link with no size. Regenerate the index itself with `bun run gen:llms`.
+
 ## Images
 
 Any image path containing `.gitbook/assets/` resolves from the content root,

@@ -8,7 +8,7 @@ At the end you have swapped one asset for another on the BitBadges chain and kno
 
 Prerequisites:
 
-- The `bb` CLI with a BitBadges API key configured (`bb settings`), or the `bitbadges` npm package.
+- The `bb` CLI with a BitBadges API key configured (`bb settings set apiKey "$BITBADGES_API_KEY"`), or the `bitbadges` npm package. Create a key at [bitbadges.io/developer](https://bitbadges.io/developer).
 - A wallet with `ubadge` for fees. `--browser` signs through the BitBadges `/sign` page with Keplr or MetaMask.
 
 Amounts are raw base units everywhere: `1000000` is 1 BADGE at 6 decimals.

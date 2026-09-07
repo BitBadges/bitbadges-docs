@@ -28,6 +28,15 @@ const nextConfig: NextConfig = {
   // the built output — not the content tree or the full node_modules.
   output: 'standalone',
   outputFileTracingRoot: import.meta.dirname,
+  async rewrites() {
+    return [
+      { source: '/explorer/embed', destination: 'https://explorer.bitbadges.io/' },
+      { source: '/explorer/embed/:path*', destination: 'https://explorer.bitbadges.io/:path*' },
+      { source: '/assets/:path*', destination: 'https://explorer.bitbadges.io/assets/:path*' },
+      { source: '/loader.css', destination: 'https://explorer.bitbadges.io/loader.css' },
+      { source: '/logo.svg', destination: 'https://explorer.bitbadges.io/logo.svg' },
+    ];
+  },
   async redirects() {
     // Next matches `source` with path-to-regexp, where `+ ( ) ? * :` are
     // operators. Old GitBook slugs contain literal `+`, so escape them.

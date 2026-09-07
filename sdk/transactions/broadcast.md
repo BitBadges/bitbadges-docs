@@ -18,7 +18,7 @@ bb tx wait 903D4A6E205AD77D334933E3C9BB455012D8A334AA2D98DFD301C3F7E8AB92C6    #
 import { BitBadgesAPI, BigIntify, MsgTransferTokens, createTransactionPayload, createTxBroadcastBody, type TxContext } from 'bitbadges';
 import axios from 'axios';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const ALICE = 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d';
 
 const msgs = [

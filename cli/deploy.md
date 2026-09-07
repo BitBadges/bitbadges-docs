@@ -47,7 +47,7 @@ bb deploy col.json --browser --manager bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
 | --- | --- | --- |
 | `[input]`, `--msg-file <path>`, `--msg-stdin` | | Message JSON. `[input]` is a path, `-`, or inline JSON. A `bb build` envelope is unwrapped on read. |
 | `--manager <address>` | | Owner of the created collection. Required for `--burner`; recommended for `--browser`. |
-| `--dry-run` | | Simulate and print expected gas and balance changes; never broadcast. Needs an API key off `--local`. |
+| `--dry-run` | | Simulate and print expected gas and balance changes; never broadcast. Needs an [API key](../api/README.md#api-keys) off `--local`. |
 | `--wait-for-indexer [timeout-ms]` | `30000` | After broadcast, poll the BitBadges API until the created collection or dynamic store appears. Adds `waited: { entity, id, attempts, elapsedMs, ok, body }` (or `{ ok: false, lastStatus }`). |
 | `--fee <amount>`, `--fee-denom <symbol\|denom>`, `--gas <n>` | `0`, `ubadge`, `400000` | Fee and gas. The chain accepts zero-fee transactions today. |
 | network flags | mainnet | See [CLI](README.md#network-flags) |

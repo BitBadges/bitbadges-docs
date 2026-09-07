@@ -1919,7 +1919,7 @@
 * [Programmatic Agent](agents/programmatic-agent.md)
 * [Spending Authorization](agents/spending-authorization.md)
 * [Bot Examples](agents/bot-examples.md)
-* [Reading the Docs](agents/reading-the-docs.md)
+* [Reading the Docs (llms.txt)](agents/reading-the-docs.md)
 * [Skills](agents/skills/README.md)
   * [Smart Token](agents/skills/smart-token.md)
   * [Minting](agents/skills/minting.md)

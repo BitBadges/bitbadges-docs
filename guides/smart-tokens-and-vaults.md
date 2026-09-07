@@ -882,7 +882,7 @@ Then deposit USDC into the vault for the agent with `bb smart-tokens deposit` (s
 ```ts
 import { BigIntify, BitBadgesAPI } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 
 const collectionRes = await api.getCollection('4');
 const collection = collectionRes.collection;

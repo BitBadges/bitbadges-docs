@@ -4,7 +4,7 @@ description: "Estimate a token swap through the BitBadges API. Payload, response
 
 # Swaps
 
-`POST /api/v0/swap/estimate` returns the expected output amount and the messages needed to execute a swap. Routing covers native pools (the `x/gamm` module) and Skip Go routes across IBC chains such as Osmosis. The route requires an API key.
+`POST /api/v0/swap/estimate` returns the expected output amount and the messages needed to execute a swap. Routing covers native pools (the `x/gamm` module) and Skip Go routes across IBC chains such as Osmosis. The route requires an API key in the `x-api-key` header. Create one at [bitbadges.io/developer](https://bitbadges.io/developer).
 
 This page is also part of the [API reference](/api-reference).
 
