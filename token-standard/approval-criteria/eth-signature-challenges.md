@@ -141,7 +141,13 @@ interface ETHSignatureProof {
 The transfer supplies proofs in `Transfer.ethSignatureProofs`.
 
 {% hint style="info" %}
-Ask your agent: "Add a mint approval to collection 1 that requires a one-time signature from the agent key 0x3e3adf18d0b45a3639a6cf6188b813507e958440 for every mint." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a mint approval to collection 1 that requires a one-time signature from the agent key 0x3e3adf18d0b45a3639a6cf6188b813507e958440 for every mint.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

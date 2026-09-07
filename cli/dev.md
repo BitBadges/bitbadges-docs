@@ -47,7 +47,11 @@ The second command returns the skill's structured instructions (mainnet-independ
 The old top-level `tools`, `tool`, `resources`, `docs`, `skills`, and `gen-pub-key` still resolve with a deprecation banner.
 
 {% hint style="info" %}
-Ask your agent. Everything under `bb dev` is what the agent already calls through MCP (`get_skill_instructions`, `search_knowledge_base`, `fetch_docs`). "Load the smart-token skill and explain the two required approvals" runs the first example for you.
+Ask your agent. Everything under `bb dev` is what the agent already calls through MCP (`get_skill_instructions`, `search_knowledge_base`, `fetch_docs`). This prompt runs the first example for you:
+
+```text
+Load the smart-token skill and explain the two required approvals.
+```
 {% endhint %}
 
 ## tools

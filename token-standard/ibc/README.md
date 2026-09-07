@@ -28,7 +28,13 @@ Two supporting pages complete the picture:
 - [Cross-Chain Queries](../../chain/cross-chain-queries.md): interchain queries that let another chain verify ownership without moving tokens.
 
 {% hint style="info" %}
-Ask your agent: "Give collection 1 an alias denom with symbol DEMO and 6 decimals so token ID 1 can sit in a liquidity pool." The MCP builder tools (`add_alias_path`) produce the objects on this page.
+Ask your agent:
+
+```text
+Give collection 1 an alias denom with symbol DEMO and 6 decimals so token ID 1 can sit in a liquidity pool.
+```
+
+The MCP builder tools (`add_alias_path`) produce the objects on this page.
 {% endhint %}
 
 ## How to Choose

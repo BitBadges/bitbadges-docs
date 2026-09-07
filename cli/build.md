@@ -74,7 +74,7 @@ Ask your agent. Every template here has a skill (`get_skill_instructions`) and t
 
 ## Subcommands
 
-The subcommand list comes from `bitbadgesjs-sdk/src/cli/commands/build.ts`. Collection builders emit `MsgUniversalUpdateCollection` for a new collection. Approval builders emit `MsgSetOutgoingApproval` or `MsgSetIncomingApproval`.
+The subcommand list comes from `bitbadgesjs-sdk/src/cli/commands/build.ts`. Collection builders emit `MsgCreateCollection` for a new collection (they assemble it as `MsgUniversalUpdateCollection` and narrow it at the emit boundary). Approval builders emit `MsgSetOutgoingApproval` or `MsgSetIncomingApproval`.
 
 | Subcommand | Emits | Purpose |
 | --- | --- | --- |
@@ -117,7 +117,7 @@ Every subcommand accepts these. `--help` renders them under `Metadata`, `Output`
 | `--simulate` | Builder | Also call the simulate endpoint and render gas and net balance changes (needs an [API key](../api/README.md#api-keys)). Different from `bb deploy --dry-run`, which simulates and exits. |
 | `--events` | Builder | With `--simulate`, dump the full events array instead of the count |
 | `--network`, `--mainnet`, `--testnet`, `--local`, `--url`, `--api-key` | Network | See [CLI](README.md#network-flags) |
-| `--burner`, `--browser`, `--sign-only`, `--frontend-url`, `--no-open`, `--timeout`, `--expected-address`, `--fund`, `--fee`, `--fee-denom`, `--gas`, `--new`, `--reuse`, `--non-interactive`, `--poll-timeout` | Deploy | Broadcast inline instead of emitting JSON. See [Deploy](deploy.md). |
+| `--burner`, `--browser`, `--sign-only`, `--frontend-url`, `--no-open`, `--timeout`, `--expected-address`, `--fund`, `--fee`, `--fee-denom`, `--gas`, `--new`, `--reuse`, `--non-interactive`, `--poll-timeout`, `--port <n>` | Deploy | Broadcast inline instead of emitting JSON. See [Deploy](deploy.md). |
 
 `--json-only` still works as a deprecated alias for `--quiet`.
 

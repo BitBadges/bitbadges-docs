@@ -38,7 +38,11 @@ bb url collection 42 --raw | xargs open
 Every read verb accepts the [network flags](README.md#network-flags), `--condensed`, and `--output-file`. `0x` inputs are normalized to `bb1` client-side.
 
 {% hint style="info" %}
-Ask your agent. The MCP tools `convert_address`, `validate_address`, `query_balance`, and `lookup_token_info` cover the same ground: "Convert 0x0bc63cfe31d5218eb414b142c799e20964a54a1a to a bb1 address and tell me what it holds in collection 1."
+Ask your agent. The MCP tools `convert_address`, `validate_address`, `query_balance`, and `lookup_token_info` cover the same ground:
+
+```text
+Convert 0x0bc63cfe31d5218eb414b142c799e20964a54a1a to a bb1 address and tell me what it holds in collection 1.
+```
 {% endhint %}
 
 ## Read Verbs

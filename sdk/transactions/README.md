@@ -94,7 +94,13 @@ console.log(sim.gas_info.gas_used, res.tx_response.txhash);
 ```
 
 {% hint style="info" %}
-Ask your agent. The MCP builder tools run steps 1 and 3 for you (`build_transfer`, `validate_transaction`, `simulate_transaction`) and stop at `get_review_url`: "Build a transfer of one unit of token 1 in collection 1 from me to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, simulate it, and give me the link to sign." Signing stays with your wallet.
+Ask your agent. The MCP builder tools run steps 1 and 3 for you (`build_transfer`, `validate_transaction`, `simulate_transaction`) and stop at `get_review_url`:
+
+```text
+Build a transfer of one unit of token 1 in collection 1 from me to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, simulate it, and give me the link to sign.
+```
+
+Signing stays with your wallet.
 {% endhint %}
 
 ## Choose a Path

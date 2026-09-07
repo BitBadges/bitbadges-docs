@@ -594,7 +594,11 @@ Create (`collectionId: "0"`):
 Update (`collectionId` set): same shape without `defaultBalances` and without `invariants`, with `update*` set to `true` only for the fields that change. Including `invariants` on an update fails with `ErrInvariantsImmutable`.
 
 {% hint style="info" %}
-Ask your agent: "Use bb build to make a crowdfund collection with a 10,000 USDC goal and a 30-day deadline."
+Ask your agent:
+
+```text
+Use bb build to make a crowdfund collection with a 10,000 USDC goal and a 30-day deadline.
+```
 {% endhint %}
 
 ## Fields

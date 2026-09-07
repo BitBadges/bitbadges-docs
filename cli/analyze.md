@@ -26,7 +26,11 @@ bb build vault --backing-coin USDC --uri ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26
 All four print the envelope on stdout and human-readable scorecards on stderr (`--quiet` or `BB_QUIET=1` silences stderr). All accept `--condensed`, `--output-file <path>`, and the [network flags](README.md#network-flags).
 
 {% hint style="info" %}
-Ask your agent. `review_collection`, `explain_collection`, `simulate_transaction`, and `get_review_url` are the MCP equivalents: "Review and explain the transaction in tx.json, simulate it, then give me a link to sign."
+Ask your agent. `review_collection`, `explain_collection`, `simulate_transaction`, and `get_review_url` are the MCP equivalents:
+
+```text
+Review and explain the transaction in tx.json, simulate it, then give me a link to sign.
+```
 {% endhint %}
 
 ## check

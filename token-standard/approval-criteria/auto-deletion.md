@@ -128,7 +128,13 @@ interface AutoDeletionOptions {
 | `allowPurgeIfExpired` | Anyone may purge this approval on the owner's behalf once it has no future `transferTimes`. Useful for cleanup. |
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 1 that deletes itself after ten uses." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 1 that deletes itself after ten uses.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

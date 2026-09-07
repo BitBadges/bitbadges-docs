@@ -161,7 +161,13 @@ The complete `invariants` object in raw JSON:
 | `conversion.sideB` | `Balance[]` | yes | Tokens that side A backs |
 
 {% hint style="info" %}
-Ask your agent: "Create a smart token backed 1:1 by USDC (ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8) where each address can unback at most 10 times per day." The MCP builder tools (`generate_backing_address, set_invariants, add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Create a smart token backed 1:1 by USDC (ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8) where each address can unback at most 10 times per day.
+```
+
+The MCP builder tools (`generate_backing_address, set_invariants, add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## Special Address

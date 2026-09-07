@@ -7,6 +7,16 @@ description: "Allow token holders to burn tokens by sending them to the burn add
 
 Instruction text for agents that use the Burnable skill, loaded by `bb dev skills burnable` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the burnable skill and build me one: allow token holders to burn tokens by sending them to the burn address, permanently removing them from circulation. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills burnable` prints the same instructions.
+
 ## Summary
 
 Allows holders to permanently destroy tokens by sending to burn address.

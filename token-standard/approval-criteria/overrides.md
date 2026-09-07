@@ -144,7 +144,13 @@ interface ApprovalCriteria<T extends NumberType> {
 Collection approvals only.
 
 {% hint style="info" %}
-Ask your agent: "Add a manager-only approval to collection 1 that lets alice move tokens out of any address, so she can revoke." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a manager-only approval to collection 1 that lets alice move tokens out of any address, so she can revoke.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

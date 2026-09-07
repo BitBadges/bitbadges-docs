@@ -139,7 +139,13 @@ interface UserRoyalties<T extends NumberType> {
 Collection approvals only.
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 1 with a 5% royalty to alice on every payment, and only allow payments in BADGE." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 1 with a 5% royalty to alice on every payment, and only allow payments in BADGE.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

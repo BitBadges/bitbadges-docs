@@ -148,7 +148,13 @@ interface MustOwnTokens<T extends NumberType> {
 | `ownershipCheckParty` | string | `"initiator"` (default when empty), `"sender"`, `"recipient"`, or a fixed `bb1` address |
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 2 that only lets holders of token ID 1 in collection 1 receive tokens." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 2 that only lets holders of token ID 1 in collection 1 receive tokens.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

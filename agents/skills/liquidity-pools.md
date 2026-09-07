@@ -7,6 +7,16 @@ description: "Liquidity pool standard with the \"Liquidity Pools\" protocol stan
 
 Instruction text for agents that use the Liquidity Pools skill, loaded by `bb dev skills liquidity-pools` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the liquidity-pools skill and build me one: liquidity pool standard with the "Liquidity Pools" protocol standard tag, used for tradable assets that can be swapped on a DEX. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills liquidity-pools` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Liquidity Pools"]

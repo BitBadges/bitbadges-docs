@@ -32,7 +32,13 @@ export interface UintRange<T extends NumberType> {
 | `end` | Uint (string in JSON) | yes | Last value in the range, inclusive |
 
 {% hint style="info" %}
-Ask your agent: "Set the valid token IDs of the collection I am building to 1 through 100 and 200 through 250." The MCP builder tools (`set_valid_token_ids`) produce the objects on this page.
+Ask your agent:
+
+```text
+Set the valid token IDs of the collection I am building to 1 through 100 and 200 through 250.
+```
+
+The MCP builder tools (`set_valid_token_ids`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

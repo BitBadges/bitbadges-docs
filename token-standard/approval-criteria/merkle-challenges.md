@@ -156,7 +156,13 @@ interface MerkleProof {
 ```
 
 {% hint style="info" %}
-Ask your agent: "Gate minting of collection 1 behind a whitelist of these 200 addresses, one mint each." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Gate minting of collection 1 behind a whitelist of these 200 addresses, one mint each.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

@@ -7,6 +7,16 @@ description: "Binary prediction market with YES/NO outcome tokens, liquidity poo
 
 Instruction text for agents that use the Prediction Market skill, loaded by `bb dev skills prediction-market` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the prediction-market skill and build me one: binary prediction market with YES/NO outcome tokens, liquidity pool trading, and vote-based settlement. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills prediction-market` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Prediction Market"]
@@ -439,7 +449,7 @@ After creating the collection and minting initial pairs:
 - Create pool: MsgCreateBalancerPool with badgeslp:collectionId:uyes and badgeslp:collectionId:uno, equal weights
 - Market price discovery: YES_price = NO_reserve / (YES_reserve + NO_reserve)
 
-### Steps for the builder tools
+### Steps for AI Builder
 
 1. Use per-field tools to initialize the collection (set_standards, set_valid_token_ids, etc.)
 2. `set_token_metadata` for YES (token 1) and NO (token 2)

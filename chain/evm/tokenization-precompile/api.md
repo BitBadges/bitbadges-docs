@@ -85,7 +85,13 @@ The full interface with events and doc comments is [`contracts/interfaces/IToken
 - Invariants and cosmos coin wrapper paths are settable at creation (`createCollectionWithInvariantsJSON`); the chain README notes some deeply nested items may be skipped silently on conversion, so verify with `getCollection` after creation.
 
 {% hint style="info" %}
-Ask your agent: "Build the MsgTransferTokens JSON that sends 1 of token ID 1 in collection 1 from alice to bob, with no prioritized approvals, so I can pass it as msgJson to transferTokens." The `bb build transfer` command and the MCP builder tools emit the same camelCase JSON the precompile accepts; strip the outer `typeUrl`/`value` envelope and the `creator` field.
+Ask your agent:
+
+```text
+Build the MsgTransferTokens JSON that sends 1 of token ID 1 in collection 1 from alice to bob, with no prioritized approvals, so I can pass it as msgJson to transferTokens.
+```
+
+The `bb build transfer` command and the MCP builder tools emit the same camelCase JSON the precompile accepts; strip the outer `typeUrl`/`value` envelope and the `creator` field.
 {% endhint %}
 
 ## Transaction Methods

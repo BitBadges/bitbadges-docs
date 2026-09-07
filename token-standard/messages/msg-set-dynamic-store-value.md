@@ -39,7 +39,11 @@ console.log(result.txHash, result.success);
 ```
 
 {% hint style="info" %}
-Ask your agent: "Allowlist bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue in dynamic store 1."
+Ask your agent:
+
+```text
+Allowlist bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue in dynamic store 1.
+```
 {% endhint %}
 
 ## Fields

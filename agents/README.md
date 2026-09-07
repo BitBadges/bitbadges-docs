@@ -23,29 +23,57 @@ Once a harness is wired, these prompts map onto the MCP builder tools and the sk
 
 Create a token:
 
-- "Create an NFT collection called Demo NFTs with 100 tokens, manager `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d`, fully immutable after creation."
-- "Build a fungible token called Demo Coin with 1,000,000 units of token ID 1 and a public mint of up to 10 per address."
-- "Make a USDC-backed smart token with symbol vUSDC and a daily withdraw limit of 1000."
+```text
+Create an NFT collection called Demo NFTs with 100 tokens, manager bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d, fully immutable after creation.
+```
+
+```text
+Build a fungible token called Demo Coin with 1,000,000 units of token ID 1 and a public mint of up to 10 per address.
+```
+
+```text
+Make a USDC-backed smart token with symbol vUSDC and a daily withdraw limit of 1000.
+```
 
 Distribute:
 
-- "Mint 100 Demo Coin to `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue` and `bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf` in the same transaction that creates the collection."
-- "Create a code-gated claim for collection 1 with 50 codes, one use per address."
+```text
+Mint 100 Demo Coin to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue and bb1zc268nctj8xwslgw7q22cahs6k4y048agr6fvf in the same transaction that creates the collection.
+```
+
+```text
+Create a code-gated claim for collection 1 with 50 codes, one use per address.
+```
 
 Gate:
 
-- "Check whether `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue` owns at least 1 of token ID 1 in collection 1."
-- "Build a 30-day subscription called Demo Membership at 10 USDC per interval paid to `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d`."
+```text
+Check whether bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue owns at least 1 of token ID 1 in collection 1.
+```
+
+```text
+Build a 30-day subscription called Demo Membership at 10 USDC per interval paid to bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d.
+```
 
 Trade:
 
-- "Add a tradable listing approval to collection 1 so anyone can buy token ID 5 for 25 USDC."
-- "Give my agent wallet `bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr` a daily budget of 100 units of collection 2 that it can send to `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue`."
+```text
+Add a tradable listing approval to collection 1 so anyone can buy token ID 5 for 25 USDC.
+```
+
+```text
+Give my agent wallet bb18cad7xxsk3drvwdxeasc3wqn2plftpzq2tsrsr a daily budget of 100 units of collection 2 that it can send to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue.
+```
 
 Inspect:
 
-- "Explain collection 1 for an auditor: who can change what, and how do tokens move."
-- "Review this transaction file for problems before I sign it."
+```text
+Explain collection 1 for an auditor: who can change what, and how do tokens move.
+```
+
+```text
+Review this transaction file for problems before I sign it.
+```
 
 Every build ends the same way: the agent calls `get_review_url` (or runs `bb preview`) and hands you a bitbadges.io link where you review and sign with your own wallet; the agent never holds the key.
 

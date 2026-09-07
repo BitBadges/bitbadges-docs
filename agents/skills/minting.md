@@ -7,6 +7,16 @@ description: "Mint approval patterns including public mint, whitelist mint, crea
 
 Instruction text for agents that use the Minting skill, loaded by `bb dev skills minting` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the minting skill and build me one: mint approval patterns including public mint, whitelist mint, creator-only mint, payment-gated mint, and escrow payouts. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills minting` prints the same instructions.
+
 ## Summary
 
 Required fields for all minting approvals:

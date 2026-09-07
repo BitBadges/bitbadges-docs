@@ -7,6 +7,16 @@ description: "Single-item auction with intent-based bidding. Seller mints NFT di
 
 Instruction text for agents that use the Auction skill, loaded by `bb dev skills auction` and the MCP `get_skill_instructions` tool.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the auction skill and build me one: single-item auction with intent-based bidding. Seller mints NFT directly to the winning bidder during the accept window. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills auction` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Auction"]

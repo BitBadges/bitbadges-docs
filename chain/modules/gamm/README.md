@@ -29,7 +29,13 @@ curl https://lcd.bitbadges.io/osmosis/gamm/v1beta1/pools/1
 ```
 
 {% hint style="info" %}
-Ask your agent: "Create a 50/50 pool between badges:1:utoken and ubadge with 1,000 of each and show me the pool id." The liquidity-pools skill, `bb pools`, and `bb swap` cover pool creation, joins, and swaps.
+Ask your agent:
+
+```text
+Create a 50/50 pool between badges:1:utoken and ubadge with 1,000 of each and show me the pool id.
+```
+
+The liquidity-pools skill, `bb pools`, and `bb swap` cover pool creation, joins, and swaps.
 {% endhint %}
 
 ## Concepts

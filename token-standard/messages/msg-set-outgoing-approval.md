@@ -238,7 +238,11 @@ console.log(result.txHash, result.success);
 The `set-outgoing-approval` CLI command takes the `approval` object on its own, not the whole message. This approval has side effects (`coinTransfers`, trackers, auto-deletion), so `mustPrioritize` is `true` and bob must list it in `prioritizedApprovals` when he executes the transfer.
 
 {% hint style="info" %}
-Ask your agent: "List token 5 of collection 1 for sale to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue for 25 USDC."
+Ask your agent:
+
+```text
+List token 5 of collection 1 for sale to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue for 25 USDC.
+```
 {% endhint %}
 
 ## Fields

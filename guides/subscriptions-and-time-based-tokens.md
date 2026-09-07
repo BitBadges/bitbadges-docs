@@ -177,8 +177,13 @@ See [Predetermined Balances](../token-standard/approval-criteria/predetermined-b
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Build a subscription token called Demo Membership that renews monthly for 5 USDC paid to me, with three tiers, and give me the review link."
-- "Build a credit token where 1 USDC buys 100,000 API credits, non-transferable, with an alias path, and run the review."
+```text
+Build a subscription token called Demo Membership that renews monthly for 5 USDC paid to me, with three tiers, and give me the review link.
+```
+
+```text
+Build a credit token where 1 USDC buys 100,000 API credits, non-transferable, with an alias path, and run the review.
+```
 {% endhint %}
 
 ## 2. Subscribe, Renew, and Charge

@@ -51,7 +51,11 @@ console.log(result.txHash, result.success);
 ```
 
 {% hint style="info" %}
-Ask your agent: "Create an on-chain address list called teamwallets that contains bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d and bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue."
+Ask your agent:
+
+```text
+Create an on-chain address list called teamwallets that contains bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d and bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue.
+```
 {% endhint %}
 
 ## Fields

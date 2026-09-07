@@ -246,10 +246,22 @@ add_transfer({
 validate_transaction({})
 review_collection({})
 simulate_transaction({})
+```
 
+`review_collection` returns findings and a summary. Fix anything critical before signing.
+
+```json
+{ "findings": [...], "summary": { "critical": 0, "warning": 1, "info": 3, "verdict": "warn" } }
+```
+
+```text
 # 5. Export and hand off
 get_transaction({})
 get_review_url({})   # give the user reviewUrl to review and sign
+```
+
+```json
+{ "success": true, "code": "prv_7tffq58d", "reviewUrl": "https://bitbadges.io/mint/local-builder?code=prv_7tffq58d", "expiresAt": 1788803578315, "expiresIn": "1 hour" }
 ```
 
 ### CLI Template Build

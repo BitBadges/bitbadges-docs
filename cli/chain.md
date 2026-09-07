@@ -47,7 +47,11 @@ The query prints the on-chain collection document (mainnet output, permissions a
 Endpoints and chain IDs: [Network](../chain/README.md). Mainnet is `bitbadges-1`; testnet (`bitbadges-2`) is offline.
 
 {% hint style="info" %}
-Ask your agent. Queries have MCP equivalents (`query_collection`, `query_balance`, `query_dynamic_store`); signing does not, by design. "Fetch collection 2 from chain and summarize its approvals" works; the `bb tx` step stays with you and your keyring.
+Ask your agent. Queries have MCP equivalents (`query_collection`, `query_balance`, `query_dynamic_store`); signing does not, by design. This prompt works, and the `bb tx` step stays with you and your keyring:
+
+```text
+Fetch collection 2 from chain and summarize its approvals.
+```
 {% endhint %}
 
 ## keys

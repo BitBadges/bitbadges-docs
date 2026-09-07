@@ -41,7 +41,11 @@ console.log(result.txHash, result.success);
 `uri` and `customData` are optional. Pass empty strings for a bare store.
 
 {% hint style="info" %}
-Ask your agent: "Create a dynamic store that defaults to false, so I can allowlist addresses for my membership collection."
+Ask your agent:
+
+```text
+Create a dynamic store that defaults to false, so I can allowlist addresses for my membership collection.
+```
 {% endhint %}
 
 ## Fields

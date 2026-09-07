@@ -183,7 +183,13 @@ A complete mint approval. `fromListId` and the required override are open:
 | `mintEscrowAddress` | A generated `bb1` address that holds `x/bank` coins on behalf of `"Mint"`. |
 
 {% hint style="info" %}
-Ask your agent: "Create a collection with a mint approval capped at 1000 mints, mint the first 10 to alice at creation, then lock the mint approval forever." The MCP builder tools (`add_approval, add_transfer, set_permissions`) produce the objects on this page.
+Ask your agent:
+
+```text
+Create a collection with a mint approval capped at 1000 mints, mint the first 10 to alice at creation, then lock the mint approval forever.
+```
+
+The MCP builder tools (`add_approval, add_transfer, set_permissions`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

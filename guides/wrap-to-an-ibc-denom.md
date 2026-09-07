@@ -54,8 +54,13 @@ const collection = {
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Add a cosmos coin wrapper path to my collection for denom utoken with symbol TOKEN and 6 decimals, add the wrap and unwrap approvals, and give me the review link."
-- "Generate the wrapper address for denom utoken."
+```text
+Add a cosmos coin wrapper path to my collection for denom utoken with symbol TOKEN and 6 decimals, add the wrap and unwrap approvals, and give me the review link.
+```
+
+```text
+Generate the wrapper address for denom utoken.
+```
 {% endhint %}
 
 ## 2. Derive the Wrapper Address

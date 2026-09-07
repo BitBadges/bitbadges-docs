@@ -88,8 +88,13 @@ For editable fields, use neutral `[]` rather than `permanentlyPermittedTimes`. N
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Lock the mint approvals on collection 1 so supply can never change, keep metadata editable, and give me the review link."
-- "Explain which permissions on collection 1 are frozen and which the manager can still change."
+```text
+Lock the mint approvals on collection 1 so supply can never change, keep metadata editable, and give me the review link.
+```
+
+```text
+Explain which permissions on collection 1 are frozen and which the manager can still change.
+```
 {% endhint %}
 
 ## 2. Decide the Two Permissions That Matter Most

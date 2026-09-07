@@ -70,7 +70,13 @@ A time cannot be in both arrays of the same element.
 User permissions are rarely needed. Leave them as empty arrays unless you must lock a user's ability to change their own approvals, for example an escrow account.
 
 {% hint style="info" %}
-Ask your agent: "Lock collection 1 so its approvals and metadata can never change, but leave the manager updatable." The MCP builder tools (`set_permissions`) produce the objects on this page.
+Ask your agent:
+
+```text
+Lock collection 1 so its approvals and metadata can never change, but leave the manager updatable.
+```
+
+The MCP builder tools (`set_permissions`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

@@ -4,7 +4,7 @@ description: "Start a BitBadges mainnet full node or validator: init, genesis, p
 
 # Run a Node
 
-This page brings up a BitBadges mainnet full node or validator, one copyable step at a time. The daemon binary is `bitbadgeschaind`; the `bb` developer CLI does not run a node. If you already run Cosmos SDK chains, the flow is the standard one. For help, ask in the `#validators` channel of the [Discord](https://discord.com/invite/TJMaEd9Kar) and ping `@trevormil` for the Validator role.
+This page brings up a BitBadges mainnet full node or validator, one copyable step at a time. The daemon binary is `bitbadgeschaind`; the `bb` developer CLI does not run a node. If you already run Cosmos SDK chains, the flow is the standard one. For help, ask in the `#validators` channel of the [Discord](https://discord.com/invite/TJMaEd9bar) and ping `@trevormil` for the Validator role.
 
 ```bash
 bitbadgeschaind init alice --chain-id bitbadges-1

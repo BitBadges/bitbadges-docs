@@ -60,8 +60,13 @@ Each field's meaning is tabled in [Plugins](../api/claims/plugins.md). The choic
 {% hint style="info" %}
 **Ask your agent.** With the MCP builder tools installed, paste one of these:
 
-- "Search the claim plugins for one that checks GitHub contributions and explain what params it needs."
-- "Write a Next.js API route for a Stateless claim plugin that verifies pluginSecret, returns 200 on simulation, and rejects users whose answer does not match a private param."
+```text
+Search the claim plugins for one that checks GitHub contributions and explain what params it needs.
+```
+
+```text
+Write a Next.js API route for a Stateless claim plugin that verifies pluginSecret, returns 200 on simulation, and rejects users whose answer does not match a private param.
+```
 {% endhint %}
 
 ## 2. Define Parameters and User Inputs

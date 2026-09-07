@@ -169,7 +169,13 @@ Votes are cast with [MsgCastVote](../messages/msg-cast-vote.md):
 | `yesWeight` | 0-100. Percent of the voter's weight allocated to yes; the rest is no. |
 
 {% hint style="info" %}
-Ask your agent: "Add a transfer approval to collection 1 that needs 2 of 3 votes from alice, bob, and carol before any transfer executes." The MCP builder tools (`add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a transfer approval to collection 1 that needs 2 of 3 votes from alice, bob, and carol before any transfer executes.
+```
+
+The MCP builder tools (`add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

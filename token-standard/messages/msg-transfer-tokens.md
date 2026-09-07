@@ -106,7 +106,11 @@ console.log(result.txHash, result.success);
 A `precalculateBalancesFromApproval` with every field blank is ignored. To mint from an approval that has `predeterminedBalances`, set `from` to `Mint`, leave `balances` empty, and name the approval in `precalculateBalancesFromApproval`. The chain computes the balances at execution time and overwrites the field.
 
 {% hint style="info" %}
-Ask your agent: "Send 1 of token 1 from collection 1 to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue."
+Ask your agent:
+
+```text
+Send 1 of token 1 from collection 1 to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue.
+```
 {% endhint %}
 
 ## Fields

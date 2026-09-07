@@ -43,7 +43,11 @@ bb api tokens get-collection --schema
 ```
 
 {% hint style="info" %}
-Ask your agent. `query_collection`, `query_balance`, and `search` wrap the most-used routes: "Fetch collection 1 and tell me whether bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d holds any of its tokens."
+Ask your agent. `query_collection`, `query_balance`, and `search` wrap the most-used routes:
+
+```text
+Fetch collection 1 and tell me whether bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d holds any of its tokens.
+```
 {% endhint %}
 
 ## Route Groups

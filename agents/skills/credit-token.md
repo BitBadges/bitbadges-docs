@@ -9,6 +9,16 @@ Instruction text for agents that use the Credit Token skill, loaded by `bb dev s
 
 Reference collections on mainnet: 23.
 
+## Try it
+
+Paste this into Claude Code, Codex, or Cursor with the BitBadges MCP server wired. The agent loads the skill, builds, verifies, and hands back a link to review and sign.
+
+```text
+Load the credit-token skill and build me one: increment-only, non-transferable credit token purchased with any ICS20 denom. Users pay X of a denom and receive Y tokens as credits/proof of payment. For a 1:1 backed token with on-chain transferability, use the Smart Token standard instead. Use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
+```
+
+From a shell, `bb dev skills credit-token` prints the same instructions.
+
 ## Summary
 
 Required standards: ["Credit Token"]
@@ -41,7 +51,7 @@ Credit tokens are designed for systems that track consumption off-chain. The on-
 
 **Example: BitBadges API Credits (Collection 23 / 80, APITOKEN)**
 - User purchases 10 USDC → receives 1,000,000 APITOKEN (on-chain balance = 1,000,000)
-- User makes API calls → backend tracks `totalUsed` (e.g., 250,000 APITOKEN used)
+- User makes API calls (including the AI Builder) → backend tracks `totalUsed` (e.g., 250,000 APITOKEN used)
 - Remaining budget = on-chain balance (1,000,000) - totalUsed (250,000) = 750,000
 - User purchases 5 more USDC → on-chain balance increments to 2,000,000
 - Remaining budget = 2,000,000 - 250,000 = 1,750,000

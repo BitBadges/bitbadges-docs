@@ -22,11 +22,11 @@ console.log(result.reviewUrl); // open in a browser to review and sign
 
 This is the scriptable counterpart to the [MCP Builder Tools](mcp-tools.md).
 
-| | No-code site | MCP builder | Programmatic agent |
+| | `bb` CLI | MCP builder | Programmatic agent |
 | --- | --- | --- | --- |
-| Where it runs | Any shell | Claude Desktop, Cursor, Claude Code | Your Node process |
-| LLM key | BitBadges-managed (billed credits) | Your Claude subscription | Your Anthropic or OpenAI key |
-| Good for | End users, one-off builds | Power users, exploratory work | Dapps, bots, games, CI, fine-tuning |
+| Where it runs | Any shell | Claude Code, Cursor, Codex | Your Node process |
+| Model | None; deterministic templates | Your harness supplies the model | Your Anthropic or OpenAI key |
+| Good for | Scripts, CI, one-off builds | Interactive and exploratory work | Dapps, bots, games, fine-tuning |
 
 ## Install
 
@@ -178,11 +178,11 @@ Two inputs at two levels:
 ```ts
 new BitBadgesBuilderAgent({
   anthropicKey,
-  skills: ['nft', 'smart-token']          // allowlist, constructor-level filter
+  skills: ['nft-collection', 'smart-token']   // allowlist, constructor-level filter
 });
 
 await agent.build('mint 100 nfts', {
-  selectedSkills: ['nft']                  // actual injection for this build
+  selectedSkills: ['nft-collection']       // actual injection for this build
 });
 ```
 

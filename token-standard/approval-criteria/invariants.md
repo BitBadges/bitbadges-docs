@@ -40,7 +40,13 @@ message CollectionInvariants {
 | `evmQueryChallenges` | EVMQueryChallenge[] | Read-only EVM calls run after all balance updates. Any failure reverts the transfer. Up to 10. |
 
 {% hint style="info" %}
-Ask your agent: "Create a collection with a hard cap of 1 per token ID, no custom ownership times, and no forceful post-mint transfers, locked as invariants." The MCP builder tools (`set_invariants`) produce the objects on this page.
+Ask your agent:
+
+```text
+Create a collection with a hard cap of 1 per token ID, no custom ownership times, and no forceful post-mint transfers, locked as invariants.
+```
+
+The MCP builder tools (`set_invariants`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

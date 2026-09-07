@@ -43,7 +43,13 @@ interface CollectionApproval<T extends bigint> {
 The first six fields answer who, when, and what. An approval matches a transfer when the sender is in `fromListId`, the recipient in `toListId`, the initiator in `initiatedByListId`, the block time in `transferTimes`, and the balance being moved falls inside `tokenIds` and `ownershipTimes`.
 
 {% hint style="info" %}
-Ask your agent: "Make collection 1 freely transferable between all non-Mint addresses, and keep minting limited to alice." The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Make collection 1 freely transferable between all non-Mint addresses, and keep minting limited to alice.
+```
+
+The MCP builder tools (`add_approval, add_preset_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works

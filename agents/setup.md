@@ -135,7 +135,12 @@ env = { BITBADGES_API_KEY = "0123456789abcdef0123456789abcdef0123456789abcdef012
 Claude.ai, ChatGPT, Gemini, or any chat model with no MCP access can still build. Ask it for the transaction JSON and take that JSON to the site to review and sign.
 
 1. Give the model context: paste the relevant [skill page](skills/README.md), or the prompt from `agent.exportPrompt()` on the [Programmatic Agent](programmatic-agent.md#export-as-a-single-prompt-for-no-tools-llms).
-2. Ask for a `{ "messages": [{ "typeUrl": "/tokenization.MsgCreateCollection", "value": { "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d" } }] }` object (with the rest of `value` filled in) and nothing else.
+2. Ask for the transaction object and nothing else:
+
+   ```text
+   Return only a JSON object of the form { "messages": [{ "typeUrl": "/tokenization.MsgCreateCollection", "value": { "creator": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", ... } }] } with the rest of value filled in. No prose, no code fence.
+   ```
+
 3. Paste it into `https://bitbadges.io/mint/local-builder` ("Bring your transaction"). Or, if you have the CLI, `bb preview tx.json --open` gives you a short review link, and a `#tx=<base64url JSON>` link opens the same page with the transaction in the URL hash.
 
 A complete one-message example the model can return, revoking an outgoing approval:
@@ -167,10 +172,14 @@ The site runs review, transferability, and permissions checks before the wallet 
 
 ```bash
 bb doctor                                  # chain binary, CLI, API key, network
-bb dev tools list --names | head           # the same registry your client sees
+bb dev tools list --names | jq -r '.data.names[]'   # the same registry your client sees
 ```
 
-In the client, ask for `get_current_timestamp`; a reply proves the server is wired.
+In the client, paste this prompt. A reply with a timestamp and a tool list proves the server is wired.
+
+```text
+Call get_current_timestamp and tell me the ISO time, then list every BitBadges tool you can see.
+```
 
 ## Related
 

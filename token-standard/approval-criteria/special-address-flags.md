@@ -23,7 +23,13 @@ interface ApprovalCriteria<T extends NumberType> {
 Collection approvals only.
 
 {% hint style="info" %}
-Ask your agent: "Add a wrapper path to collection 1 so token ID 1 can be wrapped into an IBC denom, with the wrap and unwrap approvals it needs." The MCP builder tools (`add_cosmos_wrapper_path, add_approval`) produce the objects on this page.
+Ask your agent:
+
+```text
+Add a wrapper path to collection 1 so token ID 1 can be wrapped into an IBC denom, with the wrap and unwrap approvals it needs.
+```
+
+The MCP builder tools (`add_cosmos_wrapper_path, add_approval`) produce the objects on this page.
 {% endhint %}
 
 ## How It Works
