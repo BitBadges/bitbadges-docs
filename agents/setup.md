@@ -17,7 +17,7 @@ The server command is the `bitbadges-builder` bin from the `bitbadges` npm packa
 npx -y -p bitbadges bitbadges-builder
 ```
 
-The key in every config below is a fake example; paste your own from [bitbadges.io/developer](https://bitbadges.io/developer). `npx` resolves the package the install put on your machine. Without that install it fetches from npm on first call, which is slower. Optional environment variables: `BITBADGES_API_KEY` (queries, simulation, review links on testnet), `BITBADGES_MNEMONIC` or `BITBADGES_PRIVATE_KEY` (server-side signing; leave unset for review-and-sign in the browser). Full list: [MCP Builder Tools](mcp-tools.md#environment-variables).
+The key in every config below is a fake example; paste your own from [bitbadges.io/developer](https://bitbadges.io/developer). `npx` resolves the package the install put on your machine. Without that install it fetches from npm on first call, which is slower. Optional environment variables: `BITBADGES_API_KEY` (queries, simulation, review links; get one at [bitbadges.io/developer](https://bitbadges.io/developer)), `BITBADGES_MNEMONIC` or `BITBADGES_PRIVATE_KEY` (server-side signing; leave unset for review-and-sign in the browser). Full list: [MCP Builder Tools](mcp-tools.md#environment-variables).
 
 ## Claude Code
 

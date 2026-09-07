@@ -29,7 +29,7 @@ bb query tokenization balance-for-token 1 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp
 ```ts
 import { BitBadgesAPI, BigIntify, getBalanceForIdNow, getBalanceForIdAndTime } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const BOB = 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue';
 
 // Full: the balance document, with the 3D balance array and the user's approvals

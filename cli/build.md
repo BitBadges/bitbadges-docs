@@ -114,7 +114,7 @@ Every subcommand accepts these. `--help` renders them under `Metadata`, `Output`
 | `--explain` | Output | Print a plain-English explanation to stderr in addition to the auto-review |
 | `--creator <address>` | Builder | Creator/sender address (`bb1` or `0x` form) |
 | `--manager <address>` | Builder | Collection manager (`bb1` form) |
-| `--simulate` | Builder | Also call the simulate endpoint and render gas and net balance changes (needs an API key). Different from `bb deploy --dry-run`, which simulates and exits. |
+| `--simulate` | Builder | Also call the simulate endpoint and render gas and net balance changes (needs an [API key](../api/README.md#api-keys)). Different from `bb deploy --dry-run`, which simulates and exits. |
 | `--events` | Builder | With `--simulate`, dump the full events array instead of the count |
 | `--network`, `--mainnet`, `--testnet`, `--local`, `--url`, `--api-key` | Network | See [CLI](README.md#network-flags) |
 | `--burner`, `--browser`, `--sign-only`, `--frontend-url`, `--no-open`, `--timeout`, `--expected-address`, `--fund`, `--fee`, `--fee-denom`, `--gas`, `--new`, `--reuse`, `--non-interactive`, `--poll-timeout` | Deploy | Broadcast inline instead of emitting JSON. See [Deploy](deploy.md). |

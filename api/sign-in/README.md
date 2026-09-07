@@ -14,7 +14,7 @@ This page is also part of the [API reference](/api-reference).
 import crypto from 'crypto';
 import { BigIntify, BitBadgesAPI, generateBitBadgesAuthUrl } from 'bitbadges';
 
-const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify });
+const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify }); // key from https://bitbadges.io/developer
 
 // 1. Send the user here. Store `state` in the session so the callback can check it.
 const state = crypto.randomBytes(16).toString('hex');

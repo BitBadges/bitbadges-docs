@@ -8,6 +8,8 @@ Copy-paste patterns for bots and agents that act on mainnet. Each example is a c
 
 Testnet is offline, so every example targets mainnet. Test on a low-value collection first. Testnet status and the faucet API shape: [Testnet](../chain/testnet.md).
 
+Every example that reads from the BitBadges API needs an API key in `BITBADGES_API_KEY`. Create one at [bitbadges.io/developer](https://bitbadges.io/developer). See [BitBadges API](../api/README.md).
+
 ## 1. Mint a Fungible Token
 
 Create a fungible token collection with server-side signing. The collection message comes from `bb build`, the MCP builder tools (`get_transaction`), or the [Create a Collection](../guides/create-a-collection.md) guide, saved as `collection.json`.

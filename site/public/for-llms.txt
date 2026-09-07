@@ -1,5 +1,5 @@
 # BitBadges documentation, every page in one file
-# Generated from the corpus at build time. Page count: 216.
+# Generated from the corpus at build time. Page count: 215.
 # The SDK reference (/sdk/reference) and proto schema (/chain/proto) are
 # generated separately and excluded here; browse them on the site.
 
@@ -868,7 +868,7 @@ Every build ends the same way: the agent calls `get_review_url` (or runs `bb pre
 | Direct HTTP | Lightweight scripts in any language | REST calls to `api.bitbadges.io` | [API](../api/README.md) |
 | Spending authorization | Daily caps, time windows, and revocation for a delegate wallet | on-chain approval | [Spending Authorization](spending-authorization.md) |
 
-Bring your own AI is the default. The MCP server, the CLI, and the plugin are model-agnostic; the harness you already run provides the model. The hosted builder at `bitbadges.io/create` is the fallback for people without a harness.
+Bring your own AI. The MCP server, the CLI, and the plugin are model-agnostic; the harness you already run provides the model. The site runs no LLM of its own and never holds your model key: it receives what you built, reviews it, and signs it.
 
 ```bash
 # Step 1: install the chain binary and CLI (always)
@@ -1136,6 +1136,8 @@ description: "Copy-paste bot patterns on mainnet. Mint a fungible token, conditi
 Copy-paste patterns for bots and agents that act on mainnet. Each example is a complete script; the addresses are the docs fixtures (alice `bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d` runs the bot, bob `bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue` is the user), so swap in your own.
 
 Testnet is offline, so every example targets mainnet. Test on a low-value collection first. Testnet status and the faucet API shape: [Testnet](../chain/testnet.md).
+
+Every example that reads from the BitBadges API needs an API key in `BITBADGES_API_KEY`. Create one at [bitbadges.io/developer](https://bitbadges.io/developer). See [BitBadges API](../api/README.md).
 
 ## 1. Mint a Fungible Token
 
@@ -1618,7 +1620,7 @@ Add to `.cursor/mcp.json`:
 
 | Variable | Required | Description |
 | --- | --- | --- |
-| `BITBADGES_API_KEY` | For queries, simulation, and broadcast | Your BitBadges API key ([get one](https://bitbadges.io/developer)) |
+| `BITBADGES_API_KEY` | For queries, simulation, broadcast, and review links | Your BitBadges API key ([get one](https://bitbadges.io/developer)) |
 | `BITBADGES_MNEMONIC` | For signing | Mnemonic for server-side signing |
 | `BITBADGES_PRIVATE_KEY` | For signing | Alternative: hex private key |
 | `BITBADGES_API_URL` | No | Override the API base (default `https://api.bitbadges.io`) |
@@ -1689,7 +1691,7 @@ Each tool sets one field on a session-scoped transaction. Calls in the same roun
 | `remove_transfer` | Remove a transfer message by index. `messages[0]` is the collection and cannot be removed | `index*` (>= 1) |
 | `set_is_archived` | Archive or unarchive. Archived collections stay on-chain but are hidden from browsing | `isArchived*` |
 | `get_transaction` | Return the assembled transaction JSON with `metadataPlaceholders`. Numbers become strings. Blank `image` fields are auto-filled with a deterministic SVG seeded by the collection name | none |
-| `get_review_url` | Final step: upload the transaction to the open preview endpoint and return a short bitbadges.io link the user opens to review and sign. No API key. Links expire after 1 hour. Lands with bitbadgesjs PR 288 | `transaction` (defaults to the session), `frontendUrl` |
+| `get_review_url` | Final step: upload the transaction to the open preview endpoint and return a short bitbadges.io link the user opens to review and sign. Needs the API key to upload; the person opening the link needs none. Links expire after 1 hour. Lands with bitbadgesjs PR 288 | `transaction` (defaults to the session), `frontendUrl` |
 
 `generate_placeholder_art` (`seed*`, `style`, `monogram`) still exists in source but is not in the MCP catalog: `get_transaction` fills blank images for you.
 
@@ -1780,7 +1782,7 @@ set_standards + set_valid_token_ids + set_invariants + add_approval + set_permis
 2. Auto-mint (optional). Call `add_transfer` to append a `MsgTransferTokens` next to the collection creation.
 3. Verify. Call `validate_transaction`, `review_collection`, and `simulate_transaction` in parallel. Fix errors with a targeted `remove_approval` and re-add.
 4. Export. Call `get_transaction` for the final JSON.
-5. Hand off. Call `get_review_url` and give the user `reviewUrl`. Prefer the link over pasting JSON: it is short and cannot be corrupted in transit. `previewUrl` is the read-only variant for a reviewer.
+5. Hand off. Call `get_review_url` and give the user `reviewUrl`. Prefer the link over pasting JSON: it is short and cannot be corrupted in transit.
 
 ### Query and Verification (No Signing)
 
@@ -1802,7 +1804,7 @@ Maximum 4 transfer messages per transaction.
 
 The builder never signs or broadcasts. Three exits:
 
-- `get_review_url` returns `reviewUrl` (review and sign with a browser wallet) and `previewUrl` (read-only). Both are backed by one `prv_` code from `POST /api/v0/builder/preview`, an open endpoint with no API key. The code expires in 1 hour. `BITBADGES_FRONTEND_URL` or the `frontendUrl` param points the link at testnet or a local site; a testnet `BITBADGES_API_URL` infers `https://testnet.bitbadges.io`.
+- `get_review_url` returns `reviewUrl`, where the user reviews and signs with a browser wallet. It is backed by a `prv_` code from `POST /api/v0/builder/preview`. Uploading the preview needs `BITBADGES_API_KEY`; opening the returned link needs none, because the unguessable code is the secret. The code expires in 1 hour. `BITBADGES_FRONTEND_URL` or the `frontendUrl` param points the link at testnet or a local site; a testnet `BITBADGES_API_URL` infers `https://testnet.bitbadges.io`.
 - Save `get_transaction` output to a file and run `bb preview tx.json --open`, or `bb deploy --browser` / `--burner` from the [CLI](../cli/deploy.md).
 - Sign with the [SDK signing client](../sdk/transactions/signing-client.md).
 
@@ -1906,7 +1908,7 @@ This is the scriptable counterpart to the [MCP Builder Tools](mcp-tools.md).
 
 | | No-code site | MCP builder | Programmatic agent |
 | --- | --- | --- | --- |
-| Where it runs | `bitbadges.io/create` | Claude Desktop, Cursor, Claude Code | Your Node process |
+| Where it runs | Any shell | Claude Desktop, Cursor, Claude Code | Your Node process |
 | LLM key | BitBadges-managed (billed credits) | Your Claude subscription | Your Anthropic or OpenAI key |
 | Good for | End users, one-off builds | Power users, exploratory work | Dapps, bots, games, CI, fine-tuning |
 
@@ -1929,7 +1931,7 @@ The SDK never bundles either provider. The key stays in your process.
 export ANTHROPIC_API_KEY=sk-ant-api03-0123456789abcdef0123456789abcdef
 export OPENAI_API_KEY=sk-proj-0123456789abcdef0123456789abcdef
 
-# Optional: needed when prompts trigger query, search, or simulate tools
+# Optional: needed when prompts trigger query, search, or simulate tools. Key from https://bitbadges.io/developer
 export BITBADGES_API_KEY=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 ```
 
@@ -2095,30 +2097,7 @@ result.inferredTokenTypeSource;      // 'standards' (existing-collection fast pa
 result.inferredTokenTypeReasoning;   // one-sentence rationale
 ```
 
-Inference is skipped when `selectedSkills` already contains a token-type entry; explicit picks win. Non-token-type skills (community, additional-context) do not block inference. The type table lives in [Smart Tokens and Vaults](../guides/smart-tokens-and-vaults.md).
-
-#### Community skills (power users)
-
-`promptSkillIds` injects community-contributed skill docs stored on BitBadges. No discovery UI ships; callers bring their own ids (shared by URL, Discord, or an internal registry). Requires a BitBadges API key.
-
-```ts
-import { BitBadgesBuilderAgent, createBitBadgesCommunitySkillsFetcher } from 'bitbadges/builder/agent';
-
-const agent = new BitBadgesBuilderAgent({
-  anthropicKey,
-  bitbadgesApiKey: process.env.BITBADGES_API_KEY,
-  communitySkillsFetcher: createBitBadgesCommunitySkillsFetcher()
-});
-
-await agent.build(prompt, {
-  selectedSkills:  ['subscription'],
-  promptSkillIds:  ['community-skill-xyz-123']
-});
-```
-
-The fetcher calls `GET /api/v0/builder/community-skills?ids=...` and returns an empty array on any failure (missing key, network error, timeout). The build still runs without the community injection.
-
-Local development: when `bitbadgesApiUrl` points at `localhost`, `127.0.0.1`, or `*.localhost`, the fetcher skips the API-key requirement. This mirrors the BitBadges API's relaxed auth for local development.
+Inference is skipped when `selectedSkills` already contains a token-type entry; explicit picks win. Non-token-type skills (additional-context) do not block inference. The type table lives in [Smart Tokens and Vaults](../guides/smart-tokens-and-vaults.md).
 
 ### Prompt-Injection Guard on the System-Prompt Slots
 
@@ -2249,7 +2228,7 @@ console.log(buildReviewUrlFromCode('https://bitbadges.io', code, result.transact
 // https://bitbadges.io/mint/local-builder?code=prv_ab12cd34
 ```
 
-Update transactions (a non-zero `collectionId`) route to `/update/local-builder/:id` so the site diffs against on-chain state. The helpers `buildHandoffUrl`, `buildReviewUrlFromCode`, `buildPreviewUrlFromCode`, `detectExistingCollectionId`, and `encodeTxForHash` are exported from `bitbadges/builder/agent`.
+Update transactions (a non-zero `collectionId`) route to `/update/local-builder/:id` so the site diffs against on-chain state. The helpers `buildHandoffUrl`, `buildReviewUrlFromCode`, `detectExistingCollectionId`, and `encodeTxForHash` are exported from `bitbadges/builder/agent`.
 
 ## Image Placeholders
 
@@ -2431,11 +2410,11 @@ description: "How an agent reads these docs. llms.txt, the full-text dump, bb de
 Agents can read this site four ways: two static files, one CLI command, and one MCP tool. Pick the one your harness already has.
 
 ```bash
-# Curated index (about 16 KB): start here, then fetch 1-3 pages
-curl -s https://docs.bitbadges.io/llms.txt
+# Curated index (about 46 KB): start here, then fetch 1-3 pages
+curl -sO https://docs.bitbadges.io/llms.txt
 
 # Full-text dump of every page (about 1.6 MB)
-curl -s https://docs.bitbadges.io/for-llms.txt
+curl -sO https://docs.bitbadges.io/for-llms.txt
 
 # From the CLI (fetched from GitHub, cached 24 hours in ~/.bitbadges/docs-cache.json)
 bb dev docs                          # navigable tree of sections
@@ -2449,12 +2428,21 @@ bb dev skills
 bb dev skills smart-token
 ```
 
-## Static Files
+## Download the Corpus
 
-| File | Size | Use it for |
+Two files, both regenerated with the docs. Every page of this site carries the same two links in its sidebar under **For agents**, with the current byte size next to each.
+
+| Download | Size | What it is |
 | --- | --- | --- |
-| `https://docs.bitbadges.io/llms.txt` | about 16 KB | A curated index of the pages that matter for a task, with one line each. Read it first |
-| `https://docs.bitbadges.io/for-llms.txt` | about 1.6 MB | Every page concatenated. Load it into a large context or grep it locally |
+| [llms.txt](https://docs.bitbadges.io/llms.txt) | about 46 KB | A curated index: every page in this site's navigation order, one line each, with its URL and one-sentence description. No page bodies |
+| [for-llms.txt](https://docs.bitbadges.io/for-llms.txt) | about 1.6 MB | The whole corpus — 216 pages, roughly 43,000 lines — concatenated into one plain-text file |
+
+**Which one to feed your agent:**
+
+- **Context-limited agent, or one that can fetch URLs** — give it `llms.txt`. It fits in any context window, and every line carries the URL of the page to fetch next. This is the default.
+- **One-shot paste, or an agent with a large context and no network** — give it `for-llms.txt`. Roughly 400k tokens; paste it whole, attach it as a file, or `grep` it locally and paste the sections you hit.
+
+Both are plain text with no markup beyond the markdown the pages are written in, so they need no preprocessing.
 
 ## CLI
 
@@ -2509,7 +2497,7 @@ The server command is the `bitbadges-builder` bin from the `bitbadges` npm packa
 npx -y -p bitbadges bitbadges-builder
 ```
 
-The key in every config below is a fake example; paste your own from [bitbadges.io/developer](https://bitbadges.io/developer). `npx` resolves the package the install put on your machine. Without that install it fetches from npm on first call, which is slower. Optional environment variables: `BITBADGES_API_KEY` (queries, simulation, review links on testnet), `BITBADGES_MNEMONIC` or `BITBADGES_PRIVATE_KEY` (server-side signing; leave unset for review-and-sign in the browser). Full list: [MCP Builder Tools](mcp-tools.md#environment-variables).
+The key in every config below is a fake example; paste your own from [bitbadges.io/developer](https://bitbadges.io/developer). `npx` resolves the package the install put on your machine. Without that install it fetches from npm on first call, which is slower. Optional environment variables: `BITBADGES_API_KEY` (queries, simulation, review links; get one at [bitbadges.io/developer](https://bitbadges.io/developer)), `BITBADGES_MNEMONIC` or `BITBADGES_PRIVATE_KEY` (server-side signing; leave unset for review-and-sign in the browser). Full list: [MCP Builder Tools](mcp-tools.md#environment-variables).
 
 ## Claude Code
 
@@ -3529,7 +3517,7 @@ Credit tokens are designed for systems that track consumption off-chain. The on-
 
 **Example: BitBadges API Credits (Collection 23 / 80, APITOKEN)**
 - User purchases 10 USDC → receives 1,000,000 APITOKEN (on-chain balance = 1,000,000)
-- User makes API calls (including the AI Builder) → backend tracks `totalUsed` (e.g., 250,000 APITOKEN used)
+- User makes API calls → backend tracks `totalUsed` (e.g., 250,000 APITOKEN used)
 - Remaining budget = on-chain balance (1,000,000) - totalUsed (250,000) = 750,000
 - User purchases 5 more USDC → on-chain balance increments to 2,000,000
 - Remaining budget = 2,000,000 - 250,000 = 1,750,000
@@ -5707,7 +5695,7 @@ After creating the collection and minting initial pairs:
 - Create pool: MsgCreateBalancerPool with badgeslp:collectionId:uyes and badgeslp:collectionId:uno, equal weights
 - Market price discovery: YES_price = NO_reserve / (YES_reserve + NO_reserve)
 
-### Steps for AI Builder
+### Steps for the builder tools
 
 1. Use per-field tools to initialize the collection (set_standards, set_valid_token_ids, etc.)
 2. `set_token_metadata` for YES (token 1) and NO (token 2)
@@ -7070,7 +7058,6 @@ Every route is documented in the [API reference](/api-reference). The reference 
 | [Swaps](swaps.md) | You want a swap estimate and the messages to execute it. |
 | [Claims](claims/README.md) | You gate a mint or an app on off-chain criteria. Concepts, then [endpoints](claims/endpoints.md), [Plugins](claims/plugins.md), and [Dynamic Stores](claims/dynamic-stores.md). |
 | [Sign In with BitBadges](sign-in/README.md) | You want users to prove address ownership or grant your app API scopes. |
-| [Self-Hosting](self-hosting.md) | You want to run the indexer and API yourself. |
 
 ## API Keys
 
@@ -7097,7 +7084,7 @@ API credits (on-chain symbol `APITOKEN`) meter API calls. Every request debits o
 
 To top up: open [https://bitbadges.io/developer](https://bitbadges.io/developer), **API Keys** tab, enter a USDC amount, confirm the on-chain transaction. The balance updates once the transfer confirms. The same card shows the current balance and a low-balance warning.
 
-The legacy hosted AI Builder on the site drew from the same credit balance and charged per model call based on tokens read and written, with the exact cost quoted before a run. It is being retired. Build tokens with your own AI instead: see [Agents setup](../agents/setup.md).
+Credits pay for API requests. The site no longer runs an AI builder of its own, so nothing here is charged per model call. Build tokens with your own AI instead: see [Agents setup](../agents/setup.md).
 
 ### Balance
 
@@ -7260,7 +7247,7 @@ A claim with three plugin instances: `numUses` caps the claim at 100 successes, 
 ```ts
 import { BigIntify, BitBadgesAPI } from 'bitbadges';
 
-const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify });
+const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify }); // key from https://bitbadges.io/developer
 
 // Create it: POST /api/v0/claims (needs a session with the Manage Claims scope)
 await BitBadgesApi.createClaims({
@@ -7789,7 +7776,7 @@ description: "Claims API reference. Complete, simulate, and verify claims, fetch
 
 # Claims
 
-The claims routes let a backend or an agent complete claims for users, check who has claimed, and manage claims without the site. All claim routes require an API key. Concepts (indexed versus on-demand claims, success logic, claim numbers, the trust model) live in [Claims](README.md).
+The claims routes let a backend or an agent complete claims for users, check who has claimed, and manage claims without the site. All claim routes require an API key in the `x-api-key` header. Create one at [bitbadges.io/developer](https://bitbadges.io/developer). Concepts (indexed versus on-demand claims, success logic, claim numbers, the trust model) live in [Claims](README.md).
 
 This page is also part of the [API reference](/api-reference).
 
@@ -8130,7 +8117,7 @@ await api.createClaims({
 });
 ```
 
-Route: `POST /api/v0/claims`. Requires a session with the `Manage Claims` scope. The response is `{}`. Pass `testClaims: true` to create test claims that disappear when the browser session ends and never show in search. Linking a claim to an on-chain collection approval requires the proper permissions and extra setup; the site or the MCP builder tools apply `collectionId` and the tracker details for you. If you use the MCP builder tools or the AI builder, call the `build_claim` tool instead of writing this payload. For the `codes` plugin, set `publicParams.numCodes` as a number and leave `privateParams` empty. The server generates `seedCode` and the codes. Use the `search_plugins` tool to list plugins and their parameters.
+Route: `POST /api/v0/claims`. Requires a session with the `Manage Claims` scope. The response is `{}`. Pass `testClaims: true` to create test claims that disappear when the browser session ends and never show in search. Linking a claim to an on-chain collection approval requires the proper permissions and extra setup; the site or the MCP builder tools apply `collectionId` and the tracker details for you. If you use the MCP builder tools, call the `build_claim` tool instead of writing this payload. For the `codes` plugin, set `publicParams.numCodes` as a number and leave `privateParams` empty. The server generates `seedCode` and the codes. Use the `search_plugins` tool to list plugins and their parameters.
 
 Update with `PUT /api/v0/claims` (`{ claims: UpdateClaimRequest[] }`).
 
@@ -8836,7 +8823,7 @@ This page is also part of the [API reference](/api-reference).
 ## Example
 
 ```bash
-# First page: empty bookmark
+# First page: empty bookmark. Create an API key at https://bitbadges.io/developer
 curl -X POST https://api.bitbadges.io/api/v0/collections \
   -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
   -d '{ "collectionsToFetch": [ { "collectionId": "1",
@@ -9010,124 +8997,6 @@ collection.getChallengeTrackersView('challengeTrackers');
 - [SDK](../sdk/README.md)
 
 
-## File: api/self-hosting.md
-
----
-description: "Run your own BitBadges indexer and API. Architecture, MongoDB and Redis requirements, environment variables, bun scripts, and Docker."
----
-
-# Self-Hosting
-
-The indexer and API are open source at [https://github.com/bitbadges/bitbadges-indexer](https://github.com/bitbadges/bitbadges-indexer). Run them yourself when you want your own copy of the indexed data or your own API without credits and rate limits.
-
-This page is also part of the [API reference](/api-reference).
-
-## Example
-
-```bash
-git clone https://github.com/bitbadges/bitbadges-indexer
-cd bitbadges-indexer
-bun install
-cp .env.example .env   # fill in RPC_URLS, API_URL, DB_URL, REDIS_URL, SESSION_SECRET
-
-bun run restart        # setup + bootstrap sample data + run
-# or step by step
-bun run setup          # create indexes and views
-bun run bootstrap      # load sample collections
-bun run dev            # build and run
-```
-
-The API listens on `http://localhost:3001`. The WebSocket server listens on `8080`.
-
-```bash
-curl -X POST http://localhost:3001/api/v0/collections \
-  -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
-  -d '{ "collectionsToFetch": [ { "collectionId": "1" } ] }'
-```
-
-## Architecture
-
-| Process | File | Role |
-| --- | --- | --- |
-| Block indexer | `poll.ts` | Polls a connected node for new blocks every second (`POLL_INTERVAL_MS`) and writes the results to MongoDB. |
-| API server | `indexer.ts` | Express REST API over the indexed data, plus authentication. |
-| Queue worker | `queue/` | Background jobs: metadata fetching, claim processing, refreshes. |
-| WebSocket server | | Real-time updates and candlestick data. |
-
-Storage is MongoDB. Redis backs rate limiting, the credit ledger, and caches. Both are required.
-
-Point the poller at your own node. Public nodes are not built for an indexer that can send more than 100 requests per second. See [Run a Node](../chain/run-a-node.md).
-
-## Environment Variables
-
-Required:
-
-| Variable | Description | Example |
-| --- | --- | --- |
-| `RPC_URLS` | Chain RPC endpoints as a JSON array | `'["http://localhost:26657"]'` |
-| `API_URL` | Chain REST (LCD) endpoint | `http://localhost:1317` |
-| `DB_URL` | MongoDB connection string | `mongodb+srv://user:pass@cluster.mongodb.net/db` |
-| `REDIS_URL` | Redis connection string | `rediss://user:pass@redis.example.com:6379` |
-| `SESSION_SECRET` | Signs session cookies. New cookies always use this value. | random string |
-| `SESSION_SECRET_2`, `SESSION_SECRET_3` | Optional previous secrets, accepted for verification only. Set one next to a rotated `SESSION_SECRET` so nobody is logged out, then remove it after one session lifetime (7 days). | |
-
-Optional, core features:
-
-| Variable | Description | Default |
-| --- | --- | --- |
-| `BITBADGES_API_KEY` | API key seeded for local use. Send it as `x-api-key` in the request above. | |
-| `FRONTEND_URL` | Frontend origin for CORS | `http://localhost:3000` |
-| `DEV_MODE` | Development mode | `true` |
-| `DISABLE_API` | Do not start the API server | `false` |
-| `DISABLE_BLOCKCHAIN_POLLER` | Do not poll blocks | `false` |
-| `DISABLE_URI_POLLER` | Do not fetch metadata | `false` |
-| `DISABLE_NOTIFICATION_POLLER` | Do not poll notifications | `false` |
-| `POLL_INTERVAL_MS` | Block polling interval | `1000` |
-| `ACCOUNT_RATE_LIMIT_PER_MIN` | Per-account request cap | `10000` |
-| `MIN_TIME_BETWEEN_REFRESHES` | Manual refresh cooldown in ms | `300000` |
-
-Optional, OAuth providers: each provider needs a `CLIENT_ID` and `CLIENT_SECRET` (Discord, Twitter/X, GitHub, Google, Facebook, Reddit, Twitch, Farcaster, Slack, LinkedIn, Strava, Bluesky, Shopify, Meetup, and more). Optional third-party services: `STRIPE_SECRET_KEY` (payments), `SENDGRID_API_KEY` (email), `INFURA_ID` / `ALCHEMY_API_KEY` (EVM chain access), `SPACES_ACCESS_KEY_ID` (DigitalOcean Spaces or S3). The full list, with comments, is in `.env.example`.
-
-## Scripts
-
-| Command | What it does |
-| --- | --- |
-| `bun run setup` | Build, then create indexes and views |
-| `bun run setup with-delete` | Delete and recreate every database |
-| `bun run setup-plugins` | Seed the BitBadges-hosted plugin documents |
-| `bun run bootstrap` | Load sample collections |
-| `bun run restart` | `setup with-delete`, bootstrap, run |
-| `bun run dev` | Build and run |
-| `bun run dev:no-build` | Run the existing build |
-| `bun run dev:test` | Run in test mode |
-| `bun run build` | Compile TypeScript |
-| `bun run indexer` | Run the production build |
-| `bun run test` | Build and run the Jest suite |
-| `bun run lint`, `bun run lint:fix`, `bun run format` | ESLint and Prettier |
-
-## Docker
-
-```bash
-docker build -t bitbadges-indexer .
-docker run -p 3001:3001 -p 8080:8080 --env-file .env bitbadges-indexer
-```
-
-The image builds with `oven/bun`, runs `bun run indexer` as a non-root user, and bakes in the MongoDB `crypt_shared` library for in-process field-level encryption (`CRYPT_SHARED_LIB_PATH`). A full multi-service setup (chain node plus services) is at [https://github.com/bitbadges/bitbadges-docker](https://github.com/bitbadges/bitbadges-docker).
-
-## Rate Limit Tiers
-
-Your instance applies the same limiters as the hosted API: 150 requests per minute per IP for frontend traffic, 10 per 10 seconds per IP with no key, and `ACCOUNT_RATE_LIMIT_PER_MIN` per account with a key. Adjust with the environment variable.
-
-## Troubleshooting
-
-MongoDB connection failed: check that `DB_URL` is correct and reachable, that the database user has permissions, and (on Atlas) that your IP is allowed.
-
-## Related
-
-- [BitBadges API](README.md)
-- [Run a Node](../chain/run-a-node.md)
-
-
 ## File: api/sign-in/README.md
 
 ---
@@ -9146,7 +9015,7 @@ This page is also part of the [API reference](/api-reference).
 import crypto from 'crypto';
 import { BigIntify, BitBadgesAPI, generateBitBadgesAuthUrl } from 'bitbadges';
 
-const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify });
+const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify }); // key from https://bitbadges.io/developer
 
 // 1. Send the user here. Store `state` in the session so the callback can check it.
 const state = crypto.randomBytes(16).toString('hex');
@@ -9367,7 +9236,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { BigIntify, BitBadgesAPI } from 'bitbadges';
 import { getSession } from '../../lib/session'; // your own session helper
 
-const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify });
+const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify }); // key from https://bitbadges.io/developer
 
 export default async function callbackHandler(req: NextApiRequest, res: NextApiResponse) {
   const code = req.query.code as string;
@@ -9612,6 +9481,7 @@ This page is also part of the [API reference](/api-reference).
 ## Example
 
 ```bash
+# Create an API key at https://bitbadges.io/developer
 curl -X POST https://api.bitbadges.io/api/v0/siwbb/token \
   -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
   -d '{
@@ -9830,7 +9700,7 @@ description: "Estimate a token swap through the BitBadges API. Payload, response
 
 # Swaps
 
-`POST /api/v0/swap/estimate` returns the expected output amount and the messages needed to execute a swap. Routing covers native pools (the `x/gamm` module) and Skip Go routes across IBC chains such as Osmosis. The route requires an API key.
+`POST /api/v0/swap/estimate` returns the expected output amount and the messages needed to execute a swap. Routing covers native pools (the `x/gamm` module) and Skip Go routes across IBC chains such as Osmosis. The route requires an API key in the `x-api-key` header. Create one at [bitbadges.io/developer](https://bitbadges.io/developer).
 
 This page is also part of the [API reference](/api-reference).
 
@@ -19254,7 +19124,7 @@ bb simulate tx.json --events
 | `--creator <address>` | Simulation context address (default `bb1simulation`) |
 | `--events` | Dump the full events array instead of the count |
 
-Calls `/api/v0/simulate` and returns parsed events, per-address balance changes, and any error the chain would raise. Needs an API key on mainnet; a local BitBadges API usually accepts any key or none.
+Calls `/api/v0/simulate` and returns parsed events, per-address balance changes, and any error the chain would raise. Needs an [API key](../api/README.md#api-keys) on mainnet; a local BitBadges API usually accepts any key or none.
 
 The `--creator` address must exist on chain. For an address that has never held BADGE the envelope is `ok` but the simulation reports the chain error (mainnet output):
 
@@ -19288,7 +19158,7 @@ A successful upload prints (the code is an example; every upload mints a fresh o
   "ok": true,
   "data": {
     "code": "prv_ab12cd34",
-    "url": "https://bitbadges.io/builder/preview?code=prv_ab12cd34",
+    "url": "https://bitbadges.io/mint/local-builder?code=prv_ab12cd34",
     "reviewUrl": "https://bitbadges.io/mint/local-builder?code=prv_ab12cd34",
     "expiresAt": 1788742800000,
     "expiresIn": "1h"
@@ -19301,16 +19171,16 @@ A successful upload prints (the code is an example; every upload mints a fresh o
 | Field | Description |
 | --- | --- |
 | `reviewUrl` | Review and sign. Opens Preview, Review Items, Transferability, Permissions, then the wallet signature. Update transactions route to `/update/local-builder/<id>` so the site diffs against chain state. |
-| `url` | Read-only preview at `/builder/preview`. Hand it to a reviewer without submit rights. |
-| `code` | The `prv_` code behind both links. Valid for one hour. |
+| `url` | The same destination. `url` is the older field name, kept so existing scripts keep working. |
+| `code` | The `prv_` code behind the link. Valid for one hour. |
 
 | Flag | Description |
 | --- | --- |
-| `--open` | Open `reviewUrl` in the default browser |
-| `--frontend-url <url>` | Base for the printed links (default `https://bitbadges.io`) |
+| `--open` | Open the link in the default browser |
+| `--frontend-url <url>` | Base for the printed link (default `https://bitbadges.io`) |
 | network flags | Which BitBadges API stores the preview |
 
-The preview endpoint needs no API key; the unguessable code is the secret. The site also accepts the code pasted into `/mint/local-builder`. Prefer `bb preview --open` when you want the full review sidebar before signing; `bb deploy --browser` is the tighter loop for a transaction you have already reviewed.
+Uploading the preview needs an [API key](../api/README.md#api-keys), like every other BitBadges API route. Whoever you send the link to needs none; the unguessable code is the secret. The site also accepts the code pasted into `/mint/local-builder`. Prefer `bb preview --open` when you want the full review sidebar before signing; `bb deploy --browser` is the tighter loop for a transaction you have already reviewed.
 
 ## Related
 
@@ -19501,7 +19371,7 @@ bb api accounts update-account-info --body '{"username":"alice"}' --with-session
 bb auth whoami
 ```
 
-The API key is the app scope and is required on every call. The session cookie is the user scope and is required on Full Access routes (anything that mutates an account, manages keys, or publishes signed data).
+The API key is the app scope and is required on every call. Create one at [bitbadges.io/developer](https://bitbadges.io/developer) and store it with `bb settings set apiKey "$BITBADGES_API_KEY"`. The session cookie is the user scope and is required on Full Access routes (anything that mutates an account, manages keys, or publishes signed data).
 
 ## Subcommands
 
@@ -19740,7 +19610,7 @@ Every subcommand accepts these. `--help` renders them under `Metadata`, `Output`
 | `--explain` | Output | Print a plain-English explanation to stderr in addition to the auto-review |
 | `--creator <address>` | Builder | Creator/sender address (`bb1` or `0x` form) |
 | `--manager <address>` | Builder | Collection manager (`bb1` form) |
-| `--simulate` | Builder | Also call the simulate endpoint and render gas and net balance changes (needs an API key). Different from `bb deploy --dry-run`, which simulates and exits. |
+| `--simulate` | Builder | Also call the simulate endpoint and render gas and net balance changes (needs an [API key](../api/README.md#api-keys)). Different from `bb deploy --dry-run`, which simulates and exits. |
 | `--events` | Builder | With `--simulate`, dump the full events array instead of the count |
 | `--network`, `--mainnet`, `--testnet`, `--local`, `--url`, `--api-key` | Network | See [CLI](README.md#network-flags) |
 | `--burner`, `--browser`, `--sign-only`, `--frontend-url`, `--no-open`, `--timeout`, `--expected-address`, `--fund`, `--fee`, `--fee-denom`, `--gas`, `--new`, `--reuse`, `--non-interactive`, `--poll-timeout` | Deploy | Broadcast inline instead of emitting JSON. See [Deploy](deploy.md). |
@@ -20448,7 +20318,7 @@ bb deploy col.json --browser --manager bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
 | --- | --- | --- |
 | `[input]`, `--msg-file <path>`, `--msg-stdin` | | Message JSON. `[input]` is a path, `-`, or inline JSON. A `bb build` envelope is unwrapped on read. |
 | `--manager <address>` | | Owner of the created collection. Required for `--burner`; recommended for `--browser`. |
-| `--dry-run` | | Simulate and print expected gas and balance changes; never broadcast. Needs an API key off `--local`. |
+| `--dry-run` | | Simulate and print expected gas and balance changes; never broadcast. Needs an [API key](../api/README.md#api-keys) off `--local`. |
 | `--wait-for-indexer [timeout-ms]` | `30000` | After broadcast, poll the BitBadges API until the created collection or dynamic store appears. Adds `waited: { entity, id, attempts, elapsedMs, ok, body }` (or `{ ok: false, lastStatus }`). |
 | `--fee <amount>`, `--fee-denom <symbol\|denom>`, `--gas <n>` | `0`, `ubadge`, `400000` | Fee and gas. The chain accepts zero-fee transactions today. |
 | network flags | mainnet | See [CLI](README.md#network-flags) |
@@ -21721,7 +21591,7 @@ State follows one rule: your plugin passing does not mean the claim succeeded. A
 
 ```ts
 // After some delay, check if the claim actually succeeded
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const status = await api.getClaimAttemptStatus(claimAttemptId);
 if (status.success) {
   // Now safe to update your external state
@@ -22671,7 +22541,7 @@ bb deploy --msg-file ./collection.json --burner --manager bb1p0rrel3365scadq5k9p
 bb deploy --msg-file ./collection.json --dry-run
 ```
 
-`--burner` is create-only. It generates an ephemeral key, needs a little `BADGE` for gas (`--fund faucet` requires an API key on non-local networks; `--fund manual` lets you send the dust yourself), broadcasts, and transfers management to `--manager`. `--browser` hands the transaction to your connected wallet through the `/sign` page and returns the hash; add `--sign-only` to get signed bytes back for your own submitter. Every `bb build` preset accepts the same `--browser` and `--burner` flags inline, so a preset can build and broadcast in one command. See [Deploy](../cli/deploy.md).
+`--burner` is create-only. It generates an ephemeral key, needs a little `BADGE` for gas (`--fund faucet` requires an [API key](../api/README.md#api-keys) on non-local networks; `--fund manual` lets you send the dust yourself), broadcasts, and transfers management to `--manager`. `--browser` hands the transaction to your connected wallet through the `/sign` page and returns the hash; add `--sign-only` to get signed bytes back for your own submitter. Every `bb build` preset accepts the same `--browser` and `--burner` flags inline, so a preset can build and broadcast in one command. See [Deploy](../cli/deploy.md).
 
 ## Common Mistakes
 
@@ -22702,7 +22572,7 @@ At the end you have a working claim that checks your criteria, a backend that co
 
 Prerequisites:
 
-- A BitBadges API key (see [BitBadges API](../api/README.md)).
+- A BitBadges API key. Create one at [bitbadges.io/developer](https://bitbadges.io/developer) and send it in the `x-api-key` header, or set `BITBADGES_API_KEY` for the SDK. See [BitBadges API](../api/README.md).
 - The `bitbadges` npm package or the `bb` CLI (see [SDK](../sdk/README.md) and [CLI](../cli/README.md)).
 
 ## 1. Decide the Flow
@@ -23155,7 +23025,7 @@ Server -->  Agent:    200 OK  (or 403 if ownership fails)
 Prerequisites:
 
 - A collection whose tokens represent the access you sell. See [Create a Collection](create-a-collection.md). Token rules (non-transferable, revocable, time-bounded, supply-capped, approval-gated) are set at the collection level and enforced by the chain.
-- A BitBadges API key for the ownership check.
+- A BitBadges API key for the ownership check. Create one at [bitbadges.io/developer](https://bitbadges.io/developer) and send it in the `x-api-key` header. See [BitBadges API](../api/README.md).
 
 ## 1. Write the Ownership Requirements
 
@@ -24682,7 +24552,7 @@ MCP builder tool sessions edit these messages with patch operations: `add_transf
 
 ### bb CLI
 
-`bb build transfer` fetches the collection, the sender's outgoing approvals, and the recipient's incoming approvals, then walks you through the choices. It needs `BITBADGES_API_KEY` (env var or `bb settings set apiKey ...`).
+`bb build transfer` fetches the collection, the sender's outgoing approvals, and the recipient's incoming approvals, then walks you through the choices. It needs `BITBADGES_API_KEY` (env var or `bb settings set apiKey ...`). Create a key at [bitbadges.io/developer](https://bitbadges.io/developer).
 
 ```bash
 # Interactive walkthrough: prompts for everything
@@ -25625,7 +25495,7 @@ SIWBB exists mainly for OAuth authorization of the BitBadges API. If you only ne
 ```ts
 import { BigIntify, BitBadgesAPI } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 
 // Pre-req: Create claim in BitBadges site
 // 1. Authenticate your user (using your existing setup)
@@ -26378,7 +26248,7 @@ Alias path. `symbol` on the path is the base unit; `denomUnits` lists display un
 }
 ```
 
-Every metadata field on the chain (collection, token, alias path, denom unit) is `{ uri, customData }` and nothing else. The examples above use hosted URIs. The AI builder uses placeholder URIs (`ipfs://METADATA_COLLECTION`, `ipfs://METADATA_TOKEN_<id>`, `ipfs://METADATA_ALIAS_<denom>`, `ipfs://METADATA_ALIAS_<denom>_UNIT`) and registers the real name, description, and image in a `metadataPlaceholders` sidecar keyed by those URIs; after deploy the auto-apply flow uploads the JSON and substitutes real URIs. Write real user-facing descriptions for each approval, not labels like "Backing Approval".
+Every metadata field on the chain (collection, token, alias path, denom unit) is `{ uri, customData }` and nothing else. The examples above use hosted URIs. The builder tools use placeholder URIs (`ipfs://METADATA_COLLECTION`, `ipfs://METADATA_TOKEN_<id>`, `ipfs://METADATA_ALIAS_<denom>`, `ipfs://METADATA_ALIAS_<denom>_UNIT`) and registers the real name, description, and image in a `metadataPlaceholders` sidecar keyed by those URIs; after deploy the auto-apply flow uploads the JSON and substitutes real URIs. Write real user-facing descriptions for each approval, not labels like "Backing Approval".
 
 To wrap a native Cosmos SDK coin (not an IBC coin) alongside, add `cosmosCoinWrapperPathsToAdd` with `allowSpecialWrapping: true` on its approvals; see [Wrap to an IBC Denom](wrap-to-an-ibc-denom.md).
 
@@ -26769,7 +26639,7 @@ Then deposit USDC into the vault for the agent with `bb smart-tokens deposit` (s
 ```ts
 import { BigIntify, BitBadgesAPI } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 
 const collectionRes = await api.getCollection('4');
 const collection = collectionRes.collection;
@@ -26945,9 +26815,9 @@ If the agent speaks MCP, the same operations are available as [MCP tools](../age
 | Sequence mismatch | Nonce out of sync | The client retries automatically, up to 3 times |
 | Insufficient gas | Not enough `BADGE` | Fund the agent address with `BADGE` |
 
-## 5. How the AI Builder Detects a Token Type
+## 5. How the Builder Agent Detects a Token Type
 
-The AI builder (`bitbadges.io/create` with the Smart Detect toggle, `POST /api/v0/builder/ai-build`, and the programmatic `BitBadgesBuilderAgent`) picks one token-type skill from a prompt when the caller has not chosen one, so smart tokens, vaults, subscriptions, and the rest do not need to be classified by hand. It runs only when `selectedSkills` contains no token-type skill and `autoInferTokenType` is `true` (the default). An explicit pick always wins.
+The programmatic `BitBadgesBuilderAgent` picks one token-type skill from a prompt when the caller has not chosen one, so smart tokens, vaults, subscriptions, and the rest do not need to be classified by hand. It runs only when `selectedSkills` contains no token-type skill and `autoInferTokenType` is `true` (the default). An explicit pick always wins.
 
 Two signals, in order. When an existing collection is available (the session transaction in `refine` mode, or an on-chain snapshot in `update` mode), its `standards` map directly to a skill with no LLM call:
 
@@ -27454,7 +27324,7 @@ The on-chain balance is `totalCreditsPaidFor`, the total ever purchased. Your ba
 Worked example, the BitBadges API credits collection (collection 23 / 80, `APITOKEN`):
 
 - A user buys 10 USDC and receives 1,000,000 APITOKEN (balance 1,000,000).
-- The user makes API calls, including the AI builder; the backend records `totalUsed` = 250,000.
+- The user makes API calls; the backend records `totalUsed` = 250,000.
 - Remaining budget = 1,000,000 - 250,000 = 750,000.
 - The user buys 5 more USDC; the balance increments to 2,000,000 and the remaining budget is 1,750,000.
 
@@ -27507,7 +27377,7 @@ At the end you have swapped one asset for another on the BitBadges chain and kno
 
 Prerequisites:
 
-- The `bb` CLI with a BitBadges API key configured (`bb settings`), or the `bitbadges` npm package.
+- The `bb` CLI with a BitBadges API key configured (`bb settings set apiKey "$BITBADGES_API_KEY"`), or the `bitbadges` npm package. Create a key at [bitbadges.io/developer](https://bitbadges.io/developer).
 - A wallet with `ubadge` for fees. `--browser` signs through the BitBadges `/sign` page with Keplr or MetaMask.
 
 Amounts are raw base units everywhere: `1000000` is 1 BADGE at 6 decimals.
@@ -28303,7 +28173,6 @@ export default function Home() {
 }
 ```
 
-The [bitbadges-frontend](https://github.com/BitBadges/bitbadges-frontend) repo is a production Next.js app built on these primitives. Read it for wallet state in React context, network switching, and transaction UX (approve, reject, pending).
 
 ## Next Steps
 
@@ -28321,6 +28190,8 @@ description: "Verified TypeScript examples for the bitbadges SDK helpers, balanc
 # Snippets
 
 Working examples for the SDK helper classes and functions. Each snippet imports from `bitbadges` and uses the names exported by the current package.
+
+Snippets that construct a `BitBadgesAPI` client read `BITBADGES_API_KEY`. Create a key at [bitbadges.io/developer](https://bitbadges.io/developer). See [BitBadges API](../../api/README.md).
 
 | Page | Use it for |
 | --- | --- |
@@ -28478,7 +28349,7 @@ import {
   appendSelfInitiatedIncomingApproval
 } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const { collection } = await api.getCollection('1');
 
 // Collection level: everything not covered by collectionApprovals
@@ -28579,7 +28450,7 @@ bb query tokenization balance-for-token 1 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp
 ```ts
 import { BitBadgesAPI, BigIntify, getBalanceForIdNow, getBalanceForIdAndTime } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const BOB = 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue';
 
 // Full: the balance document, with the 3D balance array and the user's approvals
@@ -28735,7 +28606,7 @@ bb explain 1
 ```ts
 import { BitBadgesAPI, BigIntify, interpretCollection } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const res = await api.getCollections({ collectionsToFetch: [{ collectionId: '1' }] });
 const collection = res.collections[0];
 if (!collection) throw new Error('Collection not found');
@@ -28963,7 +28834,7 @@ description: "Read, update, and remove per-token metadata with the TokenMetadata
 ```ts
 import { TokenMetadataDetails, UintRangeArray, BitBadgesAPI, BigIntify } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const { collection } = await api.getCollection('1');
 const current: TokenMetadataDetails<bigint>[] = collection.tokenMetadata;
 
@@ -29216,7 +29087,7 @@ The same pipeline by hand, signed with Keplr:
 ```ts
 import { BitBadgesAPI, BigIntify, MsgTransferTokens, createTransactionPayload, createTxBroadcastBody, type TxContext } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const ALICE = 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d';
 const BOB = 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue';
 
@@ -29440,7 +29311,7 @@ bb tx wait 903D4A6E205AD77D334933E3C9BB455012D8A334AA2D98DFD301C3F7E8AB92C6    #
 import { BitBadgesAPI, BigIntify, MsgTransferTokens, createTransactionPayload, createTxBroadcastBody, type TxContext } from 'bitbadges';
 import axios from 'axios';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const ALICE = 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d';
 
 const msgs = [
@@ -29611,7 +29482,7 @@ const signTxn = async (context: TxContext, payload: TransactionPayload, msgs: an
 // Usage
 import { BitBadgesAPI, BigIntify, MsgTransferTokens } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 const ALICE = 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d';
 
 const msgs = [
@@ -29890,7 +29761,7 @@ interface SigningClientOptions {
   gasMultiplier?: number; // default 1.3
   defaultGasLimit?: number; // default 400000, used when simulate is false
   evmPrecompileGasLimit?: number; // default 2000000
-  apiKey?: string; // BitBadges API key for account lookups and broadcast
+  apiKey?: string; // BitBadges API key for account lookups and broadcast; create one at https://bitbadges.io/developer
 }
 ```
 
@@ -35351,7 +35222,7 @@ Both protocols depend on infrastructure, with different trust models. x402 intro
 | What is verified | Payment validity and fund transfer | Token ownership (read-only) |
 | Who verifies | Facilitator service | BitBadges API, another indexer, or your own node |
 | Settlement | Facilitator settles on-chain | None; ownership is pre-existing state |
-| Self-hostable | Yes (run a facilitator) | Yes (run a node or indexer) |
+| Self-hostable | Yes (run a facilitator) | Yes (run a node) |
 
 ## Related
 

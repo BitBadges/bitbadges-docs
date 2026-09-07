@@ -144,7 +144,7 @@ bb simulate tx.json --events
 | `--creator <address>` | Simulation context address (default `bb1simulation`) |
 | `--events` | Dump the full events array instead of the count |
 
-Calls `/api/v0/simulate` and returns parsed events, per-address balance changes, and any error the chain would raise. Needs an API key on mainnet; a local BitBadges API usually accepts any key or none.
+Calls `/api/v0/simulate` and returns parsed events, per-address balance changes, and any error the chain would raise. Needs an [API key](../api/README.md#api-keys) on mainnet; a local BitBadges API usually accepts any key or none.
 
 The `--creator` address must exist on chain. For an address that has never held BADGE the envelope is `ok` but the simulation reports the chain error (mainnet output):
 
@@ -200,7 +200,7 @@ A successful upload prints (the code is an example; every upload mints a fresh o
 | `--frontend-url <url>` | Base for the printed link (default `https://bitbadges.io`) |
 | network flags | Which BitBadges API stores the preview |
 
-The preview endpoint needs no API key; the unguessable code is the secret. The site also accepts the code pasted into `/mint/local-builder`. Prefer `bb preview --open` when you want the full review sidebar before signing; `bb deploy --browser` is the tighter loop for a transaction you have already reviewed.
+Uploading the preview needs an [API key](../api/README.md#api-keys), like every other BitBadges API route. Whoever you send the link to needs none; the unguessable code is the secret. The site also accepts the code pasted into `/mint/local-builder`. Prefer `bb preview --open` when you want the full review sidebar before signing; `bb deploy --browser` is the tighter loop for a transaction you have already reviewed.
 
 ## Related
 

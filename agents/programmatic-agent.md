@@ -47,7 +47,7 @@ The SDK never bundles either provider. The key stays in your process.
 export ANTHROPIC_API_KEY=sk-ant-api03-0123456789abcdef0123456789abcdef
 export OPENAI_API_KEY=sk-proj-0123456789abcdef0123456789abcdef
 
-# Optional: needed when prompts trigger query, search, or simulate tools
+# Optional: needed when prompts trigger query, search, or simulate tools. Key from https://bitbadges.io/developer
 export BITBADGES_API_KEY=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 ```
 

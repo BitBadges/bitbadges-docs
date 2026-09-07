@@ -15,7 +15,7 @@ A claim with three plugin instances: `numUses` caps the claim at 100 successes, 
 ```ts
 import { BigIntify, BitBadgesAPI } from 'bitbadges';
 
-const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify });
+const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify }); // key from https://bitbadges.io/developer
 
 // Create it: POST /api/v0/claims (needs a session with the Manage Claims scope)
 await BitBadgesApi.createClaims({

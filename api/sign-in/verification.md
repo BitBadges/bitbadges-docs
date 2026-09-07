@@ -11,6 +11,7 @@ This page is also part of the [API reference](/api-reference).
 ## Example
 
 ```bash
+# Create an API key at https://bitbadges.io/developer
 curl -X POST https://api.bitbadges.io/api/v0/siwbb/token \
   -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
   -d '{

@@ -240,7 +240,6 @@ Every route is documented in the [API reference](/api-reference). The reference 
 | [Swaps](swaps.md) | You want a swap estimate and the messages to execute it. |
 | [Claims](claims/README.md) | You gate a mint or an app on off-chain criteria. Concepts, then [endpoints](claims/endpoints.md), [Plugins](claims/plugins.md), and [Dynamic Stores](claims/dynamic-stores.md). |
 | [Sign In with BitBadges](sign-in/README.md) | You want users to prove address ownership or grant your app API scopes. |
-| [Self-Hosting](self-hosting.md) | You want to run the indexer and API yourself. |
 
 ## API Keys
 

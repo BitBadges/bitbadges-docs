@@ -6,6 +6,8 @@ description: "Verified TypeScript examples for the bitbadges SDK helpers, balanc
 
 Working examples for the SDK helper classes and functions. Each snippet imports from `bitbadges` and uses the names exported by the current package.
 
+Snippets that construct a `BitBadgesAPI` client read `BITBADGES_API_KEY`. Create a key at [bitbadges.io/developer](https://bitbadges.io/developer). See [BitBadges API](../../api/README.md).
+
 | Page | Use it for |
 | --- | --- |
 | [Address Conversions](address-conversions.md) | `0x` and `bb1` conversion, address validation |

@@ -858,7 +858,7 @@ bb deploy --msg-file ./collection.json --burner --manager bb1p0rrel3365scadq5k9p
 bb deploy --msg-file ./collection.json --dry-run
 ```
 
-`--burner` is create-only. It generates an ephemeral key, needs a little `BADGE` for gas (`--fund faucet` requires an API key on non-local networks; `--fund manual` lets you send the dust yourself), broadcasts, and transfers management to `--manager`. `--browser` hands the transaction to your connected wallet through the `/sign` page and returns the hash; add `--sign-only` to get signed bytes back for your own submitter. Every `bb build` preset accepts the same `--browser` and `--burner` flags inline, so a preset can build and broadcast in one command. See [Deploy](../cli/deploy.md).
+`--burner` is create-only. It generates an ephemeral key, needs a little `BADGE` for gas (`--fund faucet` requires an [API key](../api/README.md#api-keys) on non-local networks; `--fund manual` lets you send the dust yourself), broadcasts, and transfers management to `--manager`. `--browser` hands the transaction to your connected wallet through the `/sign` page and returns the hash; add `--sign-only` to get signed bytes back for your own submitter. Every `bb build` preset accepts the same `--browser` and `--burner` flags inline, so a preset can build and broadcast in one command. See [Deploy](../cli/deploy.md).
 
 ## Common Mistakes
 

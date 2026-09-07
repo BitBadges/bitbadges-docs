@@ -11,7 +11,7 @@ This page is also part of the [API reference](/api-reference).
 ## Example
 
 ```bash
-# First page: empty bookmark
+# First page: empty bookmark. Create an API key at https://bitbadges.io/developer
 curl -X POST https://api.bitbadges.io/api/v0/collections \
   -H "Content-Type: application/json" -H "x-api-key: $BITBADGES_API_KEY" \
   -d '{ "collectionsToFetch": [ { "collectionId": "1",

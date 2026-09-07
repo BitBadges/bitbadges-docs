@@ -547,7 +547,7 @@ MCP builder tool sessions edit these messages with patch operations: `add_transf
 
 ### bb CLI
 
-`bb build transfer` fetches the collection, the sender's outgoing approvals, and the recipient's incoming approvals, then walks you through the choices. It needs `BITBADGES_API_KEY` (env var or `bb settings set apiKey ...`).
+`bb build transfer` fetches the collection, the sender's outgoing approvals, and the recipient's incoming approvals, then walks you through the choices. It needs `BITBADGES_API_KEY` (env var or `bb settings set apiKey ...`). Create a key at [bitbadges.io/developer](https://bitbadges.io/developer).
 
 ```bash
 # Interactive walkthrough: prompts for everything

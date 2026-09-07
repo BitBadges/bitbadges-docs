@@ -11,7 +11,7 @@ SIWBB exists mainly for OAuth authorization of the BitBadges API. If you only ne
 ```ts
 import { BigIntify, BitBadgesAPI } from 'bitbadges';
 
-const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY }); // key from https://bitbadges.io/developer
 
 // Pre-req: Create claim in BitBadges site
 // 1. Authenticate your user (using your existing setup)

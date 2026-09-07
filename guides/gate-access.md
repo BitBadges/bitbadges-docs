@@ -30,7 +30,7 @@ Server -->  Agent:    200 OK  (or 403 if ownership fails)
 Prerequisites:
 
 - A collection whose tokens represent the access you sell. See [Create a Collection](create-a-collection.md). Token rules (non-transferable, revocable, time-bounded, supply-capped, approval-gated) are set at the collection level and enforced by the chain.
-- A BitBadges API key for the ownership check.
+- A BitBadges API key for the ownership check. Create one at [bitbadges.io/developer](https://bitbadges.io/developer) and send it in the `x-api-key` header. See [BitBadges API](../api/README.md).
 
 ## 1. Write the Ownership Requirements
 

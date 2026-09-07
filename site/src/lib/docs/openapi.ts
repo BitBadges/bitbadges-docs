@@ -304,7 +304,6 @@ export const API_FOLD: ApiFold = {
     { file: 'api/README.md', title: 'Overview' },
     { file: 'api/pagination-and-views.md' },
     { file: 'api/swaps.md' },
-    { file: 'api/self-hosting.md' },
   ],
   tags: {
     Claims: [

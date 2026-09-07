@@ -119,7 +119,6 @@ describe('foldApiDocs', () => {
     ['api/README.md', '# BitBadges API\n\nIntro text.\n\n## API keys\n\nKeys.\n'],
     ['api/pagination-and-views.md', '# Pagination and views\n\nPaging.\n\n## How it works\n\nSteps.\n'],
     ['api/swaps.md', '# Swaps\n\nSwapping.\n'],
-    ['api/self-hosting.md', '# Self-hosting\n\nHosting.\n\n## Docker\n\nRun.\n'],
     ['api/claims/README.md', '# Claims\n\nClaims intro.\n\n## Trust model\n\nTrust.\n'],
     ['api/claims/endpoints.md', '# Claims\n\nRoutes. See [plugins](plugins.md).\n\n## Complete a claim\n\nPOST.\n'],
     ['api/claims/plugins.md', '# Plugins\n\nPlugin ids.\n'],
@@ -137,7 +136,7 @@ describe('foldApiDocs', () => {
     const description = out.info.description as string;
     // Scalar shows the lowest heading level plus one below it. Keeping a `#`
     // per page means the page is an entry and its `##` sections nest under it.
-    const order = ['# Overview', 'Intro text.', '## API keys', '# Pagination and views', '## How it works', '# Swaps', '# Self-hosting', '## Docker'];
+    const order = ['# Overview', 'Intro text.', '## API keys', '# Pagination and views', '## How it works', '# Swaps', '# Swaps'];
     const positions = order.map((s) => description.indexOf(s));
     expect(positions.every((p) => p >= 0)).toBe(true);
     expect([...positions].sort((a, b) => a - b)).toEqual(positions);
@@ -195,7 +194,6 @@ describe('foldApiDocs', () => {
     const description = out.info.description as string;
     expect(description.startsWith('# Overview')).toBe(true);
     expect(description).toContain('\n# Swaps');
-    expect(description).toContain('\n# Self-hosting');
   });
 });
 
