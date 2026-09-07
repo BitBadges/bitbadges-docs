@@ -6,7 +6,7 @@ description: "The Developer Portal at bitbadges.io/developer: API keys, claims, 
 
 The Developer Portal at [bitbadges.io/developer](https://bitbadges.io/developer) is the signed-in home for everything you manage: collections you created, claims, plugins, API keys, and OAuth apps.
 
-![The Developer Portal on the Tokens tab, with the section sidebar on the left](../.gitbook/assets/frontend/developer-portal.png)
+![The Developer Portal on the Tokens section, with the section sidebar on the left and an empty token list](../.gitbook/assets/frontend/developer-portal.png)
 
 ## 1. Find Your Way Around
 
@@ -19,11 +19,12 @@ The left sidebar is the section list. Each section has a Create button at the to
 | Claims | Standalone claims and their attempts |
 | Dynamic Stores (On-Chain, Off-Chain) | Address stores that approval criteria and plugins read |
 | Claim Plugins | Custom plugins you published, with their secrets |
+| Skills | Prompt plugins for the hosted AI builder |
 | API Keys | Keys for the BitBadges API |
 | OAuth Apps | Apps that use Sign In with BitBadges |
 | Documentation, API Reference | External links to these docs |
 
-A link of the form `/developer?tab=apiKeys` opens a section directly.
+A link of the form `/developer?tab=apiKeys` opens a section directly once the portal has loaded.
 
 ## 2. Create an API Key
 

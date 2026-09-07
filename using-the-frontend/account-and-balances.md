@@ -6,11 +6,11 @@ description: "Your account page on bitbadges.io: the tokens you own, the ones yo
 
 An account page is `bitbadges.io/account/<address or username>`. Anyone can open it. When it is your own address and you are signed in, an Assets tab and the account settings appear too.
 
-![An account page on the Tokens tab with the All, Created, Managing, Approvals, and Hidden filters](../.gitbook/assets/frontend/account.png)
+![An account page on the Tokens tab with the All, Created, Managing, and Approvals filters and a list of balances](../.gitbook/assets/frontend/account.png)
 
 ## 1. Open Your Account
 
-Click your avatar in the header after signing in, or search your address. The banner shows the address in the format of the wallet you connected, the chain icon, and a copy button. Share and report icons sit at the right.
+Click your avatar in the header after signing in, or search your address. The banner shows the avatar, the username or address, the chain icon, and a copy button. Share and report icons sit at the right.
 
 ## 2. Tokens
 
@@ -24,9 +24,9 @@ The Tokens tab is the balance view. The left column filters it:
 | Approvals | Collections where the address has set an incoming or outgoing approval |
 | Hidden | Collections you hid from the All view (your own account only) |
 
-Under the filters, Group By, Sort By, and Display change the layout. On All, a standard filter narrows by collection standard.
+Under the filters, Group By, Sort By, and Display change the layout. Each row is one collection with the token name and the amount held.
 
-Each card opens the collection page. The balance shown is the current one; time-based balances change on their own as the ownership times pass, which is why a card can disappear without a transfer. See [Balances](../token-standard/concepts/balances.md).
+Each row opens the collection page. The balance shown is the current one; time-based balances change on their own as the ownership times pass, which is why a card can disappear without a transfer. See [Balances](../token-standard/concepts/balances.md).
 
 ## 3. Approvals You Granted
 
@@ -36,11 +36,11 @@ The Approvals filter lists collections where this address has user-level approva
 
 Assets appears on your own account and lists coin balances such as BADGE and IBC denoms.
 
-![The Activity tab with the Tokens, Coins, and Claims sub-tabs](../.gitbook/assets/frontend/account-activity.png)
+![The Activity tab on Tokens, listing transfers with sender, recipient, collection, amount, and time](../.gitbook/assets/frontend/account-activity.png)
 
 Activity is the history, split into three sub-tabs:
 
-- Tokens: transfers in and out.
+- Tokens: transfers in and out, with the sender, the recipient, the collection, and the time. Mint appears as the sender for minted tokens.
 - Coins: bank sends.
 - Claims: claim attempts and their results.
 

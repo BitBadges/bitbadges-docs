@@ -18,7 +18,7 @@ Click Explore, or go to [bitbadges.io/browse](https://bitbadges.io/browse). The 
 
 | Category | Shows |
 | --- | --- |
-| Swap | The swap panel, with Skip:Go and Intents as alternate routes |
+| Swap | The swap panel, with Skip:Go and Intents as alternate routes, and the asset list with live prices |
 | Smart Tokens | Collections backed by USDC, ATOM, or another ICS20 asset |
 | Subscriptions | Collections that charge on a schedule |
 | Predictions | Prediction markets |
@@ -28,15 +28,15 @@ Click Explore, or go to [bitbadges.io/browse](https://bitbadges.io/browse). The 
 | Stake | Staking for the BADGE coin |
 | Activity | Recent transfers across the chain |
 
-Each category is a grid of cards. Click a card to open its collection page. The URL carries the category as `?tab=`, so a link to a category can be shared.
+Each category is a grid of cards with the collection image, name, floor price, and description. Click a card to open its collection page. The URL carries the category as `?tab=`, so a link to a category can be shared.
 
-![The NFTs category on the browse page, with the sidebar selection and an empty grid on a fresh stack](../.gitbook/assets/frontend/browse-nfts.png)
+![The NFTs category on the browse page, with the sidebar selection and a collection card showing its floor price](../.gitbook/assets/frontend/browse-nfts.png)
 
 ## 3. Search
 
 Type into the header search bar, or go to [bitbadges.io/search](https://bitbadges.io/search) for the full-width version. Results group by type as you type:
 
-![Search results for the query "1" grouped into Accounts and Collections](../.gitbook/assets/frontend/search.png)
+![Search results for the query "NFTs" grouped into Accounts, Collections, and Tokens](../.gitbook/assets/frontend/search.png)
 
 - Accounts match an address in either format, a username, or a numeric account ID.
 - Collections match a name or a collection ID.
@@ -46,7 +46,7 @@ Click a result to open it. Each account row has a copy button for the address.
 
 ## Collection Page Anatomy
 
-A collection page has a banner, the collection image, the name and description, and a row of tabs. The tabs are Tokens, Distribution, Details, Linked Items, and Actions. A Claim tab appears first when you arrive from a claim link. [Collection Page](collection-page.md) walks through each one.
+A collection page has a banner, the collection image, the name and description, and a row of tabs. The tabs are Tokens, Distribution, Details, and Actions. Linked Items appears when the manager attached related content, and a Claim tab appears first when you arrive from a claim link. [Collection Page](collection-page.md) walks through each one.
 
 ## What You Can Do Here
 

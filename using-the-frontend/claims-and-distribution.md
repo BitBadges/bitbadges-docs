@@ -10,13 +10,13 @@ A claim is the usual way tokens reach people: the creator sets the criteria, sha
 
 A claim link is a collection URL with the claim in the query: `bitbadges.io/collections/<collectionId>?claimId=...&approvalId=...`. Links from a code or password campaign carry those in the query too.
 
-![A collection page opened from a claim link, with the Claim tab selected and the approval card](../.gitbook/assets/frontend/collection-claim.png)
+![The Peer Member collection opened from a claim link, with the Claim tab selected and the approval card](../.gitbook/assets/frontend/collection-claim.png)
 
 The page opens on a Claim tab that only exists for this link. A banner confirms that the link prefilled the claim.
 
 ## 2. Read the Card
 
-The card is the approval that mints the token. Its three columns are the criteria:
+The card names the claim and the token it gives, then shows the approval that mints it. Its three columns are the criteria:
 
 | Column | Answers |
 | --- | --- |

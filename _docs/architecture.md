@@ -241,7 +241,7 @@ Three channels, each generated from a source the tests can check. The plan and t
 - **Diagrams.** A ```mermaid fence renders to inline SVG at build time (`site/src/lib/docs/mermaid.ts`, `beautiful-mermaid`, no DOM, no client script). Colors are the site tokens, so diagrams follow the theme. `site/tests/mermaid.test.ts` renders every fence in the corpus.
 - **Code folds.** A folded figure has Collapsed and Full tabs in its caption (`site/src/lib/docs/fold.ts`, `CopyButtons.tsx`). The listing never breaks into panels; the reader's choice is remembered in `localStorage`.
 - **Widgets.** Read-only mocks of frontend UI, embedded from markdown; see the next subsection.
-- **Screenshots.** Playwright captures of bitbadges.io for the Using the Frontend walkthrough, driven by one manifest; see the Frontend screenshots subsection.
+- **Screenshots.** Playwright captures of bitbadges.io in light and dark for the Using the Frontend walkthrough, driven by one manifest; see the Frontend screenshots subsection.
 
 ### Site metadata and icons
 
@@ -324,13 +324,14 @@ content column, not the window, is what varies.
 
 ### Frontend screenshots (`using-the-frontend/`)
 
-The Docs tab section `using-the-frontend/` embeds real screenshots of bitbadges.io. They are captured, not drawn, so they are regenerated rather than edited.
+The Docs tab section `using-the-frontend/` embeds real screenshots of bitbadges.io. They are captured, not drawn, so they are regenerated rather than edited. Full runbook: `site/scripts/frontend-screenshots/README.md`.
 
-- Manifest: `site/scripts/frontend-screenshots/manifest.ts`. One entry per PNG: route, the doc page that embeds it, optional `setup: 'signed-in'`, optional `waitFor`, `fill`, `click`, and `mask` selectors. Adding a screenshot is one entry here plus one `![alt](../.gitbook/assets/frontend/<file>.png)` in the named page.
-- Output: `.gitbook/assets/frontend/<file>.png`, committed. PNGs over 400 KB are downscaled with `sips` at capture time.
-- Capture: `cd site && bun run screenshots` (one entry: `bun run screenshots -- home.png`). Needs the frontend on `http://localhost:3000` (override with `DOCS_SHOT_BASE_URL`) and, for signed-in entries, an indexer it can sign in against. Playwright and the mock wallet come from a `bitbadges-frontend` checkout (`BITBADGES_FRONTEND_DIR`, default: a sibling directory of this repo); the docs repo has no browser dependency. Sign-in uses the frontend harness in `src/__tests__/playwright/agent/` with its default unfunded mnemonic. Sample ids default to collection `1` and the harness address; override with `DOCS_SHOT_COLLECTION_ID`, `DOCS_SHOT_ADDRESS`, `DOCS_SHOT_CLAIM_ID`, `DOCS_SHOT_APPROVAL_ID`.
-- Determinism: 1440x900 at 1x, reduced motion plus CSS animations off, the browser clock pinned to a fixed time, the policies banner closed, and per-entry masks. Re-capturing against the same data gives byte-identical PNGs, so a diff means the UI changed.
-- Check: `bun run screenshots:check` (offline, no browser) fails when a manifest entry has no PNG, when a page embeds a `frontend/*.png` the manifest does not list, or when a PNG in the folder is not in the manifest. `site/tests/frontend-screenshots.test.ts` runs the same check under `bun test`, so CI catches stale references.
+- Manifest: `site/scripts/frontend-screenshots/manifest.ts`. One entry per screenshot: route, the doc page that embeds it, optional `base` (`prod`, the default, or `local` for a screen production does not have yet), `setup: 'signed-in'`, `waitFor`, `fill`, `click`, `mask`, and `themedPaint: false`. The sample ids are named constants with a comment on why each was chosen: collection 47 ("NFTs", a BitBadges showcase collection with artwork, 100 tokens, and a Mint approval), its manager `bb18el5ug...` for the account pages, and collection 32 ("Peer Member") for the claim link. Override per run with `DOCS_SHOT_*` env vars.
+- Output: `.gitbook/assets/frontend/<file>.png` (light) and `<file>--dark.png` (dark), both committed. Markdown references the light file only; the site pairs the twin by name. PNGs over 400 KB are downscaled with `sips` at capture time.
+- Capture: `cd site && bun run screenshots` (one entry, both themes: `bun run screenshots -- home.png`). Production entries need network; `local` entries need the frontend on `http://localhost:3000` with an indexer it can sign in against. Playwright and the mock wallet come from a `bitbadges-frontend` checkout (`BITBADGES_FRONTEND_DIR`, default: a sibling directory); the docs repo has no browser dependency. Sign-in uses the frontend harness in `src/__tests__/playwright/agent/` with its default unfunded mnemonic, on production too, so signed-in screens show an empty portal.
+- Themes: one browser context per (base, session, theme). The theme is forced through `localStorage.darkMode` and `colorScheme` before the app boots, then verified on every page: the `dark` class on `<html>` and the rendered pixels at three viewport points (skipped for `themedPaint: false` routes such as the landing page, which is dark in both themes).
+- Determinism: 1440x900 at 1x, reduced motion plus CSS animations and transitions off, the browser clock pinned to a fixed time, the policies cookie and chaosnet acknowledgement pre-seeded, and per-entry masks over the feedback bubble, timestamps, and live prices. Re-capturing against the same data gives byte-identical PNGs, so a diff means the UI or the data changed.
+- Check: `bun run screenshots:check` (offline, no browser) fails when either theme's PNG is missing, when a page references a `--dark` file directly, when a page embeds a `frontend/*.png` the manifest does not list, or when a PNG in the folder is not in the manifest. `site/tests/frontend-screenshots.test.ts` runs the same check under `bun test`, so CI catches stale references.
 
 ### Page actions and Markdown route
 

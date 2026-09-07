@@ -39,7 +39,7 @@ Every page shares the same header:
 2. Explore opens the browse page. Create opens the template picker.
 3. The account icon opens the wallet picker. After sign-in it shows your avatar.
 
-The site uses a light theme by default. Screenshots in this section were captured at 1440 by 900 against a local development stack, so counts and names on screen are placeholders.
+The site follows your system theme and has a light and dark mode; the screenshots in this section switch with the docs theme. They were captured at 1440 by 900 against bitbadges.io, so the collections, accounts, and counts on screen are real. The home page keeps its dark hero in both themes.
 
 ## Related
 
