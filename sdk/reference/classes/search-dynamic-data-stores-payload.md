@@ -4,7 +4,7 @@ description: "iSearchDynamicDataStoresPayload"
 
 # Class: SearchDynamicDataStoresPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2875](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2875)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2874](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2874)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2875]
 
 > **new SearchDynamicDataStoresPayload**(`payload`): `SearchDynamicDataStoresPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2878](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2878)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2877](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2877)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2878]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2876](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2876)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2875](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2875)
 
 The pagination bookmark to start from
 
@@ -219,7 +219,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `SearchDynamicDataStoresPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2883](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2883)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2882](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2882)
 
 #### Parameters
 

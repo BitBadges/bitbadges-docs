@@ -38,7 +38,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/base.ts:11](https://github
 - [`iDynamicDataDoc`](/sdk/reference/interfaces/i-dynamic-data-doc)
 - [`iAccessTokenDoc`](/sdk/reference/interfaces/i-access-token-doc)
 - [`iPluginDoc`](/sdk/reference/interfaces/i-plugin-doc)
-- [`iPromptSkillDoc`](/sdk/reference/interfaces/i-prompt-skill-doc)
 - [`iDepositBalanceDoc`](/sdk/reference/interfaces/i-deposit-balance-doc)
 - [`iSIWBBRequestDoc`](/sdk/reference/interfaces/i-siwbb-request-doc)
 - [`iDynamicStoreDoc`](/sdk/reference/interfaces/i-dynamic-store-doc)

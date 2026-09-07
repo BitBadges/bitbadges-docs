@@ -4,4 +4,4 @@ description: "Interface: iGetPredictionDetailPayload — BitBadges TypeScript SD
 
 # Interface: iGetPredictionDetailPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5482](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5482)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5377](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5377)

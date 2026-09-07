@@ -4,4 +4,4 @@ description: "Interface: iDeleteSIWBBRequestSuccessResponse — BitBadges TypeSc
 
 # Interface: iDeleteSIWBBRequestSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2094](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2094)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2093](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2093)

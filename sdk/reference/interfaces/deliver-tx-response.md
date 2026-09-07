@@ -4,7 +4,7 @@ description: "The response after successfully broadcasting a transaction. Succes
 
 # Interface: DeliverTxResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:86](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L86)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:85](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L85)
 
 The response after successfully broadcasting a transaction.
 Success or failure refer to the execution result.
@@ -15,7 +15,7 @@ Success or failure refer to the execution result.
 
 > `readonly` **code**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:91](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L91)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:90](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L90)
 
 Error code. The transaction suceeded if and only if code is 0.
 
@@ -25,7 +25,7 @@ Error code. The transaction suceeded if and only if code is 0.
 
 > `readonly` `optional` **data?**: readonly `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:106](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L106)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:105](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L105)
 
 #### Deprecated
 
@@ -37,7 +37,7 @@ Use `msgResponses` instead.
 
 > `readonly` **events**: readonly [`CosmosEvent`](/sdk/reference/interfaces/cosmos-event)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:93](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L93)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:92](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L92)
 
 ***
 
@@ -45,7 +45,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:93](h
 
 > `readonly` **gasUsed**: `bigint`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:119](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L119)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:118](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L118)
 
 ***
 
@@ -53,7 +53,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:119](
 
 > `readonly` **gasWanted**: `bigint`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:120](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L120)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:119](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L119)
 
 ***
 
@@ -61,7 +61,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:120](
 
 > `readonly` **height**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:87](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L87)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:86](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L86)
 
 ***
 
@@ -69,7 +69,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:87](h
 
 > `readonly` **msgResponses**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:115](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L115)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:114](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L114)
 
 The message responses of the [TxMsgData](https://github.com/cosmos/cosmos-sdk/blob/v0.46.3/proto/cosmos/base/abci/v1beta1/abci.proto#L128-L140)
 as `Any`s.
@@ -89,7 +89,7 @@ This field is an empty list for chains running Cosmos SDK \< 0.46.
 
 > `readonly` `optional` **rawLog?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:104](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L104)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:103](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L103)
 
 A string-based log document.
 
@@ -108,7 +108,7 @@ Please consider using `events` instead.
 
 > `readonly` **transactionHash**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:92](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L92)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:91](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L91)
 
 ***
 
@@ -116,6 +116,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:92](h
 
 > `readonly` **txIndex**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:89](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L89)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:88](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L88)
 
 The position of the transaction within the block. This is a 0-based index.

@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iGetSignInChallengeSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1073](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1073)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1072](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1072)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1073]
 
 > **message**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1087](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1087)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1086](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1086)
 
 The challenge message to sign.
 
@@ -28,7 +28,7 @@ The challenge message to sign.
 
 > **nonce**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1077](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1077)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1076](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1076)
 
 The nonce for the challenge.
 
@@ -38,6 +38,6 @@ The nonce for the challenge.
 
 > **params**: [`ChallengeParams`](/sdk/reference/interfaces/challenge-params)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1082](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1082)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1081](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1081)
 
 The challenge parameters.

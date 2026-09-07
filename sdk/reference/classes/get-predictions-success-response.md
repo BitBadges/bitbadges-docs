@@ -4,7 +4,7 @@ description: "iGetPredictionsSuccessResponse"
 
 # Class: GetPredictionsSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5470](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5470)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5365](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5365)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5470]
 
 > **new GetPredictionsSuccessResponse**(`data`): `GetPredictionsSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5473](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5473)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5368](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5368)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5473]
 
 > **predictions**: [`iPredictionMarketApiData`](/sdk/reference/interfaces/i-prediction-market-api-data)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5471](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5471)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5366](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5366)
 
 #### Implementation of
 

@@ -4,7 +4,7 @@ description: "The specific address to fetch claims for. If blank, we fetch most 
 
 # Interface: iGetClaimAttemptsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:623](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L623)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:622](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L622)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:623](
 
 > `optional` **address?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:629](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L629)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:628](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L628)
 
 The specific address to fetch claims for. If blank, we fetch most recent claims.
 
@@ -22,7 +22,7 @@ The specific address to fetch claims for. If blank, we fetch most recent claims.
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:625](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L625)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:624](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L624)
 
 The bookmark to start from.
 
@@ -32,6 +32,6 @@ The bookmark to start from.
 
 > `optional` **includeErrors?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:627](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L627)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:626](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L626)
 
 Whether to include errors or not.

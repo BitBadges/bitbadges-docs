@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iGetOnChainDynamicStoreSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4078](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4078)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4077](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4077)
 
 ## Type Parameters
 
@@ -18,4 +18,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4078]
 
 > **store**: [`iDynamicStoreDocWithDetails`](/sdk/reference/interfaces/i-dynamic-store-doc-with-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4079](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4079)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4078](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4078)

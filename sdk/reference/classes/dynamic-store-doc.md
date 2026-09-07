@@ -4,7 +4,7 @@ description: "DynamicStoreDoc represents an on-chain dynamic store document from
 
 # Class: DynamicStoreDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2223](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2223)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2179](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2179)
 
 DynamicStoreDoc represents an on-chain dynamic store document from the API indexer.
 
@@ -28,7 +28,7 @@ DynamicStoreDoc represents an on-chain dynamic store document from the API index
 
 > **new DynamicStoreDoc**\<`T`\>(`doc`): `DynamicStoreDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2233](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2233)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2189](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2189)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2233](h
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2225](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2225)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2181](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2181)
 
 A unique stringified document ID
 
@@ -64,7 +64,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2224](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2224)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2180](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2180)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -78,7 +78,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **createdBy**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2227](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2227)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2183](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2183)
 
 #### Implementation of
 
@@ -90,7 +90,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2227](h
 
 > `optional` **customData?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2231](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2231)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2187](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2187)
 
 #### Implementation of
 
@@ -102,7 +102,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2231](h
 
 > **defaultValue**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2228](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2228)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2184](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2184)
 
 #### Implementation of
 
@@ -114,7 +114,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2228](h
 
 > **globalEnabled**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2229](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2229)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2185](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2185)
 
 #### Implementation of
 
@@ -126,7 +126,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2229](h
 
 > **storeId**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2226](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2226)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2182](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2182)
 
 #### Implementation of
 
@@ -138,7 +138,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2226](h
 
 > `optional` **uri?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2230](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2230)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2186](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2186)
 
 #### Implementation of
 
@@ -168,7 +168,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `DynamicStoreDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2249](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2249)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2205](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2205)
 
 Converts the object to a different NumberType equivalent.
 
@@ -238,7 +238,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2245](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2245)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:2201](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L2201)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

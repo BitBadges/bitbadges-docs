@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: GetSignInChallengeSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1094](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1094)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1093](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1093)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1094]
 
 > **new GetSignInChallengeSuccessResponse**\<`T`\>(`data`): `GetSignInChallengeSuccessResponse`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1102](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1102)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1101](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1101)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1102]
 
 > **message**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1100](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1100)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1099](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1099)
 
 The challenge message to sign.
 
@@ -62,7 +62,7 @@ The challenge message to sign.
 
 > **nonce**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1098](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1098)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1097](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1097)
 
 The nonce for the challenge.
 
@@ -76,7 +76,7 @@ The nonce for the challenge.
 
 > **params**: [`SiwbbChallengeParams`](/sdk/reference/classes/siwbb-challenge-params)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1099](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1099)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1098](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1098)
 
 The challenge parameters.
 
@@ -108,7 +108,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `GetSignInChallengeSuccessResponse`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1109](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1109)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1108](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1108)
 
 Converts the object to a different NumberType equivalent.
 

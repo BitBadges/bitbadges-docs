@@ -6,7 +6,7 @@ description: "Given the transaction context, payload, and signature, create the 
 
 > **createTxBroadcastBody**(`txContext`, `messages`, `signature`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:357](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L357)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/messages/base.ts:406](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/messages/base.ts#L406)
 
 Given the transaction context, payload, and signature, create the raw transaction to be sent to the blockchain.
 Signatures, context, and payload must be provided and well-formed.

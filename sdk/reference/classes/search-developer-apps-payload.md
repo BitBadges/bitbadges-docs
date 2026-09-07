@@ -4,7 +4,7 @@ description: "iSearchDeveloperAppsPayload"
 
 # Class: SearchDeveloperAppsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2197](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2197)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2196](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2196)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2197]
 
 > **new SearchDeveloperAppsPayload**(`payload`): `SearchDeveloperAppsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2200](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2200)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2199](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2199)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2200]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2198](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2198)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2197](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2197)
 
 Bookmark for pagination of the apps. Not compatible with clientId.
 
@@ -219,7 +219,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `SearchDeveloperAppsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2205](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2205)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2204](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2204)
 
 #### Parameters
 

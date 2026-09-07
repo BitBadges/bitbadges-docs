@@ -4,4 +4,4 @@ description: "Interface: iGetCollectionChallengeTrackerByIdPayload — BitBadges
 
 # Interface: iGetCollectionChallengeTrackerByIdPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3962](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3962)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3961](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3961)

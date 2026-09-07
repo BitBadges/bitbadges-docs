@@ -4,7 +4,7 @@ description: "any"
 
 # Class: CreateClaimSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2773](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2773)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2772](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2772)
 
 ## Extends
 

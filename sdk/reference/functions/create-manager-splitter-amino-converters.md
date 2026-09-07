@@ -6,7 +6,7 @@ description: "AminoConverters"
 
 > **createManagerSplitterAminoConverters**(): [`AminoConverters`](/sdk/reference/type-aliases/amino-converters)
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:282](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L282)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:283](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L283)
 
 ## Returns
 

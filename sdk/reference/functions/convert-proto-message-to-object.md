@@ -6,7 +6,7 @@ description: "T extends Message<T> = AnyMessage"
 
 > **convertProtoMessageToObject**\<`T`\>(`msg`): `ProtobufObject`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/objectConverter.ts:247](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/objectConverter.ts#L247)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/objectConverter.ts:250](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/objectConverter.ts#L250)
 
 ## Type Parameters
 

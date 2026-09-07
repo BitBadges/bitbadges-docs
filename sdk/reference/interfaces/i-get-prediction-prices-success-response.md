@@ -4,7 +4,7 @@ description: "Interface: iGetPredictionPricesSuccessResponse — BitBadges TypeS
 
 # Interface: iGetPredictionPricesSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5522](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5522)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5417](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5417)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5522]
 
 > **prices**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5523](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5523)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5418](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5418)
 
 #### no
 

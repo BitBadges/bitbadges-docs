@@ -4,7 +4,7 @@ description: "Optional informational message returned by the indexer."
 
 # Interface: iVerifySignInSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1137](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1137)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1136](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1136)
 
 ## Extended by
 
@@ -16,6 +16,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1137]
 
 > `optional` **message?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1141](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1141)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:1140](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L1140)
 
 Optional informational message returned by the indexer.

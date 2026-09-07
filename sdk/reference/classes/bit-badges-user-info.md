@@ -56,7 +56,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:146](
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:548](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L548)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:547](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L547)
 
 A unique stringified document ID
 
@@ -74,7 +74,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:549](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L549)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:548](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L548)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -214,7 +214,7 @@ The BADGE balance of the account and other sdk.coin balances
 
 > `optional` **bannerImage?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:563](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L563)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:562](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L562)
 
 The banner image URL of the account
 
@@ -302,7 +302,7 @@ A list of tokens that the account has collected. Paginated and fetched as needed
 
 > `optional` **createdAt?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:552](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L552)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:551](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L551)
 
 The timestamp of when this account was created (milliseconds since epoch)
 
@@ -334,7 +334,7 @@ The credits for the account.
 
 > `optional` **discord?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:553](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L553)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:552](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L552)
 
 The Discord username of the account
 
@@ -366,7 +366,7 @@ The Eth address of the account
 
 > `optional` **fetchedProfile?**: `"full"` \| `"partial"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:550](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L550)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:549](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L549)
 
 Whether we have already fetched the profile or not
 
@@ -384,7 +384,7 @@ Whether we have already fetched the profile or not
 
 > `optional` **github?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:555](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L555)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:554](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L554)
 
 The GitHub username of the account
 
@@ -402,7 +402,7 @@ The GitHub username of the account
 
 > `optional` **hiddenTokens?**: [`BatchTokenDetailsArray`](/sdk/reference/classes/batch-token-details-array)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:558](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L558)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:557](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L557)
 
 The hidden tokens of the account
 
@@ -420,7 +420,7 @@ The hidden tokens of the account
 
 > `optional` **latestSignedInChain?**: [`SupportedChain`](/sdk/reference/enumerations/supported-chain)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:561](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L561)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:560](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L560)
 
 The latest chain the user signed in with
 
@@ -438,7 +438,7 @@ The latest chain the user signed in with
 
 > `optional` **notifications?**: [`NotificationPreferences`](/sdk/reference/classes/notification-preferences)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:562](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L562)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:561](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L561)
 
 The notifications of the account
 
@@ -488,7 +488,7 @@ A list of points activity items for the account. Paginated and fetched as needed
 
 > `optional` **profilePicUrl?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:559](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L559)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:558](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L558)
 
 The profile picture URL of the account
 
@@ -534,7 +534,7 @@ The public key of the account
 
 > `optional` **readme?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:557](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L557)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:556](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L556)
 
 The readme of the account
 
@@ -584,7 +584,7 @@ The resolved name of the account (e.g. ENS name).
 
 > `optional` **seenActivity?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:551](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L551)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:550](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L550)
 
 The timestamp of the last activity seen for this account (milliseconds since epoch)
 
@@ -647,7 +647,7 @@ The tags for the account. Extra descriptors for what this address is used for (e
 
 > `optional` **telegram?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:556](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L556)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:555](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L555)
 
 The Telegram username of the account
 
@@ -665,7 +665,7 @@ The Telegram username of the account
 
 > `optional` **twitter?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:554](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L554)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:553](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L553)
 
 The Twitter username of the account
 
@@ -683,7 +683,7 @@ The Twitter username of the account
 
 > `optional` **username?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:560](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L560)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:559](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L559)
 
 The username of the account
 

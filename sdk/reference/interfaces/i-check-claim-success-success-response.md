@@ -4,7 +4,7 @@ description: "If indexed, the claim numbers that were successfully completed (ze
 
 # Interface: iCheckClaimSuccessSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3908](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3908)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3907](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3907)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3908]
 
 > `optional` **claimNumbers?**: `number`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3911](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3911)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3910](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3910)
 
 If indexed, the claim numbers that were successfully completed (zero-based)
 
@@ -22,4 +22,4 @@ If indexed, the claim numbers that were successfully completed (zero-based)
 
 > **successCount**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3909](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3909)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3908](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3908)

@@ -4,7 +4,7 @@ description: "iCheckClaimSuccessSuccessResponse"
 
 # Class: CheckClaimSuccessSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3917](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3917)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3916](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3916)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3917]
 
 > **new CheckClaimSuccessSuccessResponse**(`data`): `CheckClaimSuccessSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3921](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3921)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3920](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3920)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3921]
 
 > `optional` **claimNumbers?**: `number`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3919](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3919)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3918](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3918)
 
 If indexed, the claim numbers that were successfully completed (zero-based)
 
@@ -56,7 +56,7 @@ If indexed, the claim numbers that were successfully completed (zero-based)
 
 > **successCount**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3918](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3918)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3917](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3917)
 
 #### Implementation of
 

@@ -80,7 +80,7 @@ The chain type this adapter supports
 
 > `optional` **estimateEvmGas**(`tx`): `Promise`\<`bigint`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:76](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L76)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:90](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L90)
 
 Estimate gas for an EVM transaction.
 Only implemented by EVM wallet adapters with a provider connection.
@@ -133,7 +133,7 @@ Returns empty string for EVM-only adapters.
 
 > `optional` **sendEvmTransaction**(`tx`): `Promise`\<`string`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:75](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L75)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:89](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L89)
 
 Send an EVM transaction.
 Only implemented by EVM wallet adapters.
@@ -203,6 +203,39 @@ The signature and public key
 
 ***
 
+### signTypedData()?
+
+> `optional` **signTypedData**(`typed`): `Promise`\<`string`\>
+
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:91](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L91)
+
+Sign EIP-712 typed-data with the wallet.
+Only implemented by EVM wallet adapters; lets BitBadges Cosmos
+messages be signed via the standard EVM signing flow
+(`eth_signTypedData_v4` / `Signer.signTypedData`) so any EVM
+wallet can produce a valid Cosmos transaction signature.
+Returns a `0x...`-prefixed 65-byte hex signature (r || s || v).
+
+#### Parameters
+
+##### typed
+
+[`EIP712TypedData`](/sdk/reference/interfaces/eip712-typed-data)
+
+#### Returns
+
+`Promise`\<`string`\>
+
+#### Implementation of
+
+[`WalletAdapter`](/sdk/reference/interfaces/wallet-adapter).[`signTypedData`](/sdk/reference/interfaces/wallet-adapter#signtypeddata)
+
+#### Inherited from
+
+[`BaseWalletAdapter`](/sdk/reference/classes/base-wallet-adapter).[`signTypedData`](/sdk/reference/classes/base-wallet-adapter#signtypeddata)
+
+***
+
 ### supportsEvmTransaction()
 
 > **supportsEvmTransaction**(): `boolean`
@@ -266,6 +299,28 @@ Check if the adapter supports SignDirect signing
 #### Overrides
 
 [`BaseWalletAdapter`](/sdk/reference/classes/base-wallet-adapter).[`supportsSignDirect`](/sdk/reference/classes/base-wallet-adapter#supportssigndirect)
+
+***
+
+### supportsSignTypedData()
+
+> **supportsSignTypedData**(): `boolean`
+
+Defined in: [packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts:105](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/adapters/WalletAdapter.ts#L105)
+
+Check if the adapter supports EIP-712 typed-data signing
+
+#### Returns
+
+`boolean`
+
+#### Implementation of
+
+[`WalletAdapter`](/sdk/reference/interfaces/wallet-adapter).[`supportsSignTypedData`](/sdk/reference/interfaces/wallet-adapter#supportssigntypeddata)
+
+#### Inherited from
+
+[`BaseWalletAdapter`](/sdk/reference/classes/base-wallet-adapter).[`supportsSignTypedData`](/sdk/reference/classes/base-wallet-adapter#supportssigntypeddata)
 
 ***
 

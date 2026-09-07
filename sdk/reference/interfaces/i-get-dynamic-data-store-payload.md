@@ -4,7 +4,7 @@ description: "The data secret to fetch. Only needed if you are not signed in as 
 
 # Interface: iGetDynamicDataStorePayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2991](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2991)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2990](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2990)
 
 ## Properties
 
@@ -12,6 +12,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2991]
 
 > `optional` **dataSecret?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2993](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2993)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2992](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2992)
 
 The data secret to fetch. Only needed if you are not signed in as creator. Not applicable to public stores

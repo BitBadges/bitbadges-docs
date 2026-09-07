@@ -4,7 +4,7 @@ description: "Q extends DynamicDataHandlerType"
 
 # Class: UpdateDynamicDataStoreSuccessResponse\<Q, T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3107](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3107)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3106](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3106)
 
 ## Extends
 
@@ -30,7 +30,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3107]
 
 > **new UpdateDynamicDataStoreSuccessResponse**\<`Q`, `T`\>(`data`): `UpdateDynamicDataStoreSuccessResponse`\<`Q`, `T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3113](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3113)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3112](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3112)
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3113]
 
 > **doc**: [`DynamicDataDoc`](/sdk/reference/classes/dynamic-data-doc)\<`Q`, `T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3111](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3111)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3110](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3110)
 
 #### Implementation of
 
@@ -82,7 +82,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `UpdateDynamicDataStoreSuccessResponse`\<`Q`, `U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3118](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3118)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3117](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3117)
 
 Converts the object to a different NumberType equivalent.
 

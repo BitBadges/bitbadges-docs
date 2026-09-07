@@ -4,7 +4,7 @@ description: "iGetPluginErrorsPayload"
 
 # Class: GetPluginErrorsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3809](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3809)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3808](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3808)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3809]
 
 > **new GetPluginErrorsPayload**(`payload`): `GetPluginErrorsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3813](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3813)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3812](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3812)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3813]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3811](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3811)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3810](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3810)
 
 The pagination bookmark to start from
 
@@ -56,7 +56,7 @@ The pagination bookmark to start from
 
 > **pluginId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3810](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3810)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3809](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3809)
 
 The plugin ID to get errors for
 
@@ -233,7 +233,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `GetPluginErrorsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3819](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3819)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3818](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3818)
 
 #### Parameters
 

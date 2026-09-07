@@ -42,8 +42,6 @@ Empty response class for the BitBadges API.
 - [`GetOnChainDynamicStorePayload`](/sdk/reference/classes/get-on-chain-dynamic-store-payload)
 - [`GetOnChainDynamicStoresByCreatorPayload`](/sdk/reference/classes/get-on-chain-dynamic-stores-by-creator-payload)
 - [`GetOnChainDynamicStoreValuePayload`](/sdk/reference/classes/get-on-chain-dynamic-store-value-payload)
-- [`UpdatePromptSkillSuccessResponse`](/sdk/reference/classes/update-prompt-skill-success-response)
-- [`DeletePromptSkillSuccessResponse`](/sdk/reference/classes/delete-prompt-skill-success-response)
 - [`RefreshMetadataPayload`](/sdk/reference/classes/refresh-metadata-payload)
 - [`RefreshMetadataSuccessResponse`](/sdk/reference/classes/refresh-metadata-success-response)
 - [`RefreshStatusPayload`](/sdk/reference/classes/refresh-status-payload)

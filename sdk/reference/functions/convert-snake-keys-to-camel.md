@@ -6,7 +6,7 @@ description: "any"
 
 > **convertSnakeKeysToCamel**(`item`): `any`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/objectConverter.ts:271](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/objectConverter.ts#L271)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/objectConverter.ts:274](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/objectConverter.ts#L274)
 
 ## Parameters
 

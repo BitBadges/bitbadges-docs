@@ -6,7 +6,7 @@ description: "Provenance marker for entries returned by the consolidated /swap/ 
 
 > **SwapAssetSource** = `"skip"` \| `"coinregistry"` \| `"verified"` \| `"native"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4556](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4556)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4451](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4451)
 
 Provenance marker for entries returned by the consolidated /swap/* endpoints.
  - `skip` — upstream Skip:Go API

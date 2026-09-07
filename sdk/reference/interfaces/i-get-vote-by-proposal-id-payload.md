@@ -4,4 +4,4 @@ description: "Interface: iGetVoteByProposalIdPayload — BitBadges TypeScript SD
 
 # Interface: iGetVoteByProposalIdPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5335](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5335)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5230](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5230)

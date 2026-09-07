@@ -4,7 +4,7 @@ description: "any"
 
 # Class: GetActiveAuthorizationsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2150](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2150)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2149](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2149)
 
 ## Extends
 
@@ -201,7 +201,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `GetActiveAuthorizationsPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2151](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2151)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2150](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2150)
 
 #### Parameters
 

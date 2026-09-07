@@ -4,7 +4,7 @@ description: "any"
 
 # Interface: AminoConverter
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:151](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L151)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:152](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L152)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:151](ht
 
 > `readonly` **aminoType**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:152](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L152)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:153](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L153)
 
 ***
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:152](ht
 
 > `readonly` **fromAmino**: (`value`) => `any`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:154](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L154)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:155](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L155)
 
 #### Parameters
 
@@ -38,7 +38,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:154](ht
 
 > `readonly` **toAmino**: (`value`) => `any`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:153](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L153)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts:154](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/amino/registry.ts#L154)
 
 #### Parameters
 

@@ -4,7 +4,7 @@ description: "any"
 
 # Class: GetGatedContentForClaimPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2802](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2802)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2801](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2801)
 
 ## Extends
 

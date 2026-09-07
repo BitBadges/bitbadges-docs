@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: AddressListDoc\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:912](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L912)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:911](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L911)
 
 ## Extends
 
@@ -27,7 +27,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:912](ht
 
 > **new AddressListDoc**\<`T`\>(`data`): `AddressListDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:928](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L928)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:927](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L927)
 
 #### Parameters
 
@@ -49,7 +49,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:928](ht
 
 > **\_docId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:913](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L913)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:912](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L912)
 
 A unique stringified document ID
 
@@ -63,7 +63,7 @@ A unique stringified document ID
 
 > `optional` **\_id?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:914](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L914)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:913](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L913)
 
 A unique document ID (Mongo DB ObjectID)
 
@@ -77,7 +77,7 @@ A unique document ID (Mongo DB ObjectID)
 
 > **addresses**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:923](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L923)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:922](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L922)
 
 The addresses of the address list. If this is a tracker list, the addresses are the tracker IDs.
 
@@ -95,7 +95,7 @@ The addresses of the address list. If this is a tracker list, the addresses are 
 
 > **createdBlock**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:918](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L918)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:917](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L917)
 
 The block number when this list was created
 
@@ -109,7 +109,7 @@ The block number when this list was created
 
 > **createdBy**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:915](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L915)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:914](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L914)
 
 The BitBadges address of the user who created this list
 
@@ -127,7 +127,7 @@ The BitBadges address of the user who created this list
 
 > **customData**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:926](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L926)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:925](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L925)
 
 Arbitrary custom data that can be stored. Leave blank for no custom data.
 
@@ -145,7 +145,7 @@ Arbitrary custom data that can be stored. Leave blank for no custom data.
 
 > **lastUpdated**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:919](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L919)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:918](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L918)
 
 The timestamp of when this list was last updated (milliseconds since epoch)
 
@@ -159,7 +159,7 @@ The timestamp of when this list was last updated (milliseconds since epoch)
 
 > **listId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:922](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L922)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:921](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L921)
 
 The ID of the address list.
 
@@ -177,7 +177,7 @@ The ID of the address list.
 
 > **managedBy**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:916](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L916)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:915](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L915)
 
 The BitBadges address of the user who is currently managing this
 
@@ -191,7 +191,7 @@ The BitBadges address of the user who is currently managing this
 
 > `optional` **nsfw?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:920](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L920)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:919](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L919)
 
 The NSFW reason if this list is NSFW
 
@@ -209,7 +209,7 @@ The NSFW reason if this list is NSFW
 
 > `optional` **reported?**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:921](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L921)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:920](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L920)
 
 The reported reason if this list is reported
 
@@ -227,7 +227,7 @@ The reported reason if this list is reported
 
 > **updateHistory**: [`iUpdateHistory`](/sdk/reference/interfaces/i-update-history)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:917](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L917)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:916](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L916)
 
 The update history of this list
 
@@ -241,7 +241,7 @@ The update history of this list
 
 > **uri**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:925](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L925)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:924](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L924)
 
 The URI where to fetch the address list metadata from.
 
@@ -259,7 +259,7 @@ The URI where to fetch the address list metadata from.
 
 > **whitelist**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:924](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L924)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:923](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L923)
 
 Whether or not to include ONLY the addresses or include all EXCEPT the addresses.
 
@@ -305,7 +305,7 @@ The double negative may get confusing.
 
 > **clone**(): `AddressListDoc`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:954](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L954)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:953](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L953)
 
 Deep copies the object and returns a new instance.
 
@@ -327,7 +327,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `AddressListDoc`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:950](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L950)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:949](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L949)
 
 #### Type Parameters
 
@@ -408,7 +408,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:946](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L946)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts:945](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/docs-types/docs.ts#L945)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

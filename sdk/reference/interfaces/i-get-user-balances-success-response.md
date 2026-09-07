@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iGetUserBalancesSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4926](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4926)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4821](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4821)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4926]
 
 > **docs**: [`iBalanceDoc`](/sdk/reference/interfaces/i-balance-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4928](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4928)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4823](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4823)
 
 Balance docs for the address — one per (collectionId, address) pair the user holds.
 
@@ -28,7 +28,7 @@ Balance docs for the address — one per (collectionId, address) pair the user h
 
 > **pagination**: `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4929](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4929)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4824](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4824)
 
 #### bookmark
 

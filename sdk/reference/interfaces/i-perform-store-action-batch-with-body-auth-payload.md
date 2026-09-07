@@ -4,7 +4,7 @@ description: "Whether to simulate the action"
 
 # Interface: iPerformStoreActionBatchWithBodyAuthPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3182](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3182)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3181](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3181)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3182]
 
 > `optional` **\_isSimulation?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3184](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3184)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3183](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3183)
 
 Whether to simulate the action
 
@@ -22,7 +22,7 @@ Whether to simulate the action
 
 > **actions**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3190](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3190)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3189](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3189)
 
 The actions to perform
 
@@ -44,7 +44,7 @@ The payload for this specific action
 
 > `optional` **dataSecret?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3188](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3188)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3187](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3187)
 
 The data secret. Needed if you are not signed in as creator. Not applicable to public stores
 
@@ -54,6 +54,6 @@ The data secret. Needed if you are not signed in as creator. Not applicable to p
 
 > **dynamicDataId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3186](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3186)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3185](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3185)
 
 The dynamic data ID

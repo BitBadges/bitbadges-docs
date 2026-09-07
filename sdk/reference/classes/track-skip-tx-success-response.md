@@ -4,7 +4,7 @@ description: "iTrackSkipTxSuccessResponse"
 
 # Class: TrackSkipTxSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4485](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4485)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4380](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4380)
 
 ## Extends
 
@@ -24,7 +24,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4485]
 
 > **new TrackSkipTxSuccessResponse**(`data`): `TrackSkipTxSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4488](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4488)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4383](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4383)
 
 #### Parameters
 

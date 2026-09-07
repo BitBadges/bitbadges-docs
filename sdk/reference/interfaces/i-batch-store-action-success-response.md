@@ -4,4 +4,4 @@ description: "Interface: iBatchStoreActionSuccessResponse — BitBadges TypeScri
 
 # Interface: iBatchStoreActionSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3229](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3229)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3228](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3228)

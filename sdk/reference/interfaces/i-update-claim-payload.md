@@ -4,7 +4,7 @@ description: "Interface: iUpdateClaimPayload — BitBadges TypeScript SDK interf
 
 # Interface: iUpdateClaimPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2727](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2727)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2726](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2726)
 
 ## Properties
 
@@ -12,4 +12,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2727]
 
 > **claims**: [`UpdateClaimRequest`](/sdk/reference/type-aliases/update-claim-request)\<[`NumberType`](/sdk/reference/type-aliases/number-type)\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2728](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2728)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2727](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2727)

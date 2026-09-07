@@ -4,7 +4,7 @@ description: "iGetOrderbookDepthSuccessResponse"
 
 # Class: GetOrderbookDepthSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5137](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5137)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5032](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5032)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5137]
 
 > **new GetOrderbookDepthSuccessResponse**(`data`): `GetOrderbookDepthSuccessResponse`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5142](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5142)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5037](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5037)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5142]
 
 > **orderbookDepth**: [`iOrderbookDepth`](/sdk/reference/interfaces/i-orderbook-depth) \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5140](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5140)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5035](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5035)
 
 #### Implementation of
 

@@ -4,7 +4,7 @@ description: "any"
 
 # Class: GetClaimAttemptStatusPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:585](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L585)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:584](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L584)
 
 ## Extends
 

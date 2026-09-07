@@ -1,10 +1,10 @@
 ---
-description: "Every variable the BitBadges TypeScript SDK exports — 46 reference pages."
+description: "Every variable the BitBadges TypeScript SDK exports — 51 reference pages."
 ---
 
 # Variables
 
-Every variable the `bitbadges` package exports (46 total).
+Every variable the `bitbadges` package exports (51 total).
 
 - [ActionPermissionUsedFlags](/sdk/reference/variables/action-permission-used-flags)
 - [AminoTypes](/sdk/reference/variables/amino-types)
@@ -14,6 +14,10 @@ Every variable the `bitbadges` package exports (46 total).
 - [BitBadgesKeplrSuggestMainnetChainInfo](/sdk/reference/variables/bit-badges-keplr-suggest-mainnet-chain-info)
 - [BitBadgesKeplrSuggestTestnetChainInfo](/sdk/reference/variables/bit-badges-keplr-suggest-testnet-chain-info)
 - [CoinsRegistry](/sdk/reference/variables/coins-registry)
+- [COSMOS\_EVM\_EIP712\_DOMAIN\_NAME](/sdk/reference/variables/cosmos-evm-eip712-domain-name)
+- [COSMOS\_EVM\_EIP712\_DOMAIN\_VERSION](/sdk/reference/variables/cosmos-evm-eip712-domain-version)
+- [COSMOS\_EVM\_EIP712\_SALT](/sdk/reference/variables/cosmos-evm-eip712-salt)
+- [COSMOS\_EVM\_EIP712\_VERIFYING\_CONTRACT](/sdk/reference/variables/cosmos-evm-eip712-verifying-contract)
 - [CUSTOM\_2FA\_TOKEN\_EXPIRATION\_MS](/sdk/reference/variables/custom-2-fa-token-expiration-ms)
 - [DEFAULT\_PLACEHOLDER\_IMAGE\_URI](/sdk/reference/variables/default-placeholder-image-uri)
 - [DEFAULT\_PLACEHOLDER\_METADATA\_URI](/sdk/reference/variables/default-placeholder-metadata-uri)
@@ -37,6 +41,7 @@ Every variable the `bitbadges` package exports (46 total).
 - [PLUGIN\_DISPLAY\_NAMES](/sdk/reference/variables/plugin-display-names)
 - [PRECOMPILE\_ABI](/sdk/reference/variables/precompile-abi)
 - [ProtoTypeRegistry](/sdk/reference/variables/proto-type-registry)
+- [SANITIZE\_ROOT\_PREFIX](/sdk/reference/variables/sanitize-root-prefix)
 - [SENDMANAGER\_PRECOMPILE\_ADDRESS](/sdk/reference/variables/sendmanager-precompile-address)
 - [SMART\_TOKEN\_DEPOSIT\_APPROVAL\_ID](/sdk/reference/variables/smart-token-deposit-approval-id)
 - [SMART\_TOKEN\_TRANSFERABLE\_APPROVAL\_ID](/sdk/reference/variables/smart-token-transferable-approval-id)

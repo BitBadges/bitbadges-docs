@@ -4,7 +4,7 @@ description: "iGetClaimPayload"
 
 # Class: GetClaimPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:477](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L477)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:476](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L476)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:477](
 
 > **new GetClaimPayload**(`payload`): `GetClaimPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:482](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L482)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:481](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L481)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:482](
 
 > `optional` **fetchAllClaimedUsers?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:479](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L479)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:478](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L478)
 
 Fetch all claimed users for the claim.  If true, you will be able to find all { [bitbadgesAddress]: [...zeroIndexedClaimNumbers] }
 on the numUses plugin's publicState.
@@ -57,7 +57,7 @@ on the numUses plugin's publicState.
 
 > `optional` **fetchPrivateParams?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:478](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L478)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:477](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L477)
 
 Fetch private parameters for the claim. Only applicable if you are the creator / manager of the claim.
 
@@ -71,7 +71,7 @@ Fetch private parameters for the claim. Only applicable if you are the creator /
 
 > `optional` **privateStatesToFetch?**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:480](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L480)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:479](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L479)
 
 The private state instance IDs to fetch. By default, we do not fetch any private states.
 
@@ -248,7 +248,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `GetClaimPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:489](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L489)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:488](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L488)
 
 #### Parameters
 

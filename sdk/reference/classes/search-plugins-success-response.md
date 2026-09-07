@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: SearchPluginsSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2700](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2700)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2699](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2699)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2700]
 
 > **new SearchPluginsSuccessResponse**\<`T`\>(`data`): `SearchPluginsSuccessResponse`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2701](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2701)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2700](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2700)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2701]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2679](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2679)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2678](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2678)
 
 Bookmark for pagination of the plugins. Only applicable if fetching the directory.
 
@@ -66,7 +66,7 @@ Bookmark for pagination of the plugins. Only applicable if fetching the director
 
 > **plugins**: [`PluginDoc`](/sdk/reference/classes/plugin-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2678](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2678)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2677](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2677)
 
 #### Implementation of
 
@@ -100,7 +100,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): [`GetPluginsSuccessResponse`](/sdk/reference/classes/get-plugins-success-response)\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2687](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2687)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2686](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2686)
 
 Converts the object to a different NumberType equivalent.
 

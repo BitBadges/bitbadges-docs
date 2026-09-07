@@ -4,7 +4,7 @@ description: "any"
 
 # Class: GetPostActionStatusesPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3756](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3756)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3755](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3755)
 
 ## Extends
 

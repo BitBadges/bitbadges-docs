@@ -4,7 +4,7 @@ description: "If you want to get a specific app, specify the client ID here (wil
 
 # Interface: iGetDeveloperAppsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2246](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2246)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2245](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2245)
 
 ## Properties
 
@@ -12,6 +12,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2246]
 
 > `optional` **clientId?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2248](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2248)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:2247](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L2247)
 
 If you want to get a specific app, specify the client ID here (will not return the client secret).

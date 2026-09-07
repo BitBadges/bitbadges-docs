@@ -4,7 +4,7 @@ description: "Chain entries (mirrors Skip:Go /v2/info/chains)."
 
 # Interface: iGetSwapChainsSuccessResponse
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4633](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4633)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4528](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4528)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4633]
 
 > **chains**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4635](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4635)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:4530](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L4530)
 
 Chain entries (mirrors Skip:Go /v2/info/chains).
 

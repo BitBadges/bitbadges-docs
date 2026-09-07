@@ -4,7 +4,7 @@ description: "The dynamic data ID to update"
 
 # Interface: iUpdateDynamicDataStorePayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3088](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3088)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3087](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3087)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3088]
 
 > **dynamicDataId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3090](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3090)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3089](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3089)
 
 The dynamic data ID to update
 
@@ -22,7 +22,7 @@ The dynamic data ID to update
 
 > `optional` **label?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3094](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3094)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3093](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3093)
 
 The new label
 
@@ -32,6 +32,6 @@ The new label
 
 > `optional` **rotateDataSecret?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3092](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3092)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3091](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3091)
 
 Whether to rotate the data secret

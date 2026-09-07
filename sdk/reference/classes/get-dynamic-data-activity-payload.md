@@ -4,7 +4,7 @@ description: "iGetDynamicDataActivityPayload"
 
 # Class: GetDynamicDataActivityPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3251](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3251)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3250](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3250)
 
 ## Extends
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3251]
 
 > **new GetDynamicDataActivityPayload**(`payload`): `GetDynamicDataActivityPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3256](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3256)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3255](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3255)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3256]
 
 > `optional` **bookmark?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3253](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3253)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3252](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3252)
 
 The pagination bookmark to start from
 
@@ -56,7 +56,7 @@ The pagination bookmark to start from
 
 > `optional` **dataSecret?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3254](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3254)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3253](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3253)
 
 The data secret to fetch activity for. Needed if you are not signed in as creator. Not applicable to public stores
 
@@ -70,7 +70,7 @@ The data secret to fetch activity for. Needed if you are not signed in as creato
 
 > **dynamicDataId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3252](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3252)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3251](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3251)
 
 The dynamic data ID to fetch activity for
 
@@ -247,7 +247,7 @@ Converts the object to a JSON string.
 
 > `static` **FromQuery**(`query`): `GetDynamicDataActivityPayload`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3263](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3263)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:3262](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L3262)
 
 #### Parameters
 

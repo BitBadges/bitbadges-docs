@@ -4,7 +4,7 @@ description: "Parsed prediction-market data the indexer returns from parsePredic
 
 # Interface: iPredictionMarketApiData
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5443](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5443)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5338](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5338)
 
 Parsed prediction-market data the indexer returns from
 `parsePredictionMarketData()`. Fields mirror `src/routes/predictions.ts`.
@@ -15,7 +15,7 @@ Parsed prediction-market data the indexer returns from
 
 > **collectionId**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5444](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5444)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5339](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5339)
 
 ***
 
@@ -23,7 +23,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5444]
 
 > **customData**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5446](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5446)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5341](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5341)
 
 ***
 
@@ -31,7 +31,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5446]
 
 > **depositAmount**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5449](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5449)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5344](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5344)
 
 ***
 
@@ -39,7 +39,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5449]
 
 > **depositDenom**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5448](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5448)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5343](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5343)
 
 ***
 
@@ -47,7 +47,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5448]
 
 > **metadataUri**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5445](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5445)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5340](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5340)
 
 ***
 
@@ -55,7 +55,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5445]
 
 > **noPrice**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5452](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5452)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5347](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5347)
 
 ***
 
@@ -63,7 +63,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5452]
 
 > **status**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5450](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5450)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5345](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5345)
 
 ***
 
@@ -71,7 +71,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5450]
 
 > **verifierAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5447](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5447)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5342](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5342)
 
 ***
 
@@ -79,4 +79,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5447]
 
 > **yesPrice**: `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5451](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5451)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts:5346](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/requests.ts#L5346)
