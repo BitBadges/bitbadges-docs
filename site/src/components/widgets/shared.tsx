@@ -143,11 +143,11 @@ export function Icon({ name, className, size = 16 }: { name: IconName; className
 /**
  * The frontend's logo files, copied as-is from `bitbadges-frontend/public/images`
  * into `site/public/widgets/` (`getChainLogo` and the `*_LOGO` constants in
- * `src/constants.tsx`). `bitbadges-logo.png` is `bitbadgeslogonotext.png`, the
+ * `src/constants.tsx`). `bitbadges-logo.svg` is the site's own circular mark, the
  * circular mark, downscaled to 64px.
  */
 export const CHAIN_LOGOS: Record<Chain, string> = {
-  BitBadges: 'bitbadges-logo.png',
+  BitBadges: 'bitbadges-logo.svg',
   Ethereum: 'eth-logo.webp',
   Solana: 'solana-logo.webp',
   Bitcoin: 'bitcoin-logo.webp',

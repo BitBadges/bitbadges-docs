@@ -54,7 +54,7 @@ describe('widget registry', () => {
 
   test('address chips use the frontend logo files, the circular BitBadges mark for bb1 addresses', () => {
     const bb = renderStatic(createWidgetElement('address', { address: ALICE }));
-    expect(bb).toMatch(/<img src="\/widgets\/bitbadges-logo\.png"[^>]*data-site-asset/);
+    expect(bb).toMatch(/<img src="\/widgets\/bitbadges-logo\.svg"[^>]*data-site-asset/);
     const eth = renderStatic(createWidgetElement('address', { address: '0x0bc63cfe31d5218eb414b142c799e20964a54a1a' }));
     expect(eth).toContain('src="/widgets/eth-logo.webp"');
     const sol = renderStatic(createWidgetElement('address', { address: '4Nd1mBQtrMJVYVfKf2PJy9NZUZdTAsp7D4xWLs4gDB4T', chain: 'Solana' }));
@@ -70,7 +70,7 @@ describe('widget registry', () => {
     expect(html).toContain('src="/widgets/cosmos-logo.webp"');
     expect(html).toContain('src="/widgets/usdc.webp"');
     const badge = renderStatic(createWidgetElement('swap', { from: { symbol: 'BADGE', amount: '5' }, to: { symbol: 'BTC', amount: '1' } }));
-    expect(badge).toContain('src="/widgets/bitbadges-logo.png"');
+    expect(badge).toContain('src="/widgets/bitbadges-logo.svg"');
     expect(badge).toContain('src="/widgets/bitcoin-logo.webp"');
   });
 
@@ -136,7 +136,7 @@ describe('::widget directive', () => {
 
   test('widget logos keep their site path: the asset rewrite does not move them under docs-assets', async () => {
     const doc = await renderDoc(`# T\n\n::widget{name="address" address="${ALICE}"}`, opts);
-    expect(doc.html).toContain('src="/widgets/bitbadges-logo.png"');
+    expect(doc.html).toContain('src="/widgets/bitbadges-logo.svg"');
     expect(doc.html).not.toContain('/docs-assets/widgets/');
   });
 

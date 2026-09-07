@@ -261,8 +261,8 @@ width through `className`; it never paints its own outer surface.
 Logos. Chain and token marks are the frontend's own image files, copied
 unchanged from `bitbadges-frontend/public/images` into `site/public/widgets/`
 (`eth-logo.webp`, `solana-logo.webp`, `bitcoin-logo.webp`, `cosmos-logo.webp`
-for ATOM, `usdc.webp`), plus `bitbadges-logo.png`, the circular
-`bitbadgeslogonotext.png` downscaled to 64px for the address chip. The map is
+for ATOM, `usdc.webp`), plus `bitbadges-logo.svg`, the same circular
+mark the top bar uses (`site/public/bitbadges-logo.svg`), never the frontend's older PNG marks. The map is
 `CHAIN_LOGOS` / `TOKEN_LOGOS` in `shared.tsx`; nothing is hand-drawn. The
 `<img>` carries `data-site-asset`, which tells the asset rewrite in
 `markdown.ts` to leave the `src` alone (it is already `basePath`-prefixed and
