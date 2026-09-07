@@ -275,6 +275,15 @@ const transferableApproval = new CollectionApproval({
 }
 ```
 
+:::widget{name="transferability-row" caption="The transferable approval as the transferability tab lists it: all except Mint can send to anyone, with no extra criteria."}
+{
+  "approvalId": "transferable-approval",
+  "fromListId": "!Mint",
+  "toListId": "All",
+  "initiatedByListId": "All"
+}
+:::
+
 Keep `approvalId: "transferable-approval"`. The BitBadges site and the CLI detect free transferability by this ID.
 
 ### Burnable
@@ -403,6 +412,15 @@ const burnableApproval = new CollectionApproval({
   "version": "0"
 }
 ```
+
+:::widget{name="transferability-row" caption="The burnable approval: any holder can send to the burn address, which nobody controls."}
+{
+  "approvalId": "burnable-approval",
+  "fromListId": "!Mint",
+  "toListId": "bb1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqs7gvmv",
+  "initiatedByListId": "All"
+}
+:::
 
 - `fromListId: "!Mint"`: any holder can burn.
 - `toListId`: the burn address as a single-address list.
@@ -642,6 +660,26 @@ Raw `MsgUpdateUserApprovals` that sets one outgoing approval: the signer may sen
   }
 }
 ```
+
+:::widget{name="transferability-row" caption="The outgoing approval as the signer's account page lists it: tokens 1 to 20 to anyone, one in total and one per initiator."}
+{
+  "approvalId": "user-outgoing-approval",
+  "level": "outgoing",
+  "fromListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "toListId": "All",
+  "initiatedByListId": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d",
+  "tokenIds": [
+    {
+      "start": "1",
+      "end": "20"
+    }
+  ],
+  "criteria": [
+    "1 overall",
+    "1 per initiator"
+  ]
+}
+:::
 
 Outgoing approvals have no `senderChecks` and no `overrides*` fields, since the sender is fixed and user approvals cannot override.
 

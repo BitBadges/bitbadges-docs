@@ -172,6 +172,37 @@ const createCollection = {
 }
 ```
 
+:::widget{name="permissions-grid" caption="The permissions tab after the freeze: updates to approvals from Mint are forbidden forever, and everything else stays neutral."}
+{
+  "permissions": {
+    "canDeleteCollection": [],
+    "canArchiveCollection": [],
+    "canUpdateStandards": [],
+    "canUpdateCustomData": [],
+    "canUpdateManager": [],
+    "canUpdateCollectionMetadata": [],
+    "canUpdateValidTokenIds": [],
+    "canUpdateTokenMetadata": [],
+    "canUpdateCollectionApprovals": [
+      {
+        "fromListId": "Mint",
+        "toListId": "All",
+        "initiatedByListId": "All",
+        "approvalId": "All",
+        "permanentlyForbiddenTimes": [
+          {
+            "start": "1",
+            "end": "18446744073709551615"
+          }
+        ]
+      }
+    ],
+    "canAddMoreAliasPaths": [],
+    "canAddMoreCosmosCoinWrapperPaths": []
+  }
+}
+:::
+
 {% hint style="danger" %}
 This is irreversible. Once mint approvals are permanently forbidden, no mint approval can be added, edited, or removed. Put every mint approval you will ever need in place before you freeze.
 {% endhint %}

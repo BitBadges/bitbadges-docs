@@ -237,6 +237,36 @@ NFT pattern with sequential IDs. This is one complete `CollectionApproval`; put 
 }
 ```
 
+:::widget{name="approval-criteria" caption="The manager-mint criteria on bitbadges.io: sequential IDs, 100 mints in total, one per initiator, and the required Mint override."}
+{
+  "predeterminedBalances": {
+    "incrementedBalances": {
+      "startBalances": [
+        {
+          "amount": "1",
+          "tokenIds": [
+            {
+              "start": "1",
+              "end": "1"
+            }
+          ]
+        }
+      ],
+      "incrementTokenIdsBy": "1"
+    },
+    "orderCalculationMethod": {
+      "useOverallNumTransfers": true
+    }
+  },
+  "maxNumTransfers": {
+    "overallMaxNumTransfers": "100",
+    "perInitiatedByAddressMaxNumTransfers": "1",
+    "amountTrackerId": "nft-mint-tracker"
+  },
+  "overridesFromOutgoingApprovals": true
+}
+:::
+
 `incrementTokenIdsBy: "1"` gives each mint the next token ID. `maxNumTransfers` caps total mints and per-user mints. `orderCalculationMethod` must have exactly one method set to `true`. See [Predetermined Balances](../token-standard/approval-criteria/predetermined-balances.md).
 
 Fungible pattern with a supply cap:
