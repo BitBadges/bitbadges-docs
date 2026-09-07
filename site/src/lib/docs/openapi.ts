@@ -264,18 +264,18 @@ export type ApiFold = {
 };
 
 export const API_FOLD: ApiFold = {
-  // Scalar's introduction renders only two heading levels (the lowest and one
-  // below it), so a page nested under Overview cannot expose its own sections
-  // in the sidebar. Pages that map onto a tag with real operations therefore
-  // live on that tag instead, where they get their own group: swaps.md carries
-  // the two /swaps endpoints, which are tagged Assets.
+  // Scalar's sidebar has exactly two useful levels here: `info.description`
+  // contributes the lowest heading level and one below it, and a tag
+  // contributes only its operations (tag descriptions never become sidebar
+  // entries). So every prose page lives in the introduction as a `##` under
+  // the single `# Overview`, which is the only place it gets a nav entry.
   intro: [
     { file: 'api/README.md', title: 'Overview' },
     { file: 'api/pagination-and-views.md' },
+    { file: 'api/swaps.md' },
     { file: 'api/self-hosting.md' },
   ],
   tags: {
-    Assets: [{ file: 'api/swaps.md', title: 'Swaps' }],
     Claims: [
       { file: 'api/claims/README.md' },
       // Its H1 is "Claims" like the lead page; name the section by its role.
