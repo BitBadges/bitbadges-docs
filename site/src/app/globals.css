@@ -491,6 +491,10 @@ body {
 .doc figure:not([data-code]) {
   margin: 1.75rem 0;
 }
+.doc .widget-block > .widget-caption {
+  margin-top: 0.5rem;
+}
+
 .doc img {
   max-width: 100%;
   height: auto;
