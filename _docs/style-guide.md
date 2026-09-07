@@ -56,6 +56,12 @@ A heading that is only a code identifier stays exactly as it is: `## approvalCri
 - A diagram is a ```mermaid fence, never a pasted bitmap. The site renders it to inline SVG at build time in the page's own colors, and the corpus test fails on a fence the renderer cannot parse. Add `title="..."` on the fence for a caption. Flowcharts (`flowchart LR` or `TD`), sequence, state, class, and ER diagrams are supported. Quote labels that contain punctuation. Keep a diagram to what one paragraph could not say: an order of checks, a branch, two paths that meet.
 - Long JSON examples fold their boilerplate. Put `fold=12-40,55-80` (1-based, inclusive) on the fence to mark the parts a reader can skip. The site renders the block with Collapsed and Full tabs in its caption: Collapsed shows one quiet `··· N lines` row per marked range, Full shows the source untouched, and the copy button copies everything in both. `json` blocks over 40 lines mark runs of boilerplate (`[]`, `{}`, `false`, `"0"`, `""`, closing brackets) automatically; add `nofold` to keep one fully open.
 
+## Widgets
+
+- A widget shows what the reader would see on bitbadges.io. A code block shows what they would send. Use both when the page explains an object the site renders (an approval, a permission set, an address list); use only the code block on reference pages.
+- One `::widget` per section, with a one-sentence `caption` in sentence case. Widget names and syntax are in `_docs/architecture.md`.
+- Widget props use the fixture values in `_docs/fixtures.md`, so the mock agrees with the JSON around it.
+
 ## Terminology (use exactly these)
 
 - token, not badge. The only exceptions: `BADGE` the native coin, `ubadge` the denom, and field or type names that still contain "badge" in source.

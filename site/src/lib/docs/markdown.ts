@@ -26,6 +26,7 @@ import { applyCodeFolds, deserializeRanges, foldRangesFor, serializeRanges } fro
 import { rehypeMermaid } from './mermaid';
 import { gitbookToDirectives } from './gitbook';
 import { resolveAssetPath, resolveDocLink } from './paths';
+import { remarkWidgets } from './widgets';
 
 export type Heading = { depth: number; id: string; text: string };
 
@@ -391,6 +392,7 @@ export async function renderDoc(source: string, options: RenderOptions): Promise
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkDirective)
+    .use(remarkWidgets, options)
     .use(remarkLiteralDirectives)
     .use(remarkCodeMeta)
     .use(remarkExtractTitle, store)

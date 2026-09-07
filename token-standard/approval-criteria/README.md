@@ -65,6 +65,19 @@ export interface iApprovalCriteria<T extends NumberType> {
 
 Royalties are inside `userApprovalSettings.userRoyalties`. There is no top-level `userRoyalties` field (proto field 13 is reserved).
 
+:::widget{name="approval-criteria" caption="A paid mint on bitbadges.io: the criteria that are set show as on, the rest are dimmed."}
+{
+  "coinTransfers": [{ "to": "bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d", "coins": [{ "denom": "ubadge", "amount": "1000000" }] }],
+  "maxNumTransfers": { "overallMaxNumTransfers": "100", "perInitiatedByAddressMaxNumTransfers": "1" },
+  "predeterminedBalances": {
+    "incrementedBalances": { "startBalances": [{ "amount": "1", "tokenIds": [{ "start": "1", "end": "1" }] }], "incrementTokenIdsBy": "1" },
+    "orderCalculationMethod": { "useOverallNumTransfers": true }
+  },
+  "requireToEqualsInitiatedBy": true,
+  "overridesFromOutgoingApprovals": true
+}
+:::
+
 ### Criteria
 
 | Criterion | One line | Auto-scannable |
