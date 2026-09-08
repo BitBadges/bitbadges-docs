@@ -4,13 +4,13 @@ description: "How the BitBadges L1 and token standard compare to other chains an
 
 # Comparisons
 
-BitBadges is its own Cosmos SDK Layer 1 with a token standard that works like an API: the logic is implemented once in the module, and each collection customizes it through messages. This page compares that design to other protocols and to ERC-3643 (T-REX), the leading standard for regulated securities.
+BitBadges is its own Cosmos SDK Layer 1 with a token standard that works like an API: the logic is implemented once in the module, and each collection customizes it through messages. This page compares that design to other protocols and to ERC-3643 (T-REX), a standard for permissioned security tokens.
 
 ## BitBadges L1 Versus Other Protocols
 
 ### Chain Architecture
 
-BitBadges is a Layer 1, not a Layer 2 or a sidechain. It is built with the Cosmos SDK, which gives it the IBC ecosystem and every other Cosmos feature. The native token standard has its own balances and approval model. EVM contracts can access it through precompiles; ERC-compatible wrappers require explicit integration. A native collection is not automatically an ERC-20 contract or a Bitcoin Ordinal.
+BitBadges is a Layer 1, not a Layer 2 or a sidechain. It is built with the Cosmos SDK, which provides the foundation for its configured Cosmos modules and IBC support. The native token standard has its own balances and approval model. EVM contracts can access it through precompiles; ERC-compatible wrappers require explicit integration. A native collection is not automatically an ERC-20 contract or a Bitcoin Ordinal.
 
 ### Security Model
 
@@ -18,7 +18,7 @@ BitBadges is less decentralized today than the largest protocols, and decentrali
 
 ### Cross-Chain Interoperability
 
-IBC connects BitBadges to other chains, so the token standard is usable from any Cosmos chain and tokens wrap to IBC denoms. See [IBC](../token-standard/ibc/README.md).
+IBC connects BitBadges through configured channels and supported routes. Wrapper paths expose compatible bank denoms; integration depends on the destination chain and application. See [IBC](../token-standard/ibc/README.md).
 
 ### Token Standard
 
@@ -34,7 +34,7 @@ ERC-3643 and BitBadges are not competing standards. They operate at different la
 
 ### Overview
 
-ERC-3643 (T-REX, Token for Regulated EXchanges) is an Ethereum standard for compliant security tokens. It is ratified through the ERC process, has facilitated more than $32 billion in tokenized assets, and is the most widely adopted standard for institutional tokenized securities.
+ERC-3643 (T-REX, Token for Regulated EXchanges) is an Ethereum standard for compliant security tokens. The [ERC-3643 Association](https://www.erc3643.org/) reports more than $32 billion in tokenized assets on its website (checked 7 September 2026); this is an association-reported adoption figure, not a measure of technical compatibility.
 
 BitBadges enforces compliance rules, transfer restrictions, and approval logic in the chain itself. No contract deployment is needed. For EVM developers, precompiles expose the native standard through Solidity interfaces such as ERC-3643.
 
@@ -55,7 +55,7 @@ BitBadges enforces compliance rules, transfer restrictions, and approval logic i
 
 ### ERC-3643 Strengths
 
-- Institutional adoption: a ratified Ethereum standard with more than $32B in tokenized assets and major financial institutions behind it.
+- Institutional tooling: an established implementation and identity framework designed for permissioned tokens.
 - Regulatory track record: purpose-built for securities compliance with established legal frameworks.
 - Ecosystem maturity: identity providers, compliance modules, and institutional tooling.
 - ONCHAINID: a mature decentralized identity framework for KYC and AML.

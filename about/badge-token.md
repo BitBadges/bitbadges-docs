@@ -15,7 +15,7 @@ BADGE is the native gas coin of the BitBadges chain (denom `ubadge`). Read the [
 
 ## Distribution
 
-The [explorer](https://explorer.bitbadges.io) shows current supply, distribution, and validators. Excluding block rewards, the initial circulating supply was 100M BADGE.
+The [explorer](https://explorer.bitbadges.io) shows current supply, distribution, and validators. Read current chain state rather than treating a historical allocation as today's circulating supply.
 
 BADGE trades on Osmosis at [app.osmosis.zone/assets/BADGE](https://app.osmosis.zone/assets/BADGE) and works with other IBC-enabled services.
 
@@ -23,18 +23,11 @@ BADGE trades on Osmosis at [app.osmosis.zone/assets/BADGE](https://app.osmosis.z
 
 BitBadges combines proof-of-stake validator rewards with a proof-of-authority delegation model.
 
-### Validator Rewards Program (About 20% of Supply)
+### Validator Rewards and Delegations
 
-The incentivized rewards program ran for one year, from 12 August 2025 to 12 August 2026. Validators earned BADGE based on uptime, measured by sampling block signatures:
+Validator rewards, program eligibility, and delegated allocations can change independently. A delegation shown in the explorer is voting power assigned to a validator; it is not evidence that the validator owns those tokens or that a historical reward has been paid.
 
-- Mission Decentralization candidates (the first roughly 40 validators): a base allocation of 200,000 BADGE scaled by uptime, with a 50,000 BADGE floor.
-- All other eligible validators (registered by block 8,998,000): a base of 100,000 BADGE scaled by uptime.
-
-At the end of the program, earned BADGE is awarded and the program delegations shift to the proof-of-authority model. During the program, delegations did not reflect awards: most validators held about 200K or more in delegations that end with the program.
-
-### Proof-of-Authority Model (About 60% of Supply)
-
-The proof-of-authority model took effect at launch, ran in parallel with the rewards program, and is the sole delegation model after 12 August 2026. The remaining allocations, including the 50M community pool, other team delegations, and leftover awards, go to well-known, trusted validators through governance proposals under a know-your-validator process, with preference for institutions and recognized brands. These tokens can only be delegated, never sold, which lowers the effective circulating supply by more than 60M BADGE.
+Use the [BADGE disclosure](https://bitbadges.io/credits-disclosure) for published program terms, and check the [explorer](https://explorer.bitbadges.io) and relevant governance proposals for current delegations and executed distributions. Do not infer circulating supply or a restriction on selling from delegated balances alone.
 
 ## Related
 

@@ -16,13 +16,13 @@ The token standard tokenizes assets, services, and rights with protocol-level tr
 ## NFTs and Collectibles
 
 - Collectibles and profile pictures. Standard NFT mechanics with rarity and full transferability controls.
-- Gated NFTs and quests. Mints gated by criteria from more than 7,000 no-code apps: email verification, Discord membership, or a custom requirement.
+- Gated NFTs and quests. Mints gated by claim plugins or external integrations: email verification, Discord membership, or a custom requirement.
 - Quest rewards. NFTs with payouts attached, gated by criteria-based approvals, for games, loyalty programs, and engagement campaigns.
 
 ## Soulbound Tokens and Compliance
 
 - Soulbound tokens. A non-transferable collection locks tokens to addresses for achievements, credentials, attestations, and proof of anything.
-- Compliance as a service. Keep your token on ERC-3643 or `x/bank` and use BitBadges as the compliance check by verifying ownership of compliance tokens: licenses, subscriptions, NFTs, KYC credentials, and address lists. On-chain compliance means handling more than 20 standardized components automatically. See [Comparisons](comparisons.md).
+- Compliance as a service. Keep your token on ERC-3643 or `x/bank` and use BitBadges as the compliance check by verifying ownership of compliance tokens: licenses, subscriptions, NFTs, KYC credentials, and address lists. Configure the approval criteria needed for the application rather than assuming token ownership proves every compliance requirement. See [Comparisons](comparisons.md).
 
 ## Subscriptions and Recurring Payments
 
@@ -60,8 +60,8 @@ The token standard tokenizes assets, services, and rights with protocol-level tr
 - Multi-currency: payments in any IBC-compatible denom.
 - Custom transferability: who can transfer, to whom, and under what conditions.
 - Time dependence: schedules, expirations, and vesting in the balance itself.
-- More than 7,000 no-code integrations for gating.
-- On-chain verification of every rule and check.
+- Claim plugins and external integrations for off-chain eligibility checks.
+- On-chain verification of configured approval criteria and submitted proofs; off-chain facts still depend on the services attesting to them.
 
 ## Related
 

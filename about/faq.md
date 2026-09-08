@@ -12,7 +12,7 @@ A collection can be created and managed through native transaction messages with
 
 ## How Is Compliance Checked on Every Transfer?
 
-The `collectionApprovals` of a collection are checked on every transfer. They define the collection-wide transferability rules. A transfer that satisfies no collection approval fails. Because the rules live at the collection level, they hold in every application, pool, and IBC transfer. See [Transferability](../token-standard/concepts/transferability.md).
+The `collectionApprovals` of a collection are checked on every transfer. They define the collection-wide transferability rules. A transfer that satisfies no collection approval fails. Applications and pools that execute native token transfers use those checks. Wrapping and cross-chain movement require their own supported paths; a destination chain does not automatically execute BitBadges approval logic. See [Transferability](../token-standard/concepts/transferability.md).
 
 ## Is BitBadges an L1 or an L2?
 
