@@ -29,11 +29,11 @@ In its simplest form BB-402 replicates x402. A soulbound token that costs X USDC
 
 | Use case | How it works |
 | --- | --- |
-| Pay per request | Soulbound token costing X USDC is a verifiable receipt |
+| Paid access | Soulbound token costing X USDC is a reusable receipt; per-request billing also needs consumption or usage accounting |
 | Subscriptions | Time-bounded ownership through `ownershipTimes` |
 | Tiered access | Different token ID ranges are different tiers |
 | Reputation gates | Non-transferable tokens from prior services |
-| Prepaid credits | A fungible token balance |
+| Prepaid credits | A fungible token balance plus consumption or usage accounting |
 | 2FA | A short-lived token that proves a recent action |
 | Milestone access | `$and`: own token A (phase 1) and token B (payment) |
 | Blocklists | Must not own a ban token |

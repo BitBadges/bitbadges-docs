@@ -41,7 +41,7 @@ The MCP builder tools (`add_approval, set_permissions`) produce the objects on t
 
 1. The provider has free mint power: it can mint to anyone, for all time or for a window.
 2. Soulbound: no post-mint transfer approval exists, so tokens cannot move.
-3. Revocable (optional): the provider can burn tokens from users.
+3. Revocable (optional): the provider can transfer tokens out of users' accounts.
 
 You control access by minting and revoking. Everything else is a variation.
 
@@ -53,7 +53,7 @@ BB-402 check: `mustOwnAmounts: { start: '1', end: '1' }` on this collection.
 
 ## Revocable Access Token
 
-The basic pattern plus a second approval that lets the provider move any token back to `Mint` (burn).
+The basic pattern plus a second approval that lets the provider move tokens back to its own account. `Mint` cannot receive tokens, so revocation here removes the user's access without burning supply. This pattern requires `noForcefulPostMintTransfers: false`.
 
 ```ts
 collectionApprovals: [
@@ -72,11 +72,11 @@ collectionApprovals: [
       overridesToIncomingApprovals: true,
     },
   },
-  // Provider can revoke (transfer from anyone back to Mint)
+  // Provider can revoke (transfer from the user back to the provider)
   {
     approvalId: 'provider-revoke',
     fromListId: '!Mint',
-    toListId: 'Mint',
+    toListId: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
     initiatedByListId: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',  // only alice can revoke
     transferTimes: [{ start: 1n, end: 18446744073709551615n }],
     tokenIds: [{ start: 1n, end: 1n }],
@@ -105,7 +105,7 @@ const transfer = {
   balances: [{
     amount: 1n,
     tokenIds: [{ start: 1n, end: 1n }],
-    ownershipTimes: [{ start: now, end: now + sixtySeconds }],
+    ownershipTimes: [{ start: now, end: now + sixtySeconds - 1n }],
   }],
 };
 ```

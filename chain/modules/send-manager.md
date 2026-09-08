@@ -120,7 +120,7 @@ The keeper also exposes `IsICS20Compatible(ctx, denom)` and `StandardName(ctx, d
 
 ## Precompile
 
-From Solidity, call `send(string msgJson) returns (bool success)` on `0x0000000000000000000000000000000000001003` with the JSON above as `msgJson`. The precompile signs as the calling EVM account's bech32 address, so `from_address` must equal that address. See [Send Manager Precompile](../evm/send-manager-precompile.md).
+From Solidity, call `send(string msgJson) returns (bool success)` on `0x0000000000000000000000000000000000001003` with the JSON above as `msgJson`. The precompile signs as the calling EVM account's bech32 address, and overwrites `from_address` with that address. See [Send Manager Precompile](../evm/send-manager-precompile.md).
 
 ## Related
 

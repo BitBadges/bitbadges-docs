@@ -64,7 +64,7 @@ curl https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_balance/
 ## Behavior
 
 - An address with no stored record returns the collection's `defaultBalances`.
-- `Mint` shows what remains mintable; `Total` shows what has been minted.
+- `Mint` returns an empty balance store: its unlimited source balance is handled specially during transfers. It does not report remaining mint allowance. Inspect mint approvals and their trackers for that. `Total` tracks cumulative standard minting; use [GetCollectionStats](get-collection-stats.md) for circulating supply, including backed-path issuance and redemption.
 - For a single token at a single time, [GetBalanceForToken](get-balance-for-token.md) returns one number instead of ranges.
 
 ## Related

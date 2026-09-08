@@ -105,7 +105,7 @@ The chain treats `"!x"` as inverted when the ID does not end with `)`, and `"!(x
 
 ### Mint Handling
 
-`"All"` and any blacklist include `"Mint"`. Because the Mint address has unlimited balance, a `fromListId` that includes it by accident lets anyone mint. Use `"Mint"` for mint approvals and `"!Mint"` or `"AllWithoutMint"` for everything else. See [Minting and Supply](minting-and-supply.md).
+`"All"` includes `"Mint"`; a blacklist includes it unless Mint is explicitly excluded. The chain rejects collection approvals that mix Mint with other senders, and requires a Mint-only approval to override outgoing approvals. Use `"Mint"` for mint approvals and `"!Mint"` or `"AllWithoutMint"` for everything else. See [Minting and Supply](minting-and-supply.md).
 
 ```json
 [

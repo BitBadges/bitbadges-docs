@@ -12,8 +12,8 @@ A transfer moves an amount of token IDs, for a set of ownership times, from one 
 
 1. The sender owns the balance being moved.
 2. A collection approval matches the transfer.
-3. The sender's outgoing approvals match, unless the collection approval overrides them.
-4. The recipient's incoming approvals match, unless the collection approval overrides them.
+3. The sender's outgoing approvals or auto-approval flags allow the transfer, unless the collection approval overrides them.
+4. The recipient's incoming approvals or auto-approval flags allow the transfer, unless the collection approval overrides them.
 
 A complete `Transfer` with the three fields that matter open:
 
@@ -62,14 +62,14 @@ The building blocks:
 | Collection | The on-chain object that holds tokens, metadata, approvals, permissions, and a manager. |
 | Token ID | A number from 1 to `validTokenIds`. Fungible or non-fungible depends only on how many you mint per ID. |
 | Balance | `amount` of `tokenIds` owned during `ownershipTimes`. Ownership can be time-bound. |
-| Mint address | The reserved sender `"Mint"` with unlimited balance. Every mint is a transfer from it. |
+| Mint address | The reserved sender `"Mint"` with unlimited balance. Standard minting is a transfer from it; backed collections issue through their backed path. |
 | Address list | A reusable set of addresses referenced by ID in approvals: `"All"`, `"Mint"`, `"!Mint"`, inline lists, or stored lists. |
 | Approval | A rule that says who can send, who can receive, who can initiate, when, which IDs, which ownership times, plus criteria. |
 | Approval criteria | Extra conditions on an approval: payments, proofs, votes, trackers, overrides, and more. |
 | Permission | A rule that says whether the manager (or a user) can change something, and whether that rule is frozen. |
 | Manager | The address that runs the collection according to its permissions. |
 
-Circulating supply is not a stored number. It is the total that has left the Mint address. Mint approvals plus the permission to update them decide the supply.
+Circulating supply is stored as balance ranges in `CollectionStats.balances`, available through [GetCollectionStats](../queries/get-collection-stats.md). Standard mints increase it; backed-path issuance increases it and redemption decreases it. Mint approvals, their update permissions, and creation-only invariants determine the supply policy.
 
 {% hint style="info" %}
 Ask your agent:

@@ -14,10 +14,10 @@ bb query tokenization approvals-trackers 1 outgoing bb1p0rrel3365scadq5k9pv0x0zp
 ```
 
 ```bash
-curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_approvals_tracker/1/outgoing/bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d/sell-token-5-to-bob/overall/"
+curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_approvals_tracker/1/outgoing/bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d/sell-token-5-to-bob/overall/?approvalId=sell-token-5-to-bob"
 ```
 
-The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{amountTrackerId}/{trackerType}/{approvedAddress}`. Empty segments stay empty; a collection-level tracker produces `//` after the level.
+The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{amountTrackerId}/{trackerType}/{approvedAddress}`. `approvalId` is passed separately as a query parameter. Empty segments stay empty; a collection-level tracker produces `//` after the level.
 
 ## Request
 
@@ -58,7 +58,7 @@ The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{amount
 ## Behavior
 
 - A tracker that has never been incremented returns an `invalid request` error rather than zeros.
-- Trackers reset when the approval's `resetTimeIntervals` say so; the stored values reflect the current interval.
+- This query returns stored values without applying periodic resets. A reset is applied on the next qualifying transfer, so check `lastUpdatedAt` and the approval's `resetTimeIntervals` before interpreting the tally as current-period usage.
 
 ## Related
 

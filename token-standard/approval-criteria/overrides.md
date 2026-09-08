@@ -157,7 +157,7 @@ The MCP builder tools (`add_approval`) produce the objects on this page.
 
 When the matched collection approval sets an override, the chain skips that user-level check entirely. The transfer then executes without the sender's or recipient's consent. Uses:
 
-- Freeze: a collection approval with overrides is the only path, and it matches nothing.
+- Freeze transfers by removing or restricting collection approvals. This does not require either override flag.
 - Revoke: the manager (or a list of initiators) can move tokens out of any address.
 - Forced distribution: send to addresses that block incoming transfers.
 
