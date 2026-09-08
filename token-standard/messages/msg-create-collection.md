@@ -4,7 +4,7 @@ description: "MsgCreateCollection creates a new collection. The only message tha
 
 # MsgCreateCollection
 
-Creates a new collection. Anyone can sign it. The signer becomes the manager unless `manager` names another address.
+Creates a new collection. Anyone can sign it. Set `manager` explicitly to the address that should manage the collection. An empty or omitted manager creates a collection with no manager.
 
 ## Example
 
@@ -594,11 +594,11 @@ Create an NFT collection called Demo NFTs with 100 tokens, mint them all to me, 
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `creator` | string | yes | Signer. Recorded as `createdBy` and used as the default manager. |
+| `creator` | string | yes | Signer. Recorded as `createdBy`. Set `manager` to this address explicitly if the signer should manage the collection. |
 | `defaultBalances` | `UserBalanceStore` | no | Starting balances, approvals, auto-approve flags, and permissions for every address. Settable only at creation. |
 | `validTokenIds` | `UintRange[]` | no | Token IDs that exist. Must merge to one range that starts at 1. |
 | `collectionPermissions` | `CollectionPermissions` | no | Manager permissions. Empty arrays mean neutral (allowed now, lockable later). |
-| `manager` | string | no | Manager address. Empty keeps the default (the creator). |
+| `manager` | string | no | Manager address. Empty or omitted means no manager; it does not default to the creator. |
 | `collectionMetadata` | `CollectionMetadata` | no | `uri` and `customData` for the collection. |
 | `tokenMetadata` | `TokenMetadata[]` | no | `uri`, `customData`, and `tokenIds` per metadata entry. |
 | `customData` | string | no | Arbitrary string. |

@@ -95,20 +95,24 @@ Subtracting a slice can split one `Balance` into several. Removing "1x of IDs 1-
 
 ### Duplicates Add
 
-Overlapping ranges inside one `Balance` are summed, not deduplicated:
+Overlapping entries in a `Balance[]` are added together. Within a single `Balance`, the `tokenIds` ranges must not overlap each other, and neither may the `ownershipTimes` ranges. For example, these two valid entries add:
 
 ```json
-{
-  "amount": "1",
-  "tokenIds": [
-    { "start": "1", "end": "10" },
-    { "start": "1", "end": "10" }
-  ],
-  "ownershipTimes": [{ "start": "100", "end": "200" }]
-}
+[
+  {
+    "amount": "1",
+    "tokenIds": [{ "start": "1", "end": "10" }],
+    "ownershipTimes": [{ "start": "100", "end": "200" }]
+  },
+  {
+    "amount": "1",
+    "tokenIds": [{ "start": "1", "end": "10" }],
+    "ownershipTimes": [{ "start": "100", "end": "200" }]
+  }
+]
 ```
 
-is the same as:
+Their combined balance is:
 
 ```json
 {

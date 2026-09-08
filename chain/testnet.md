@@ -7,16 +7,16 @@ description: "Testnet status (offline since 2026-04-25), how to test on mainnet 
 The BitBadges testnet (`bitbadges-2`) is offline. This page records its status, the recommended substitute, and the endpoint and faucet shapes so they are ready when it returns.
 
 {% hint style="warning" %}
-Testnet has been offline since 2026-04-25 to reduce hosting costs while usage was minimal. Every testnet URL below returns an error (503 or connection refused as of 2026-09-06), and the SDK's `NETWORK_CONFIGS.testnet` is marked `disabled: true`. To ask for a relaunch, [contact the team](https://bitbadges.io/contact).
+Testnet has been offline since 2026-04-25 to reduce hosting costs while usage was minimal. Read-only checks on 2026-09-07 found DNS failures for the RPC, LCD, and EVM RPC hosts, HTTP 403 for the site, and HTTP 503 for the testnet API, and the SDK's `NETWORK_CONFIGS.testnet` is marked `disabled: true`. To ask for a relaunch, [contact the team](https://bitbadges.io/contact).
 {% endhint %}
 
 ## Test on Mainnet Instead
 
-Mainnet operates as a chaosnet: fully live, but safe to experiment on.
+Mainnet operates as a chaosnet: fully live, with experiments recorded on the same network as production assets.
 
-- Gas fees can be set to zero while activity is low.
+- The public EVM RPC returned `eth_gasPrice: 0` on 2026-09-07. Query current fees before transacting; this is not a permanent zero-fee guarantee.
 - Transact with worthless assets such as `CHAOS` (`badges:49:chaosnet`) instead of real-value coins.
-- Contracts, transactions, and integrations run against the real network at no real cost. Pick your assets accordingly.
+- Contracts, transactions, and integrations run against the real network. Use dedicated accounts and test assets; state changes and any configured payments are real.
 
 Every example in these docs targets mainnet. See [Network](README.md) for endpoints and [Supported Denoms](supported-denoms.md) for `CHAOS`.
 

@@ -26,9 +26,7 @@ Gets the token IDs to be transferred for a given transfer with increments.
 
 [`UintRangeArray`](/sdk/reference/classes/uint-range-array)\<`T`\>
 
-## Example
+## Remarks
 
-```ts
-For a transfer with balances: [{ tokenIds: [{ start: 1n, end: 1n }], amount: 1n }], incrementIdsBy: 1n, toAddressesLength: 1000
-We return { tokenIds: [{ start: 1n, end: 1000n }] because we increment the tokenIds by 1 each time.
-```
+For a transfer with balances: [{ tokenIds: [{ start: 1n, end: 1n }], amount: 1n }], incrementTokenIdsBy: 1n, toAddressesLength: 1000
+We return the range [{ start: 1n, end: 1000n }] because we increment the tokenIds by 1 each time.

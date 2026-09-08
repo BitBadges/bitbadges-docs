@@ -201,7 +201,7 @@ The `use*NumTransfers` methods read the same tracker as [`maxNumTransfers`](appr
 Between signing and execution, other users' transfers can move the counter, so hand-computed balances go stale. Instead, ask the chain to compute them at execution time with `precalculateBalancesFromApproval` on the transfer:
 
 ```ts
-{
+type TransferPrecalculation = {
   precalculateBalancesFromApproval: {
     approvalId: string;
     approvalLevel: 'collection' | 'incoming' | 'outgoing';
@@ -209,7 +209,7 @@ Between signing and execution, other users' transfers can move the counter, so h
     version: string;         // must match the approval's version
     precalculationOptions: {
       overrideTimestamp: string;      // when allowOverrideTimestamp
-      tokenIdsOverride: UintRange[];  // when allowOverrideWithAnyValidToken
+      tokenIdsOverride: { start: string; end: string }[];  // when allowOverrideWithAnyValidToken
       scalingMultiplier: string;      // when allowAmountScaling
     }
   }

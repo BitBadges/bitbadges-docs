@@ -8,6 +8,8 @@ Paginated routes return a `bookmark` and `hasMore`. Pass the bookmark back to ge
 
 See the [API reference](/api-reference) for every route's request and response schema.
 
+The TypeScript snippets use the configured `BitBadgesApi` client from the [API setup example](README.md#example).
+
 ## Example
 
 ```bash
@@ -29,6 +31,7 @@ const res = await BitBadgesApi.getCollections({
 });
 
 const collection = res.collections[0];
+if (!collection) throw new Error('Collection not found');
 const page1 = collection.getOwnersView('owners');
 
 // Next page
@@ -120,7 +123,7 @@ The `views` object is planned for deprecation in favor of dedicated per-view rou
 Collections and accounts carry a `views` map keyed by `viewId`:
 
 ```ts
-views: {
+type Views = {
   [viewId: string]: {
     ids: string[];        // document IDs in this page
     type: string;         // the view type
@@ -142,9 +145,9 @@ views: {
 Documents live in the response array for their type (`activity`, `owners`, and so on). Map `ids` to documents by `_docId`:
 
 ```ts
-getActivityView(viewId: string) {
-  return this.views[viewId]?.ids.map((x) => this.activity.find((y) => y._docId === x)) ?? [];
-}
+const activity = collection.views['activity']?.ids.map(
+  (id) => collection.activity.find((entry) => entry._docId === id)
+) ?? [];
 ```
 
 ### View Types

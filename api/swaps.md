@@ -10,7 +10,7 @@ See the [API reference](/api-reference) for every route's request and response s
 
 ## Example
 
-Swap 1 BADGE (`1000000ubadge`) for USDC (denom `ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8`) from bob's address:
+Swap 0.001 BADGE (`1000000ubadge`; 1 BADGE = 1,000,000,000 ubadge) for USDC (denom `ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8`) from bob's address:
 
 ```bash
 curl -X POST https://api.bitbadges.io/api/v0/swap/estimate \
@@ -24,6 +24,9 @@ curl -X POST https://api.bitbadges.io/api/v0/swap/estimate \
 ```
 
 ```ts
+import { BitBadgesAPI, BigIntify } from 'bitbadges';
+
+const BitBadgesApi = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
 const res = await BitBadgesApi.estimateSwap({
   tokenIn: 'amount:1000000,denom:ubadge', // or '1000000ubadge'
   tokenOutDenom: 'ibc/E1116484B327AEE59CDC3DA73D319834781A13DB2A7DFC1F38A30CD45ABF58B8',

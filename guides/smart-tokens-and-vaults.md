@@ -518,7 +518,7 @@ Alias path. `symbol` on the path is the base unit; `denomUnits` lists display un
 
 Every metadata field on the chain (collection, token, alias path, denom unit) is `{ uri, customData }` and nothing else. The examples above use hosted URIs. The builder tools use placeholder URIs (`ipfs://METADATA_COLLECTION`, `ipfs://METADATA_TOKEN_<id>`, `ipfs://METADATA_ALIAS_<denom>`, `ipfs://METADATA_ALIAS_<denom>_UNIT`) and registers the real name, description, and image in a `metadataPlaceholders` sidecar keyed by those URIs; after deploy the auto-apply flow uploads the JSON and substitutes real URIs. Write real user-facing descriptions for each approval, not labels like "Backing Approval".
 
-To wrap a native Cosmos SDK coin (not an IBC coin) alongside, add `cosmosCoinWrapperPathsToAdd` with `allowSpecialWrapping: true` on its approvals; see [Wrap to an IBC Denom](wrap-to-an-ibc-denom.md).
+To back the collection with a native Cosmos SDK coin such as `ubadge`, use that denom in the same `cosmosCoinBackedPath`. A separate `cosmosCoinWrapperPathsToAdd` entry creates a new bank denom from the collection's tokens; it does not provide reserves of an existing coin. See [Wrap to an IBC Denom](wrap-to-an-ibc-denom.md).
 
 ```json
 {
@@ -559,15 +559,15 @@ To wrap a native Cosmos SDK coin (not an IBC coin) alongside, add `cosmosCoinWra
 
 ## 2. Add Withdrawal Rules
 
-Rules live in the unbacking approval's criteria. The chain enforces them; an agent cannot bypass them whatever code it runs.
+Rules live in the unbacking approval's criteria. The chain enforces them for withdrawals through this collection. Once withdrawn, the released bank coins are in the agent's wallet and these vault rules no longer restrict where it sends them. Check every matching withdrawal approval and lock the relevant permissions if the manager must not change the limits.
 
 | Rule | Criteria |
 | --- | --- |
 | Daily spending limit | `approvalAmounts` with `resetTimeIntervals` |
-| Recipient allowlist | `toListId` pointing to an address list |
+| Withdrawal initiator allowlist | `initiatedByListId` restricted to approved agents; `toListId` must remain the backing address |
 | Transaction rate limit | `maxNumTransfers` with `resetTimeIntervals` |
 | 2FA or human approval above a threshold | `mustOwnTokens` on a 2FA collection, or ETH signature challenges |
-| Emergency freeze | a locked `canUpdateCollectionApprovals` permission |
+| Emergency freeze | Retain narrowly scoped approval-update permission and submit an update that disables withdrawals; locking the permission prevents that update |
 
 Daily limit of 1 USDC (1,000,000 base units) per sender, resetting every 24 hours (`"86400000"` ms). For a total cap instead, use `overallApprovalAmount` with `intervalLength: "0"`. `amountTrackerId` must be unique per approval. The unbacking approval of a USDC vault with that rule (backing address `bb1xx5h3l85tnxgj07vef2cjtqzpg2qc9jt52z2q0lptjasajez3cgs5hklra`):
 

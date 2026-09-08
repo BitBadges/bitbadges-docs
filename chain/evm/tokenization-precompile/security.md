@@ -19,16 +19,16 @@ if err := VerifyCaller(caller); err != nil {
 ### Caller Verification
 
 - `contract.Caller()` is the address that made the call. The EVM sets it; a contract cannot forge it.
-- The caller becomes the `creator` (or `from`) on every message. Any `creator` in the JSON is overwritten.
+- The caller becomes the `creator` on tokenization messages. A transfer's `from` remains the requested sender and is subject to approvals. Any `creator` in the JSON is overwritten.
 - A zero-address caller is rejected by `VerifyCaller` with error code 8.
 
 The caller is the immediate caller, not the transaction origin. See [Developer Guide](../developer-guide.md#precompile-caller).
 
 ### Reentrancy
 
-- The EVM call stack prevents reentrancy into the precompile.
-- Cosmos SDK state changes are atomic within the transaction.
-- The precompile makes no external calls during state transitions.
+- Transaction atomicity rolls back failed state changes; it is not a reentrancy guard.
+- Approval criteria and collection invariants can invoke EVM contracts through [EVM query challenges](../../../token-standard/approval-criteria/evm-query-challenges.md). Review these callbacks when reasoning about a transfer's call graph.
+- Contracts must protect their own state around external calls, using checks-effects-interactions and a reentrancy guard where needed. The EVM call stack does not provide this protection automatically. See [Solidity's reentrancy guidance](https://docs.solidity.org/en/latest/security-considerations.html#reentrancy).
 
 ### Overflow
 
@@ -101,7 +101,7 @@ Input size also adds gas (`GasPerInputChunk`) on `executeMultiple`, `searchInRan
 
 | Threat | Protection |
 | --- | --- |
-| Reentrancy | EVM call stack, atomic transactions, no external calls mid-transition |
+| Reentrancy | Review EVM query callbacks and protect application state around external calls; atomicity alone is insufficient |
 | Integer overflow | `CheckOverflow`, range validation, `sdkmath.Uint` arithmetic |
 | Invalid input | Validation of every field before the keeper call |
 | DoS through large inputs | Array size limits, input-size gas |

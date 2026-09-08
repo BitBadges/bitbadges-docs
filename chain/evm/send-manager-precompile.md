@@ -4,7 +4,7 @@ description: "The send manager precompile at 0x000000000000000000000000000000000
 
 # Send Manager Precompile
 
-The send manager precompile lets a Solidity contract send native Cosmos coins, including alias denoms such as `badgeslp:...`, without ERC20 wrapping. Address: `0x0000000000000000000000000000000000001003`. All accounting stays in `x/bank`.
+The send manager precompile lets a Solidity contract send native Cosmos coins, including alias denoms such as `badgeslp:...`, without ERC20 wrapping. Address: `0x0000000000000000000000000000000000001003`. Standard coin accounting stays in `x/bank`; alias denom balances stay in `x/tokenization`.
 
 ## Example
 

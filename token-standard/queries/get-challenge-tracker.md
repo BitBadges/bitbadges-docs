@@ -14,10 +14,10 @@ bb query tokenization num-used-for-merkle-challenge 1 collection "" claim claim_
 ```
 
 ```bash
-curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_challenge_tracker/1/collection//claim_demo_01/42"
+curl "https://lcd.bitbadges.io/bitbadges/bitbadgeschain/tokenization/get_challenge_tracker/1/collection//claim_demo_01/42?approvalId=claim"
 ```
 
-The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{challengeTrackerId}/{leafIndex}`. It does not include `approvalId`; the gRPC request does.
+The REST path order is `{collectionId}/{approvalLevel}/{approverAddress}/{challengeTrackerId}/{leafIndex}`. Pass `approvalId` as a query parameter; it is part of the tracker key even though it is absent from the REST path.
 
 ## Request
 

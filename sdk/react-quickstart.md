@@ -1,12 +1,12 @@
 ---
-description: "Wire BitBadges into a React or Next.js app in four steps, install, connect a wallet, query a collection, sign and broadcast."
+description: "Wire BitBadges into a React or Next.js app: install, connect a wallet, query a collection, and sign and broadcast."
 ---
 
 # React Quickstart
 
 At the end you have a Next.js page that connects Keplr or MetaMask, shows a collection name, and sends a token transfer on mainnet.
 
-Assumptions: Next.js 14 or newer with the App Router. Plain React (Vite) works the same; only the `'use client'` directive is Next.js specific. Pages Router users render the same components inside `_app.tsx`. Examples use mainnet (`bitbadges-1`, EVM chain `50024`). Testnet is offline; see [Testnet](../chain/testnet.md).
+Assumptions: Next.js 14 or newer with the App Router. The components also work in plain React or the Pages Router, but the server handlers below need equivalent backend routes in those apps. The `'use client'` directive is specific to the App Router. Examples use mainnet (`bitbadges-1`, EVM chain `50024`). Testnet is offline; see [Testnet](../chain/testnet.md).
 
 ## 1. Install
 
@@ -83,18 +83,26 @@ The same user gets a different address from each adapter (Cosmos derivation vs E
 'use client';
 
 import { useEffect, useState } from 'react';
-import { BitBadgesAPI, BigIntify } from 'bitbadges';
-
-const api = new BitBadgesAPI({
-  convertFunction: BigIntify,
-  apiKey: process.env.NEXT_PUBLIC_BITBADGES_API_KEY // read-only key from bitbadges.io/developer
-});
 
 export function CollectionInfo({ collectionId }: { collectionId: string }) {
   const [name, setName] = useState('');
 
   useEffect(() => {
-    api.getCollection(collectionId).then((res) => setName(res.metadata.name || 'Untitled'));
+    let cancelled = false;
+    fetch(`/api/collection?collectionId=${encodeURIComponent(collectionId)}`)
+      .then(async (response) => {
+        if (!response.ok) throw new Error('Collection lookup failed');
+        return response.json();
+      })
+      .then((data) => {
+        if (!cancelled) setName(data.name || 'Untitled');
+      })
+      .catch(() => {
+        if (!cancelled) setName('Unable to load collection');
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [collectionId]);
 
   return (
@@ -105,7 +113,32 @@ export function CollectionInfo({ collectionId }: { collectionId: string }) {
 }
 ```
 
-`BitBadgesAPI` needs no wallet. `NEXT_PUBLIC_*` variables reach the browser, so only expose a read-only key there. Keep keys with write scopes on your server and call your own route from the client.
+Keep the API key on your server. API keys identify the credit-paying account; user authorization scopes belong to separate access tokens. There is no read-only API-key scope to make a public key safe from credit consumption. Set `BITBADGES_API_KEY` in your server environment and add this App Router handler:
+
+```ts
+// app/api/collection/route.ts
+import { BitBadgesAPI, BigIntify } from 'bitbadges';
+
+const api = new BitBadgesAPI({
+  convertFunction: BigIntify,
+  apiKey: process.env.BITBADGES_API_KEY
+});
+
+export async function GET(request: Request) {
+  const collectionId = new URL(request.url).searchParams.get('collectionId');
+  if (!collectionId || !/^[1-9]\d*$/.test(collectionId)) {
+    return Response.json({ error: 'Invalid collection ID' }, { status: 400 });
+  }
+  try {
+    const { metadata } = await api.getCollection(collectionId);
+    return Response.json({ name: metadata.name });
+  } catch {
+    return Response.json({ error: 'Collection lookup failed' }, { status: 502 });
+  }
+}
+```
+
+`BitBadgesAPI` needs no wallet. Plain React apps need an equivalent backend route. Apply your app's authentication or rate limiting to this route before exposing it publicly, since requests consume your API credits.
 
 ## 5. Sign and Broadcast
 
@@ -120,7 +153,11 @@ export function TransferButton({ adapter }: { adapter: WalletAdapter }) {
   const [txHash, setTxHash] = useState('');
 
   async function send() {
-    const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
+    const client = new BitBadgesSigningClient({
+      adapter,
+      network: 'mainnet',
+      apiUrl: window.location.origin // Cosmos simulate/broadcast use the server route below
+    });
 
     const msg = new MsgTransferTokens({
       creator: client.address,
@@ -154,7 +191,34 @@ export function TransferButton({ adapter }: { adapter: WalletAdapter }) {
 }
 ```
 
-The client estimates gas, tracks the sequence, and retries on mismatch. It routes through EVM precompiles when the adapter is an EVM adapter. If you only need wallet identity and not transactions, use [Sign In with BitBadges](../api/sign-in/README.md) instead.
+Cosmos signing needs the API's simulation and broadcast routes. Forward those two operations through your server so the API key stays private:
+
+```ts
+// app/api/v0/[operation]/route.ts
+import { BitBadgesAPI, BigIntify } from 'bitbadges';
+
+const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
+
+export async function POST(request: Request) {
+  const operation = new URL(request.url).pathname.split('/').pop();
+  if (operation !== 'simulate' && operation !== 'broadcast') {
+    return Response.json({ error: 'Unknown operation' }, { status: 404 });
+  }
+  try {
+    const body = await request.json();
+    if (typeof body?.tx_bytes !== 'string') {
+      return Response.json({ error: 'Expected encoded transaction bytes' }, { status: 400 });
+    }
+    const payload = { tx_bytes: body.tx_bytes, mode: 'BROADCAST_MODE_SYNC' };
+    const result = operation === 'simulate' ? await api.simulateTx(payload) : await api.broadcastTx(payload);
+    return Response.json(result);
+  } catch {
+    return Response.json({ error: 'Transaction request failed' }, { status: 502 });
+  }
+}
+```
+
+Apply the same app authentication or rate limiting as on the collection route. The server forwards transaction bytes; the wallet signs them in the browser. The client estimates gas, tracks the sequence, and retries on mismatch. EVM adapters send through the EVM RPC instead. The sender must hold the chosen token and satisfy the collection and user approvals; replace collection `1` with a collection you can transfer. If you only need wallet identity, use [Sign In with BitBadges](../api/sign-in/README.md).
 
 ## 6. Put It Together
 

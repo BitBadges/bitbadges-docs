@@ -32,11 +32,11 @@ const signTxn = async (context: TxContext, payload: TransactionPayload, msgs: an
         // string the API returned. Never `Number()` it, and never `new Long(n)` from a JS number.
         accountNumber: BigInt(String(sender.accountNumber)) as any
       },
-      { preferNoSetFee: true }
+      { preferNoSetFee: true, preferNoSetMemo: true }
     );
     if (!signResponse) throw new Error('No signature returned from Keplr');
 
-    hexSig = Buffer.from(signResponse.signature.signature, 'base64').toString('hex');
+    hexSig = Array.from(atob(signResponse.signature.signature), (char) => char.charCodeAt(0).toString(16).padStart(2, '0')).join('');
   }
 
   return createTxBroadcastBody(context, msgs, hexSig);
@@ -70,11 +70,11 @@ const txContext: TxContext = {
   memo: ''
 };
 
-const payload = createTransactionPayload(txContext, msgs);
+const payload = createTransactionPayload(txContext, msgs.map((msg) => msg.toProto()));
 const simBody = await signTxn(txContext, payload, msgs, true);
 const sim = await api.simulateTx(simBody);
 txContext.fee.gas = String(Math.ceil(Number(sim.gas_info.gas_used) * 1.3));
-const txBody = await signTxn(txContext, createTransactionPayload(txContext, msgs), msgs, false);
+const txBody = await signTxn(txContext, createTransactionPayload(txContext, msgs.map((msg) => msg.toProto())), msgs, false);
 const res = await api.broadcastTx(txBody);
 console.log(res.tx_response.txhash);
 ```
@@ -83,8 +83,8 @@ console.log(res.tx_response.txhash);
 
 - `payload.signDirect.body` and `.authInfo` are protobuf classes. `toBinary()` gives the bytes Keplr expects.
 - `accountNumber` in the sign doc must be the exact chain value. Keplr's type for this field is a `Long`; if your Keplr typings reject a bigint, use `Long.fromString(String(sender.accountNumber), true)` from the `long` package. Never construct it from a JS `number`.
-- `preferNoSetFee: true` stops Keplr from replacing the fee you computed in `txContext.fee`.
-- `createTxBroadcastBody(txContext, messages, hexSignature)` returns `{ tx_bytes, mode }`, the body both `simulateTx` and `broadcastTx` accept. It throws when `sender` or `sender.publicKey` is missing, since a Cosmos signature needs the public key in `authInfo`.
+- `preferNoSetFee: true` and `preferNoSetMemo: true` ask Keplr to preserve the fee and memo used to build the payload. If your wallet changes the returned signed bytes, broadcast those bytes instead of rebuilding the original payload.
+- `createTxBroadcastBody(txContext, messages, hexSignature)` returns a JSON string encoding `{ tx_bytes, mode }`. Both `simulateTx` and `broadcastTx` accept that string directly; use `JSON.parse` if you need to inspect its fields. It throws when `sender` or `sender.publicKey` is missing, since a Cosmos signature needs the public key in `authInfo`.
 - Leap and Cosmostation expose the same `signDirect` shape. `GenericCosmosAdapter.fromBrowserWallet(wallet, chainId)` wraps any such provider if you want the signing client instead.
 - Server-side keys: `GenericCosmosAdapter.fromMnemonic` or `fromPrivateKey` sign the sha256 of the `SignDoc` bytes with secp256k1. `payload.signDirect.signBytes` is keccak256-hashed for ethermint compatibility, so do not sign that field with a plain Cosmos key.
 

@@ -36,7 +36,7 @@ ERC-20, ERC-721, CW-20, ICS-20, `x/bank`, `x/tokenfactory`, and `x/nft` cover ma
 
 ### Universality
 
-One standard for NFTs, fungible tokens, subscriptions, quests, credentials, real-world assets, and regulatory compliance. The standard is a superset of the existing ones, so a token can be used compatibly where a simpler standard is expected.
+One standard for NFTs, fungible tokens, subscriptions, quests, credentials, real-world assets, and regulatory compliance. Adapters and wrappers can expose simpler interfaces, but compatibility requires an explicit mapping of balances, ownership times, and transfer rules.
 
 ### A Module, Not Contracts
 
@@ -50,7 +50,7 @@ Features are added to the module as the need appears, without accruing technical
 
 BitBadges is Cosmos native with IBC at the core:
 
-1. Any token wraps to an ICS-20 or ICS-721 denom for use on any IBC-enabled chain.
+1. A configured [Cosmos coin wrapper path](../token-standard/ibc/cosmos-coin-wrapper-paths.md) exposes tokens as an ICS-20-compatible bank denom for supported IBC routes.
 2. Payments, subscriptions, swaps, and liquidity can use any IBC denom.
 3. The module is IBC-enabled, so core messages can run over IBC, including one-signature multi-hop transfers.
 
@@ -72,7 +72,7 @@ Every balance carries ownership times, down to the millisecond. A balance is an 
 2. Outgoing approvals. Each sender sets rules for transfers out (for example listings).
 3. Incoming approvals. Each recipient sets rules for transfers in (for example bids).
 
-A transfer succeeds only if the sender has the balance, a collection-level approval matches, and the outgoing and incoming approvals match (unless the collection approval overrides them). The same checks run on swaps, in liquidity pools, and on IBC transfers, so compliance holds regardless of the application.
+A transfer succeeds only if the sender has the balance, a collection-level approval matches, and the outgoing and incoming approvals match (unless the collection approval overrides them). Swaps and pools that execute native token transfers use the same checks. Wrapping and IBC routes must be configured explicitly; a bank-denom representation on another chain does not automatically run BitBadges approval logic.
 
 ### Approval Criteria
 
@@ -80,7 +80,7 @@ Every approval, on every level, can specify who can send, who can receive, who c
 
 ### Off-Chain Criteria
 
-An oracle-like path lets a service check off-chain criteria and hand the user a signed code to redeem on-chain. BitBadges runs one such service with no-code plugins for more than 7,000 apps: Discord membership, X followers, email, passwords and claim codes, private off-chain data, AI agents, and custom endpoints. Anyone can run their own criteria service to remove the trust assumption on BitBadges. See [Distribute with Claims](../guides/distribute-with-claims.md).
+An oracle-like path lets a service check off-chain criteria and hand the user a signed code to redeem on-chain. BitBadges runs one such service with plugins and external integrations for criteria such as Discord membership, X followers, email, passwords and claim codes, private off-chain data, AI agents, and custom endpoints. A custom criteria service moves the off-chain evaluation trust to that service; the chain verifies the configured proof, not the underlying off-chain fact. See [Distribute with Claims](../guides/distribute-with-claims.md).
 
 ### Manager Permissions
 

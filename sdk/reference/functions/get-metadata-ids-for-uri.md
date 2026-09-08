@@ -39,16 +39,21 @@ from the API.
 ## Examples
 
 ```ts
-import { getMetadataIdsForUri } from 'bitbadges'
-const collection: BitBadgesCollection<bigint> = { ... }
-const uri = 'https://bitbadges.io/collection/1/badge/1'
-const metadataIds = getMetadataIdsForUri(uri, collection.getTokenMetadataTimelineValue())
+import { getMetadataIdsForUri, TokenMetadata } from 'bitbadges';
+const tokenMetadata = [
+  new TokenMetadata<bigint>({
+    uri: 'https://example.com/{id}.json',
+    customData: '',
+    tokenIds: [{ start: 100n, end: 102n }]
+  })
+];
+const result = getMetadataIdsForUri('https://example.com/101.json', tokenMetadata);
+console.log(result); // [2n]
 ```
 
 This can also be used with the BitBadges collection interface
 ```ts
-import { BitBadgesCollection } from 'bitbadges'
-const collection: BitBadgesCollection<bigint> = { ... }
-const uri = 'https://bitbadges.io/collection/1/badge/1'
-const metadataIds = collection.getMetadataIdsForUri(uri)
+import { getMetadataIdsForUri, type BitBadgesCollection } from 'bitbadges';
+declare const collection: BitBadgesCollection<bigint>; // fetched through BitBadgesAPI
+const result = getMetadataIdsForUri('https://example.com/101.json', collection.getTokenMetadata());
 ```

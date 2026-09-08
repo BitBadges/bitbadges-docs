@@ -4,7 +4,7 @@ description: "The reserved Mint address, how circulating supply is defined, and 
 
 # Minting and Supply
 
-Every mint is a transfer from the reserved `"Mint"` address. Circulating supply is whatever has left that address, so mint approvals and the permission to change them are the supply policy.
+Standard minting is a transfer from the reserved `"Mint"` address. Mint approvals, their update permissions, and collection invariants determine the supply policy. [Backed collections](../ibc/backed-minting.md) issue tokens through their backed path instead of Mint.
 
 ## Shape
 
@@ -191,7 +191,7 @@ A complete mint approval. `fromListId` and the required override are open:
 | --- | --- |
 | `"Mint"` | Reserved sender with unlimited balance of every token ID. Cannot receive tokens. |
 | mint approval | A collection approval with `fromListId: "Mint"`. |
-| circulating supply | Cumulative total transferred out of `"Mint"`. Not a stored field. |
+| circulating supply | Stored in `CollectionStats.balances` as token ID and ownership-time ranges. Mints increase it; backed-path issuance and redemption add and subtract respectively. See [GetCollectionStats](../queries/get-collection-stats.md). |
 | `mintEscrowAddress` | A generated `bb1` address that holds `x/bank` coins on behalf of `"Mint"`. |
 
 {% hint style="info" %}
@@ -436,11 +436,11 @@ A complete `MsgUniversalUpdateCollection` that keeps one mint approval and forbi
 }
 ```
 
-To lock minting, forbid updates to every Mint approval forever. The current approvals then freeze.
+To freeze the minting rules, forbid updates to every Mint approval forever. The current approvals remain usable within their existing limits; freezing them does not itself stop minting.
 
 ### Two Supply Strategies
 
-**Mint at genesis, then lock.** Create the collection with a mint approval, mint everything you will ever need to yourself with `MsgTransferTokens`, then forbid mint approval updates. Result: fixed supply. Distribution is then governed by post-mint approvals.
+**Mint once, then close minting.** Create the collection with a mint approval and mint the intended supply with `MsgTransferTokens`. Then remove every mint approval and permanently forbid changes to all Mint approval tuples, preserving the post-mint approvals. Perform the mint and closing update in one multi-message transaction where possible. Freezing an unlimited mint approval would leave minting unlimited. Distribution is then governed by post-mint approvals.
 
 **Keep Mint as an escrow.** Create the collection with mint approvals and keep the permission to edit them. Result: elastic supply. Current approvals bound what can be minted now; the manager can widen them later.
 

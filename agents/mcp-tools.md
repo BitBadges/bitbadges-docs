@@ -128,7 +128,7 @@ Each tool sets one field on a session-scoped transaction. Calls in the same roun
 | --- | --- | --- |
 | `set_standards` | Set the collection's standards array, which selects the site's dedicated views | `standards*` (array, e.g. `["Subscriptions"]`, `["NFTs"]`, `["Smart Token"]`) |
 | `set_valid_token_ids` | Set which token ID ranges exist. Fungible tokens and subscriptions use one ID; NFTs use a range | `tokenIds*` (array of ranges) |
-| `set_default_balances` | Set default balances for all users. Almost always empty balances with every auto-approve flag true. `autoApproveAllIncomingTransfers` must be true for any collection with mint approvals | `defaultBalances*` (object) |
+| `set_default_balances` | Set default balances for all users. Almost always empty balances with every auto-approve flag true. Mint recipients need a matching incoming approval, an auto-approve flag, or an explicit collection-level override | `defaultBalances*` (object) |
 | `set_permissions` | Set collection permissions from a preset or a custom object. Fields are frozen (`permanentlyForbiddenTimes: FOREVER`) or neutral (`[]`) | `preset` (`fully-immutable`, `manager-controlled`, `locked-approvals` default), `permissions` (object, overrides preset) |
 | `set_invariants` | Set on-chain invariants. They cannot be removed after creation | `invariants*` (object or null; keys `noCustomOwnershipTimes`, `maxSupplyPerId`, `cosmosCoinBackedPath`) |
 | `set_manager` | Set the manager address. Defaults to the creator | `manager*` |

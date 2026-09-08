@@ -47,7 +47,7 @@ bun install -g bitbadges     # or: npm install -g bitbadges
 bitbadges-cli --help
 ```
 
-The npm package `bitbadges` ships three bins: `bitbadges` and `bitbadges-cli` (the CLI, same file) and `bitbadges-builder` (the MCP builder tools server, see [Set Up Your AI](../agents/setup.md)). Every `bb <verb>` example on these pages runs as `bitbadges-cli <verb>` with this install.
+The npm package `bitbadges` ships three bins: `bitbadges` and `bitbadges-cli` (the CLI, same file) and `bitbadges-builder` (the MCP builder tools server, see [Set Up Your AI](../agents/setup.md)). SDK-owned commands such as `bb build` and `bb api` run as `bitbadges-cli build` and `bitbadges-cli api`. Native chain commands such as `query`, `keys`, and `sign-arbitrary` still require `bitbadgeschaind`; the SDK-only install does not provide them.
 
 ### Chain Binary from Source
 

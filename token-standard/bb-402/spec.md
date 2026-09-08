@@ -115,7 +115,7 @@ AccessCondition = { "$and": AccessCondition[] }
 | `chain` | `string` | yes | `"BitBadges"`, `"Ethereum"`, `"Polygon"`, `"Solana"` |
 | `collectionId` | `string` | yes | Collection or contract identifier |
 | `tokenIds` | `Range[]` | yes | Token ID ranges `{ "start": string, "end": string }`, inclusive |
-| `ownershipTimes` | `Range[]` | no | Time ranges (Unix ms) during which ownership must hold. BitBadges-specific: the chain tracks ownership across time, so a server can ask "did this address own token X during March 2026?". Not supported on Ethereum, Polygon, or Solana; omit it there. When omitted or empty, the check is "owns at time of request", which works on every chain. Most use cases leave it empty. |
+| `ownershipTimes` | `Range[]` | no | Time ranges (Unix ms) during which ownership must hold. BitBadges-specific: the chain tracks ownership across time, so a server can ask whether the address currently holds ownership rights covering March 2026. This is not a historical snapshot of who held the token then. Not supported on Ethereum, Polygon, or Solana; omit it there. When omitted or empty, the check is "owns at time of request", which works on every chain. Most use cases leave it empty. |
 | `mustOwnAmounts` | `Range` | yes | Quantity range, inclusive. `{1, 1}` is exactly one. `{0, 0}` is must not own. |
 
 ### Example: Compound Condition
@@ -153,7 +153,7 @@ Has an active subscription and does not hold a ban token:
 A signed proof can be replayed if it is not scoped. The server controls the `message` and SHOULD include entropy or expiry:
 
 - Nonce tracking: stateful servers SHOULD track issued nonces and reject reuse.
-- Timestamp embedding: servers MAY embed a timestamp and reject proofs older than a threshold (for example 30 s). This gives stateless replay protection.
+- Timestamp embedding: servers MAY embed a timestamp and reject proofs older than a threshold (for example 30 s). This limits the replay window but still permits reuse within that window; single-use proofs require nonce tracking.
 - Endpoint binding: servers MAY include the method and path in the message to prevent cross-endpoint replay.
 
 Agents SHOULD treat signed proofs as sensitive credentials and never log or share them.

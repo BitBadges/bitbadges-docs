@@ -18,17 +18,17 @@ import {
   getTransfersFromTransfersWithIncrements
 } from 'bitbadges';
 
-const mintBalances = BalanceArray.From([
+const mintBalances = BalanceArray.From<bigint>([
   {
     amount: 100n,
     tokenIds: [{ start: 1n, end: 100n }],
-    ownershipTimes: [{ start: 1628770800000n, end: 1628857200000n }]
+    ownershipTimes: [{ start: 1n, end: 18446744073709551615n }] // covers every incremented window
   }
 ]);
 
 const batchTransfer = new TransferWithIncrements<bigint>({
   from: 'Mint',
-  balances: BalanceArray.From([
+  balances: BalanceArray.From<bigint>([
     {
       amount: 1n,
       tokenIds: [{ start: 1n, end: 1n }],
@@ -46,7 +46,9 @@ const blockTime = BigInt(Date.now());
 getAllTokenIdsToBeTransferred([batchTransfer]); // [{ start: 1n, end: 100n }]
 getAllBalancesToBeTransferred([batchTransfer], blockTime); // every balance that leaves `from`
 getBalancesAfterTransfers(mintBalances, [batchTransfer], blockTime); // what `from` holds afterwards
-getTransfersFromTransfersWithIncrements([batchTransfer], blockTime); // 100 plain Transfer objects
+// Supply actual recipients before expanding into transfers for a transaction.
+const recipients = Array.from({ length: 100 }, () => 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue');
+getTransfersFromTransfersWithIncrements([{ ...batchTransfer, toAddresses: recipients }], blockTime); // 100 Transfer objects
 ```
 
 ## Fields
@@ -54,7 +56,7 @@ getTransfersFromTransfersWithIncrements([batchTransfer], blockTime); // 100 plai
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `from` | `string` | yes | Sender address, or `Mint` |
-| `toAddresses` | `string[]` | yes | Recipients. Can be empty when `toAddressesLength` is set |
+| `toAddresses` | `string[]` | yes | Recipients. Can be empty for balance calculations when `toAddressesLength` is set; supply actual addresses before expanding transfers |
 | `balances` | `BalanceArray<T>` | yes | The balance sent to the first recipient |
 | `toAddressesLength` | `T` | no | Number of recipients when the addresses are not known yet (for example, code claims). Takes priority over `toAddresses.length` |
 | `incrementTokenIdsBy` | `T` | no | Added to every token ID for each successive recipient |

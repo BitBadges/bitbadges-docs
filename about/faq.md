@@ -8,11 +8,11 @@ Short answers to the questions that come up most. Each answer links to the page 
 
 ## Are Smart Contracts Needed?
 
-No. One universal standard supports every use case with no code and no smart contracts. It is a Cosmos SDK module reused for every token type.
+A collection can be created and managed through native transaction messages without deploying a custom smart contract. Use the site, CLI, or SDK for the patterns supported by the module. Applications may still need backend logic or EVM contracts for behavior outside those primitives.
 
 ## How Is Compliance Checked on Every Transfer?
 
-The `collectionApprovals` of a collection are checked on every transfer. They define the collection-wide transferability rules. A transfer that satisfies no collection approval fails. Because the rules live at the collection level, they hold in every application, pool, and IBC transfer. See [Transferability](../token-standard/concepts/transferability.md).
+The `collectionApprovals` of a collection are checked on every transfer. They define the collection-wide transferability rules. A transfer that satisfies no collection approval fails. Applications and pools that execute native token transfers use those checks. Wrapping and cross-chain movement require their own supported paths; a destination chain does not automatically execute BitBadges approval logic. See [Transferability](../token-standard/concepts/transferability.md).
 
 ## Is BitBadges an L1 or an L2?
 
@@ -24,7 +24,7 @@ A reusable standard exercised thousands of times beats unique, vulnerable contra
 
 ## Are Tokens ERC-721, ERC-20, or ERC-3643 Compatible?
 
-No. The standard takes inspiration from ERC-721 but has its own properties and architecture. It is a superset of those standards, so tokens can be used compatibly where needed, and ERC-3643 works as a Solidity interface through precompiles. See [Comparisons](comparisons.md).
+Native collections use their own token model and are not automatically ERC contracts. EVM contracts can integrate through precompiles and expose compatible interfaces; the wrapper must map the native balances and permissions to that interface. See [Comparisons](comparisons.md).
 
 ## Can the Standard Be Extended with Smart Contracts?
 

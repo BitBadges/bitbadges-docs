@@ -15,7 +15,7 @@ The same three-branch shape is a milestone contract, a job escrow, a dispute-res
 | Funds locked at creation | `mintEscrowCoinsToTransfer` on MsgUniversalUpdateCollection funds the collection's mint escrow address. See [Coin Transfers](../token-standard/approval-criteria/coin-transfers.md) |
 | Escrow pays out | `coinTransfers` with `overrideFromWithApproverAddress: true`, so the escrow is the payer |
 | A verifier decides | `votingChallenges` with the verifier as the only voter and `quorumThreshold: "100"`. The verifier signs MsgCastVote; anyone can then execute. See [Voting Challenges](../token-standard/approval-criteria/voting-challenges.md) |
-| Refund after the deadline with no action from anyone | An `expire` approval whose `transferTimes` starts one millisecond after the deadline |
+| Refund becomes claimable after the deadline | An `expire` approval whose `transferTimes` starts one millisecond after the deadline |
 | Each branch fires once | `maxNumTransfers.overallMaxNumTransfers: "1"` per approval |
 | Nobody can edit the terms | All permissions locked at creation |
 

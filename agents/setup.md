@@ -87,14 +87,16 @@ Do not run both; `/bitbadges:setup` detects a duplicate user-scope entry and off
 
 ## Codex CLI
 
-`~/.codex/config.toml`:
+Add this table to `~/.codex/config.toml` (do not replace your existing configuration). Codex uses TOML, not the JSON `mcpServers` format used by some other clients. Export `BITBADGES_API_KEY` before launching Codex so `env_vars` can forward it:
 
 ```toml
 [mcp_servers.bitbadges-builder]
 command = "npx"
 args = ["-y", "-p", "bitbadges", "bitbadges-builder"]
-env = { BITBADGES_API_KEY = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" }
+env_vars = ["BITBADGES_API_KEY"]
 ```
+
+Restart Codex after editing, then use `/mcp` to inspect the server connection. See the [official OpenAI MCP documentation](https://developers.openai.com/codex/mcp) for configuration options.
 
 ## VS Code and GitHub Copilot
 

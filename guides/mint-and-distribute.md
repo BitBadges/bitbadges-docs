@@ -11,8 +11,8 @@ Minting is a transfer from the reserved `Mint` address, allowed by a collection 
 Rules that apply to every mint approval:
 
 - `fromListId: "Mint"`.
-- `overridesFromOutgoingApprovals: true`. The Mint address has no outgoing approvals to check. Without it, minting fails silently.
-- `autoApproveAllIncomingTransfers: true` in `defaultBalances` for public-mint collections. Otherwise recipients cannot receive tokens.
+- `overridesFromOutgoingApprovals: true`. The Mint address has no outgoing approvals to check. Without a matching or overridden outgoing check, the transfer is rejected.
+- A passing incoming check: for example `autoApproveAllIncomingTransfers: true` in `defaultBalances`, a matching incoming approval, self-initiated incoming auto-approval, or an explicit collection-level override.
 - `predeterminedBalances` and `approvalAmounts` are incompatible; use one or the other.
 - `orderCalculationMethod` must have exactly one method set to `true` when `predeterminedBalances` is used (default `useOverallNumTransfers`).
 - `amountTrackerId` is required when `maxNumTransfers` or `approvalAmounts` is set.
@@ -842,7 +842,7 @@ More locking patterns are in [Lock Permissions](lock-permissions.md).
 
 - Numbers instead of strings (`"1000"`, not `1000`).
 - Missing `overridesFromOutgoingApprovals: true` on a Mint approval.
-- Missing `autoApproveAllIncomingTransfers: true` in `defaultBalances` for public mints.
+- No matching incoming approval, auto-approve flag, or collection-level incoming override for the recipient.
 - Missing `prioritizedApprovals` in `MsgTransferTokens`. The field must be present, even as `[]`.
 - Combining `predeterminedBalances` with `approvalAmounts`.
 - More than one `true` in `orderCalculationMethod`.

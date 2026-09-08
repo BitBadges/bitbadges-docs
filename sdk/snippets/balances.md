@@ -12,7 +12,7 @@ A balance is `{ amount, tokenIds, ownershipTimes }`. `BalanceArray` holds a list
 import { BalanceArray, getBalancesForIds } from 'bitbadges';
 
 // 1. Define
-const userBalance = BalanceArray.From([
+const userBalance = BalanceArray.From<bigint>([
   {
     amount: 5n,
     tokenIds: [{ start: 1n, end: 5n }],
@@ -35,7 +35,7 @@ userBalance.subtractBalances(
     {
       amount: 2n,
       tokenIds: [{ start: 2n, end: 3n }],
-      ownershipTimes: [{ start: 1628784400000n, end: 1628870800000n }]
+      ownershipTimes: [{ start: 1628784400000n, end: 1628857200000n }]
     }
   ],
   false

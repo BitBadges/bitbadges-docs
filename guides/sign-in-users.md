@@ -92,24 +92,16 @@ const authUrl = generateBitBadgesAuthUrl(params);
 // https://bitbadges.io/siwbb/authorize?client_id=...&redirect_uri=...&state=...&scope=...&
 ```
 
-The helper URL-encodes object values as JSON and skips empty ones:
+For redirect URIs or state values containing `&`, `+`, or `#`, encode every query parameter. A `URLSearchParams` construction avoids treating those characters as URL syntax:
 
 ```ts
-export const generateBitBadgesAuthUrl = (params: CodeGenQueryParams) => {
-    let url = `https://bitbadges.io/siwbb/authorize?`;
-    for (const [key, value] of Object.entries(params)) {
-        if (value) {
-            if (typeof value === 'object') {
-                const valueString = JSON.stringify(value);
-                const encodedValue = encodeURIComponent(valueString);
-                url = url.concat(`${key}=${encodedValue}&`);
-            } else {
-                url = url.concat(`${key}=${value}&`);
-            }
-        }
+const authorizeUrl = new URL('https://bitbadges.io/siwbb/authorize');
+for (const [key, value] of Object.entries(params)) {
+    if (value !== undefined && value !== null && value !== '') {
+        authorizeUrl.searchParams.set(key, String(value));
     }
-    return url;
-};
+}
+const encodedAuthUrl = authorizeUrl.toString();
 ```
 
 What the parameters do:
@@ -132,7 +124,7 @@ const callbackHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 ```
 
-Validate `state` according to your requirements, and serve the callback over HTTPS. For QR code flows, the code is the QR content and you exchange it the same way; see [Callback](../api/sign-in/callback.md).
+Before exchanging the code, reject missing, repeated, or mismatched `state` values by comparing against the unpredictable value stored in this browser's login session. Consume it once and serve the callback over HTTPS. The fragments below assume your session middleware has performed this check. For QR code flows, the code is the QR content and you exchange it the same way; see [Callback](../api/sign-in/callback.md).
 
 ## 4. Exchange the Code
 
@@ -152,7 +144,7 @@ async function myHandler(req: NextApiRequest, res: NextApiResponse) {
     };
 
     // POST https://api.bitbadges.io/api/v0/siwbb/token
-    const res = await api.exchangeSIWBBAuthorizationCode({
+    const exchange = await api.exchangeSIWBBAuthorizationCode({
         code,
         options,
         grant_type: 'authorization_code',
@@ -161,13 +153,13 @@ async function myHandler(req: NextApiRequest, res: NextApiResponse) {
         redirect_uri: 'https://example.com/api/callback', //only needed for digital immediate flow
     });
 
-    const { address, chain, verificationResponse } = res;
+    const { address, chain, verificationResponse } = exchange;
     if (!verificationResponse.success) {
         console.log(verificationResponse.errorMessage);
         throw new Error('Not authenticated');
     }
 
-    const { access_token, access_token_expires_at, refresh_token, refresh_token_expires_at } = res;
+    const { access_token, access_token_expires_at, refresh_token, refresh_token_expires_at } = exchange;
     // Use these for session management and authorized API access (step 6)
 }
 ```
@@ -247,7 +239,7 @@ console.log(res.signedIn)
 Refresh on a rolling basis, as often as needed:
 
 ```ts
-const res = await api.exchangeSIWBBAuthorizationCode({
+const exchange = await api.exchangeSIWBBAuthorizationCode({
     refresh_token,
     grant_type: 'refresh_token',
     client_secret: process.env.SIWBB_CLIENT_SECRET!,
@@ -255,7 +247,7 @@ const res = await api.exchangeSIWBBAuthorizationCode({
     redirect_uri: 'https://example.com/api/callback' //only needed if redirected
 });
 
-const { access_token, access_token_expires_at, refresh_token, refresh_token_expires_at } = res;
+const { access_token, access_token_expires_at, refresh_token, refresh_token_expires_at } = exchange;
 ```
 
 Revoke when done. The user can also revoke under Connections, Authorizations, in-site:

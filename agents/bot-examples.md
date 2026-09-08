@@ -251,7 +251,7 @@ simulate_transaction({})
 `review_collection` returns findings and a summary. Fix anything critical before signing.
 
 ```json
-{ "findings": [...], "summary": { "critical": 0, "warning": 1, "info": 3, "verdict": "warn" } }
+{ "findings": ["…"], "summary": { "critical": 0, "warning": 1, "info": 3, "verdict": "warn" } }
 ```
 
 ```text

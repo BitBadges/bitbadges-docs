@@ -319,7 +319,7 @@ import {
 
 ## Review and Sign in the Browser
 
-The SDK never signs for the user. `result.reviewUrl` is a bitbadges.io link that opens the transaction in the review-and-sign flow (Preview, Review Items, Transferability, Permissions, then wallet signature). The whole transaction rides in the URL hash (`#tx=<base64url JSON>`), so nothing is uploaded and the link works offline. Set `BITBADGES_FRONTEND_URL` to point at testnet or a local site.
+The SDK never signs for the user. `result.reviewUrl` is a bitbadges.io link that opens the transaction in the review-and-sign flow (Preview, Review Items, Transferability, Permissions, then wallet signature). The whole transaction rides in the URL hash (`#tx=<base64url JSON>`), so constructing the link needs no preview upload. Loading the site, fetching chain state, and signing or broadcasting still require network access. Set `BITBADGES_FRONTEND_URL` to point at testnet or a local site.
 
 ```ts
 const result = await agent.build('create a subscription token for $10/mo');
@@ -445,7 +445,7 @@ The stable prefix is typically 10-15% of the per-build token count. The rest is 
 
 - First build with a new skill set: cache miss. You pay 1.25x on the prefix tokens. Net: a few cents more than no cache for a typical build.
 - Second build within 5 minutes with the same skill set: cache hit. Prefix tokens cost 10% of full rate. Break-even lands about here.
-- Steady state (several builds an hour with overlapping skill sets): cache-read tokens dominate the input count on `result.trace`. Real savings are 40-60% of the total input-token bill, not 90%, because the prefix is only part of the request.
+- Steady state (several builds an hour with overlapping skill sets): cache-read tokens dominate the input count on `result.trace`. Savings depend on the fraction of input tokens actually read from cache. If only 10-15% is cacheable, a 90% discount on that fraction reduces total input cost by about 9-13.5%, before cache-write costs.
 
 One-off scripts that run a single build pay the 1.25x write premium with no recovery. The delta is cents, so leave caching on, but do not count it as a headline optimization for low-volume use.
 
@@ -506,7 +506,7 @@ Runnable scripts at [bitbadgesjs/packages/bitbadgesjs-sdk/examples/builder-agent
 - `PeerDependencyError: @anthropic-ai/sdk is required`: run `npm install @anthropic-ai/sdk`.
 - `Anthropic credentials are required`: set `ANTHROPIC_API_KEY` or pass `anthropicKey` / `anthropicAuthToken` to the constructor.
 - `ValidationFailedError` after 3 fix rounds: the fix loop gave up. Inspect `err.errors` for structured causes and `err.advisoryNotes` for design concerns the agent considered but did not resolve. Raising `fixLoopMaxRounds` rarely helps; the prompt usually needs more constraints.
-- Simulation reports a `jsonToTxBytes` error: an encode-time advisory, not a chain failure. The transaction is typically still broadcast-safe.
+- Simulation reports a `jsonToTxBytes` error: encoding failed before the chain could evaluate the transaction. Check the message envelope, type URL, numeric strings, and SDK version, then re-run simulation; this error is not evidence that broadcast will succeed.
 
 ## Related
 

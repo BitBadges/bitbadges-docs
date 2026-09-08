@@ -168,7 +168,7 @@ func CollectionApprovalIsAutoScannable(approvalCriteria *ApprovalCriteria) bool 
 }
 ```
 
-Read-only criteria stay auto-scannable: `mustOwnTokens`, address checks, the `require*` flags, overrides, `autoDeletionOptions`, `approvalAmounts`, `maxNumTransfers`, dynamic store, voting, and EVM query challenges.
+Other criteria remain auto-scannable, including some that update trackers or delete approvals: `mustOwnTokens`, address checks, the `require*` flags, overrides, `autoDeletionOptions`, `approvalAmounts`, `maxNumTransfers`, dynamic store, voting, and EVM query challenges.
 
 ```ts
 // Auto-scannable: read-only checks only
@@ -278,7 +278,7 @@ Prioritization is also a selection tool. Use it to choose between two auto-scann
 
 ### Versions
 
-Every approval carries a `version`. The chain increments it on every update to that approval. A prioritized entry whose `version` does not match the current one is ignored, so a user cannot be switched onto changed terms between signing and execution.
+Every approval carries a `version`. The chain increments it when that approval changes; unchanged approvals keep their version. A prioritized entry whose `version` does not match the current one is ignored, so a user cannot be switched onto changed terms between signing and execution.
 
 ```ts
 const approval: CollectionApproval<bigint> = {

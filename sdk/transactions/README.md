@@ -69,7 +69,7 @@ const txContext: TxContext = {
 };
 
 // 3. Payload to sign
-const payload = createTransactionPayload(txContext, msgs);
+const payload = createTransactionPayload(txContext, msgs.map((msg) => msg.toProto()));
 
 // 4. Sign (Keplr shown; see sign-cosmos and sign-ethereum for the other wallets)
 await window.keplr!.enable('bitbadges-1');
@@ -82,12 +82,12 @@ const signed = await window.keplr!.signDirect(
     chainId: 'bitbadges-1',
     accountNumber: BigInt(String(account.accountNumber)) as any
   },
-  { preferNoSetFee: true }
+  { preferNoSetFee: true, preferNoSetMemo: true }
 );
-const hexSignature = Buffer.from(signed.signature.signature, 'base64').toString('hex');
+const hexSignature = Array.from(atob(signed.signature.signature), (char) => char.charCodeAt(0).toString(16).padStart(2, '0')).join('');
 
 // 5. Broadcast body, then simulate or broadcast
-const txBody = createTxBroadcastBody(txContext, msgs, hexSignature);
+const txBody = createTxBroadcastBody(txContext, msgs.map((msg) => msg.toProto()), hexSignature);
 const sim = await api.simulateTx(txBody);
 const res = await api.broadcastTx(txBody);
 console.log(sim.gas_info.gas_used, res.tx_response.txhash);
@@ -124,7 +124,7 @@ import { MsgCreateCollection, MsgTransferTokens, proto } from 'bitbadges';
 // SDK classes: generic over NumberType, have toProto()
 const sdkMsg = new MsgTransferTokens<bigint>({
   creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
-  collectionId: 1n,
+  collectionId: '1',
   transfers: [
     {
       from: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d',
@@ -138,7 +138,7 @@ const sdkMsg = new MsgTransferTokens<bigint>({
 const protoMsg = new proto.tokenization.MsgDeleteCollection({ creator: 'bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d', collectionId: '1' });
 ```
 
-Both forms are accepted by `signAndBroadcast`, `createTransactionPayload`, and `createTxBroadcastBody`. Standard Cosmos messages live under `proto.cosmos` (for example `proto.cosmos.bank.v1beta1.MsgSend`). Every message page under [Messages](../../token-standard/messages/README.md) shows the fields.
+`signAndBroadcast` accepts both forms. For type-safe calls to `createTransactionPayload` and `createTxBroadcastBody`, convert SDK messages with `.toProto()` first; those functions currently declare protobuf message parameters. Standard Cosmos messages live under `proto.cosmos` (for example `proto.cosmos.bank.v1beta1.MsgSend`). Every message page under [Messages](../../token-standard/messages/README.md) shows the fields.
 
 Messages execute in array order inside one transaction. When a later message depends on an earlier one (for example `MsgCreateAddressLists` followed by a `MsgCreateCollection` that references the new list ID), put the dependency first.
 
@@ -211,7 +211,7 @@ txContext.fee = { gas: gasLimit.toString(), amount: feeInUbadge.toString(), deno
 ```ts
 import { createTransactionPayload } from 'bitbadges';
 
-const payload = createTransactionPayload(txContext, msgs);
+const payload = createTransactionPayload(txContext, msgs.map((msg) => msg.toProto()));
 ```
 
 ```ts

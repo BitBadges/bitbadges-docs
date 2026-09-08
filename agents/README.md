@@ -281,7 +281,7 @@ fi
 
 ## Hand Off to the Browser to Sign
 
-Agents build; people sign. Every path ends in a bitbadges.io link that opens the transaction in the review-and-sign flow (Preview, Review Items, Transferability, Permissions, then wallet signature). The agent never signs.
+In the browser-handoff workflow, agents build and people sign. The link opens the review flow (Preview, Review Items, Transferability, Permissions, then wallet signature). Separately, a bot configured with a signing key can use the SDK or CLI to broadcast; see [Spending Authorization](spending-authorization.md) for bounded delegation.
 
 | From | Get the link |
 | --- | --- |
@@ -314,7 +314,7 @@ Testnet endpoints when it returns: RPC `https://rpc-testnet.bitbadges.io`, WebSo
 
 ## Token-Gated API Access (BB-402)
 
-BB-402 lets any server gate API access behind on-chain token ownership with the standard HTTP 402 status code. x402 (Coinbase) only supports per-request USDC payments. BB-402 uses token ownership as the primitive: a soulbound token that costs X USDC is a verifiable on-chain receipt (equivalent to x402), and the same protocol handles subscriptions, tiered access, reputation, blocklists, and compound conditions with `$and` / `$or` logic.
+BB-402 lets any server gate API access behind on-chain token ownership with the standard HTTP 402 status code. BB-402 uses token ownership as the primitive: a soulbound token that costs X USDC is a verifiable on-chain receipt, and the same protocol handles subscriptions, tiered access, reputation, blocklists, and compound conditions with `$and` / `$or` logic.
 
 ```text
 Agent --> Server:  GET /api/data

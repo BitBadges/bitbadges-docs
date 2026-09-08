@@ -1304,9 +1304,11 @@ then the balances can also be fetched via the views and / or the other fetch met
 #### Example
 
 ```ts
-const collection: BitBadgesCollection<bigint> = { ... }
-const address = 'bb1...'
-const balance = collection.getBalance(address)
+import type { BitBadgesCollection } from 'bitbadges';
+// A collection already fetched through BitBadgesAPI.
+declare const collection: BitBadgesCollection<bigint>;
+const address = 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'
+const balance = collection.getBalanceInfo(address)
 console.log(balance?.balances)
 console.log(balance?.outgoingApprovals)
 ```
@@ -1342,8 +1344,10 @@ then the balances can also be fetched via the views and / or the other fetch met
 #### Example
 
 ```ts
-const collection: BitBadgesCollection<bigint> = { ... }
-const address = 'bb1...'
+import type { BitBadgesCollection } from 'bitbadges';
+// A collection already fetched through BitBadgesAPI.
+declare const collection: BitBadgesCollection<bigint>;
+const address = 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'
 const balances = collection.getBalances(address)
 console.log(balances)
 ```
@@ -1385,9 +1389,11 @@ Get the cached collection metadata. This is the fetched metadata, not the timeli
 #### Example
 
 ```ts
-const collection: BitBadgesCollection<bigint> = { ... }
+import type { BitBadgesCollection } from 'bitbadges';
+// A collection already fetched through BitBadgesAPI.
+declare const collection: BitBadgesCollection<bigint>;
 const metadata = collection.getCollectionMetadata()
-const metadataImage = metadata.image
+const metadataImage = metadata?.image
 ```
 
 ***
@@ -1718,10 +1724,12 @@ For those, use getTokenMetadataDetails.
 #### Example
 
 ```ts
-const collection: BitBadgesCollection<bigint> = { ... }
+import type { BitBadgesCollection } from 'bitbadges';
+// A collection already fetched through BitBadgesAPI.
+declare const collection: BitBadgesCollection<bigint>;
 const tokenId = 123n
 const metadata = collection.getTokenMetadataForTokenId(tokenId)
-const metadataImage = metadata.image
+const metadataImage = metadata?.image
 ```
 
 ***
@@ -1937,7 +1945,9 @@ For a metadata fetch request, prune the request to only request the metadata tha
 #### Example
 
 ```ts
-const collection: BitBadgesCollection<bigint> = { ... }
+import type { BitBadgesCollection } from 'bitbadges';
+// A collection already fetched through BitBadgesAPI.
+declare const collection: BitBadgesCollection<bigint>;
 const metadataToFetch = collection.pruneMetadataToFetch({ tokenIds: [1n, 2n, 3n], uris: ['ipfs://...'] })
 console.log(metadataToFetch)
 ```

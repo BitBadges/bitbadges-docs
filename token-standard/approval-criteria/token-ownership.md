@@ -140,7 +140,7 @@ interface MustOwnTokens<T extends NumberType> {
 | Field | Type | Description |
 | --- | --- | --- |
 | `collectionId` | Uint | Collection whose balances are checked |
-| `amountRange` | UintRange | Minimum and maximum amount the party must hold. `{ "1", "1" }` means exactly one. |
+| `amountRange` | UintRange | Minimum and maximum amount the party must hold. `{ "start": "1", "end": "1" }` means exactly one. |
 | `ownershipTimes` | UintRange[] | Times during which the party must own the tokens (UNIX ms) |
 | `tokenIds` | UintRange[] | Token IDs that must be owned |
 | `overrideWithCurrentTime` | bool | Ignore `ownershipTimes` and check `[{ start: now, end: now }]` |
@@ -257,7 +257,7 @@ A fixed address, whoever is transferring (a multisig or contract that must hold 
 
 - Access gate: `amountRange { 1, MAX }` on a membership collection with `overrideWithCurrentTime: true`.
 - Must not hold: `amountRange { 0, 0 }` to exclude holders of a blocklist token.
-- Holding period: `ownershipTimes` covering the past N days to require the party has held since then.
+- Ownership window: require balances whose ownership-time ranges cover a specified interval. This checks the current balance record, not how long the address has possessed it. A newly received full-time balance can cover past timestamps; enforce elapsed holding periods with a separate acquisition-time policy.
 - Same-collection cap: check `collectionId` equal to the current collection to require the recipient hold fewer than N before receiving.
 
 ## Related

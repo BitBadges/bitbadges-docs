@@ -169,7 +169,7 @@ Failure order: insufficient balances, no collection approval, blocked by sender,
 
 ### Auto-Scan vs Prioritized Approvals
 
-By default the chain scans approvals linearly and uses the first match. That only works for approvals with empty approval criteria (no side effects). Any approval with side effects or custom criteria must appear in `prioritizedApprovals` with its exact `version`. The version pins the approval the user reviewed, so a manager cannot swap the approval between signing and execution. Approvals that cannot be auto-scanned have `mustPrioritize` forced on when they are stored, so the chain rejects transfers that omit them. Set the `onlyCheckPrioritized*` flags to `true` when using prioritized approvals for deterministic behavior. See [Prioritized Approvals](../concepts/prioritized-approvals.md).
+By default the chain scans approvals linearly and uses the first match. Auto-scan supports criteria such as ownership checks, dynamic stores, voting, amount limits, and transfer-count limits. Approvals with coin transfers, active predetermined balances, Merkle challenges, ETH signature challenges, or `mustPrioritize: true` must appear in `prioritizedApprovals` with their exact `version`. The version pins the approval the user reviewed, so a manager cannot swap the approval between signing and execution. Approvals that cannot be auto-scanned have `mustPrioritize` forced on when they are stored, so the chain rejects transfers that omit them. Set the `onlyCheckPrioritized*` flags to `true` when using prioritized approvals for deterministic behavior. See [Prioritized Approvals](../concepts/prioritized-approvals.md).
 
 ### ETH Signature Proofs
 

@@ -51,7 +51,7 @@ The MCP builder tools (`set_invariants`) produce the objects on this page.
 
 ## How It Works
 
-Set invariants only in the message that creates the collection (`MsgCreateCollection`, or `MsgUniversalUpdateCollection` with `collectionId: "0"`). Invariants in an update message are ignored. Read them back from `TokenCollection.invariants`.
+Set invariants only in the message that creates the collection (`MsgCreateCollection`, or `MsgUniversalUpdateCollection` with `collectionId: "0"`). Including `invariants` in an update through `MsgUniversalUpdateCollection` fails with `ErrInvariantsImmutable`. Read them back from `TokenCollection.invariants`.
 
 ### noCustomOwnershipTimes
 
@@ -63,7 +63,7 @@ A hard cap on supply per token ID, checked after every transfer. It is a sanity 
 
 ### noForcefulPostMintTransfers
 
-With this on, no post-mint collection approval can bypass user-level approvals, so freezing, revocation, and forced distribution are impossible forever. Mint approvals are exempt because the Mint address has no approvals to override. The check runs both when approvals are set and when a transfer executes.
+With this on, no post-mint collection approval can bypass user-level approvals, so forceful revocation and forced distribution are forbidden. The manager can still freeze transfers by removing or restricting collection approvals when their permissions allow it. Mint approvals are exempt because the Mint address has no approvals to override. The check runs both when approvals are set and when a transfer executes.
 
 ### disablePoolCreation
 

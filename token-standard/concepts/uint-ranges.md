@@ -35,7 +35,7 @@ export interface UintRange<T extends NumberType> {
 Ask your agent:
 
 ```text
-Set the valid token IDs of the collection I am building to 1 through 100 and 200 through 250.
+Set the valid token IDs of the collection I am building to 1 through 250. Then scope an approval to IDs 1 through 100 and 200 through 250.
 ```
 
 The MCP builder tools (`set_valid_token_ids`) produce the objects on this page.
@@ -48,7 +48,7 @@ Where ranges appear:
 | Use | Example | Meaning |
 | --- | --- | --- |
 | Token IDs | `[{ "start": "1", "end": "100" }]` | IDs 1 through 100 |
-| Times (UNIX milliseconds) | `[{ "start": "1640995200000", "end": "1672531200000" }]` | The year 2022 |
+| Times (UNIX milliseconds) | `[{ "start": "1640995200000", "end": "1672531199999" }]` | The year 2022 |
 | Amount bounds | `{ "start": "1", "end": "5" }` | Between 1 and 5 |
 | Ownership times | `[{ "start": "1", "end": "18446744073709551615" }]` | Owned forever |
 

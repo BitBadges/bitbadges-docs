@@ -40,7 +40,7 @@ Signing a transaction is separate. Every transaction still goes to your wallet f
 
 ## Address Formats
 
-One account has two spellings of the same address:
+A given 20-byte account address can be represented in either format. This is an encoding conversion; importing the same mnemonic into Cosmos and EVM wallets can derive different accounts. Always fund the address shown by the wallet you will sign with:
 
 | Format | Example | Used by |
 | --- | --- | --- |

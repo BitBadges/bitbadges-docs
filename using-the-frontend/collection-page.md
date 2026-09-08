@@ -31,7 +31,7 @@ How to read a transferability card:
 2. A price tag shows what each use costs. A claim tag shows uses so far against the maximum.
 3. Click the card to expand the approval criteria: which tokens, which amounts, which addresses, and which times.
 
-An approval only allows a transfer. It never forces one. The full rules are in [Transferability](../token-standard/concepts/transferability.md).
+An approval authorizes a transfer when someone submits a matching transaction. If it overrides the sender's outgoing approvals, an authorized initiator can move a holder's tokens without that holder signing. Read the initiator list and overrides together. The full rules are in [Transferability](../token-standard/concepts/transferability.md).
 
 ## 3. Permissions
 

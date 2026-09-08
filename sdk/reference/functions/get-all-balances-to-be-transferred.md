@@ -30,12 +30,10 @@ Gets the balances to be transferred for a given transfer with increments.
 
 [`BalanceArray`](/sdk/reference/classes/balance-array)\<`bigint`\>
 
-## Example
+## Remarks
 
-```ts
-For a transfer with balances: [{ tokenIds: [{ start: 1n, end: 1n }], amount: 1n }], incrementIdsBy: 1n, toAddressesLength: 1000
+For a transfer with balances: [{ tokenIds: [{ start: 1n, end: 1n }], amount: 1n }], incrementTokenIdsBy: 1n, toAddressesLength: 1000
 We return [{ tokenIds: [{ start: 1n, end: 1000n }], amount: 1n }] because we transfer x1 token to 1000 addresses
 and increment the tokenIds by 1 each time.
 
 This is really inefficient and should be optimized for large N.
-```

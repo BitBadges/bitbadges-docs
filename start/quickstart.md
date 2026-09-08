@@ -75,24 +75,24 @@ bb api tokens get-collection 1
 
 ## 4. First Transaction
 
-Build a message, then hand it to your browser wallet to sign. The agent or script builds; a person signs.
+Build a message, then hand it to your browser wallet to sign. Set `SENDER` to the BitBadges address controlled by that wallet and `RECIPIENT` to the intended destination before running the commands. The sender needs at least 1 BADGE for this send plus BADGE for transaction fees. These examples target mainnet and move real funds.
 
 ```bash
-bb build send --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --amount 1 --denom BADGE \
+bb build send --from "${SENDER:?Set SENDER to your wallet address}" --to "${RECIPIENT:?Set RECIPIENT to the destination address}" --amount 1 --denom BADGE \
   | bb deploy - --browser
 ```
 
 `bb build <type>` prints ready-to-sign JSON. `bb deploy --browser` opens the sign page on bitbadges.io and waits for your wallet (Keplr, MetaMask, and others). Two useful steps in between:
 
 ```bash
-bb build send --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --amount 1 --denom BADGE > tx.json
-bb check tx.json      # validate the message shape
+bb build send --from "${SENDER:?Set SENDER to your wallet address}" --to "${RECIPIENT:?Set RECIPIENT to the destination address}" --amount 1 --denom BADGE > tx.json
+bb check tx.json      # validate and review the transaction
 bb simulate tx.json   # expected gas and balance changes, nothing broadcast
 bb preview tx.json    # shareable bitbadges.io preview URL; add --open to jump to review and sign
 bb deploy tx.json --browser
 ```
 
-For a BitBadges token transfer instead of a bank send, use `bb build transfer --yes --collection-id 1 --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue --token-ids 1 --amount 1`. Builders exist for vaults, subscriptions, bounties, auctions, smart tokens, listings, and more. See [Build](../cli/build.md) and [Deploy](../cli/deploy.md).
+For a BitBadges token transfer instead of a bank send, use `bb build transfer --yes --collection-id 1 --from "${SENDER:?Set SENDER to your wallet address}" --to "${RECIPIENT:?Set RECIPIENT to the destination address}" --token-ids 1 --amount 1`. Builders exist for vaults, subscriptions, bounties, auctions, smart tokens, listings, and more. See [Build](../cli/build.md) and [Deploy](../cli/deploy.md).
 
 ## TypeScript Path
 
@@ -180,7 +180,7 @@ Claude Code without the plugin:
 claude mcp add bitbadges-builder -- npx -y -p bitbadges bitbadges-builder
 ```
 
-Cursor, Claude Desktop, Codex, or any other MCP client, in its MCP config:
+Cursor or Claude Desktop, in its JSON MCP config:
 
 ```json
 {
@@ -192,6 +192,8 @@ Cursor, Claude Desktop, Codex, or any other MCP client, in its MCP config:
   }
 }
 ```
+
+Codex uses TOML instead of this JSON format; follow [Codex setup](../agents/setup.md#codex-cli). Other clients may also use a different configuration schema.
 
 The server reads `BITBADGES_API_KEY` from its environment. Add an `env` block with that key to the entry above, or export it in the shell that launches the client.
 
@@ -224,7 +226,7 @@ See [Agents](../agents/README.md) for the paths table, the review-and-sign hando
 | mainnet | `https://api.bitbadges.io` | `https://lcd.bitbadges.io` | `bitbadges-1` | 50024 | `https://evm-rpc.bitbadges.io` |
 | local | `http://localhost:3001` | `http://localhost:1317` | `bitbadges-1` | 90123 | `http://localhost:8545` |
 
-Testnet (`bitbadges-2`, EVM 50025) is offline. The SDK throws on `network: 'testnet'`. Mainnet runs as a chaosnet: gas fees can be zero while activity is low, so test there with low-value assets. See [Testnet](../chain/testnet.md) and [Network](../chain/README.md).
+Testnet (`bitbadges-2`, EVM 50025) is offline. The SDK throws on `network: 'testnet'`. Mainnet runs as a chaosnet; use low-value assets for experimentation and fund the signer for gas. See [Testnet](../chain/testnet.md) and [Network](../chain/README.md).
 
 Starting with v35, transactions require fees of at least `10ubadge` per unit of gas. Fund the signing account with BADGE before broadcasting. With the updated CLI, burner `--fee 0` means automatic fee estimation; it does not produce a zero-fee transaction. If you need BADGE, use the faucet when available or ask in the [BitBadges Discord](https://discord.com/invite/TJMaEd9bar).
 

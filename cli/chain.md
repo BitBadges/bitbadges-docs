@@ -230,7 +230,7 @@ Every query accepts `--node <rpc>` and `--output json`. `q` is an alias for `que
 bb sign-arbitrary alice "auth challenge text"
 echo -n "auth challenge text" | bb sign-arbitrary alice
 bb sign-arbitrary alice --message-file challenge.txt
-bb sign-arbitrary alice "auth challenge text" --output-mode raw          # only the base64 signature
+bb sign-arbitrary alice "auth challenge text" --output raw          # only the base64 signature
 ```
 
 Output for a throwaway `secp256k1` key (real signature, produced offline):
@@ -250,8 +250,8 @@ Signs any message with a keyring key in ADR-36 format, offline, with no chain ac
 
 | Flag | Description |
 | --- | --- |
-| `--message-file <path>` | Read the message from a file (mutually exclusive with the positional and stdin) |
-| `--output-mode <json\|raw>` | Default `json` |
+| `--message-file <path>` | Read the message from a file; cannot combine with a positional message. Stdin is read only when neither is supplied. |
+| `--output <json\|raw>` | Default `json` |
 | keyring flags, `--home` | Standard Cosmos keyring selection |
 
 Only `secp256k1` keys are supported; an `eth_secp256k1` key errors with a pointer to `bb keys add <name> --key-type secp256k1`. EIP-191 support is a planned `--format eip191` flag.

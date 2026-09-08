@@ -35,7 +35,7 @@ interface CollectionApproval<T extends bigint> {
 | `tokenIds` | UintRange[] | yes | Token IDs covered |
 | `ownershipTimes` | UintRange[] | yes | Ownership times that can be moved |
 | `approvalId` | string | yes | Unique per level. Cannot be `default-outgoing`, `default-incoming`, `self-initiated-outgoing`, `self-initiated-incoming`, or `all-incoming-transfers`. |
-| `version` | Uint | set by chain | Starts at 0 and increments on every update |
+| `version` | Uint | set by chain | Starts at 0 and increments when the approval changes |
 | `uri` | string | no | Metadata link |
 | `customData` | string | no | Free-form string, or inline JSON metadata (`name` + `description`) |
 | `approvalCriteria` | ApprovalCriteria | no | Extra conditions. See [Approval Criteria](../approval-criteria/README.md). |
@@ -221,7 +221,7 @@ Collection approvals apply to minting and to post-mint transfers alike. They are
 }
 ```
 
-Reads as: anyone can claim one of token IDs 1-100 from Mint between Aug 13, 2023 and Aug 13, 2024, up to 1000 claims in total.
+Reads as: anyone can initiate one mint transfer covering IDs 1-100 between Aug 13, 2023 and Aug 13, 2024, up to 1000 transfers in total. This example limits transfer counts, not amounts: each transfer can mint arbitrary amounts of the covered IDs, subject to collection invariants and recipient approvals.
 
 ### User-Level Approvals
 
@@ -239,7 +239,7 @@ interface UserBalanceStore<T extends bigint> {
 }
 ```
 
-An outgoing approval owned by carol that lets bob take token ID 1 to 100 (a listing). `fromListId` is absent because it is carol:
+An outgoing approval owned by carol that lets bob take tokens across the full token ID range (a listing). `fromListId` is absent because it is carol:
 
 ```json fold=4-6,10-14,16-97
 {
@@ -342,7 +342,7 @@ An outgoing approval owned by carol that lets bob take token ID 1 to 100 (a list
 }
 ```
 
-An incoming approval owned by carol that accepts token ID 1 to 100 from alice (a bid). `toListId` is absent because it is carol:
+An incoming approval owned by carol that accepts tokens across the full token ID range from alice (a bid). `toListId` is absent because it is carol:
 
 ```json fold=4-6,10-14,16-97
 {

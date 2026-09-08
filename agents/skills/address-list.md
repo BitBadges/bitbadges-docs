@@ -24,7 +24,7 @@ Required standards: ["Address List"]
 - validTokenIds: must be exactly [{ "start": "1", "end": "1" }]
 - Two collection approvals required with exact approvalIds (frontend depends on these):
   1. "manager-add": fromListId "Mint", toListId "All", initiatedByListId = creator. Mints token to add address.
-  2. "manager-remove": fromListId "All", toListId burn address (bb1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqs7gvmv), initiatedByListId = creator. Burns token to remove address.
+  2. "manager-remove": fromListId "!Mint", toListId burn address (bb1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqs7gvmv), initiatedByListId = creator. Burns token to remove address.
 - Both approvals must have overridesFromOutgoingApprovals: true
 - No peer-to-peer transfer approval, only manager can modify the list
 - Standard is "Address List" (not "Non-Transferable")

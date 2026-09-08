@@ -8,6 +8,8 @@ The claims routes let a backend or an agent complete claims for users, check who
 
 See the [API reference](/api-reference) for every route's request and response schema.
 
+The TypeScript snippets use the configured `BitBadgesApi` client from the [API setup example](../README.md#example).
+
 Addresses in paths accept any supported format. `0x` and `bb1` addresses both work and resolve to the same account. The examples complete `claim_demo_01` (a code-gated claim on collection 1 with the instance id `codes-gate`) for bob.
 
 ## Complete a Claim
@@ -37,10 +39,10 @@ console.log(status.success); // true once the queue has processed it
 ### Body
 
 ```ts
-{
+type CompleteClaimBody = {
   _expectedVersion: number;        // claim.version from getClaim(). -1 skips the check (not recommended)
   _specificInstanceIds?: string[]; // only run these plugin instances
-  [instanceId: string]: Record<string, unknown>; // per-plugin user inputs, keyed by instance ID
+  [instanceId: string]: Record<string, unknown> | number | string[] | undefined; // per-plugin user inputs, keyed by instance ID
 }
 ```
 

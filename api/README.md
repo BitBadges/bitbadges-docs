@@ -62,6 +62,7 @@ const BitBadgesApi = new BitBadgesAPI({
 
 const res = await BitBadgesApi.getCollections({ collectionsToFetch: [{ collectionId: '1' }] });
 const collection = res.collections[0];
+if (!collection) throw new Error('Collection not found');
 console.log(collection.manager); // bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d
 ```
 

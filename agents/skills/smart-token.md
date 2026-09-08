@@ -160,7 +160,9 @@ For safety, backing approvals enforce that the initiator must be the recipient (
 Add "AI Agent Vault" to the standards array to enable an AI Prompt tab in the frontend. This is **display-only** and has no impact on on-chain logic.
 
 ```json
+{
 "standards": ["Smart Token", "AI Agent Vault"]
+}
 ```
 
 ### Optional: DEX Tradability (Liquidity Pools)

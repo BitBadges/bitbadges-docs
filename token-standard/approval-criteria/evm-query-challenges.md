@@ -1,10 +1,10 @@
 ---
-description: "evmQueryChallenges: gate an approval on a read-only EVM staticcall whose result must compare as expected, with placeholders for the transfer parties."
+description: "evmQueryChallenges: gate an approval on a read-only EVM query whose result must compare as expected, with placeholders for the transfer parties."
 ---
 
 # EVM Query Challenges
 
-An EVM query challenge calls a contract with `staticcall` before the transfer and compares the return value against an expected one. It lets an approval depend on any EVM state: an ERC-20 balance, an NFT owner, a screening contract, a custom compliance oracle.
+An EVM query challenge queries a contract before the transfer and compares the return value against an expected one. It lets an approval depend on any EVM state: an ERC-20 balance, an NFT owner, a screening contract, a custom compliance oracle.
 
 ## Shape
 
@@ -157,7 +157,7 @@ The MCP builder tools (`add_approval`) produce the objects on this page.
 ## How It Works
 
 1. Replace placeholders in `calldata` with values from the transfer.
-2. Execute a `staticcall` to `contractAddress` with the calldata under `gasLimit`.
+2. Execute an EVM query to `contractAddress` with the calldata under `gasLimit`, using the keeper's non-committing call path.
 3. Compare the returned bytes with `expectedResult` using `comparisonOperator`.
 4. Pass or fail. All challenges on the approval must pass.
 
@@ -202,7 +202,7 @@ A query that runs out of gas fails the challenge. Contracts that call precompile
 ### Building Calldata
 
 1. Selector: first 4 bytes of `keccak256(signature)`. `balanceOf(address)` is `70a08231`.
-2. ABI-encode each argument to 32 bytes. An address is left-padded with 24 zero bytes.
+2. ABI-encode each argument to 32 bytes. A 20-byte address is left-padded with 12 zero bytes (24 hex characters).
 3. Concatenate selector and arguments.
 4. Substitute placeholders for the addresses you want filled at runtime: `70a08231000000000000000000000000$initiator`.
 
@@ -254,7 +254,7 @@ Initiator must own NFT #1 of the ERC-721 at the same address (`ownerOf(uint256)`
 
 ### Security
 
-- `staticcall` cannot write state, emit events, or create contracts. Results are deterministic within a block.
+- The keeper calls `CallEVMWithData` with `commit: false`; this is a non-committing query, not a guarantee that the EVM `STATICCALL` opcode is used. Query view functions and do not depend on writes or events from challenge execution.
 - Gas limits bound the work a transfer can demand. Set them from measurement, not guesses.
 - Query only contracts you trust. A malicious or upgraded proxy can return anything.
 - Combine with other criteria for defense in depth.

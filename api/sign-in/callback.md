@@ -20,8 +20,10 @@ import { getSession } from '../../lib/session'; // your own session helper
 const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify }); // key from https://bitbadges.io/developer
 
 export default async function callbackHandler(req: NextApiRequest, res: NextApiResponse) {
-  const code = req.query.code as string;
-  const state = req.query.state as string;
+  const { code, state } = req.query;
+  if (typeof code !== 'string' || typeof state !== 'string') {
+    return res.status(400).json({ error: 'Expected one code and one state' });
+  }
   const session = await getSession(req, res);
 
   // 1. Validate state against the value you issued when building the authorization URL
@@ -29,6 +31,7 @@ export default async function callbackHandler(req: NextApiRequest, res: NextApiR
     return res.status(400).json({ error: 'Invalid state' });
   }
   delete session.siwbbState;
+  await session.save();
 
   // 2. Exchange the code (see Verification)
   const auth = await BitBadgesApi.exchangeSIWBBAuthorizationCode({

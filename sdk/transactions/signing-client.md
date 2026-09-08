@@ -147,7 +147,8 @@ The testnet preset is marked `disabled` and the client throws when you select it
 
 ## Wallet Adapters
 
-```ts
+```text
+// Signature reference (not executable calls)
 // Cosmos: browser
 GenericCosmosAdapter.fromKeplr(chainId: string)
 GenericCosmosAdapter.fromLeap(chainId: string)

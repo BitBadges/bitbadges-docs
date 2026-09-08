@@ -8,6 +8,8 @@ A dynamic store is an address list that BitBadges hosts for you. You add and rem
 
 See the [API reference](/api-reference) for every route's request and response schema.
 
+The TypeScript snippets use the configured `BitBadgesApi` client from the [API setup example](../README.md#example).
+
 ## Example
 
 Add bob to the store `store_demo_01`. `STORE_SECRET` holds the store's `dataSecret` from the developer portal.
@@ -49,7 +51,7 @@ Both routes answer `200` with an empty object:
 Attach it to a claim with the `whitelist` plugin:
 
 ```ts
-{
+const whitelistPlugin = {
   pluginId: 'whitelist',
   instanceId: 'store-gate',
   version: '0',

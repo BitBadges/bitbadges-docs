@@ -4,7 +4,7 @@ description: "Why BitBadges enforces compliance at the boundary of x/tokenizatio
 
 # Compliance Zones
 
-Compliance on a chain can live in the token, in the bank module, in every contract, or at one controlled boundary. BitBadges puts it at the boundary: `x/tokenization` is a siloed compliance zone, and everything else on the chain is vanilla Cosmos.
+Compliance on a chain can live in the token, in the bank module, in every contract, or at one controlled boundary. BitBadges puts it at the boundary: `x/tokenization` is a siloed compliance zone, and standard bank coins remain outside collection-specific approvals. Chain-level controls, including IBC rate limits, still apply.
 
 ## Shape
 
@@ -47,18 +47,18 @@ At boundary time the approval engine can check any [approval criterion](../appro
 - Multisig: a [voting challenge](../approval-criteria/voting-challenges.md) with N-of-M signers and an optional `delayAfterQuorum` timelock.
 - Time: `transferTimes` plus [Alt Time Checks](../approval-criteria/alt-time-checks.md) for market hours, business days, and blackout windows.
 
-Inside the zone the same engine governs ongoing activity: transfer restrictions, holding periods (`mustOwnTokens.ownershipTimes`), dividends (incremented balances plus `coinTransfers`), multisig escrow (voting plus `delayAfterQuorum`), and vesting (`Balance.ownershipTimes`).
+Inside the zone the same engine governs ongoing activity: transfer restrictions, ownership-window checks (`mustOwnTokens.ownershipTimes`), dividends (incremented balances plus `coinTransfers`), multisig escrow (voting plus `delayAfterQuorum`), and vesting (`Balance.ownershipTimes`).
 
 ### The Open Zone
 
-The open zone is the chain's standard surface: the gas token as an `sdk.Coin` (`ubadge`), ICS-20 stablecoin vouchers, vanilla bank, staking, and governance, and public DEX activity. It is supervised at chain-config level (IBC channel allowlists, validator set, permitted assets) but never gated per transfer.
+The open zone is the chain's standard surface: the gas token as an `sdk.Coin` (`ubadge`), ICS-20 stablecoin vouchers, vanilla bank, staking, and governance, and public DEX activity. It is supervised at chain-config level (IBC channel allowlists, validator set, permitted assets) and remains subject to module rules such as [IBC rate limits](../../chain/modules/ibc-rate-limit.md). It does not inherit a collection's approval criteria.
 
 ### Cross-Chain Movement
 
 Collection tokens do not travel over vanilla IBC, because ICS-20 moves `sdk.Coin` with no compliance semantics. The pattern is:
 
 1. Exit the source silo: unwrap, redeem, or burn. The issuer's exit rules run and the underlying `sdk.Coin` is released.
-2. Travel as `sdk.Coin` over vanilla ICS-20. No custom channels, no middleware. Counterparties see normal IBC traffic.
+2. Travel as `sdk.Coin` over vanilla ICS-20. Counterparties see standard ICS-20 traffic; BitBadges IBC middleware can still enforce rate limits and process transfer hooks.
 3. Re-enter a silo on the destination chain. The destination issuer's entry rules run and tokens mint into the destination collection.
 
 Each silo enforces its own rules, the hop between them is neutral, and in transit there is no siloed state to violate. This mirrors how tokenized securities move between depositories that each re-apply their own framework.

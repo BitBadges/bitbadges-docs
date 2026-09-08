@@ -247,7 +247,7 @@ bb subscriptions cancel 3 --creator bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue | 
 bb subscriptions charge-due 3
 ```
 
-`--tier <approvalId>` is required on multi-tier collections. `--tip <ubadge>` adds a per-interval tip in base denom units. `--approval-id <id>` overrides the generated recurring-approval ID. Renewal works because the subscriber's recurring outgoing approval lets the faucet's coin transfer run each interval. See [Standards Commands](../cli/standards.md).
+`--tier <approvalId>` is required on multi-tier collections. `--tip <ubadge>` adds a per-interval tip in base denom units. `--approval-id <id>` overrides the generated recurring-approval ID. Renewal works because the subscriber's recurring incoming approval lets the faucet's coin transfer run each interval. See [Standards Commands](../cli/standards.md).
 
 ## 3. Build a Credit Token
 
@@ -425,7 +425,7 @@ Mint approval for the `credit-1` tier (1 USDC buys 100,000 tokens), one complete
 }
 ```
 
-Tiers: create 8 to 10 approvals named `credit-<multiplier>` so the site can split any purchase into the fewest transactions (greedy decomposition). The multiplier is the number of base payment units; each tier's payment is multiplier times the base payment, and tokens minted are multiplier times tokens per unit. Pick denominations that fit the expected purchase sizes; nothing is hardcoded. Example at 1 USDC = 100K tokens:
+Legacy tiers: existing collections may have 8 to 10 approvals named `credit-<multiplier>` so the site can split purchases into several transfers. New collections should use the single `credit-scaled` approval from [Credit Token](../agents/skills/credit-token.md), as the CLI builder does. The multiplier is the number of base payment units; each tier's payment is multiplier times the base payment, and tokens minted are multiplier times tokens per unit. Pick denominations that fit the expected purchase sizes; nothing is hardcoded. Example at 1 USDC = 100K tokens:
 
 | approvalId | Payment | Tokens minted |
 | --- | --- | --- |
@@ -457,8 +457,8 @@ Alias path (required for display):
           }
         ]
       },
-      "symbol": "CREDIT",
-      "denomUnits": [],
+      "symbol": "ucredit",
+      "denomUnits": [{ "decimals": "6", "symbol": "CREDIT", "isDefaultDisplay": true, "metadata": { "uri": "", "customData": "" } }],
       "metadata": {
         "uri": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi/alias-ucredit.json",
         "customData": ""
@@ -473,35 +473,33 @@ Permissions, all frozen:
 ```json
 {
   "collectionPermissions": {
-    "canDeleteCollection": [],
-    "canArchiveCollection": [],
-    "canUpdateStandards": [],
-    "canUpdateCustomData": [],
-    "canUpdateManager": [],
-    "canUpdateCollectionMetadata": [],
-    "canUpdateValidTokenIds": [],
-    "canUpdateTokenMetadata": [],
-    "canUpdateCollectionApprovals": [],
-    "canAddMoreAliasPaths": [],
-    "canAddMoreCosmosCoinWrapperPaths": []
+    "canDeleteCollection": [{"permanentlyPermittedTimes": [], "permanentlyForbiddenTimes": [{"start": "1", "end": "18446744073709551615"}]}],
+    "canArchiveCollection": [{"permanentlyPermittedTimes": [], "permanentlyForbiddenTimes": [{"start": "1", "end": "18446744073709551615"}]}],
+    "canUpdateStandards": [{"permanentlyPermittedTimes": [], "permanentlyForbiddenTimes": [{"start": "1", "end": "18446744073709551615"}]}],
+    "canUpdateCustomData": [{"permanentlyPermittedTimes": [], "permanentlyForbiddenTimes": [{"start": "1", "end": "18446744073709551615"}]}],
+    "canUpdateManager": [{"permanentlyPermittedTimes": [], "permanentlyForbiddenTimes": [{"start": "1", "end": "18446744073709551615"}]}],
+    "canUpdateCollectionMetadata": [{"permanentlyPermittedTimes": [], "permanentlyForbiddenTimes": [{"start": "1", "end": "18446744073709551615"}]}],
+    "canUpdateValidTokenIds": [{"permanentlyPermittedTimes": [], "permanentlyForbiddenTimes": [{"start": "1", "end": "18446744073709551615"}], "tokenIds": [{"start": "1", "end": "18446744073709551615"}]}],
+    "canUpdateTokenMetadata": [{"permanentlyPermittedTimes": [], "permanentlyForbiddenTimes": [{"start": "1", "end": "18446744073709551615"}], "tokenIds": [{"start": "1", "end": "18446744073709551615"}]}],
+    "canUpdateCollectionApprovals": [{"permanentlyPermittedTimes": [], "permanentlyForbiddenTimes": [{"start": "1", "end": "18446744073709551615"}], "fromListId": "All", "toListId": "All", "initiatedByListId": "All", "transferTimes": [{"start": "1", "end": "18446744073709551615"}], "tokenIds": [{"start": "1", "end": "18446744073709551615"}], "ownershipTimes": [{"start": "1", "end": "18446744073709551615"}], "approvalId": "All"}],
+    "canAddMoreAliasPaths": [{"permanentlyPermittedTimes": [], "permanentlyForbiddenTimes": [{"start": "1", "end": "18446744073709551615"}]}],
+    "canAddMoreCosmosCoinWrapperPaths": [{"permanentlyPermittedTimes": [], "permanentlyForbiddenTimes": [{"start": "1", "end": "18446744073709551615"}]}]
   }
 }
 ```
 
-{% hint style="info" %}
-Empty arrays here are the credit token skill's convention for "locked". On the chain, `[]` is the neutral, soft-enabled state; to make a permission irreversible you set `permanentlyForbiddenTimes`. See [Lock Permissions](lock-permissions.md) and check the emitted transaction with `bb check`.
-{% endhint %}
+An empty permission array is neutral and still editable. The explicit forbidden ranges above freeze the fields; see [Lock Permissions](lock-permissions.md).
 
 ### Track Usage Off-Chain
 
-The on-chain balance is `totalCreditsPaidFor`, the total ever purchased. Your backend tracks `totalUsed`. Remaining budget is `balance - totalUsed`. Both numbers only go up.
+The on-chain balance is `totalCreditsPaidFor`, the total ever purchased. Your backend tracks `totalUsed` in the same units. Remaining budget is `balance - totalUsed`; purchases and usage only increase their respective totals. Convert raw balances through the alias decimals before displaying credits.
 
 Worked example, the BitBadges API credits collection (collection 23 / 80, `APITOKEN`):
 
 - A user buys 10 USDC and receives 1,000,000 APITOKEN (balance 1,000,000).
 - The user makes API calls; the backend records `totalUsed` = 250,000.
 - Remaining budget = 1,000,000 - 250,000 = 750,000.
-- The user buys 5 more USDC; the balance increments to 2,000,000 and the remaining budget is 1,750,000.
+- The user buys 5 more USDC; the balance increments to 1,500,000 and the remaining budget is 1,250,000.
 
 The site's credit token page shows the balance through the alias path, a purchase form with a denom amount selector, the conversion rate, and the multi-tier decomposition. Reference collection: [Collection 23](https://bitbadges.io/collections/23).
 

@@ -18,7 +18,7 @@ The page opens on step 1 of 3. Three ways to load a transaction:
 | Paste a code | Switch to the Paste a code tab and type the `prv_` code. Codes expire one hour after creation. |
 | Paste transaction | Paste the transaction JSON into the Transaction JSON box, or click Paste from clipboard. It loads as soon as the JSON parses. |
 
-The JSON shape is the one `bb build` writes: `{ "messages": [ { "typeUrl": "/tokenization.MsgCreateCollection", "value": { ... } } ] }`. Set up your AI at the right links to the harness setup page.
+One accepted JSON shape is: `{ "messages": [ { "typeUrl": "/tokenization.MsgCreateCollection", "value": { ... } } ] }`. Set up your AI at the right links to the harness setup page.
 
 ## 2. Review
 

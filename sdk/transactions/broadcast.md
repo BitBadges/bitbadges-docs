@@ -42,13 +42,13 @@ const txContext: TxContext = {
 };
 
 // 1. Simulate. Signatures are not checked, so an empty signature works.
-const simBody = createTxBroadcastBody(txContext, msgs, '');
+const simBody = createTxBroadcastBody(txContext, msgs.map((msg) => msg.toProto()), '');
 const sim = await api.simulateTx(simBody); // POST https://api.bitbadges.io/api/v0/simulate
 console.log(sim.gas_info.gas_used);
 txContext.fee.gas = String(Math.ceil(Number(sim.gas_info.gas_used) * 1.3));
 
 // 2. Sign for real (Keplr signDirect shown; see sign-cosmos and sign-ethereum), then broadcast
-const payload = createTransactionPayload(txContext, msgs);
+const payload = createTransactionPayload(txContext, msgs.map((msg) => msg.toProto()));
 await window.keplr!.enable('bitbadges-1');
 const signed = await window.keplr!.signDirect(
   'bitbadges-1',
@@ -59,10 +59,10 @@ const signed = await window.keplr!.signDirect(
     chainId: 'bitbadges-1',
     accountNumber: BigInt(String(account.accountNumber)) as any
   },
-  { preferNoSetFee: true }
+  { preferNoSetFee: true, preferNoSetMemo: true }
 );
-const hexSignature = Buffer.from(signed.signature.signature, 'base64').toString('hex');
-const txBody = createTxBroadcastBody(txContext, msgs, hexSignature);
+const hexSignature = Array.from(atob(signed.signature.signature), (char) => char.charCodeAt(0).toString(16).padStart(2, '0')).join('');
+const txBody = createTxBroadcastBody(txContext, msgs.map((msg) => msg.toProto()), hexSignature);
 const res = await api.broadcastTx(txBody); // POST https://api.bitbadges.io/api/v0/broadcast
 const { code, txhash } = res.tx_response;
 if (code !== 0) {
@@ -72,12 +72,17 @@ if (code !== 0) {
 // 3. Poll a node until the tx is indexed
 const LCD = 'https://lcd.bitbadges.io';
 let receipt: any;
-while (!receipt) {
+for (let attempt = 0; attempt < 60 && !receipt; attempt++) {
   try {
     receipt = (await axios.get(`${LCD}/cosmos/tx/v1beta1/txs/${txhash}`)).data;
-  } catch {
+  } catch (error) {
+    if (!axios.isAxiosError(error) || error.response?.status !== 404) throw error;
     await new Promise((r) => setTimeout(r, 1000));
   }
+}
+if (!receipt) throw new Error(`Timed out waiting for ${txhash}; check its status before retrying`);
+if (Number(receipt.tx_response.code) !== 0) {
+  throw new Error(`Transaction failed: ${receipt.tx_response.raw_log}`);
 }
 ```
 
@@ -120,7 +125,7 @@ interface BroadcastTxSuccessResponse {
 
 ## Behavior
 
-- Both routes accept the proto-encoded body `{ mode, tx_bytes }` that `createTxBroadcastBody` produces. `/api/v0/simulate` also accepts `{ messages, memo?, fee, creatorAddress }` with unsigned JSON messages; that form is encoded server side, covers the tokenization and baseline Cosmos message tiers, and exists for the CLI and agent tools. External integrations should send `tx_bytes`.
+- Both SDK methods accept the JSON string returned by `createTxBroadcastBody`, which encodes `{ mode, tx_bytes }`. `/api/v0/simulate` also accepts `{ messages, memo?, fee, creatorAddress }` with unsigned JSON messages; that form is encoded server side, covers the tokenization and baseline Cosmos message tiers, and exists for the CLI and agent tools. External integrations should send `tx_bytes`.
 - A broadcast `code` other than `0` means the chain rejected the transaction. `raw_log` carries the reason.
 - The broadcast route returns as soon as the node accepts the transaction. The `/cosmos/tx/v1beta1/txs/{hash}` LCD route returns 404 until the transaction is in a block, so poll it. `https://lcd.bitbadges.io` is the BitBadges-maintained node; any BitBadges node works. Other options: subscribe to new blocks over websockets, or link to an explorer.
 - You can also send `tx_bytes` straight to a node at `POST {LCD}/cosmos/tx/v1beta1/txs` and skip the BitBadges API.
