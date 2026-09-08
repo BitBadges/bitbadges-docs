@@ -6,7 +6,7 @@ description: "Check if all messages in an array are tokenization messages Tokeni
 
 > **areAllTokenizationMessages**(`messages`): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:364](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L364)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:361](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L361)
 
 Check if all messages in an array are tokenization messages
 Tokenization messages use TOKENIZATION_PRECOMPILE_ADDRESS (not SendManager or Gamm)

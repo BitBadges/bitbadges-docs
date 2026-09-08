@@ -6,7 +6,7 @@ description: "This defines the options for fetching additional account details."
 
 > **AccountFetchDetails** = `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:701](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L701)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:702](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L702)
 
 This defines the options for fetching additional account details.
 
@@ -20,7 +20,7 @@ Each view has a bookmark that is used for pagination and must be supplied to get
 
 > `optional` **address?**: [`NativeAddress`](/sdk/reference/type-aliases/native-address)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:703](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L703)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:704](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L704)
 
 If present, the account corresponding to the specified address will be fetched. Please only specify one of `address` or `username`.
 
@@ -30,7 +30,7 @@ If present, the account corresponding to the specified address will be fetched. 
 
 > `optional` **partialProfile?**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:713](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L713)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:714](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L714)
 
 If true, we will only fetch a partial set of the document for the user.
 
@@ -44,7 +44,7 @@ Pretty much, anything you need to display the address but not the full profile
 
 > `optional` **username?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:705](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L705)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:706](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L706)
 
 If present, the account corresponding to the specified username will be fetched. Please only specify one of `address` or `username`.
 
@@ -54,7 +54,7 @@ If present, the account corresponding to the specified username will be fetched.
 
 > `optional` **viewsToFetch?**: `object`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:716](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L716)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:717](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L717)
 
 An array of views to fetch with associated bookmarks.
 

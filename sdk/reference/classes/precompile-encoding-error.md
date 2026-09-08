@@ -4,7 +4,7 @@ description: "Error thrown when encoding a precompile call fails"
 
 # Class: PrecompileEncodingError
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:152](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L152)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:149](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L149)
 
 Error thrown when encoding a precompile call fails
 
@@ -18,7 +18,7 @@ Error thrown when encoding a precompile call fails
 
 > **new PrecompileEncodingError**(`functionName`, `originalError`, `messageData?`): `PrecompileEncodingError`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:153](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L153)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:150](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L150)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:153](
 
 > `readonly` **functionName**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:154](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L154)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:151](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L151)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:154](
 
 > `readonly` `optional` **messageData?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:156](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L156)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:153](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L153)
 
 ***
 
@@ -64,4 +64,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:156](
 
 > `readonly` **originalError**: `Error`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:155](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L155)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:152](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L152)

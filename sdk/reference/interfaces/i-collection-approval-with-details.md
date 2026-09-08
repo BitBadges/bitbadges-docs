@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iCollectionApprovalWithDetails\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2260](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2260)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2261](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2261)
 
 ## Extends
 
@@ -22,7 +22,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2260](https://github
 
 > `optional` **approvalCriteria?**: [`iApprovalCriteriaWithDetails`](/sdk/reference/interfaces/i-approval-criteria-with-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2269](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2269)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2270](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2270)
 
 The criteria to be met. These represent the restrictions that must be obeyed such as the total amount approved, max num transfers, merkle challenges, must own tokens, etc.
 
@@ -64,7 +64,7 @@ Arbitrary custom data of the approval
 
 > `optional` **details?**: [`iApprovalInfoDetails`](/sdk/reference/interfaces/i-approval-info-details)
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2262](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2262)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2263](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2263)
 
 The approval metadata details
 
@@ -74,7 +74,7 @@ The approval metadata details
 
 > **fromList**: [`iAddressList`](/sdk/reference/interfaces/i-address-list)
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2266](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2266)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2267](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2267)
 
 The populated address list for the fromListId
 
@@ -98,7 +98,7 @@ The list ID for the user(s) who is sending the tokens. The ID is either register
 
 > **initiatedByList**: [`iAddressList`](/sdk/reference/interfaces/i-address-list)
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2268](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2268)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2269](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2269)
 
 The populated address list for the initiatedByListId
 
@@ -150,7 +150,7 @@ The token IDs to be transferred.
 
 > **toList**: [`iAddressList`](/sdk/reference/interfaces/i-address-list)
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2264](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2264)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2265](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2265)
 
 The populated address list for the toListId
 

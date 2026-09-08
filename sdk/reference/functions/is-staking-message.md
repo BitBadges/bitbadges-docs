@@ -6,7 +6,7 @@ description: "Check if a message type is a Staking message (uses Staking precomp
 
 > **isStakingMessage**(`messageType`): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:121](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L121)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:118](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L118)
 
 Check if a message type is a Staking message (uses Staking precompile)
 

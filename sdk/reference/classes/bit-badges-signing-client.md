@@ -4,7 +4,7 @@ description: "BitBadgesSigningClient provides a wallet-agnostic interface for si
 
 # Class: BitBadgesSigningClient
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:85](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L85)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:87](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L87)
 
 BitBadgesSigningClient provides a wallet-agnostic interface for signing and broadcasting
 transactions on the BitBadges blockchain.
@@ -15,21 +15,23 @@ through the adapter pattern.
 ## Example
 
 ```typescript
-// With a Cosmos wallet (Keplr)
+import { BitBadgesSigningClient, GenericCosmosAdapter, GenericEvmAdapter, MsgTransferTokens } from 'bitbadges';
+
 const adapter = await GenericCosmosAdapter.fromKeplr('bitbadges-1');
+// For an EVM wallet, replace the adapter above with:
+// const adapter = await GenericEvmAdapter.fromBrowserWallet({ expectedChainId: 50024 });
 const client = new BitBadgesSigningClient({ adapter });
-
-const result = await client.signAndBroadcast([
-  MsgTransferBadges.create({ ... }).toProto()
-]);
-
-// With an EVM wallet (ethers.js)
-const provider = new BrowserProvider(window.ethereum);
-const signer = await provider.getSigner();
-const adapter = await GenericEvmAdapter.fromSigner(signer);
-const client = new BitBadgesSigningClient({ adapter });
-
-const result = await client.signAndBroadcast([msg]); // Uses precompile path
+const msg = new MsgTransferTokens({
+  creator: client.address,
+  collectionId: '1',
+  transfers: [{
+    from: client.address,
+    toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
+    balances: [{ amount: '1', tokenIds: [{ start: '1', end: '1' }], ownershipTimes: [{ start: '1', end: '18446744073709551615' }] }]
+  }]
+});
+const result = await client.signAndBroadcast([msg]);
+console.log(result.success ? result.txHash : result.error);
 ```
 
 ## Constructors
@@ -38,7 +40,7 @@ const result = await client.signAndBroadcast([msg]); // Uses precompile path
 
 > **new BitBadgesSigningClient**(`options`): `BitBadgesSigningClient`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:105](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L105)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:107](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L107)
 
 Create a new BitBadgesSigningClient.
 
@@ -66,7 +68,7 @@ Error if EVM adapter is used and MetaMask is on wrong network
 
 > **get** **address**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:149](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L149)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:151](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L151)
 
 Get the BitBadges address (bb-prefixed) for this client.
 
@@ -82,7 +84,7 @@ Get the BitBadges address (bb-prefixed) for this client.
 
 > **get** **chainType**(): `"evm"` \| `"cosmos"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:161](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L161)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:163](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L163)
 
 Get the chain type from the adapter.
 
@@ -98,7 +100,7 @@ Get the chain type from the adapter.
 
 > **get** **config**(): [`NetworkConfig`](/sdk/reference/interfaces/network-config)
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:142](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L142)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:144](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L144)
 
 Get the network configuration.
 
@@ -114,7 +116,7 @@ Get the network configuration.
 
 > **get** **evmChainId**(): `number`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:175](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L175)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:177](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L177)
 
 Get the EVM chain ID being used.
 
@@ -128,7 +130,7 @@ Get the EVM chain ID being used.
 
 > **clearCache**(): `void`
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:262](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L262)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:264](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L264)
 
 Clear the cached account info. Call this after transactions to force a refresh.
 
@@ -142,7 +144,7 @@ Clear the cached account info. Call this after transactions to force a refresh.
 
 > **getAccountInfo**(`forceRefresh?`): `Promise`\<[`AccountInfo`](/sdk/reference/interfaces/account-info)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:200](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L200)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:202](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L202)
 
 Get account information from the blockchain.
 Results are cached to minimize RPC calls.
@@ -167,7 +169,7 @@ Account information including accountNumber, sequence, and publicKey
 
 > **signAndBroadcast**(`messages`, `options?`): `Promise`\<[`BroadcastResult`](/sdk/reference/interfaces/broadcast-result)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:521](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L521)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:526](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L526)
 
 Sign and broadcast a transaction.
 
@@ -197,7 +199,7 @@ Broadcast result including transaction hash
 
 > **simulate**(`messages`, `options?`): `Promise`\<[`SimulateResult`](/sdk/reference/interfaces/simulate-result)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:285](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L285)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:287](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L287)
 
 Simulate a transaction to estimate gas usage.
 
@@ -233,7 +235,7 @@ Simulation result with gas estimates
 
 > **simulateAndReview**(`messages`, `options?`): `Promise`\<[`SimulateAndReviewResult`](/sdk/reference/interfaces/simulate-and-review-result)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:471](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L471)
+Defined in: [packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts:476](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/signing/BitBadgesSigningClient.ts#L476)
 
 Simulate a transaction and return parsed event data with net balance changes.
 
@@ -274,8 +276,11 @@ Full simulation result with parsed events and net changes
 #### Example
 
 ```typescript
+import type { BitBadgesSigningClient, MsgTransferTokens } from 'bitbadges';
+declare const client: BitBadgesSigningClient; // configured with a wallet adapter
+declare const msg: MsgTransferTokens<bigint>; // transfer to simulate
 const review = await client.simulateAndReview([msg], {
-  txsInfo: [{ type: 'MsgTransferBadges', msg: { ... } }]
+  txsInfo: [{ type: 'MsgTransferTokens', msg: msg.toJson() }]
 });
 
 console.log('Gas:', review.gasUsed);

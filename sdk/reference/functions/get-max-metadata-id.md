@@ -6,7 +6,7 @@ description: "This returns the max Metadata ID for a collection."
 
 > **getMaxMetadataId**\<`T`\>(`tokenMetadata`): `bigint`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/metadata/metadataIds.ts:149](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/metadata/metadataIds.ts#L149)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/metadata/metadataIds.ts:159](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/metadata/metadataIds.ts#L159)
 
 This returns the max [Metadata ID](https://docs.bitbadges.io/for-developers/bitbadges-sdk/common-snippets/metadata-ids)
 for a collection.

@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: GetCollectionsSuccessResponse\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1583](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1583)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1593](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1593)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:158
 
 > **new GetCollectionsSuccessResponse**\<`T`\>(`data`): `GetCollectionsSuccessResponse`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1589](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1589)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1599](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1599)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:158
 
 > **collections**: ([`BitBadgesCollection`](/sdk/reference/classes/bit-badges-collection)\<`T`\> \| `undefined`)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1587](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1587)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1597](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1597)
 
 #### Implementation of
 
@@ -78,7 +78,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `GetCollectionsSuccessResponse`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1594](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1594)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1604](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1604)
 
 Converts the object to a different NumberType equivalent.
 

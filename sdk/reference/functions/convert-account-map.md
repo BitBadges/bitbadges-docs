@@ -6,7 +6,7 @@ description: "T extends NumberType"
 
 > **convertAccountMap**\<`T`, `U`\>(`item`, `convertFunction`): [`AccountMap`](/sdk/reference/interfaces/account-map)\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:588](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L588)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:589](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L589)
 
 ## Type Parameters
 

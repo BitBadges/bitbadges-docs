@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iChallengeInfoDetails\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2002](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2002)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2003](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2003)
 
 ## Type Parameters
 
@@ -18,7 +18,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2002](https://github
 
 > **challengeDetails**: [`iChallengeDetails`](/sdk/reference/interfaces/i-challenge-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2004](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2004)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2005](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2005)
 
 The challenge details of the claim / approval
 
@@ -28,4 +28,4 @@ The challenge details of the claim / approval
 
 > `optional` **claim?**: [`iClaimDetails`](/sdk/reference/interfaces/i-claim-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2006](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2006)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2007](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2007)

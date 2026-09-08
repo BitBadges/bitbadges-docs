@@ -68,7 +68,7 @@ Defined in: site/node\_modules/typescript/lib/lib.es5.d.ts:1514
 
 > **assertNoOverlaps**(`overlappingRange`): `void`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:514](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L514)
+Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:519](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L519)
 
 Asserts two UintRanges[] do not overlap at all with each other.
 For example, if we have a list of permitted and forbidden times, we want to make sure that the forbidden times do not overlap with the permitted times.
@@ -164,7 +164,7 @@ If thisArg is omitted, undefined is used as the this value.
 
 > **getOverlapDetails**(`idsToRemove`): \[`UintRangeArray`\<`T`\>, `UintRangeArray`\<`T`\>, `UintRangeArray`\<`T`\>\]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:415](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L415)
+Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:420](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L420)
 
 Gets the overlap details between two lists of UintRanges.
 Returns a tuple of [remainingInThis, overlaps, remainingInOther].
@@ -185,7 +185,7 @@ Returns a tuple of [remainingInThis, overlaps, remainingInOther].
 
 > **getOverlaps**(`idsToRemove`): `UintRangeArray`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:424](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L424)
+Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:429](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L429)
 
 Gets the overlap between the current range and another
 
@@ -223,7 +223,7 @@ Overlap here is considered inclusive, so [1, 10] and [10, 20] would be considere
 
 > **invert**(`bounds`): `UintRangeArray`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:384](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L384)
+Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:389](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L389)
 
 Invert a list of UintRanges (i.e. get all values in some bounds not in current list) in-place.
 
@@ -257,7 +257,7 @@ Checks if the provided id ranges are full (i.e. they cover all possible IDs from
 
 > **remove**(`idsToRemove`): `this`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:455](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L455)
+Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:460](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L460)
 
 Remove a range from the current range in-place
 
@@ -277,7 +277,7 @@ Remove a range from the current range in-place
 
 > **search**(`id`): \[`bigint`, `boolean`\]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:467](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L467)
+Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:472](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L472)
 
 Search ID ranges for a specific ID. Return [idx, found], where idx is the index of the range that contains the ID, and found is true if the ID was found.
 
@@ -299,7 +299,7 @@ If you just want one or the other, use searchIndex() or searchIfExists().
 
 > **searchIfExists**(`val`): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:499](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L499)
+Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:504](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L504)
 
 Search ID ranges for a specific ID. Return true, if found.
 
@@ -319,7 +319,7 @@ Search ID ranges for a specific ID. Return true, if found.
 
 > **searchIndex**(`val`): `bigint`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:506](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L506)
+Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:511](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L511)
 
 Search for the first index of an element that includes the provided value.
 
@@ -354,7 +354,7 @@ for example, [{start: 1, end: 3}, {start: 5, end: 7}] would return 6.
 
 > **sortAndMerge**(): `UintRangeArray`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:346](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L346)
+Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:351](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L351)
 
 Sorts and merges a list of UintRanges. If ranges overlap, they are merged.
 
@@ -365,7 +365,10 @@ Sorts and merges a list of UintRanges. If ranges overlap, they are merged.
 #### Example
 
 ```ts
-[{start: 1, end: 3}, {start: 2, end: 4}] => [{start: 1, end: 4}]
+import { UintRangeArray } from 'bitbadges';
+const ranges = UintRangeArray.From<bigint>([{ start: 1n, end: 3n }, { start: 2n, end: 4n }]);
+ranges.sortAndMerge();
+console.log(ranges); // [{ start: 1n, end: 4n }]
 ```
 
 #### Remarks
@@ -378,7 +381,7 @@ Does not return a new list. Modifies the list in place. To get a new list, use `
 
 > **toInverted**(`bounds`): `UintRangeArray`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:407](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L407)
+Defined in: [packages/bitbadgesjs-sdk/src/core/uintRanges.ts:412](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/uintRanges.ts#L412)
 
 Wrapper for invert that returns a new list instead of modifying the current list.
 

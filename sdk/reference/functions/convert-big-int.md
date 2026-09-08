@@ -6,7 +6,7 @@ description: "Convert a value to bigint, handling string or bigint inputs"
 
 > **convertBigInt**(`value`, `defaultValue?`): `bigint`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/helpers.ts:107](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/helpers.ts#L107)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/helpers.ts:105](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/helpers.ts#L105)
 
 Convert a value to bigint, handling string or bigint inputs
 

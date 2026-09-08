@@ -6,7 +6,7 @@ description: "Recursively convert all bigint values in an object to strings for 
 
 > **convertBigIntsToStrings**(`obj`): `any`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/helpers.ts:142](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/helpers.ts#L142)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/helpers.ts:140](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/helpers.ts#L140)
 
 Recursively convert all bigint values in an object to strings for JSON serialization
 

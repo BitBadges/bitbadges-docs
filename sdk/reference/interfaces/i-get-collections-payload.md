@@ -4,7 +4,7 @@ description: "Interface: iGetCollectionsPayload — BitBadges TypeScript SDK int
 
 # Interface: iGetCollectionsPayload
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1572](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1572)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1582](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1582)
 
 ## Properties
 
@@ -12,4 +12,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:157
 
 > **collectionsToFetch**: [`GetCollectionRequestBody`](/sdk/reference/type-aliases/get-collection-request-body)[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1573](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1573)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1583](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1583)

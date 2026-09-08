@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iMerkleChallengeWithDetails\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2075](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2075)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2076](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2076)
 
 ## Extends
 
@@ -22,7 +22,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2075](https://github
 
 > **challengeInfoDetails**: [`iChallengeInfoDetails`](/sdk/reference/interfaces/i-challenge-info-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2076](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2076)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2077](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2077)
 
 ***
 

@@ -4,7 +4,7 @@ description: "Result of converting a message to a precompile function call"
 
 # Interface: PrecompileCallResult
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:138](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L138)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:135](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L135)
 
 Result of converting a message to a precompile function call
 
@@ -14,7 +14,7 @@ Result of converting a message to a precompile function call
 
 > **data**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:142](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L142)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:139](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L139)
 
 The encoded function data (ready to send in a transaction)
 
@@ -24,7 +24,7 @@ The encoded function data (ready to send in a transaction)
 
 > **functionName**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:140](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L140)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:137](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L137)
 
 The function name to call on the precompile
 
@@ -34,7 +34,7 @@ The function name to call on the precompile
 
 > **jsonMsg**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:144](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L144)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:141](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L141)
 
 The JSON message string (for debugging/logging)
 
@@ -44,6 +44,6 @@ The JSON message string (for debugging/logging)
 
 > **precompileAddress**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:146](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L146)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:143](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L143)
 
 The precompile contract address (0x1001 for tokenization, 0x1002 for gamm, 0x1003 for sendmanager)

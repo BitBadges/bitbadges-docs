@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: ChallengeInfoDetails\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2031](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2031)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2032](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2032)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2031](https://github
 
 > **new ChallengeInfoDetails**\<`T`\>(`data`): `ChallengeInfoDetails`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2035](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2035)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2036](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2036)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2035](https://github
 
 > **challengeDetails**: [`ChallengeDetails`](/sdk/reference/classes/challenge-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2032](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2032)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2033](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2033)
 
 The challenge details of the claim / approval
 
@@ -62,7 +62,7 @@ The challenge details of the claim / approval
 
 > `optional` **claim?**: [`ClaimDetails`](/sdk/reference/classes/claim-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2033](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2033)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2034](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2034)
 
 #### Implementation of
 
@@ -92,7 +92,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `ChallengeInfoDetails`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2041](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2041)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2042](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2042)
 
 Converts the object to a different NumberType equivalent.
 

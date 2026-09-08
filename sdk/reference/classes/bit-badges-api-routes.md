@@ -55,7 +55,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:56](htt
 
 > `static` **BroadcastTxEvmRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:195](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L195)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:194](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L194)
 
 #### Returns
 
@@ -68,28 +68,6 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:195](ht
 > `static` **BroadcastTxRoute**(): `string`
 
 Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:66](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L66)
-
-#### Returns
-
-`string`
-
-***
-
-### CheckClaimSuccessRoute()
-
-> `static` **CheckClaimSuccessRoute**(`claimId`, `address`): `string`
-
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:112](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L112)
-
-#### Parameters
-
-##### claimId
-
-`string`
-
-##### address
-
-`string`
 
 #### Returns
 
@@ -219,7 +197,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:108](ht
 
 > `static` **EstimateSwapRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:145](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L145)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:144](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L144)
 
 #### Returns
 
@@ -255,7 +233,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:68](htt
 
 > `static` **FilterCollectionApprovalsRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:159](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L159)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:158](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L158)
 
 #### Parameters
 
@@ -369,7 +347,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:88](htt
 
 > `static` **GetAllListingsRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:168](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L168)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:167](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L167)
 
 #### Parameters
 
@@ -459,7 +437,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:64](htt
 
 > `static` **GetCandlestickDataRoute**(`collectionId`, `tokenId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:176](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L176)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:175](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L175)
 
 #### Parameters
 
@@ -481,7 +459,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:176](ht
 
 > `static` **GetClaimActivityByTypeForUserRoute**(`address`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:119](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L119)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:118](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L118)
 
 #### Parameters
 
@@ -577,7 +555,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:91](htt
 
 > `static` **GetCollectionAmountTrackerByIdRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:133](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L133)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:132](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L132)
 
 #### Returns
 
@@ -589,7 +567,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:133](ht
 
 > `static` **GetCollectionAmountTrackersRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:130](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L130)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:129](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L129)
 
 #### Parameters
 
@@ -607,7 +585,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:130](ht
 
 > `static` **GetCollectionChallengeTrackerByIdRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:134](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L134)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:133](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L133)
 
 #### Returns
 
@@ -619,7 +597,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:134](ht
 
 > `static` **GetCollectionChallengeTrackersRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:129](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L129)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:128](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L128)
 
 #### Parameters
 
@@ -637,7 +615,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:129](ht
 
 > `static` **GetCollectionClaimsRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:126](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L126)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:125](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L125)
 
 #### Parameters
 
@@ -655,7 +633,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:126](ht
 
 > `static` **GetCollectionIndexRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:199](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L199)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:198](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L198)
 
 #### Returns
 
@@ -667,7 +645,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:199](ht
 
 > `static` **GetCollectionListingsRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:131](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L131)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:130](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L130)
 
 #### Parameters
 
@@ -685,7 +663,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:131](ht
 
 > `static` **GetCollectionOffersRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:169](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L169)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:168](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L168)
 
 #### Parameters
 
@@ -703,7 +681,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:169](ht
 
 > `static` **GetCollectionOwnersRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:122](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L122)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:121](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L121)
 
 #### Parameters
 
@@ -721,7 +699,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:122](ht
 
 > `static` **GetCollectionRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:123](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L123)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:122](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L122)
 
 #### Parameters
 
@@ -751,7 +729,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:19](htt
 
 > `static` **GetCollectionTransferActivityRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:128](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L128)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:127](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L127)
 
 #### Parameters
 
@@ -907,7 +885,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:39](htt
 
 > `static` **GetIntentsRoute**(`address?`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:158](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L158)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:157](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L157)
 
 #### Parameters
 
@@ -925,7 +903,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:158](ht
 
 > `static` **GetLiquidityPairPriceHistoryRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:179](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L179)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:178](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L178)
 
 #### Returns
 
@@ -937,7 +915,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:179](ht
 
 > `static` **GetListingsForTokenIdRoute**(`collectionId`, `tokenId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:170](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L170)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:169](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L169)
 
 #### Parameters
 
@@ -959,7 +937,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:170](ht
 
 > `static` **GetOffersForTokenIdRoute**(`collectionId`, `tokenId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:172](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L172)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:171](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L171)
 
 #### Parameters
 
@@ -981,7 +959,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:172](ht
 
 > `static` **GetOnChainDynamicStoreRoute**(`storeId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:161](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L161)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:160](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L160)
 
 #### Parameters
 
@@ -999,7 +977,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:161](ht
 
 > `static` **GetOnChainDynamicStoresByCreatorRoute**(`address`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:162](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L162)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:161](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L161)
 
 #### Parameters
 
@@ -1017,7 +995,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:162](ht
 
 > `static` **GetOnChainDynamicStoreValueRoute**(`storeId`, `address`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:163](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L163)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:162](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L162)
 
 #### Parameters
 
@@ -1039,7 +1017,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:163](ht
 
 > `static` **GetOnChainDynamicStoreValuesPaginatedRoute**(`storeId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:165](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L165)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:164](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L164)
 
 #### Parameters
 
@@ -1057,7 +1035,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:165](ht
 
 > `static` **GetOrderbookDepthRoute**(`collectionId`, `tokenId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:174](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L174)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:173](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L173)
 
 #### Parameters
 
@@ -1143,7 +1121,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:83](htt
 
 > `static` **GetPointsActivityForUserRoute**(`address`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:120](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L120)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:119](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L119)
 
 #### Parameters
 
@@ -1161,7 +1139,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:120](ht
 
 > `static` **GetPoolsBatchRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:180](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L180)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:179](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L179)
 
 #### Returns
 
@@ -1173,7 +1151,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:180](ht
 
 > `static` **GetPredictionDetailRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:188](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L188)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:187](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L187)
 
 #### Parameters
 
@@ -1191,7 +1169,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:188](ht
 
 > `static` **GetPredictionPricesRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:189](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L189)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:188](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L188)
 
 #### Parameters
 
@@ -1209,7 +1187,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:189](ht
 
 > `static` **GetPredictionsRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:187](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L187)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:186](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L186)
 
 #### Returns
 
@@ -1285,7 +1263,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:80](htt
 
 > `static` **GetSiwbbRequestsForUserRoute**(`address`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:114](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L114)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:113](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L113)
 
 #### Parameters
 
@@ -1303,7 +1281,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:114](ht
 
 > `static` **GetSkipAssetsRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:153](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L153)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:152](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L152)
 
 #### Returns
 
@@ -1315,7 +1293,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:153](ht
 
 > `static` **GetSkipBalancesRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:155](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L155)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:154](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L154)
 
 #### Returns
 
@@ -1327,7 +1305,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:155](ht
 
 > `static` **GetSkipChainsRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:154](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L154)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:153](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L153)
 
 #### Returns
 
@@ -1339,7 +1317,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:154](ht
 
 > `static` **GetSkipTxStatusRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:157](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L157)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:156](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L156)
 
 #### Returns
 
@@ -1363,7 +1341,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:17](htt
 
 > `static` **GetSwapActivitiesRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:136](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L136)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:135](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L135)
 
 #### Returns
 
@@ -1375,7 +1353,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:136](ht
 
 > `static` **GetSwapAssetsRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:142](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L142)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:141](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L141)
 
 #### Returns
 
@@ -1387,7 +1365,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:142](ht
 
 > `static` **GetSwapBalancesRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:144](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L144)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:143](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L143)
 
 #### Returns
 
@@ -1399,7 +1377,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:144](ht
 
 > `static` **GetSwapChainsRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:143](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L143)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:142](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L142)
 
 #### Returns
 
@@ -1411,7 +1389,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:143](ht
 
 > `static` **GetSwapStatusRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:147](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L147)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:146](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L146)
 
 #### Returns
 
@@ -1445,7 +1423,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:27](htt
 
 > `static` **GetTokenMetadataRoute**(`collectionId`, `tokenId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:124](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L124)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:123](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L123)
 
 #### Parameters
 
@@ -1467,7 +1445,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:124](ht
 
 > `static` **GetTokensByTypeForUserRoute**(`address`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:116](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L116)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:115](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L115)
 
 #### Parameters
 
@@ -1497,7 +1475,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:69](htt
 
 > `static` **GetTransferActivityForUserRoute**(`address`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:115](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L115)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:114](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L114)
 
 #### Parameters
 
@@ -1515,7 +1493,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:115](ht
 
 > `static` **GetUserBalancesRoute**(`address`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:117](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L117)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:116](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L116)
 
 #### Parameters
 
@@ -1563,7 +1541,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:106](ht
 
 > `static` **GetVoteByProposalIdRoute**(`proposalId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:184](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L184)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:183](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L183)
 
 #### Parameters
 
@@ -1581,7 +1559,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:184](ht
 
 > `static` **GetVotesByCollectionRoute**(`collectionId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:183](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L183)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:182](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L182)
 
 #### Parameters
 
@@ -1599,7 +1577,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:183](ht
 
 > `static` **GetVotesByVoterRoute**(`voter`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:185](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L185)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:184](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L184)
 
 #### Parameters
 
@@ -1819,7 +1797,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:35](htt
 
 > `static` **SimulateTxEvmRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:196](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L196)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:195](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L195)
 
 #### Returns
 
@@ -1843,7 +1821,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:67](htt
 
 > `static` **TrackSkipTxRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:156](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L156)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:155](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L155)
 
 #### Returns
 
@@ -1855,7 +1833,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:156](ht
 
 > `static` **TrackSwapRoute**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:146](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L146)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts:145](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/requests/routes.ts#L145)
 
 #### Returns
 

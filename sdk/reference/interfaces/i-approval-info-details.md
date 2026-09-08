@@ -4,7 +4,7 @@ description: "Interface: iApprovalInfoDetails — BitBadges TypeScript SDK inter
 
 # Interface: iApprovalInfoDetails
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2022](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2022)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2023](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2023)
 
 ## Properties
 
@@ -12,7 +12,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2022](https://github
 
 > **description**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2024](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2024)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2025](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2025)
 
 ***
 
@@ -20,7 +20,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2024](https://github
 
 > **image**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2025](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2025)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2026](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2026)
 
 ***
 
@@ -28,4 +28,4 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2025](https://github
 
 > **name**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2023](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2023)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2024](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2024)

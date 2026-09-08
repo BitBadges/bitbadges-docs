@@ -6,7 +6,7 @@ description: "This function returns the Metadata ID for a specific token ID. Ret
 
 > **getMetadataIdForTokenId**\<`T`\>(`tokenId`, `tokenMetadata`): `bigint` \| `-1` \| `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/metadata/metadataIds.ts:35](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/metadata/metadataIds.ts#L35)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/metadata/metadataIds.ts:40](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/metadata/metadataIds.ts#L40)
 
 This function returns the [Metadata ID](https://docs.bitbadges.io/for-developers/bitbadges-sdk/common-snippets/metadata-ids)
 for a specific token ID. Returns -1 if not found.
@@ -33,22 +33,27 @@ for a specific token ID. Returns -1 if not found.
 
 ## Remarks
 
-The token metadata array is the timeline values (TokenMetadataTimeline.tokenMetadata), not the cached fetched values
-from the API.
+The token metadata array contains URI-to-token mappings, as returned by `collection.getTokenMetadata()`.
+These helpers use the mappings rather than the fetched metadata JSON.
 
 ## Examples
 
 ```ts
-import { getMetadataIdForTokenId } from 'bitbadges'
-const collection: BitBadgesCollection<bigint> = { ... }
-const tokenId = 123n
-const metadataId = getMetadataIdForTokenId(tokenId, collection.getTokenMetadataTimelineValue())
+import { getMetadataIdForTokenId, TokenMetadata } from 'bitbadges';
+const tokenMetadata = [
+  new TokenMetadata<bigint>({
+    uri: 'https://example.com/{id}.json',
+    customData: '',
+    tokenIds: [{ start: 100n, end: 102n }]
+  })
+];
+const result = getMetadataIdForTokenId(101n, tokenMetadata);
+console.log(result); // 2n
 ```
 
-This can also be used with the BitBadges collection interface
+Use the token metadata already loaded on a collection.
 ```ts
-import { BitBadgesCollection } from 'bitbadges'
-const collection: BitBadgesCollection<bigint> = { ... }
-const tokenId = 123n
-const metadataId = collection.getMetadataIdForTokenId(tokenId)
+import { getMetadataIdForTokenId, type BitBadgesCollection } from 'bitbadges';
+declare const collection: BitBadgesCollection<bigint>; // fetched through BitBadgesAPI
+const result = getMetadataIdForTokenId(101n, collection.getTokenMetadata());
 ```

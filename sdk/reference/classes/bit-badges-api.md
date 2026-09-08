@@ -13,7 +13,7 @@ convertFunction is used to convert any responses returned by the API to your des
 ```typescript
 import { BigIntify, Stringify, Numberify, BitBadgesAPI } from "bitbadges";
 const BitBadgesApi = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: '...' });
-const collections = await BitBadgesApi.getCollections(...);
+const collections = await BitBadgesApi.getCollections({ collectionsToFetch: [{ collectionId: '1' }] });
 ```
 
 By default, we use the official API URL (https://api.bitbadges.io). You can override this by passing in a custom apiUrl.
@@ -218,9 +218,9 @@ Also, consider checking out [Broadcast UI](https://bitbadges.io/dev/broadcast), 
 
 > **checkClaimSuccess**(`claimId`, `address`): `Promise`\<[`CheckClaimSuccessSuccessResponse`](/sdk/reference/classes/check-claim-success-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1462](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1462)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1472](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1472)
 
-Checks if a claim has been successfully completed.
+Checks whether one address has completed a claim, and which claim numbers it won.
 
 #### Parameters
 
@@ -238,8 +238,18 @@ Checks if a claim has been successfully completed.
 
 #### Remarks
 
-- **API Route**: `GET /api/v0/claims/success/:claimId/:address`
+- **API Route**: `GET /api/v0/claims/:claimId/attempts?address=`
 - **SDK Function Call**: `await BitBadgesApi.checkClaimSuccess(claimId, address);`
+
+This used to call `/api/v0/claims/success/:claimId/:address`, which the
+indexer removed in a deprecation sweep, so every call 404'd. The successful
+attempts for one address answer the same question, so the method keeps its
+shape and reads them instead: `total` is the success count and each
+attempt carries its claim number.
+
+One caveat the old route did not have: a claim whose `numUses` plugin sets
+`hideCurrentState` rejects this for anyone but the claim's manager, rather
+than reporting zero.
 
 ***
 
@@ -343,7 +353,7 @@ Creates a claim.
 
 > **createDeveloperApp**(`payload`): `Promise`\<[`CreateDeveloperAppSuccessResponse`](/sdk/reference/classes/create-developer-app-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2167](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2167)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2189](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2189)
 
 Creates an developer app.
 
@@ -369,7 +379,7 @@ Creates an developer app.
 
 > **createDynamicDataStore**\<`Q`, `NumberType`\>(`payload`): `Promise`\<[`CreateDynamicDataStoreSuccessResponse`](/sdk/reference/classes/create-dynamic-data-store-success-response)\<`Q`, `T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2244](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2244)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2266](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2266)
 
 Creates a dynamic data bin.
 
@@ -480,7 +490,7 @@ Deletes a claim.
 
 > **deleteDeveloperApp**(`payload`): `Promise`\<[`DeleteDeveloperAppSuccessResponse`](/sdk/reference/classes/delete-developer-app-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2193](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2193)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2215](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2215)
 
 Deletes an developer app.
 
@@ -506,7 +516,7 @@ Deletes an developer app.
 
 > **deleteDynamicDataStore**(`payload`): `Promise`\<[`DeleteDynamicDataStoreSuccessResponse`](/sdk/reference/classes/delete-dynamic-data-store-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2298](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2298)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2320](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2320)
 
 Deletes a dynamic data bin.
 
@@ -582,7 +592,7 @@ Deletes a utility page.
 
 > **estimateSwap**(`payload`): `Promise`\<[`iEstimateSwapSuccessResponse`](/sdk/reference/interfaces/i-estimate-swap-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2528](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2528)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2550](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2550)
 
 Estimate a swap from a token-in denom to a token-out denom across one or more chains.
 
@@ -608,7 +618,7 @@ Estimate a swap from a token-in denom to a token-out denom across one or more ch
 
 > **estimateSwapLegacy**(`payload`): `Promise`\<[`iEstimateSwapSuccessResponse`](/sdk/reference/interfaces/i-estimate-swap-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2552](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2552)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2574](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2574)
 
 #### Parameters
 
@@ -658,7 +668,7 @@ Gets and verifies a SIWBB request.
 
 > **filterCollectionApprovals**(`collectionId`, `payload`): `Promise`\<[`FilterCollectionApprovalsSuccessResponse`](/sdk/reference/classes/filter-collection-approvals-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2734](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2734)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2756](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2756)
 
 Filter approval items for a collection by a Mongo-style query, returning the
 matching approvers' balance docs. Pass `'any'` as `collectionId` to search across
@@ -880,7 +890,7 @@ console.log(res);
 
 > **getClaim**(`claimId`, `payload?`): `Promise`\<[`GetClaimSuccessResponse`](/sdk/reference/classes/get-claim-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1915](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1915)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1931](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1931)
 
 Get a claim by ID.
 
@@ -906,7 +916,9 @@ Get a claim by ID.
 #### Example
 
 ```typescript
-const res = await BitBadgesApi.getClaim("123", { ... });
+import type { BitBadgesAPI } from 'bitbadges';
+declare const BitBadgesApi: BitBadgesAPI<bigint>; // configured client
+const res = await BitBadgesApi.getClaim('claim_demo_01', {});
 console.log(res);
 ```
 
@@ -916,7 +928,7 @@ console.log(res);
 
 > **getClaimActivityForUser**(`address`, `payload`): `Promise`\<[`GetClaimActivityForUserSuccessResponse`](/sdk/reference/classes/get-claim-activity-for-user-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1594](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1594)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1606](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1606)
 
 Gets claim activity by type for a specific user. Specify the viewType to determine what
 claim activity to retrieve.
@@ -1046,7 +1058,7 @@ console.log(res);
 
 > **getCollection**(`collectionId`, `payload?`): `Promise`\<[`GetCollectionSuccessResponse`](/sdk/reference/classes/get-collection-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1695](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1695)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1709](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1709)
 
 Gets a specific collection.
 
@@ -1082,7 +1094,7 @@ console.log(res);
 
 > **getCollectionAmountTrackerById**\<`T`\>(`trackerDetails`): `Promise`\<[`GetCollectionAmountTrackerByIdSuccessResponse`](/sdk/reference/classes/get-collection-amount-tracker-by-id-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2373](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2373)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2395](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2395)
 
 Gets a specific amount tracker by ID for a collection
 
@@ -1113,7 +1125,7 @@ Gets a specific amount tracker by ID for a collection
 
 > **getCollectionAmountTrackers**(`collectionId`, `payload`): `Promise`\<[`GetCollectionAmountTrackersSuccessResponse`](/sdk/reference/classes/get-collection-amount-trackers-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1818](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1818)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1832](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1832)
 
 Gets amount trackers for a specific collection.
 
@@ -1149,7 +1161,7 @@ console.log(res);
 
 > **getCollectionChallengeTrackerById**\<`T`\>(`trackerDetails`): `Promise`\<[`GetCollectionChallengeTrackerByIdSuccessResponse`](/sdk/reference/classes/get-collection-challenge-tracker-by-id-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2395](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2395)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2417](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2417)
 
 Gets a specific challenge tracker by ID for a collection
 
@@ -1180,7 +1192,7 @@ Gets a specific challenge tracker by ID for a collection
 
 > **getCollectionChallengeTrackers**(`collectionId`, `payload`): `Promise`\<[`GetCollectionChallengeTrackersSuccessResponse`](/sdk/reference/classes/get-collection-challenge-trackers-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1782](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1782)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1796](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1796)
 
 Gets challenge trackers for a specific collection.
 
@@ -1216,7 +1228,7 @@ console.log(res);
 
 > **getCollectionClaims**(`collectionId`): `Promise`\<[`GetCollectionClaimsSuccessResponse`](/sdk/reference/classes/get-collection-claims-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1890](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1890)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1904](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1904)
 
 Gets claims for a specific collection.
 
@@ -1248,7 +1260,7 @@ console.log(res);
 
 > **getCollectionListings**(`collectionId`, `payload`): `Promise`\<[`GetCollectionListingsSuccessResponse`](/sdk/reference/classes/get-collection-listings-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1854](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1854)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1868](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1868)
 
 Gets listings for a specific collection.
 
@@ -1284,7 +1296,7 @@ console.log(res);
 
 > **getCollectionOwners**(`collectionId`, `payload`): `Promise`\<[`GetCollectionOwnersSuccessResponse`](/sdk/reference/classes/get-collection-owners-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1662](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1662)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1676](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1676)
 
 Gets owners for a specific collection.
 
@@ -1352,7 +1364,7 @@ const collection = res.collections[0];
 
 > **getCollectionTransferActivity**(`collectionId`, `payload`): `Promise`\<[`GetCollectionTransferActivitySuccessResponse`](/sdk/reference/classes/get-collection-transfer-activity-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1746](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1746)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1760](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1760)
 
 Gets transfer activity for a specific collection.
 
@@ -1388,7 +1400,7 @@ console.log(res);
 
 > **getDeveloperApp**(`developerAppId`, `payload?`): `Promise`\<[`GetDeveloperAppSuccessResponse`](/sdk/reference/classes/get-developer-app-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2094](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2094)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2116](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2116)
 
 Get developer app by ID.
 
@@ -1414,7 +1426,9 @@ Get developer app by ID.
 #### Example
 
 ```typescript
-const res = await BitBadgesApi.getDeveloperApp("developerApp123", { ... });
+import type { BitBadgesAPI } from 'bitbadges';
+declare const BitBadgesApi: BitBadgesAPI<bigint>; // configured client
+const res = await BitBadgesApi.getDeveloperApp('app_demo_01', {});
 console.log(res);
 ```
 
@@ -1424,7 +1438,7 @@ console.log(res);
 
 > **getDeveloperApps**(`payload`): `Promise`\<[`GetDeveloperAppsSuccessResponse`](/sdk/reference/classes/get-developer-apps-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2323](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2323)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2345](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2345)
 
 Get all developer apps for a user.
 
@@ -1474,7 +1488,7 @@ Get dynamic data store activity
 
 > **getDynamicDataStore**\<`Q`\>(`dynamicStoreId`, `payload?`): `Promise`\<[`GetDynamicDataStoreSuccessResponse`](/sdk/reference/classes/get-dynamic-data-store-success-response)\<`Q`, `T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1945](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1945)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1963](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1963)
 
 Get a dynamic data store by ID.
 
@@ -1506,7 +1520,9 @@ Get a dynamic data store by ID.
 #### Example
 
 ```typescript
-const res = await BitBadgesApi.getDynamicDataStore("store123", { ... });
+import type { BitBadgesAPI } from 'bitbadges';
+declare const BitBadgesApi: BitBadgesAPI<bigint>; // configured client
+const res = await BitBadgesApi.getDynamicDataStore('store_demo_01', {});
 console.log(res);
 ```
 
@@ -1551,7 +1567,7 @@ Gets dynamic data stores.
 
 > **getDynamicDataStoreValue**(`dynamicStoreId`, `payload?`): `Promise`\<[`GetDynamicDataStoreValueSuccessResponse`](/sdk/reference/classes/get-dynamic-data-store-value-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1973](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1973)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1991](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1991)
 
 Get a dynamic data store value by ID.
 
@@ -1580,7 +1596,7 @@ Get a dynamic data store value by ID.
 
 > **getDynamicDataStoreValuesPaginated**\<`Q`\>(`dynamicStoreId`, `payload?`): `Promise`\<[`GetDynamicDataStoreValuesPaginatedSuccessResponse`](/sdk/reference/classes/get-dynamic-data-store-values-paginated-success-response)\<`Q`, `T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2001](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2001)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2019](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2019)
 
 Get a dynamic data store values paginated by ID.
 
@@ -1645,7 +1661,7 @@ Get the gated content for a claim.
 
 > **getIntents**(`address?`, `payload?`): `Promise`\<[`GetIntentsSuccessResponse`](/sdk/reference/classes/get-intents-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2707](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2707)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2729](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2729)
 
 Get exchange-approval "intents" — either the global browse list (no address)
 or a specific user's intents (pass an address; combine with `includeAll: true`
@@ -1676,7 +1692,7 @@ to include used/expired/inactive ones).
 
 > **getOnChainDynamicStore**(`storeId`): `Promise`\<[`GetOnChainDynamicStoreSuccessResponse`](/sdk/reference/classes/get-on-chain-dynamic-store-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2768](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2768)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2790](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2790)
 
 Get On-Chain Dynamic Store by ID
 
@@ -1708,7 +1724,7 @@ console.log(res);
 
 > **getOnChainDynamicStoresByCreator**(`address`): `Promise`\<[`GetOnChainDynamicStoresByCreatorSuccessResponse`](/sdk/reference/classes/get-on-chain-dynamic-stores-by-creator-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2793](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2793)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2815](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2815)
 
 Get On-Chain Dynamic Stores by Creator
 
@@ -1740,7 +1756,7 @@ console.log(res);
 
 > **getOnChainDynamicStoreValue**(`storeId`, `address`): `Promise`\<[`GetOnChainDynamicStoreValueSuccessResponse`](/sdk/reference/classes/get-on-chain-dynamic-store-value-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2818](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2818)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2840](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2840)
 
 Get On-Chain Dynamic Store Value
 
@@ -1776,7 +1792,7 @@ console.log(res);
 
 > **getOnChainDynamicStoreValuesPaginated**(`storeId`, `payload?`): `Promise`\<[`GetOnChainDynamicStoreValuesPaginatedSuccessResponse`](/sdk/reference/classes/get-on-chain-dynamic-store-values-paginated-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2846](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2846)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2868](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2868)
 
 Get On-Chain Dynamic Store Values (Paginated)
 
@@ -1855,7 +1871,7 @@ console.log(res);
 
 > **getPlugin**(`pluginId`, `payload?`): `Promise`\<[`GetPluginSuccessResponse`](/sdk/reference/classes/get-plugin-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2037](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2037)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2057](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2057)
 
 Get plugin by ID.
 
@@ -1881,7 +1897,9 @@ Get plugin by ID.
 #### Example
 
 ```typescript
-const res = await BitBadgesApi.getPlugin("plugin123", { ... });
+import type { BitBadgesAPI } from 'bitbadges';
+declare const BitBadgesApi: BitBadgesAPI<bigint>; // configured client
+const res = await BitBadgesApi.getPlugin('must-own-badges', {});
 console.log(res);
 ```
 
@@ -1891,7 +1909,7 @@ console.log(res);
 
 > **getPlugins**(`payload`): `Promise`\<[`GetPluginsSuccessResponse`](/sdk/reference/classes/get-plugins-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2119](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2119)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2141](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2141)
 
 Get all developer apps for a user.
 
@@ -1916,7 +1934,7 @@ Get all developer apps for a user.
 
 > **getPointsActivityForUser**(`address`, `payload`): `Promise`\<[`GetPointsActivityForUserSuccessResponse`](/sdk/reference/classes/get-points-activity-for-user-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1628](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1628)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1642](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1642)
 
 Gets points activity for a specific user.
 
@@ -1942,7 +1960,9 @@ Gets points activity for a specific user.
 #### Example
 
 ```typescript
-const res = await BitBadgesApi.getPointsActivityForUser("bb1...", { ... });
+import type { BitBadgesAPI } from 'bitbadges';
+declare const BitBadgesApi: BitBadgesAPI<bigint>; // configured client
+const res = await BitBadgesApi.getPointsActivityForUser('bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue', { bookmark: '' });
 console.log(res);
 ```
 
@@ -2079,7 +2099,7 @@ Gets the SIWBB requests for a specific developer app.
 
 > **getSiwbbRequestsForUser**(`address`, `payload`): `Promise`\<[`GetSiwbbRequestsForUserSuccessResponse`](/sdk/reference/classes/get-siwbb-requests-for-user-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1487](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1487)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1499](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1499)
 
 Gets Sign-In with BitBadges (SIWBB) requests (authentication requests)
 for a user.
@@ -2116,7 +2136,7 @@ console.log(res);
 
 > **getSkipAssets**(`payload?`): `Promise`\<[`GetSkipAssetsSuccessResponse`](/sdk/reference/classes/get-skip-assets-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2633](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2633)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2655](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2655)
 
 #### Parameters
 
@@ -2144,7 +2164,7 @@ Get Skip:Go cross-chain assets (filtered to BitBadges-allowed chains).
 
 > **getSkipBalances**(`payload`): `Promise`\<[`GetSkipBalancesSuccessResponse`](/sdk/reference/classes/get-skip-balances-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2663](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2663)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2685](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2685)
 
 #### Parameters
 
@@ -2172,7 +2192,7 @@ Get Skip:Go balances for one or more (chain, address) pairs.
 
 > **getSkipChains**(`payload?`): `Promise`\<[`GetSkipChainsSuccessResponse`](/sdk/reference/classes/get-skip-chains-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2649](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2649)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2671](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2671)
 
 #### Parameters
 
@@ -2200,7 +2220,7 @@ Get Skip:Go cross-chain chain registry (filtered to BitBadges-allowed chains).
 
 > **getSkipTxStatus**(`payload`): `Promise`\<[`GetSkipTxStatusSuccessResponse`](/sdk/reference/classes/get-skip-tx-status-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2692](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2692)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2714](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2714)
 
 #### Parameters
 
@@ -2260,7 +2280,7 @@ console.log(res);
 
 > **getSwapActivities**(`payload?`): `Promise`\<[`GetSwapActivitiesSuccessResponse`](/sdk/reference/classes/get-swap-activities-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2423](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2423)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2445](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2445)
 
 Get Swap Activities
 
@@ -2292,7 +2312,7 @@ console.log(res);
 
 > **getSwapAssets**(`payload?`): `Promise`\<[`GetSwapAssetsSuccessResponse`](/sdk/reference/classes/get-swap-assets-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2450](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2450)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2472](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2472)
 
 Get consolidated cross-chain assets (Skip:Go + CoinsRegistry + verified BitBadges asset metadata).
 
@@ -2319,7 +2339,7 @@ Get consolidated cross-chain assets (Skip:Go + CoinsRegistry + verified BitBadge
 
 > **getSwapBalances**(`payload`): `Promise`\<[`GetSwapBalancesSuccessResponse`](/sdk/reference/classes/get-swap-balances-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2502](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2502)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2524](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2524)
 
 Get consolidated cross-chain balances for one or more (chain, address) pairs.
 
@@ -2345,7 +2365,7 @@ Get consolidated cross-chain balances for one or more (chain, address) pairs.
 
 > **getSwapChains**(`payload?`): `Promise`\<[`GetSwapChainsSuccessResponse`](/sdk/reference/classes/get-swap-chains-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2476](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2476)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2498](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2498)
 
 Get cross-chain chain registry (Skip:Go chains filtered to BitBadges-allowed chains).
 
@@ -2371,7 +2391,7 @@ Get cross-chain chain registry (Skip:Go chains filtered to BitBadges-allowed cha
 
 > **getSwapStatus**(`payload`): `Promise`\<[`GetSwapStatusSuccessResponse`](/sdk/reference/classes/get-swap-status-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2593](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2593)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2615](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2615)
 
 Get the status of a tracked swap transaction.
 
@@ -2437,7 +2457,7 @@ console.log(res);
 
 > **getTokenMetadata**(`collectionId`, `tokenId`): `Promise`\<[`GetTokenMetadataSuccessResponse`](/sdk/reference/classes/get-token-metadata-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1721](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1721)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1735](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1735)
 
 Gets current metadata for a specific token in a collection.
 
@@ -2473,7 +2493,7 @@ console.log(res);
 
 > **getTokensViewForUser**(`address`, `payload`): `Promise`\<[`GetTokensViewForUserSuccessResponse`](/sdk/reference/classes/get-tokens-view-for-user-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1560](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1560)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1572](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1572)
 
 Gets tokens for a specific user. Specify the viewType to determine what
 tokens to retrieve.
@@ -2510,7 +2530,7 @@ console.log(res);
 
 > **getTransferActivityForUser**(`address`, `payload`): `Promise`\<[`GetTransferActivityForUserSuccessResponse`](/sdk/reference/classes/get-transfer-activity-for-user-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1523](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1523)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:1535](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L1535)
 
 Gets transfer activity for a specific user.
 
@@ -2587,7 +2607,7 @@ console.log(res.docs, res.pagination);
 
 > **getUtilityPage**(`utilityPageId`, `payload?`): `Promise`\<[`GetUtilityPageSuccessResponse`](/sdk/reference/classes/get-utility-page-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2063](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2063)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2083](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2083)
 
 Get utility page by ID.
 
@@ -2834,7 +2854,7 @@ Searches for claims.
 
 > **searchDeveloperApps**(`payload`): `Promise`\<[`SearchDeveloperAppsSuccessResponse`](/sdk/reference/classes/search-developer-apps-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2348](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2348)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2370](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2370)
 
 Searches for developer apps.
 
@@ -3006,7 +3026,7 @@ This means that it will return the gas used and any errors that occur on a dry r
 
 > **trackSkipTx**(`payload`): `Promise`\<[`TrackSkipTxSuccessResponse`](/sdk/reference/classes/track-skip-tx-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2678](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2678)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2700](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2700)
 
 #### Parameters
 
@@ -3034,7 +3054,7 @@ Register a broadcast tx with cross-chain tracking.
 
 > **trackSwap**(`payload`): `Promise`\<[`TrackSwapSuccessResponse`](/sdk/reference/classes/track-swap-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2567](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2567)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2589](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2589)
 
 Register a broadcast tx with the cross-chain tracker.
 
@@ -3102,7 +3122,7 @@ Update an claim.
 
 > **updateDeveloperApp**(`payload`): `Promise`\<[`UpdateDeveloperAppSuccessResponse`](/sdk/reference/classes/update-developer-app-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2219](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2219)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2241](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2241)
 
 Update an developer app.
 
@@ -3128,7 +3148,7 @@ Update an developer app.
 
 > **updateDynamicDataStore**\<`Q`, `T`\>(`payload`): `Promise`\<[`UpdateDynamicDataStoreSuccessResponse`](/sdk/reference/classes/update-dynamic-data-store-success-response)\<`Q`, `T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2271](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2271)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2293](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2293)
 
 Updates a dynamic data bin.
 
@@ -3188,7 +3208,7 @@ Updates a utility page.
 
 > **verifyOwnershipRequirements**(`payload`): `Promise`\<[`GenericVerifyAssetsSuccessResponse`](/sdk/reference/classes/generic-verify-assets-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2141](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2141)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts:2163](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesApi.ts#L2163)
 
 A generic route for verifying asset ownership requirements. Asset requirements support AND / OR / NOT logic.
 

@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: ApprovalInfoDetails\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2055](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2055)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2056](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2056)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2055](https://github
 
 > **new ApprovalInfoDetails**\<`T`\>(`data`): `ApprovalInfoDetails`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2060](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2060)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2061](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2061)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2060](https://github
 
 > **description**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2057](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2057)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2058](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2058)
 
 #### Implementation of
 
@@ -60,7 +60,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2057](https://github
 
 > **image**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2058](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2058)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2059](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2059)
 
 #### Implementation of
 
@@ -72,7 +72,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2058](https://github
 
 > **name**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2056](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2056)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2057](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2057)
 
 #### Implementation of
 
@@ -102,7 +102,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `ApprovalInfoDetails`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2067](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2067)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2068](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2068)
 
 Converts the object to a different NumberType equivalent.
 

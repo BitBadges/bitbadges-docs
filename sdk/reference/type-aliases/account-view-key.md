@@ -6,6 +6,6 @@ description: "The supported view keys for fetching account details."
 
 > **AccountViewKey** = `"siwbbRequests"` \| `"transferActivity"` \| `"tokensCollected"` \| `"createdTokens"` \| `"managingTokens"` \| `"publicClaimActivity"` \| `"allClaimActivity"` \| `"pointsActivity"`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:673](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L673)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:674](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L674)
 
 The supported view keys for fetching account details.

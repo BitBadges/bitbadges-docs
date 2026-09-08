@@ -6,7 +6,7 @@ description: "T extends NumberType"
 
 > **convertCollectionMap**\<`T`, `U`\>(`item`, `convertFunction`): [`CollectionMap`](/sdk/reference/interfaces/collection-map)\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1299](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1299)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1309](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1309)
 
 ## Type Parameters
 

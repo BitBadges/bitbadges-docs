@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: ApprovalCriteriaWithDetails\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2114](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2114)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2115](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2115)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2114](https://github
 
 > **new ApprovalCriteriaWithDetails**\<`T`\>(`data`): `ApprovalCriteriaWithDetails`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2118](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2118)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2119](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2119)
 
 #### Parameters
 
@@ -192,7 +192,7 @@ The list of ETH signature challenges that the initiator must pass for approval.
 
 > `optional` **evmQueryChallenges?**: [`EVMQueryChallengeWithDetails`](/sdk/reference/classes/evm-query-challenge-with-details)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2116](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2116)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2117](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2117)
 
 EVM query challenges that must pass for approval. Read-only contract queries that verify external EVM state.
 
@@ -246,7 +246,7 @@ The max num transfers for this approval.
 
 > `optional` **merkleChallenges?**: [`MerkleChallengeWithDetails`](/sdk/reference/classes/merkle-challenge-with-details)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2115](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2115)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2116](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2116)
 
 The list of merkle challenges that need valid proofs to be approved.
 
@@ -498,7 +498,7 @@ The list of voting challenges that must be satisfied for approval.
 
 > **clone**(): `ApprovalCriteriaWithDetails`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2130](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2130)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2131](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2131)
 
 Deep copies the object and returns a new instance.
 
@@ -516,7 +516,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `ApprovalCriteriaWithDetails`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2126](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2126)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2127](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2127)
 
 Converts the object to a different NumberType equivalent.
 

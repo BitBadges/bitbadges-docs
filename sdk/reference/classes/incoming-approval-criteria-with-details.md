@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: IncomingApprovalCriteriaWithDetails\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2146](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2146)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2147](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2147)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2146](https://github
 
 > **new IncomingApprovalCriteriaWithDetails**\<`T`\>(`data`): `IncomingApprovalCriteriaWithDetails`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2153](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2153)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2154](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2154)
 
 #### Parameters
 
@@ -156,7 +156,7 @@ The list of ETH signature challenges that the initiator must pass for approval.
 
 > `optional` **evmQueryChallenges?**: [`EVMQueryChallengeWithDetails`](/sdk/reference/classes/evm-query-challenge-with-details)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2151](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2151)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2152](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2152)
 
 EVM query challenges that must pass for approval. Read-only contract queries that verify external EVM state.
 
@@ -210,7 +210,7 @@ The max num transfers for this approval.
 
 > `optional` **merkleChallenges?**: [`MerkleChallengeWithDetails`](/sdk/reference/classes/merkle-challenge-with-details)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2150](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2150)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2151](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2151)
 
 The list of merkle challenges that need valid proofs to be approved.
 
@@ -354,7 +354,7 @@ The list of voting challenges that must be satisfied for approval.
 
 > **castToCollectionApprovalCriteria**(): [`ApprovalCriteriaWithDetails`](/sdk/reference/classes/approval-criteria-with-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2169](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2169)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2170](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2170)
 
 #### Returns
 
@@ -370,7 +370,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2169](https://github
 
 > **clone**(): `IncomingApprovalCriteriaWithDetails`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2165](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2165)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2166](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2166)
 
 Deep copies the object and returns a new instance.
 
@@ -388,7 +388,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `IncomingApprovalCriteriaWithDetails`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2161](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2161)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2162](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2162)
 
 Converts the object to a different NumberType equivalent.
 

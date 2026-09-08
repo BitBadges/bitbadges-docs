@@ -6,7 +6,7 @@ description: "Validates if a state transition (old approvals -> new approvals) i
 
 > **validateCollectionApprovalsUpdate**\<`T`\>(`oldApprovals`, `newApprovals`, `canUpdateCollectionApprovals`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2500](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2500)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2501](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2501)
 
 Validates if a state transition (old approvals -> new approvals) is valid, given the current permissions.
 

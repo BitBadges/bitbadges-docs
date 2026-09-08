@@ -6,7 +6,7 @@ description: "Convert multiple tokenization messages to executeMultiple precompi
 
 > **convertMessagesToExecuteMultiple**(`messages`, `evmAddress?`): [`PrecompileCallResult`](/sdk/reference/interfaces/precompile-call-result)
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:408](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L408)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:400](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L400)
 
 Convert multiple tokenization messages to executeMultiple precompile call
 

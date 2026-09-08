@@ -2,7 +2,7 @@
 description: "Inner pools shape mirrors the indexer's LiquidityPoolInfoDoc rows — left as unknown so this requests file doesn't need to depend on the gamm module. Typed…"
 ---
 
-# bitbadges v0.45.1
+# bitbadges v0.45.2
 
 ## Accounts
 

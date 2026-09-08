@@ -292,7 +292,7 @@ Converts the object to a JSON string.
 
 > **toProto**(): `TokenMetadata`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/metadata/tokenMetadata.ts:337](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/metadata/tokenMetadata.ts#L337)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/metadata/tokenMetadata.ts:351](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/metadata/tokenMetadata.ts#L351)
 
 #### Returns
 
@@ -430,7 +430,7 @@ Note that this function does not mutate the metadataArr, but instead returns a n
 
 > `static` **setMetadataPropertyForSpecificIds**\<`T`\>(`metadataArr`, `tokenIds`, `key`, `value`): `TokenMetadataDetails`\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/metadata/tokenMetadata.ts:284](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/metadata/tokenMetadata.ts#L284)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/metadata/tokenMetadata.ts:298](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/metadata/tokenMetadata.ts#L298)
 
 For each tokenId in tokenIds, populates the metadata array with the given key, value JSON property pair.
 
@@ -469,7 +469,19 @@ This is typically used when customizing or creating a token.
 #### Example
 
 ```ts
-Use this function to set the "name" property of all tokens to "test" via setMetadataPropertyForAll(metadataArr, tokenIds, uri, "name", "test")
+import { TokenMetadataDetails, UintRangeArray } from 'bitbadges';
+const updated = TokenMetadataDetails.setMetadataPropertyForSpecificIds<bigint>(
+  [new TokenMetadataDetails<bigint>({
+    tokenIds: [{ start: 1n, end: 3n }],
+    uri: 'https://example.com/token.json',
+    customData: '',
+    metadata: { name: 'Original name', description: 'Shared token metadata', image: 'https://example.com/token.png' }
+  })],
+  UintRangeArray.From<bigint>([{ start: 1n, end: 3n }]),
+  'name',
+  'test'
+);
+console.log(updated.map((entry) => entry.metadata?.name)); // ['test'] (one entry covering token IDs 1 to 3)
 ```
 
 ***

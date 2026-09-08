@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: MerkleChallengeWithDetails\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2082](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2082)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2083](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2083)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2082](https://github
 
 > **new MerkleChallengeWithDetails**\<`T`\>(`data`): `MerkleChallengeWithDetails`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2085](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2085)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2086](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2086)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2085](https://github
 
 > **challengeInfoDetails**: [`ChallengeInfoDetails`](/sdk/reference/classes/challenge-info-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2083](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2083)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2084](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2084)
 
 #### Implementation of
 
@@ -204,7 +204,7 @@ Whether or not to override any leaf value and use the creator address as the lea
 
 > **clone**(): `MerkleChallengeWithDetails`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2098](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2098)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2099](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2099)
 
 Deep copies the object and returns a new instance.
 
@@ -222,7 +222,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `MerkleChallengeWithDetails`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2094](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2094)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2095](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2095)
 
 Converts the object to a different NumberType equivalent.
 
@@ -292,7 +292,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2090](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2090)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2091](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2091)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

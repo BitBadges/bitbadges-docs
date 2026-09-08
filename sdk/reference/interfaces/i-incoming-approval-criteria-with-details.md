@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: iIncomingApprovalCriteriaWithDetails\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2138](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2138)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2139](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2139)
 
 ## Extends
 
@@ -106,7 +106,7 @@ The list of ETH signature challenges that the initiator must pass for approval.
 
 > `optional` **evmQueryChallenges?**: [`iEVMQueryChallengeWithDetails`](/sdk/reference/interfaces/i-evm-query-challenge-with-details)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2140](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2140)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2141](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2141)
 
 EVM query challenges that must pass for approval. Read-only contract queries that verify external EVM state.
 
@@ -148,7 +148,7 @@ The max num transfers for this approval.
 
 > `optional` **merkleChallenges?**: [`iMerkleChallengeWithDetails`](/sdk/reference/interfaces/i-merkle-challenge-with-details)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2139](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2139)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2140](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2140)
 
 The list of merkle challenges that need valid proofs to be approved.
 

@@ -648,7 +648,7 @@ The views for this collection and their pagination Doc. Views will only include 
 
 > **checkCanAddMoreAliasPaths**(`time?`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:714](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L714)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:724](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L724)
 
 Checks if this permission is executable at a specific time (Date.now() by default).
 
@@ -670,7 +670,7 @@ Wrapper for [ActionPermission.check](/sdk/reference/classes/action-permission#ch
 
 > **checkCanAddMoreCosmosCoinWrapperPaths**(`time?`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:723](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L723)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:733](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L733)
 
 Checks if this permission is executable at a specific time (Date.now() by default).
 
@@ -692,7 +692,7 @@ Wrapper for [ActionPermission.check](/sdk/reference/classes/action-permission#ch
 
 > **checkCanArchiveCollection**(`time?`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:601](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L601)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:611](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L611)
 
 Checks if this permission is executable for the provided values at a specific time (Date.now() by default).
 
@@ -714,7 +714,7 @@ Wrapper for [ActionPermission.check](/sdk/reference/classes/action-permission#ch
 
 > **checkCanDeleteCollection**(`time?`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:592](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L592)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:602](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L602)
 
 Checks if this permission is executable at a specific time (Date.now() by default).
 
@@ -736,7 +736,7 @@ Wrapper for [ActionPermission.check](/sdk/reference/classes/action-permission#ch
 
 > **checkCanUpdateCollectionApprovals**(`details`, `time?`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:673](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L673)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:683](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L683)
 
 Checks if this permission is executable for the provided values at a specific time (Date.now() by default).
 
@@ -762,7 +762,7 @@ Wrapper for [CollectionApprovalPermission.check](/sdk/reference/classes/collecti
 
 > **checkCanUpdateCollectionMetadata**(`time?`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:635](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L635)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:645](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L645)
 
 Checks if this permission is executable for the provided values at a specific time (Date.now() by default).
 
@@ -784,7 +784,7 @@ Wrapper for [ActionPermission.check](/sdk/reference/classes/action-permission#ch
 
 > **checkCanUpdateCustomData**(`time?`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:627](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L627)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:637](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L637)
 
 Checks if this permission is executable for the provided values at a specific time (Date.now() by default).
 
@@ -806,7 +806,7 @@ Wrapper for [ActionPermission.check](/sdk/reference/classes/action-permission#ch
 
 > **checkCanUpdateManager**(`time?`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:610](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L610)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:620](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L620)
 
 Checks if this permission is executable for the provided values at a specific time (Date.now() by default).
 
@@ -828,7 +828,7 @@ Wrapper for [ActionPermission.check](/sdk/reference/classes/action-permission#ch
 
 > **checkCanUpdateStandards**(`time?`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:619](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L619)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:629](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L629)
 
 Checks if this permission is executable for the provided values at a specific time (Date.now() by default).
 
@@ -850,7 +850,7 @@ Wrapper for [ActionPermission.check](/sdk/reference/classes/action-permission#ch
 
 > **checkCanUpdateTokenMetadata**(`tokenIds`, `time?`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:658](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L658)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:668](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L668)
 
 Checks if this permission is executable for the provided values at a specific time (Date.now() by default).
 
@@ -874,7 +874,7 @@ Checks if this permission is executable for the provided values at a specific ti
 
 > **checkCanUpdateValidTokenIds**(`tokenIds`, `time?`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:646](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L646)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:656](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L656)
 
 Checks if this permission is executable for the provided values at a specific time (Date.now() by default).
 
@@ -1000,7 +1000,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **fetchAllForView**(`api`, `viewType`, `viewId`, `oldestFirst?`, `address?`): `Promise`\<`void`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1001](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1001)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1011](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1011)
 
 Fetches the entire view (all pages) for a specific view. This will update the current collection with the new response information.
 
@@ -1038,7 +1038,7 @@ There is a 1 second delay between each page fetch to prevent rate limiting.
 
 > **fetchAndUpdate**(`api`, `options`, `forceful?`): `Promise`\<`void`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:909](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L909)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:919](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L919)
 
 Specify a new fetch request for the current collection. This will update the current collection with the new response information.
 For example, paginations, metadata, views, etc. will all be handled automatically.
@@ -1067,7 +1067,7 @@ For example, paginations, metadata, views, etc. will all be handled automaticall
 
 > **fetchBalances**(`api`, `address`, `forceful?`): `Promise`\<[`BalanceDocWithDetails`](/sdk/reference/classes/balance-doc-with-details)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:808](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L808)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:818](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L818)
 
 Fetches the owner information (balances) for a specific address for the current collection. This will update the current collection with the new response information.
 
@@ -1099,7 +1099,7 @@ Returns the cached value if already fetched. Use forceful to force a new fetch.
 
 > **fetchMetadata**(`api`, `options`, `forceful?`): `Promise`\<`void`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:946](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L946)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:956](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L956)
 
 Wrapper for [fetchAndUpdate](#fetchandupdate) that fetches collection metadata.
 
@@ -1127,7 +1127,7 @@ Wrapper for [fetchAndUpdate](#fetchandupdate) that fetches collection metadata.
 
 > **fetchNextForView**(`api`, `viewType`, `viewId`, `oldestFirst?`, `address?`): `Promise`\<`void`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:980](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L980)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:990](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L990)
 
 Fetches the next page for a specific view. This will update the current collection with the new response information (handling paginations).
 
@@ -1165,7 +1165,7 @@ If the view has no more pages, this will do nothing.
 
 > **FilterTokensInCollection**(`api`, `bodyOptions`): `Promise`\<[`FilterTokensInCollectionSuccessResponse`](/sdk/reference/classes/filter-tokens-in-collection-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1275](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1275)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1285](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1285)
 
 Execute a filter query for the collection. You have to handle the pagination yourself.
 
@@ -1189,7 +1189,7 @@ Execute a filter query for the collection. You have to handle the pagination you
 
 > **generateAliasForTokenId**(`tokenId`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1088](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1088)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1098](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1098)
 
 Generates the alias for a specific token ID. Collection alias is stored in the root of the collection.
 
@@ -1211,7 +1211,7 @@ Wrapper for [generateAlias](/sdk/reference/functions/generate-alias).
 
 > **getActivityView**(`viewId`): [`TransferActivityDoc`](/sdk/reference/classes/transfer-activity-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1033](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1033)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1043](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1043)
 
 Gets the documents for a specific view.
 
@@ -1231,7 +1231,7 @@ Gets the documents for a specific view.
 
 > **getApprovalTrackersView**(`viewId`): [`ApprovalTrackerDoc`](/sdk/reference/classes/approval-tracker-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1068](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1068)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1078](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1078)
 
 Gets the documents for a specific view.
 
@@ -1251,7 +1251,7 @@ Gets the documents for a specific view.
 
 > **getBalanceAmountForToken**(`address`, `tokenId`): `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:448](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L448)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:456](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L456)
 
 Returns the balance amount for a specific token ID at the current time for a given address.
 Uses the cached balance data. Returns 0 if no balance info is found.
@@ -1280,7 +1280,7 @@ The token ID to look up.
 
 > **getBalanceInfo**(`address`): [`BalanceDocWithDetails`](/sdk/reference/classes/balance-doc-with-details)\<`T`\> \| `undefined`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:401](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L401)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:407](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L407)
 
 Gets the balance document for a specific address from the cached owners array. Returns undefined if not fetched yet.
 The balance document includes the balances, outgoing approvals, and other details. Use getBalances to only get the balances.
@@ -1304,9 +1304,11 @@ then the balances can also be fetched via the views and / or the other fetch met
 #### Example
 
 ```ts
-const collection: BitBadgesCollection<bigint> = { ... }
-const address = 'bb1...'
-const balance = collection.getBalance(address)
+import type { BitBadgesCollection } from 'bitbadges';
+// A collection already fetched through BitBadgesAPI.
+declare const collection: BitBadgesCollection<bigint>;
+const address = 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'
+const balance = collection.getBalanceInfo(address)
 console.log(balance?.balances)
 console.log(balance?.outgoingApprovals)
 ```
@@ -1317,7 +1319,7 @@ console.log(balance?.outgoingApprovals)
 
 > **getBalances**(`address`): [`BalanceArray`](/sdk/reference/classes/balance-array)\<`T`\> \| `undefined`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:430](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L430)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:438](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L438)
 
 Gets the balances for a specific address from the cached owners array. Returns undefined if not fetched yet.
 This returns the balances only, not the other details. Use getBalanceInfo to get the other details for a user balance store
@@ -1342,8 +1344,10 @@ then the balances can also be fetched via the views and / or the other fetch met
 #### Example
 
 ```ts
-const collection: BitBadgesCollection<bigint> = { ... }
-const address = 'bb1...'
+import type { BitBadgesCollection } from 'bitbadges';
+// A collection already fetched through BitBadgesAPI.
+declare const collection: BitBadgesCollection<bigint>;
+const address = 'bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'
 const balances = collection.getBalances(address)
 console.log(balances)
 ```
@@ -1354,7 +1358,7 @@ console.log(balances)
 
 > **getChallengeTrackersView**(`viewId`): [`MerkleChallengeTrackerDoc`](/sdk/reference/classes/merkle-challenge-tracker-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1051](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1051)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1061](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1061)
 
 Gets the documents for a specific view.
 
@@ -1374,7 +1378,7 @@ Gets the documents for a specific view.
 
 > **getCollectionMetadata**(): [`Metadata`](/sdk/reference/classes/metadata)\<`T`\> \| `undefined`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:303](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L303)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:305](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L305)
 
 Get the cached collection metadata. This is the fetched metadata, not the timeline values.
 
@@ -1385,9 +1389,11 @@ Get the cached collection metadata. This is the fetched metadata, not the timeli
 #### Example
 
 ```ts
-const collection: BitBadgesCollection<bigint> = { ... }
+import type { BitBadgesCollection } from 'bitbadges';
+// A collection already fetched through BitBadgesAPI.
+declare const collection: BitBadgesCollection<bigint>;
 const metadata = collection.getCollectionMetadata()
-const metadataImage = metadata.image
+const metadataImage = metadata?.image
 ```
 
 ***
@@ -1396,7 +1402,7 @@ const metadataImage = metadata.image
 
 > **getCollectionMetadataDetails**(): [`CollectionMetadataDetails`](/sdk/reference/classes/collection-metadata-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:307](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L307)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:309](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L309)
 
 #### Returns
 
@@ -1408,7 +1414,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:307
 
 > **getDefaultDisplayCurrency**(): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:357](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L357)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:361](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L361)
 
 Gets default display currency, if set. Defaults to ubadge.
 
@@ -1440,7 +1446,7 @@ Creates a blank balance object with the genesis default approvals and balances.
 
 > **getListingsView**(`viewId`): [`UtilityPageDoc`](/sdk/reference/classes/utility-page-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1060](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1060)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1070](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1070)
 
 Gets the documents for a specific view.
 
@@ -1460,7 +1466,7 @@ Gets the documents for a specific view.
 
 > **getMaxTokenId**(): `bigint`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:459](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L459)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:467](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L467)
 
 Gets the maximum token ID for the collection. Checks both the circulating supplys + genesis default balances.
 
@@ -1476,7 +1482,7 @@ Precondition: The Total balance must be fetched.
 
 > **getMintCollectionApprovals**(): [`CollectionApprovalWithDetails`](/sdk/reference/classes/collection-approval-with-details)\<`bigint`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1117](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1117)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1127](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1127)
 
 Returns all the mint collection approvals.
 
@@ -1492,7 +1498,7 @@ Wrapper for [getMintApprovals](/sdk/reference/functions/get-mint-approvals).
 
 > **getNonMintCollectionApprovals**(): [`CollectionApprovalWithDetails`](/sdk/reference/classes/collection-approval-with-details)\<`bigint`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1108](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1108)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1118](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1118)
 
 Returns all the non-mint collection approvals.
 
@@ -1530,7 +1536,7 @@ Internal helper method to convert the number fields of the object to a different
 
 > **getOwners**(`api`, `tokenId`, `body`): `Promise`\<[`GetOwnersSuccessResponse`](/sdk/reference/classes/get-owners-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1243](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1243)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1253](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1253)
 
 Gets the owners for a specific token. You have to handle the pagination yourself.
 
@@ -1558,7 +1564,7 @@ Gets the owners for a specific token. You have to handle the pagination yourself
 
 > **getOwnersView**(`viewId`): [`BalanceDocWithDetails`](/sdk/reference/classes/balance-doc-with-details)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1042](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1042)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1052](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1052)
 
 Gets the documents for a specific view.
 
@@ -1578,7 +1584,7 @@ Gets the documents for a specific view.
 
 > **getRefreshStatus**(`api`): `Promise`\<[`RefreshStatusSuccessResponse`](/sdk/reference/classes/refresh-status-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1141](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1141)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1151](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1151)
 
 Check the refresh queue status for the collection via the API.
 
@@ -1598,7 +1604,7 @@ Check the refresh queue status for the collection via the API.
 
 > **getTokenActivity**(`api`, `tokenId`, `body`): `Promise`\<[`GetTokenActivitySuccessResponse`](/sdk/reference/classes/get-token-activity-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1207](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1207)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1217](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1217)
 
 Get the token activity for a specific token ID. You have to handle the pagination yourself.
 
@@ -1626,7 +1632,7 @@ Get the token activity for a specific token ID. You have to handle the paginatio
 
 > **getTokenFloorPricesView**(`viewId`): [`TokenFloorPriceDoc`](/sdk/reference/classes/token-floor-price-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1077](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1077)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1087](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1087)
 
 Gets the documents for a specific view.
 
@@ -1646,7 +1652,7 @@ Gets the documents for a specific view.
 
 > **getTokenIdRange**(): [`UintRangeArray`](/sdk/reference/classes/uint-range-array)\<`bigint`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:350](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L350)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:354](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L354)
 
 Gets a UintRangeArray of 1 - Max Token ID for the collection (i.e. [{ start: 1n, end: maxTokenId }]).
 
@@ -1660,7 +1666,7 @@ Gets a UintRangeArray of 1 - Max Token ID for the collection (i.e. [{ start: 1n,
 
 > **getTokenMetadata**(): [`TokenMetadataDetails`](/sdk/reference/classes/token-metadata-details)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:316](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L316)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:318](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L318)
 
 Gets the token metadata at a specific time (Date.now() by default).
 
@@ -1676,7 +1682,7 @@ This gets the timeline value. For the actual fetched value, use `getTokenMetadat
 
 > **getTokenMetadataDetails**(`tokenId`): [`TokenMetadataDetails`](/sdk/reference/classes/token-metadata-details)\<`T`\> \| `undefined`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:343](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L343)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:347](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L347)
 
 Gets the details for a specific token ID. This includes the metadata, URI, and custom data.
 
@@ -1698,7 +1704,7 @@ If you only want the metadata, use getTokenMetadata, or you can access it via re
 
 > **getTokenMetadataForTokenId**(`tokenId`): [`Metadata`](/sdk/reference/classes/metadata)\<`T`\> \| `undefined`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:334](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L334)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:338](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L338)
 
 Get the metadata for a specific token ID. This is the fetched metadata, not the timeline values.
 
@@ -1718,10 +1724,12 @@ For those, use getTokenMetadataDetails.
 #### Example
 
 ```ts
-const collection: BitBadgesCollection<bigint> = { ... }
+import type { BitBadgesCollection } from 'bitbadges';
+// A collection already fetched through BitBadgesAPI.
+declare const collection: BitBadgesCollection<bigint>;
 const tokenId = 123n
 const metadata = collection.getTokenMetadataForTokenId(tokenId)
-const metadataImage = metadata.image
+const metadataImage = metadata?.image
 ```
 
 ***
@@ -1730,7 +1738,7 @@ const metadataImage = metadata.image
 
 > **getUnhandledCollectionApprovals**(): [`CollectionApprovalWithDetails`](/sdk/reference/classes/collection-approval-with-details)\<`bigint`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1099](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1099)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1109](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1109)
 
 Returns all the unhandled collection approvals. Unhandled means disapproved.
 
@@ -1746,7 +1754,7 @@ Wrapper for [getUnhandledCollectionApprovals](/sdk/reference/functions/get-unhan
 
 > **getView**\<`KeyType`\>(`viewType`, `viewId`): `CollectionViewData`\<`T`\>\[`KeyType`\]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1011](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1011)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1021](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1021)
 
 Type agnostic get view function. Uses the viewType to determine the type of view to fetch.
 
@@ -1776,7 +1784,7 @@ Type agnostic get view function. Uses the viewType to determine the type of view
 
 > **getViewBookmark**(`viewId`): `string` \| `undefined`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:971](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L971)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:981](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L981)
 
 Returns the bookmark for a specific view. This is used to fetch the next page.
 
@@ -1796,7 +1804,7 @@ Returns the bookmark for a specific view. This is used to fetch the next page.
 
 > **getViewPagination**(`viewId`): [`PaginationInfo`](/sdk/reference/interfaces/pagination-info) \| `undefined`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:964](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L964)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:974](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L974)
 
 Returns the pagination information for a specific view ({ hasMore, bookmark }).
 
@@ -1816,7 +1824,7 @@ Returns the pagination information for a specific view ({ hasMore, bookmark }).
 
 > **hasNFTMarketplaceStandard**(): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:370](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L370)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:374](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L374)
 
 Checks if collection has the NFT marketplace standard (accepts both new 'NFTMarketplace' and legacy 'Tradable' names).
 
@@ -1852,7 +1860,7 @@ Checks if the object has number fields.
 
 > **isRedundantRequest**(`options`): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:821](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L821)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:831](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L831)
 
 Returns if a new collection API request body is redundant (meaning we already have the data cached).
 
@@ -1872,7 +1880,7 @@ Returns if a new collection API request body is redundant (meaning we already ha
 
 > **mustGetBalanceInfo**(`address`): [`BalanceDocWithDetails`](/sdk/reference/classes/balance-doc-with-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:408](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L408)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:414](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L414)
 
 Wrapper for [getBalanceInfo](#getbalanceinfo) that throws an error if the balance is not found in the document.
 
@@ -1892,7 +1900,7 @@ Wrapper for [getBalanceInfo](#getbalanceinfo) that throws an error if the balanc
 
 > **mustGetBalances**(`address`): [`BalanceArray`](/sdk/reference/classes/balance-array)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:437](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L437)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:445](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L445)
 
 Wrapper for [getBalances](#getbalances) that throws an error if the balance is not found in the document.
 
@@ -1912,7 +1920,7 @@ Wrapper for [getBalances](#getbalances) that throws an error if the balance is n
 
 > **pruneMetadataToFetch**(`metadataToFetch`): `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:480](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L480)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:490](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L490)
 
 For a metadata fetch request, prune the request to only request the metadata that is not already fetched.
 
@@ -1937,7 +1945,9 @@ For a metadata fetch request, prune the request to only request the metadata tha
 #### Example
 
 ```ts
-const collection: BitBadgesCollection<bigint> = { ... }
+import type { BitBadgesCollection } from 'bitbadges';
+// A collection already fetched through BitBadgesAPI.
+declare const collection: BitBadgesCollection<bigint>;
 const metadataToFetch = collection.pruneMetadataToFetch({ tokenIds: [1n, 2n, 3n], uris: ['ipfs://...'] })
 console.log(metadataToFetch)
 ```
@@ -1948,7 +1958,7 @@ console.log(metadataToFetch)
 
 > **prunePayload**(`options`): [`GetMetadataForCollectionPayload`](/sdk/reference/interfaces/get-metadata-for-collection-payload) & [`GetAdditionalCollectionDetailsPayload`](/sdk/reference/interfaces/get-additional-collection-details-payload) & `object`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:870](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L870)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:880](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L880)
 
 Prunes a new collection API request body to only request the data that is not already fetched.
 
@@ -1968,7 +1978,7 @@ Prunes a new collection API request body to only request the data that is not al
 
 > **refresh**(`api`): `Promise`\<[`RefreshMetadataSuccessResponse`](/sdk/reference/classes/refresh-metadata-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1171](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1171)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1181](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1181)
 
 Trigger a refresh for the collection via the API. Note there is a cooldown period for refreshing.
 
@@ -2032,7 +2042,7 @@ Converts the object to a JSON string.
 
 > **updateWithNewResponse**(`newResponse`, `forceful?`): `void`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:931](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L931)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:941](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L941)
 
 Updates the current collection with a new response from the API. If forceful is true, we fully overwrite the current collection with the new response.
 Else, we will append the new response to the current collection while handling duplicates, paginations, etc.
@@ -2057,7 +2067,7 @@ Else, we will append the new response to the current collection while handling d
 
 > **validateCollectionApprovalsUpdate**(`newApprovals`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:521](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L521)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:531](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L531)
 
 Validates if a state transition (old approvals -> new approvals) is valid, given the current state of the collection and its permissions.
 
@@ -2079,7 +2089,7 @@ Wrapper for [CollectionApprovalWithDetails.validateUpdate](/sdk/reference/classe
 
 > **validateCollectionMetadataUpdate**(`newCollectionMetadata`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:582](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L582)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:592](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L592)
 
 Validates if a state transition (old collection metadata -> new collection metadata) is valid, given the current state of the collection and its permissions.
 
@@ -2101,7 +2111,7 @@ Wrapper for [validateCollectionMetadataUpdate](/sdk/reference/functions/validate
 
 > **validateCustomDataUpdate**(`newCustomData`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:546](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L546)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:556](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L556)
 
 Validates if a state transition (old custom data -> new custom data) is valid, given the current state of the collection and its permissions.
 
@@ -2123,7 +2133,7 @@ Wrapper for [validateCustomDataUpdate](/sdk/reference/functions/validate-custom-
 
 > **validateIsArchivedUpdate**(`newIsArchived`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:564](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L564)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:574](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L574)
 
 Validates if a state transition (old isArchived -> new isArchived) is valid, given the current state of the collection and its permissions.
 
@@ -2145,7 +2155,7 @@ Wrapper for [validateIsArchivedUpdate](/sdk/reference/functions/validate-is-arch
 
 > **validateManagerUpdate**(`newManager`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:573](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L573)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:583](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L583)
 
 Validates if a state transition (old manager -> new manager) is valid, given the current state of the collection and its permissions.
 
@@ -2167,7 +2177,7 @@ Wrapper for [validateManagerUpdate](/sdk/reference/functions/validate-manager-up
 
 > **validatePermissionsUpdate**(`newPermissions`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:496](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L496)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:506](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L506)
 
 Validates if a state transition (old permissions -> new permissions) is valid. Must not update any
 permanently frozen permissions.
@@ -2199,7 +2209,7 @@ use the checkCan* functions.
 
 > **validatePermissionUpdate**(`permissionName`, `newPermissions`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:509](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L509)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:519](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L519)
 
 Validates if a single permission type is updated correctly. Cannot edit anything permanently frozen.
 
@@ -2230,7 +2240,7 @@ use the checkCan* functions.
 
 > **validateStandardsUpdate**(`newStandards`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:555](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L555)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:565](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L565)
 
 Validates if a state transition (old standards -> new standards) is valid, given the current state of the collection and its permissions.
 
@@ -2252,7 +2262,7 @@ Wrapper for [validateStandardsUpdate](/sdk/reference/functions/validate-standard
 
 > **validateTokenMetadataUpdate**(`newTokenMetadata`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:535](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L535)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:545](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L545)
 
 Validates if a state transition (old token metadata -> new token metadata) is valid, given the current state of the collection and its permissions.
 
@@ -2274,7 +2284,7 @@ Wrapper for [validateTokenMetadataUpdate](/sdk/reference/functions/validate-toke
 
 > **viewHasMore**(`viewId`): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:957](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L957)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:967](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L967)
 
 Returns if the view has more pages to fetch.
 
@@ -2294,7 +2304,7 @@ Returns if the view has more pages to fetch.
 
 > `static` **FetchAndInitialize**\<`T`\>(`api`, `options`): `Promise`\<`BitBadgesCollection`\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:733](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L733)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:743](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L743)
 
 Fetches and initializes a new BitBadgesCollection object from an API request. Must pass in a valid API instance.
 
@@ -2324,7 +2334,7 @@ Fetches and initializes a new BitBadgesCollection object from an API request. Mu
 
 > `static` **FetchAndInitializeBatch**\<`T`\>(`api`, `collectionsToFetch`): `Promise`\<(`BitBadgesCollection`\<`T`\> \| `undefined`)[]\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:794](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L794)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:804](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L804)
 
 Fetches and initializes a batch of new BitBadgesCollection objects from an API request. Must pass in a valid API instance.
 
@@ -2354,7 +2364,7 @@ Fetches and initializes a batch of new BitBadgesCollection objects from an API r
 
 > `static` **FilterTokensInCollection**\<`T`\>(`api`, `collectionId`, `body`): `Promise`\<[`FilterTokensInCollectionSuccessResponse`](/sdk/reference/classes/filter-tokens-in-collection-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1250](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1250)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1260](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1260)
 
 Execute a filter query for the collection. You have to handle the pagination yourself.
 
@@ -2388,7 +2398,7 @@ Execute a filter query for the collection. You have to handle the pagination you
 
 > `static` **GetBalanceByAddress**\<`T`\>(`api`, `collectionId`, `address`, `payload?`): `Promise`\<[`GetBalanceByAddressSuccessResponse`](/sdk/reference/classes/get-balance-by-address-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:766](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L766)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:776](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L776)
 
 Gets the balance for a specific address for a specific collection. Must pass in a valid API instance.
 
@@ -2426,7 +2436,7 @@ Gets the balance for a specific address for a specific collection. Must pass in 
 
 > `static` **GetCollections**\<`T`\>(`api`, `body`): `Promise`\<[`GetCollectionsSuccessResponse`](/sdk/reference/classes/get-collections-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:745](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L745)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:755](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L755)
 
 Gets collections from the API. Must pass in a valid API instance.
 
@@ -2456,7 +2466,7 @@ Gets collections from the API. Must pass in a valid API instance.
 
 > `static` **GetOwners**\<`T`\>(`api`, `collectionId`, `tokenId`, `payload?`): `Promise`\<[`GetOwnersSuccessResponse`](/sdk/reference/classes/get-owners-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1214](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1214)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1224](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1224)
 
 Gets owners for a specific token ID. You have to handle the pagination yourself.
 
@@ -2494,7 +2504,7 @@ Gets owners for a specific token ID. You have to handle the pagination yourself.
 
 > `static` **GetRefreshStatus**\<`T`\>(`api`, `collectionId`): `Promise`\<[`RefreshStatusSuccessResponse`](/sdk/reference/classes/refresh-status-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1124](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1124)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1134](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1134)
 
 Returns the status of this collection in the refresh queue.
 
@@ -2524,7 +2534,7 @@ Returns the status of this collection in the refresh queue.
 
 > `static` **GetTokenActivity**\<`T`\>(`api`, `collectionId`, `tokenId`, `payload?`): `Promise`\<[`GetTokenActivitySuccessResponse`](/sdk/reference/classes/get-token-activity-success-response)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1178](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1178)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1188](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1188)
 
 Gets activity for a specific token ID. You have to handle the pagination yourself.
 
@@ -2562,7 +2572,7 @@ Gets activity for a specific token ID. You have to handle the pagination yoursel
 
 > `static` **RefreshMetadata**\<`T`\>(`api`, `collectionId`, `body?`): `Promise`\<[`RefreshMetadataSuccessResponse`](/sdk/reference/classes/refresh-metadata-success-response)\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1148](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1148)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1158](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1158)
 
 Trigger a refresh for the collection via the API. Note there is a cooldown period for refreshing.
 

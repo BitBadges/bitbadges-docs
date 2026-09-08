@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: ChallengeDetails\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1971](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1971)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1972](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1972)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1971](https://github
 
 > **new ChallengeDetails**\<`T`\>(`data`): `ChallengeDetails`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1980](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1980)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1981](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1981)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1980](https://github
 
 > **isHashed**: `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1975](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1975)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1976](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1976)
 
 True if the leaves are hashed. Hash(preimage[i]) = leaves[i]
 
@@ -62,7 +62,7 @@ True if the leaves are hashed. Hash(preimage[i]) = leaves[i]
 
 > **leaves**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1974](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1974)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1975](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1975)
 
 The leaves of the Merkle tree. Leaves should be considered public. Use preimages for the private codes + isHashed. For whitelist trees, these can be the plaintext BitBadges addresses.
 
@@ -76,7 +76,7 @@ The leaves of the Merkle tree. Leaves should be considered public. Use preimages
 
 > `optional` **numLeaves?**: `T`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1973](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1973)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1974](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1974)
 
 The number of leaves in the Merkle tree. This takes priority over leaves.length if defined (used for buffer time between leaf generation and leaf length select)
 
@@ -90,7 +90,7 @@ The number of leaves in the Merkle tree. This takes priority over leaves.length 
 
 > `optional` **preimages?**: `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1976](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1976)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1977](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1977)
 
 The preimages of the leaves (only used if isHashed = true). Oftentimes, this is used for private codes so should not be present when user-facing.
 
@@ -104,7 +104,7 @@ The preimages of the leaves (only used if isHashed = true). Oftentimes, this is 
 
 > `optional` **seedCode?**: `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1977](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1977)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1978](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1978)
 
 Seed code for generating the leaves
 
@@ -118,7 +118,7 @@ Seed code for generating the leaves
 
 > `optional` **tree?**: `MerkleTree`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1978](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1978)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1979](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1979)
 
 The Merkle tree
 
@@ -132,7 +132,7 @@ The Merkle tree
 
 > `optional` **treeOptions?**: `Options`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1972](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1972)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1973](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1973)
 
 The Merkle tree options for how to build it
 
@@ -164,7 +164,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `ChallengeDetails`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1994](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1994)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1995](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1995)
 
 Converts the object to a different NumberType equivalent.
 
@@ -234,7 +234,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **getNumberFieldNames**(): `string`[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1990](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1990)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1991](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L1991)
 
 Internal helper method to convert the number fields of the object to a different NumberType equivalent.
 

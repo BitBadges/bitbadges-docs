@@ -819,7 +819,7 @@ If `normalizeNumberTypes` is true, then all number types will be compared as str
 
 > **fetchAllForView**(`api`, `viewType`, `viewId`): `Promise`\<`void`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:433](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L433)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:434](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L434)
 
 Fetches until the view has no more items. 1 second delay between each fetch for rate limiting.
 
@@ -847,7 +847,7 @@ Fetches until the view has no more items. 1 second delay between each fetch for 
 
 > **fetchAndUpdate**(`api`, `options`, `forceful?`): `Promise`\<`void`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:364](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L364)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:365](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L365)
 
 Fetch the user's information via an API request and updates the current BitBadgesUserInfo object.
 This will handle all paginations, etc. behind the scenes.
@@ -876,7 +876,7 @@ This will handle all paginations, etc. behind the scenes.
 
 > **fetchBalances**(`api`, `collectionId`, `forceful?`): `Promise`\<[`BalanceDocWithDetails`](/sdk/reference/classes/balance-doc-with-details)\<`T`\>\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:311](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L311)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:312](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L312)
 
 Fetch balances for a collection and updates the user's collected array. Must pass in a valid API instance.
 If forceful is true, it will fetch regardless of if it is already fetched. Else, it will only fetch if it is not already cached.
@@ -905,7 +905,7 @@ If forceful is true, it will fetch regardless of if it is already fetched. Else,
 
 > **fetchNextForView**(`api`, `viewType`, `viewId`, `specificCollections?`, `oldestFirst?`, `standard?`): `Promise`\<`void`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:406](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L406)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:407](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L407)
 
 Fetches the next page of a view for a user. If view has no more items, it will do nothing.
 
@@ -945,7 +945,7 @@ Fetches the next page of a view for a user. If view has no more items, it will d
 
 > **getAccountActivityView**(`viewId`): [`TransferActivityDoc`](/sdk/reference/classes/transfer-activity-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:486](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L486)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:487](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L487)
 
 #### Parameters
 
@@ -963,7 +963,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:486](
 
 > **getAccountBalancesView**(`viewId`): [`BalanceDocWithDetails`](/sdk/reference/classes/balance-doc-with-details)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:492](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L492)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:493](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L493)
 
 #### Parameters
 
@@ -1010,7 +1010,7 @@ console.log(res.balances);
 
 > **getBalances**(`collectionId`): [`BalanceArray`](/sdk/reference/classes/balance-array)\<`T`\> \| `undefined`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:303](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L303)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:304](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L304)
 
 Fetch balances for a collection and updates the user's collected array. Must pass in a valid API instance.
 
@@ -1037,7 +1037,7 @@ console.log(res.balances);
 
 > **getClaimActivityView**(`viewId`): [`ClaimActivityDoc`](/sdk/reference/classes/claim-activity-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:468](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L468)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:469](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L469)
 
 #### Parameters
 
@@ -1077,7 +1077,7 @@ Internal helper method to convert the number fields of the object to a different
 
 > **getPointsActivityView**(`viewId`): [`PointsActivityDoc`](/sdk/reference/classes/points-activity-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:474](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L474)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:475](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L475)
 
 #### Parameters
 
@@ -1095,7 +1095,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:474](
 
 > **getSIWBBRequestsView**(`viewId`): [`SIWBBRequestDoc`](/sdk/reference/classes/siwbb-request-doc)\<`T`\>[]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:480](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L480)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:481](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L481)
 
 #### Parameters
 
@@ -1113,7 +1113,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:480](
 
 > **getView**\<`KeyType`\>(`viewType`, `viewId`): `AccountViewData`\<`T`\>\[`KeyType`\]
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:443](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L443)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:444](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L444)
 
 Type agnostic get view function. Uses the viewType to determine the type of view to fetch and docs to return.
 
@@ -1143,7 +1143,7 @@ Type agnostic get view function. Uses the viewType to determine the type of view
 
 > **getViewBookmark**(`viewId`): `string` \| `undefined`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:399](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L399)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:400](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L400)
 
 #### Parameters
 
@@ -1161,7 +1161,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:399](
 
 > **getViewPagination**(`viewId`): [`PaginationInfo`](/sdk/reference/interfaces/pagination-info) \| `undefined`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:395](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L395)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:396](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L396)
 
 #### Parameters
 
@@ -1201,7 +1201,7 @@ Checks if the object has number fields.
 
 > **isRedundantRequest**(`options`): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:328](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L328)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:329](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L329)
 
 Returns if a get account request body is redundant for this user (meaning we have everything already).
 
@@ -1248,7 +1248,7 @@ console.log(res.balances);
 
 > **mustGetBalances**(`collectionId`): [`BalanceArray`](/sdk/reference/classes/balance-array)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:290](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L290)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:291](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L291)
 
 Gets the balances for a user by address. Throws if not fetched yet. To fetch, use fetchBalances.
 
@@ -1269,6 +1269,7 @@ Wrapper for [getBalances](#getbalances) that throws if not fetched yet.
 ```ts
 const res = user.mustGetBalances(123n);
 console.log(res); // [{ ... }] Balances
+```
 
 ***
 
@@ -1276,7 +1277,7 @@ console.log(res); // [{ ... }] Balances
 
 > **onList**(`addressList`): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:501](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L501)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:502](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L502)
 
 Checks if this user is on a given address list.
 
@@ -1296,7 +1297,7 @@ Checks if this user is on a given address list.
 
 > **pruneBody**(`options`): [`AccountFetchDetails`](/sdk/reference/type-aliases/account-fetch-details)
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:351](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L351)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:352](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L352)
 
 Prunes the request body to remove any redundant fetches.
 
@@ -1360,7 +1361,7 @@ Converts the object to a JSON string.
 
 > **updateWithNewResponse**(`newResponse`, `forceful?`): `void`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:379](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L379)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:380](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L380)
 
 Logic for updating the current BitBadgesUserInfo object with a new API response. If forceful is true, it will overwrite everything.
 
@@ -1384,7 +1385,7 @@ Logic for updating the current BitBadgesUserInfo object with a new API response.
 
 > **viewHasMore**(`viewId`): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:391](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L391)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:392](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L392)
 
 #### Parameters
 
@@ -1402,7 +1403,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:391](
 
 > `static` **BlankUserInfo**(): `BitBadgesUserInfo`\<`bigint`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:541](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L541)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:542](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L542)
 
 Returns a BitBadgesUserInfo object with all fields set to blank.
 
@@ -1540,7 +1541,7 @@ Gets accounts by address or username from the API.
 
 > `static` **MintAccount**(): `BitBadgesUserInfo`\<`bigint`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:511](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L511)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts:512](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesUserInfo.ts#L512)
 
 Returns a BitBadgesUserInfo object with all fields set for the Mint address.
 

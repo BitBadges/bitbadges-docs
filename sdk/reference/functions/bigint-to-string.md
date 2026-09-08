@@ -6,7 +6,7 @@ description: "Convert a bigint value to string for JSON serialization"
 
 > **bigintToString**(`value`): `string`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/helpers.ts:123](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/helpers.ts#L123)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/helpers.ts:121](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/helpers.ts#L121)
 
 Convert a bigint value to string for JSON serialization
 

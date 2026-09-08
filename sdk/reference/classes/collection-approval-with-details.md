@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Class: CollectionApprovalWithDetails\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2275](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2275)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2276](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2276)
 
 ## Extends
 
@@ -26,7 +26,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2275](https://github
 
 > **new CollectionApprovalWithDetails**\<`T`\>(`data`): `CollectionApprovalWithDetails`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2282](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2282)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2283](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2283)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2282](https://github
 
 > `optional` **approvalCriteria?**: [`ApprovalCriteriaWithDetails`](/sdk/reference/classes/approval-criteria-with-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2280](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2280)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2281](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2281)
 
 The criteria to be met. These represent the restrictions that must be obeyed such as the total amount approved, max num transfers, merkle challenges, must own tokens, etc.
 
@@ -102,7 +102,7 @@ Arbitrary custom data of the approval
 
 > `optional` **details?**: [`ApprovalInfoDetails`](/sdk/reference/classes/approval-info-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2276](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2276)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2277](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2277)
 
 The approval metadata details
 
@@ -116,7 +116,7 @@ The approval metadata details
 
 > **fromList**: [`AddressList`](/sdk/reference/classes/address-list)
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2278](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2278)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2279](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2279)
 
 The populated address list for the fromListId
 
@@ -148,7 +148,7 @@ The list ID for the user(s) who is sending the tokens. The ID is either register
 
 > **initiatedByList**: [`AddressList`](/sdk/reference/classes/address-list)
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2279](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2279)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2280](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2280)
 
 The populated address list for the initiatedByListId
 
@@ -216,7 +216,7 @@ The token IDs to be transferred.
 
 > **toList**: [`AddressList`](/sdk/reference/classes/address-list)
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2277](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2277)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2278](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2278)
 
 The populated address list for the toListId
 
@@ -302,7 +302,7 @@ The version of the approval.0
 
 > **castToIncomingApproval**(): [`UserIncomingApprovalWithDetails`](/sdk/reference/classes/user-incoming-approval-with-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2363](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2363)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2364](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2364)
 
 #### Returns
 
@@ -318,7 +318,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2363](https://github
 
 > **castToOutgoingApproval**(): [`UserOutgoingApprovalWithDetails`](/sdk/reference/classes/user-outgoing-approval-with-details)\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2349](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2349)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2350](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2350)
 
 #### Returns
 
@@ -334,7 +334,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2349](https://github
 
 > **castToUniversalPermission**(): [`UniversalPermission`](/sdk/reference/interfaces/universal-permission)
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2299](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2299)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2300](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2300)
 
 #### Returns
 
@@ -346,7 +346,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2299](https://github
 
 > **clone**(): `CollectionApprovalWithDetails`\<`T`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2295](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2295)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2296](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2296)
 
 Deep copies the object and returns a new instance.
 
@@ -364,7 +364,7 @@ Deep copies the object and returns a new instance.
 
 > **convert**\<`U`\>(`convertFunction`, `options?`): `CollectionApprovalWithDetails`\<`U`\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2291](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2291)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2292](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2292)
 
 Converts the object to a different NumberType equivalent.
 
@@ -648,7 +648,7 @@ Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:1366](https://github
 
 > `static` **validateUpdate**\<`U`\>(`oldApprovals`, `newApprovals`, `canUpdateCollectionApprovals`): `Error` \| `null`
 
-Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2376](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2376)
+Defined in: [packages/bitbadgesjs-sdk/src/core/approvals.ts:2377](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/core/approvals.ts#L2377)
 
 #### Type Parameters
 

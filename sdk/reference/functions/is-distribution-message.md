@@ -6,7 +6,7 @@ description: "Check if a message type is a Distribution message (uses Distributi
 
 > **isDistributionMessage**(`messageType`): `boolean`
 
-Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:131](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L131)
+Defined in: [packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts:128](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/transactions/precompile/utils.ts#L128)
 
 Check if a message type is a Distribution message (uses Distribution precompile)
 

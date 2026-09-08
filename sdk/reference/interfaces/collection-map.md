@@ -4,7 +4,7 @@ description: "T extends NumberType"
 
 # Interface: CollectionMap\<T\>
 
-Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1292](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1292)
+Defined in: [packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts:1302](https://github.com/BitBadges/bitbadgesjs/blob/master/packages/bitbadgesjs-sdk/src/api-indexer/BitBadgesCollection.ts#L1302)
 
 ## Type Parameters
 
