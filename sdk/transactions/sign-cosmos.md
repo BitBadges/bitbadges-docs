@@ -36,7 +36,7 @@ const signTxn = async (context: TxContext, payload: TransactionPayload, msgs: an
     );
     if (!signResponse) throw new Error('No signature returned from Keplr');
 
-    hexSig = Buffer.from(signResponse.signature.signature, 'base64').toString('hex');
+    hexSig = Array.from(atob(signResponse.signature.signature), (char) => char.charCodeAt(0).toString(16).padStart(2, '0')).join('');
   }
 
   return createTxBroadcastBody(context, msgs, hexSig);

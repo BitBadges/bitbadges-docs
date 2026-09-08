@@ -84,7 +84,7 @@ const signed = await window.keplr!.signDirect(
   },
   { preferNoSetFee: true, preferNoSetMemo: true }
 );
-const hexSignature = Buffer.from(signed.signature.signature, 'base64').toString('hex');
+const hexSignature = Array.from(atob(signed.signature.signature), (char) => char.charCodeAt(0).toString(16).padStart(2, '0')).join('');
 
 // 5. Broadcast body, then simulate or broadcast
 const txBody = createTxBroadcastBody(txContext, msgs.map((msg) => msg.toProto()), hexSignature);

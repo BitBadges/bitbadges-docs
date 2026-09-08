@@ -61,7 +61,7 @@ const signed = await window.keplr!.signDirect(
   },
   { preferNoSetFee: true, preferNoSetMemo: true }
 );
-const hexSignature = Buffer.from(signed.signature.signature, 'base64').toString('hex');
+const hexSignature = Array.from(atob(signed.signature.signature), (char) => char.charCodeAt(0).toString(16).padStart(2, '0')).join('');
 const txBody = createTxBroadcastBody(txContext, msgs.map((msg) => msg.toProto()), hexSignature);
 const res = await api.broadcastTx(txBody); // POST https://api.bitbadges.io/api/v0/broadcast
 const { code, txhash } = res.tx_response;
