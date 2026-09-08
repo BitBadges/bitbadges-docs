@@ -1,5 +1,5 @@
 ---
-description: "Raise toward a goal with automatic refunds, or sell one item to the best bid. Both are collections whose approvals read their own balances and a deadline."
+description: "Raise toward a goal with claimable refunds, or sell one item to the best bid. Both are collections whose approvals read their own balances and a deadline."
 ---
 
 # Crowdfunding and Auctions

@@ -104,10 +104,12 @@ For expiring tokens, calculate timestamps:
 - Example: 5 minutes from now = current timestamp + (5 * 60 * 1000)
 
 ```json
+{
 "ownershipTimes": [{
   "start": "1706000000000",
   "end": "1706000300000"
 }]
+}
 ```
 
 ### Session-based patch operations

@@ -36,7 +36,7 @@ ERC-20, ERC-721, CW-20, ICS-20, `x/bank`, `x/tokenfactory`, and `x/nft` cover ma
 
 ### Universality
 
-One standard for NFTs, fungible tokens, subscriptions, quests, credentials, real-world assets, and regulatory compliance. The standard is a superset of the existing ones, so a token can be used compatibly where a simpler standard is expected.
+One standard for NFTs, fungible tokens, subscriptions, quests, credentials, real-world assets, and regulatory compliance. Adapters and wrappers can expose simpler interfaces, but compatibility requires an explicit mapping of balances, ownership times, and transfer rules.
 
 ### A Module, Not Contracts
 
@@ -50,7 +50,7 @@ Features are added to the module as the need appears, without accruing technical
 
 BitBadges is Cosmos native with IBC at the core:
 
-1. Any token wraps to an ICS-20 or ICS-721 denom for use on any IBC-enabled chain.
+1. A configured [Cosmos coin wrapper path](../token-standard/ibc/cosmos-coin-wrapper-paths.md) exposes tokens as an ICS-20-compatible bank denom for supported IBC routes.
 2. Payments, subscriptions, swaps, and liquidity can use any IBC denom.
 3. The module is IBC-enabled, so core messages can run over IBC, including one-signature multi-hop transfers.
 

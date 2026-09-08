@@ -37,7 +37,7 @@ Rewards work the same way:
 | Reward | How |
 | --- | --- |
 | Gated content or URLs | The in-site rewards tab links content that appears only after success. Combine with [Sign in with BitBadges](sign-in-users.md) for an authenticated redirect. |
-| External action (email, API call, database update, webhook, AI agent) | A custom plugin endpoint runs during claim processing, so it can execute side effects on success. |
+| External action (email, API call, database update, webhook, AI agent) | A custom plugin validates during processing; perform side effects only after verifying the final successful attempt or receiving its status webhook. See [Build a Claim Plugin](build-a-claim-plugin.md#4-handle-simulations-and-state). |
 | On-chain mint or transfer | The claim gates an approval with a Merkle challenge (step 6). The user gets a permanent, verifiable on-chain credential. |
 | Points | Award points on success and use point balances as criteria for other claims. |
 | Native integrations | Some services check claims by claim ID (for example WordPress gated sites). Everything else calls `checkClaimSuccess` (step 5). |
@@ -306,7 +306,7 @@ const claim: CreateClaimRequest<bigint> = {
 
 ## 4. Simulate, Then Complete
 
-A simulation is instant and has no side effects. Complete for real only after it passes. The body is keyed by `instanceId`; `_expectedVersion` fails the call if the claim changed since you fetched it (`-1` overrides).
+A simulation runs eligibility checks without committing claim state. Custom endpoints can still be called and must suppress their own side effects during simulation. Complete for real only after it passes. The body is keyed by `instanceId`; `_expectedVersion` fails the call if the claim changed since you fetched it (`-1` overrides).
 
 ```bash
 bb api claims simulate-claim claim_demo_01 bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue \

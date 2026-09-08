@@ -4,7 +4,7 @@ description: "Idea to on-chain in one sitting: build a subscription token with t
 
 # Your First Collection
 
-This page goes from an idea to a signed collection on-chain. Every command below shows the output it produced, so you can tell success from failure at each step.
+This page goes from an idea to a signed collection on-chain. The output examples show the response shapes to expect. Hashes, preview codes, gas usage, timestamps, and review counts are illustrative; use the values returned by your own commands.
 
 Two ways in. Pick one, or read both; they meet at the same review link.
 
@@ -29,7 +29,7 @@ flowchart LR
 
 ```bash
 curl -fsSL https://install.bitbadges.io | sh
-bb settings set apiKey <key>
+bb settings set apiKey "${BITBADGES_API_KEY:?Set your developer portal API key}"
 bb doctor
 ```
 
@@ -57,7 +57,7 @@ bb build subscription \
   --output-file tx.json
 ```
 
-`--creator` and `--manager` are your address. Leave them out and the message ships with `creator: ""`, which the chain rejects at simulate time, not build time.
+Replace all three example addresses before building: `--creator` is the wallet that signs, `--manager` is the address that manages the collection, and `--recipient` receives subscription payments. You can use your wallet address for all three. Leave them out and the message ships with `creator: ""`, which the chain rejects at simulate time, not build time.
 
 The build prints a review to stderr, then writes the file:
 
@@ -98,9 +98,9 @@ bb check tx.json
 }
 ```
 
-Exit code 0. A `warn` verdict means nothing blocks signing. Read the warning anyway; it tells you a permission is neutral, which is a choice the manager still holds.
+Exit code 0. A `warn` verdict means the reviewer found no critical issue; it does not guarantee a safe or successful transaction. Read the warning anyway; it tells you a permission is neutral, which is a choice the manager still holds.
 
-The builder locks the mint (faucet) approval forever by default. Nobody, including the manager, can re-point it after launch, so the token supply cannot be quietly changed. Every other approval stays editable.
+The builder locks the mint (faucet) approval forever by default. Nobody, including the manager, can re-point it after launch, so its mint rules cannot be changed through an approval update. This does not cap how many subscriptions users can buy. Every other approval stays editable.
 
 **Need to change the price later?** The price lives in that faucet approval, so locking it freezes the price too. Build with the opt-out:
 
@@ -142,7 +142,7 @@ bb simulate tx.json
 }
 ```
 
-`valid: true` means the chain would accept it. A failing simulation exits 2 with `ok: false` and the chain's reason in `error.message`.
+`valid: true` means simulation succeeded against the state checked. Balances, approvals, fees, and account sequence can change before broadcast; simulation is not a guarantee of inclusion or success. A failing simulation exits 2 with `ok: false` and the chain's reason in `error.message`.
 
 ### 4. Review and sign
 
@@ -185,13 +185,13 @@ bb deploy --msg-file tx.json --browser --manager bb1w63npeee74ewuudzf8cgvy6at4jn
 ### 5. Confirm
 
 ```bash
-bb tx wait E5B4C3A6E5B1F3B9F0F4C1F2B7A6D5C4E3F2A1B0C9D8E7F6A5B4C3D2E1F0A9B8 --timeout 60
+bb tx wait "${TX_HASH:?Set TX_HASH to the hash returned by your broadcast}" --timeout 60
 ```
 
 The response carries the new `collectionId` in its events. Then:
 
 ```bash
-bb api tokens get-collection <collectionId>
+bb api tokens get-collection "${COLLECTION_ID:?Set COLLECTION_ID from your transaction events}"
 ```
 
 That returns the collection as the indexer sees it. Your subscription is on-chain.

@@ -39,14 +39,14 @@ Two files, both regenerated with the docs. Every page of this site carries the s
 
 **Which one to feed your agent:**
 
-- **Context-limited agent, or one that can fetch URLs:** give it `llms.txt`. It fits in any context window, and every line carries the URL of the page to fetch next. This is the default.
+- **Context-limited agent, or one that can fetch URLs:** give it `llms.txt`. It is much smaller than the full corpus, and every line carries the URL of the page to fetch next. This is the default.
 - **One-shot paste, or an agent with a large context and no network:** give it `llms-full.txt`. Roughly 400k tokens; paste it whole, attach it as a file, or `grep` it locally and paste the sections you hit.
 
 Both are plain text with no markup beyond the markdown the pages are written in, so they need no preprocessing.
 
 ## CLI
 
-`bb dev docs [section]` browses the same content offline after the first fetch. Sections nest with slashes (`docs learn/approval-criteria/merkle-challenges`). A single word with no exact match does partial matching. Reference: [Dev commands](../cli/dev.md).
+`bb dev docs [section]` browses the same content offline after the first fetch. Sections nest with slashes (`bb dev docs token-standard/approval-criteria/merkle-challenges`). A single word with no exact match does partial matching. Reference: [Dev commands](../cli/dev.md).
 
 ## MCP Tool
 

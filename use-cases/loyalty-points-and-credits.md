@@ -78,7 +78,7 @@ The credit mint approval at 100 credits per USDC:
 }
 :::
 
-`amount: "1"` is one micro-USDC. A user who mints 1000000 credits pays 10000 micro-USDC, which is 0.01 USDC, so the displayed rate is 100 credits per 0.000001 USDC at base units; the alias path makes the wallet show it as intended.
+`amount: "1"` in the payment is one micro-USDC. With 100 raw credit units minted per micro-USDC and 6 display decimals on the credit alias, paying 1 USDC mints 100,000,000 raw credit units, displayed as 100 credits. Keep raw token units and displayed credits separate when tracking usage.
 
 ```bash
 bb build credit-token --payment-denom USDC --recipient bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d \

@@ -80,7 +80,7 @@ This emits one MsgUniversalUpdateCollection with the invariant, the two approval
 - Withdraw 2FA: add `mustOwnTokens` pointing at a [custom 2FA collection](memberships-and-address-lists.md) so a withdrawal needs a fresh short-lived token.
 - Compliance on every hop: put `dynamicStoreChallenges` or `mustOwnTokens` (a KYC credential) on the transferable approval. Pools and orderbooks inherit the check. See [Compliance Zones](../token-standard/concepts/compliance-zones.md).
 - DEX trading: add the `Liquidity Pools` standard and set `disablePoolCreation: false`. See [Trade on the DEX](../guides/trade-on-the-dex.md).
-- Native coin instead of IBC: wrap `ubadge` or another `x/bank` coin with a [wrapper path](../token-standard/ibc/cosmos-coin-wrapper-paths.md) and `allowSpecialWrapping: true`.
+- Native coin backing: use `BADGE` as the backing coin with the same `cosmosCoinBackedPath` pattern. A [wrapper path](../token-standard/ibc/cosmos-coin-wrapper-paths.md) instead creates a new bank denom from tokens; it does not reserve an existing coin.
 
 ## Build It
 

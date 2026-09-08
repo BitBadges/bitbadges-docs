@@ -8,7 +8,7 @@ Short answers to the questions that come up most. Each answer links to the page 
 
 ## Are Smart Contracts Needed?
 
-No. One universal standard supports every use case with no code and no smart contracts. It is a Cosmos SDK module reused for every token type.
+A collection can be created and managed through native transaction messages without deploying a custom smart contract. Use the site, CLI, or SDK for the patterns supported by the module. Applications may still need backend logic or EVM contracts for behavior outside those primitives.
 
 ## How Is Compliance Checked on Every Transfer?
 
@@ -24,7 +24,7 @@ A reusable standard exercised thousands of times beats unique, vulnerable contra
 
 ## Are Tokens ERC-721, ERC-20, or ERC-3643 Compatible?
 
-No. The standard takes inspiration from ERC-721 but has its own properties and architecture. It is a superset of those standards, so tokens can be used compatibly where needed, and ERC-3643 works as a Solidity interface through precompiles. See [Comparisons](comparisons.md).
+Native collections use their own token model and are not automatically ERC contracts. EVM contracts can integrate through precompiles and expose compatible interfaces; the wrapper must map the native balances and permissions to that interface. See [Comparisons](comparisons.md).
 
 ## Can the Standard Be Extended with Smart Contracts?
 

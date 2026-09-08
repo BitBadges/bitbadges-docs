@@ -125,9 +125,9 @@ This approval, on collection `2`, says: the agent at `bb18cad7xxsk3drvwdxeasc3wq
 
 ## Why App-Layer Limits Are Not Enough
 
-Several platforms (Crossmint, Coinbase Agentic Wallets, and others) offer spending limits at the application layer. You set a cap in their UI and their servers enforce it. The platform controls the rule. If the policy changes, the cap changes. If the system is compromised or its API is social-engineered, the cap disappears. There is no on-chain record of what was authorized, no cryptographic proof that the limit existed, and no way for a third party to verify it.
+A limit enforced only by an application server depends on that server correctly applying the policy on every request. A policy edit or compromised server can change that behavior. An on-chain outgoing approval instead exposes the policy and its tracker state for independent inspection. When comparing wallet providers, check where their particular policy is enforced; implementations differ.
 
-App-layer limits are a promise. For low-stakes automation that may be acceptable. For enterprise deployments, regulated assets, or high-value agent wallets, it is not.
+Application checks can complement on-chain restrictions. Choose the enforcement boundary based on which keys and services you trust.
 
 ## How It Works
 
@@ -141,7 +141,7 @@ The rules live in the collection's approval configuration on-chain, not in a dat
 | Valid time window | `transferTimes` | Unix millisecond range in which transfers are allowed. Outside it the chain refuses the transaction |
 | Daily cap | `approvalAmounts.overallApprovalAmount` + `resetTimeIntervals` | Cumulative amount per interval. `intervalLength: "86400000"` is one day; use `3600000` for hourly or `2592000000` for 30 days. The tally resets to zero on the first transfer of each new interval |
 | Transfer count cap | `maxNumTransfers.overallMaxNumTransfers` + `resetTimeIntervals` | Number of transfers per interval, same reset rule |
-| Revocation | `MsgDeleteOutgoingApproval` | Removes the approval. From the next block the agent wallet is inert |
+| Revocation | `MsgDeleteOutgoingApproval` | Removes the approval. After successful inclusion, this approval no longer grants spending authority |
 
 The tally mechanics (tracker IDs, `overall` versus per-address trackers, reset timing) are on [Approval Trackers](../token-standard/approval-criteria/approval-trackers.md). The full approval interface is on [Approval Criteria](../token-standard/approval-criteria/README.md).
 
@@ -213,7 +213,7 @@ bb tx tokenization transfer-tokens ./transfer.json \
 }
 ```
 
-`version` must match the approval's current version; the chain increments it on every edit, which also invalidates stale agent configs after the controller changes the rules. The 101st unit in a day, the 21st transfer, a transfer to another recipient, or a transfer after the window ends all fail at `check_tx`.
+`version` must match the approval's current version; the chain increments it on every edit, which also invalidates stale agent configs after the controller changes the rules. The 101st unit in a day, the 21st transfer, a transfer to another recipient, or a transfer after the window ends fail when the chain executes the transfer. Structural validation alone does not evaluate live balances and approval trackers.
 
 ## Revoke
 
@@ -240,7 +240,7 @@ The same message as JSON, for the SDK or the review-and-sign flow:
 }
 ```
 
-One transaction. No delay, no batch window, no intermediary. To tighten instead of revoke, send `MsgSetOutgoingApproval` again with the same `approvalId` and new limits; the version increments and the agent's next transfer must reference it.
+Revocation takes effect when the transaction succeeds on-chain. Transfers ordered before it can still execute, and any other approvals granted to the agent remain in force. To tighten instead of revoke, send `MsgSetOutgoingApproval` again with the same `approvalId` and new limits; the version increments and the agent's next transfer must reference it.
 
 Keep `userPermissions.canUpdateOutgoingApprovals` neutral (`[]`) on the controller account so revocation stays possible. A controller that freezes that permission cannot revoke.
 

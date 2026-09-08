@@ -13,11 +13,11 @@ On the collection side, the whole access model is which approvals exist. A mint 
 | Requirement | Token-standard primitive |
 | --- | --- |
 | Credential cannot be transferred | No approval with `fromListId: "!Mint"`. Mint is the only path in. See [Transferability](../token-standard/concepts/transferability.md) |
-| Credential can be revoked | A manager-only approval with `overridesFromOutgoingApprovals: true` that moves tokens back to Mint or to the burn address. See [Overrides](../token-standard/approval-criteria/overrides.md) |
+| Credential can be revoked | A manager-only approval with `overridesFromOutgoingApprovals: true` that moves tokens to the burn address. See [Overrides](../token-standard/approval-criteria/overrides.md) |
 | Access expires | `ownershipTimes` on the balance, as in a [subscription](subscriptions.md) |
 | Tiers | One token ID per level; the condition names the level it needs |
 | "Must hold this and must not be banned" | `AccessCondition` with `$and`, `$or`, and `mustOwnAmounts: { "start": "0", "end": "0" }` for exclusion. See [BB-402](../token-standard/bb-402/README.md) |
-| Server-side proof of ownership | A balance query or the BitBadges API `verifyOwnership` call. See [Gate Access with BB-402](../guides/gate-access.md) |
+| Server-side proof of ownership | A balance query or the BitBadges API `verifyOwnershipRequirements` call. See [Gate Access with BB-402](../guides/gate-access.md) |
 
 ## The Fields That Matter
 
@@ -31,9 +31,10 @@ The condition the server sends back in the 402 body: hold tier 2 or higher of co
         "chain": "BitBadges",
         "collectionId": "100",
         "tokenIds": [{ "start": "2", "end": "3" }],
-        "ownershipTimes": [{ "start": "1788739200000", "end": "1788739200000" }],
+        "ownershipTimes": [],
         "mustOwnAmounts": { "start": "1", "end": "18446744073709551615" }
-      }]
+      }],
+      "options": { "numMatchesForVerification": "1" }
     },
     {
       "tokens": [{

@@ -10,7 +10,7 @@ BitBadges is its own Cosmos SDK Layer 1 with a token standard that works like an
 
 ### Chain Architecture
 
-BitBadges is a Layer 1, not a Layer 2 or a sidechain. It is built with the Cosmos SDK, which gives it the IBC ecosystem and every other Cosmos feature. The token standard is not EVM, ERC-20, or Bitcoin Ordinals compatible. It is a separate standard built on Cosmos foundations.
+BitBadges is a Layer 1, not a Layer 2 or a sidechain. It is built with the Cosmos SDK, which gives it the IBC ecosystem and every other Cosmos feature. The native token standard has its own balances and approval model. EVM contracts can access it through precompiles; ERC-compatible wrappers require explicit integration. A native collection is not automatically an ERC-20 contract or a Bitcoin Ordinal.
 
 ### Security Model
 
@@ -26,7 +26,7 @@ Protocols such as Ethereum rely on ERC-20 and ERC-721, which need a smart contra
 
 ### Smart Contract Support
 
-Ethereum and Solana have broad smart contract support. BitBadges does not run ERC-20 contracts natively, but it does support EVM contracts, which can extend the module and build dApps through precompiles. The goal remains a standard where custom contracts are never needed. See [EVM](../chain/evm/README.md).
+Ethereum and Solana have broad smart contract support. BitBadges supports EVM contracts, including contract-based token implementations. Its native collections use `x/tokenization`; contracts can access that module through precompiles. The goal remains a standard where custom contracts are never needed. See [EVM](../chain/evm/README.md).
 
 ## BitBadges and ERC-3643
 
@@ -45,7 +45,7 @@ BitBadges enforces compliance rules, transfer restrictions, and approval logic i
 | Enforcement layer | Protocol level; the chain enforces the rules | Contract level; Solidity contracts enforce the rules |
 | Smart contracts required | No; collections are configured through transaction messages | Yes; each token deploys several contracts (token, identity registry, compliance module, claim topics) |
 | Deployment experience | No-code site, CLI template builders, or MCP builder tools | Developer only; needs Solidity expertise and contract deployment |
-| Multi-chain support | Native IBC to all Cosmos chains | Bridge dependent, unless deployed on BitBadges |
+| Multi-chain support | IBC over configured, supported routes | Requires a supported cross-chain transport or wrapper |
 | Identity and compliance | Built-in approval criteria: ownership requirements, merkle proofs, signature challenges, on-chain queries | ONCHAINID identity framework with claim topics and trusted issuers |
 | Transfer restrictions | Per-approval rules: address lists, time windows, amount limits, tracker-based caps, 2FA gating, coin payment requirements | Compliance modules with rule contracts (country restrictions, investor limits, time locks) |
 | Permissioning | Granular, lockable permissions; each field can be frozen or left manager-controlled independently | Owner and agent roles with recovery mechanisms |
@@ -63,10 +63,10 @@ BitBadges enforces compliance rules, transfer restrictions, and approval logic i
 ### BitBadges Strengths
 
 - No smart contract development: a compliant token is configured through transaction parameters or the no-code site.
-- Protocol-level guarantees: transfer rules cannot be bypassed by a contract bug or an upgradeable proxy exploit.
+- Shared enforcement: native transfers are checked by the module even when initiated through a precompile. Security still depends on the module, configured approvals, manager permissions, and any application contracts.
 - Broader token types: subscriptions, prediction markets, vaults, auctions, bounties, and NFTs from the same standard.
 - Agent friendly: MCP builder tools and CLI template builders let AI agents create and manage compliant tokens.
-- Cosmos ecosystem: native IBC to more than 50 chains without bridges.
+- Cosmos ecosystem: IBC connectivity through supported channels and routes. Destination support and enabled channels determine where an asset can move.
 - Lower barrier: no Solidity, gas optimization, or contract auditing.
 
 ### How They Work Together

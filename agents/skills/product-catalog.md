@@ -74,7 +74,7 @@ add_preset_approval({
 })
 
 // Optional:
-add_preset_approval({ presetId: "products.burn", params: { numProducts: <N> } })
+add_preset_approval({ presetId: "products.burn", params: { numProducts: 3 } })
 ```
 
 #### Purchase Approval (per product)

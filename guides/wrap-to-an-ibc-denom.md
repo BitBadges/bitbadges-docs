@@ -12,10 +12,13 @@ A cosmos coin wrapper path creates a new custom denom (not an existing IBC denom
 
 Add one entry per denom to `cosmosCoinWrapperPathsToAdd` when you create the collection. `conversion.sideA` is the coin side; `conversion.sideB` is the token side.
 
+This example wraps one raw unit of token ID 1 into one raw unit of the new coin. Six display decimals mean 1,000,000 raw coin units display as 1 TOKEN.
+
 ```ts
-const collection = {
+const collectionWithWrapper = {
     ...BaseCollectionDetails,
-    validTokenIds: [{ start: 1n, end: 100n }],
+    standards: ['Fungible Tokens'],
+    validTokenIds: [{ start: 1n, end: 1n }],
     cosmosCoinWrapperPathsToAdd: [
         {
             denom: 'utoken',
@@ -26,7 +29,7 @@ const collection = {
                 sideB: [
                     {
                         amount: 1n,
-                        tokenIds: [{ start: 1n, end: 100n }],
+                        tokenIds: [{ start: 1n, end: 1n }],
                         ownershipTimes: [
                             { start: 1n, end: 18446744073709551615n },
                         ],
@@ -116,7 +119,7 @@ export const wrapperApproval = ({
 });
 ```
 
-:::widget{name="transferability-row" caption="The wrap approval as the transferability tab lists it: any holder sends tokens 1 to 100 to the wrapper address derived in step 2."}
+:::widget{name="transferability-row" caption="The wrap approval as the transferability tab lists it: any holder sends token 1 to the wrapper address derived in step 2."}
 {
   "approvalId": "wrap",
   "fromListId": "AllWithoutMint",
@@ -125,7 +128,7 @@ export const wrapperApproval = ({
   "tokenIds": [
     {
       "start": "1",
-      "end": "100"
+      "end": "1"
     }
   ],
   "criteria": [
@@ -176,11 +179,11 @@ export const unwrapperApproval = ({
 Put both next to your other approvals:
 
 ```ts
-const tokenIds = [{ start: 1n, end: 100n }];
+const tokenIds = [{ start: 1n, end: 1n }];
 const ownershipTimes = UintRangeArray.FullRanges();
 
 const collection = {
-    ...BaseCollectionDetails,
+    ...collectionWithWrapper,
     collectionApprovals: [
         mintApproval, // from Mint and distribute
         transferableApproval, // from Set transferability
@@ -190,9 +193,22 @@ const collection = {
 };
 ```
 
-`EmptyApprovalCriteria` and `transferableApproval` are from [Set Transferability](set-transferability.md); `mintApproval` is from [Mint and Distribute](mint-and-distribute.md). Customize the criteria as you like (limits, allowlists, time windows); the two flags above are the only hard requirement.
+`EmptyApprovalCriteria` and `transferableApproval` are from [Set Transferability](set-transferability.md); `mintApproval` is from [Mint and Distribute](mint-and-distribute.md). Keep the wrapper path from step 1 when assembling the collection. Customize limits, allowlists, and time windows while preserving the special-wrapping flags and required user-level overrides.
 
 ## 4. Deploy and Check the Conversion
+
+Serialize the assembled message to `collection.json`, converting bigint values to strings. Supply `creator` (your signing address) and `collectionPermissions` from [Create a Collection](create-a-collection.md) and [Lock Permissions](lock-permissions.md):
+
+```ts
+import { writeFileSync } from 'node:fs';
+
+const transaction = {
+    typeUrl: '/tokenization.MsgCreateCollection',
+    value: { ...collection, creator, collectionPermissions },
+};
+writeFileSync('collection.json', JSON.stringify(transaction, (_, value) =>
+    typeof value === 'bigint' ? value.toString() : value, 2));
+```
 
 ```bash
 bb check ./collection.json
@@ -216,15 +232,17 @@ Both accept `--path-index <n>` (default `0`) and `--path-kind cosmos-coin | alia
 Wrap: transfer tokens to the wrapper address, prioritizing the wrapper approval. The chain burns the tokens and credits the x/bank coin to the sender.
 
 ```bash
-bb build transfer --collection-id 1 --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1epzsfvc4snsrnefpcvuvp60l2q8ke92ax05m55xtszpt6flxkg7qc38zch --amount 5 | bb deploy --browser
+bb build transfer --collection-id 1 --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1epzsfvc4snsrnefpcvuvp60l2q8ke92ax05m55xtszpt6flxkg7qc38zch --token-ids 1 --amount 5000000 | bb deploy --browser
 ```
 
 Pick the wrapper approval in the walkthrough. `mustPrioritize: true` means the approval is never auto-scanned; the transfer must list it in `prioritizedApprovals`. See [Prioritized Approvals](../token-standard/concepts/prioritized-approvals.md).
 
+For collection 1, the generated bank denom is `badges:1:utoken`; `utoken` alone is only the path name. Replace `1` with your deployed collection ID in both commands. The wrap example exchanges 5,000,000 raw token units for 5 TOKEN.
+
 Unwrap: send the coin back to the wrapper address with a bank send. The chain burns the coin and mints tokens to the sender under the unwrapper approval.
 
 ```bash
-bb build send --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1epzsfvc4snsrnefpcvuvp60l2q8ke92ax05m55xtszpt6flxkg7qc38zch --amount 5000000 --denom utoken | bb deploy --browser
+bb build send --from bb1p0rrel3365scadq5k9pv0x0zp9j22js6dnw70d --to bb1epzsfvc4snsrnefpcvuvp60l2q8ke92ax05m55xtszpt6flxkg7qc38zch --amount 5000000 --denom badges:1:utoken --base-units | bb deploy --browser
 ```
 
 `bb build send` treats `--amount` as base units when `--denom` is a raw chain denom and as display units for known symbols; `--base-units` forces base units.

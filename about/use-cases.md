@@ -11,7 +11,7 @@ The token standard tokenizes assets, services, and rights with protocol-level tr
 - Compliant tokenized assets. Compliance checks run on every transfer at the protocol level, including in liquidity pools and orderbooks, so no application has to enforce the rules itself.
 - Real-world assets. Jewelry, art, collectibles, or any product, purchasable with any IBC currency and moved with permissioned IBC transfers.
 - Real estate with license verification. A property license is verified on every transfer, so only licensed properties move.
-- Compliant ICS-20 derivatives. Wrap an existing ICS-20 token such as USDC into a derivative (for example clUSDC) backed 1:1 by the original, with rate limits, compliance checks, and withdrawal restrictions. This gives a chain a permissioned version of a standard token without modifying the token itself. See [Wrap to an IBC Denom](../guides/wrap-to-an-ibc-denom.md).
+- Compliant ICS-20 derivatives. Wrap an existing ICS-20 token such as USDC into a derivative (for example clUSDC) backed 1:1 by the original, with rate limits, compliance checks, and withdrawal restrictions. This gives a chain a permissioned version of a standard token without modifying the token itself. See [Smart Tokens and Vaults](../guides/smart-tokens-and-vaults.md).
 
 ## NFTs and Collectibles
 

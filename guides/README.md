@@ -11,7 +11,7 @@ For the pitch behind each build (which two or three approval fields turn the sta
 Every guide assumes:
 
 - `bb` is installed (see the [Quickstart](../start/quickstart.md)).
-- Examples target mainnet. The testnet is offline; see [Testnet](../chain/testnet.md).
+- Examples target mainnet. Replace example addresses, collection IDs, metadata URIs, and dates with your own values before signing. The signer needs BADGE for fees and any coins or tokens the transaction spends. The testnet is offline; see [Testnet](../chain/testnet.md).
 - Transaction JSON is signed and broadcast with `bb deploy` (see [Deploy](../cli/deploy.md)) or the [SDK signing client](../sdk/transactions/README.md).
 
 {% hint style="info" %}

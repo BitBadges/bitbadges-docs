@@ -111,7 +111,7 @@ const BaseCollectionDetails = {
 
 Field reference: `validTokenIds`, `collectionMetadata`, `tokenMetadata`, `customData`, `standards`, `isArchived`, and `defaultBalances` are on [Collections](../token-standard/concepts/collections.md). `manager` is on [Permissions](../token-standard/concepts/permissions.md). `mintEscrowCoinsToTransfer` is on [Coin Transfers](../token-standard/approval-criteria/coin-transfers.md). `cosmosCoinWrapperPathsToAdd` is on [Cosmos Coin Wrapper Paths](../token-standard/ibc/cosmos-coin-wrapper-paths.md).
 
-`autoApproveAllIncomingTransfers: true` matters for any collection with a public mint. Without it, recipients cannot receive minted tokens.
+`autoApproveAllIncomingTransfers: true` lets new holders receive public mints without first setting an incoming approval. Alternatives are a matching incoming approval, self-initiated incoming auto-approval, or a collection approval that explicitly overrides incoming checks.
 
 ## 3. Add a Mint Approval
 

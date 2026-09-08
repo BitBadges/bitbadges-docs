@@ -50,10 +50,10 @@ AccessCondition = { "$and": AccessCondition[] }
       "collectionId": "3",
       "tokenIds": [{ "start": "1", "end": "1" }],
       "ownershipTimes": [{ "start": "1788739200000", "end": "1791331200000" }],
-      "mustOwnAmounts": { "start": "1", "end": "1" }
+      "mustOwnAmounts": { "start": "1", "end": "18446744073709551615" }
     }
   ],
-  "options": { "numMatchesForVerification": "3" }
+  "options": { "numMatchesForVerification": "1" }
 }
 ```
 
@@ -63,14 +63,14 @@ AccessCondition = { "$and": AccessCondition[] }
 | `collectionId` | Collection or contract identifier |
 | `tokenIds` | Token ID ranges `{ start, end }` (inclusive) |
 | `ownershipTimes` | BitBadges only. Time ranges (Unix ms) when ownership must hold; the chain tracks ownership across time natively. Leave empty ("owns right now") for cross-chain compatibility. |
-| `mustOwnAmounts` | Quantity range. `{ start: '1', end: '1' }` = must own at least 1. `{ start: '0', end: '0' }` = must NOT own. |
+| `mustOwnAmounts` | Quantity range. `{ start: '1', end: '1' }` = exactly 1; use an upper bound of `'18446744073709551615'` for at least 1. `{ start: '0', end: '0' }` = must NOT own. |
 | `numMatchesForVerification` | Only N token IDs need to match ("any 3 of 10") |
 
 Patterns, all expressed through the collection and this condition:
 
 | Use case | How |
 | --- | --- |
-| Pay per request | A soulbound token that costs X USDC to mint is a verifiable receipt. This replicates x402 exactly. |
+| Pay per request | A paid token is a receipt. Charging for each request also requires tracking consumption or requiring a fresh receipt; an ownership check alone allows reuse. |
 | Subscriptions | Time-bounded ownership via `ownershipTimes`. Check that the range overlaps now. |
 | Tiered access | Different token ID ranges = different tiers (ID 1 basic, ID 2 premium, ID 3 admin) |
 | Reputation gates | Non-transferable tokens from prior services |
@@ -93,7 +93,7 @@ Subscription AND not banned:
         "collectionId": "3",
         "tokenIds": [{ "start": "1", "end": "1" }],
         "ownershipTimes": [{ "start": "1788739200000", "end": "1791331200000" }],
-        "mustOwnAmounts": { "start": "1", "end": "1" }
+        "mustOwnAmounts": { "start": "1", "end": "18446744073709551615" }
       }]
     },
     {
@@ -163,7 +163,7 @@ const res = await api.verifyOwnershipRequirements({
         collectionId: '1',
         assetIds: [{ start: '1', end: '1' }],
         ownershipTimes: [],
-        mustOwnAmounts: { start: '1', end: '1' }
+        mustOwnAmounts: { start: '1', end: '18446744073709551615' }
       }]
     }]
   }
@@ -188,13 +188,13 @@ Session-based apps can skip the proof header and use [Sign in with BitBadges](si
 
 ## 3. Build the Server
 
-Install the signature libraries:
+The snippets below form one server file. Install its dependencies:
 
 ```bash
-# Cosmos signature verification
-bun add @cosmjs/crypto @cosmjs/encoding @cosmjs/amino
+# API, HTTP server, and Cosmos signature verification
+bun add bitbadges express @cosmjs/crypto @cosmjs/encoding @cosmjs/amino
 
-# EVM signature verification (optional)
+# EVM signature verification
 bun add ethers
 ```
 
@@ -299,7 +299,7 @@ const REQUIREMENTS = {
     collectionId: '1',
     tokenIds: [{ start: '1', end: '1' }],
     ownershipTimes: [],
-    mustOwnAmounts: { start: '1', end: '1' }
+    mustOwnAmounts: { start: '1', end: '18446744073709551615' }
   }]
 };
 
@@ -327,12 +327,12 @@ app.get('/api/data', async (req, res) => {
     let isValid = false;
     if (proof.chain === 'Ethereum') {
       isValid = verifyEvmSignature(proof.message, proof.signature, proof.address);
-    } else {
+    } else if (proof.chain === 'BitBadges') {
       const result = await verifyCosmosSignature(proof.message, proof.signature, proof.publicKey);
       isValid = result.valid && result.address === proof.address;
     }
     if (!isValid) {
-      return res.status(402).json({ error: 'Invalid signature' });
+      return challenge(res);
     }
 
     // Check token ownership via BitBadges API
@@ -346,7 +346,7 @@ app.get('/api/data', async (req, res) => {
 
     res.json({ data: 'Here is your gated content' });
   } catch (err) {
-    return res.status(402).json({ error: 'Invalid proof' });
+    return challenge(res);
   }
 });
 
@@ -365,7 +365,7 @@ The `message` format is yours. A plain nonce works. A JSON string binds the chal
         "collectionId": "1",
         "tokenIds": [{ "start": "1", "end": "1" }],
         "ownershipTimes": [],
-        "mustOwnAmounts": { "start": "1", "end": "1" }
+        "mustOwnAmounts": { "start": "1", "end": "18446744073709551615" }
       }
     ]
   },
@@ -375,7 +375,7 @@ The `message` format is yours. A plain nonce works. A JSON string binds the chal
 
 ## 4. Build the Client
 
-A generic client that accepts any signer:
+A Node.js or Bun client that accepts an Ethereum signer (`chain: "Ethereum"`) or Cosmos ADR-036 signer (`chain: "BitBadges"`) (`Buffer` is a server-runtime API):
 
 ```ts
 async function fetchWithBB402(url: string, signMessage: (msg: string) => Promise<{
