@@ -365,7 +365,10 @@ Sorts and merges a list of UintRanges. If ranges overlap, they are merged.
 #### Example
 
 ```ts
-[{start: 1, end: 3}, {start: 2, end: 4}] => [{start: 1, end: 4}]
+import { UintRangeArray } from 'bitbadges';
+const ranges = UintRangeArray.From<bigint>([{ start: 1n, end: 3n }, { start: 2n, end: 4n }]);
+ranges.sortAndMerge();
+console.log(ranges); // [{ start: 1n, end: 4n }]
 ```
 
 #### Remarks

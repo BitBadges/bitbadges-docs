@@ -12,6 +12,7 @@ import path from 'node:path';
 
 import { renderSdkNav, symbolName } from '../scripts/gen-sdk-reference';
 import { docsConfig } from '../src/lib/docs/config';
+import { renderDoc } from '../src/lib/docs/markdown';
 
 const referenceDir = path.join(docsConfig.contentDir, 'sdk/reference');
 const summaryPath = path.join(docsConfig.contentDir, 'SUMMARY.md');
@@ -122,6 +123,19 @@ describe.skipIf(pages === null)(`sdk reference${pages === null ? ` — SKIPPED: 
     expect(readme).toBeDefined();
     expect(readme!.source).toContain('gen-sdk-reference.ts');
     expect(readme!.source).toContain('Do not hand-edit');
+  });
+
+  test('an SDK example does not swallow subsequent method documentation', async () => {
+    const page = pages!.find((p) => p.file === 'classes/bit-badges-user-info.md')!;
+    const rendered = await renderDoc(page.source, {
+      filePath: `sdk/reference/${page.file}`,
+      assetsPrefix: docsConfig.assetsPrefix,
+      basePath: docsConfig.basePath,
+    });
+    const headings = rendered.headings.map((heading) => heading.id);
+    expect(headings).toContain('onlist');
+    expect(headings).toContain('prunebody');
+    expect(headings).toContain('tojson');
   });
 
   test('every nav group listed in SUMMARY.md has an index page', () => {

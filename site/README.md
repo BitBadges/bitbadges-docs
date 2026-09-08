@@ -5,8 +5,9 @@ the BitBadges OpenAPI document. It is a self-hosted replacement for the GitBook
 space (`docs.bitbadges.io`) and the Stoplight API reference
 (`bitbadges.stoplight.io`).
 
-**Neither GitBook nor Stoplight is touched by this directory.** They keep running
-exactly as before; this is a parallel implementation to evaluate.
+Deployment and retirement of the former hosted references are covered in
+[`_docs/runbooks/docs-sync.md`](../_docs/runbooks/docs-sync.md) and
+[`_docs/runbooks/retire-hosted-docs.md`](../_docs/runbooks/retire-hosted-docs.md).
 
 ## Quick start
 
@@ -20,8 +21,9 @@ bun run dev          # http://localhost:3000
 OpenAPI document into `public/` and rebuilds the search index.
 
 ```bash
-bun run build && bun run start   # production build (219 static pages)
-bun test                         # 119 tests, including a render of every page
+bun run build && bun run start   # production build and server
+bun run sync                     # refresh generated assets before testing
+bun test                         # includes rendering the entire corpus and example syntax
 bun run typecheck
 ```
 

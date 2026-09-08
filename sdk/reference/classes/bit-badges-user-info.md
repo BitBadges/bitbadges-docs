@@ -1269,6 +1269,7 @@ Wrapper for [getBalances](#getbalances) that throws if not fetched yet.
 ```ts
 const res = user.mustGetBalances(123n);
 console.log(res); // [{ ... }] Balances
+```
 
 ***
 

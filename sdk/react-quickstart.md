@@ -6,7 +6,7 @@ description: "Wire BitBadges into a React or Next.js app: install, connect a wal
 
 At the end you have a Next.js page that connects Keplr or MetaMask, shows a collection name, and sends a token transfer on mainnet.
 
-Assumptions: Next.js 14 or newer with the App Router. Plain React (Vite) works the same; only the `'use client'` directive is Next.js specific. Pages Router users render the same components inside `_app.tsx`. Examples use mainnet (`bitbadges-1`, EVM chain `50024`). Testnet is offline; see [Testnet](../chain/testnet.md).
+Assumptions: Next.js 14 or newer with the App Router. The components also work in plain React or the Pages Router, but the server handlers below need equivalent backend routes in those apps. The `'use client'` directive is specific to the App Router. Examples use mainnet (`bitbadges-1`, EVM chain `50024`). Testnet is offline; see [Testnet](../chain/testnet.md).
 
 ## 1. Install
 

@@ -8,7 +8,7 @@ BitBadges is a Cosmos SDK Layer 1 whose core module, `x/tokenization`, is a comp
 
 ## You May Not Need These Docs
 
-BitBadges is no-code by default. Everything documented here is available directly on [bitbadges.io](https://bitbadges.io): create collections, set transferability, run claims, gate access, and trade, all from the site with a wallet. These docs are for developers who want to integrate, script, or understand the model underneath. Try the site first. Come back when you need the API, the SDK, the CLI, or an AI agent.
+Many common tasks need no code. On [bitbadges.io](https://bitbadges.io), you can create collections, set transferability, run claims, and trade with a wallet. Start there for those tasks. These docs explain the token model and cover integrations, automation, custom plugins, and node operations that need developer tools.
 
 ## Build in Three Steps
 
@@ -52,7 +52,9 @@ The chain enforces the rules. The hosted services make them easy to read and to 
 
 ## One Collection, Annotated
 
-A collection is created with one message. This one is a 100-token NFT collection where only the creator can mint, one token per mint, up to 100 mints, with the supply locked forever:
+A collection is created with one message. This example fixes the valid IDs at 1 through 100 and caps supply at one unit per ID. Its locked mint rule lets only the creator initiate up to 100 mints, issuing IDs in order. The manager can still edit metadata and add post-mint transfer rules, but cannot change minting or force holders to transfer their tokens.
+
+The addresses and metadata URIs are illustrative. Replace both `creator` and `manager`, plus the mint rule's `initiatedByListId`, with your wallet address. Supply your own metadata URIs. Recipients accept incoming transfers by default and can change their own incoming approvals. The example has no post-mint transfer rule, so holders cannot transfer tokens until the manager adds one.
 
 ```json fold=3-17,19-25,31-37,62-66,75-97,107-112,114-158,166-177
 {
@@ -63,7 +65,7 @@ A collection is created with one message. This one is a 100-token NFT collection
     "incomingApprovals": [],
     "autoApproveSelfInitiatedOutgoingTransfers": false,
     "autoApproveSelfInitiatedIncomingTransfers": false,
-    "autoApproveAllIncomingTransfers": false,
+    "autoApproveAllIncomingTransfers": true,
     "userPermissions": {
       "canUpdateOutgoingApprovals": [],
       "canUpdateIncomingApprovals": [],
@@ -88,7 +90,19 @@ A collection is created with one message. This one is a 100-token NFT collection
       }
     ],
     "canUpdateTokenMetadata": [],
-    "canUpdateCollectionApprovals": [],
+    "canUpdateCollectionApprovals": [
+      {
+        "fromListId": "Mint",
+        "toListId": "All",
+        "initiatedByListId": "All",
+        "transferTimes": [{ "start": "1", "end": "18446744073709551615" }],
+        "tokenIds": [{ "start": "1", "end": "18446744073709551615" }],
+        "ownershipTimes": [{ "start": "1", "end": "18446744073709551615" }],
+        "approvalId": "All",
+        "permanentlyPermittedTimes": [],
+        "permanentlyForbiddenTimes": [{ "start": "1", "end": "18446744073709551615" }]
+      }
+    ],
     "canAddMoreAliasPaths": [],
     "canAddMoreCosmosCoinWrapperPaths": []
   },
@@ -225,9 +239,8 @@ A collection is created with one message. This one is a 100-token NFT collection
   "cosmosCoinWrapperPathsToAdd": [],
   "invariants": {
     "noCustomOwnershipTimes": false,
-    "maxSupplyPerId": "0",
-    "cosmosCoinBackedPath": { "conversion": { "sideA": { "amount": "0", "denom": "" }, "sideB": [] } },
-    "noForcefulPostMintTransfers": false,
+    "maxSupplyPerId": "1",
+    "noForcefulPostMintTransfers": true,
     "disablePoolCreation": false,
     "evmQueryChallenges": []
   },
@@ -235,7 +248,14 @@ A collection is created with one message. This one is a 100-token NFT collection
 }
 ```
 
-Rows at their defaults are folded. Click a hidden row to expand it. The field reference is in [MsgCreateCollection](token-standard/messages/msg-create-collection.md).
+The Collapsed view hides default fields. Select Full to inspect the complete JSON. The field reference is in [MsgCreateCollection](token-standard/messages/msg-create-collection.md).
+
+This object is the message value, not a transaction envelope. Save the Full JSON as `collection-value.json`, make the replacements above, then wrap it for the CLI using `jq`:
+
+```bash
+jq '{messages: [{typeUrl: "/tokenization.MsgCreateCollection", value: .}]}' collection-value.json > collection.json
+bb check collection.json --depth structural
+```
 
 | Field | What it decides | Read |
 | --- | --- | --- |
@@ -244,10 +264,10 @@ Rows at their defaults are folded. Click a hidden row to expand it. The field re
 | `collectionApprovals` | Who can move which tokens from whom to whom, when, and under which conditions. `fromListId: "Mint"` makes this a mint rule. | [Transferability](token-standard/concepts/transferability.md) |
 | `approvalCriteria` | The conditions: caps via trackers, a fixed mint order via predetermined balances, payments, Merkle proofs, votes, ownership checks, EVM queries, time windows. | [Approval Criteria](token-standard/approval-criteria/README.md) |
 | `ownershipTimes` | Balances carry a time range. A subscription is a balance that expires; a vesting schedule is a balance that starts later. No follow-up transaction. | [Balances](token-standard/concepts/balances.md) |
-| `collectionPermissions` | What the manager may still change, per time range, and whether that answer is frozen. This one locks the supply forever. | [Permissions](token-standard/concepts/permissions.md) |
+| `collectionPermissions` | What the manager may still change, per time range, and whether that answer is frozen. This example locks the valid ID range and mint rules; `invariants.maxSupplyPerId` caps supply per ID. | [Permissions](token-standard/concepts/permissions.md) |
 | `standards` | Labels that tell apps how to interpret the collection. | [Collections](token-standard/concepts/collections.md) |
 
-Every transfer, including swaps on the DEX and IBC transfers of wrapped tokens, passes three approval layers: the collection's, the sender's outgoing, and the recipient's incoming. [Concepts](token-standard/concepts/README.md) walks the model in dependency order.
+Token transfers are checked against collection-level, sender outgoing, and recipient incoming approvals. Collection criteria can explicitly override the user approval layers. Wrapped-token movements on BitBadges also use this approval model; remote chains do not execute BitBadges approval rules. [Concepts](token-standard/concepts/README.md) walks the model in dependency order.
 
 ## What Changes Versus ERC-20 and ERC-721
 
@@ -255,13 +275,13 @@ Every transfer, including swaps on the DEX and IBC transfers of wrapped tokens, 
 | --- | --- | --- |
 | Fungible and non-fungible | Two standards, two contracts | One collection. `amount` per token ID. |
 | Expiring or scheduled ownership | Custom contract, a cron job, or a burn later | `ownershipTimes` on the balance. The chain reports the balance as absent outside the range. |
-| Transfer rules | `require` statements in Solidity, per contract, audited each time | Approvals with criteria, checked by the module on every transfer, swap, and IBC hop. |
+| Transfer rules | `require` statements in Solidity, per contract, audited each time | Approvals with criteria, checked on token transfers and wrapped-token movements on BitBadges. |
 | Allowlists and blocklists | Mappings in the contract | Reusable [Address Lists](token-standard/concepts/address-lists.md): `"All"`, `"Mint"`, `"!bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue"`, or stored lists. |
 | Mint gating | A merkle-drop contract | [Merkle Challenges](token-standard/approval-criteria/merkle-challenges.md) on-chain, or [Claims](api/claims/README.md) with plugins off-chain that produce the proof. |
 | Royalties and payments | EIP-2981 hints that marketplaces may ignore | [Coin Transfers](token-standard/approval-criteria/coin-transfers.md) and [user royalties](token-standard/approval-criteria/user-approval-settings.md) enforced inside the transfer. |
 | Upgradability | Proxy patterns | [Permissions](token-standard/concepts/permissions.md) with permitted and forbidden time ranges, freezable per field. |
 | Compliance checks | Off-chain, or a per-token contract | KYC via [dynamic stores](token-standard/approval-criteria/dynamic-store-challenges.md), business hours via [Alt Time Checks](token-standard/approval-criteria/alt-time-checks.md), on-chain EVM reads via [EVM Query Challenges](token-standard/approval-criteria/evm-query-challenges.md). See [Compliance Zones](token-standard/concepts/compliance-zones.md). |
-| Cross-chain | Bridges | [Wrapper paths](token-standard/ibc/cosmos-coin-wrapper-paths.md) turn tokens into `x/bank` denoms that move over IBC and trade on the DEX, with the same approvals applied. |
+| Cross-chain | Bridges | [Wrapper paths](token-standard/ibc/cosmos-coin-wrapper-paths.md) turn tokens into `x/bank` denoms for IBC and DEX trading. Approvals apply on the BitBadges side; remote voucher transfers follow the remote chain's rules. |
 | Contracts | Everything | Optional. Solidity reads and writes the module through [precompiles](chain/evm/README.md). |
 
 The longer argument is in [Why BitBadges](about/README.md) and [Comparisons](about/comparisons.md).
@@ -286,7 +306,7 @@ Each row below has a longer pitch, with the fields that matter and a prompt for 
 
 ## Pick a Path
 
-Every path produces the same transaction JSON and ends with a signed broadcast. Mainnet is the live network; testnet is offline.
+Choose a path for reading data or building transactions. Reads need no wallet signature. Writes require review and a signed broadcast. Mainnet is the live network; testnet is offline.
 
 ### CLI
 
@@ -295,7 +315,7 @@ curl -fsSL https://install.bitbadges.io | sh
 bb settings set apiKey "$BITBADGES_API_KEY"  # key from https://bitbadges.io/developer
 bb api tokens get-collection 1             # read through the BitBadges API
 bb build --help                            # 19 builders: subscription, smart-token, auction, transfer, ...
-bb check collection.json                   # validate any tx JSON, such as the collection above
+bb check collection.json                   # validate a saved collection or transaction
 bb simulate collection.json
 bb deploy collection.json --browser        # review and sign in the browser
 ```
@@ -305,33 +325,14 @@ bb deploy collection.json --browser        # review and sign in the browser
 ### TypeScript
 
 ```ts
-import { BigIntify, BitBadgesAPI, BitBadgesSigningClient, GenericCosmosAdapter, MsgTransferTokens } from 'bitbadges';
+import { BigIntify, BitBadgesAPI } from 'bitbadges';
 
 const api = new BitBadgesAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
 const { collection } = await api.getCollection('1');
 console.log(collection.collectionId, collection.validTokenIds);
-
-const adapter = await GenericCosmosAdapter.fromMnemonic(process.env.MNEMONIC!, 'bitbadges-1');
-const client = new BitBadgesSigningClient({ adapter, network: 'mainnet' });
-const result = await client.signAndBroadcast([
-  new MsgTransferTokens({
-    creator: client.address,
-    collectionId: '1',
-    transfers: [
-      {
-        from: client.address,
-        toAddresses: ['bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue'],
-        balances: [{ amount: 1n, tokenIds: [{ start: 1n, end: 1n }], ownershipTimes: [{ start: 1n, end: 18446744073709551615n }] }],
-        prioritizedApprovals: [],
-        onlyCheckPrioritizedCollectionApprovals: false,
-        onlyCheckPrioritizedIncomingApprovals: false,
-        onlyCheckPrioritizedOutgoingApprovals: false
-      }
-    ]
-  })
-]);
-console.log(result.success ? result.txHash : result.error);
 ```
+
+Install `bitbadges` and set `BITBADGES_API_KEY` from the [developer portal](https://bitbadges.io/developer) before running this server-side example. It reads collection 1. For a write, follow [Transactions](sdk/transactions/README.md) to select a signer and prepare a transfer using tokens you own and a recipient you choose.
 
 [SDK reference](sdk/README.md), [Transactions](sdk/transactions/README.md)
 
