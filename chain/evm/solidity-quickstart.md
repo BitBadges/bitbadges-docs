@@ -163,7 +163,7 @@ contract BalanceExample {
             collectionId,
             user,
             1,  // tokenId
-            block.timestamp  // ownershipTime
+            block.timestamp * 1000  // ownershipTime in milliseconds
         );
 
         return PRECOMPILE.getBalanceAmount(json);
@@ -231,9 +231,12 @@ contract KycRegistryExample {
     ITokenizationPrecompile constant PRECOMPILE =
         ITokenizationPrecompile(0x0000000000000000000000000000000000001001);
 
+    address public immutable owner = msg.sender;
     uint256 public kycStoreId;
 
     function initKYC() external {
+        require(msg.sender == owner, "Only owner");
+        require(kycStoreId == 0, "Already initialized");
         string memory json = TokenizationJSONHelpers.createDynamicStoreJSON(
             false,  // default: not KYC'd
             "", ""  // metadata
@@ -242,6 +245,8 @@ contract KycRegistryExample {
     }
 
     function setKYC(address user, bool status) external {
+        require(msg.sender == owner, "Only owner");
+        require(kycStoreId != 0, "Not initialized");
         string memory json = TokenizationJSONHelpers.setDynamicStoreValueJSON(
             kycStoreId, user, status
         );
