@@ -38,7 +38,7 @@ const txContext: TxContext = {
   evmAddress: '0x0bc63cfe31d5218eb414b142c799e20964a54a1a' // enables precompile conversion
 };
 
-const payload = createTransactionPayload(txContext, msg);
+const payload = createTransactionPayload(txContext, msg.toProto());
 if (!payload.evmTx) throw new Error('Messages are not supported for EVM transactions');
 
 const { to, data } = payload.evmTx;
@@ -47,7 +47,7 @@ const provider = new ethers.BrowserProvider(window.ethereum);
 const signer = await provider.getSigner();
 
 // Simulate: estimate gas
-const gasEstimate = await provider.estimateGas({ to, data, value: 0n });
+const gasEstimate = await signer.estimateGas({ to, data, value: 0n });
 
 // Send
 const tx = await signer.sendTransaction({ to, data, value: 0n, gasLimit: gasEstimate });

@@ -4,7 +4,7 @@ description: "How SDK types are exported (classes, interfaces, typed arrays, pro
 
 # Types
 
-Every SDK type is generic over a number type and ships as both a class and an interface. Read this before you pass values between the API, the SDK helpers, and your own code.
+Most SDK data models with numeric fields are generic over a number type and ship as both a class and an interface. Read this before you pass values between the API, the SDK helpers, and your own code.
 
 ## NumberType and the Converters
 
@@ -25,7 +25,7 @@ const asNumber = asBigInt.convert(Numberify); // TokenMetadata<number>, silently
 const backToString = asNumber.convert(Stringify); // TokenMetadata<string>
 ```
 
-JavaScript's `number` cannot hold values above `Number.MAX_SAFE_INTEGER`, and the chain allows amounts, IDs, and times far above that (`GO_MAX_UINT_64` is `18446744073709551615n`). So every SDK type takes a type parameter `T extends NumberType`.
+JavaScript's `number` cannot represent every integer above `Number.MAX_SAFE_INTEGER`, and the chain allows amounts, IDs, and times far above that (`GO_MAX_UINT_64` is `18446744073709551615n`). Numeric data models therefore use a type parameter `T extends NumberType`; identifiers such as `CollectionId` remain strings regardless of `T`.
 
 | Converter | Result type | Use |
 | --- | --- | --- |
@@ -34,7 +34,7 @@ JavaScript's `number` cannot hold values above `Number.MAX_SAFE_INTEGER`, and th
 | `Numberify` | `number` | Convenience for UI. Silently rounds above 2^53; it does not throw. |
 | `NumberifyIfPossible` | `number \| string` | `number` when safe, `string` otherwise. |
 
-The API stringifies every number before it sends a response. `BitBadgesAPI` applies your `convertFunction` to each response, so you pick the type once. Account numbers and sequences on v34 and later are hash-derived 64-bit values, so never run them through `Number()`. See [Transactions](transactions/README.md).
+The API stringifies chain numeric fields before sending a response; ordinary counters and pagination fields may remain JSON numbers. `BitBadgesAPI` applies your `convertFunction` to each response, so you pick the type once. Account numbers and sequences on v34 and later are hash-derived 64-bit values, so never run them through `Number()`. See [Transactions](transactions/README.md).
 
 ## Classes
 
@@ -51,7 +51,7 @@ const json = balance.toJson();
 const same = balance.equals(balance.clone()); // true
 ```
 
-Class names start with a capital letter. Every class extends `CustomTypeClass` and has these methods. Specific classes add more (for example `Balance` has no extras, but `BalanceArray` and `UintRangeArray` have many).
+SDK data-model classes extend `CustomTypeClass` and have these methods. Client, adapter, and native-array classes have their own APIs. Specific classes add more (for example `Balance` has no extras, but `BalanceArray` and `UintRangeArray` have many).
 
 ```ts
 export declare class CustomTypeClass<T extends CustomType<T>> implements CustomType<T> {
@@ -76,14 +76,14 @@ export interface iBalance<T extends NumberType> {
 }
 ```
 
-Each class has a matching interface with an `i` prefix: the same fields, no methods. Most SDK functions accept either. Class constructors accept the interface, so `new Balance(plainObject)` is the conversion in one direction and `.toJson()` is the other. Prefer classes when you call helper methods; interfaces are fine for plain data.
+Data-model classes typically have a matching interface with an `i` prefix: the same fields, no methods. Most SDK functions accept either. Class constructors accept the interface, so `new Balance(plainObject)` is the conversion in one direction and `.toJson()` is the other. Prefer classes when you call helper methods; interfaces are fine for plain data.
 
 ## Typed Arrays
 
 ```ts
 import { BalanceArray } from 'bitbadges';
 
-const balances = BalanceArray.From([{ amount: 1n, tokenIds: [{ start: 1n, end: 1n }], ownershipTimes: [{ start: 1n, end: 1n }] }]);
+const balances = BalanceArray.From<bigint>([{ amount: 1n, tokenIds: [{ start: 1n, end: 1n }], ownershipTimes: [{ start: 1n, end: 1n }] }]);
 balances.push({ amount: 2n, tokenIds: [{ start: 2n, end: 2n }], ownershipTimes: [{ start: 1n, end: 1n }] });
 balances.addBalances([{ amount: 1n, tokenIds: [{ start: 1n, end: 2n }], ownershipTimes: [{ start: 1n, end: 1n }] }]); // in place
 const first = balances.find((b) => b.amount === 3n);

@@ -15,6 +15,10 @@ curl https://api.bitbadges.io/api/v0/plugin/must-own-badges -H "x-api-key: $BITB
 ```
 
 ```ts
+import { BitBadgesAdminAPI, BigIntify } from 'bitbadges';
+
+// searchPlugins is exposed on the admin client, which includes the base API methods.
+const BitBadgesApi = new BitBadgesAdminAPI({ convertFunction: BigIntify, apiKey: process.env.BITBADGES_API_KEY });
 const { plugin } = await BitBadgesApi.getPlugin('must-own-badges');
 const latest = plugin.versions[plugin.versions.length - 1];
 console.log(latest.userInputsSchema);     // what the claiming user provides
@@ -129,10 +133,10 @@ Limits total successful claims. This plugin is always required and cannot be mad
 
 ```ts
 // Public params
-{ maxUses: number; hideCurrentState?: boolean; displayAsUnlimited?: boolean }
+type NumUsesPublicParams = { maxUses: number; hideCurrentState?: boolean; displayAsUnlimited?: boolean }
 
 // Public state
-{ numUses?: number; usedClaimNumbers?: UintRange[]; claimedUsers?: { [bitbadgesAddress: string]: number[] } }
+type NumUsesPublicState = { numUses?: number; usedClaimNumbers?: UintRange[]; claimedUsers?: { [bitbadgesAddress: string]: number[] } }
 ```
 
 No user input. Fails with `Overall max uses exceeded` once `numUses >= maxUses`. `claimedUsers` is populated when you fetch the claim with `fetchAllClaimedUsers: true`.
@@ -143,16 +147,16 @@ Codes are either generated from `seedCode` or listed explicitly. Generated code 
 
 ```ts
 // User input
-{ code: string }
+type CodesUserInput = { code: string }
 
 // Public params
-{ numCodes: number; hideCurrentState?: boolean }
+type CodesPublicParams = { numCodes: number; hideCurrentState?: boolean }
 
 // Private params
-{ codes: string[]; seedCode: string }
+type CodesPrivateParams = { codes: string[]; seedCode: string }
 
 // Public state
-{ usedCodeRanges?: UintRange[] }   // ranges of used code indices
+type CodesPublicState = { usedCodeRanges?: UintRange[] }   // ranges of used code indices
 ```
 
 When this plugin is the claim number assigner, the claim number is the code index. Errors: `Invalid code in body provided.`, `Invalid code. Not found in list of codes.`, `Code already used`.
@@ -161,10 +165,10 @@ When this plugin is the claim number assigner, the claim number is the code inde
 
 ```ts
 // User input
-{ password: string }
+type PasswordUserInput = { password: string }
 
 // Private params
-{ password: string }
+type PasswordPrivateParams = { password: string }
 ```
 
 No public params or state. The comparison is constant-time. Error: `Incorrect password`.
@@ -173,7 +177,7 @@ No public params or state. The comparison is constant-time. Error: `Incorrect pa
 
 ```ts
 // Public params
-{ transferTimes: UintRange[] }  // allowed windows, UNIX ms
+type TransferTimesPublicParams = { transferTimes: UintRange[] }  // allowed windows, UNIX ms
 ```
 
 No user input, state, or private params. Passes when `Date.now()` falls inside a range. Error: `We are currently outside the approved time window.`
@@ -188,13 +192,13 @@ Gates on an address list. The list can be public (in `publicParams`), private (i
 
 ```ts
 // Public params
-{ listId?: string; list?: AddressList; maxUsesPerAddress?: number; hasPrivateList?: boolean }
+type WhitelistPublicParams = { listId?: string; list?: AddressList; maxUsesPerAddress?: number; hasPrivateList?: boolean }
 
 // Private params
-{ useDynamicStore?: boolean; dynamicDataId?: string; dataSecret?: string; listId?: string; list?: AddressList }
+type WhitelistPrivateParams = { useDynamicStore?: boolean; dynamicDataId?: string; dataSecret?: string; listId?: string; list?: AddressList }
 
 // Private state
-{ addresses: { [address: string]: number } }  // claims per address
+type WhitelistPrivateState = { addresses: { [address: string]: number } }  // claims per address
 ```
 
 A `whitelist: false` list acts as a denylist. When this plugin is the claim number assigner, the claim number is the address's index in the list. A public dynamic store (`publicUseInClaims`) needs no `dataSecret` for reads; other stores do. See [Dynamic Stores](dynamic-stores.md). Errors: `User not in whitelist`, `User in denylist`, `User already exceeded max uses`, `Dynamic data doc not found`, `Invalid data secret`.
@@ -260,13 +264,13 @@ Nested `satisfies-claim` checks on on-demand claims have a depth limit of 5. Cir
 
 ```ts
 // Public params
-{ users: string[]; maxUsesPerUser: number; hasPrivateList: boolean }
+type SocialPublicParams = { users: string[]; maxUsesPerUser: number; hasPrivateList: boolean }
 
 // Private params
-{ usernames: string[] }   // the allowed list when hasPrivateList is true
+type SocialPrivateParams = { usernames: string[] }   // the allowed list when hasPrivateList is true
 
 // State (per instance)
-{ ids: { [id: string]: number }; usernames: { [username: string]: number } }
+type SocialState = { ids: { [id: string]: number }; usernames: { [username: string]: number } }
 ```
 
 `github-contributions` is `Stateless` with `verificationCall.uri` `https://api.bitbadges.io/api/v0/integrations/query/github-contributions` and no creator params in source. Fetch its current schema with `getPlugin('github-contributions')`.

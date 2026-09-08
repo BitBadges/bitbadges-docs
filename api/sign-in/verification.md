@@ -31,6 +31,7 @@ import { BigIntify, BitBadgesAPI } from 'bitbadges';
 const BitBadgesApi = new BitBadgesAPI({ apiKey: process.env.BITBADGES_API_KEY, convertFunction: BigIntify });
 
 async function myHandler(req: NextApiRequest, res: NextApiResponse) {
+  // Call only after validating and consuming OAuth state, as shown on the Callback page.
   const code = req.query.code as string;
 
   const auth = await BitBadgesApi.exchangeSIWBBAuthorizationCode({
@@ -102,16 +103,16 @@ async function myHandler(req: NextApiRequest, res: NextApiResponse) {
 ## Response
 
 ```ts
-{
+type AuthorizationResponse<T extends string | number | bigint> = {
   address: string;
   chain: SupportedChain;               // 'Cosmos' | 'ETH' | 'Unknown'
   bitbadgesAddress: string;
   verificationResponse?: { success: boolean; errorMessage?: string };
   access_token: string;
   token_type: 'Bearer';
-  access_token_expires_at?: number;   // UNIX ms
+  access_token_expires_at?: T;        // UNIX ms; string over HTTP
   refresh_token?: string;
-  refresh_token_expires_at?: number;  // UNIX ms
+  refresh_token_expires_at?: T;       // converted by the SDK
 }
 ```
 

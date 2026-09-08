@@ -16,7 +16,7 @@ const { collection } = await api.getCollection('1');
 const current: TokenMetadataDetails<bigint>[] = collection.tokenMetadata;
 
 // Remove metadata for token IDs 5 to 10
-const withoutFiveToTen = TokenMetadataDetails.removeTokenMetadata(current, UintRangeArray.From([{ start: 5n, end: 10n }]));
+const withoutFiveToTen = TokenMetadataDetails.removeTokenMetadata(current, UintRangeArray.From<bigint>([{ start: 5n, end: 10n }]));
 
 // Update (or insert) metadata for token 7
 const updated = TokenMetadataDetails.updateTokenMetadata(
