@@ -10,7 +10,7 @@ URL patterns: /token-standard/messages/msg-<kebab>, /token-standard/queries/<keb
 
 - [Overview](https://docs.bitbadges.io/)
 - [Quickstart](https://docs.bitbadges.io/start/quickstart): Install BitBadges, run a first query, and broadcast a first transaction in the CLI, TypeScript, the no-code site, or an AI agent.
-- [Your First Collection](https://docs.bitbadges.io/start/first-collection): Idea to on-chain in one sitting: build a subscription token with the CLI or an AI agent, check it, simulate it, and sign it in the browser, with real output.
+- [Your First Collection](https://docs.bitbadges.io/start/first-collection): Idea to on-chain in one sitting: build a subscription token with an AI agent or the CLI, check it, simulate it, and sign it in the browser, with real output.
 - [Using the Frontend](https://docs.bitbadges.io/using-the-frontend): What the bitbadges.io site is for, and a map of the pages that walk through browsing, signing, and managing tokens there.
   - [Connect a Wallet](https://docs.bitbadges.io/using-the-frontend/connect-a-wallet): How to connect a wallet on bitbadges.io, what signing in adds on top of connecting, and how bb1 and 0x addresses relate.
   - [Browse and Search](https://docs.bitbadges.io/using-the-frontend/browse-and-search): Find collections, accounts, and tokens on bitbadges.io from the home page, the browse page, and the global search bar.
@@ -33,8 +33,8 @@ URL patterns: /token-standard/messages/msg-<kebab>, /token-standard/queries/<keb
   - [Loyalty Points and Credits](https://docs.bitbadges.io/use-cases/loyalty-points-and-credits): Sell prepaid credits at a fixed exchange rate, or pay a reward for every completed quest. Soulbound fungible tokens with a coin transfer on the mint approval.
   - [Memberships and Address Lists](https://docs.bitbadges.io/use-cases/memberships-and-address-lists): Keep an allowlist, a ban list, a DAO roster, or a five-minute 2FA token on-chain. Membership is a balance; the manager adds by minting and removes by burning.
   - [Product Catalogs and Commerce](https://docs.bitbadges.io/use-cases/product-catalogs-and-commerce): Sell SKUs on-chain with independent prices, supply caps, and burn-on-purchase. One purchase approval per product routes payment straight to the store.
-- [Guides](https://docs.bitbadges.io/guides): Task guides for BitBadges. Each one gets you to a working result with the bb CLI first, then the TypeScript SDK and raw JSON.
-  - [Create a Collection](https://docs.bitbadges.io/guides/create-a-collection): Create an NFT or fungible token collection on BitBadges with the bb CLI, the TypeScript SDK, or raw MsgCreateCollection JSON.
+- [Guides](https://docs.bitbadges.io/guides): Task guides for BitBadges. Start with the AI builder, then follow CLI, TypeScript SDK, and JSON examples for direct integration.
+  - [Create a Collection](https://docs.bitbadges.io/guides/create-a-collection): Create an NFT or fungible token collection on BitBadges with the AI builder, the bb CLI, the TypeScript SDK, or raw MsgCreateCollection JSON.
   - [Mint and Distribute](https://docs.bitbadges.io/guides/mint-and-distribute): Mint BitBadges tokens to yourself or to the public, charge for mints, pay out from escrow, and control circulating supply.
   - [Set Transferability](https://docs.bitbadges.io/guides/set-transferability): Decide who can transfer, burn, trade, or force-move BitBadges tokens with collection approvals and user-level approvals.
   - [Lock Permissions](https://docs.bitbadges.io/guides/lock-permissions): Freeze supply, approvals, token IDs, metadata, or a whole BitBadges collection with collection permissions, and lock user permissions for escrow accounts.

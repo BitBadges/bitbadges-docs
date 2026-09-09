@@ -1,10 +1,28 @@
 ---
-description: "Create an NFT or fungible token collection on BitBadges with the bb CLI, the TypeScript SDK, or raw MsgCreateCollection JSON."
+description: "Create an NFT or fungible token collection on BitBadges with the AI builder, the bb CLI, the TypeScript SDK, or raw MsgCreateCollection JSON."
 ---
 
 # Create a Collection
 
 At the end you have a live collection with token IDs, metadata, a manager, and a mint approval, ready for [Mint and Distribute](mint-and-distribute.md).
+
+## Start with the AI Builder
+
+[Connect your AI](../agents/setup.md), then describe the collection:
+
+```text
+Create a 100-piece NFT collection called Demo NFTs where only I can mint,
+one per transaction. Validate, review, and simulate it, then give me the review link.
+```
+
+```text
+Create a fungible token called Demo Coin with a 1,000,000 supply cap
+and a public mint of up to 1,000 per address.
+```
+
+The builder assembles the fields and approvals from your requirements. Supply your wallet address and metadata, refine the rules in conversation, then review and sign the transaction in your browser. For a full first build, follow [Your First Collection](../start/first-collection.md).
+
+For application code that builds from prompts, use the [Programmatic Agent](../agents/programmatic-agent.md). The steps below explain the message structure for direct SDK and JSON integration.
 
 A collection is one on-chain record that holds every field below; see [Collections](../token-standard/concepts/collections.md). Every numeric value in transaction JSON is a string (`"100"`, not `100`).
 
@@ -22,13 +40,6 @@ A collection is one on-chain record that holds every field below; see [Collectio
 `predeterminedBalances` and `approvalAmounts` are incompatible on one approval. NFTs use the first; fungible tokens use the second.
 
 The `{id}` placeholder works only inside the metadata URI string, never inside the name, description, or image fields of the metadata JSON.
-
-{% hint style="info" %}
-**Ask your agent.** With the MCP builder tools installed, paste one of these:
-
-- "Create a 100-piece NFT collection called Demo NFTs where only I can mint, one per transaction, run the review, and give me the review link."
-- "Create a fungible token called Demo Coin with a 1,000,000 supply cap and a public mint of up to 1,000 per address."
-{% endhint %}
 
 ## 2. Write the Base Fields
 

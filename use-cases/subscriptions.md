@@ -8,6 +8,16 @@ A subscription is a token whose ownership ends at a timestamp. The mint approval
 
 Renewal is a user-level approval the subscriber sets once. A bot, the issuer, or anyone can mint the next period through it; the chain charges the subscriber only within the terms they signed.
 
+## Create with Your AI
+
+[Set up the BitBadges builder](../agents/setup.md), then ask:
+
+```text
+Hey Claude, create me a 5 ATOM / month subscription.
+```
+
+The agent gathers your collection name and wallet addresses, builds the payment and ownership rules, checks the transaction, and gives you a review link. The monthly preset uses 30 days. Review and sign with your wallet; subscribers authorize renewal separately. Follow [Your First Collection](../start/first-collection.md) for the full walkthrough, or continue below for the underlying fields.
+
 ## What Makes It Work
 
 | Requirement | Token-standard primitive |

@@ -14,39 +14,35 @@ description: "What BitBadges is, how the chain, the hosted services, and the too
 
 BitBadges is a Cosmos SDK Layer 1 whose core module, `x/tokenization`, is a complete token standard: every collection, balance, approval, and permission is chain state that the module enforces on every transfer. This page explains the system end to end, shows what a token collection looks like, and sends you to the right tab.
 
-## You May Not Need These Docs
+## Create with Your AI
 
-Many common tasks need no code. On [bitbadges.io](https://bitbadges.io), you can create collections, set transferability, run claims, and trade with a wallet. Start there for those tasks. These docs explain the token model and cover integrations, automation, custom plugins, and node operations that need developer tools.
-
-## Build in Three Steps
-
-1. Install the CLI:
-
-```bash
-curl -fsSL https://install.bitbadges.io | sh
-```
-
-2. Add the MCP builder tools to your editor. Claude Code is shown; Cursor, Codex, Claude Desktop, and others are in [Set Up Your AI](agents/setup.md):
-
-```bash
-claude mcp add bitbadges-builder -e BITBADGES_API_KEY="$BITBADGES_API_KEY" -- npx -y -p bitbadges bitbadges-builder
-```
-
-3. Tell it what to build:
+Tell Claude what you want to build:
 
 ```text
-Create me a payment request for 10 USDC
+Hey Claude, create me a 5 ATOM / month subscription.
+```
+
+With the BitBadges MCP builder connected, your AI can turn that request into a collection with payment rules and expiring membership tokens. It asks for the details, builds and checks the transaction, and returns a link where you review and sign with your wallet.
+
+1. [Set Up Your AI](agents/setup.md): connect the builder to Claude Code, Claude Desktop, Cursor, Codex, or another MCP client.
+2. [Create Your First Collection](start/first-collection.md): go from the subscription prompt to a reviewed transaction. The monthly preset uses 30-day periods; automatic renewal requires subscriber authorization.
+3. Refine the result in conversation: choose the payment coin, transfer rules, supply limits, or what the manager can change.
+
+The same creation flow works across the token standard:
+
+```text
+Create me a payment request for 10 USDC and give me the review link.
 ```
 
 ```text
-Build a subscription token that renews monthly for 5 USDC
+Make a 500-piece NFT collection where only I can mint.
 ```
 
-```text
-Make a 500-piece NFT collection where only I can mint
-```
+For a build flow inside your application, use the [Programmatic Agent](agents/programmatic-agent.md). For repeatable commands and direct TypeScript integration, use the [CLI](cli/README.md) and [SDK](sdk/README.md).
 
-The agent assembles the transaction and returns a review link. Open it, check the summary, and sign with your wallet.
+## Create in the Browser
+
+On [bitbadges.io](https://bitbadges.io), you can also create collections, set transferability, run claims, and trade with a wallet. These docs explain the token model and cover integrations, automation, custom plugins, and node operations.
 
 ## What You Get
 
@@ -821,6 +817,16 @@ description: "Install paths, quickstart, and the review-and-sign handoff for AI 
 # Agents
 
 This tab is for AI agents, bots, and the people wiring them: how to install, which surface to use, and how a built transaction reaches a human wallet for signature.
+
+## Create Your First Collection
+
+Connect your client using [Set Up Your AI](setup.md), then ask:
+
+```text
+Hey Claude, create me a 5 ATOM / month subscription.
+```
+
+The builder gathers the details, generates the collection and payment rules, checks the transaction, and returns a link to review and sign with your wallet. [Your First Collection](../start/first-collection.md) walks through the full flow, including 30-day periods and renewal authorization. You can use the same workflow for NFTs, fungible tokens, smart tokens, and payment requests.
 
 ## Install
 
@@ -21764,32 +21770,33 @@ bb amount unwrap-preview 88 --token-amount 10
 ## File: guides/README.md
 
 ---
-description: "Task guides for BitBadges. Each one gets you to a working result with the bb CLI first, then the TypeScript SDK and raw JSON."
+description: "Task guides for BitBadges. Start with the AI builder, then follow CLI, TypeScript SDK, and JSON examples for direct integration."
 ---
 
 # Guides
 
-Each guide takes one job (create a token, distribute it, gate access, sign users in) and shows the working commands first. Concepts are not re-explained here; each step links to the canonical page in the Token Standard tab.
+Each guide takes one job (create a token, distribute it, gate access, sign users in) and connects the creation flow to working commands. Concepts are not re-explained here; each step links to the canonical page in the Token Standard tab.
 
 For the pitch behind each build (which two or three approval fields turn the standard into a stablecoin, a subscription, or an agent vault), read [Use Cases](../use-cases/README.md) first.
 
-Every guide assumes:
+## Start with a Prompt
 
-- `bb` is installed (see the [Quickstart](../start/quickstart.md)).
-- Examples target mainnet. Replace example addresses, collection IDs, metadata URIs, and dates with your own values before signing. The signer needs BADGE for fees and any coins or tokens the transaction spends. The testnet is offline; see [Testnet](../chain/testnet.md).
-- Transaction JSON is signed and broadcast with `bb deploy` (see [Deploy](../cli/deploy.md)) or the [SDK signing client](../sdk/transactions/README.md).
-
-{% hint style="info" %}
-**Ask your agent.** Every guide here has a matching prompt. With the MCP builder tools installed, paste one of these to skip the hand-written JSON:
+[Set up your AI](../agents/setup.md) and describe the result you want. The builder assembles and checks the transaction; you review and sign through a browser link.
 
 ```text
-Create a 100-piece NFT collection called Demo NFTs where only I can mint, and give me the review link.
+Create a 100-piece NFT collection called Demo NFTs where only I can mint,
+validate and simulate it, and give me the review link.
 ```
 
-```text
-Build a subscription token that renews monthly for 5 USDC.
-```
-{% endhint %}
+Follow [Your First Collection](../start/first-collection.md) for a complete prompt-to-collection walkthrough. To embed this creation flow in application code, see [Programmatic Agent](../agents/programmatic-agent.md).
+
+## Follow the Implementation
+
+The CLI, SDK, and JSON examples below show how each build works and support repeatable integrations. For these examples:
+
+- Install `bb` using the [Quickstart](../start/quickstart.md).
+- Examples target mainnet. Replace example addresses, collection IDs, metadata URIs, and dates with your own values before signing. The signer needs BADGE for fees and any coins or tokens the transaction spends. See [Testnet](../chain/testnet.md) for availability.
+- Review transaction JSON with `bb check` and `bb preview`, then sign with your wallet. See [Deploy](../cli/deploy.md) or the [SDK signing client](../sdk/transactions/README.md).
 
 ## Guides
 
@@ -22128,12 +22135,30 @@ const results = await api.searchPlugins({
 ## File: guides/create-a-collection.md
 
 ---
-description: "Create an NFT or fungible token collection on BitBadges with the bb CLI, the TypeScript SDK, or raw MsgCreateCollection JSON."
+description: "Create an NFT or fungible token collection on BitBadges with the AI builder, the bb CLI, the TypeScript SDK, or raw MsgCreateCollection JSON."
 ---
 
 # Create a Collection
 
 At the end you have a live collection with token IDs, metadata, a manager, and a mint approval, ready for [Mint and Distribute](mint-and-distribute.md).
+
+## Start with the AI Builder
+
+[Connect your AI](../agents/setup.md), then describe the collection:
+
+```text
+Create a 100-piece NFT collection called Demo NFTs where only I can mint,
+one per transaction. Validate, review, and simulate it, then give me the review link.
+```
+
+```text
+Create a fungible token called Demo Coin with a 1,000,000 supply cap
+and a public mint of up to 1,000 per address.
+```
+
+The builder assembles the fields and approvals from your requirements. Supply your wallet address and metadata, refine the rules in conversation, then review and sign the transaction in your browser. For a full first build, follow [Your First Collection](../start/first-collection.md).
+
+For application code that builds from prompts, use the [Programmatic Agent](../agents/programmatic-agent.md). The steps below explain the message structure for direct SDK and JSON integration.
 
 A collection is one on-chain record that holds every field below; see [Collections](../token-standard/concepts/collections.md). Every numeric value in transaction JSON is a string (`"100"`, not `100`).
 
@@ -22151,13 +22176,6 @@ A collection is one on-chain record that holds every field below; see [Collectio
 `predeterminedBalances` and `approvalAmounts` are incompatible on one approval. NFTs use the first; fungible tokens use the second.
 
 The `{id}` placeholder works only inside the metadata URI string, never inside the name, description, or image fields of the metadata JSON.
-
-{% hint style="info" %}
-**Ask your agent.** With the MCP builder tools installed, paste one of these:
-
-- "Create a 100-piece NFT collection called Demo NFTs where only I can mint, one per transaction, run the review, and give me the review link."
-- "Create a fungible token called Demo Coin with a 1,000,000 supply cap and a public mint of up to 1,000 per address."
-{% endhint %}
 
 ## 2. Write the Base Fields
 
@@ -27352,6 +27370,18 @@ All three rely on time-based ownership: a balance is owned for `ownershipTimes` 
 
 ## 1. Build a Subscription
 
+### AI Builder
+
+[Connect your AI](../agents/setup.md), then ask:
+
+```text
+Create a subscription called Pro Plan for 5 ATOM per 30-day period.
+Ask me for the payment recipient and manager addresses, make it non-transferable,
+and lock the price. Validate, review, and simulate it, then give me the review link.
+```
+
+Review the payment coin, recipient, duration, and permissions before signing. Creating the collection sets up the offer; subscribers still need to subscribe, and automatic renewal requires their authorization plus a renewal transaction. The monthly preset is 30 days. [Your First Collection](../start/first-collection.md) walks through this flow.
+
 ### bb CLI
 
 ```bash
@@ -28385,6 +28415,12 @@ description: "Install the bitbadges TypeScript SDK, create a BitBadgesAPI client
 # BitBadges SDK
 
 The `bitbadges` npm package is the TypeScript SDK for the BitBadges API, the chain, and transaction signing. Use it from a browser app, a backend, or an agent.
+
+## Build from a Prompt
+
+For collection creation, start with the [AI builder](../agents/setup.md): describe the token and its rules, inspect the generated transaction, and review and sign with your wallet. [Your First Collection](../start/first-collection.md) shows the full flow.
+
+To offer prompt-based creation inside an application, use [`BitBadgesBuilderAgent`](../agents/programmatic-agent.md), which returns the transaction and a review URL. Use the SDK below for typed queries, direct transaction construction, and wallet integration.
 
 ## Install
 
@@ -30643,33 +30679,70 @@ const protoMsg = proto.tokenization.MsgTransferTokens; // proto class: string nu
 ## File: start/first-collection.md
 
 ---
-description: "Idea to on-chain in one sitting: build a subscription token with the CLI or an AI agent, check it, simulate it, and sign it in the browser, with real output."
+description: "Idea to on-chain in one sitting: build a subscription token with an AI agent or the CLI, check it, simulate it, and sign it in the browser, with real output."
 ---
 
 # Your First Collection
 
 This page goes from an idea to a signed collection on-chain. The output examples show the response shapes to expect. Hashes, preview codes, gas usage, timestamps, and review counts are illustrative; use the values returned by your own commands.
 
-Two ways in. Pick one, or read both; they meet at the same review link.
+Start by describing what you want to your AI. The BitBadges builder turns that request into a transaction you can review and sign. For repeatable scripts, the CLI walkthrough follows below.
 
-- **Terminal.** The `bb` CLI builds from flags. No model involved.
-- **AI agent.** Claude Code, Codex, or Cursor with the BitBadges MCP server. You describe the token; the agent runs the same steps.
-
-The agent never signs. Neither does the CLI unless you tell it to. Both hand you a link, and you sign in the browser with your own wallet.
+Both walkthroughs use browser signing: the builder prepares the transaction, and you sign with your own wallet.
 
 ```mermaid title="Two ways in, one review link"
 flowchart LR
+  A["AI agent: describe your collection"] --> V["validate, review, simulate"]
+  V --> R["get_review_url"]
   T["Terminal: bb build"] --> C["bb check"]
   C --> S["bb simulate"]
   S --> P["bb preview"]
-  A["AI agent: MCP tools"] --> V["validate, review, simulate"]
-  V --> R["get_review_url"]
   P --> L["Review and sign in the browser"]
   R --> L
   L --> O["On-chain"]
 ```
 
-## Prerequisites
+## Path A: create with your AI
+
+### 1. Connect the builder
+
+Follow [Set Up Your AI](../agents/setup.md) to connect the BitBadges MCP builder to Claude Code, Claude Desktop, Cursor, Codex, or another MCP client. That page covers installation and the API key used for queries, simulation, and review links. Use the browser-signing setup; your wallet keeps the signing key.
+
+### 2. Describe what you want
+
+```text
+Hey Claude, create me a 5 ATOM / month subscription.
+```
+
+That is enough to start. The agent can load the subscription skill and assemble the collection, payment approval, and expiring balances for you. Give it your wallet address, the address that receives payments, and the collection name when it asks. You can use the same address for creator, manager, and payment recipient.
+
+For a more specific starting point:
+
+```text
+Create a subscription called Pro Plan that costs 5 ATOM per 30-day period.
+Ask me for my creator, manager, and payment recipient addresses.
+Make membership non-transferable and lock the price.
+Validate, review, and simulate the transaction, explain any findings,
+then give me a link to review and sign with my wallet.
+```
+
+The monthly preset means **30 days**, not a calendar month. The builder resolves ATOM to its supported denomination on BitBadges. Creating the collection sets up paid access; subscribers pay when they subscribe. Automatic renewal requires a subscriber's renewal authorization and a subsequent renewal transaction. See [Subscriptions](../use-cases/subscriptions.md).
+
+You can keep refining the design in the conversation: change the payment coin, add tiers, or allow memberships to be transferred. Ask for a fresh validation, review, and simulation after changes. The same flow works for NFTs, fungible tokens, payment requests, and smart tokens; browse [builder skills](../agents/skills/README.md) for more starting points.
+
+### 3. Review and sign
+
+The agent uses `validate_transaction`, `review_collection`, and `simulate_transaction`, resolves errors, and calls `get_review_url`. Open the returned link to inspect the collection, payment recipient, price, ownership duration, transferability, and permissions. Sign with your wallet when the result matches your intent. The signing account needs BADGE for transaction fees.
+
+The link is a prepared transaction, not a deployed collection. After signing, confirm the transaction and its new collection ID on BitBadges. For a CLI confirmation, see [step 5 below](#5-confirm).
+
+Building another collection in the same conversation? Ask the agent to start with `reset_session` so the previous collection's approvals do not carry over.
+
+## Path B: the CLI
+
+Use this path to build the same 5 ATOM subscription from flags or repeat the build in a script.
+
+### Prerequisites
 
 ```bash
 curl -fsSL https://install.bitbadges.io | sh
@@ -30677,23 +30750,13 @@ bb settings set apiKey "${BITBADGES_API_KEY:?Set your developer portal API key}"
 bb doctor
 ```
 
-Get a key at [bitbadges.io/developer](https://bitbadges.io/developer). You do not need one to build; you need one for `bb simulate` and for the query tools. Set it now so nothing below stalls.
-
-For the agent path, wire the MCP server into your client first. See [Setup](../agents/setup.md).
-
-Starting with v35, transactions require fees of at least `10ubadge` per unit of gas. Fund the signing account with BADGE before broadcasting. With the updated CLI, burner `--fee 0` means automatic fee estimation; it does not produce a zero-fee transaction. If you need BADGE, use the faucet when available or ask in the [BitBadges Discord](https://discord.com/invite/TJMaEd9bar).
-
-## The idea
-
-A subscription: members pay 10 USDC a month and hold a token while their subscription is live. This is the whole spec.
-
-## Path A: the CLI
+Get a key at [bitbadges.io/developer](https://bitbadges.io/developer). You do not need one to build; you need one for simulation and queries. Fund the signing account with BADGE for transaction fees. See [Quickstart](quickstart.md#networks) for network and fee details.
 
 ### 1. Build
 
 ```bash
 bb build subscription \
-  --interval monthly --price 10 --denom USDC \
+  --interval monthly --price 5 --denom ATOM \
   --recipient bb1w63npeee74ewuudzf8cgvy6at4jn4mjr0a9r5p \
   --creator bb1w63npeee74ewuudzf8cgvy6at4jn4mjr0a9r5p \
   --manager bb1w63npeee74ewuudzf8cgvy6at4jn4mjr0a9r5p \
@@ -30840,30 +30903,6 @@ bb api tokens get-collection "${COLLECTION_ID:?Set COLLECTION_ID from your trans
 
 That returns the collection as the indexer sees it. Your subscription is on-chain.
 
-## Path B: an AI agent
-
-With the MCP server wired, paste this into Claude Code, Codex, or Cursor:
-
-```text
-Build me a subscription token called Pro Plan: members pay 10 USDC a month and keep access while it is live. I am the manager. Load the subscription skill, use the session tools, run validate, review, and simulate in parallel, fix anything critical, then call get_review_url and give me the link.
-```
-
-The agent calls `get_skill_instructions`, then the `set_*` and `add_approval` tools in one round, then the three verify tools, then `get_review_url`. The review comes back with no critical findings. Tell the agent you need to change the price later and it rebuilds with the mint left editable, then shows you the one critical finding that choice creates, in plain English, before handing back:
-
-```json
-{
-  "success": true,
-  "code": "prv_5cip1cmg",
-  "reviewUrl": "https://bitbadges.io/mint/local-builder?code=prv_5cip1cmg",
-  "expiresAt": 1788803578315,
-  "expiresIn": "1 hour"
-}
-```
-
-Open `reviewUrl`. From here it is step 4 above: review, sign with your wallet, confirm.
-
-Building a second collection in the same conversation? Ask the agent to call `reset_session` first. Session state persists, and without the reset the new collection inherits the first one's approvals.
-
 ## Running against a local stack
 
 Every command above takes `--local` to target an indexer on `localhost:3001` and a chain on `localhost:26657`. `bb simulate --local` needs no API key. `bb preview --local` prints a `localhost:3000` link.
@@ -30884,7 +30923,23 @@ description: "Install BitBadges, run a first query, and broadcast a first transa
 
 # Quickstart
 
-At the end of this page you have the `bb` CLI installed, an API key configured, a collection fetched, and one transaction signed and broadcast on mainnet. Pick the surface that matches your work: CLI, TypeScript, the no-code site, or an AI agent.
+Start with the AI builder to turn an idea into a collection, or follow the CLI and TypeScript steps below for direct integration.
+
+## AI Agent Path
+
+Connect the BitBadges MCP builder using [Set Up Your AI](../agents/setup.md), then ask:
+
+```text
+Hey Claude, create me a 5 ATOM / month subscription.
+```
+
+Your agent gathers the collection details, builds the transaction, checks it, and gives you a browser link to review and sign. [Your First Collection](first-collection.md) walks through this as the first creation flow, including payment terms, 30-day periods, and renewal authorization.
+
+Already have a different idea? Ask for an NFT collection, a payment request, or a backed smart token. [Builder skills](../agents/skills/README.md) cover the available starting points. To call this flow from your own application, see [Programmatic Agent](../agents/programmatic-agent.md).
+
+## CLI Path
+
+The following steps install `bb`, configure an API key, fetch a collection, and prepare your first transaction.
 
 ## 1. Install the CLI
 
@@ -31042,62 +31097,6 @@ In the browser, replace step 1 with a wallet adapter: `GenericCosmosAdapter.from
 ## No-Code Path
 
 The [Create tab](https://bitbadges.io/create) and the [developer portal](https://bitbadges.io/developer) create tokens, claims, and address lists with no integration. Most setup and management happens there. Explore the claim tester and the creation forms first; the interface answers many questions faster than prose.
-
-## AI Agent Path
-
-Bring your own AI. Use Claude Code, Cursor, Codex, or any MCP client you already have. Install the CLI as in step 1, then add the MCP builder tools or the Claude Code plugin. The CLI is the base layer; the rest are conveniences on top of it. Full setup per client: [Agent setup](../agents/setup.md).
-
-Claude Code plugin (auto-wired MCP plus workflow skills):
-
-```bash
-/plugin marketplace add BitBadges/bitbadges-plugin
-/plugin install bitbadges
-```
-
-Claude Code without the plugin:
-
-```bash
-claude mcp add bitbadges-builder -- npx -y -p bitbadges bitbadges-builder
-```
-
-Cursor or Claude Desktop, in its JSON MCP config:
-
-```json
-{
-  "mcpServers": {
-    "bitbadges-builder": {
-      "command": "npx",
-      "args": ["-y", "-p", "bitbadges", "bitbadges-builder"]
-    }
-  }
-}
-```
-
-Codex uses TOML instead of this JSON format; follow [Codex setup](../agents/setup.md#codex-cli). Other clients may also use a different configuration schema.
-
-The server reads `BITBADGES_API_KEY` from its environment. Add an `env` block with that key to the entry above, or export it in the shell that launches the client.
-
-{% hint style="info" %}
-**Ask your agent.** With the MCP builder tools installed, paste one of these:
-
-```text
-Show me collection 1 and explain its mint approval.
-```
-
-```text
-Build a transfer of token 1 in collection 1 from my address to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, validate it, and give me the review link.
-```
-{% endhint %}
-
-The agent builds the transaction. A person reviews and signs it in the browser through a handoff link. Get the link one of three ways:
-
-| From | Get the link |
-| --- | --- |
-| CLI | `bb preview tx.json --open` (or `bb build ... \| bb preview - --open`) |
-| MCP client | call `get_review_url` and open `reviewUrl` |
-| Any LLM, no tools | paste the transaction JSON at [bitbadges.io/mint/local-builder](https://bitbadges.io/mint/local-builder) |
-
-See [Agents](../agents/README.md) for the paths table, the review-and-sign handoff, and the MCP builder tools.
 
 ## Networks
 
@@ -49271,6 +49270,12 @@ description: "One token standard, twelve products. Each page shows the approval 
 
 Every product on these pages is the same `x/tokenization` collection with different approvals. There is no contract per product. A stablecoin, a subscription, a bounty, an auction, and an AI agent budget differ only in which `approvalCriteria` fields are set and on which approval level.
 
+## Build from an Idea
+
+[Connect your AI to BitBadges](../agents/setup.md), describe the product and its rules, and let the builder prepare a transaction for you to review and sign. Start with [Your First Collection](../start/first-collection.md), or pick a use case below and use its prompt. The [Programmatic Agent](../agents/programmatic-agent.md) brings the same flow into application code.
+
+## How the Products Work
+
 The pattern repeats on every page:
 
 - One collection holds the tokens. `validTokenIds` says how many kinds exist.
@@ -50158,6 +50163,16 @@ description: "Sell access that renews on a schedule and expires on its own. One 
 A subscription is a token whose ownership ends at a timestamp. The mint approval sets the price, the payout address, and the period length. Each claim charges the subscriber and mints one period of ownership that starts now. When the period ends the balance is gone, so "is this user subscribed" is one balance query at the current time.
 
 Renewal is a user-level approval the subscriber sets once. A bot, the issuer, or anyone can mint the next period through it; the chain charges the subscriber only within the terms they signed.
+
+## Create with Your AI
+
+[Set up the BitBadges builder](../agents/setup.md), then ask:
+
+```text
+Hey Claude, create me a 5 ATOM / month subscription.
+```
+
+The agent gathers your collection name and wallet addresses, builds the payment and ownership rules, checks the transaction, and gives you a review link. The monthly preset uses 30 days. Review and sign with your wallet; subscribers authorize renewal separately. Follow [Your First Collection](../start/first-collection.md) for the full walkthrough, or continue below for the underlying fields.
 
 ## What Makes It Work
 

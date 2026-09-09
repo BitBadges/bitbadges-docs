@@ -6,6 +6,16 @@ description: "Install paths, quickstart, and the review-and-sign handoff for AI 
 
 This tab is for AI agents, bots, and the people wiring them: how to install, which surface to use, and how a built transaction reaches a human wallet for signature.
 
+## Create Your First Collection
+
+Connect your client using [Set Up Your AI](setup.md), then ask:
+
+```text
+Hey Claude, create me a 5 ATOM / month subscription.
+```
+
+The builder gathers the details, generates the collection and payment rules, checks the transaction, and returns a link to review and sign with your wallet. [Your First Collection](../start/first-collection.md) walks through the full flow, including 30-day periods and renewal authorization. You can use the same workflow for NFTs, fungible tokens, smart tokens, and payment requests.
+
 ## Install
 
 ```bash
