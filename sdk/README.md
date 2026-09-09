@@ -6,6 +6,12 @@ description: "Install the bitbadges TypeScript SDK, create a BitBadgesAPI client
 
 The `bitbadges` npm package is the TypeScript SDK for the BitBadges API, the chain, and transaction signing. Use it from a browser app, a backend, or an agent.
 
+## Build from a Prompt
+
+For collection creation, start with the [AI builder](../agents/setup.md): describe the token and its rules, inspect the generated transaction, and review and sign with your wallet. [Your First Collection](../start/first-collection.md) shows the full flow.
+
+To offer prompt-based creation inside an application, use [`BitBadgesBuilderAgent`](../agents/programmatic-agent.md), which returns the transaction and a review URL. Use the SDK below for typed queries, direct transaction construction, and wallet integration.
+
 ## Install
 
 ```bash

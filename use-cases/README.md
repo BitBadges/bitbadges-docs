@@ -6,6 +6,12 @@ description: "One token standard, twelve products. Each page shows the approval 
 
 Every product on these pages is the same `x/tokenization` collection with different approvals. There is no contract per product. A stablecoin, a subscription, a bounty, an auction, and an AI agent budget differ only in which `approvalCriteria` fields are set and on which approval level.
 
+## Build from an Idea
+
+[Connect your AI to BitBadges](../agents/setup.md), describe the product and its rules, and let the builder prepare a transaction for you to review and sign. Start with [Your First Collection](../start/first-collection.md), or pick a use case below and use its prompt. The [Programmatic Agent](../agents/programmatic-agent.md) brings the same flow into application code.
+
+## How the Products Work
+
 The pattern repeats on every page:
 
 - One collection holds the tokens. `validTokenIds` says how many kinds exist.

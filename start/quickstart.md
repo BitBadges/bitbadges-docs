@@ -4,7 +4,23 @@ description: "Install BitBadges, run a first query, and broadcast a first transa
 
 # Quickstart
 
-At the end of this page you have the `bb` CLI installed, an API key configured, a collection fetched, and one transaction signed and broadcast on mainnet. Pick the surface that matches your work: CLI, TypeScript, the no-code site, or an AI agent.
+Start with the AI builder to turn an idea into a collection, or follow the CLI and TypeScript steps below for direct integration.
+
+## AI Agent Path
+
+Connect the BitBadges MCP builder using [Set Up Your AI](../agents/setup.md), then ask:
+
+```text
+Hey Claude, create me a 5 ATOM / month subscription.
+```
+
+Your agent gathers the collection details, builds the transaction, checks it, and gives you a browser link to review and sign. [Your First Collection](first-collection.md) walks through this as the first creation flow, including payment terms, 30-day periods, and renewal authorization.
+
+Already have a different idea? Ask for an NFT collection, a payment request, or a backed smart token. [Builder skills](../agents/skills/README.md) cover the available starting points. To call this flow from your own application, see [Programmatic Agent](../agents/programmatic-agent.md).
+
+## CLI Path
+
+The following steps install `bb`, configure an API key, fetch a collection, and prepare your first transaction.
 
 ## 1. Install the CLI
 
@@ -162,62 +178,6 @@ In the browser, replace step 1 with a wallet adapter: `GenericCosmosAdapter.from
 ## No-Code Path
 
 The [Create tab](https://bitbadges.io/create) and the [developer portal](https://bitbadges.io/developer) create tokens, claims, and address lists with no integration. Most setup and management happens there. Explore the claim tester and the creation forms first; the interface answers many questions faster than prose.
-
-## AI Agent Path
-
-Bring your own AI. Use Claude Code, Cursor, Codex, or any MCP client you already have. Install the CLI as in step 1, then add the MCP builder tools or the Claude Code plugin. The CLI is the base layer; the rest are conveniences on top of it. Full setup per client: [Agent setup](../agents/setup.md).
-
-Claude Code plugin (auto-wired MCP plus workflow skills):
-
-```bash
-/plugin marketplace add BitBadges/bitbadges-plugin
-/plugin install bitbadges
-```
-
-Claude Code without the plugin:
-
-```bash
-claude mcp add bitbadges-builder -- npx -y -p bitbadges bitbadges-builder
-```
-
-Cursor or Claude Desktop, in its JSON MCP config:
-
-```json
-{
-  "mcpServers": {
-    "bitbadges-builder": {
-      "command": "npx",
-      "args": ["-y", "-p", "bitbadges", "bitbadges-builder"]
-    }
-  }
-}
-```
-
-Codex uses TOML instead of this JSON format; follow [Codex setup](../agents/setup.md#codex-cli). Other clients may also use a different configuration schema.
-
-The server reads `BITBADGES_API_KEY` from its environment. Add an `env` block with that key to the entry above, or export it in the shell that launches the client.
-
-{% hint style="info" %}
-**Ask your agent.** With the MCP builder tools installed, paste one of these:
-
-```text
-Show me collection 1 and explain its mint approval.
-```
-
-```text
-Build a transfer of token 1 in collection 1 from my address to bb1py4mfpg6uf59qkyzg0nmau322c5873eeysp5ue, validate it, and give me the review link.
-```
-{% endhint %}
-
-The agent builds the transaction. A person reviews and signs it in the browser through a handoff link. Get the link one of three ways:
-
-| From | Get the link |
-| --- | --- |
-| CLI | `bb preview tx.json --open` (or `bb build ... \| bb preview - --open`) |
-| MCP client | call `get_review_url` and open `reviewUrl` |
-| Any LLM, no tools | paste the transaction JSON at [bitbadges.io/mint/local-builder](https://bitbadges.io/mint/local-builder) |
-
-See [Agents](../agents/README.md) for the paths table, the review-and-sign handoff, and the MCP builder tools.
 
 ## Networks
 

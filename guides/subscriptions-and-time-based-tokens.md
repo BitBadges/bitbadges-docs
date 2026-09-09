@@ -10,6 +10,18 @@ All three rely on time-based ownership: a balance is owned for `ownershipTimes` 
 
 ## 1. Build a Subscription
 
+### AI Builder
+
+[Connect your AI](../agents/setup.md), then ask:
+
+```text
+Create a subscription called Pro Plan for 5 ATOM per 30-day period.
+Ask me for the payment recipient and manager addresses, make it non-transferable,
+and lock the price. Validate, review, and simulate it, then give me the review link.
+```
+
+Review the payment coin, recipient, duration, and permissions before signing. Creating the collection sets up the offer; subscribers still need to subscribe, and automatic renewal requires their authorization plus a renewal transaction. The monthly preset is 30 days. [Your First Collection](../start/first-collection.md) walks through this flow.
+
 ### bb CLI
 
 ```bash

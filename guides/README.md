@@ -1,30 +1,31 @@
 ---
-description: "Task guides for BitBadges. Each one gets you to a working result with the bb CLI first, then the TypeScript SDK and raw JSON."
+description: "Task guides for BitBadges. Start with the AI builder, then follow CLI, TypeScript SDK, and JSON examples for direct integration."
 ---
 
 # Guides
 
-Each guide takes one job (create a token, distribute it, gate access, sign users in) and shows the working commands first. Concepts are not re-explained here; each step links to the canonical page in the Token Standard tab.
+Each guide takes one job (create a token, distribute it, gate access, sign users in) and connects the creation flow to working commands. Concepts are not re-explained here; each step links to the canonical page in the Token Standard tab.
 
 For the pitch behind each build (which two or three approval fields turn the standard into a stablecoin, a subscription, or an agent vault), read [Use Cases](../use-cases/README.md) first.
 
-Every guide assumes:
+## Start with a Prompt
 
-- `bb` is installed (see the [Quickstart](../start/quickstart.md)).
-- Examples target mainnet. Replace example addresses, collection IDs, metadata URIs, and dates with your own values before signing. The signer needs BADGE for fees and any coins or tokens the transaction spends. The testnet is offline; see [Testnet](../chain/testnet.md).
-- Transaction JSON is signed and broadcast with `bb deploy` (see [Deploy](../cli/deploy.md)) or the [SDK signing client](../sdk/transactions/README.md).
-
-{% hint style="info" %}
-**Ask your agent.** Every guide here has a matching prompt. With the MCP builder tools installed, paste one of these to skip the hand-written JSON:
+[Set up your AI](../agents/setup.md) and describe the result you want. The builder assembles and checks the transaction; you review and sign through a browser link.
 
 ```text
-Create a 100-piece NFT collection called Demo NFTs where only I can mint, and give me the review link.
+Create a 100-piece NFT collection called Demo NFTs where only I can mint,
+validate and simulate it, and give me the review link.
 ```
 
-```text
-Build a subscription token that renews monthly for 5 USDC.
-```
-{% endhint %}
+Follow [Your First Collection](../start/first-collection.md) for a complete prompt-to-collection walkthrough. To embed this creation flow in application code, see [Programmatic Agent](../agents/programmatic-agent.md).
+
+## Follow the Implementation
+
+The CLI, SDK, and JSON examples below show how each build works and support repeatable integrations. For these examples:
+
+- Install `bb` using the [Quickstart](../start/quickstart.md).
+- Examples target mainnet. Replace example addresses, collection IDs, metadata URIs, and dates with your own values before signing. The signer needs BADGE for fees and any coins or tokens the transaction spends. See [Testnet](../chain/testnet.md) for availability.
+- Review transaction JSON with `bb check` and `bb preview`, then sign with your wallet. See [Deploy](../cli/deploy.md) or the [SDK signing client](../sdk/transactions/README.md).
 
 ## Guides
 

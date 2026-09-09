@@ -6,39 +6,35 @@ description: "What BitBadges is, how the chain, the hosted services, and the too
 
 BitBadges is a Cosmos SDK Layer 1 whose core module, `x/tokenization`, is a complete token standard: every collection, balance, approval, and permission is chain state that the module enforces on every transfer. This page explains the system end to end, shows what a token collection looks like, and sends you to the right tab.
 
-## You May Not Need These Docs
+## Create with Your AI
 
-Many common tasks need no code. On [bitbadges.io](https://bitbadges.io), you can create collections, set transferability, run claims, and trade with a wallet. Start there for those tasks. These docs explain the token model and cover integrations, automation, custom plugins, and node operations that need developer tools.
-
-## Build in Three Steps
-
-1. Install the CLI:
-
-```bash
-curl -fsSL https://install.bitbadges.io | sh
-```
-
-2. Add the MCP builder tools to your editor. Claude Code is shown; Cursor, Codex, Claude Desktop, and others are in [Set Up Your AI](agents/setup.md):
-
-```bash
-claude mcp add bitbadges-builder -e BITBADGES_API_KEY="$BITBADGES_API_KEY" -- npx -y -p bitbadges bitbadges-builder
-```
-
-3. Tell it what to build:
+Tell Claude what you want to build:
 
 ```text
-Create me a payment request for 10 USDC
+Hey Claude, create me a 5 ATOM / month subscription.
+```
+
+With the BitBadges MCP builder connected, your AI can turn that request into a collection with payment rules and expiring membership tokens. It asks for the details, builds and checks the transaction, and returns a link where you review and sign with your wallet.
+
+1. [Set Up Your AI](agents/setup.md): connect the builder to Claude Code, Claude Desktop, Cursor, Codex, or another MCP client.
+2. [Create Your First Collection](start/first-collection.md): go from the subscription prompt to a reviewed transaction. The monthly preset uses 30-day periods; automatic renewal requires subscriber authorization.
+3. Refine the result in conversation: choose the payment coin, transfer rules, supply limits, or what the manager can change.
+
+The same creation flow works across the token standard:
+
+```text
+Create me a payment request for 10 USDC and give me the review link.
 ```
 
 ```text
-Build a subscription token that renews monthly for 5 USDC
+Make a 500-piece NFT collection where only I can mint.
 ```
 
-```text
-Make a 500-piece NFT collection where only I can mint
-```
+For a build flow inside your application, use the [Programmatic Agent](agents/programmatic-agent.md). For repeatable commands and direct TypeScript integration, use the [CLI](cli/README.md) and [SDK](sdk/README.md).
 
-The agent assembles the transaction and returns a review link. Open it, check the summary, and sign with your wallet.
+## Create in the Browser
+
+On [bitbadges.io](https://bitbadges.io), you can also create collections, set transferability, run claims, and trade with a wallet. These docs explain the token model and cover integrations, automation, custom plugins, and node operations.
 
 ## What You Get
 
